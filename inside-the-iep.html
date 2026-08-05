@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inside The IEP — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --paper:#FFFDF8; --bad:#8A2B20; --bad-tint:#F6E4E0; --good:#2E4E3F; --good-tint:#E6EDE4;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 54px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2rem);font-weight:400;margin:0 0 8px;line-height:1.2}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:.99rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+ol{padding-left:22px;margin:0 0 14px}ol li{margin-bottom:9px}
+
+/* hero concerns block */
+.hero{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:32px 30px 28px;margin:0 0 20px}
+.hero h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 12px;font-weight:700}
+.hero .big{font-size:clamp(1.25rem,2.8vw,1.6rem);line-height:1.35;margin:0 0 20px;max-width:34ch;font-weight:400}
+.hero p{color:#CBD3C7;font-size:1rem;max-width:56ch}
+.hero p:last-child{margin-bottom:0}
+.hero strong{color:#EFEBE3}
+
+/* good vs bad */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:0 0 16px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:18px 20px}
+.col.bad{background:var(--bad-tint);border-left:4px solid var(--bad)}
+.col.good{background:var(--good-tint);border-left:4px solid var(--good)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:700;margin:0 0 12px}
+.col.bad h3{color:var(--bad)}.col.good h3{color:var(--good)}
+.col p{font-size:.95rem;margin:0 0 11px}
+.col p:last-child{margin-bottom:0}
+.col .q{font-family:var(--mono);font-size:12.5px;line-height:1.55;background:rgba(255,255,255,.55);
+  padding:11px 13px;border-radius:2px;display:block;margin-bottom:10px}
+
+.doc{background:var(--paper);border:1px solid #CBC6B8;border-radius:2px;padding:24px 24px;
+  font-family:var(--mono);font-size:12px;line-height:1.65;color:#2A2A26;margin:0 0 16px}
+.doc .dh{border-bottom:2px solid #2A2A26;padding-bottom:9px;margin-bottom:14px}
+.doc .dh b{font-size:13px;letter-spacing:.04em}
+.doc .k{color:#7A7568;font-size:10px;letter-spacing:.1em;text-transform:uppercase;display:block;margin-top:12px}
+.doc ol{padding-left:20px;margin:6px 0 0}
+.doc li{margin-bottom:7px}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.warn{background:var(--bad-tint);border-left:4px solid var(--bad);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--bad);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+
+.term{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:17px 19px;margin-bottom:11px}
+.term h3{font-size:1.03rem;font-weight:400;margin:0 0 6px}
+.term p{font-size:.94rem;margin:0 0 8px}
+.term p:last-child{margin-bottom:0}
+.term .why{color:var(--ink-soft);font-size:.9rem}
+.term .why b{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin-right:6px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:11px}
+footer{border-top:1px solid var(--line);padding:26px 0 70px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+@media print{body{background:#fff;font-size:10.5pt}.term,.col,.doc{break-inside:avoid}
+  .hero{background:#fff;color:#000;border:1px solid #000}.hero p,.hero strong{color:#000}}
+
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Inside the IEP:<br><em>what the document actually does</em></h1>
+  <p class="lede">The programs page covers what exists. This page covers what happens in the room — how to read a goal, what the words mean, and the one section of the document that belongs entirely to you.</p>
+</header>
+
+
+<div class="profnote"><b>Reading this from the other side of the table</b><p>This page is written to help a family be effective in a meeting you may be sitting in — which is worth naming honestly rather than pretending otherwise.</p><p>Most school professionals want the same outcome and are working inside constraints they didn't choose. A parent who arrives with specific, documented, well-phrased requests makes your job easier, not harder: it is far simpler to advocate internally for something a family has asked for clearly and in writing than for something everyone senses but nobody has stated.</p><p>If you can only do one thing with this page, tell families that the parent concerns section is theirs to write, and that it should be submitted in advance.</p></div>
+<section>
+  <div class="hero">
+    <h2>Start here</h2>
+    <p class="big">Write every concern into the parent concerns statement. Every single one.</p>
+    <p>Parent concerns is the only part of the IEP that you write. Everything else is drafted by the district in the district's language. This section goes <strong>into the legal document itself</strong>, and it is the record of what you raised and when you raised it.</p>
+    <p>The rule is simple and it has consequences for years: <strong>if it isn't written there, it didn't happen.</strong> You cannot later argue that a district failed to address a concern you never put in writing. A concern raised in the hallway, mentioned in passing during the meeting, or said warmly to a teacher who agreed with you does not exist anywhere the system can see.</p>
+  </div>
+
+  <h3 class="sub">Why every concern, including the ones that seem off-topic</h3>
+  <ul>
+    <li><strong>It creates a dated record.</strong> Years later, in a dispute, at a placement decision, or when a new team arrives who never met your child, the concerns statement is the evidence of what you said and when.</li>
+    <li><strong>It forces a response.</strong> When you raise a concern and the district declines to act on it, that generally triggers a written explanation of the refusal — a formal notice stating what they're refusing and why. That document is enormously valuable and you only get it if you asked in the first place.</li>
+    <li><strong>Home behavior is educationally relevant, whatever you're told.</strong> A child who holds it together all day and falls apart at four o'clock is telling you something about their school day. Write down the four o'clock. It is evidence of the cost of the current program, and it belongs in the record even if the team says it's outside their scope.</li>
+    <li><strong>Small things become patterns.</strong> A concern that looks minor this year is the third data point in a documented pattern two years from now — but only if you wrote it down each time.</li>
+    <li><strong>Nobody else will write it.</strong> Teams summarize, paraphrase, and soften. Your words are the only place your version survives intact.</li>
+  </ul>
+
+  <div class="note">
+    <h3>Write comprehensively, discuss selectively</h3>
+    <p>The honest caveat: a twenty-item list read aloud will consume the meeting and dilute the two things that matter most this year. So do both. <strong>Put everything in the written statement</strong> — that's the permanent record and it costs you nothing. Then <strong>choose two or three to actually push on in the room</strong>, and say so out loud: "I've submitted my full concerns in writing; today I want to focus on communication and safety."</p>
+    <p>Comprehensive on paper. Focused in the conversation. Those are not in tension.</p>
+  </div>
+
+  <h3 class="sub">How to submit it so it survives</h3>
+  <ol>
+    <li><strong>Write it yourself, before the meeting</strong> — not in the room, not dictated to someone typing.</li>
+    <li><strong>Email it to the team several days ahead,</strong> dated, and keep the sent message. Ask that it be attached and entered <em>verbatim</em>.</li>
+    <li><strong>Say the word verbatim.</strong> Districts sometimes summarize parent concerns into two sentences. You can decline that. Ask for your statement in full, in your words.</li>
+    <li><strong>Check the draft and the final document</strong> to confirm it's actually in there and hasn't been edited. This step gets skipped and it's the one that matters.</li>
+    <li><strong>If it was shortened or altered,</strong> email a correction asking that your original be attached to the record, and keep that email too.</li>
+    <li><strong>Update it every year.</strong> Don't copy last year's — write what's true now, and note what's still unresolved from last time. The phrase "as I also raised in [month, year]" is quietly powerful.</li>
+  </ol>
+
+  <div class="doc">
+    <div class="dh"><b>PARENT CONCERNS — STRUCTURE THAT WORKS</b></div>
+    <span class="k">Opening</span>
+    We are submitting these concerns in writing to be included verbatim in the IEP document. Date submitted: __________
+    <span class="k">Strengths and who our child is</span>
+    Two or three sentences. This sets the tone and reminds a room full of deficit language that there is a person here.
+    <span class="k">Concerns, numbered</span>
+    <ol>
+      <li>Communication — what we see, where, how often</li>
+      <li>Academic access — with specific examples</li>
+      <li>Safety — including anything that has already happened</li>
+      <li>Regulation and the cost of the school day at home</li>
+      <li>Social participation</li>
+      <li>Self-care and independence</li>
+      <li>Anything unresolved from last year, with the date first raised</li>
+    </ol>
+    <span class="k">For each concern</span>
+    What we observe · when and where · how often · what we have tried ·
+    what we are asking the team to consider
+    <span class="k">Closing</span>
+    We are asking that each concern above be addressed in the IEP or that we
+    receive written notice explaining why it will not be.
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">How to read a goal</h2>
+  <p class="secnote">Most of an IEP's real content sits in the goals, and most goals are written vaguely enough to be unenforceable. This is the skill that changes what your child actually receives.</p>
+
+  <div class="compare">
+    <div class="col bad">
+      <h3>Unenforceable</h3>
+      <span class="q">Student will improve communication skills as measured by teacher observation.</span>
+      <p>No baseline, so nobody knows where he started. No condition, so it could mean anything anywhere. No number, so any outcome counts as progress. Measured by observation, which means measured by opinion.</p>
+      <p>You cannot tell whether this goal was met, which means nobody can be held to it.</p>
+    </div>
+    <div class="col good">
+      <h3>Enforceable</h3>
+      <span class="q">Given a familiar routine and his speech device within reach, Student will independently initiate a request or comment in 4 out of 5 opportunities across 3 consecutive data sessions, as measured by SLP data logs. Baseline: 1 in 5 with adult prompting.</span>
+      <p>Baseline stated. Conditions named. A number that can be checked. A named person collecting data in a named format.</p>
+      <p>At the next review you can ask to see the logs, and the answer is a fact rather than an impression.</p>
+    </div>
+  </div>
+
+  <h3 class="sub">The five questions to ask about any goal</h3>
+  <ol>
+    <li><strong>What's the baseline?</strong> Without it, progress is unmeasurable. Ask for it in the document, not in conversation.</li>
+    <li><strong>Under what conditions?</strong> With prompting or without? In a quiet room or the classroom? With the device or without? These change everything.</li>
+    <li><strong>How will it be measured, by whom, how often?</strong> "Teacher observation" is the weakest possible answer. Ask for data.</li>
+    <li><strong>Is this actually the priority?</strong> A goal about handwriting when the child can't yet ask for help is a misallocation, however well written.</li>
+    <li><strong>What happens if there's no progress?</strong> Ask for that written in: at what point do we change the approach rather than repeat the goal next year?</li>
+  </ol>
+
+  <div class="warn">
+    <h3>The single most common problem</h3>
+    <p>The same goal appearing three years running with the numbers slightly adjusted. That is not a child failing to progress — it is a program that hasn't changed. When you see it, say so plainly: <em>this is the third year of this goal. What is going to be different this time?</em> And ask for the answer in the document.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Words that mean something specific</h2>
+  <p class="secnote">A handful of terms carry most of the weight. Knowing them is the difference between agreeing to something and agreeing to nothing.</p>
+
+  <div class="grid2">
+    <div class="term"><h3>Direct vs. consult minutes</h3>
+      <p>Direct service means a specialist works with your child. Consultation means they advise the teacher. Both appear as service on the page and they are entirely different things.</p>
+      <p class="why"><b>Watch for</b>Services quietly shifting from direct to consult at an annual review. Ask specifically which is being proposed and why.</p></div>
+
+    <div class="term"><h3>As needed / as available</h3>
+      <p>These phrases make a service optional. "Speech as needed" commits the district to nothing at all.</p>
+      <p class="why"><b>Ask for</b>Specific minutes, a specific frequency, and a specific setting. Numbers are enforceable; adjectives are not.</p></div>
+
+    <div class="term"><h3>Accommodation vs. modification</h3>
+      <p>An accommodation changes how a child accesses the same content — extra time, audio, a scribe. A modification changes what they're expected to learn.</p>
+      <p class="why"><b>Matters because</b>Modifications can affect diploma track and post-secondary options. Ask about long-term implications before agreeing.</p></div>
+
+    <div class="term"><h3>Least restrictive environment</h3>
+      <p>The legal requirement that a child be educated with peers who do not have disabilities, to the greatest extent appropriate. It is a presumption, not an absolute — the right placement is the one where the child can actually learn.</p>
+      <p class="why"><b>Note</b>This works both ways. It's used to argue against separate placement and can be answered with evidence about what a child needs to make progress.</p></div>
+
+    <div class="term"><h3>Prior written notice</h3>
+      <p>When a district proposes or refuses a change, it must give you written notice explaining what and why, and what information it relied on. This is the paper trail for any later dispute.</p>
+      <p class="why"><b>Use it</b>When told no, ask for that refusal in writing. It is your right and it changes the tone of the conversation immediately.</p></div>
+
+    <div class="term"><h3>Stay put</h3>
+      <p>During a formal dispute, the current placement and services generally continue unchanged while it's resolved.</p>
+      <p class="why"><b>Matters because</b>It means a district cannot unilaterally reduce services while you're contesting the change.</p></div>
+
+    <div class="term"><h3>Independent educational evaluation</h3>
+      <p>If you disagree with the district's evaluation, you can request an independent one, potentially at public expense.</p>
+      <p class="why"><b>Note</b>Knowing this exists changes conversations even when you don't use it.</p></div>
+
+    <div class="term"><h3>Extended school year</h3>
+      <p>Services over the summer, based on whether a child regresses and how long recovery takes — not on whether they'd benefit generally.</p>
+      <p class="why"><b>Build the case</b>Document skill loss over breaks. That data is what decides it, and only you can collect it.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The meeting itself</h2>
+  <h3 class="sub">Before</h3>
+  <ul>
+    <li><strong>Ask for the draft at least a few days ahead</strong> and read it. Teams often arrive with a document mostly written; you want to see it before the room does.</li>
+    <li>Submit your concerns statement in writing, dated, ahead of time.</li>
+    <li>Bring someone — a partner, a friend, an advocate. A second person changes the dynamic and takes notes while you talk.</li>
+    <li>Check your state's rules on recording the meeting; where permitted, notice is usually required.</li>
+    <li>Decide your two or three priorities in advance and write them at the top of your page.</li>
+  </ul>
+
+  <h3 class="sub">During</h3>
+  <ul>
+    <li><strong>You are a full member of the team,</strong> not a guest being briefed. You can ask questions, disagree, and slow things down.</li>
+    <li><strong>You do not have to sign at the meeting.</strong> Take the document home. This is almost always the right move and nobody will tell you it's an option.</li>
+    <li>Ask for anything agreed verbally to be written into the document before you leave. Verbal agreements evaporate at staff changes.</li>
+    <li>When you don't understand a term, say so. Half the room may not either.</li>
+    <li>If it becomes clear more time is needed, ask to reconvene rather than agreeing under time pressure.</li>
+  </ul>
+
+  <h3 class="sub">After</h3>
+  <ul>
+    <li>Send a summary email of what you understood was agreed. It's polite, and it timestamps the record.</li>
+    <li>Read the final document against your notes, and flag discrepancies in writing.</li>
+    <li>You can consent to parts of an IEP and reject others in many states — ask how partial consent works where you live.</li>
+    <li>Diary a check-in at three months. Don't wait a year to discover a service isn't being delivered.</li>
+  </ul>
+
+  <div class="note">
+    <h3>The tone that works</h3>
+    <p>Warm, specific, documented, and immovable on the two things that matter. Most school teams want to do right by your child and are working inside constraints they didn't choose. Treating them as adversaries from the start costs you allies; treating the process as informal costs you everything else.</p>
+    <p>Be the parent who is easy to work with and impossible to fob off. Those are compatible, and the combination is unusual enough to be effective.</p>
+  </div>
+</section>
+
+
+<div class="closenote"><b>Before the meeting</b><p>Everything on this page is technique. It can be learned in an afternoon, and you have most of it now.</p><p>What you bring that nobody else in that room has is the whole of your child — years of it, the parts that never made it into a report. That is the part that matters, and you already have it. Write it down, say it plainly, and let the technique carry it.</p></div>
+
+<footer>
+  <p><strong>This is a map, not legal advice.</strong> Special education procedure varies by state — timelines, partial consent, recording rules, and dispute processes all differ. Your state's parent training and information center gives free, accurate, local guidance, and it is the first call worth making.</p>
+  <p>Keep everything. Date everything. Write the concerns down.</p>
+</footer>
+
+</div>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

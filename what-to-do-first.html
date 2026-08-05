@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What To Do First — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 34px;font-size:1.06rem}
+header.masthead{padding:56px 0 8px}
+
+/* ---- signature: the parallel clock ---- */
+.clock{background:var(--ink);color:#F0EDE6;border-radius:2px;padding:30px 28px 26px;margin:0 0 14px}
+.clock h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 6px;font-weight:700}
+.clocklede{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:46ch}
+.bar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 14px;margin-bottom:15px;align-items:center}
+.barlabel{font-family:var(--sans);font-size:13px;letter-spacing:.02em;grid-column:1/-1;color:#EDE7DD}
+.track{height:9px;background:rgba(255,255,255,.11);border-radius:1px;overflow:hidden}
+.fill{height:100%;background:var(--rust);width:0;transition:width 1.1s cubic-bezier(.2,.7,.3,1)}
+.fill.long{background:#C1783F}
+.dur{font-family:var(--sans);font-size:12px;color:#B9C4B4;white-space:nowrap}
+.clocknote{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:22px 0 0;max-width:56ch}
+.clocknote strong{color:#F0EDE6}
+.scale{font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:#8A9A88;margin:0 0 18px}
+
+/* ---- alarm ---- */
+.alarm{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:24px 26px;margin:40px 0}
+.alarm h2{font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--alarm);margin:0 0 12px;font-weight:700}
+.alarm p{margin:0 0 14px}
+.alarm ul{margin:0 0 14px;padding-left:20px;columns:2;column-gap:34px}
+.alarm li{margin-bottom:7px;break-inside:avoid}
+@media(max-width:640px){.alarm ul{columns:1}}
+
+/* ---- phases ---- */
+.progress{position:sticky;top:0;background:var(--ground);border-bottom:1px solid var(--line);
+  padding:12px 0;font-family:var(--sans);font-size:12.5px;color:var(--ink-soft);z-index:5;
+  letter-spacing:.04em}
+.phase{margin:0 0 46px}
+.phasehead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+  border-bottom:1.5px solid var(--forest);padding-bottom:9px;margin-bottom:22px}
+.when{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--forest);margin:0}
+.phasenote{font-size:.93rem;font-style:italic;color:var(--ink-soft);flex:1 1 240px}
+.step{display:flex;gap:15px;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:17px 19px;margin-bottom:11px;transition:border-color .18s,opacity .18s}
+.step:hover{border-color:#B9C4B4}
+.step.done{opacity:.5}
+.step.done .steptitle{text-decoration:line-through}
+.box{flex:0 0 auto;margin-top:3px}
+.box input{width:19px;height:19px;accent-color:var(--forest);cursor:pointer}
+.steptitle{font-size:1.04rem;line-height:1.3;margin:0 0 6px;font-weight:400}
+.step p{margin:0 0 7px;font-size:.95rem}
+.step p:last-child{margin-bottom:0}
+.why{color:var(--ink-soft);font-size:.92rem}
+.why b{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin-right:7px}
+
+/* ---- scripts ---- */
+.scripts{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:28px 26px;margin:0 0 46px}
+.scripts h2{font-size:1.6rem;font-weight:400;margin:0 0 8px}
+.scripts>p{color:var(--ink-soft);margin:0 0 22px;font-size:.97rem;max-width:58ch}
+.script{border-top:1px solid var(--line);padding:17px 0 0;margin-top:17px}
+.script:first-of-type{border-top:none;padding-top:0;margin-top:0}
+.scriptuse{font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:0 0 9px}
+blockquote{margin:0 0 10px;padding:14px 16px;background:var(--ground);border-left:3px solid var(--rust);
+  font-size:.98rem;line-height:1.55}
+.copy{font-family:var(--sans);font-size:11.5px;background:none;border:1px solid var(--line);
+  border-radius:2px;padding:6px 11px;cursor:pointer;color:var(--ink-soft);letter-spacing:.04em}
+.copy:hover{border-color:var(--rust);color:var(--rust)}
+.copy:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+
+/* ---- decline list ---- */
+.decline{margin:0 0 46px}
+.decline h2{font-size:1.6rem;font-weight:400;margin:0 0 8px}
+.decline>p{color:var(--ink-soft);margin:0 0 20px;font-size:.97rem;max-width:58ch}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:13px}
+.dcard{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:17px 19px}
+.dcard h3{font-size:1rem;font-weight:400;margin:0 0 7px;color:var(--rust);font-style:italic}
+.dcard p{margin:0;font-size:.93rem;color:var(--ink-soft)}
+
+footer{border-top:1px solid var(--line);padding:26px 0 70px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  .progress,.copy{display:none}
+  body{background:#fff;font-size:11pt}
+  .step,.dcard,.scripts{break-inside:avoid;border-color:#999}
+  .clock{background:#fff;color:#000;border:1px solid #000}
+  .clocklede,.clocknote strong{color:#000}
+}
+
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>What to do first,<br><em>starting the day you're worried</em></h1>
+  <p class="lede">You don't need a diagnosis, a referral, or certainty to begin. You need to start the long waits today, all at once, because the order you do these things in changes your child's timeline by years.</p>
+</header>
+
+<section class="clock">
+  <h2>Why the sequence matters</h2>
+  <p class="clocklede">These five clocks can all start on the same afternoon. Most families start them one at a time, because each step seems to depend on the last.</p>
+  <p class="scale">Typical wait, from request to answer</p>
+
+  <div class="bar"><span class="barlabel">Early Intervention evaluation (under age 3)</span>
+    <div class="track"><div class="fill" data-w="8"></div></div><span class="dur">45 days, by law</span></div>
+  <div class="bar"><span class="barlabel">School district evaluation (age 3+)</span>
+    <div class="track"><div class="fill" data-w="12"></div></div><span class="dur">30–60 school days</span></div>
+  <div class="bar"><span class="barlabel">Audiology and vision</span>
+    <div class="track"><div class="fill" data-w="10"></div></div><span class="dur">2–8 weeks</span></div>
+  <div class="bar"><span class="barlabel">Developmental-behavioral pediatrics</span>
+    <div class="track"><div class="fill long" data-w="55"></div></div><span class="dur">6–12 months</span></div>
+  <div class="bar"><span class="barlabel">Neuropsychological evaluation</span>
+    <div class="track"><div class="fill long" data-w="82"></div></div><span class="dur">6–18 months</span></div>
+
+  <p class="clocknote">Run in parallel, you have most of your answers inside a year. Run one at a time — waiting for the pediatrician before calling EI, waiting for EI results before joining a neuropsych list — <strong>the same five steps take close to three years,</strong> and they take them out of the window where intervention does the most good.</p>
+</section>
+
+<div class="alarm">
+  <h2>Don't wait for the sequence if any of this is happening</h2>
+  <p>Call your pediatrician this week and say the word <em>urgent</em>. If you can't get through, an urgent care or emergency department is a reasonable next step for the first four.</p>
+  <ul>
+    <li>Loss of skills your child already had — words, gestures, walking, feeding themselves — at any age</li>
+    <li>Staring spells, unresponsive episodes, stiffening, or rhythmic jerking</li>
+    <li>Sudden dramatic personality change, new obsessions, or abrupt refusal to eat, especially after an illness</li>
+    <li>Not responding to sound, or no reaction to a loud noise</li>
+    <li>Weight loss, or weight and growth flattening on the chart</li>
+    <li>Self-injury, or any behavior that puts your child or someone else in danger</li>
+    <li>You are afraid to leave your child alone, and that's new</li>
+    <li>You're not coping, or you're having thoughts that frighten you — this counts, and it goes on this list</li>
+  </ul>
+  <p><strong>Regression is the one that gets waited on and shouldn't be.</strong> "Let's watch it for a few months" is not the right answer to a skill that disappeared.</p>
+</div>
+
+<div class="progress" id="progress"></div>
+<main id="phases"></main>
+
+<section class="scripts">
+  <h2>Six sentences that change what happens next</h2>
+  <p>Systems respond to specific language. These are the phrasings that start clocks, create records, and make a no expensive enough that it usually becomes a yes. Say them plainly and put them in writing.</p>
+
+  <div class="script">
+    <p class="scriptuse">To the school district — starts the legal timeline</p>
+    <blockquote id="s1">I am requesting a full initial evaluation of my child in all areas of suspected disability, under the Individuals with Disabilities Education Act. My areas of concern are: [list them]. Please send me the consent forms and a copy of my parental rights. I understand the evaluation timeline begins when you receive my written consent, and I would like to sign it as soon as possible.</blockquote>
+    <button class="copy" data-c="s1">Copy</button>
+  </div>
+
+  <div class="script">
+    <p class="scriptuse">To the pediatrician — creates the chart record everything else rests on</p>
+    <blockquote id="s2">I'd like my concerns documented in my child's chart today. Specifically: [what you're seeing, with dates]. I'd also like a developmental screening, a referral for a hearing evaluation, and referrals to developmental-behavioral pediatrics and neuropsychology. I understand the waits are long, which is why I'd like the referrals now rather than after we watch this for a few months.</blockquote>
+    <button class="copy" data-c="s2">Copy</button>
+  </div>
+
+  <div class="script">
+    <p class="scriptuse">To every waitlist — the call that moves you up it</p>
+    <blockquote id="s3">Please add us to your cancellation list, and I want to be clear that we can come with under twenty-four hours' notice. Can you tell me what the current wait is, whether anything about our situation would move us up, and when I should check back? I'd also like the intake paperwork now so it's finished and on file the moment a slot opens.</blockquote>
+    <button class="copy" data-c="s3">Copy</button>
+  </div>
+
+  <div class="script">
+    <p class="scriptuse">When you're told to wait and see</p>
+    <blockquote id="s4">I hear that this could resolve on its own. I'd like to proceed with the evaluation anyway, and I'd like today's recommendation to wait documented in the chart along with my request. If we're watching, I want to know exactly what we're watching for and the date we reassess.</blockquote>
+    <button class="copy" data-c="s4">Copy</button>
+  </div>
+
+  <div class="script">
+    <p class="scriptuse">After any phone call that mattered</p>
+    <blockquote id="s5">Thank you for speaking with me today. I want to confirm my understanding of what we discussed: [summary of what was said and agreed, with the date]. Please let me know if I've captured anything incorrectly.</blockquote>
+    <button class="copy" data-c="s5">Copy</button>
+  </div>
+
+  <div class="script">
+    <p class="scriptuse">When you're told no</p>
+    <blockquote id="s6">I understand this is being declined. Could you send me that decision in writing, including the reasons and the information it was based on? I'd also like a copy of my rights and the process for disagreeing with this decision.</blockquote>
+    <button class="copy" data-c="s6">Copy</button>
+  </div>
+</section>
+
+<section class="decline">
+  <h2>Things you'll be told that you can decline</h2>
+  <p>None of these are given in bad faith. They're what an overloaded system says to a family that hasn't yet learned it can say something back.</p>
+  <div class="dgrid">
+    <div class="dcard"><h3>"Let's give it six months."</h3>
+      <p>You can request the evaluation now. Development doesn't pause while you wait, and a normal evaluation result costs you nothing but an afternoon.</p></div>
+    <div class="dcard"><h3>"Boys talk later."</h3>
+      <p>Sometimes true, and not a reason to skip a hearing test. This one has cost a great many children two years.</p></div>
+    <div class="dcard"><h3>"We need to try classroom interventions first."</h3>
+      <p>Under federal law, a tiered support process cannot be used to delay or deny an evaluation once a parent requests one in writing.</p></div>
+    <div class="dcard"><h3>"He's doing fine here."</h3>
+      <p>A child who holds it together at school and falls apart at home is not fine — they're rationing. Say exactly that, and describe the evenings.</p></div>
+    <div class="dcard"><h3>"You need a diagnosis before we can start services."</h3>
+      <p>Early Intervention and school services are based on demonstrated need, not on a diagnostic label. Start now; name it later.</p></div>
+    <div class="dcard"><h3>"There's a waitlist, we'll call you."</h3>
+      <p>Ask for the cancellation list, ask what moves families up it, and put a recurring reminder in your phone to call back monthly.</p></div>
+    <div class="dcard"><h3>"That won't be covered."</h3>
+      <p>Ask for the denial in writing with the specific policy language. A large share of denials are overturned on appeal, and many are simply coding errors.</p></div>
+    <div class="dcard"><h3>"You don't qualify — your income is too high."</h3>
+      <p>True for some programs, not for others. Several states have a Medicaid pathway based on the child's disability that disregards parent income entirely. Ask by name.</p></div>
+  </div>
+</section>
+
+
+<div class="closenote"><b>Before you close this</b><p>You have already done the hardest part of this page. Noticing that something needed attention, and then going looking for what to do about it, is the step children wait longest for — and you took it today.</p><p>Everything after this is phone calls, forms, and follow-up. That is tedious rather than difficult, and it can be learned. Make one call this week. That's a real move, and it counts.</p></div>
+
+<footer>
+  <p><strong>This is a map, not legal or medical advice.</strong> Timelines, program names, and eligibility rules differ by state and change over time — verify the specifics where you live. Everything here assumes the United States.</p>
+  <p>The checkboxes on this page are for working through in one sitting. They don't save when you close the page — print it if you want to keep it.</p>
+  <p>One last thing, and it belongs on this page: talk about your child, not over them. They hear more than any evaluation will capture.</p>
+</footer>
+
+</div>
+<script>
+const PHASES=[
+{when:"This week",note:"Everything here can be done in a few hours, and every day of delay pushes the far end of the timeline out by a day.",steps:[
+{t:"Write down what you're actually seeing — and film it",
+ d:"Keep a dated running note. What happened, when, how long it lasted, what came before it, what your child was like afterward. Film the things that are hard to describe: the episode, the meltdown, the way they walk, the moment they don't respond to their name.",
+ w:"Every evaluator will ask for specifics from months ago and your memory will have smoothed them out. Video is the single most persuasive document a parent can bring, and it converts \"he sometimes seems off\" into something a specialist can act on in ten seconds."},
+{t:"Call the pediatrician and ask for your concerns to be documented",
+ d:"Book a visit specifically about development, not tacked onto a sick visit or a physical. Ask for a formal developmental screening. Ask that your concerns be entered into the chart in your words.",
+ w:"The chart note is the foundation for referrals, insurance authorization, school evaluations, and any disagreement later. A concern that isn't written down didn't happen, as far as every system downstream is concerned."},
+{t:"If your child is under three, refer to Early Intervention yourself — today",
+ d:"You do not need a doctor's referral or a diagnosis. Search for your state's Early Intervention program and self-refer by phone or online. It's free, and the evaluation is at no cost regardless of income.",
+ w:"Federal law requires the evaluation and, if eligible, a written service plan within 45 days of your referral. That's the fastest clock available to you anywhere in this process, and it's the one families most often wait on a doctor to start for them."},
+{t:"If your child is three or older, email the school district a written evaluation request",
+ d:"Send it to the special education director and the principal, and keep the sent email. Use the script further down this page. Even if your child isn't enrolled, or attends private school, the district where you live is responsible for evaluating them.",
+ w:"A written, dated request starts a legally bound timeline. A conversation at pickup does not. This single email is the difference between a process with deadlines and a process that drifts."},
+{t:"Get hearing and vision checked — properly",
+ d:"Ask for a full audiology evaluation, not the pass-fail screening done in a pediatric office. If your child can't or won't cooperate with booth testing, ask specifically for auditory brainstem response testing, which works during sleep. For vision, ask for a full dilated exam.",
+ w:"Hearing loss and vision impairment imitate autism, ADHD, language delay, and behavior problems, and both are treatable. Skipping this step is the most common way families lose a year, and fluid behind the eardrum is very ordinary and very fixable."},
+{t:"Get on two or three long waitlists in the same week",
+ d:"Neuropsychology and developmental-behavioral pediatrics both run six months to a year and a half out. Call several practices — hospital-based and private. Ask for the cancellation list at each. Request the intake paperwork immediately and complete it now.",
+ w:"You can cancel an appointment you no longer need. You cannot conjure one you didn't book. Finished paperwork sitting on file is often what determines who gets called when a Thursday slot opens."},
+{t:"Read the urgent list above, honestly",
+ d:"Regression, possible seizures, sudden behavior change after illness, growth falling off, or any safety concern moves you out of this sequence and into a call this week.",
+ w:"The sequence on this page is built for concerns that are real but not acute. Some things shouldn't wait their turn, and lost skills are the clearest of them."}]},
+
+{when:"The first month",note:"The goal now is infrastructure — the records, the coverage, and the second opinions you'll need in month eight.",steps:[
+{t:"Start the file, and request records from everyone",
+ d:"One binder or one cloud folder, organized by date. Request complete records — not summaries — from your pediatrician and any prior provider. Include raw test scores, not just the narrative report.",
+ w:"You will be the only person who ever holds the whole story. No specialist's office reliably receives another's reports, and the single most useful thing you can bring to any first appointment is a one-page summary of diagnoses, medications, and open questions."},
+{t:"Find out what your insurance actually covers, before you need it",
+ d:"Call and ask about coverage for speech, occupational, physical, and behavioral therapy: visit limits per year, whether a diagnosis code is required, whether a referral is needed, and which local providers are in network. Write down who you spoke to and when.",
+ w:"Coverage rules determine which doors are open to you, and finding out mid-crisis is how families end up with surprise bills or a six-week gap in therapy. Some states mandate autism-related coverage; ask whether yours applies to your plan type."},
+{t:"Ask about state programs even if you think you earn too much",
+ d:"Ask your state's developmental disability agency and your Early Intervention coordinator about eligibility pathways based on the child's disability rather than family income — often called a Katie Beckett or TEFRA pathway, or a home and community based waiver. Ask about respite funding and family support programs too.",
+ w:"These programs are widely unknown and routinely assumed to be means-tested when several are not. Waitlists for waivers run years in some states, which is precisely why you apply now, long before you're sure you need it."},
+{t:"Ask the pediatrician for the ordinary medical rule-outs",
+ d:"Lead level, iron and ferritin, thyroid function. Ask directly about sleep quality, snoring, and constipation, and describe them plainly.",
+ w:"Iron deficiency, thyroid problems, poor sleep, and chronic constipation each produce inattention, irritability, and developmental stall, and each is straightforwardly treatable. They're worth excluding before anything gets attributed to a bigger explanation."},
+{t:"Ask school or daycare what they see — in writing",
+ d:"Email the teacher or provider describing your concerns and asking what they observe. Ask for specifics and examples. Keep the reply.",
+ w:"Evaluators weight information from a second setting heavily, and a teacher's written observation carries evidentiary weight a parent's cannot. It also tells you whether your child is masking — holding it together all day and unraveling at home."},
+{t:"Fill out the questionnaires describing the hardest days, not the average ones",
+ d:"When rating scales ask how often something happens, answer for the bad weeks, not your child at their most regulated. Add written examples in the margins where the options don't fit.",
+ w:"Families systematically under-report, partly from loyalty and partly from how normal their normal has become. Under-reporting produces scores that miss eligibility thresholds, which produces a denial letter that describes a child you don't recognize."}]},
+
+{when:"Months one to three",note:"Evaluations happen. This is where you learn that a report is a draft, not a verdict.",steps:[
+{t:"Come to the evaluation prepared, and stay in the room where you can",
+ d:"Bring your dated notes, your videos, the teacher's email, and a short written list of your top three concerns. Ask what the evaluation will and won't cover before it starts.",
+ w:"Evaluations are snapshots taken on one day by someone who has never met your child. Your documentation is what turns a good-day snapshot into an accurate picture, and asking about scope beforehand catches the gaps while they're still fixable."},
+{t:"Don't accept monitoring as a plan without a date and a threshold",
+ d:"If the answer is that your child doesn't qualify or should be watched, ask three questions: what specifically are we watching for, what would change the decision, and what date are we revisiting this? Get the answers in writing.",
+ w:"Monitoring with no criteria and no date is a decision to do nothing, dressed up as a plan. Written criteria give you something concrete to point at in six months rather than starting the argument over."},
+{t:"Start services on need, not on label",
+ d:"Speech, occupational, and physical therapy can begin without a diagnosis, through Early Intervention, the school, or privately. Don't hold a therapy referral while waiting for a neuropsych appointment a year out.",
+ w:"The window where early intervention does the most good is exactly the window you'd spend waiting for a name. The name changes the paperwork; it rarely changes what the therapy does on Tuesday morning."},
+{t:"Read every report closely, and correct errors in writing",
+ d:"Check names, dates, history, and quoted statements. If something is wrong or missing, email the corrections and ask that your letter be attached to the record.",
+ w:"Reports get copied forward for years — one error in a history section will reappear in six documents and be treated as established fact by people who never met you. Fixing it once, early, saves you correcting it forever."},
+{t:"If the district's evaluation was narrow, get a private one in parallel",
+ d:"Districts evaluate for educational impact, which is a narrower question than what's going on with your child. If you disagree with the district's evaluation, you can request an independent educational evaluation at public expense.",
+ w:"A comprehensive private evaluation asks a bigger question and usually produces more usable recommendations. Knowing that publicly funded independent evaluation exists changes the conversation even when you don't use it."},
+{t:"Find other parents, and find your state's family support organization",
+ d:"Every state has a federally funded parent training and information center offering free help understanding special education. Parent-to-parent networks match you with a family further down the same road.",
+ w:"The practical knowledge in this system — which clinician actually returns calls, which program has a real opening, which phrase works with your district — lives almost entirely in parent networks, and no professional will hand it to you."}]},
+
+{when:"Months three to twelve",note:"The picture sharpens. Now you build the team and the documents you'll reuse for a decade.",steps:[
+{t:"Add specialists as specific questions emerge",
+ d:"Let the questions drive the referrals rather than collecting appointments. Gut and feeding, sleep, movement, vision, communication — each has a specialty behind it. The care team map is built for exactly this moment.",
+ w:"Specialist visits cost you days off work and cost your child regulation. Going in with a defined question produces a usable answer; going in generally produces another referral."},
+{t:"Ask whether genetics belongs in the picture",
+ d:"Worth pursuing when several body systems are involved, when there's developmental difference without a clear cause, when features are unusual, or when the family history has a pattern. Ask for a genetic counselor even if a geneticist is booked out.",
+ w:"Results occasionally change treatment directly and more often close a long search. Because interpretation improves every year, an older negative or uncertain result is worth reanalyzing — but reanalysis has to be requested, and nobody will offer."},
+{t:"Write the one-page document about your child",
+ d:"Who they are, what they love, what helps, what makes things worse, what a hard moment looks like and what actually works in it. Keep it to a page. Give it to every new provider, substitute teacher, and babysitter.",
+ w:"You will otherwise retell this story several hundred times, badly, under pressure. The page also does something the evaluations don't: it puts your child's strengths and dignity in front of the person about to work with them."},
+{t:"Learn how the plan works before the meeting where it matters",
+ d:"Understand the difference between an IFSP, an IEP, and a 504 plan. Read a sample IEP. Learn that goals must be measurable and that services are written as specific minutes, not as intentions.",
+ w:"The meeting moves fast and is staffed by people who do it weekly while you do it annually. Knowing that \"as needed\" and \"consult\" mean something very different from a specified number of minutes is worth more than any other single piece of preparation."},
+{t:"Consider an advocate before there's a fight, not after",
+ d:"Educational advocates and special education attorneys often do short consultations. Bring a draft plan for review even if the relationship with your district is good.",
+ w:"An hour of review before a meeting is dramatically cheaper and more effective than a dispute afterward. It also changes the room: teams prepare differently when a parent arrives having read the same regulations they have."},
+{t:"Put the next transition on the calendar a year early",
+ d:"Early Intervention ends at the third birthday and the handoff to the school district must be planned months ahead — start no later than six months before. Preschool to kindergarten, elementary to middle, and eventually school to adult services each need the same lead time.",
+ w:"Transitions are where services silently disappear. Nothing is deliberately taken away; it simply fails to be carried across, and the new team starts from zero unless someone insists on continuity."}]},
+
+{when:"Every year after",note:"A short annual pass keeps a decade of documents from going stale.",steps:[
+{t:"Review the plan, and read what's actually written in it",
+ d:"Compare goals to progress reports. Ask whether every service listed is being delivered at the minutes specified. Request a meeting any time — you don't have to wait for the annual one.",
+ w:"Services drift when a therapist leaves or a schedule tightens, and it's rarely announced. The written plan is enforceable; comparing it against reality once a year is the whole of enforcement for most families."},
+{t:"Re-request genetics reanalysis every two to three years",
+ d:"Ask the geneticist or genetic counselor to reinterpret existing data against current knowledge. Usually no new sample is needed.",
+ w:"Variants reclassify constantly as databases grow. Answers sit unfound in data already collected, because nobody's job is to look again."},
+{t:"Recheck hearing and vision",
+ d:"Both change, and both change quietly. This matters even more for children who can't easily report a change.",
+ w:"A child who's stopped responding, stopped attending, or started struggling with material they had is sometimes not regressing — they're not seeing or hearing it. This is a cheap thing to rule out and an expensive thing to miss."},
+{t:"Update the one-pager, and ask your child what they'd put in it",
+ d:"Rewrite it each year. As soon as your child can contribute in any form — speech, device, drawing, choosing between options — the document becomes partly theirs.",
+ w:"It keeps the document honest, and it starts the long work of a child understanding and eventually explaining themselves. That skill is what adult independence is actually built on."},
+{t:"Check your own oxygen mask, and the siblings'",
+ d:"Book your own physical. Take the respite if it's offered. Ask the school counselor to check in with a sibling. Consider a therapist for yourself, before the crisis rather than during it.",
+ w:"This isn't a sentiment at the end of a checklist. Caregiver burnout is the most common reason good plans stop being carried out, and a sibling's quiet competence is very often a strategy rather than a sign that they're fine."}]}
+];
+
+const phasesEl=document.getElementById('phases');
+let total=0;
+PHASES.forEach((p,pi)=>{
+  const sec=document.createElement('section');sec.className='phase';
+  let html='<div class="phasehead"><h2 class="when">'+p.when+'</h2><span class="phasenote">'+p.note+'</span></div>';
+  p.steps.forEach((s,si)=>{
+    total++;
+    html+='<div class="step"><label class="box"><input type="checkbox" aria-label="Mark done: '+
+      s.t.replace(/"/g,'&quot;')+'"></label><div><h3 class="steptitle">'+s.t+'</h3><p>'+s.d+
+      '</p><p class="why"><b>Why</b>'+s.w+'</p></div></div>';
+  });
+  sec.innerHTML=html;phasesEl.appendChild(sec);
+});
+
+const prog=document.getElementById('progress');
+function updateProgress(){
+  const done=document.querySelectorAll('.step input:checked').length;
+  prog.textContent=done===0?total+' steps — start anywhere, but start the waitlists today'
+    :done===total?'All '+total+' steps marked done. Print this before you close it.'
+    :done+' of '+total+' steps marked done';
+}
+document.querySelectorAll('.step input').forEach(cb=>{
+  cb.addEventListener('change',()=>{cb.closest('.step').classList.toggle('done',cb.checked);updateProgress();});
+});
+updateProgress();
+
+document.querySelectorAll('.copy').forEach(b=>{
+  b.addEventListener('click',async()=>{
+    const txt=document.getElementById(b.dataset.c).textContent.trim();
+    try{await navigator.clipboard.writeText(txt);b.textContent='Copied';}
+    catch(e){b.textContent='Select and copy the text above';}
+    setTimeout(()=>{b.textContent='Copy';},2200);
+  });
+});
+
+requestAnimationFrame(()=>{setTimeout(()=>{
+  document.querySelectorAll('.fill').forEach(f=>{f.style.width=f.dataset.w+'%';});
+},260);});
+</script>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

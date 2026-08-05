@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Care Team Map — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C;
+  --ink-soft:#4A5C6E;
+  --forest:#2E4E3F;
+  --rust:#9C4A21;
+  --rust-tint:#EFE0D5;
+  --ground:#F1F4F0;
+  --card:#FCFCFA;
+  --line:#D6DDD5;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+/* ---------- header ---------- */
+header.masthead{padding:56px 0 30px}
+.eyebrow{
+  font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px
+}
+h1{
+  font-family:var(--serif);font-size:clamp(2.1rem,5.2vw,3.2rem);line-height:1.1;
+  margin:0 0 16px;font-weight:400;letter-spacing:-.01em
+}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:60ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.05rem}
+.searchrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+#search{
+  font-family:var(--sans);font-size:15px;padding:12px 16px;width:min(360px,100%);
+  border:1px solid var(--line);border-radius:2px;background:var(--card);color:var(--ink)
+}
+#search:focus{outline:2px solid var(--rust);outline-offset:1px;border-color:transparent}
+#count{font-family:var(--sans);font-size:12.5px;color:var(--ink-soft);letter-spacing:.04em}
+
+/* ---------- root node ---------- */
+.root{text-align:center;padding:18px 0 0}
+.rootcard{
+  display:inline-block;background:var(--ink);color:#F5F1EA;padding:20px 34px;
+  border-radius:2px;max-width:520px
+}
+.rootcard p{margin:0;font-size:1.02rem;line-height:1.5}
+.rootcard span{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;color:#C6A98F;margin-bottom:8px}
+.stem{width:1px;height:46px;background:var(--rust);margin:0 auto}
+
+/* ---------- branches ---------- */
+.branch{position:relative;padding:0 0 8px 0;margin:0 0 34px}
+.branchhead{display:flex;align-items:baseline;gap:14px;margin:0 0 18px}
+.dot{width:11px;height:11px;border-radius:50%;background:var(--forest);flex:0 0 auto;
+  transform:translateY(-2px);transition:background .2s}
+.branchtitle{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--forest);margin:0}
+.branchnote{font-size:.92rem;color:var(--ink-soft);font-style:italic;flex:1 1 260px;min-width:0}
+.rail{position:relative;margin-left:5px;padding-left:29px;border-left:1.5px solid var(--line)}
+.leaves{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:12px}
+
+/* ---------- leaf cards ---------- */
+.leaf{
+  position:relative;text-align:left;background:var(--card);border:1px solid var(--line);
+  border-radius:2px;padding:15px 16px 16px;font-family:var(--serif);color:var(--ink);
+  cursor:pointer;transition:border-color .18s,transform .18s,box-shadow .18s;
+  display:flex;flex-direction:column;gap:7px;width:100%
+}
+.leaf::before{
+  content:"";position:absolute;left:-30px;top:26px;width:29px;height:1.5px;
+  background:var(--line);transition:background .18s
+}
+.leaf:hover,.leaf:focus-visible{
+  border-color:var(--rust);transform:translateY(-2px);
+  box-shadow:0 6px 18px -10px rgba(22,40,60,.4);outline:none
+}
+.leaf:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+.leaf:hover::before,.leaf:focus-visible::before{background:var(--rust)}
+.leafname{font-size:1.02rem;line-height:1.25;margin:0}
+.leafhook{font-size:.85rem;line-height:1.45;color:var(--ink-soft);margin:0;flex:1}
+.tag{font-family:var(--sans);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--forest);font-weight:700}
+.tag.allied{color:var(--rust)}
+.tag.access{color:#6B5E86}
+
+/* ---------- detail ---------- */
+.detail{
+  position:fixed;inset:0;background:var(--ground);overflow-y:auto;z-index:60;
+  opacity:0;visibility:hidden;transition:opacity .22s
+}
+.detail.open{opacity:1;visibility:visible}
+.detailbar{position:sticky;top:0;background:var(--ground);border-bottom:1px solid var(--line);
+  padding:14px 0;z-index:2}
+.back{font-family:var(--sans);font-size:13px;letter-spacing:.04em;color:var(--rust);
+  background:none;border:none;cursor:pointer;padding:6px 0;font-weight:600}
+.back:hover{text-decoration:underline}
+.detailbody{padding:30px 0 90px;max-width:720px}
+.detailbody h2{font-size:clamp(1.7rem,4.4vw,2.4rem);font-weight:400;line-height:1.15;margin:6px 0 10px}
+.detailbody h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);margin:34px 0 10px;font-weight:700}
+.detailhook{font-size:1.12rem;font-style:italic;color:var(--rust);margin:0 0 24px;
+  padding-bottom:22px;border-bottom:1px solid var(--line)}
+.detailbody p{margin:0 0 14px}
+.detailbody ul{margin:0 0 14px;padding-left:20px}
+.detailbody li{margin-bottom:8px}
+.callout{background:var(--card);border-left:3px solid var(--forest);padding:16px 18px;
+  font-size:.96rem;color:var(--ink-soft)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chip{font-family:var(--sans);font-size:12.5px;background:var(--rust-tint);color:var(--rust);
+  border:none;border-radius:2px;padding:7px 12px;cursor:pointer;font-weight:600}
+.chip:hover{background:var(--rust);color:#FFF}
+.chip:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+
+footer{border-top:1px solid var(--line);margin-top:20px;padding:26px 0 70px;
+  font-family:var(--sans);font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+.empty{font-style:italic;color:var(--ink-soft);padding:30px 0}
+.hidden{display:none !important}
+
+@media(max-width:600px){
+  header.masthead{padding:38px 0 22px}
+  .rail{padding-left:18px}
+  .leaf::before{left:-19px;width:18px}
+  .leaves{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+}
+
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <header class="masthead">
+    <p class="eyebrow">In The Spectrums · Free family resource</p>
+    <h1>The Care Team Map:<br><em>who does what, and why you'd call them</em></h1>
+    <p class="lede">Most families meet these specialists one crisis at a time. This map lays them all out at once, so you can see which door matches what you're living with. Tap any card for the full picture.</p>
+    <div class="searchrow">
+      <input id="search" type="search" placeholder="Search a specialty, symptom, or word" aria-label="Search specialties">
+      <span id="count"></span>
+    </div>
+  </header>
+
+  <div class="root">
+    <div class="rootcard">
+      <span>Start here</span>
+      <p>One child at the center. Seven directions the questions tend to travel.</p>
+    </div>
+    <div class="stem"></div>
+  </div>
+
+  
+<div class="profnote"><b>Reading this as a clinician or educator</b><p>Useful in two directions: knowing which specialty owns a question before you refer, and knowing what to tell a family to expect from the appointment you're sending them to.</p><p>The access notes at the end of each entry — waitlists, what to ask for, what gets denied — are the parts families most often need explained by someone they trust.</p></div>
+<main id="tree"></main>
+
+  
+<div class="closenote"><b>One last thing</b><p>You do not need to understand all forty-five of these, and nobody does.</p><p>You need the two or three that match what you are living with right now — and you can find those, which is the entire skill. Come back when the questions change.</p></div>
+
+<footer>
+    <p><strong>This is a map, not medical advice.</strong> Nothing here diagnoses anyone or replaces a conversation with your child's own clinicians. Titles, training, and what a given office actually offers vary by region and by practice.</p>
+    <p>Written in person-first language. If a description here doesn't match your family's experience, trust your experience.</p>
+  </footer>
+</div>
+
+<div class="detail" id="detail" role="dialog" aria-modal="true" aria-labelledby="detailname">
+  <div class="wrap">
+    <div class="detailbar"><button class="back" id="back">← Back to the map</button></div>
+    <div class="detailbody" id="detailbody"></div>
+  </div>
+</div>
+
+<script>
+const BRANCHES = [
+  {id:"home", title:"Your home base", note:"The generalists who hold the whole picture and open most other doors."},
+  {id:"brain", title:"Brain, mind & behavior", note:"When the questions are about seizures, sleep, mood, thinking, or behavior."},
+  {id:"genes", title:"Genetics & precision medicine", note:"Why this is happening — and what it means for treatment choices."},
+  {id:"eat", title:"Eating, digestion & growth", note:"Food, gut, bathroom, growth, teeth, and airway are one connected system."},
+  {id:"senses", title:"Vision, hearing & communication", note:"How your child takes the world in, and how they get their words out."},
+  {id:"move", title:"Movement & body mechanics", note:"Walking, tone, pain, posture, feet, hands, and daily living skills."},
+  {id:"body", title:"Immune, allergy & whole-body", note:"Recurring illness, breathing, inflammation, skin, and autonomic symptoms."}
+];
+const DATA = [
+{id:"pediatrician",branch:"home",tag:"Physician",name:"Pediatrician",
+hook:"The doctor who knows the whole child — and whose signature most other doors require.",
+what:"A general pediatrician manages routine health, growth, illness, immunizations, and screening from birth through adolescence. In a complex care picture, the role shifts: this office becomes the hub that writes referrals, receives everyone else's reports, signs school and camp forms, and notices when a specialist's plan collides with another specialist's plan.",
+why:["You need a referral before insurance will cover a specialist visit","Something is off and you don't yet know which specialty owns it","Multiple specialists are each managing a piece and nobody is looking at the whole","You need documentation for school, camp, insurance appeals, or medical equipment","Growth, weight, or development is drifting off the expected curve"],
+visit:"Vitals and growth plotted against prior visits, a physical exam, a review of what other specialists have changed since last time, and a plan for what to chase next. Bring a one-page summary of active diagnoses, medications, and open questions — it changes the quality of the visit more than anything else you can do.",
+ask:["Will you be the one coordinating between specialists, or should I expect to do that?","How do you prefer to receive outside reports, and how will I know you've read them?","What's the fastest way to reach you when something urgent but not emergency-room-level comes up?","Are you comfortable prescribing and monitoring what a specialist recommends, so we're not driving two hours for a refill?"],
+know:"Not every pediatric practice is set up for complex care, and that is worth knowing early rather than discovering during a crisis. Some hospital systems run complex care or care coordination programs staffed by nurses who do this work full time — ask whether one exists near you. Changing practices to find a better fit is a legitimate move, not a betrayal.",
+alongside:["devped","complexcare","gastro","neurologist"]},
+
+{id:"devped",branch:"home",tag:"Physician",name:"Developmental-behavioral pediatrician",
+hook:"The specialist who evaluates how a child is developing — and often the one who names it.",
+what:"A pediatrician with additional fellowship training in development and behavior. They diagnose and manage autism, ADHD, intellectual disability, learning differences, and developmental delays, and they think about behavior as communication rather than as a discipline problem. Many also prescribe and monitor medication for attention, anxiety, irritability, and sleep.",
+why:["You want a formal developmental or autism evaluation","Milestones are late, uneven, or were reached and then lost","Behavior at home or school has become hard to live with and nobody can say why","You need a diagnosis documented to unlock services, insurance coverage, or school supports","You want one physician who thinks about development, behavior, and medication together"],
+visit:"Long — often ninety minutes or more, sometimes split across visits. Expect developmental history from birth, structured questionnaires sent ahead, observation of your child playing or interacting, and a review of school reports and any prior testing. A written report usually follows within a few weeks.",
+ask:["What will the written report include, and can I review it before it's finalized?","Which of these recommendations do you expect a school to accept, and which will I have to fight for?","Do you follow children over time, or is this a one-time evaluation with a hand-back to my pediatrician?","How do you approach medication decisions for a child with this profile?"],
+know:"Waitlists are frequently long — a year is not unusual in some regions. Get on more than one list at once, ask to be called for cancellations, and don't cancel the second appointment until the first one has actually happened. A neuropsychological evaluation is a different, complementary product; some families end up needing both.",
+alongside:["neuropsych","psychiatrist","psychologist","bcba"]},
+
+{id:"integrative",branch:"home",tag:"Physician",name:"Integrative or functional medicine physician",
+hook:"A whole-systems approach to chronic symptoms — genuinely useful to some families, and worth entering with clear eyes.",
+what:"Clinicians in this space — MDs, DOs, and naturopathic doctors depending on the state — look for upstream contributors to chronic symptoms: nutrient status, gut function, immune activity, sleep, stress physiology, and environmental exposures. Visits are typically long, testing is often extensive, and treatment leans on diet, supplements, and lifestyle alongside or instead of pharmaceuticals.",
+why:["Chronic symptoms persist after conventional workups came back unremarkable","You want longer appointments and someone willing to sit with complexity","You're already using supplements and want oversight rather than guesswork","You want nutrition, sleep, and stress addressed as part of the medical plan, not as an afterthought"],
+visit:"An hour or more of history covering birth, feeding, illnesses, antibiotics, diet, sleep, and family patterns. Often a broad lab panel follows. Plans tend to arrive in phases, with several supplements or dietary changes introduced in sequence.",
+ask:["What's the evidence behind this specific recommendation, and how strong is it?","How will we know if this is working, and when would you stop it?","What does the full cost look like — visits, testing, and supplements — over six months?","Will you write to my child's pediatrician and specialists so everyone sees the same plan?"],
+know:"Credentials and quality vary widely in this field, and much of it is out of pocket, including labs. Some interventions here are well supported; others are not, and the difference isn't always obvious from the office's confidence. Two protective habits: keep your conventional specialists fully informed, and change one thing at a time so you can tell what's actually helping. Supplements interact with medications and are worth reviewing with a pharmacist.",
+alongside:["pediatrician","gi_dietitian","gastro","pharmacogen"]},
+
+{id:"complexcare",branch:"home",tag:"Specialist care",name:"Complex care program or care coordinator",
+hook:"The person whose actual job is the logistics you've been doing at midnight.",
+what:"Many children's hospitals run complex care programs staffed by physicians, nurse care managers, and social workers for children with multiple specialists or ongoing medical needs. They chase records, prepare specialists before visits, help with equipment and insurance authorizations, and are often reachable by phone in a way that individual specialty clinics are not.",
+why:["Your child sees four or more specialists","You are the only person holding the full story and it's not sustainable","Insurance denials, equipment orders, or prior authorizations keep stalling","Hospital stays or ER visits are happening and nobody is connecting them","You want help preparing for a major transition — new school, new hospital, adulthood"],
+visit:"An intake covering every active diagnosis, clinician, medication, and service, plus what your family actually needs help with. From there, much of the work happens between visits by phone and message.",
+ask:["What specifically will you take off my plate, and what stays mine?","Who do I call first when something goes wrong?","Can you help with school documentation and insurance appeals?","Do you help families apply for waivers, respite, or state disability benefits?"],
+know:"Names vary — complex care, care coordination, medical home, pediatric care management. Eligibility is usually based on number of specialists or specific diagnoses, so ask directly rather than assuming you don't qualify. Some state Medicaid waiver programs fund care coordination independently of your income.",
+alongside:["pediatrician","transition","devped"]},
+
+{id:"transition",branch:"home",tag:"Physician",name:"Adolescent & transition-to-adult medicine",
+hook:"Pediatric care ends sooner than you think. This is the specialty that plans for it.",
+what:"Adolescent medicine covers the developmental, mental health, sexual health, and independence needs of teenagers. Transition programs specifically prepare young people with ongoing medical needs to move into adult care — identifying adult specialists, transferring records, and addressing the legal changes that arrive at eighteen.",
+why:["Your child is twelve or older and every current specialist is pediatric","You need to understand guardianship, supported decision-making, or health care proxy options before their eighteenth birthday","Puberty is raising new medical, behavioral, or safety questions","You want your teen to start holding pieces of their own health story"],
+visit:"A conversation with both you and your teen, often with some time one-on-one. Transition visits inventory every current provider and map who the adult equivalent would be, along with a realistic timeline.",
+ask:["Which adult specialists near us actually accept patients with developmental disabilities?","What legal decisions need to be made before eighteen, and when should we start?","Can my child stay with any pediatric specialists past twenty-one?","What should my teen be learning to do independently this year?"],
+know:"Start at fourteen, not seventeen. Adult specialists with real experience in developmental disability are scarce in many areas, and finding them takes months. Guardianship is not the only option, and it is not automatically the right one — supported decision-making and limited guardianship exist and are worth understanding before anyone files anything.",
+alongside:["pediatrician","psychiatrist","devped"]},
+{id:"neurologist",branch:"brain",tag:"Physician",name:"Pediatric neurologist",
+hook:"Seizures, tone, headaches, tics, regression — the wiring and the hardware.",
+what:"A physician specializing in the brain, spinal cord, nerves, and muscles in children. They evaluate seizures and epilepsy, muscle tone and weakness, movement differences, headaches, tics, and developmental regression, and they order and interpret EEGs, MRIs, and nerve and muscle studies.",
+why:["Staring spells, stiffening, jerking, or unexplained episodes","Loss of skills your child previously had","Muscle tone that seems too stiff or too floppy","Frequent or severe headaches","Tics, tremors, or unusual movements","Head size, head shape, or a prior imaging finding that needs explaining"],
+visit:"A detailed history of events and development, a hands-on neurological exam of strength, reflexes, tone, coordination, and gait, and often orders for EEG or MRI. Video of the episodes you're worried about — filmed on your phone — is genuinely more useful than any description you can give.",
+ask:["What are the possible explanations, and what would each one change about treatment?","Does this need imaging or EEG, and what would we do with the result?","If we start a medication, what are we watching for and when do we reassess?","Should genetics be involved in this workup?"],
+know:"Take video. Note the time, how long it lasted, what happened right before, and what your child was like afterward. Sedation is often required for MRI in young children and needs its own planning conversation. If seizures are hard to control, ask about an epilepsy center specifically.",
+alongside:["neurogeneticist","sleep","physiatrist","neuroophth"]},
+
+{id:"psychiatrist",branch:"brain",tag:"Physician",name:"Child & adolescent psychiatrist",
+hook:"The prescriber for anxiety, mood, aggression, and attention — and the one people most often skip.",
+what:"A physician with specialty training in children's mental health. They diagnose and treat anxiety, depression, OCD, ADHD, mood dysregulation, psychosis, and severe irritability or aggression, primarily through medication management, often alongside therapy provided by someone else. This is a different role from a psychologist, who provides testing and therapy but generally does not prescribe.",
+why:["Anxiety, panic, or low mood is interfering with daily life","Aggression or self-injury is putting someone at risk","A medication trial is being considered, or an existing one isn't working","Sudden onset of obsessions, restricted eating, or dramatic behavior change after an illness","Several medications have been tried and the picture is now complicated"],
+visit:"A full psychiatric history including development, family history, prior medications and their effects, and current symptoms. Follow-ups are often brief and focused on dose, response, and side effects. Rating scales completed by you and by teachers are common.",
+ask:["What are we targeting with this medication, and what would improvement look like?","What side effects should I call about immediately versus mention at the next visit?","How long before we know if it's working, and what's the plan if it isn't?","Does my child's genetic or metabolic profile affect which medication you'd choose?"],
+know:"Access is the hard part — waitlists are long and many practices don't take insurance. Ask your pediatrician whether they'll manage stable prescriptions between visits. Keep your own log of what was tried, at what dose, for how long, and what happened; this record becomes invaluable and no single office reliably keeps it. Pharmacogenomic results are worth bringing to this visit.",
+alongside:["psychologist","pharmacogen","neuropsych","devped"]},
+
+{id:"neuropsych",branch:"brain",tag:"Specialist care",name:"Neuropsychologist",
+hook:"Testing that maps how your child thinks — the report schools take seriously.",
+what:"A psychologist with specialized training in brain-behavior relationships. Through structured testing they profile cognition, memory, attention, language, visual-spatial skills, executive function, academic achievement, and emotional functioning, then translate that profile into specific recommendations for school and home.",
+why:["School is a struggle and nobody can say precisely why","You need documented evidence for an IEP, 504 plan, or a placement decision","You want to distinguish between a learning difference, attention difficulty, and anxiety when they look alike from outside","A neurological event, seizure disorder, or medical treatment may have affected thinking","You want a baseline to measure against in a few years"],
+visit:"Several hours of testing, often across two or more days, plus separate parent and teacher input. A feedback session follows where results are explained, and a written report — frequently thirty pages or more — arrives afterward.",
+ask:["Do you have experience testing children who are nonspeaking, use AAC, or have vision differences?","How will you accommodate my child's specific needs so the scores reflect ability rather than access?","Will you attend a school meeting or speak with the team?","Which recommendations are the two or three that matter most?"],
+know:"Standardized tests assume standard access. If your child has a vision impairment, uses AAC, or has significant motor differences, the evaluator must adapt — and some won't, producing scores that measure access rather than ability. Ask this before booking. School districts sometimes fund independent evaluations when their own is disputed.",
+alongside:["psychologist","devped","tvi","aac"]},
+
+{id:"psychologist",branch:"brain",tag:"Specialist care",name:"Psychologist or therapist",
+hook:"The person doing the ongoing work — with your child, or with you.",
+what:"Psychologists, licensed clinical social workers, and licensed mental health counselors provide talk therapy, play therapy, CBT, exposure work for anxiety and OCD, trauma treatment, and parent coaching. Some also do diagnostic testing. Much of the highest-value work in this category is with parents rather than directly with the child.",
+why:["Your child has anxiety, worries, low mood, or difficulty coping","You need coaching on how to respond to behavior at home","Siblings are struggling with what the family is carrying","You are exhausted, grieving, or running on empty","Something traumatic happened — medical, school, or otherwise"],
+visit:"An intake covering history and goals, then regular sessions, typically weekly. Parent coaching models may involve you alone with the therapist, which is often the most efficient route for younger children or children who don't engage in traditional talk therapy.",
+ask:["What's your approach with children who have this profile?","Do you work with parents directly, and how often?","How will we know this is working?","Do you coordinate with schools or other providers?"],
+know:"Fit matters more than method. A therapist your child is willing to talk to beats a perfectly credentialed one they won't. Parent coaching is not a consolation prize and is frequently the highest-yield option available. Approaches built around collaborative problem solving are worth asking about by name if traditional behavior plans haven't fit your child.",
+alongside:["psychiatrist","bcba","neuropsych"]},
+
+{id:"sleep",branch:"brain",tag:"Physician",name:"Sleep medicine physician",
+hook:"Before you treat the daytime, rule out what's happening at night.",
+what:"A physician — often trained in pulmonology, neurology, or ENT — who diagnoses and treats sleep disorders: obstructive sleep apnea, restless legs, circadian rhythm disorders, parasomnias, and insomnia. Diagnosis frequently involves an overnight sleep study, either in a lab or at home.",
+why:["Snoring, mouth breathing, gasping, or restless sleep","Waking repeatedly, or waking for hours in the middle of the night","Daytime irritability, inattention, or behavior that worsens with poor sleep","Melatonin and behavioral strategies haven't been enough","Enlarged tonsils, a high narrow palate, or a small jaw"],
+visit:"A history of the whole night and the following day, an airway exam, and often a sleep study. Treatment ranges from surgery to airway appliances to CPAP to medication to behavioral sleep programs, depending on cause.",
+ask:["Do you think this is behavioral, airway-related, or both?","Can we do a home sleep study, or does it need to be in a lab?","How do you prepare children who don't tolerate sensors or new environments?","If apnea is present, what are all the treatment options — not just the first one?"],
+know:"Untreated sleep apnea imitates ADHD, mood disorders, and behavioral regression, which is why this deserves ruling out early rather than late. Lab studies can be genuinely hard for children with sensory differences — ask about desensitization visits, bringing the child to see the room beforehand, or home study options. Airway problems often need ENT and orthodontics working together.",
+alongside:["ent","orthodontist","neurologist","pulmonologist"]},
+
+{id:"bcba",branch:"brain",tag:"Therapy & allied",name:"Board certified behavior analyst (BCBA)",
+hook:"Structured skill-building and behavior support — with real variation in philosophy between providers.",
+what:"A BCBA assesses why a behavior is happening, then designs teaching and support plans around it. Work spans communication, daily living skills, safety, toileting, and reducing behaviors that cause harm. Sessions are often delivered by technicians under BCBA supervision, at home, in clinic, or at school.",
+why:["A behavior is unsafe for your child or others","You want structured help teaching a specific skill — toileting, dressing, requesting","School is asking for a functional behavior assessment","Transitions or specific settings are consistently falling apart","You need someone to look at what a behavior is actually communicating"],
+visit:"An assessment period of observation and data collection, then a written plan with defined goals and measurement. Ongoing sessions, with parent training as a core component in good programs.",
+ask:["How do you handle it when a child says no or refuses a task?","What's your approach to a child who avoids demands or shuts down under pressure?","Are goals chosen with the family, and can I decline one?","How much parent training is included, and how do you measure progress?"],
+know:"This field is not one thing, and quality and philosophy vary enormously between providers. Assent-based, child-led approaches exist alongside more rigid compliance-focused ones, and some adults with autism have described lasting harm from the latter. Ask directly how refusal is handled, watch a session, and trust your read. You can end a placement that doesn't feel right.",
+alongside:["psychologist","slp","ot","devped"]},
+{id:"geneticist",branch:"genes",tag:"Physician",name:"Clinical geneticist",
+hook:"The specialist asking why — and whether anything about the answer changes treatment.",
+what:"A physician who evaluates whether a genetic condition explains a child's medical and developmental picture. They take a detailed family history, examine physical features, order and interpret genetic testing, and put results in the context of everything else going on.",
+why:["Developmental differences without a clear cause","Multiple body systems involved — brain, heart, gut, growth, immune","Distinctive physical features, growth differences, or birth differences","Family history of similar patterns, pregnancy losses, or early deaths","Prior testing was negative or came back uncertain","You are considering another pregnancy"],
+visit:"An extended history covering pregnancy, birth, development, and a three-generation family tree, plus a careful physical exam. Testing is usually blood or saliva. Results take weeks to months, and a return visit is used to explain them.",
+ask:["What test are you ordering, and what would it miss?","If this is negative, what's the next step?","Would results change management, or is this for understanding and family planning?","Should our results be reanalyzed as knowledge improves, and who initiates that?"],
+know:"Genetic knowledge moves fast. A negative or uncertain result from more than two or three years ago is worth revisiting — reanalysis of existing data can produce answers without new testing, and it usually has to be requested rather than offered. Ask for the actual report and raw data for your own files.",
+alongside:["counselor","neurogeneticist","metabolic","pharmacogen"]},
+
+{id:"neurogeneticist",branch:"genes",tag:"Physician",name:"Neurogeneticist",
+hook:"Where neurology and genetics meet — for brain differences with a suspected genetic cause.",
+what:"A specialist trained in both neurology and genetics who focuses on genetic conditions affecting the brain and nervous system: epilepsy syndromes, movement disorders, neurodevelopmental conditions, and progressive neurological disease. They interpret variants specifically in terms of what they mean for the nervous system.",
+why:["A genetic variant was found and its neurological implications are unclear","Seizures that are hard to control, particularly starting in infancy","Loss of skills over time","A neurological picture that doesn't fit a common diagnosis","Both a neurologist and a geneticist are involved and their views need integrating"],
+visit:"A neurological exam alongside a genetics-focused history. Often includes reviewing prior imaging, EEG, and any existing genetic results in detail — including variants previously dismissed as uncertain.",
+ask:["Does this variant plausibly explain what we're seeing, or is it incidental?","Are there condition-specific treatments, precautions, or medications to avoid?","Is there a research registry, natural history study, or clinical trial for this?","Does this change what we should monitor as my child grows?"],
+know:"These specialists are concentrated in academic centers and often booked far out. Some conditions have specific medications that help and specific ones that make things worse, which is the single most practical reason to pursue this. Patient-led foundations for rare variants frequently hold better current information than published literature.",
+alongside:["geneticist","neurologist","metabolic","counselor"]},
+
+{id:"metabolic",branch:"genes",tag:"Physician",name:"Metabolic or biochemical geneticist",
+hook:"How the body makes and uses energy and nutrients — a different question from which gene.",
+what:"A geneticist focused on inborn errors of metabolism and mitochondrial function: how the body processes fats, proteins, sugars, and vitamins at a cellular level. They investigate conditions where the biochemistry is disrupted, including disorders of folate, B12, carnitine, and mitochondrial energy production — many of which have specific treatments.",
+why:["Episodes of decompensation with illness, fasting, or stress","Fatigue, poor endurance, or muscle weakness out of proportion to everything else","Developmental regression, particularly with illness","Abnormal newborn screening, lactate, ammonia, or amino acid results","Questions about folate metabolism, cerebral folate status, or B12 handling","A genetic result pointing toward a metabolic pathway"],
+visit:"History focused on feeding, illness patterns, fasting tolerance, and energy. Specialized labs on blood and urine, sometimes spinal fluid, and occasionally muscle biopsy. Metabolic dietitians are typically part of the team.",
+ask:["Do we need a sick-day plan or emergency letter for illness and fasting?","Which of these results are actionable and which are background noise?","Are there vitamins or cofactors with real evidence for this pathway?","What should the ER know if we arrive with my child acutely unwell?"],
+know:"This is a small, highly specialized field, often housed inside a genetics or metabolic clinic at a children's hospital. If a metabolic condition is confirmed or suspected, ask for a written emergency protocol letter — it changes how an emergency department treats your child at three in the morning.",
+alongside:["geneticist","gi_dietitian","neurologist","gastro"]},
+
+{id:"counselor",branch:"genes",tag:"Specialist care",name:"Genetic counselor",
+hook:"The person who explains what the result actually means — and keeps it from going stale.",
+what:"A master's-trained specialist in genetics and communication. They gather family history, help choose the right test, explain results in plain terms, address inheritance and recurrence questions, and navigate the emotional and practical fallout. They also handle insurance authorization for testing and coordinate reanalysis of older results.",
+why:["A result came back and you don't fully understand it","A variant was labeled 'of uncertain significance' and you want to know what to do with that","You're weighing whether to test at all, or which test","You're considering another pregnancy or a sibling wants to know their risk","An old genetic test needs reanalysis and nobody has driven it"],
+visit:"Detailed family history construction, an explanation of testing options and their limits, and a conversation about what different results would and wouldn't tell you. Result sessions are dedicated to explanation and next steps.",
+ask:["What does uncertain actually mean here, and what would move it toward an answer?","Should other family members be tested, and does that help my child?","How and when do we request reanalysis?","What are the privacy and insurance implications of this testing?"],
+know:"You can often see a genetic counselor before or without a geneticist, and telehealth options have widened access considerably. In the United States, GINA restricts genetic discrimination in health insurance and employment but does not cover life, disability, or long-term care insurance — worth understanding before testing adults in the family.",
+alongside:["geneticist","neurogeneticist","metabolic"]},
+
+{id:"pharmacogen",branch:"genes",tag:"Specialist care",name:"Pharmacogenomics consultation",
+hook:"How your child's body processes medication — before the third failed trial, not after.",
+what:"Usually delivered by a clinical pharmacist or a precision medicine service, this is the interpretation of genetic testing that predicts how a person metabolizes specific drugs. Results can flag people who process a medication unusually fast or slowly, which affects dosing and side effect risk for many psychiatric, pain, and seizure medications.",
+why:["Multiple medications have failed or caused outsized side effects","A psychiatric or seizure medication is being considered","Unusually strong reactions to standard doses, or no response at all","You already have a pharmacogenomic panel and nobody has interpreted it clinically","Your child takes several medications and you want interaction review"],
+visit:"Cheek swab or blood sample, then a report keyed to drug categories. The valuable part is a clinician sitting with the report and the actual medication list together — not the report itself.",
+ask:["Which of these findings changes a real decision, and which are informational?","How does this affect medications my child already takes?","Can you send this interpretation directly to the prescriber?","Are there interactions between the prescriptions and the supplements we use?"],
+know:"The panel is not a crystal ball — genes are one input among many, and a result never overrides how a child actually responds. But metabolizer status for certain enzyme pathways is well established and genuinely shifts prescribing. Get the results into the chart before the next medication decision, not after. A pharmacist consultation is often free through the pharmacy or hospital.",
+alongside:["psychiatrist","geneticist","neurologist"]},
+{id:"gastro",branch:"eat",tag:"Physician",name:"Pediatric gastroenterologist",
+hook:"Constipation, reflux, pain, and growth — the system that quietly drives behavior.",
+what:"A physician specializing in the digestive tract, liver, and pancreas in children. They manage constipation and withholding, reflux, abdominal pain, diarrhea, feeding intolerance, celiac disease, inflammatory bowel disease, and poor weight gain, and they perform endoscopy when it's needed.",
+why:["Constipation that has not resolved with over-the-counter measures","Stool withholding, painful stooling, soiling, or accidents after toilet training","Vomiting, reflux, or refusing food that used to be fine","Abdominal pain, bloating, or blood in stool","Weight or growth falling off the curve","Behavior that worsens in a pattern that tracks with the gut"],
+visit:"History of stooling, feeding, growth, and pain, an abdominal exam, sometimes an X-ray to assess stool burden. Plans often start with a clean-out followed by a daily maintenance regimen — under-treating and stopping early is the most common reason it fails.",
+ask:["How long should we stay on maintenance treatment before considering a change?","How do we handle withholding behavior, not just the stool itself?","Could this be contributing to sleep, appetite, or behavior?","When would you consider imaging or scoping, and what would that change?"],
+know:"Chronic constipation is dramatically more common than families are told, and it is frequently the invisible driver behind irritability, poor appetite, poor sleep, and refusal to eat. Treatment usually needs to continue for months after things look normal. If bladder symptoms are present too, they are often the same problem — ask about involving urology.",
+alongside:["gi_dietitian","urologist","feeding","metabolic"]},
+
+{id:"gi_dietitian",branch:"eat",tag:"Therapy & allied",name:"ARFID-informed pediatric dietitian",
+hook:"Nutrition planning for a child whose safe food list is five items long.",
+what:"A registered dietitian with training in pediatric nutrition and in avoidant/restrictive food intake disorder. Rather than pushing variety, they work from the foods a child already accepts, protect growth and nutrient status, and build slowly outward in ways that don't blow up the relationship with food.",
+why:["A very short list of accepted foods, or foods being dropped over time","Weight, height, or growth concerns","Suspected nutrient gaps, or a wish to use supplements sensibly","Reliance on formula or shakes and questions about how to use them well","Mealtimes have become a battleground","Elimination diets are being considered and you want them done safely"],
+visit:"A detailed food and mealtime history — what's accepted, what changed, textures, brands, temperatures, packaging, and how meals are structured. Then a plan that starts with protecting intake before expanding it.",
+ask:["What are the actual nutritional risks right now, and which matter most?","How do we add nutrition without threatening the foods we already have?","How should we use supplemental drinks so they don't replace eating?","What does progress look like over the next three months?"],
+know:"ARFID is not picky eating, and advice built for picky eating tends to make it worse. Pressure, hiding foods, and waiting a child out reliably backfire. Look for a dietitian who names ARFID specifically and who works alongside a feeding therapist. Brand and packaging consistency isn't fussiness — for many children it's the difference between eating and not eating.",
+alongside:["feeding","gastro","slp","psychologist"]},
+
+{id:"feeding",branch:"eat",tag:"Therapy & allied",name:"Feeding therapist or feeding program",
+hook:"Hands-on work on the mechanics and the fear of eating.",
+what:"Speech-language pathologists and occupational therapists with feeding training address the physical and sensory side of eating — chewing, swallowing, oral motor coordination, texture tolerance, and anxiety around new food. Intensive day programs at children's hospitals bring medicine, nutrition, therapy, and psychology together for children whose eating is severely restricted.",
+why:["Coughing, choking, gagging, or wet-sounding breathing while eating","Difficulty chewing or managing textures","Tube feeding, or working toward reducing tube dependence","Extreme distress around food, plates, smells, or the table","Outpatient approaches have plateaued and intake isn't sufficient"],
+visit:"Observation of an actual meal, an oral motor exam, and sometimes a swallow study using video X-ray. Therapy is typically weekly; intensive programs run daily for several weeks.",
+ask:["Is this a skill problem, a sensory problem, an anxiety problem, or a mix?","Is a swallow study needed to rule out aspiration?","How do you handle a child who won't come to the table at all?","What should we be doing at home between sessions — and what should we stop doing?"],
+know:"Swallowing safety comes before variety. If there's coughing during meals or repeated pneumonia, ask about a swallow study early. Intensive programs have waitlists and often require travel and time off work, but for severe restriction they can accomplish in weeks what outpatient therapy hasn't in years.",
+alongside:["gi_dietitian","slp","ot","gastro"]},
+
+{id:"endo",branch:"eat",tag:"Physician",name:"Pediatric endocrinologist",
+hook:"Growth, puberty, thyroid, and blood sugar — the hormone system.",
+what:"A physician managing the glands and hormones that regulate growth, puberty, metabolism, blood sugar, calcium, and stress response. They evaluate short or tall stature, early or delayed puberty, thyroid conditions, diabetes, adrenal problems, and bone density concerns.",
+why:["Growth has slowed, stalled, or accelerated unexpectedly","Signs of puberty before eight in girls or nine in boys, or no signs by thirteen or fourteen","Fatigue, temperature intolerance, or unexplained weight change","Abnormal thyroid results","Excessive thirst and urination","Low bone density, fractures, or long-term steroid or seizure medication use"],
+visit:"Careful growth chart review across every prior measurement, a puberty assessment, and blood work. A bone age X-ray of the hand is common. Some tests require timed morning draws or stimulation testing over several hours.",
+ask:["What does the growth curve pattern suggest about cause?","Do we need a bone age, and what would it tell us?","Could nutrition, sleep, or medications be contributing?","What's the timeline for reassessing before we intervene?"],
+know:"Bring every height and weight measurement you can find, including from other offices. The shape of the curve over time carries more information than any single point. Children with limited diets, limited weight-bearing activity, or long-term seizure medication use are at higher risk for low bone density and may warrant screening.",
+alongside:["gi_dietitian","gastro","pediatrician"]},
+
+{id:"urologist",branch:"eat",tag:"Physician",name:"Pediatric urologist",
+hook:"Bladder, kidneys, and accidents — usually the other half of the constipation story.",
+what:"A surgical specialist for the urinary tract and genital anatomy in children. They manage daytime wetting and bedwetting, urgency and frequency, recurrent urinary infections, incomplete emptying, kidney and reflux findings, undescended testicles, and questions about circumcision.",
+why:["Daytime accidents past the age you'd expect, or a return of accidents","Bedwetting that persists past about seven, or that comes back after dryness","Repeated urinary tract infections","Straining, urgency, or holding until the last possible second","An abnormal kidney or bladder ultrasound","Constipation is being treated but wetting continues"],
+visit:"A voiding and stooling history, exam, and often an ultrasound of bladder and kidneys with measurement of what's left after urinating. A bladder diary kept over a few days beforehand is highly useful.",
+ask:["Is constipation driving this, and is it fully treated?","Is my child emptying completely?","Are there structural findings, or is this functional?","What are the non-medication options, and what's the realistic timeline?"],
+know:"Bowel and bladder are mechanically linked; a full rectum presses on the bladder and causes exactly the symptoms that get labeled behavioral. Most pediatric urologists will treat constipation aggressively before anything else. For children with developmental differences, timed voiding schedules and visual supports often outperform medication.",
+alongside:["gastro","ot","gi_dietitian"]},
+
+{id:"dentist",branch:"eat",tag:"Specialist care",name:"Pediatric dentist for complex needs",
+hook:"Cleanings that are actually possible — plus the tie and airway questions.",
+what:"Pediatric dentists handle prevention and treatment in children, and some specialize further in patients with developmental disabilities, sensory sensitivity, or medical complexity. That may include desensitization visits, sedation or general anesthesia, and evaluation of lip and tongue ties affecting feeding, speech, or oral hygiene.",
+why:["Cleanings or exams are impossible in a standard chair","Feeding difficulty, particularly with a suspected tongue or lip tie","Grinding, mouth breathing, crowding, or a high narrow palate","Enamel problems, decay, or acid exposure from reflux or vomiting","Medications that cause dry mouth or gum overgrowth","A sensory profile that makes brushing at home a daily battle"],
+visit:"For a specialty practice, often a get-to-know-you visit with no treatment attempted. Successful offices use short predictable steps, let a child sit in a parent's lap, and build across appointments rather than forcing one.",
+ask:["What's your approach when a child can't tolerate the chair?","How do you decide between desensitization, nitrous, sedation, and general anesthesia?","If you find a tie, what's your evidence for releasing it and what therapy follows?","Can we bundle multiple procedures into one anesthesia event?"],
+know:"Tongue and lip tie release is an area with real disagreement in the field, and outcomes depend heavily on the case and on the therapy that follows. Get a second opinion, ideally from someone who won't perform the procedure. If general anesthesia becomes necessary, coordinate — bloodwork, imaging, ENT exam, and dental work can often happen in a single sedation.",
+alongside:["ent","orthodontist","slp","feeding"]},
+
+{id:"orthodontist",branch:"eat",tag:"Specialist care",name:"Airway-focused orthodontist",
+hook:"Jaw and palate development shapes the airway a child breathes through at night.",
+what:"An orthodontist with a focus on how jaw structure, palate width, and tongue posture affect breathing and sleep, not only tooth alignment. Interventions include palatal expansion and appliances that create more room for the airway, often in coordination with ENT and sleep medicine.",
+why:["Snoring, mouth breathing, or restless sleep alongside a narrow palate or crowding","Sleep apnea persisting after tonsils and adenoids were removed","Chronic mouth breathing during the day","Crossbite, severe crowding, or a small or recessed lower jaw","Tongue thrust or ongoing speech and feeding concerns tied to oral structure"],
+visit:"Exam of bite, palate width, and tongue posture, with imaging. Palatal expansion is typically most effective in a window during childhood while growth is still available, which is why the timing conversation matters.",
+ask:["What airway change do you expect, and how would we measure it?","How does this coordinate with our ENT and sleep physician?","What's the evidence for this specific appliance?","Can my child realistically tolerate this daily, and what if they can't?"],
+know:"Airway orthodontics is a legitimate and growing area, and also one where claims sometimes outrun evidence — ask what outcome is being promised and how it will be verified. For a child with sensory sensitivity, tolerating an appliance is a real question worth answering honestly before committing. Timing is genuinely age-sensitive, so an early consult preserves options.",
+alongside:["ent","sleep","dentist"]},
+{id:"neuroophth",branch:"senses",tag:"Physician",name:"Neuro-ophthalmologist",
+hook:"When the eyes are fine but seeing isn't — vision as a brain question.",
+what:"A physician trained in both ophthalmology and neurology who evaluates vision problems originating in the brain and optic nerves rather than the eye itself. That includes cortical or cerebral visual impairment, optic nerve abnormalities, visual field loss, eye movement disorders, and vision changes tied to neurological conditions.",
+why:["Vision seems inconsistent — better some days, in some places, or with some materials","Eye exams are normal but your child clearly isn't seeing well","Crossed eyes, wandering eyes, or unusual eye movements","Optic nerve findings on a prior exam","Vision changes alongside a neurological diagnosis, seizures, or head injury","Field loss is suspected — bumping into things on one side"],
+visit:"A full eye exam plus a neurological assessment of eye movements, pupils, and optic nerves. May include visual field testing, imaging, and electrodiagnostic studies. Dilation is standard.",
+ask:["Is the problem in the eye, the nerve, or the brain?","Does my child need a low vision or CVI-specific functional assessment as well?","What accommodations should school be implementing right now?","How often should this be rechecked, and what would signal a change?"],
+know:"A medical eye exam and a functional vision assessment answer different questions. Neuro-ophthalmology tells you the mechanism; a functional assessment tells you what your child can actually use in a classroom — contrast, size, spacing, latency, clutter, lighting. Most children with brain-based visual impairment need both, and the second is what turns into IEP language.",
+alongside:["optometrist","tvi","om","neurologist"]},
+
+{id:"optometrist",branch:"senses",tag:"Specialist care",name:"Developmental optometrist & low vision specialist",
+hook:"The functional side of vision — what your child can actually use, and how to adapt for it.",
+what:"Developmental or behavioral optometrists assess how vision works in daily life: eye teaming, tracking, focusing, visual processing, and how vision holds up under fatigue. Low vision specialists focus on maximizing usable vision through magnification, contrast, lighting, and adapted materials. In practice, a great many children with cerebral visual impairment are first identified in an optometrist's office.",
+why:["Reading is exhausting, or letters move, blur, or double","Skipping lines, losing place, or avoiding near work","Poor eye tracking or difficulty shifting between board and paper","Cerebral visual impairment is suspected or diagnosed","You need concrete recommendations for print size, contrast, and materials","Standard glasses haven't resolved the difficulty"],
+visit:"Longer than a standard eye exam, with testing of eye movements, focusing, and visual processing under realistic conditions. Low vision assessment includes trying actual magnifiers, filters, and adapted materials to see what helps.",
+ask:["What print size, font, contrast, and spacing does my child need in writing?","How much extra time does my child need to process new visual material?","Which recommendations should go directly into the IEP?","Is vision therapy indicated here, and what specifically would it target?"],
+know:"Written specifics are what schools can act on — a report saying 'prefers high contrast' is far less useful than one specifying a point size, a font, a color combination, and a processing delay. Insurance coverage for developmental vision services is inconsistent, so ask about cost upfront. Vision therapy has strong evidence for some conditions and weaker evidence for others; ask which category yours is in.",
+alongside:["neuroophth","tvi","om","neuropsych"]},
+
+{id:"tvi",branch:"senses",tag:"Education & access",name:"Teacher of students with visual impairments (TVI)",
+hook:"The educator who translates a vision diagnosis into a usable school day.",
+what:"A certified teacher specializing in students who are blind or have low vision. They adapt materials, teach braille or other access methods, train the child in using assistive technology, and coach the rest of the school team on what this child specifically needs to see and learn.",
+why:["A diagnosis of visual impairment, including cerebral visual impairment","Classroom materials aren't accessible as presented","Your child needs to learn braille, magnification, or screen reading","The IEP team doesn't understand what the vision report means in practice","You're evaluating a school placement and need to know if they can deliver"],
+visit:"A functional vision and learning media assessment: observation across school settings, testing of how your child uses vision for near, distance, and moving targets, and a determination of which learning media — print, braille, audio, digital — fits best.",
+ask:["How many service hours are you recommending, and are they direct or consultative?","Who adapts materials day to day, and how far ahead do they need them?","How will you train the classroom staff, not just work with my child?","How do we make sure adaptations follow my child into specials, field trips, and assemblies?"],
+know:"TVI services are provided through the school district under special education law, and the level of service is negotiable in the IEP process — consultation-only is not the same as direct instruction. Schools for the blind and state commissions often provide evaluation, training, and equipment loans independently of the district. Ask specifically about experience with cerebral visual impairment, which requires a very different approach from ocular blindness.",
+alongside:["om","optometrist","neuroophth","assistive"]},
+
+{id:"om",branch:"senses",tag:"Education & access",name:"Orientation & mobility specialist (COMS)",
+hook:"Moving through the world safely and independently — inside, outside, and eventually alone.",
+what:"A certified orientation and mobility specialist teaches people with visual impairments to travel safely and independently: spatial concepts, using remaining vision effectively, cane technique, navigating stairs and streets and crowds, and eventually public transportation and unfamiliar places.",
+why:["A visual impairment affects safe movement through space","Difficulty with stairs, curbs, thresholds, or changes in surface","Hesitation or fear in unfamiliar or busy environments","Getting lost or disoriented in school hallways","Preparing for a new building, new school, or a transition to more independence","Depth perception or visual clutter is making movement hard"],
+visit:"Assessment of how your child moves through real environments, followed by instruction in actual settings rather than a therapy room. Goals may run from crossing a classroom safely to navigating a bus route.",
+ask:["What can my child do independently now, and what's the next realistic step?","Should we be considering a cane, and what does introducing one look like?","How do you build a route for a new building before the first day?","How do we practice these skills at home and in our community?"],
+know:"Orientation and mobility instruction is often available through the school district and sometimes through a state commission for the blind, and can be requested as part of an IEP evaluation. It benefits children with cerebral visual impairment too — visual clutter and depth judgment cause real mobility difficulty even when acuity looks reasonable. Starting early, before a specific crisis, makes transitions far easier.",
+alongside:["tvi","optometrist","pt","neuroophth"]},
+
+{id:"audiologist",branch:"senses",tag:"Specialist care",name:"Audiologist",
+hook:"Hearing tested properly — including the children hardest to test.",
+what:"An audiologist evaluates hearing and balance, fits hearing aids and other devices, and tests auditory processing. Pediatric audiologists use methods adapted to a child's developmental level, including tests that don't require the child to respond at all.",
+why:["Concerns about hearing, or inconsistent responses to sound","Speech and language delays","Repeated ear infections or fluid in the ears","Difficulty following speech in noisy rooms despite normal hearing","Sensitivity to sound that causes distress","A diagnosis or medication associated with hearing risk"],
+visit:"Depending on age and ability, this may be a booth test, play-based testing, or objective testing of eardrum movement, inner ear function, and brainstem response — the last of which can be done during sleep or sedation.",
+ask:["Was this test conclusive for my child, and if not, what's the next step?","Is hearing loss present, and does it affect one ear or both?","Could fluid be a factor, and should ENT be involved?","Is this a hearing problem or a listening-in-noise problem?"],
+know:"If a child can't or won't participate in booth testing, the answer isn't 'untestable' — brainstem response testing gives objective results without cooperation. Ask for it. Difficulty understanding speech in noise with normal hearing thresholds is a real and separate finding, and classroom sound systems or remote microphone systems can be written into an IEP.",
+alongside:["ent","slp","assistive"]},
+
+{id:"ent",branch:"senses",tag:"Physician",name:"ENT (otolaryngologist)",
+hook:"Ears, tonsils, adenoids, airway, and the surgical answers for chronic noise and blockage.",
+what:"A surgical specialist for the ear, nose, and throat. They manage recurrent ear infections and fluid, tonsil and adenoid enlargement, chronic congestion and sinus disease, airway obstruction, tongue tie, voice problems, and swallowing concerns involving the throat.",
+why:["Repeated ear infections or persistent fluid affecting hearing","Snoring, mouth breathing, or witnessed pauses in breathing at night","Chronic congestion, sinus infections, or nosebleeds","Enlarged tonsils, or difficulty swallowing solid food","Chronic hoarseness or a voice that has changed","Suspected tongue tie affecting feeding or speech"],
+visit:"Exam of the ears, nose, and throat, sometimes with a small scope. Hearing testing often accompanies it. Airway concerns may lead to a sleep study before any surgical decision.",
+ask:["Is surgery necessary now, or is watchful waiting reasonable?","What happens if we do nothing for six months?","How will this affect sleep, hearing, or speech specifically?","How do you prepare children who don't tolerate exams or masks?"],
+know:"Persistent middle ear fluid can cause a hearing loss significant enough to affect speech and behavior while looking like inattention. Tonsil and adenoid removal is the first-line treatment for pediatric sleep apnea and often improves daytime behavior markedly — but not every child is fully resolved by it, so a follow-up sleep study is reasonable if symptoms persist.",
+alongside:["audiologist","sleep","orthodontist","dentist"]},
+
+{id:"slp",branch:"senses",tag:"Therapy & allied",name:"Speech-language pathologist",
+hook:"Understanding, being understood, and everything in between.",
+what:"An SLP evaluates and treats communication across the whole range: speech sound production, language comprehension and expression, social communication, fluency, voice, and — with additional training — feeding and swallowing. In practice they are often the clinician spending the most hours with a child.",
+why:["Speech is hard to understand, or words aren't coming","Understanding language is harder than it looks from outside","Difficulty with conversation, questions, or social back-and-forth","Stuttering or voice concerns","Feeding or swallowing difficulty (with a feeding-trained SLP)","Communication breaks down most exactly when it matters most"],
+visit:"Standardized testing plus observation of real interaction. A good evaluation distinguishes what a child understands from what they can produce — those are frequently very different, and the gap gets misread as not knowing.",
+ask:["What's the gap between comprehension and expression here?","How do you support communication right now, while we work on speech?","Do you train me and the teachers, or only work with my child?","How do you know progress is real and not just test-taking practice?"],
+know:"School-based and private SLP services differ in intensity and goals, and many families use both. If speech is significantly delayed, ask about augmentative communication early — the evidence is clear that AAC supports speech development rather than replacing it, and waiting to 'give speech a chance' costs a child years of being understood.",
+alongside:["aac","feeding","audiologist","ot"]},
+
+{id:"aac",branch:"senses",tag:"Therapy & allied",name:"AAC specialist",
+hook:"Giving a child a reliable way to say anything they want to say.",
+what:"A speech-language pathologist with specialized training in augmentative and alternative communication — speech-generating devices, communication apps, symbol systems, eye gaze, and low-tech boards. The work is device selection, customization, and — most importantly — teaching everyone around the child how to use it.",
+why:["Speech isn't reliable enough to meet daily needs","Your child has a device that isn't being used","Frustration and behavior escalate around communication breakdowns","Vocabulary needs to grow beyond requesting into commenting, refusing, and asking questions","A device needs vision-specific adaptations for size, contrast, or spacing","You need documentation for insurance funding of a device"],
+visit:"A trial-based evaluation comparing systems with your child rather than choosing one on paper. Includes access method — touch, switch, eye gaze — and how the display should be arranged. A written report supports insurance funding.",
+ask:["Will this system still fit in five years, or will we start over?","How do you train family and school staff, and how often?","How do we grow vocabulary beyond requesting?","Can the display be adapted for my child's vision and motor needs?"],
+know:"Devices fail from lack of support far more often than from the wrong device. Ask what the training plan is for every adult in your child's life before you focus on the hardware. Access to a full vocabulary matters — systems limited to requesting teach children that communication is only for getting things. Insurance funding usually requires a formal SLP evaluation and specific documentation language.",
+alongside:["slp","assistive","tvi","ot"]},
+
+{id:"assistive",branch:"senses",tag:"Education & access",name:"Assistive technology specialist",
+hook:"The tools that make the rest possible — and the person who makes them actually work.",
+what:"A specialist who matches technology to a person's needs: screen readers and magnification, text-to-speech and speech-to-text, adapted keyboards, switches and mounts, accessible educational software, and environmental controls. They assess, configure, train, and troubleshoot.",
+why:["Writing by hand is a barrier to showing what your child knows","Reading is a barrier to accessing grade-level content","Devices need mounting, switch access, or physical adaptation","Existing technology is being used inconsistently or abandoned","You need an AT evaluation written into an IEP","Home and school are using different, incompatible tools"],
+visit:"Assessment of tasks that are hard, trials of specific tools against those tasks, and a written recommendation. Follow-up for setup and training matters more than the initial recommendation.",
+ask:["What does my child need at home, not just at school?","Who maintains, updates, and troubleshoots this?","What happens to school-owned equipment over the summer or if we move?","Can the same tools work across all of my child's devices?"],
+know:"Assistive technology assessment can be requested as part of an IEP evaluation. Abandonment is the central failure mode — tools sit unused when nobody was trained or when the tool solved a problem the child didn't have. Insist on training and a follow-up review. Built-in accessibility features on mainstream tablets and computers are often powerful and free.",
+alongside:["aac","tvi","ot","neuropsych"]},
+{id:"orthopedist",branch:"move",tag:"Physician",name:"Pediatric orthopedist",
+hook:"Bones, joints, spine, and hips — the structural questions, including surgical ones.",
+what:"A surgical specialist for the musculoskeletal system in children. They manage scoliosis, hip development and dislocation, leg length differences, foot deformities, toe walking, fractures, and joint problems, and they decide when bracing, casting, or surgery is warranted.",
+why:["A curve in the back, uneven shoulders, or uneven hips","Toe walking that persists or a heel cord that won't stretch","Limping, pain, or refusal to bear weight","Feet that turn in or out significantly","Hip concerns, especially with low tone, cerebral palsy, or limited walking","Frequent fractures"],
+visit:"Exam of alignment, range of motion, and gait, usually with X-rays. Growth is a central variable — many decisions hinge on how much growing is left.",
+ask:["Is this something that resolves with growth or worsens with it?","What are the non-surgical options, and what's the tradeoff of waiting?","How will this affect walking, comfort, and function in five years?","Who follows this between visits — you, PT, or orthotics?"],
+know:"Children with limited walking or low muscle tone need hip surveillance on a schedule, because hips can migrate silently and painlessly until the problem is advanced — ask whether your child should be on a monitoring protocol. Toe walking has several causes, from tight heel cords to sensory preference to neurological conditions, and the treatment differs entirely by cause.",
+alongside:["physiatrist","pt","orthotist","podiatrist"]},
+
+{id:"physiatrist",branch:"move",tag:"Physician",name:"Physiatrist (rehabilitation medicine)",
+hook:"The physician who thinks in function — tone, mobility, and what a body can actually do.",
+what:"A physician specializing in physical medicine and rehabilitation. They manage muscle tone and spasticity, coordinate therapy plans, prescribe wheelchairs, walkers, braces, and adaptive equipment, and treat pain and mobility limitations without surgery. In pediatrics they often function as the quarterback for children with movement differences.",
+why:["Spasticity or tight muscles interfering with movement, sleep, or care","Equipment is needed — wheelchair, stander, gait trainer, adaptive seating","Therapy is happening but nobody is directing the overall plan","Botulinum toxin injections, serial casting, or tone medications are being considered","Pain related to positioning, tone, or overuse","You want a functional goal set and pursued rather than a list of exercises"],
+visit:"Assessment of tone, strength, range, and function, with attention to what your child wants to do and can't. Equipment visits often include a therapist and a vendor together for fitting.",
+ask:["What's the functional goal here, and how will we measure it?","What's the full sequence of tone management options, from least to most invasive?","How long will equipment take to arrive, and what do we use meanwhile?","How do therapy, orthotics, and orthopedics coordinate — and who leads?"],
+know:"Equipment ordering is slow — months, routinely — so start before you need it, and ask about growth adjustability. Physiatry is the specialty most likely to keep function rather than measurement as the goal, which makes it a useful home base when several movement specialists are involved and their advice conflicts.",
+alongside:["orthopedist","pt","ot","orthotist"]},
+
+{id:"podiatrist",branch:"move",tag:"Physician",name:"Podiatrist",
+hook:"Feet — where pain, gait, and refusal to walk far often start.",
+what:"A specialist in the foot and ankle who manages flat feet, high arches, in-toeing and out-toeing, heel pain, toe walking, nail and skin problems, and ingrown or infected toenails. Some prescribe custom orthotics and manage footwear.",
+why:["Foot or heel pain, or complaints after walking short distances","Flat feet or high arches causing symptoms","Shoes wearing unevenly or a persistently unusual gait","Recurrent ingrown toenails or skin problems on the feet","Sensory sensitivity making shoes intolerable","Toe walking with skin or nail complications"],
+visit:"Exam of foot structure standing and sitting, observation of walking, footwear inspection, and possibly imaging or pressure mapping.",
+ask:["Is this causing symptoms, or is it a variation that doesn't need treatment?","Would orthotics help, and how long until we'd know?","What footwear features should we look for?","Should orthopedics or physical therapy be involved instead of or alongside this?"],
+know:"Flat feet in children are frequently normal and don't require treatment without pain or functional limitation. Textured insoles and sensory-informed footwear approaches are used by some clinicians for gait and sensory feedback; evidence varies, so ask what outcome is expected and by when. Shoe tolerance is a legitimate clinical issue, not fussiness, and worth naming directly.",
+alongside:["orthotist","orthopedist","pt","ot"]},
+
+{id:"orthotist",branch:"move",tag:"Therapy & allied",name:"Orthotist or pedorthist",
+hook:"The person who actually makes the braces — a different job from the doctor who prescribes them.",
+what:"A certified orthotist designs, fabricates, and fits braces and supports: ankle-foot orthoses, supramalleolar orthoses, hand and wrist splints, spinal braces, and helmets. A pedorthist focuses on footwear and foot orthoses. They handle casting, fitting, adjustment, and the endless small modifications that make a device wearable.",
+why:["Braces have been prescribed and need to be made and fitted","Existing braces cause rubbing, redness, or refusal to wear them","Your child has outgrown current equipment","Shoes don't fit over braces","A brace was ordered but is sitting unused","You need a wear schedule that's realistic for your family"],
+visit:"Casting or scanning, then a fitting appointment, then adjustments. Skin checks after initial wear are essential — expect to come back.",
+ask:["What's the wear schedule, and how do we build up to it?","What does normal redness look like versus a problem I should call about?","How do we handle shoes, socks, and heat?","How long until this needs replacing, and can it be adjusted for growth?"],
+know:"Comfort determines compliance. A brace that hurts will not be worn, and that is a fitting problem, not a behavior problem — go back and keep going back until it's right. Ask about material choices and lining if your child has sensory sensitivity, and about fun colors or patterns, which sound trivial and meaningfully change willingness to wear them.",
+alongside:["physiatrist","orthopedist","pt","podiatrist"]},
+
+{id:"pt",branch:"move",tag:"Therapy & allied",name:"Physical therapist",
+hook:"Strength, balance, and getting where you want to go.",
+what:"A PT evaluates and treats gross motor function: strength, balance, coordination, endurance, gait, and the skills of moving through the world. They also assess equipment needs and design home programs.",
+why:["Gross motor milestones are late or unusual","Frequent falling, clumsiness, or fatigue with walking","Low or high muscle tone affecting movement","Recovery after surgery, casting, or injury","Difficulty with stairs, playgrounds, or keeping up with peers","Braces or equipment need functional training to be useful"],
+visit:"Standardized motor assessment plus observation of real activities. Sessions are play-based for young children, with a home program that matters more than the session itself.",
+ask:["What's the specific functional goal, not just the exercise?","How do we make the home program fit our actual life?","How does this coordinate with school-based PT — are goals duplicated or aligned?","When would you expect to discharge, and what would maintenance look like?"],
+know:"School-based physical therapy targets access to education, not general development, which is why it's often less than families expect and why many use outpatient PT as well. Aquatic therapy and adaptive sports are legitimate extensions that children usually tolerate far better than clinic repetition — ask about them.",
+alongside:["physiatrist","ot","orthotist","om"]},
+
+{id:"ot",branch:"move",tag:"Therapy & allied",name:"Occupational therapist",
+hook:"Daily life — dressing, eating, writing, regulating, and coping with a loud world.",
+what:"An OT works on the skills and adaptations needed for everyday activities: fine motor and hand skills, self-care like dressing and toileting and grooming, handwriting, sensory processing and regulation, and the environmental modifications that make participation possible.",
+why:["Difficulty with dressing, buttons, utensils, or self-care","Handwriting difficulty or hand fatigue","Strong reactions to sound, touch, texture, movement, or clothing","Difficulty with regulation, transitions, or recovering after upset","Toileting difficulty with a sensory or motor component","You need a sensory-informed plan for home and classroom"],
+visit:"Assessment of fine motor skill, self-care, and sensory responses, with parent questionnaires. Treatment blends skill-building with adapting the environment and teaching regulation strategies.",
+ask:["Which of these are skill gaps and which are sensory or regulation issues?","What environmental changes would help most at home and at school?","What should the teacher be doing differently?","How do we build these strategies into our routine rather than adding another therapy block?"],
+know:"Sensory integration therapy has a mixed evidence base as a standalone treatment, while sensory-informed accommodations and environmental adaptation are widely accepted and often the higher-yield part of the work. The strategies that matter most are the ones that fit into an actual day. Ask for two or three changes, not a twenty-item list.",
+alongside:["pt","slp","feeding","psychologist"]},
+{id:"allergist",branch:"body",tag:"Physician",name:"Allergist",
+hook:"What's triggering the reactions — food, environment, or something else entirely.",
+what:"A physician who diagnoses and treats allergic disease: food allergy, environmental and seasonal allergy, asthma, eczema, hives, drug allergy, and anaphylaxis. They perform skin and blood testing, supervise food challenges, and manage immunotherapy.",
+why:["Reactions after eating — hives, swelling, vomiting, breathing difficulty","Chronic congestion, itchy eyes, or year-round symptoms","Eczema that isn't controlled","Frequent hives without an obvious cause","A suspected medication allergy that's limiting options","Foods are being avoided based on assumption rather than testing"],
+visit:"Detailed history of reactions, timing, and exposures, then skin prick or blood testing. Supervised oral food challenges are done in office to confirm or rule out an allergy definitively.",
+ask:["Which of these results are true allergies versus sensitization without reaction?","Can we challenge any of the avoided foods to get them back?","What's the emergency plan, and who needs to be trained?","Could this be a non-allergic reaction instead — intolerance, or something else?"],
+know:"Positive test results without a history of reacting are common and lead to unnecessary food avoidance, which matters enormously for a child whose accepted food list is already short. Ask about supervised challenges to reclaim foods. Delayed food-triggered reactions and non-IgE conditions exist and won't show on standard tests — describe timing carefully.",
+alongside:["immunologist","pulmonologist","dermatologist","gi_dietitian"]},
+
+{id:"immunologist",branch:"body",tag:"Physician",name:"Clinical immunologist",
+hook:"When infections come too often, last too long, or don't respond to treatment.",
+what:"A physician evaluating how the immune system functions — whether it's underactive, overactive, or dysregulated. They diagnose primary immunodeficiency, evaluate recurrent or unusual infections, and manage treatments including immunoglobulin replacement. Some also work on autoimmune and inflammatory presentations.",
+why:["Repeated pneumonias, sinus infections, or ear infections requiring antibiotics","Infections that are unusually severe, prolonged, or from uncommon organisms","Poor response to vaccines, or a family history of immune problems","Abnormal immunoglobulin, lymphocyte, or white cell results","Sudden onset of neuropsychiatric symptoms after an infection","Autoimmune conditions clustering in one child or one family"],
+visit:"A full infection history with dates, treatments, and cultures, plus immune function labs measuring antibody levels, vaccine response, and cell counts. Some testing requires a vaccine challenge and repeat draw weeks later.",
+ask:["Is the immune system underperforming, overactive, or both?","Which of these results are outside normal in a way that's clinically meaningful?","Does this change vaccine or antibiotic decisions?","What's the monitoring plan going forward?"],
+know:"Bring a written infection timeline — dates, symptoms, treatments, cultures — because the pattern over time is what drives the diagnosis, and no chart assembles it for you. Post-infectious neuropsychiatric syndromes such as PANS and PANDAS are recognized by some clinicians and disputed by others; if this is your question, ask directly about the clinician's approach before booking, because the visit will go very differently depending on the answer.",
+alongside:["allergist","rheumatologist","infectious","psychiatrist"]},
+
+{id:"pulmonologist",branch:"body",tag:"Physician",name:"Pediatric pulmonologist",
+hook:"Breathing — daytime, nighttime, and during effort.",
+what:"A physician specializing in the lungs and airway. They manage asthma, chronic cough, recurrent pneumonia, breathing problems during sleep, chronic aspiration, and children who need respiratory equipment or support.",
+why:["Wheezing, chronic cough, or shortness of breath with activity","Repeated pneumonia, especially in the same location","Asthma that isn't controlled on current treatment","Suspected aspiration — coughing during meals, wet breathing after drinking","Sleep-related breathing problems needing management beyond ENT","Reliance on nebulizers, airway clearance, or oxygen"],
+visit:"Breathing history including triggers and exercise, lung exam, and lung function testing when a child can participate. May include imaging, sleep study, or swallow evaluation.",
+ask:["Is this asthma, or something that resembles it?","Could aspiration be driving repeated pneumonias?","Are we using the inhaler correctly — can someone watch us do it?","What's the plan when things get worse, written down?"],
+know:"Inhaler technique is wrong in most households, and a spacer with a mask changes delivery dramatically — ask someone to watch your child use it rather than describing it. If pneumonias keep recurring in the same lung region, ask about aspiration and swallow studies specifically. A written asthma action plan is standard and belongs at school.",
+alongside:["allergist","sleep","ent","feeding"]},
+
+{id:"infectious",branch:"body",tag:"Physician",name:"Infectious disease specialist",
+hook:"Persistent, unusual, or contested infections — including tick-borne illness.",
+what:"A physician specializing in the diagnosis and treatment of infections, particularly ones that are unusual, prolonged, resistant to treatment, or hard to identify. This includes tick-borne illnesses such as Lyme disease, anaplasmosis, and babesiosis, along with post-infectious complications.",
+why:["Fevers or symptoms without an identified source","A known tick bite followed by illness, rash, joint pain, or fatigue","Positive or ambiguous infectious testing that needs interpretation","Infections that keep returning after treatment","Travel-related or unusual exposures","Ongoing symptoms attributed to a past infection"],
+visit:"Exposure and travel history, symptom timeline, physical exam, and targeted testing. Treatment decisions often hinge on how a specific test result should be interpreted, which is where careful history matters most.",
+ask:["What does this test result mean, and what are its false positive and false negative rates?","What's the treatment course, and how will we judge whether it worked?","If symptoms persist after treatment, what's your explanation and your plan?","How does this interact with the rest of my child's care?"],
+know:"Tick-borne illness is an area of real and sometimes bitter disagreement in medicine, particularly around persistent symptoms after treatment. Mainstream infectious disease practice and clinicians who treat chronic tick-borne illness often reach different conclusions from the same test results. Understand where a given clinician stands before the visit, know that long-term antibiotic therapy carries its own risks, and be cautious with any practitioner who is certain when the evidence isn't.",
+alongside:["immunologist","rheumatologist","integrative","neurologist"]},
+
+{id:"rheumatologist",branch:"body",tag:"Physician",name:"Pediatric rheumatologist",
+hook:"Joints, inflammation, autoimmunity — and the hypermobility that gets missed.",
+what:"A physician managing autoimmune and inflammatory conditions affecting joints, muscles, skin, and connective tissue: juvenile arthritis, lupus, dermatomyositis, vasculitis, and connective tissue disorders including hypermobility syndromes and Ehlers-Danlos.",
+why:["Joint pain, swelling, or morning stiffness","Very flexible joints alongside pain, fatigue, or frequent dislocations","Unexplained fevers with rash or joint symptoms","Abnormal inflammatory markers or autoimmune antibodies","Fatigue and pain that no other specialty has explained","Skin changes with muscle weakness"],
+visit:"Full joint exam, skin and muscle assessment, and testing of inflammatory markers and autoantibodies. Hypermobility is assessed with a specific scored exam.",
+ask:["Is there active inflammation, or is this a pain and connective tissue picture?","What do these antibody results mean given the symptoms — or lack of them?","Should physical therapy be part of this, and what kind specifically?","What symptoms should prompt a call before the next visit?"],
+know:"Hypermobility is commonly overlooked and commonly co-occurs with fatigue, gut symptoms, and autonomic problems — if joints are unusually flexible, say so directly, because it may reframe several other complaints at once. Autoantibody testing produces positives in healthy children, so interpretation depends on symptoms rather than the number alone.",
+alongside:["immunologist","cardiologist","pt","orthopedist"]},
+
+{id:"dermatologist",branch:"body",tag:"Physician",name:"Pediatric dermatologist",
+hook:"Skin that itches, breaks, or signals something deeper.",
+what:"A physician specializing in skin, hair, and nails in children. They manage eczema, psoriasis, chronic hives, birthmarks and vascular lesions, hair loss, and skin findings that point toward a genetic or systemic condition.",
+why:["Eczema that isn't controlled with standard treatment","Persistent rashes, hives, or itching disrupting sleep","Skin picking or scratching causing wounds or infection","Birthmarks, particularly multiple pigmented or vascular ones","Hair loss or nail changes","Skin changes accompanying a new set of symptoms"],
+visit:"Full skin exam, sometimes with specialized lighting or a biopsy. Eczema treatment typically involves a stepwise plan of bathing, moisturizing, and medications, written out.",
+ask:["Can I have this treatment plan in writing, in order?","How much steroid is safe, where, and for how long?","Could allergy, immune, or genetic factors be involved?","How do we manage this when my child resists creams and baths?"],
+know:"Skin findings can be the first visible clue to genetic and neurological conditions — several pigmented or vascular birthmarks together are worth mentioning to genetics. Application is a real barrier for children with sensory sensitivity; ask about ointment versus cream textures, timing around baths, and wet wrap techniques, and say plainly if daily application isn't achievable so the plan can be built around reality.",
+alongside:["allergist","immunologist","geneticist","ot"]},
+
+{id:"cardiologist",branch:"body",tag:"Physician",name:"Pediatric cardiologist",
+hook:"Heart structure and rhythm — plus dizziness, racing heart, and the autonomic picture.",
+what:"A physician specializing in the heart and circulation in children. They evaluate murmurs, congenital heart differences, rhythm disturbances, chest pain, fainting, and autonomic conditions such as POTS. They also monitor heart effects of certain medications and genetic conditions.",
+why:["Fainting, near-fainting, or dizziness on standing","Racing heart, palpitations, or chest pain","A murmur that needs evaluation","A genetic condition associated with heart involvement","Starting a medication that requires cardiac monitoring","Family history of sudden cardiac events or early heart disease"],
+visit:"Exam, EKG, and often an echocardiogram — an ultrasound of the heart, painless but requiring several minutes of stillness. Rhythm concerns may lead to a monitor worn for days or weeks.",
+ask:["Is this structural, electrical, or autonomic?","Do any activity restrictions apply, and for how long?","Does this affect which medications are safe?","What symptoms mean call now versus mention at the next visit?"],
+know:"Fainting on standing, exercise intolerance, and racing heart in a child with fatigue and hypermobility may point toward an autonomic condition, which is diagnosed and managed differently from a structural heart problem — say the pattern out loud rather than only the symptom. Certain psychiatric and stimulant medications warrant an EKG first; if a family history of sudden death exists, say so early and clearly.",
+alongside:["rheumatologist","psychiatrist","geneticist","neurologist"]}
+];
+
+/* ---------- build the tree ---------- */
+const tree=document.getElementById('tree');
+const byId=Object.fromEntries(DATA.map(d=>[d.id,d]));
+const tagClass=t=>t==='Therapy & allied'?'allied':t==='Education & access'?'access':'';
+
+BRANCHES.forEach(b=>{
+  const sec=document.createElement('section');
+  sec.className='branch';sec.dataset.branch=b.id;
+  sec.innerHTML='<div class="branchhead"><span class="dot"></span>'+
+    '<h2 class="branchtitle">'+b.title+'</h2>'+
+    '<span class="branchnote">'+b.note+'</span></div>'+
+    '<div class="rail"><div class="leaves"></div></div>';
+  const leaves=sec.querySelector('.leaves');
+  DATA.filter(d=>d.branch===b.id).forEach(d=>{
+    const btn=document.createElement('button');
+    btn.className='leaf';btn.dataset.id=d.id;btn.type='button';
+    btn.innerHTML='<span class="tag '+tagClass(d.tag)+'">'+d.tag+'</span>'+
+      '<h3 class="leafname">'+d.name+'</h3>'+
+      '<p class="leafhook">'+d.hook+'</p>';
+    btn.addEventListener('click',()=>openDetail(d.id));
+    leaves.appendChild(btn);
+  });
+  tree.appendChild(sec);
+});
+
+/* ---------- detail view ---------- */
+const detail=document.getElementById('detail');
+const detailBody=document.getElementById('detailbody');
+let lastFocus=null;
+
+function openDetail(id){
+  const d=byId[id];if(!d)return;
+  lastFocus=document.activeElement;
+  detailBody.innerHTML=
+    '<span class="tag '+tagClass(d.tag)+'">'+d.tag+'</span>'+
+    '<h2 id="detailname">'+d.name+'</h2>'+
+    '<p class="detailhook">'+d.hook+'</p>'+
+    '<h3>What they do</h3><p>'+d.what+'</p>'+
+    '<h3>Reasons families come here</h3><ul>'+d.why.map(w=>'<li>'+w+'</li>').join('')+'</ul>'+
+    '<h3>What a first visit often looks like</h3><p>'+d.visit+'</p>'+
+    '<h3>Questions worth asking</h3><ul>'+d.ask.map(a=>'<li>'+a+'</li>').join('')+'</ul>'+
+    '<h3>Good to know</h3><div class="callout">'+d.know+'</div>'+
+    '<h3>Often works alongside</h3><div class="chips">'+
+      d.alongside.filter(a=>byId[a]).map(a=>'<button class="chip" data-go="'+a+'">'+byId[a].name+'</button>').join('')+
+    '</div>';
+  detailBody.querySelectorAll('[data-go]').forEach(c=>
+    c.addEventListener('click',()=>openDetail(c.dataset.go)));
+  detail.classList.add('open');
+  document.body.style.overflow='hidden';
+  detail.scrollTop=0;
+  document.getElementById('back').focus();
+}
+function closeDetail(){
+  detail.classList.remove('open');
+  document.body.style.overflow='';
+  if(lastFocus)lastFocus.focus();
+}
+document.getElementById('back').addEventListener('click',closeDetail);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&detail.classList.contains('open'))closeDetail();});
+
+/* ---------- search ---------- */
+const search=document.getElementById('search');
+const count=document.getElementById('count');
+function haystack(d){return (d.name+' '+d.hook+' '+d.what+' '+d.why.join(' ')+' '+d.know+' '+d.tag).toLowerCase();}
+function filter(){
+  const q=search.value.trim().toLowerCase();
+  let shown=0;
+  document.querySelectorAll('.branch').forEach(sec=>{
+    let any=false;
+    sec.querySelectorAll('.leaf').forEach(l=>{
+      const hit=!q||haystack(byId[l.dataset.id]).includes(q);
+      l.classList.toggle('hidden',!hit);
+      if(hit){any=true;shown++;}
+    });
+    sec.classList.toggle('hidden',!any);
+  });
+  count.textContent=q?shown+' of '+DATA.length+' specialties match':DATA.length+' specialties across 7 areas';
+  let e=document.getElementById('empty');
+  if(!shown&&q){if(!e){e=document.createElement('p');e.id='empty';e.className='empty';tree.appendChild(e);}
+    e.textContent='Nothing matches "'+search.value+'". Try a symptom instead of a specialty — "constipation", "sleep", "walking".';}
+  else if(e){e.remove();}
+}
+search.addEventListener('input',filter);
+filter();
+</script>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

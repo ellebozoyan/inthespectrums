@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aquatic Therapy — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --water:#1D6A82; --water-tint:#E1EEF2; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: properties of water */
+.props{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.props h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.props .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:2px}
+.pr{background:rgba(255,255,255,.05);border-top:2px solid var(--water);padding:13px 14px 15px}
+.pr b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:#EFEBE3;margin-bottom:6px}
+.pr span{font-size:.84rem;color:#B9C4B4;line-height:1.48;display:block}
+.props .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:24px 0 0;max-width:62ch}
+.props .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.kinds{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.kind{background:var(--card);border-left:3px solid var(--water);padding:18px 20px}
+.kind h3{font-size:1.05rem;font-weight:400;margin:0 0 4px}
+.kind .who{font-family:var(--sans);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--water);font-weight:700;margin:0 0 10px}
+.kind p{font-size:.93rem;margin:0}
+
+.moves{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.move{background:var(--card);border-left:3px solid var(--forest);padding:19px 21px}
+.move .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 5px}
+.move h3{font-size:1.08rem;font-weight:400;margin:0 0 9px}
+.move p{font-size:.94rem;margin:0 0 10px}
+.move ul{font-size:.91rem;padding-left:17px;margin:0}
+.move li{margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.strong{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.mixed{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.weak{background:#F6E4E0;border-left:4px solid #8A2B20}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.strong h3{color:var(--forest)}.ev.mixed h3{color:#A8641C}.ev.weak h3{color:#8A2B20}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:#F6E4E0;border-left:4px solid #8A2B20}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:#8A2B20}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.wnote{background:var(--water-tint);border-left:4px solid var(--water);padding:20px 22px;margin:24px 0}
+.wnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--water);font-weight:700;margin:0 0 10px}
+.wnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.move,.kind,.col{break-inside:avoid}
+  .props{background:#fff;color:#000;border:1px solid #000}.props .big,.pr b,.props .cap strong{color:#000}}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Aquatic therapy:<br><em>a different set of physics</em></h1>
+  <p class="lede">Water isn't a nicer room to do physical therapy in. It changes the actual mechanics — how much a body weighs, how fast it can fall, how hard a movement is, and how much pressure the skin is under. For some children it's the only environment where a movement is currently possible at all, and for many it's the first place they've ever kept up.</p>
+</header>
+
+<div class="profnote">
+  <b>Reading this as a professional</b>
+  <p>Covers aquatic physical therapy and its distinction from adaptive swim instruction and recreational swimming, which families conflate constantly.</p>
+  <p>The precautions section and the drowning-prevention link are the two most important pieces for anyone recommending pool time to a family with a child who wanders.</p>
+</div>
+
+<section>
+  <div class="props">
+    <h2>What water does that a therapy room can't</h2>
+    <p class="big">Six physical properties, each of which changes what a body can do. This is why aquatic work isn't just land work that's more fun — the task itself is genuinely different.</p>
+    <div class="pgrid">
+      <div class="pr"><b>Buoyancy</b><span>Chest-deep water removes roughly two-thirds of body weight. Standing, stepping, and squatting become possible before they're possible on land</span></div>
+      <div class="pr"><b>Hydrostatic pressure</b><span>Even pressure over the whole submerged body — deep, organizing proprioceptive input, plus reduced swelling and easier circulation</span></div>
+      <div class="pr"><b>Viscosity</b><span>Resistance in every direction, proportional to effort. Strengthening that self-adjusts and needs no weights</span></div>
+      <div class="pr"><b>Warmth</b><span>A therapy pool sits around 92 to 94 degrees. Warmth reduces tone, eases pain, and makes tissue more willing to move</span></div>
+      <div class="pr"><b>Turbulence</b><span>Balance challenge you can safely fail at. Falling costs nothing, so a child will try things they'd never risk standing up</span></div>
+      <div class="pr"><b>Slowed time</b><span>Water slows every movement, giving a child with delayed processing enough time to make a correction they couldn't make on land</span></div>
+    </div>
+    <p class="cap"><strong>That last one is the most underappreciated.</strong> A child who loses balance on land has a fraction of a second to react and usually doesn't get there. In water they have a second or two — long enough to feel it happening, organize a response, and succeed. Repeated often enough, that experience of catching yourself is what eventually transfers back to dry land.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Three different things <em>in a pool</em></h2>
+  <p class="secnote">Worth being clear which one you're arranging, because they have different goals, different providers, and different funding.</p>
+  <div class="kinds">
+    <div class="kind"><h3>Aquatic physical therapy</h3><p class="who">Licensed PT · Goal-directed · Often billable</p>
+      <p>A physical therapist delivering treatment in water toward specific functional goals, with assessment, measurement, and discharge criteria. The pool is the treatment environment; the goals are the same kind you'd see in any PT plan.</p></div>
+    <div class="kind"><h3>Adaptive swim instruction</h3><p class="who">Swim instructor with adapted methods</p>
+      <p>Teaching a child to be safe and capable in water. The goal is swimming and survival skills. For a child who is drawn to water or leaves the house, <strong>this is a safety intervention</strong>, not a leisure activity.</p></div>
+    <div class="kind"><h3>Recreational and family swim</h3><p class="who">You, a pool, and time</p>
+      <p>Play, fitness, and participation. No goals required. Enormously valuable, and the version most likely to continue for decades after therapy ends.</p></div>
+  </div>
+  <p style="margin-top:16px">Most families end up wanting more than one. The common sequence is aquatic therapy to build capability, adaptive lessons to build safety, and recreational swimming to keep it all going once the others finish.</p>
+</section>
+
+<section>
+  <h2 class="sec">What aquatic therapy <em>targets</em></h2>
+  <div class="domains">
+    <div class="dom">
+      <h3>Weight-bearing and walking</h3>
+      <p>The clearest use of buoyancy: practicing upright movement at a fraction of full load, then gradually moving to shallower water as tolerance grows.</p>
+      <ul>
+        <li>Standing and stepping before it's possible on land</li>
+        <li>Gait practice with reduced joint loading</li>
+        <li>Depth used as a dial — deeper is easier, shallower is harder</li>
+        <li>Early mobilization after surgery or casting</li>
+        <li>Underwater treadmill work where available</li>
+      </ul>
+      <p class="look"><b>What families notice</b>A child taking independent steps in the pool months before taking them on the floor — which is genuinely meaningful practice, not an illusion.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Strength and endurance</h3>
+      <p>Resistance that scales automatically with effort, in a setting where children will work far longer than they will on a mat.</p>
+      <ul>
+        <li>Whole-body strengthening without equipment</li>
+        <li>Cardiovascular fitness that's achievable for children who can't run</li>
+        <li>Longer active time before fatigue sets in</li>
+        <li>Core and trunk work through constant postural adjustment</li>
+      </ul>
+      <p class="look"><b>What families notice</b>Twenty minutes of continuous effort from a child who tires after five minutes of land exercise — and who asks to go back.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Balance and postural control</h3>
+      <p>The safe-to-fail property. Balance improves through recovering from near-falls, and water is the only place a child can practice that hundreds of times without consequence.</p>
+      <ul>
+        <li>Static and dynamic balance against turbulence</li>
+        <li>Righting and protective reactions with time to execute them</li>
+        <li>Confidence, which is a real component of balance</li>
+        <li>Graded challenge by changing depth, current, and support</li>
+      </ul>
+      <p class="look"><b>What families notice</b>Willingness to attempt things they refuse on land, because falling in water isn't frightening.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Tone, range, and comfort</h3>
+      <p>Warmth plus buoyancy makes stretching and positioning possible in ways that are difficult or painful on a mat.</p>
+      <ul>
+        <li>Reduced spasticity in warm water, with a window of easier movement</li>
+        <li>Range of motion work with gravity removed</li>
+        <li>Supported positioning that would need equipment on land</li>
+        <li>Pain relief for hypermobility, arthritis, and post-operative stiffness</li>
+      </ul>
+      <p class="look"><b>What families notice</b>A visibly looser child during and shortly after a session — worth scheduling land practice into that window when it exists.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Sensory regulation</h3>
+      <p>Hydrostatic pressure delivers deep, even proprioceptive input across the whole body at once — something no piece of equipment replicates.</p>
+      <ul>
+        <li>Whole-body deep pressure, continuous and predictable</li>
+        <li>Reduced visual and auditory load once submerged</li>
+        <li>Warmth as a regulating input</li>
+        <li>Movement input for children who seek it</li>
+      </ul>
+      <p class="look"><b>What families notice</b>Regulation that lasts hours after swimming, better sleep on pool days, and a child who is noticeably more available for everything else afterward.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Breathing</h3>
+      <p>Water pressure on the chest makes inhalation slightly harder, which trains respiratory muscles without anyone having to describe an exercise.</p>
+      <ul>
+        <li>Respiratory muscle strengthening simply by being immersed</li>
+        <li>Breath control through blowing games and bubbles</li>
+        <li>Sustained exhalation, which supports voice and speech</li>
+        <li>Endurance for children with reduced respiratory capacity</li>
+      </ul>
+      <p class="look"><b>What families notice</b>Louder voice, longer phrases, and better stamina — often reported alongside gains that were the actual goal.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Motor planning</h3>
+      <p>Slowed movement gives a child time to organize a sequence, feel it happening, and correct mid-action.</p>
+      <ul>
+        <li>Novel movement sequences at a manageable speed</li>
+        <li>Bilateral coordination through swimming patterns</li>
+        <li>Body awareness enhanced by pressure feedback</li>
+        <li>Crossing midline and reaching in a supported position</li>
+      </ul>
+      <p class="look"><b>What families notice</b>Coordination in the pool that looks unlike anything they manage on land, and a route into skills that had stalled.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Participation, fitness, and a life</h3>
+      <p>The outcome that outlasts the therapy episode, and arguably the most valuable one.</p>
+      <ul>
+        <li>A sport that is genuinely accessible, often for the first time</li>
+        <li>Swimming with siblings and peers on equal terms</li>
+        <li>Adaptive swim teams and community programs</li>
+        <li>A lifelong fitness option that doesn't need a therapist</li>
+        <li>Being in a pool on holiday like everyone else</li>
+      </ul>
+      <p class="look"><b>Why it matters</b>Very few therapies hand a family an activity they'll still be doing in ten years for pleasure. This one does.</p>
+    </div>
+
+    <div class="dom">
+      <h3>And, unavoidably, water safety</h3>
+      <p>Pool time is also the setting where a child learns not to drown. For some children that outranks every other goal on this page.</p>
+      <ul>
+        <li>Survival skills first: rolling to a back float, breathing, getting to an edge</li>
+        <li>Entry and exit independently</li>
+        <li>Practicing fully clothed at least once</li>
+        <li>Understanding depth, and when to ask for help</li>
+      </ul>
+      <p class="look"><b>Ask for this explicitly</b>Aquatic therapy is not swim instruction, and a therapist working on gait will not automatically teach survival skills. Say that you want them, or arrange lessons separately.</p>
+    </div>
+  </div>
+
+  <div class="warn">
+    <h3>The reason this matters more than it looks</h3>
+    <p>Drowning is the leading cause of death among children with autism who leave a safe place, and children with disabilities are at elevated risk generally. Comfort in water without competence in water is its own hazard — a child who loves the pool and has no survival skills is in more danger, not less.</p>
+    <p>So pursue both. Aquatic therapy for function, and adaptive swim instruction for survival, with the survival skills treated as non-negotiable. The <a href="safety.html">safety page</a> covers the layered approach around water at home and in the community.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Precautions, and who it <em>isn't</em> for</h2>
+  <p class="secnote">Aquatic therapy is unusually safe and unusually well tolerated. There are still real contraindications, and a few that families and even some programs miss.</p>
+
+  <h3 class="sub">Discuss before starting</h3>
+  <ul>
+    <li><strong>Seizures.</strong> Not an automatic exclusion, but requires a written plan, one-to-one supervision in the water, and staff who know the protocol. Ask what happens if a seizure occurs mid-session.</li>
+    <li><strong>Open wounds, recent surgery, tube or line sites, tracheostomy.</strong> Each needs clearance and a specific plan; some are absolute exclusions until healed.</li>
+    <li><strong>Temperature regulation difficulty.</strong> Children who don't sweat normally, or who have autonomic conditions, can overheat quickly in a warm therapy pool. Say so in advance.</li>
+    <li><strong>Cardiac and respiratory conditions.</strong> Immersion changes circulation and breathing mechanics — get clearance rather than assuming.</li>
+    <li><strong>Chlorine sensitivity and asthma.</strong> Indoor pool air triggers some children. Ask about ventilation, chlorine levels, and whether saltwater or UV-treated pools are available.</li>
+    <li><strong>Muscular dystrophy and fatigue-sensitive conditions.</strong> Water tempts children to work far past their limit because it feels easy. Overwork can be genuinely harmful — the plan should cap effort deliberately.</li>
+    <li><strong>Continence.</strong> Ask about swim diaper policy in advance rather than at the door.</li>
+    <li><strong>Fear of water.</strong> A real and common barrier. Good programs desensitize over weeks — sitting on the edge, feet in, shallow steps — and never rush a child in.</li>
+  </ul>
+
+  <div class="wnote">
+    <h3>The sensory things nobody warns you about</h3>
+    <p>The pool itself is often the easy part. What defeats families is everything around it: the echo in a tiled hall, the smell of chlorine, the changing room, wet clothes, the temperature shock between water and air, hand dryers, and the hair washing afterward.</p>
+    <p>Fixes exist for all of it. Ask about quiet times or the pool being reserved. Bring ear defenders for the hall, a towel robe for the transition, and familiar swimwear. Practice changing at home first, and consider swimming last thing so you can go straight home. A child who "hates swimming" sometimes just hates the twelve minutes on either side of it.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Evidence, <em>sorted honestly</em></h2>
+  <div class="evid">
+    <div class="ev strong"><h3>Well supported</h3>
+      <p><strong>Aquatic exercise for gross motor function, walking endurance, and fitness in cerebral palsy</strong> — multiple trials and reviews show benefit, particularly for endurance and participation.</p>
+      <p><strong>Pain and function in juvenile arthritis</strong> and other painful conditions.</p>
+      <p><strong>Early post-operative mobilization</strong> where wounds allow.</p>
+      <p><strong>Swim instruction as drowning prevention</strong> — a life-saving intervention, and the best-evidenced thing on this page by some distance.</p>
+      <p><strong>Adherence and enjoyment.</strong> Children turn up, stay longer, and work harder in water. That's a legitimate clinical advantage, not a soft one — dose is what makes therapy work.</p>
+    </div>
+
+    <div class="ev mixed"><h3>Mixed or emerging</h3>
+      <p><strong>Aquatic versus land-based therapy.</strong> Head-to-head comparisons often show comparable results rather than clear superiority. The real advantages tend to be access, tolerance, and enjoyment — which matter enormously in practice.</p>
+      <p><strong>Structured aquatic methods</strong> such as Halliwick and Bad Ragaz — coherent, widely taught, with limited controlled evidence for the specific method above general aquatic exercise.</p>
+      <p><strong>Aquatic programs for autism-specific outcomes</strong> — promising findings for motor skills and some social measures, small studies.</p>
+      <p><strong>Regulation and sleep effects.</strong> Widely reported by families and clinically plausible; not much formally studied.</p>
+    </div>
+
+    <div class="ev weak"><h3>Ask hard questions</h3>
+      <p><strong>Claims of unique neurological benefit</strong> that land-based work couldn't achieve. Water changes the mechanics; it doesn't change the nervous system in a special way.</p>
+      <p><strong>Passive aquatic bodywork</strong> marketed for developmental outcomes.</p>
+      <p><strong>Programs promising transformation</strong> from intensive aquatic packages, particularly expensive ones requiring travel.</p>
+      <p>The genuine case for aquatic therapy is strong enough without any of this.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">How it changes <em>with age</em></h2>
+  <div class="moves">
+    <div class="move"><p class="age">Infants and toddlers</p><h3>Held, warm, and unhurried</h3>
+      <p>Parent in the water, skin contact, no expectations. Building comfort and early head control, with buoyancy allowing movement a small body can't yet produce on land.</p>
+      <ul><li>Warm water, short sessions, parent-held throughout</li><li>Blowing bubbles and breath games</li><li>Early back-float tolerance, which becomes a survival skill later</li></ul></div>
+
+    <div class="move"><p class="age">Preschool</p><h3>Play as the whole method</h3>
+      <p>Everything happens inside a game. Reaching for toys, chasing, jumping in, walking across the pool to something worth getting to.</p>
+      <ul><li>Stepping and walking in chest-deep water</li><li>Balance games against turbulence</li><li>Entry and exit independence</li><li>First adaptive swim lessons alongside therapy</li></ul></div>
+
+    <div class="move"><p class="age">Elementary</p><h3>Skill, safety, and keeping up</h3>
+      <p>Real swim strokes for those who can, survival competence for everyone, and the first experience of a physical activity where they aren't last.</p>
+      <ul><li>Survival sequence practiced until automatic</li><li>Strength and endurance work with clear targets</li><li>Adaptive swim programs and inclusive lessons</li><li>Swimming with siblings and peers on equal terms</li></ul></div>
+
+    <div class="move"><p class="age">Adolescence</p><h3>Fitness, and a sport that fits</h3>
+      <p>Growth spurts, weight changes, and increasing joint load make water more valuable rather than less. This is also when a sport that's genuinely accessible becomes part of identity.</p>
+      <ul><li>Adaptive swim teams and para-swimming pathways</li><li>Independent fitness routines they own</li><li>Pain management for hypermobility and overuse</li><li>Water as a place they choose to be</li></ul></div>
+
+    <div class="move"><p class="age">Adulthood</p><h3>The therapy that keeps going</h3>
+      <p>Aquatic exercise is one of the few things from a childhood of therapy that transfers cleanly into adult life, without eligibility criteria or funding approval.</p>
+      <ul><li>Community pools, adaptive sessions, and masters programs</li><li>Fitness that protects joints over decades</li><li>A social setting organized around an activity</li></ul></div>
+
+    <div class="move"><p class="age">Throughout</p><h3>Where to find water</h3>
+      <p>Therapy pools are scarcer and warmer than public ones. It's worth asking widely.</p>
+      <ul><li>Children's hospitals and rehabilitation centers</li><li>Community centers with adaptive or warm-water sessions</li><li>Special education schools and disability sport organizations</li><li>Some private clinics and university programs</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Choosing a program</h2>
+  <div class="compare">
+    <div class="col good"><h3>What good looks like</h3>
+      <ul>
+        <li>A licensed PT in the water with your child, not calling instructions from the deck</li>
+        <li>Water genuinely warm — around 92 degrees, not a lap pool at 80</li>
+        <li>Goals stated in land terms: what will change outside the pool, and by when</li>
+        <li>A written plan for seizures, tubes, temperature, and any medical need</li>
+        <li>Attention to the sensory experience around the pool, not just in it</li>
+        <li>A plan for transferring gains onto land</li>
+        <li>Honest about when land-based work would serve better</li>
+        <li>Talks with you about swim safety even though it isn't their job</li>
+      </ul>
+    </div>
+    <div class="col bad"><h3>Worth asking about</h3>
+      <ul>
+        <li>Sessions indistinguishable from a swim lesson, billed as therapy</li>
+        <li>Cold water, or a pool that leaves your child shivering</li>
+        <li>No stated goals, or goals only about pool performance</li>
+        <li>Fatigue-sensitive conditions worked to exhaustion because it "felt easy"</li>
+        <li>A child pushed into water they're frightened of</li>
+        <li>No medical plan for a child with seizures</li>
+        <li>Open-ended sessions with no discharge conversation</li>
+        <li>Claims that water uniquely rewires the brain</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">Questions worth asking</h3>
+  <ul>
+    <li>What will change on land, and how will we measure it?</li>
+    <li>How warm is the pool, and how long is a session?</li>
+    <li>Who is in the water, and at what ratio?</li>
+    <li>What's the plan if my child has a seizure, or gets too hot, or panics?</li>
+    <li>How will gains be transferred to land, and when?</li>
+    <li>Will you teach or coordinate survival skills, or should we arrange lessons separately?</li>
+    <li>What's the sensory environment like, and can we visit before starting?</li>
+    <li>What would make you say we're finished here?</li>
+  </ul>
+
+  <h3 class="sub">Paying for it</h3>
+  <ul>
+    <li>Aquatic therapy is billed under its own code and is a common denial target — verify coverage by code and place of service before starting, as described on the therapy funding page.</li>
+    <li>A letter of medical necessity explaining <em>why water specifically</em> — reduced weight-bearing, tone, pain, or tolerance — is far more likely to be approved than a general aquatic therapy request.</li>
+    <li>Adaptive swim lessons are usually not covered as therapy but are sometimes funded by disability organizations, state waivers, or drowning-prevention grants. Ask by name.</li>
+    <li>Community centers frequently run low-cost adaptive sessions that nobody advertises. Call and ask.</li>
+  </ul>
+
+  <div class="note">
+    <h3>Meet our aquatic therapist</h3>
+    <p>This section links to a practitioner page — background, credentials, approach, pool location, and how to get in touch. Written and approved by them.</p>
+    <p><em>Placeholder: add name, credentials, practice, a short statement in their own words, and a link. See the contributor guidance on the About page before publishing.</em></p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="physical-therapy.html"><h3>Physical therapy</h3>
+      <p>The land-based picture — domains, evidence, hip surveillance, and how to recognize strong PT. Aquatic work usually sits inside a wider plan.</p>
+      <span class="go">Read the PT page</span></a>
+    <a class="libcard" href="safety.html"><h3>Safety</h3>
+      <p>Water safety, layered protection, and why a missing child is a water search until proven otherwise. Essential reading alongside this page.</p>
+      <span class="go">Read the safety page</span></a>
+    <a class="libcard" href="occupational-therapy.html"><h3>Occupational therapy</h3>
+      <p>Sensory regulation, changing-room routines, and the self-care skills that surround a swimming session.</p>
+      <span class="go">Read the OT page</span></a>
+    <a class="libcard" href="paying-for-therapy.html"><h3>Paying for it</h3>
+      <p>Verifying coverage by code, letters of medical necessity, and appealing the denial that aquatic therapy frequently attracts.</p>
+      <span class="go">Read the page</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>Two things to take away. Water may let your child do something today that they cannot yet do on land — and that practice is real, not a trick of buoyancy.</p>
+  <p>And whatever else the pool is for, make sure someone is teaching them to float, roll over, and get to an edge. That is the skill that matters most, it is learnable by nearly every child, and asking for it costs one sentence at the next appointment.</p>
+</div>
+
+<footer>
+  <p><strong>This is a map, not medical advice.</strong> Whether aquatic therapy is appropriate, and what precautions apply, are decisions for clinicians who have assessed your child. Some medical conditions are genuine contraindications to immersion.</p>
+  <p>No child with a disability should be in water without appropriate supervision, regardless of skill level. Swimming ability reduces drowning risk; it does not remove it.</p>
+</footer>
+
+</div>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

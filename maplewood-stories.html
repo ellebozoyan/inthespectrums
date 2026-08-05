@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Maplewood Stories — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-soft:#C08355; --paper:#FBF7F0; --card:#FFFFFF; --line:#E0D8CB;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:18px;
+  line-height:1.68;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 22px}
+.narrow{max-width:640px;margin:0 auto}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 20px}
+
+/* hero spread */
+.spread{padding:76px 0 20px;text-align:center}
+.spread h1{font-size:clamp(2.3rem,6.4vw,4.1rem);line-height:1.08;margin:0 0 26px;
+  font-weight:400;letter-spacing:-.015em}
+.spread h1 em{font-style:italic;color:var(--forest);display:block}
+.spread .thesis{font-size:clamp(1.15rem,2.6vw,1.42rem);line-height:1.5;color:var(--ink-soft);
+  max-width:34ch;margin:0 auto 34px}
+.rule{width:64px;height:2px;background:var(--rust);margin:0 auto 60px}
+
+section{margin:0 0 64px}
+h2.sec{font-size:clamp(1.6rem,3.8vw,2.2rem);font-weight:400;margin:0 0 10px;line-height:1.2;
+  letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 30px;font-size:1.02rem}
+p{margin:0 0 18px}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:38px 0 14px}
+ul{padding-left:21px;margin:0 0 18px}li{margin-bottom:10px}
+
+.pull{font-size:clamp(1.25rem,3vw,1.6rem);line-height:1.42;color:var(--forest);font-style:italic;
+  text-align:center;max-width:26ch;margin:48px auto;padding:0}
+
+/* cast */
+.cast{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:14px}
+.kid{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:20px 22px}
+.kid h3{font-size:1.22rem;font-weight:400;margin:0 0 4px;color:var(--rust)}
+.kid .tag{font-family:var(--sans);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-soft);font-weight:700;margin:0 0 11px}
+.kid p{font-size:.96rem;line-height:1.58;margin:0;color:var(--ink)}
+
+/* layers */
+.layer{background:var(--card);border-left:4px solid var(--forest);padding:22px 24px;margin-bottom:13px}
+.layer h3{font-size:1.16rem;font-weight:400;margin:0 0 9px}
+.layer p{font-size:.98rem;margin:0 0 12px}
+.layer p:last-child{margin:0}
+.layer .how{font-size:.92rem;color:var(--ink-soft);border-top:1px solid var(--line);
+  padding-top:12px;margin-top:14px}
+.layer .how b{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin-right:8px}
+
+.note{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:26px 28px;margin:32px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 12px}
+.note p:last-child{margin-bottom:0}
+
+.world{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.piece{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:20px 22px}
+.piece h3{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:0 0 10px}
+.piece p{font-size:.94rem;margin:0}
+
+.closing{text-align:center;padding:20px 0 0}
+.closing p{font-size:1.1rem;max-width:38ch;margin:0 auto 18px}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:28px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff}.kid,.layer,.piece{break-inside:avoid}}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<div class="spread">
+  <p class="eyebrow">In The Spectrums · The Maplewood Project</p>
+  <h1>Ten children live in Maplewood.<em>None of them is a lesson.</em></h1>
+  <p class="thesis">Fifty-two picture books about a group of friends who are not alike, do not want the same things, and are figuring it out together — one week at a time.</p>
+  <div class="rule"></div>
+</div>
+
+<section class="narrow">
+  <h2 class="sec">Why these books exist</h2>
+  <p>Most children's books about difference are about a child who is different, surrounded by children who are not. There is a problem, and the problem is the child, and by the last page everyone has learned to be kind to them.</p>
+  <p>Children notice this. The child who is meant to see themselves in that book sees a story where they are the thing to be tolerated. Every other child learns that difference is something that happens to one person at a time.</p>
+  <p>Maplewood starts somewhere else. In these books there is no normal child and no different child, because <strong>the whole cast is different from each other.</strong> Milo needs a run-up to things Ivy leaps straight into. Cora is only just learning to notice she's hungry, while Jasper has known exactly what he wants for lunch since Tuesday. Nobody is the exception, so nobody has to be the lesson.</p>
+  <p>What's left, once you take the moral out, is a story. Something happens on the playground. Someone is left out, or gets it wrong, or is braver than they expected. And a child and an adult read it together on a sofa, and something quietly gets built.</p>
+</section>
+
+<p class="pull">Fifty-two books. One a week. A year of small conversations that would be hard to start any other way.</p>
+
+<section>
+  <h2 class="sec">The children of <em>Maplewood</em></h2>
+  <p class="secnote narrow" style="margin-left:0">Ten friends, each carrying something real. Their differences show up the way they do in life — in how they play, argue, help, and recover — rather than being announced.</p>
+
+  <div class="cast">
+    <div class="kid"><h3>Milo</h3><p class="tag">Doing it his own way</p>
+      <p>Milo has his own plans, and being told what to do makes them harder to reach, not easier. The fastest route to Milo is almost never a straight line — but when it's his idea, he's unstoppable.</p></div>
+
+    <div class="kid"><h3>Sadie</h3><p class="tag">Notices everything</p>
+      <p>The hum of the lights, the tag in the collar, the exact second a room changes mood. Sometimes it's the best thing about her. Sometimes it's a great deal to carry at once.</p></div>
+
+    <div class="kid"><h3>Theo</h3><p class="tag">Feels it all the way down</p>
+      <p>Enormous joy, enormous fury, and everything in between arriving at full volume. Theo is building a set of ways to ride the big ones out, and getting better at it every week.</p></div>
+
+    <div class="kid"><h3>Luna</h3><p class="tag">Thinks a long way ahead</p>
+      <p>Luna has already imagined everything that might go wrong, which is exhausting and occasionally extremely useful. She is brave in the way that only worried people ever have to be.</p></div>
+
+    <div class="kid"><h3>Ezra</h3><p class="tag">Learning to take the costume off</p>
+      <p>Ezra has spent a lot of energy being whoever the room seemed to want. Maplewood is where that starts to loosen, and where being exactly himself turns out to cost less than he feared.</p></div>
+
+    <div class="kid"><h3>Cora</h3><p class="tag">Listening to her own signals</p>
+      <p>Hungry, tired, too hot, needing to move, needing to stop — Cora's body sends the messages quietly and she is learning to catch them before they get loud.</p></div>
+
+    <div class="kid"><h3>Jasper</h3><p class="tag">Means exactly what he says</p>
+      <p>Jasper says what he means and assumes everyone else does too, which makes some conversations a puzzle he's solving in real time. He is unfailingly, sometimes inconveniently, honest.</p></div>
+
+    <div class="kid"><h3>Finn</h3><p class="tag">Takes his time</p>
+      <p>Finn watches from the edge until he's ready. Rushing him puts him further back. Let him arrive at his own pace and he's all the way in, every time.</p></div>
+
+    <div class="kid"><h3>Remy</h3><p class="tag">Moves first, thinks second</p>
+      <p>Remy is halfway up the tree before the idea has finished forming, and has the scraped knees to prove it. He's finding out where the pause goes.</p></div>
+
+    <div class="kid"><h3>Ivy</h3><p class="tag">Nine ideas at once</p>
+      <p>Ivy has more plans than pockets and has genuinely no idea where her shoes are. The ideas are good. Getting from idea to finished is the interesting part.</p></div>
+  </div>
+
+  <div class="note narrow" style="margin-left:0">
+    <h3>What you won't find here</h3>
+    <p>None of these children is labeled in the stories, and no book explains what any of them "has." A child who shares something with Sadie will recognize her without being told they are Sadie, and a child who shares nothing with her still gets to know her as a friend.</p>
+    <p>The cast reflects a wide range of families, skin tones, and backgrounds, and that shows up the way it does in any real group of friends — present, unremarked, and not the plot.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What's <em>woven in</em></h2>
+  <p class="secnote">Five threads run through all fifty-two books. None of them arrives as a lecture, because a child who senses a lesson coming stops listening before it lands.</p>
+
+  <div class="layer">
+    <h3>Social and emotional learning</h3>
+    <p>Naming feelings, reading them in someone else, recovering after things go wrong, repairing a friendship, sitting with disappointment, and the enormous skill of letting someone else go first.</p>
+    <p class="how"><b>How</b>Through what the characters actually do — Theo works out what helps when he's furious, and the reader watches it work, rather than being told what to do when they're furious.</p>
+  </div>
+
+  <div class="layer">
+    <h3>Executive function</h3>
+    <p>Getting started. Holding a plan in mind. Noticing you've drifted. Breaking a big thing into a first small step. Waiting. Switching tracks when the plan changes. Finishing.</p>
+    <p class="how"><b>How</b>These are the shape of the plots themselves. Ivy has a brilliant idea and has to get from idea to done, and the story <em>is</em> the getting there.</p>
+  </div>
+
+  <div class="layer">
+    <h3>A growth mindset that isn't a poster</h3>
+    <p>Effort that actually works, strategies that get changed when they don't, and the ordinary experience of being bad at something on the way to being good at it.</p>
+    <p class="how"><b>How</b>Characters fail in these books and stay failing for a while. The recovery is earned rather than announced on the last page.</p>
+  </div>
+
+  <div class="layer">
+    <h3>Safety and situational awareness</h3>
+    <p>Noticing what's around you, thinking before choosing, knowing when to ask, and knowing that your own uneasy feeling counts as information. Built on a simple sequence children can carry with them.</p>
+    <p class="how"><b>How</b>Drawn from wilderness risk practice and scaled down to a playground, a parking lot, a pond, and a stranger at the gate.</p>
+  </div>
+
+  <div class="layer">
+    <h3>Belonging, without a spotlight</h3>
+    <p>Ten children who are unalike and are friends anyway. Difference as the ordinary condition of a group rather than a problem the group solves.</p>
+    <p class="how"><b>How</b>By never making a character's difference the reason for the story. It's the reason the story goes the way it does — which is not the same thing at all.</p>
+  </div>
+</section>
+
+<section class="narrow">
+  <h2 class="sec">Reading them together</h2>
+  <p>These books are built for a lap, a sofa, an arm around a shoulder, and a shared page. That isn't sentiment — shared reading is one of the most reliably effective things an adult and a child can do together, and it works because of the talking, not the text.</p>
+
+  <h3 class="sub">A few things that help</h3>
+  <ul>
+    <li><strong>Stop and wonder out loud.</strong> "I wonder how Finn's feeling right now." Not a question with a right answer — an invitation to think alongside you.</li>
+    <li><strong>Let them be someone other than themselves.</strong> Don't point out that a character is like your child. If they see it, they'll say so, and it lands a hundred times harder when they find it.</li>
+    <li><strong>Read it again.</strong> And again. Children return to the same book because they're still working on something in it, and the tenth reading is often where the conversation finally happens.</li>
+    <li><strong>Let them skip the words.</strong> Looking at the pictures, saying one line, turning pages backwards — all of it counts as reading together.</li>
+    <li><strong>Share the reading in whatever way works.</strong> A child using a device can read a line, a repeated phrase, or the character who sounds most like them.</li>
+    <li><strong>Notice what you feel too.</strong> "That bit makes me a bit sad" teaches more about emotional life than any page of the book.</li>
+  </ul>
+
+  <div class="note">
+    <h3>For classrooms and clinics</h3>
+    <p>Each book stands alone, so they can be read in any order and dropped into a lesson, a therapy session, or a difficult week. Read across a term, the cast becomes familiar enough that a teacher can say "what would Luna do here?" and a room full of children will know exactly what's being asked.</p>
+    <p>That shared reference — a group of children who all know Finn needs a minute — turns out to be one of the most useful things the books produce.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The wider <em>Maplewood</em></h2>
+  <p class="secnote narrow" style="margin-left:0">The stories sit at the center of a larger set of materials, all built to be used and adapted rather than admired.</p>
+  <div class="world">
+    <div class="piece"><h3>Play schemas</h3>
+      <p>A large library of play frameworks — the repeated patterns children work through in play, with social and emotional learning built in, ready to run at home, in a classroom, or in a session.</p></div>
+    <div class="piece"><h3>Safety and awareness cards</h3>
+      <p>A simple, repeatable sequence for noticing, thinking, and choosing, drawn from wilderness risk practice and written for real situations children meet.</p></div>
+    <div class="piece"><h3>Companion materials</h3>
+      <p>Social stories, visual routines, tablet pages, and themed activities — the practical things that turn a story into something a child can carry into Tuesday morning.</p></div>
+    <div class="piece"><h3>Free to use and adapt</h3>
+      <p>Templates rather than artifacts. Change the names, keep what works, add what your children need. These are built to amplify what you already bring — they work best in your voice, for your room, with your people.</p></div>
+  </div>
+</section>
+
+<section class="closing narrow">
+  <div class="rule" style="margin-bottom:44px"></div>
+  <p>Every child deserves to open a book and find someone who moves through the world the way they do — not as the problem, not as the lesson, but as one of the friends.</p>
+  <p>That's the whole of it. Everything else is plot.</p>
+</section>
+
+<footer>
+  <p>The Maplewood Project is an original picture book series written for families, classrooms, and clinics, and offered freely as part of In The Spectrums.</p>
+  <p>Person-first language is used throughout the supporting materials. The stories themselves use no diagnostic language at all — the children are simply the children.</p>
+</footer>
+
+</div>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

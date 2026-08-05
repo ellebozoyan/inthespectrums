@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Template Builders — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --paper:#FFFDF8;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 22px;font-size:1.04rem}
+header.masthead{padding:50px 0 12px}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}
+.tab{font-family:var(--sans);font-size:13px;padding:10px 16px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink-soft);border-radius:2px;cursor:pointer;letter-spacing:.02em}
+.tab:hover{border-color:var(--rust);color:var(--rust)}
+.tab.on{background:var(--forest);border-color:var(--forest);color:#fff}
+.tab:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+.tabnote{font-size:.93rem;color:var(--ink-soft);margin:0 0 24px;max-width:64ch;font-style:italic}
+
+.build{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:26px;align-items:start;
+  padding-bottom:70px}
+@media(max-width:860px){.build{grid-template-columns:1fr}}
+
+.form{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:24px}
+.form h2{font-size:1.3rem;font-weight:400;margin:0 0 6px}
+.form .fnote{font-size:.92rem;color:var(--ink-soft);margin:0 0 20px}
+.fld{margin-bottom:16px}
+label{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.06em;
+  color:var(--forest);font-weight:700;text-transform:uppercase;margin-bottom:6px}
+.hint{display:block;font-family:var(--serif);font-size:.86rem;color:var(--ink-soft);
+  text-transform:none;letter-spacing:0;font-weight:400;margin-top:3px}
+input[type=text],textarea{width:100%;font-family:var(--serif);font-size:15px;padding:10px 12px;
+  border:1px solid var(--line);border-radius:2px;background:#fff;color:var(--ink);line-height:1.5}
+textarea{min-height:74px;resize:vertical}
+input:focus,textarea:focus{outline:2px solid var(--rust);outline-offset:1px;border-color:transparent}
+.btns{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+button.act{font-family:var(--sans);font-size:13px;padding:11px 18px;border-radius:2px;cursor:pointer;
+  border:1px solid var(--forest);background:var(--forest);color:#fff;letter-spacing:.03em}
+button.act.ghost{background:none;color:var(--forest)}
+button.act:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+button.act:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+
+.preview{position:sticky;top:18px}
+.plabel{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-soft);margin:0 0 9px}
+.doc{background:var(--paper);border:1px solid #CBC6B8;border-radius:2px;padding:32px 30px;
+  font-family:var(--serif);font-size:14.5px;line-height:1.62;color:#22221E;
+  max-height:74vh;overflow-y:auto}
+@media(max-width:860px){.preview{position:static}.doc{max-height:none}}
+.doc h1{font-size:1.3rem;font-weight:400;margin:0 0 4px;letter-spacing:0;text-align:center}
+.doc .sub{text-align:center;font-family:var(--sans);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:#7A7568;margin:0 0 18px;padding-bottom:14px;border-bottom:2px solid #22221E}
+.doc h2{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:#8A5A2A;font-weight:700;margin:20px 0 7px}
+.doc p{margin:0 0 11px}
+.doc ol,.doc ul{margin:0 0 11px;padding-left:20px}
+.doc li{margin-bottom:7px}
+.doc .blank{color:#B2ACA0;font-style:italic}
+.doc .flagbox{background:#F4E2DD;border:1px solid #B57C70;padding:11px 13px;margin:12px 0}
+.doc .kv{margin-bottom:8px}
+.doc .kv b{font-family:var(--sans);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:#7A7568;display:block;font-weight:700}
+.doc .foot{border-top:1px dashed #C3BDAE;margin-top:20px;padding-top:11px;font-size:12px;color:#7A7568}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:18px 20px;margin:0 0 26px;
+  font-size:.95rem}
+.note strong{color:var(--rust)}
+.hidden{display:none!important}
+@media print{
+  body{background:#fff}
+  .masthead,.tabs,.tabnote,.form,.plabel,.note,footer{display:none!important}
+  .build{display:block;padding:0}.preview{position:static}
+  .doc{border:none;padding:0;max-height:none;overflow:visible;background:#fff;font-size:11pt}
+}
+footer{border-top:1px solid var(--line);padding:24px 0 60px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Template builders:<br><em>fill it in, print it, use it tomorrow</em></h1>
+  <p class="lede">Four documents that get used over and over. Type into the form and the finished document builds itself alongside. Print it, or copy the text into an email.</p>
+  <div class="note"><strong>Nothing you type is sent anywhere or saved.</strong> It exists only in this browser tab, and closing the page clears it. Print or copy before you leave.</div>
+  <div class="tabs" id="tabs"></div>
+  <p class="tabnote" id="tabnote"></p>
+</header>
+
+
+<div class="profnote"><b>Reading this as a professional</b><p>The child one-pager works as an intake document and gives you a family's own words before the first session. The responder profile is worth requiring for camps, programs, and trips.</p><p>Nothing typed here is stored or sent anywhere, so it's safe to fill in alongside a family on a shared screen.</p></div>
+<main class="build">
+  <div class="form" id="form"></div>
+  <div class="preview">
+    <p class="plabel">Live preview</p>
+    <div class="doc" id="doc"></div>
+  </div>
+</main>
+
+<footer>
+  <p>These templates are offered freely for families, teachers, therapists, and caregivers to adapt. Change the wording, keep what works, add what matters to you — they do their best work when they sound like you, because you are the one who knows this child.</p>
+  <p>Nothing here is legal or medical advice. Special education procedure and program rules vary by state.</p>
+</footer>
+
+</div>
+
+<script>
+const T={
+one:{
+ name:"About my child",
+ note:"A one-page introduction for a new teacher, therapist, substitute, babysitter, or specialist. The document families reuse more than any other.",
+ title:"Getting to know me",
+ fields:[
+  {k:"name",l:"Name and what to call them",p:"e.g. Sam — goes by Sammy"},
+  {k:"age",l:"Age and grade",p:"e.g. 9, third grade"},
+  {k:"love",l:"What I love",t:1,p:"Interests, obsessions, favorite people and things. Start here — it's the most useful thing on the page."},
+  {k:"good",l:"What I'm good at",t:1,p:"Real strengths, not consolation. What comes easily to me?"},
+  {k:"comm",l:"How I communicate",t:1,p:"Speech, device, signs, gestures. What I understand vs what I can say. How long I need to respond."},
+  {k:"helps",l:"What helps me",t:1,p:"Warning before changes, quiet space, headphones, visual schedule, humour, being given a job."},
+  {k:"hard",l:"What makes things harder",t:1,p:"Noise, crowds, being rushed, surprise changes, direct questions, being watched."},
+  {k:"hardlook",l:"What a hard moment looks like",t:1,p:"How you'd know I'm struggling before it becomes obvious. Early signs matter most."},
+  {k:"dothen",l:"What to do then",t:1,p:"And what NOT to do. Be specific — 'give space and stop talking' beats 'stay calm'."},
+  {k:"med",l:"Medical and safety notes",t:1,p:"Allergies, seizures, medication, dietary needs, whether I might leave, whether I feel pain normally."},
+  {k:"proud",l:"Something I'm proud of",p:"e.g. I swam a whole length last summer"},
+  {k:"contact",l:"Who to contact",t:1,p:"Names, relationship, phone numbers."}
+ ]},
+concerns:{
+ name:"IEP parent concerns",
+ note:"The only section of the IEP you write. Submit it by email several days before the meeting and ask that it be entered verbatim. Write everything; discuss two or three.",
+ title:"Parent concerns statement",
+ fields:[
+  {k:"child",l:"Child's name",p:"Full name"},
+  {k:"date",l:"Date submitted",p:"e.g. March 14, 2027"},
+  {k:"meeting",l:"Meeting date",p:"e.g. March 21, 2027"},
+  {k:"who",l:"Submitted by",p:"e.g. Alex and Jordan Rivera, parents"},
+  {k:"strengths",l:"Who our child is",t:1,p:"Two or three sentences of strengths and personality. Sets the tone in a room full of deficit language."},
+  {k:"c1",l:"Concern 1",t:1,p:"What we observe · where and when · how often · what we've tried · what we're asking the team to consider."},
+  {k:"c2",l:"Concern 2",t:1,p:"Communication, academics, safety, regulation, social, self-care, transitions, sensory…"},
+  {k:"c3",l:"Concern 3",t:1,p:""},
+  {k:"c4",l:"Concern 4",t:1,p:""},
+  {k:"c5",l:"Concern 5",t:1,p:""},
+  {k:"c6",l:"Concern 6",t:1,p:"Keep going — write every concern, however small or however 'not educational' it seems."},
+  {k:"unres",l:"Still unresolved from previous years",t:1,p:"Include the date first raised. 'As also raised in October 2025…' is quietly powerful."},
+  {k:"focus",l:"Our priorities for this meeting",t:1,p:"The two or three you want discussion time on today."}
+ ]},
+er:{
+ name:"Emergency responder profile",
+ note:"For your fridge, glovebox, school office, and your local police and fire departments. Take it to them in person before anything happens.",
+ title:"Emergency responder profile",
+ fields:[
+  {k:"name",l:"Name, age, description",t:1,p:"Name, age, height, hair, distinguishing features. Attach a current photo."},
+  {k:"addr",l:"Home address",p:""},
+  {k:"diag",l:"Diagnosis — and what it means in practice",t:1,p:"e.g. Autistic. Does not respond to his name. Understands more than he can say."},
+  {k:"flags",l:"Critical flags",t:1,p:"May run · may hide and stay silent when called · may not follow commands · may not show pain · IS DRAWN TO WATER"},
+  {k:"comm",l:"How they communicate",t:1,p:"Device, signs, few words, none. Where the device is kept."},
+  {k:"calm",l:"What calms them",t:1,p:"Specific: a song, a phrase, a toy, quiet, dim light, being left alone."},
+  {k:"esc",l:"What escalates them",t:1,p:"Sirens, touch, shouting, being surrounded, bright lights, restraint."},
+  {k:"places",l:"Places they might go",t:1,p:"Water within a half mile, a neighbor's dog, the train station, a particular store."},
+  {k:"medical",l:"Medical information",t:1,p:"Conditions, medications, allergies, seizure protocol, anesthesia notes."},
+  {k:"contacts",l:"Contacts in order",t:1,p:"Name, relationship, phone."}
+ ]},
+hosp:{
+ name:"Hospital bedside card",
+ note:"Tape it above the bed. Every new face on every new shift reads it without you having to explain twelve times.",
+ title:"About my child — please read before approaching",
+ fields:[
+  {k:"name",l:"Name and what to call them",p:""},
+  {k:"base",l:"My baseline — this is normal for me",t:1,p:"The most clinically useful thing on the card. Staff have no idea what your child looks like well."},
+  {k:"comm",l:"How I communicate",t:1,p:"Device must stay charged and within reach at all times, including in intensive care."},
+  {k:"pain",l:"How you'll know I'm in pain",t:1,p:"I may go quiet rather than cry. I may laugh. I may rock or hit. Ask which behavioral pain scale you're using."},
+  {k:"dont",l:"Please do not",t:1,p:"Approach from behind · talk over my head · hold me down without warning · remove my headphones · wake me for non-urgent checks."},
+  {k:"calm",l:"What helps me stay calm",t:1,p:""},
+  {k:"food",l:"Food and drink I will actually take",t:1,p:"Brands and packaging matter. Ask the dietitian about bringing safe foods in."},
+  {k:"meds",l:"Medication notes",t:1,p:"Metabolism differences, allergies, drugs to avoid, what worked and didn't previously."},
+  {k:"equip",l:"Equipment I use and where it is",t:1,p:"Glasses, hearing devices, braces, device, charger."},
+  {k:"contacts",l:"Contacts",t:1,p:""}
+ ]}
+};
+
+let cur="one";const state={};
+Object.keys(T).forEach(k=>{state[k]={};});
+
+const tabs=document.getElementById('tabs'),tabnote=document.getElementById('tabnote'),
+      form=document.getElementById('form'),doc=document.getElementById('doc');
+
+Object.entries(T).forEach(([k,t])=>{
+  const b=document.createElement('button');
+  b.className='tab'+(k===cur?' on':'');b.textContent=t.name;b.type='button';b.dataset.k=k;
+  b.addEventListener('click',()=>{cur=k;
+    document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x.dataset.k===k));
+    renderForm();render();});
+  tabs.appendChild(b);
+});
+
+function renderForm(){
+  const t=T[cur];
+  tabnote.textContent=t.note;
+  let h='<h2>'+t.title+'</h2><p class="fnote">Fill in what applies. Leave the rest blank — the document only shows what you complete.</p>';
+  t.fields.forEach(f=>{
+    const v=state[cur][f.k]||'';
+    h+='<div class="fld"><label for="f_'+f.k+'">'+f.l+
+      (f.p?'<span class="hint">'+f.p+'</span>':'')+'</label>'+
+      (f.t?'<textarea id="f_'+f.k+'" data-k="'+f.k+'">'+esc(v)+'</textarea>'
+         :'<input type="text" id="f_'+f.k+'" data-k="'+f.k+'" value="'+esc(v)+'">')+'</div>';
+  });
+  h+='<div class="btns"><button class="act" id="printbtn" type="button">Print this document</button>'+
+     '<button class="act ghost" id="copybtn" type="button">Copy as text</button>'+
+     '<button class="act ghost" id="clearbtn" type="button">Clear</button></div>';
+  form.innerHTML=h;
+  form.querySelectorAll('[data-k]').forEach(el=>{
+    el.addEventListener('input',()=>{state[cur][el.dataset.k]=el.value;render();});
+  });
+  document.getElementById('printbtn').addEventListener('click',()=>window.print());
+  document.getElementById('copybtn').addEventListener('click',copyDoc);
+  document.getElementById('clearbtn').addEventListener('click',()=>{
+    if(confirm('Clear everything on this form?')){state[cur]={};renderForm();render();}});
+}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function nl(s){return esc(s).replace(/\n/g,'<br>');}
+function val(k){return (state[cur][k]||'').trim();}
+function kv(label,k){const v=val(k);if(!v)return '';
+  return '<div class="kv"><b>'+label+'</b>'+nl(v)+'</div>';}
+function sec(label,k){const v=val(k);if(!v)return '';
+  return '<h2>'+label+'</h2><p>'+nl(v)+'</p>';}
+
+function render(){
+  const s=state[cur];let h='';
+  if(cur==='one'){
+    h='<h1>'+(val('name')||'<span class="blank">Name</span>')+'</h1>'+
+      '<p class="sub">'+(val('age')||'Getting to know me')+'</p>'+
+      sec('What I love','love')+sec('What I\'m good at','good')+
+      sec('How I communicate','comm')+sec('What helps me','helps')+
+      sec('What makes things harder','hard')+sec('What a hard moment looks like','hardlook')+
+      sec('What to do then','dothen')+sec('Medical and safety','med')+
+      sec('Something I\'m proud of','proud')+sec('Contacts','contact')+
+      '<p class="foot">Please read this before working with me. If something here stops being true, tell my family — this document gets updated.</p>';
+  }
+  if(cur==='concerns'){
+    const cs=['c1','c2','c3','c4','c5','c6'].map(k=>val(k)).filter(Boolean);
+    h='<h1>Parent concerns statement</h1><p class="sub">'+
+      (val('child')||'Student name')+(val('meeting')?' · IEP meeting '+esc(val('meeting')):'')+'</p>'+
+      '<p>We are submitting these concerns in writing and request that they be included <b>verbatim</b> in the IEP document.'+
+      (val('who')?' Submitted by '+esc(val('who'))+'.':'')+
+      (val('date')?' Date submitted: '+esc(val('date'))+'.':'')+'</p>'+
+      sec('Who our child is','strengths');
+    if(cs.length){h+='<h2>Our concerns</h2><ol>'+cs.map(c=>'<li>'+nl(c)+'</li>').join('')+'</ol>';}
+    h+=sec('Previously raised and still unresolved','unres')+
+      sec('What we would like to focus on at this meeting','focus')+
+      '<h2>Request</h2><p>We ask that each concern above be addressed in the IEP, or that we receive prior written notice explaining why it will not be. Please confirm this statement has been entered into the document in full.</p>'+
+      '<p class="foot">Keep a copy of the email you sent this in. Check the draft and the final IEP to confirm it appears unedited.</p>';
+  }
+  if(cur==='er'){
+    h='<h1>Emergency responder profile</h1><p class="sub">Keep on the fridge · glovebox · school office</p>'+
+      kv('Who they are','name')+kv('Address','addr')+kv('Diagnosis and what it means','diag');
+    if(val('flags'))h+='<div class="flagbox"><b>CRITICAL</b><br>'+nl(val('flags'))+'</div>';
+    h+=kv('How they communicate','comm')+kv('What calms them','calm')+
+      kv('What escalates them','esc')+kv('Places they may go','places')+
+      kv('Medical information','medical')+kv('Contacts in order','contacts')+
+      '<p class="foot">Give a copy to your local police and fire departments in person, and ask whether they keep a voluntary registry or a flag on the address.</p>';
+  }
+  if(cur==='hosp'){
+    h='<h1>'+(val('name')||'<span class="blank">Name</span>')+'</h1>'+
+      '<p class="sub">Please read before approaching</p>'+
+      kv('This is normal for me','base')+kv('How I communicate','comm')+
+      kv('How you\'ll know I\'m in pain','pain');
+    if(val('dont'))h+='<div class="flagbox"><b>PLEASE DO NOT</b><br>'+nl(val('dont'))+'</div>';
+    h+=kv('What helps me stay calm','calm')+kv('Food and drink I will take','food')+
+      kv('Medication notes','meds')+kv('Equipment and where it is','equip')+
+      kv('Contacts','contacts')+
+      '<p class="foot">New behavior is a symptom until proven otherwise. If I am not doing what this card describes as normal for me, something is wrong.</p>';
+  }
+  doc.innerHTML=h||'<p class="blank">Start filling in the form and your document will appear here.</p>';
+}
+
+function copyDoc(){
+  const btn=document.getElementById('copybtn');
+  const txt=doc.innerText.trim();
+  navigator.clipboard.writeText(txt).then(()=>{btn.textContent='Copied';})
+    .catch(()=>{btn.textContent='Select the document to copy';});
+  setTimeout(()=>{btn.textContent='Copy as text';},2200);
+}
+
+renderForm();render();
+</script>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

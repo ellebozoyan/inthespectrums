@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programs & Entitlements — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 24px;font-size:1.06rem}
+header.masthead{padding:56px 0 20px}
+section{margin:0 0 54px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2rem);font-weight:400;margin:0 0 8px;line-height:1.2}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:.99rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:34px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+.prog{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:20px 22px;margin-bottom:12px}
+.prog h3{font-size:1.1rem;font-weight:400;margin:0 0 3px}
+.prog .who{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 12px}
+.prog p{font-size:.96rem;margin:0 0 10px}
+.prog p:last-child{margin-bottom:0}
+.prog .ask{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.92rem;color:var(--ink-soft)}
+.prog .ask b{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin-right:7px}
+
+.timeline{border-left:2px solid var(--line);padding-left:26px;margin-left:6px}
+.tnode{position:relative;padding-bottom:26px}
+.tnode::before{content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;
+  border-radius:50%;background:var(--rust);border:3px solid var(--ground)}
+.tage{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--rust);margin:0 0 5px}
+.tnode h3{font-size:1.05rem;font-weight:400;margin:0 0 6px}
+.tnode p{font-size:.95rem;margin:0}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:26px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.state{background:var(--card);border-left:4px solid var(--forest);padding:20px 22px;margin:0 0 26px}
+.state h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:0 0 10px}
+footer{border-top:1px solid var(--line);padding:26px 0 70px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+@media print{body{background:#fff;font-size:10.5pt}.prog,.tnode{break-inside:avoid}}
+
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Programs and entitlements:<br><em>what exists, and when to ask for it</em></h1>
+  <p class="lede">Some of what your family is entitled to arrives automatically. Most of it doesn't. This page covers the programs that exist in every state, the ones that turn on at particular ages, and — using Massachusetts as a worked example — how to find your own state's version of each.</p>
+</header>
+
+<section>
+  <h2 class="sec">The framework, in every state</h2>
+  <p class="secnote">These exist nationally under different names. Learning the category is what lets you find the local version.</p>
+
+  <div class="prog">
+    <h3>Early Intervention</h3>
+    <p class="who">Birth to 3 · Federal entitlement</p>
+    <p>Evaluation and services for infants and toddlers with delays or diagnosed conditions, delivered mostly in the home. Parents can self-refer without a doctor. Evaluation and the resulting service plan must be completed within 45 days of referral.</p>
+    <p class="ask"><b>Ask for</b>An evaluation, today, by phone. No diagnosis, no referral, no income test for the evaluation itself.</p>
+  </div>
+
+  <div class="prog">
+    <h3>Special education and 504 plans</h3>
+    <p class="who">3 to 21 or 22 · Federal entitlement</p>
+    <p>An IEP provides specialized instruction and related services under IDEA. A 504 plan provides accommodations under civil rights law for a child who needs access but not specialized instruction. Both are enforceable; only the IEP includes services measured in minutes.</p>
+    <p class="ask"><b>Ask for</b>A full initial evaluation in all areas of suspected disability, in writing, by email.</p>
+  </div>
+
+  <div class="prog">
+    <h3>Medicaid disability pathways</h3>
+    <p class="who">Any age · Varies by state · Often income-blind</p>
+    <p>Several routes let a child qualify for Medicaid based on their own disability rather than family income — commonly a Katie Beckett or TEFRA pathway, a home and community based services waiver, or a state buy-in program. Medicaid then acts as secondary insurance behind a commercial plan, absorbing copays, deductibles, and services the private plan excludes.</p>
+    <p class="ask"><b>Ask for</b>The disability-based pathway by name. The single most common reason families miss this is assuming they earn too much.</p>
+  </div>
+
+  <div class="prog">
+    <h3>Your state developmental disability agency</h3>
+    <p class="who">Childhood through adulthood · Eligibility-based, not an entitlement</p>
+    <p>Every state has an agency providing supports for people with intellectual and developmental disabilities: family support, respite, in-home skill building, day and employment programs, residential options. Services depend on eligibility criteria and, critically, on annual funding — being eligible is not the same as being funded.</p>
+    <p class="ask"><b>Ask for</b>An eligibility determination as early as your state allows, and the waitlist policy in writing.</p>
+  </div>
+
+  <div class="prog">
+    <h3>Supplemental Security Income and ABLE accounts</h3>
+    <p class="who">Any age · Income and asset rules apply</p>
+    <p>SSI is a monthly cash benefit for children with significant disability in low-income households, and it often carries Medicaid with it. At eighteen, eligibility is reassessed on the young person's own income rather than the family's, which is why many are denied as children and approved as adults. ABLE accounts let a person with a disability save without losing benefits.</p>
+    <p class="ask"><b>Ask for</b>A reassessment at eighteen even if you were denied before. This one changes for a great many families.</p>
+  </div>
+
+  <div class="prog">
+    <h3>Vocational rehabilitation</h3>
+    <p class="who">Roughly 14 and up · Federal-state program</p>
+    <p>State vocational rehabilitation agencies fund job training, coaching, assistive technology, and sometimes college support. Pre-employment transition services are available to students with disabilities while still in high school, and this is routinely started far too late.</p>
+    <p class="ask"><b>Ask for</b>Pre-employment transition services during high school, not after graduation.</p>
+  </div>
+
+  <div class="prog">
+    <h3>Free help understanding all of it</h3>
+    <p class="who">Every state · No cost, no eligibility test</p>
+    <p>Every state has a federally funded Parent Training and Information Center for special education, and a Family-to-Family Health Information Center for the health system. There are also state deafblind projects, commissions for the blind and for the deaf, and disability-specific support centers. All free, all under-used.</p>
+    <p class="ask"><b>Ask for</b>Nothing in particular — just call. This is the cheapest hour you'll spend on any of this.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Massachusetts, as a worked example</h2>
+  <p class="secnote">Your state has equivalents of most of these under different names. Reading one state's version in detail is the fastest way to know what to go looking for in your own.</p>
+
+  <div class="prog">
+    <h3>MassHealth CommonHealth</h3>
+    <p class="who">Children and adults with disabilities · No income ceiling</p>
+    <p>The one most families have never heard of. CommonHealth provides MassHealth benefits to children and adults with disabilities who don't qualify for MassHealth Standard, and it has no income limit at all — families above 150% of the federal poverty level pay a sliding-scale monthly premium instead of being excluded. It can sit behind private insurance and cover copays, coinsurance, deductibles, and services the commercial plan won't.</p>
+    <p>Qualifying requires a disability determination. For a child, that means submitting the MassHealth Child Disability Supplement along with medical records, evaluations, and the current IEP to Disability Evaluation Services. Determinations can take up to ninety days.</p>
+    <p class="ask"><b>Worth knowing</b>Gather the IEP and evaluations before you start; the strength of the disability documentation is what drives the determination.</p>
+  </div>
+
+  <div class="prog">
+    <h3>DESE/DDS Residential Prevention Program</h3>
+    <p class="who">School-age students who are DDS-eligible</p>
+    <p>A collaboration between the state education and developmental services departments providing in-home and community-based therapeutic supports — wraparound services aimed at building skills, independence, and social integration across home, school, and community. It also supports families whose child is returning home from a residential school placement.</p>
+    <p>Eligibility requires DDS Children's Services eligibility and a demonstrated need for services to prevent a more restrictive out-of-home residential placement. Families participate actively, provide evaluations and the current IEP, and share what other services are already in place. Participants typically receive several hours a week of behavioral and skills-based support.</p>
+    <p class="ask"><b>Worth knowing</b>Funding depends on an annual legislative appropriation, and the program runs an interest list with periodic open interest periods rather than continuous enrollment. Get on the list when it opens, even if you're unsure.</p>
+  </div>
+
+  <div class="prog">
+    <h3>Children's Autism Medicaid Waiver</h3>
+    <p class="who">Young children with autism · Medicaid-eligible</p>
+    <p>Run by the DDS Autism Division for children with an autism spectrum disorder from birth through the early elementary years who are Medicaid eligible and at risk of institutionalization. It funds intensive in-home services and supports, including applied behavior analysis and Floortime, for up to three years.</p>
+    <p class="ask"><b>Worth knowing</b>Families must apply — this is not offered automatically, and the age window is narrow enough that late awareness means missing it entirely.</p>
+  </div>
+
+  <div class="prog">
+    <h3>DDS eligibility, and the autism expansion</h3>
+    <p class="who">Children from age 5 · Adults from 22</p>
+    <p>DDS serves children aged five to twenty-two who have an intellectual or closely related developmental disability producing substantial functional limitations. For adults, a 2014 change expanded eligibility beyond intellectual disability to include developmental disabilities such as autism, Prader-Willi syndrome, and Smith-Magenis syndrome. Adult autism eligibility requires a severe chronic disability arising before age twenty-two with substantial functional impairment in three or more major life activity areas.</p>
+    <p class="ask"><b>Worth knowing</b>State guidance asks districts to encourage families to apply for adult DDS eligibility by age seventeen and a half. Unlike special education, adult DDS supports are not an entitlement — they depend on available funding, which is exactly why the lead time matters.</p>
+  </div>
+
+  <div class="prog">
+    <h3>DDS Regional Autism Support Centers</h3>
+    <p class="who">Any family · No eligibility requirement</p>
+    <p>Regional centers funded by DDS offering training, workshops, activities, and family connection for children and adults with autism across the state. Free, local, and useful long before any formal eligibility is established.</p>
+    <p class="ask"><b>Worth knowing</b>You don't need DDS eligibility to use a support center. Start here while other applications are pending.</p>
+  </div>
+
+  <div class="prog">
+    <h3>Chapter 688 — the Turning 22 law</h3>
+    <p class="who">Two years before special education ends</p>
+    <p>Massachusetts law requiring a transition planning process to begin at least two years before a student graduates or turns twenty-two, whichever comes first. The school district makes a referral to the Bureau of Transition Planning and to adult agencies, which may include DDS, the Massachusetts Rehabilitation Commission, or the Department of Mental Health.</p>
+    <p class="ask"><b>Worth knowing</b>The referral does not equal an application. Families still have to apply separately to whichever adult agency they're being referred to, and services remain subject to appropriation. The referral opens the conversation; it does not secure anything.</p>
+  </div>
+
+  <div class="state">
+    <h3>Where Massachusetts families start</h3>
+    <p>The Federation for Children with Special Needs is the state's parent training and information center — free help with special education, health care navigation, and transition. Local Arc chapters, the regional autism support centers, and your DDS area office are the other three phone numbers worth having.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The ages when something changes</h2>
+  <p class="secnote">Almost every one of these has a lead time of a year or more. The dates that matter are when you start, not when the birthday arrives.</p>
+  <div class="timeline">
+    <div class="tnode"><p class="tage">Birth to 3</p><h3>Early Intervention</h3>
+      <p>Self-refer immediately. Begin the handoff to the school district at least six months before the third birthday — transition planning is required well before the day services end.</p></div>
+    <div class="tnode"><p class="tage">Age 3</p><h3>School district takes over</h3>
+      <p>Preschool special education begins. This is a different system with a different standard, and services frequently shrink at this handoff unless someone is watching.</p></div>
+    <div class="tnode"><p class="tage">Age 5</p><h3>State disability agency eligibility opens in many states</h3>
+      <p>Apply as soon as your state allows. Waitlists for waivers and family supports run years in some places, and the clock starts at application, not at need.</p></div>
+    <div class="tnode"><p class="tage">Age 14</p><h3>Transition planning enters the IEP</h3>
+      <p>Federal law requires transition goals by sixteen and many states start at fourteen. Contact vocational rehabilitation about pre-employment transition services now, while your child is still in school.</p></div>
+    <div class="tnode"><p class="tage">Age 17 to 17½</p><h3>Adult agency applications</h3>
+      <p>Apply for adult developmental disability services. In Massachusetts, state guidance points to seventeen and a half. Determinations and funding decisions take many months.</p></div>
+    <div class="tnode"><p class="tage">Before 18</p><h3>Decision-making, benefits, and legal status</h3>
+      <p>Understand supported decision-making, health care proxy, and limited guardianship before anyone files for full guardianship — it is not the only option and often not the right one. Reapply for SSI, which is reassessed on the young person's own income at eighteen. Open an ABLE account if it fits.</p></div>
+    <div class="tnode"><p class="tage">Two years before exit</p><h3>Formal transition referral</h3>
+      <p>The district refers to adult agencies. You still apply separately. Adult services are eligibility-based and funding-dependent, not an entitlement — this is the hardest cliff in the entire system and the one worth preparing for earliest.</p></div>
+    <div class="tnode"><p class="tage">Age 22</p><h3>Special education ends</h3>
+      <p>Whatever adult supports are in place on that day are what continues. Everything that wasn't arranged in advance now starts from the beginning.</p></div>
+  </div>
+
+  <div class="note">
+    <h3>The sentence worth internalizing</h3>
+    <p>Special education is an entitlement — the district must provide it. Adult disability services generally are not; they are eligibility-based and depend on annual appropriations. That distinction is the single most important thing to understand about the years after twenty-two, and it's why applications go in years early rather than when the need becomes urgent.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Finding your own state's version</h2>
+  <ul>
+    <li><strong>Call your state's parent training and information center first.</strong> Every state has one, it's free, and they know the local program names, the current waitlists, and which office actually answers.</li>
+    <li><strong>Search the category, not the brand.</strong> "[Your state] Medicaid waiver children developmental disability," "[your state] Katie Beckett," "[your state] developmental disabilities agency eligibility."</li>
+    <li><strong>Ask three families whose children are five years older than yours.</strong> They know which programs are worth the paperwork and which have a seven-year list.</li>
+    <li><strong>Apply for things you're not sure you need.</strong> Waitlists are the currency here. Declining a spot later costs nothing; joining a list late costs years.</li>
+    <li><strong>Write down every eligibility determination and denial.</strong> Denials get appealed, criteria change, and children become eligible later for programs that turned them down before.</li>
+    <li><strong>Re-ask annually.</strong> Programs open, close, expand, and change criteria with each budget cycle. A no from three years ago is not a no now.</li>
+  </ul>
+</section>
+
+
+<div class="closenote"><b>Before you close this</b><p>Most of this is applications, waiting, and asking again. It is tedious rather than hard, and tedious is something you can do in small pieces on ordinary days.</p><p>One phone call this week puts you further along than a perfect plan you never start. Programs open, criteria change, and people who keep asking get answers.</p></div>
+
+<footer>
+  <p><strong>This is a map, not legal advice.</strong> Program names, age ranges, eligibility criteria, and funding all change — sometimes annually, and always by state. Verify every detail here against your state agency's current published information before relying on it. The Massachusetts details were accurate to state sources at the time of writing and should be confirmed directly.</p>
+  <p>Eligibility for a program is not the same as funding for it. Ask about waitlists every time.</p>
+</footer>
+
+</div>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

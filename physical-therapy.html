@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Physical Therapy — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: distance ladder */
+.reach{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.reach h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.reach .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:50ch}
+.rungs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2px}
+.rung{background:rgba(255,255,255,.05);border-top:2px solid var(--rust);padding:12px 13px 14px}
+.rung b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:#EFEBE3;margin-bottom:6px}
+.rung span{font-size:.84rem;color:#B9C4B4;line-height:1.45;display:block}
+.reach .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:24px 0 0;max-width:60ch}
+.reach .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.strong{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.mixed{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.weak{background:#F6E4E0;border-left:4px solid #8A2B20}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.strong h3{color:var(--forest)}.ev.mixed h3{color:#A8641C}.ev.weak h3{color:#8A2B20}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:#F6E4E0;border-left:4px solid #8A2B20}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:#8A2B20}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .reach{background:#fff;color:#000;border:1px solid #000}.reach .big,.rung b,.reach .cap strong{color:#000}}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Physical therapy:<br><em>not normal movement — more life</em></h1>
+  <p class="lede">Pediatric physical therapy works on how a body moves through space: strength, balance, tone, walking, endurance, equipment, and pain. The part that gets misunderstood is the goal. A beautiful gait pattern that runs out after twenty yards buys a child less than an uneven one that crosses a playground — and the second is almost always the better outcome.</p>
+</header>
+
+<div class="profnote">
+  <b>Reading this as a professional</b>
+  <p>Written for families and for colleagues getting oriented outside their own discipline. The evidence section sorts common pediatric approaches into three bands, including several that families arrive asking about.</p>
+  <p>The sections on hip surveillance, on strength training in cerebral palsy, and on wheeled mobility are the three where family understanding most often lags behind current practice — worth a look if you're deciding what to explain first.</p>
+</div>
+
+<section>
+  <div class="reach">
+    <h2>What physical therapy is actually buying</h2>
+    <p class="big">Mobility isn't a yes or no. It's a ladder of distance and complexity, and every rung opens a different part of a childhood.</p>
+    <div class="rungs">
+      <div class="rung"><b>Across a room</b><span>Getting to the toy, the door, the person you want</span></div>
+      <div class="rung"><b>Floor to standing</b><span>Getting up without help after every fall</span></div>
+      <div class="rung"><b>Across a classroom</b><span>Moving between desk, carpet, and line without falling behind</span></div>
+      <div class="rung"><b>Stairs and curbs</b><span>Most buildings, most houses, most friendships</span></div>
+      <div class="rung"><b>Across a playground</b><span>Being where the other children are, at the speed they're going</span></div>
+      <div class="rung"><b>A parking lot</b><span>Getting safely from a car to a door, every single outing</span></div>
+      <div class="rung"><b>A whole school day</b><span>Endurance, not just capability — the difference nobody measures</span></div>
+      <div class="rung"><b>A museum, a mall, an airport</b><span>Community distances, and the family trips that depend on them</span></div>
+    </div>
+    <p class="cap"><strong>Ask which rung a goal is aimed at.</strong> "Improve gait quality" doesn't tell you what your child will be able to do in six months. "Walk the length of the school hallway without a rest, twice a day" does — and a therapist who works in these terms will also tell you honestly when a wheelchair for long distances buys more childhood than another year of walking practice.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What PT <em>targets</em></h2>
+  <p class="secnote">Nine domains. Most children work on a few at a time, and priorities shift sharply around growth spurts, surgery, and transitions.</p>
+
+  <div class="domains">
+    <div class="dom">
+      <h3>Gross motor development</h3>
+      <p>The large movements of early childhood, and the sequence a child is working through — whatever order and pace they're doing it in.</p>
+      <ul>
+        <li>Head control, rolling, sitting, crawling, pulling to stand</li>
+        <li>Walking, running, jumping, hopping, climbing</li>
+        <li>Transitions between positions — floor to sitting, sitting to standing</li>
+        <li>Quality and efficiency of movement, not just whether it happens</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Milestones arriving late or in an unusual order, skipping a stage, using one side much more than the other, needing hands to get off the floor.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Muscle tone and spasticity</h3>
+      <p>Tone that is too high, too low, or fluctuating changes how much work every movement costs. Managed jointly with physiatry and orthopedics.</p>
+      <ul>
+        <li>Assessment of tone at rest and during movement</li>
+        <li>Positioning and handling that reduce the cost of moving</li>
+        <li>Coordination with tone medication, injections, and serial casting</li>
+        <li>Post-operative rehabilitation after tone surgery</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Stiffness that worsens with effort or excitement, floppiness and fatigue, difficulty with diapering or dressing, toe walking, fisted hands.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Strength, endurance, and fitness</h3>
+      <p>Historically underused in pediatrics, and one of the clearest shifts in current practice.</p>
+      <ul>
+        <li>Progressive resistance training, including for children with cerebral palsy</li>
+        <li>Cardiorespiratory fitness and activity tolerance</li>
+        <li>Endurance across a whole day rather than a single task</li>
+        <li>Building a sustainable physical activity habit for life</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Managing a task once and never twice, being carried by the end of an outing, avoiding stairs by afternoon, falling behind peers on distance rather than on skill.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Balance and postural control</h3>
+      <p>Staying upright while doing something else — the foundation that makes attention and hand use possible.</p>
+      <ul>
+        <li>Static and dynamic balance</li>
+        <li>Protective and righting reactions</li>
+        <li>Core and trunk control for sitting and standing</li>
+        <li>Managing uneven ground, slopes, and crowds</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Frequent falls, holding furniture and people, W-sitting, avoiding playground equipment, unsteadiness that worsens when tired or distracted.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Gait and walking</h3>
+      <p>How a child walks, what it costs them, and what would make it more efficient rather than more conventional.</p>
+      <ul>
+        <li>Gait analysis, sometimes with instrumented assessment</li>
+        <li>Orthotics — working with the orthotist on what and when</li>
+        <li>Walkers, canes, crutches, and gait trainers</li>
+        <li>Efficiency and energy cost, not just appearance</li>
+        <li>Community walking distance and speed</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Toe walking, in-toeing, a limp, tripping, asking to be carried, shoes wearing unevenly, walking that looks fine but exhausts them.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Range of motion and body structure</h3>
+      <p>Preventing the slow loss of movement that growth and tone can cause — and catching it early, when it is still reversible.</p>
+      <ul>
+        <li>Joint range and contracture prevention</li>
+        <li>Positioning programs, standing programs, and night splinting</li>
+        <li>Hip surveillance for children with limited walking</li>
+        <li>Spinal alignment monitoring</li>
+        <li>Post-surgical and post-casting recovery</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>A heel cord that won't stretch, hips that feel tight during diapering, an emerging asymmetry, a curve in the back, discomfort in a position that used to be fine.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Motor planning and coordination</h3>
+      <p>Knowing how to organize a new movement — the difficulty at the heart of developmental coordination disorder.</p>
+      <ul>
+        <li>Learning novel motor sequences</li>
+        <li>Ball skills, bike riding, swimming, sports fundamentals</li>
+        <li>Bilateral coordination and rhythm</li>
+        <li>Strategy-based approaches where a child learns how to solve motor problems themselves</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Taking far longer than peers to learn any new physical skill, avoiding PE and team sports, appearing clumsy, forgetting a skill between practices.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Equipment and mobility technology</h3>
+      <p>Often the fastest route to a bigger life, and the one families are most often introduced to too late.</p>
+      <ul>
+        <li>Walkers, gait trainers, standers, adaptive seating</li>
+        <li>Manual and powered wheelchairs, and wheelchair skills training</li>
+        <li>Adaptive bikes, trikes, and recreation equipment</li>
+        <li>Car seats, transport, and transfers</li>
+        <li>Growth adjustment and replacement planning</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Being carried more than they'd like, missed outings because the distance is too far, equipment that's been outgrown, a stander gathering dust because nobody explained the schedule. Disabled parking permits — plate versus placard, and applying when the reason isn't walking distance — are covered on the <a href="adaptive-community.html">adaptive sports and community page</a>.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Pain, hypermobility, and recovery</h3>
+      <p>Both the long-standing kind and the kind that follows an injury or an operation.</p>
+      <ul>
+        <li>Joint stability work for hypermobility, and pacing to break boom-and-bust cycles</li>
+        <li>Post-operative and post-fracture rehabilitation</li>
+        <li>Return to sport and activity after injury</li>
+        <li>Pain that is chronic rather than acute, and how activity fits into managing it</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Evening leg pain, joints that slip or dislocate, a big day always followed by a lost day, reluctance to return to activity after an injury has healed.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Three things worth knowing <em>that most families are told late</em></h2>
+
+  <div class="note">
+    <h3>One · Hip surveillance is not optional</h3>
+    <p>Children with limited walking — particularly with cerebral palsy — can have a hip migrate slowly out of the socket with no pain and no obvious sign until the problem is advanced and the surgery is major.</p>
+    <p>Published surveillance schedules exist, based on age and mobility level, and following one prevents most dislocations. Ask directly: <em>is my child on a hip surveillance schedule, who owns it, and when is the next X-ray?</em> If nobody can answer, that's the gap to close this month.</p>
+  </div>
+
+  <div class="note">
+    <h3>Two · Strength training is safe, and it helps</h3>
+    <p>For decades families were told that strengthening muscles in a child with cerebral palsy would worsen spasticity. That belief has not held up. Progressive resistance training is now well supported as safe and beneficial, and weakness — not spasticity alone — is a major limiter of function.</p>
+    <p>If strength work isn't part of the plan, it's a fair question to raise.</p>
+  </div>
+
+  <div class="note">
+    <h3>Three · Wheels are not giving up</h3>
+    <p>Powered and manual mobility does not reduce a child's motivation to walk, and introducing it early is associated with greater independence, more exploration, and better participation. A child who can cross a museum under their own control is having a different childhood from one who is pushed or carried.</p>
+    <p>Walking and wheeling are not competing choices. Most children who use wheels for distance keep walking for the distances where walking works — and get to keep their energy for something other than transport.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">How an evaluation <em>works</em></h2>
+  <ul>
+    <li><strong>History and family goals</strong> — birth history, medical picture, what your child does now, and what you most want to be different. The goals conversation is the important part.</li>
+    <li><strong>Observation of movement</strong> in real activities: floor play, transitions, walking, stairs, running, playground where possible.</li>
+    <li><strong>Hands-on assessment</strong> of tone, strength, joint range, alignment, and balance.</li>
+    <li><strong>Standardized measures</strong> where useful — motor development scales for young children, functional mobility and endurance measures for older ones, and classification systems that describe mobility level and predict trajectory.</li>
+    <li><strong>Equipment and orthotic review,</strong> including whether anything has been outgrown.</li>
+    <li><strong>A written plan</strong> with baseline, goals, frequency, home program, and discharge criteria.</li>
+  </ul>
+  <div class="note">
+    <h3>Bring these three things</h3>
+    <p>Video of the movement that worries you, filmed at home rather than in a clinic where children perform differently. A list of the specific distances and places your child struggles with. And any orthotics, shoes, and equipment you currently use, including the ones that aren't working.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Approaches, sorted by <em>how well they're supported</em></h2>
+  <p class="secnote">Pediatric PT has changed substantially in the past twenty years, and some of what families are offered reflects older practice. This isn't a reason to distrust a therapist — it's the information that lets you ask better questions.</p>
+
+  <div class="evid">
+    <div class="ev strong"><h3>Well supported</h3>
+      <p><strong>Goal-directed, task-specific training</strong> — practicing the actual activity, at meaningful intensity. The clearest finding in the modern literature.</p>
+      <p><strong>Family-chosen goals with measured progress.</strong></p>
+      <p><strong>Progressive strength training,</strong> including in cerebral palsy.</p>
+      <p><strong>High-dose, time-limited intensive blocks</strong> around key windows, rather than thin service spread thin forever.</p>
+      <p><strong>Early intervention for infants at risk,</strong> with early detection and active parent-delivered practice.</p>
+      <p><strong>Early positioning and stretching for torticollis</strong> — highly effective, and the earlier the better.</p>
+      <p><strong>Hip surveillance programs.</strong></p>
+      <p><strong>Physical activity and adaptive sport participation</strong> as a long-term health intervention in its own right.</p>
+    </div>
+
+    <div class="ev mixed"><h3>Mixed or emerging</h3>
+      <p><strong>Neurodevelopmental treatment (Bobath)</strong> — the traditional handling-based model. Still widely taught; current evidence generally favors task-specific training over it for functional outcomes.</p>
+      <p><strong>Treadmill training with body weight support</strong> — reasonable evidence for some children, less clear for others.</p>
+      <p><strong>Aquatic therapy</strong> — good for participation, enjoyment, and tolerance; less clear for specific motor gains.</p>
+      <p><strong>Hippotherapy</strong> — modest evidence for postural control, generally beloved by children.</p>
+      <p><strong>Whole body vibration, kinesiology taping</strong> — thin evidence either way.</p>
+      <p><strong>Passive stretching alone</strong> to prevent contracture: weaker than long assumed. Positioning, standing programs, and active movement matter more than a daily stretch routine on its own.</p>
+    </div>
+
+    <div class="ev weak"><h3>Little support — ask hard questions</h3>
+      <p><strong>Patterning programs</strong> of the Doman-Delacato type. Long discredited, demanding of families, and still marketed.</p>
+      <p><strong>Suit-based intensive programs</strong> marketed as transformative — the suits themselves lack support, though the intensive practice they're bundled with may help on its own.</p>
+      <p><strong>Hyperbaric oxygen</strong> for cerebral palsy.</p>
+      <p><strong>Stem cell treatments</strong> offered outside registered clinical trials — expensive, unproven, and carrying real risk. This one is worth being blunt about.</p>
+      <p>When a program promises a category of change rather than a specific functional goal, that is the moment to slow down.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What PT works on <em>at each stage</em></h2>
+  <div class="stage"><p class="age">Birth to three</p><h3>Early detection, and the parent as the intervention</h3>
+    <p>Torticollis and head shape, positioning, early motor practice, and coaching families to build practice into everyday handling. Early referral matters here more than at any later point — this is the period of greatest change.</p></div>
+
+  <div class="stage"><p class="age">Preschool</p><h3>Mobility for participation</h3>
+    <p>Getting around a preschool independently, floor transitions, stairs, playground access, first orthotics and first equipment, and building tolerance for standing and walking.</p></div>
+
+  <div class="stage"><p class="age">Elementary</p><h3>Distance, endurance, and keeping up</h3>
+    <p>Navigating a school building, managing a full day without running out, PE participation, playground skills, bike riding, and the first serious conversations about wheeled mobility for community distances.</p></div>
+
+  <div class="stage"><p class="age">Adolescence</p><h3>Growth is the complication</h3>
+    <p>Growth spurts tighten muscles faster than bones lengthen, and function can genuinely regress through no fault of anyone's. Expect episodes of more intensive PT around these periods, plus scoliosis monitoring, equipment resizing, and a shift toward fitness that will outlast therapy.</p></div>
+
+  <div class="stage"><p class="age">Transition to adulthood</p><h3>A body that has to last</h3>
+    <p>Community mobility and wheelchair skills, transport and driving, fitness habits that continue without a therapist, pain management, and finding adult providers — which is genuinely harder and takes longer than families expect.</p></div>
+</section>
+
+<section>
+  <h2 class="sec">School PT and private PT <em>are not the same thing</em></h2>
+  <ul>
+    <li><strong>School PT supports access to education.</strong> Moving safely between classrooms, managing stairs, participating in PE, sitting for instruction. That's the mandate.</li>
+    <li><strong>Private PT can pursue anything</strong> the family and therapist agree matters — community distance, sport, bike riding, family outings, pain, fitness.</li>
+    <li><strong>School minutes are often consultative.</strong> Ask whether they're direct or consult, how often, and where the sessions happen.</li>
+    <li><strong>Services pause over summer,</strong> which is exactly when growth spurts do their work. Plan for it.</li>
+    <li><strong>Ask the two therapists to talk.</strong> Duplicated goals waste your child's energy, and conflicting advice wastes yours.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Recognizing <em>strong PT</em></h2>
+  <div class="compare">
+    <div class="col good"><h3>What good looks like</h3>
+      <ul>
+        <li>Goals are specific distances, places, and activities, not qualities of movement</li>
+        <li>Intensity rises around key windows rather than staying flat forever</li>
+        <li>Strength work is in the plan</li>
+        <li>A home program that fits a real week, and gets revised when it doesn't</li>
+        <li>Equipment is raised early and reviewed as your child grows</li>
+        <li>Honest conversations about what walking will and won't achieve</li>
+        <li>Coordination with orthotics, orthopedics, and physiatry as a matter of course</li>
+        <li>An episode-of-care model with clear discharge and planned return</li>
+      </ul>
+    </div>
+    <div class="col bad"><h3>Worth asking about</h3>
+      <ul>
+        <li>Weekly sessions for years with no change in intensity or goals</li>
+        <li>Goals you can't picture — "improve gait," "normalize tone"</li>
+        <li>Passive stretching as the entire home program</li>
+        <li>Walking pursued at all costs, with wheeled mobility framed as failure</li>
+        <li>No mention of hip surveillance for a child with limited walking</li>
+        <li>Equipment raised only once it's urgent</li>
+        <li>Parents kept out of sessions as policy</li>
+        <li>Programs promising transformation rather than a named functional gain</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">Questions worth asking</h3>
+  <ul>
+    <li>Which distance or activity are we aiming at, and by when?</li>
+    <li>How will we measure it, and when will you show me?</li>
+    <li>Is my child on a hip surveillance schedule, and who owns it?</li>
+    <li>Should strength training be part of this?</li>
+    <li>What's the plan for growth spurts and for summers?</li>
+    <li>When should we be looking at equipment, and how long will it take to arrive?</li>
+    <li>What would make you say we're finished for now — and what would bring us back?</li>
+    <li>How do you adapt when my child refuses or is having a hard day?</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Practical matters</h2>
+  <h3 class="sub">Frequency, and the episodic model</h3>
+  <p>Continuous weekly therapy forever is not the only model and often isn't the best one. Many children do better with intensive blocks at key moments — before and after surgery, during a growth spurt, when learning a new piece of equipment, ahead of a school transition — separated by maintenance periods with a strong home program. Ask which model your therapist works in and why.</p>
+
+  <h3 class="sub">Finding a PT</h3>
+  <ul>
+    <li>Look for pediatric experience specifically, and ask about experience with your child's particular picture.</li>
+    <li>Ask about additional training — neurologic, early intervention, seating and mobility, aquatic, or sports rehabilitation.</li>
+    <li>Ask where they work and whether they can see your child in the setting that matters.</li>
+    <li>Ask how they handle a child who can't tolerate hands-on work. Adapting is the right answer.</li>
+  </ul>
+
+  <h3 class="sub">Paying for it</h3>
+  <ul>
+    <li>Verify coverage by code and place of service before starting, as described on the therapy funding page. Ask whether evaluations count against annual visit limits.</li>
+    <li>Equipment is funded separately from therapy and takes months — start the conversation long before you need it, and ask about growth adjustability.</li>
+    <li>A letter of medical necessity tied to a functional goal is far more likely to be approved than a general request.</li>
+  </ul>
+
+  <div class="note">
+    <h3>Meet our physical therapist</h3>
+    <p>This section links to a practitioner page — background, approach, who she works with, and how to get in touch. Written and approved by her.</p>
+    <p><em>Placeholder: add name, credentials, practice, a short statement in her own words, and a link. See the contributor guidance on the About page before publishing.</em></p>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>The whole page in one line: physical therapy is not trying to make your child move normally. It is trying to give them more places they can get to, and enough energy left over to enjoy being there.</p>
+  <p>You already know which distances defeat your family — the walk from the parking lot, the third hour of a day out, the stairs at a friend's house. Name those at the next appointment and you have handed your therapist the only goals that matter.</p>
+</div>
+
+<footer>
+  <p><strong>This is a map, not medical advice.</strong> Whether physical therapy is appropriate, what should be worked on first, and what surveillance a particular child needs are decisions for clinicians who have assessed them. Scope of practice and school service rules vary by state.</p>
+  <p>Where evidence for a specific approach is limited, this page says so. That isn't a reason to avoid it — it's a reason to ask what outcome is expected, how it will be measured, and by when.</p>
+</footer>
+
+</div>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

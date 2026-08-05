@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About & Contributors — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5; --paper:#FBF7F0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.64;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+.narrow{max-width:640px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 18px}
+.back{font-family:var(--sans);font-size:12.5px;color:var(--rust);text-decoration:none;font-weight:600}
+.back:hover{text-decoration:underline}
+header.masthead{padding:44px 0 20px}
+h1{font-size:clamp(2rem,5vw,3rem);line-height:1.1;margin:14px 0 18px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:60ch;color:var(--ink-soft);margin:0 0 24px;font-size:1.05rem}
+section{margin:0 0 58px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 10px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 28px;max-width:62ch;font-size:1rem}
+p{margin:0 0 15px}ul{padding-left:20px;margin:0 0 15px}li{margin-bottom:9px}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:34px 0 13px}
+
+/* bio */
+.bio{background:var(--paper);border:1px solid var(--line);border-radius:3px;padding:30px 32px}
+.bio .who{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 8px}
+.bio h3{font-size:1.7rem;font-weight:400;margin:0 0 4px}
+.bio .role{font-style:italic;color:var(--forest);margin:0 0 20px;font-size:1.04rem}
+.bio p{font-size:1rem}
+.creds{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.cred{font-family:var(--sans);font-size:11.5px;background:var(--card);border:1px solid var(--line);
+  border-radius:2px;padding:7px 12px;color:var(--ink-soft)}
+
+/* practitioners */
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:13px}
+.person{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:21px 23px}
+.person h3{font-size:1.16rem;font-weight:400;margin:0 0 3px}
+.person .cr{font-family:var(--sans);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 12px}
+.person p{font-size:.95rem;margin:0 0 11px}
+.person .offers{border-top:1px solid var(--line);padding-top:12px;margin-top:13px;font-size:.9rem;color:var(--ink-soft)}
+.person .offers b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:5px}
+.placeholder{border-style:dashed;background:transparent}
+.placeholder h3{color:var(--ink-soft)}
+
+.disclose{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:0 0 24px}
+.disclose h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.disclose p{font-size:.96rem}.disclose p:last-child{margin:0}
+
+/* credits */
+.credits{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:12px}
+.credit{background:var(--card);border-left:3px solid var(--forest);padding:18px 20px}
+.credit h3{font-size:1.06rem;font-weight:400;margin:0 0 5px}
+.credit .for{font-family:var(--sans);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 9px}
+.credit p{font-size:.93rem;margin:0;color:var(--ink-soft)}
+.pull{font-size:clamp(1.18rem,2.8vw,1.45rem);line-height:1.45;color:var(--forest);font-style:italic;
+  text-align:center;max-width:32ch;margin:50px auto}
+footer{border-top:1px solid var(--line);padding:28px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff}.person,.credit,.bio{break-inside:avoid}}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <a class="back" href="index.html">← In The Spectrums</a>
+  <h1>About, and the people <em>who built this</em></h1>
+  <p class="lede">This site exists because the information families need is scattered across a dozen systems that don't talk to each other. It was assembled by people who work inside those systems, and it's given away because it should never have been hard to find.</p>
+</header>
+
+<section>
+  <h2 class="sec">Who writes this</h2>
+  <div class="bio narrow">
+    <p class="who">Founder and author</p>
+    <h3>Elle Bozoyan</h3>
+    <p class="role">Integrative health coach · curriculum developer · author</p>
+    <p>Elle is an integrative health coach trained at the Institute for Integrative Nutrition, with additional culinary training and more than two decades of teaching movement — Pilates, yoga, barre, spin, and outdoor adventure guiding, including wilderness leadership and risk management coursework that shapes the safety material on this site.</p>
+    <p>She develops social and emotional learning curriculum for children, and is the author of the Maplewood Project — a fifty-two book picture book series, a play schema library, and a growing set of companion tools for families, classrooms, and clinics.</p>
+    <p>In The Spectrums began as a set of documents built to solve specific problems: how to explain a child to a new teacher, how to survive an evaluation, how to get a claim paid. It turned out that everyone needed them.</p>
+    <div class="creds">
+      <span class="cred">Integrative Nutrition health coach</span>
+      <span class="cred">Culinary training</span>
+      <span class="cred">Wilderness leadership coursework</span>
+      <span class="cred">SEL curriculum developer</span>
+      <span class="cred">Author, the Maplewood Project</span>
+    </div>
+  </div>
+  <p class="secnote narrow" style="margin-top:16px;font-size:.92rem">
+    <em>Draft — edit freely. Add or remove credentials, adjust the tone, and swap in the version of your story you want public.</em>
+  </p>
+</section>
+
+<section>
+  <h2 class="sec">Practitioners <em>we learn from</em></h2>
+  <p class="secnote">A small number of clinicians whose work shaped material on this site, and who are available for consultation. Each has written and approved their own entry.</p>
+
+  <div class="disclose">
+    <h3>What you should know about this list</h3>
+    <p>This is not a directory, a vetting service, or an endorsement of outcomes. These are practitioners whose thinking informed pages on this site, listed because families kept asking where to find people who work this way.</p>
+    <p><strong>In The Spectrums receives no payment, commission, or referral fee from anyone listed here</strong>, and no one has paid to appear. If that ever changes, it will be stated on this page before the listing goes up. Fees, availability, licensure, and whether someone can practice in your state are entirely between you and them — and licensure genuinely does limit who can work with you across state lines, so ask early.</p>
+  </div>
+
+  <div class="people">
+    <div class="person placeholder">
+      <h3>Practitioner name</h3>
+      <p class="cr">Credentials · Discipline · Practice name</p>
+      <p>Two or three sentences in their own words: what they do, who they work with, and what they think matters that most people miss. Written by them, approved by them.</p>
+      <div class="offers"><b>Available for</b>Consultation, parent coaching, team training, second opinions — whatever they actually offer. Location and whether they work remotely. How to get in touch.</div>
+    </div>
+
+    <div class="person placeholder">
+      <h3>Practitioner name</h3>
+      <p class="cr">Credentials · Discipline · Practice name</p>
+      <p>Keep entries short and specific. What a family would actually want to know before reaching out — approach, populations served, and what a first conversation looks like.</p>
+      <div class="offers"><b>Available for</b>Their offering, in their words.</div>
+    </div>
+
+    <div class="person placeholder">
+      <h3>Practitioner name</h3>
+      <p class="cr">Credentials · Discipline · Practice name</p>
+      <p>Where their work connects to a page on this site, link it — a reader who arrived through the myofunctional therapy page and wants to go further should be able to.</p>
+      <div class="offers"><b>Available for</b>Their offering, in their words.</div>
+    </div>
+  </div>
+
+  <h3 class="sub">Before adding anyone here</h3>
+  <ul>
+    <li><strong>Get written permission,</strong> and have each person write or approve their own entry. A practitioner's name on a public site is their professional reputation, not yours to place.</li>
+    <li><strong>Confirm the credentials as they want them stated,</strong> including current licensure and which states they can practice in.</li>
+    <li><strong>Agree what happens if they stop taking clients,</strong> or want to come off the list. Give them a way to ask, and honor it quickly.</li>
+    <li><strong>Keep the list small.</strong> Three practitioners you'd genuinely send a friend to is worth more than thirty, and a short list is easier to keep current.</li>
+    <li><strong>Review it annually</strong> with the rest of the site.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Built with <em>help</em></h2>
+  <p class="secnote">Nothing here was made alone.</p>
+  <div class="credits">
+    <div class="credit"><p class="for">Design and build</p>
+      <h3>Makenzie</h3>
+      <p>For turning a pile of documents into something people can actually use, and for the hundred decisions nobody notices when they're made well.</p></div>
+
+    <div class="credit"><p class="for">Contributor</p>
+      <h3>Name</h3>
+      <p>What they contributed, in a sentence. Specific beats generous — people would rather be credited accurately than warmly.</p></div>
+
+    <div class="credit"><p class="for">Clinical review</p>
+      <h3>Name</h3>
+      <p>Anyone who reviewed pages for accuracy, and which pages. Worth naming, and worth noting that review is not authorship.</p></div>
+
+    <div class="credit"><p class="for">Families</p>
+      <h3>Everyone who said this part is wrong</h3>
+      <p>Several pages exist in their current form because someone read a draft and pushed back. That's the most useful thing anyone does here.</p></div>
+  </div>
+</section>
+
+<section class="narrow">
+  <h2 class="sec">Tell us what's <em>missing or wrong</em></h2>
+  <p>Every page on this site is a draft that hasn't been corrected yet. Program names change, codes change, guidance changes, and some of it was probably never quite right.</p>
+  <p>If you find something out of date, something that doesn't match your state, or something that reads as certain when it shouldn't — say so. Corrections are the most valuable thing anyone sends.</p>
+  <p>The same goes if a page is missing. Much of what's here exists because someone asked a question nobody had written down the answer to.</p>
+  <h3 class="sub">Using this material</h3>
+  <p>Take it. Print it, adapt it, translate it, put it in a folder for your school team, hand it to a family at a clinic. Change the wording so it sounds like you — you know your people, and your voice is what will carry it. Attribution is appreciated and not required. The point is that it gets used and that it helps.</p>
+</section>
+
+<p class="pull">The best resource is the one that arrives before you knew you needed it.</p>
+
+<footer>
+  <p><strong>Nothing on this site is medical, legal, financial, or educational advice.</strong> This is an independent resource, not a medical, legal, or educational practice. Practitioners listed here are responsible for their own services; In The Spectrums does not supervise, vet, or guarantee anyone's work, and receives no payment from any listing.</p>
+  <p>Pages are dated and reviewed. Where a detail matters, verify it against your own state, your own plan, and the professionals who have met your child.</p>
+</footer>
+
+</div>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

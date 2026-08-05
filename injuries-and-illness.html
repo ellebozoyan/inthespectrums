@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>When Something Happens — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --paper:#FFFDF8;
+  --now:#8A2B20; --now-tint:#F6E4E0;
+  --soon:#A8641C; --soon-tint:#F6EADA;
+  --wait:#5A6E4E; --wait-tint:#E8EEE3;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 18px}
+section{margin:0 0 54px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2rem);font-weight:400;margin:0 0 8px;line-height:1.2}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:.99rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:34px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* triage strip */
+.triage{display:grid;grid-template-columns:repeat(auto-fit,minmax(214px,1fr));gap:11px;margin:0 0 16px}
+.tcol{border-radius:2px;padding:18px 18px 20px;border-top:5px solid}
+.tcol.now{background:var(--now-tint);border-color:var(--now)}
+.tcol.soon{background:var(--soon-tint);border-color:var(--soon)}
+.tcol.today{background:var(--wait-tint);border-color:var(--wait)}
+.tcol.wait{background:var(--card);border-color:var(--line)}
+.tlabel{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:700;margin:0 0 10px}
+.tcol.now .tlabel{color:var(--now)}.tcol.soon .tlabel{color:var(--soon)}
+.tcol.today .tlabel{color:var(--wait)}.tcol.wait .tlabel{color:var(--ink-soft)}
+.tcol ul{padding-left:17px;margin:0;font-size:.88rem;line-height:1.5}
+.tcol li{margin-bottom:6px}
+.triagenote{background:var(--card);border-left:4px solid var(--now);padding:17px 20px;
+  font-size:.96rem;margin:0 0 10px}
+.triagenote strong{color:var(--now)}
+
+/* event cards */
+.events{display:grid;grid-template-columns:repeat(auto-fit,minmax(288px,1fr));gap:12px}
+.ev{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.ev h3{font-size:1.08rem;font-weight:400;margin:0 0 10px}
+.ev p{font-size:.94rem;margin:0 0 10px}
+.ev ul{padding-left:17px;font-size:.92rem;margin:0 0 10px}
+.ev li{margin-bottom:6px}
+.ev .red{color:var(--now);font-size:.9rem;margin:0;padding-top:10px;border-top:1px solid var(--line)}
+.ev .red b{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:700;margin-right:6px}
+
+/* team list */
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.who{background:var(--card);border-left:3px solid var(--forest);padding:15px 17px}
+.who h3{font-size:.99rem;font-weight:400;margin:0 0 5px;color:var(--forest)}
+.who p{margin:0;font-size:.91rem;color:var(--ink-soft)}
+
+/* bedside card mockup */
+.cardwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);gap:24px;align-items:start}
+@media(max-width:780px){.cardwrap{grid-template-columns:1fr}}
+.bedside{background:var(--paper);border:1px solid #CBC6B8;border-radius:2px;padding:22px 20px;
+  font-family:var(--mono);font-size:11.5px;line-height:1.6;color:#2A2A26}
+.bedside .bh{text-align:center;border-bottom:2px solid #2A2A26;padding-bottom:9px;margin-bottom:12px}
+.bedside .bh b{font-size:13.5px;letter-spacing:.05em}
+.bedside .fl{margin-bottom:9px}
+.bedside .k{color:#7A7568;display:block;font-size:10px;letter-spacing:.09em;text-transform:uppercase}
+.bedside .dash{border-top:1px dashed #C3BDAE;margin:12px 0}
+.bedside .hot{background:#F4E2DD;border:1px solid #B57C70;padding:8px 10px;margin:10px 0}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:26px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.warn{background:var(--now-tint);border-left:4px solid var(--now);padding:20px 22px;margin:26px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--now);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.balance{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:13px;margin:0 0 20px}
+.side{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:18px 20px}
+.side h3{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:0 0 10px}
+.side p{font-size:.93rem;margin:0 0 10px}
+.side p:last-child{margin-bottom:0}
+footer{border-top:1px solid var(--line);padding:26px 0 70px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+@media print{body{background:#fff;font-size:10.5pt}.ev,.who,.bedside,.tcol{break-inside:avoid}}
+
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>When something happens:<br><em>injuries, illness, and hospitals</em></h1>
+  <p class="lede">The rest of this site is about slow-moving things. This page is about the fall off the monkey bars, the fever that won't break, the word nobody wants to hear in a consultation room, and the particular difficulty of getting good care for a child who can't tell anyone where it hurts.</p>
+</header>
+
+<section>
+  <h2 class="sec">Where to go, right now</h2>
+  <p class="secnote">The most common mistake is not going. The second most common is spending five hours in an emergency room for something urgent care would have handled in forty minutes.</p>
+
+  <div class="triage">
+    <div class="tcol now">
+      <p class="tlabel">Call 911</p>
+      <ul>
+        <li>Trouble breathing, or breathing that looks like hard work</li>
+        <li>Unresponsive, or very difficult to wake</li>
+        <li>A seizure that is a first, or lasts over five minutes</li>
+        <li>Bleeding that won't stop with firm pressure</li>
+        <li>Blue, gray, or mottled lips or skin</li>
+        <li>A bone visible through skin, or a limb that is cold, pale, or numb below the injury</li>
+        <li>Suspected neck or back injury — don't move them</li>
+        <li>Any suspected poisoning or overdose</li>
+      </ul>
+    </div>
+    <div class="tcol soon">
+      <p class="tlabel">Emergency room now</p>
+      <ul>
+        <li>Any fever in a baby under three months</li>
+        <li>Fever in a child with a central line, port, or known immune suppression — go immediately, do not wait</li>
+        <li>Obvious deformity after an injury</li>
+        <li>Head injury with vomiting, confusion, worsening headache, or loss of consciousness</li>
+        <li>Severe abdominal pain, especially settling in the lower right</li>
+        <li>Burns larger than the child's palm, or on the face, hands, feet, genitals, or across a joint</li>
+        <li>Dehydration — no urine for eight hours, no tears, sunken eyes, very drowsy</li>
+        <li>Anything that frightens you and you can't explain</li>
+      </ul>
+    </div>
+    <div class="tcol today">
+      <p class="tlabel">Urgent care today</p>
+      <ul>
+        <li>Possible simple fracture with no deformity and good circulation</li>
+        <li>Cuts that may need closing but aren't bleeding heavily</li>
+        <li>Sprains, minor burns, small wounds</li>
+        <li>Ear pain, sore throat, rashes with a well child</li>
+        <li>Persistent vomiting or diarrhea in an otherwise alert child</li>
+      </ul>
+    </div>
+    <div class="tcol wait">
+      <p class="tlabel">Call the office</p>
+      <ul>
+        <li>Fever in a well-appearing child over three months, day one or two</li>
+        <li>A limp with no injury and no fever</li>
+        <li>A rash without other symptoms</li>
+        <li>Anything you'd like advice on before deciding</li>
+      </ul>
+      <p style="font-size:.88rem;color:var(--ink-soft);margin:12px 0 0">Most practices have a nurse line after hours. It's free, it's fast, and it's what it's for.</p>
+    </div>
+  </div>
+
+  <div class="triagenote">
+    <p><strong>Override any of this if your instinct says so.</strong> Parents identify a seriously unwell child before test results do, and this is well documented rather than sentimental. Say plainly: <em>something is wrong with my child and this is not how they normally are.</em> Nobody will think less of you for going and being sent home.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The common ones</h2>
+  <p class="secnote">What to do in the moment, and the specific warning signs that change the answer.</p>
+
+  <div class="events">
+    <div class="ev">
+      <h3>Broken bones and fractures</h3>
+      <p>Don't try to straighten anything. Support the limb where it lies, pad around it, apply ice over cloth, and keep it elevated if you can do so without forcing position.</p>
+      <ul>
+        <li>Children's bones bend and buckle rather than snapping cleanly, so a fracture can look like a bad sprain</li>
+        <li>Growth plate injuries are common and can be invisible on an initial X-ray — if there's real tenderness right at the joint, say so and ask about re-examination in a week or two even after a normal film</li>
+        <li>Many buckle fractures are now treated with a removable splint rather than a full cast</li>
+        <li>Ask about waterproof casting and about how the cast will work with existing braces or equipment</li>
+      </ul>
+      <p class="red"><b>Go now if</b>The limb looks deformed, bone has broken the skin, or the area beyond the injury is pale, cold, numb, or tingling.</p>
+    </div>
+
+    <div class="ev">
+      <h3>Head injury and concussion</h3>
+      <p>Most head bumps are fine. What matters is what happens over the next 24 to 48 hours, so watch rather than diagnose.</p>
+      <ul>
+        <li>Brief rest for a day or two, then a gradual return to activity — prolonged total rest in a dark room is no longer recommended and slows recovery</li>
+        <li>Return to learning comes before return to play, and no child returns to sport the same day</li>
+        <li>Recovery is usually days to a few weeks; longer for some</li>
+        <li>School accommodations matter — reduced screens, shorter days, no timed tests</li>
+      </ul>
+      <p class="red"><b>Go now if</b>Repeated vomiting, worsening headache, confusion, unequal pupils, a seizure, clear fluid from nose or ears, weakness, or increasing sleepiness you can't rouse them from.</p>
+    </div>
+
+    <div class="ev">
+      <h3>Burns</h3>
+      <p>Cool running water for twenty minutes. Not ice, not butter, not ointment. Then cover loosely with plastic wrap or a clean non-fluffy cloth.</p>
+      <ul>
+        <li>Remove clothing and jewelry near the burn unless it's stuck to the skin</li>
+        <li>Twenty minutes is the number, and it still helps up to about three hours after</li>
+        <li>Don't burst blisters</li>
+        <li>Keep the rest of the child warm — cooling a large area can drop body temperature fast</li>
+      </ul>
+      <p class="red"><b>Go now if</b>Bigger than the child's palm, on face, hands, feet, genitals, or crossing a joint; any chemical or electrical burn; or skin that looks white, leathery, or painless.</p>
+    </div>
+
+    <div class="ev">
+      <h3>Knocked-out or broken teeth</h3>
+      <p>For a permanent tooth this is genuinely time-critical — the first thirty to sixty minutes decide whether it can be saved.</p>
+      <ul>
+        <li>Hold it by the crown, never the root</li>
+        <li>If dirty, rinse briefly in milk or saline — don't scrub</li>
+        <li>Push it gently back into the socket if you can, and have the child bite on gauze</li>
+        <li>If you can't, transport it in milk. Water is the worst option</li>
+        <li>Never replant a baby tooth — it can damage the adult tooth underneath</li>
+      </ul>
+      <p class="red"><b>Go now</b>Emergency dentist or ER, immediately, tooth in milk.</p>
+    </div>
+
+    <div class="ev">
+      <h3>Fever and possible serious infection</h3>
+      <p>Fever itself isn't the danger; how the child looks between fevers is the information. A child who perks up when the temperature comes down is reassuring. One who stays limp and gray is not.</p>
+      <ul>
+        <li>Any fever under three months of age is an emergency, every time</li>
+        <li>Fever with a port, central line, or immune suppression means the emergency room now, not in the morning</li>
+        <li>Watch for the sepsis pattern: very fast breathing, mottled or gray skin, extreme sleepiness, cold hands and feet with a hot body, no wet diapers</li>
+        <li>A rash that doesn't fade when you press a glass against it needs immediate assessment</li>
+      </ul>
+      <p class="red"><b>Say the word</b>If you're worried about sepsis, say "could this be sepsis?" out loud. It triggers a specific pathway in most hospitals.</p>
+    </div>
+
+    <div class="ev">
+      <h3>Surgery and anesthesia</h3>
+      <p>Planned surgery is one of the few medical events you can genuinely prepare for, and preparation changes how it goes.</p>
+      <ul>
+        <li>Ask for a pre-operative visit to see the room and meet the team</li>
+        <li>Ask for child life involvement — this is their specialty and it is free</li>
+        <li>Ask whether a parent can be present for induction, and whether a comfort object can go in</li>
+        <li>Bundle procedures: dental work, imaging, bloodwork, ear exams and hearing tests can often happen under one anesthetic</li>
+        <li>Flag every relevant thing in advance — sensory needs, communication method, prior traumatic experiences, and any metabolic or genetic condition affecting anesthesia</li>
+      </ul>
+      <p class="red"><b>Ask early</b>Anesthesia planning for a child with complex needs should start weeks ahead, not on the morning.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">A serious diagnosis</h2>
+  <p class="secnote">Cancer, a new organ condition, a major surgical diagnosis. The shape of the first month is fairly consistent, and knowing the shape helps.</p>
+
+  <h3 class="sub">The first two weeks</h3>
+  <ul>
+    <li><strong>You will be asked to make decisions while in shock.</strong> That's normal and it's survivable. Bring a second person to every conversation whose only job is to write things down, and ask if you can record.</li>
+    <li><strong>Ask for the plan in writing,</strong> including the name of the protocol, the expected duration, and what happens at each phase. Ask what would change it.</li>
+    <li><strong>Get treated at a children's hospital,</strong> not an adult center. For childhood cancer specifically, ask whether the center is part of the national pediatric oncology cooperative group — most children are treated on established protocols or trials, and the difference in outcomes is not marginal.</li>
+    <li><strong>A second opinion is standard,</strong> not an insult, and good oncologists expect it. Ask how much time you have — usually you have some.</li>
+    <li><strong>Ask about fertility preservation before treatment starts.</strong> Some treatments affect future fertility, options are time-sensitive, and this conversation gets skipped in the rush. Ask even for young children.</li>
+    <li><strong>Ask who your point of contact is</strong> and what number to call at 2am. There will be a 2am.</li>
+  </ul>
+
+  <h3 class="sub">Living inside treatment</h3>
+  <ul>
+    <li><strong>Learn the fever rule cold.</strong> With a central line or during low counts, fever means the emergency department immediately — not a call, not the morning. Carry a letter from the team explaining this so the triage desk moves.</li>
+    <li><strong>Keep one binder or folder.</strong> Protocol, med list with doses, counts, contacts, appointment calendar. Take it everywhere.</li>
+    <li><strong>Ask about a hospital school teacher or home tutoring</strong> in the first weeks — education continues as a legal entitlement, and it also gives a child something normal to hold on to.</li>
+    <li><strong>Ask for a social worker on day one,</strong> not when things get desperate. They handle lodging, transport, benefits, workplace letters, and sibling support.</li>
+    <li><strong>Say yes to child life</strong> for every procedure. Preparation and distraction meaningfully reduce medical trauma, and this is what the evidence supports.</li>
+  </ul>
+
+  <h3 class="sub">Afterward</h3>
+  <ul>
+    <li><strong>Ask for a survivorship care plan</strong> — a written record of exactly what was given, in what doses, and what needs monitoring for life. Every survivor should leave treatment holding this document.</li>
+    <li><strong>Ask about late effects and a long-term follow-up clinic.</strong> Some effects on heart, hearing, growth, fertility, and learning appear years later and are manageable if watched for.</li>
+    <li><strong>Expect the hard part to arrive after treatment ends,</strong> for you and for your child. The structure disappears, everyone else moves on, and that's often when the feelings finally land.</li>
+    <li><strong>Get a neuropsychological evaluation</strong> if learning changed. Treatment effects on attention and processing speed are real and are accommodated in school like any other disability.</li>
+    <li><strong>Check on the siblings, deliberately.</strong> They have been quietly competent for a year and that is a coping strategy, not evidence they're fine.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Who's who in a hospital</h2>
+  <p class="secnote">Knowing which person can actually change what's happening is most of hospital navigation.</p>
+  <div class="team">
+    <div class="who"><h3>Attending physician</h3><p>The senior doctor legally responsible for your child's care. Decisions ultimately sit here. Ask when they round and be there for it.</p></div>
+    <div class="who"><h3>Fellow and resident</h3><p>Doctors in training. Residents are junior and often the ones you see most; fellows are further along and specializing. Both report to the attending.</p></div>
+    <div class="who"><h3>Hospitalist</h3><p>A physician who works only in the hospital and coordinates while your child is admitted. Often your most useful daily contact.</p></div>
+    <div class="who"><h3>Bedside nurse and charge nurse</h3><p>The nurse knows more about how your child's day actually went than anyone. The charge nurse runs the unit and can move things the bedside nurse cannot.</p></div>
+    <div class="who"><h3>Child life specialist</h3><p>Trained in preparing children for procedures and reducing distress. Free, wildly effective, and routinely under-requested. Ask by name.</p></div>
+    <div class="who"><h3>Social worker</h3><p>Lodging, transport, benefits, work letters, sibling support, and the practical crisis underneath the medical one.</p></div>
+    <div class="who"><h3>Case manager</h3><p>Discharge planning, home equipment, home nursing, insurance authorization. Start talking to them long before discharge day.</p></div>
+    <div class="who"><h3>Patient advocate or ombudsman</h3><p>Every hospital has one. When something has gone wrong or you aren't being heard, this is the escalation route, and using it is entirely legitimate.</p></div>
+  </div>
+
+  <div class="warn">
+    <h3>The one most families don't know exists</h3>
+    <p>Many children's hospitals have a <strong>family-activated rapid response system</strong> — a number a parent can call directly to summon a senior medical team if you believe your child is deteriorating and you aren't being heard. It goes by different names depending on the hospital. Ask on admission what yours is called and write it down.</p>
+    <p>It exists because families are frequently right, and because escalating through the usual chain sometimes takes too long.</p>
+  </div>
+
+  <h3 class="sub">Being effective on a ward</h3>
+  <ul>
+    <li><strong>Be present at rounds.</strong> Ask what time, and ask to be included rather than talked about outside the door. This is where decisions are made.</li>
+    <li><strong>Keep a running notebook</strong> — date, who you spoke to, what was said, what was agreed. Shift changes lose information, and your notebook is often the only continuous record.</li>
+    <li><strong>Ask the three questions</strong> at every plan change: what are we doing, why, and what are we watching for.</li>
+    <li><strong>Ask for the same nurse where possible</strong> for a child who needs consistency. Charge nurses can often arrange it if asked kindly and early.</li>
+    <li><strong>Say the thing directly.</strong> "I am worried he's getting worse" is heard differently from "he seems a bit off." Use the stronger sentence when you mean it.</li>
+    <li><strong>Ask for a family meeting</strong> when there are too many teams saying different things. You are allowed to request one and it takes about a day to arrange.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">When the patient can't tell them where it hurts</h2>
+  <p class="secnote">Hospitals are built around a patient who reports symptoms, tolerates strangers, and stays still. For a child who does none of those things, the care gets worse unless someone actively prevents it — and that someone is usually you.</p>
+
+  <div class="cardwrap">
+    <div class="bedside">
+      <div class="bh"><b>ABOUT MY CHILD</b><br>Please read before approaching</div>
+      <div class="fl"><span class="k">Name / what to call them</span> ____________________</div>
+      <div class="fl"><span class="k">How I communicate</span> Device / signs / gestures / speech<br>My device must stay within reach at all times</div>
+      <div class="fl"><span class="k">How to know I'm in pain</span> ____________________<br>I may go quiet rather than cry</div>
+      <div class="hot"><span class="k">Do not</span> Approach from behind · speak over my head ·<br>hold me down without warning · remove my headphones</div>
+      <div class="fl"><span class="k">What helps me stay calm</span> ____________________</div>
+      <div class="fl"><span class="k">Foods I will actually eat</span> ____________________</div>
+      <div class="dash"></div>
+      <div class="fl"><span class="k">Medication notes</span> Metabolism differences / allergies /<br>drugs to avoid ____________________</div>
+      <div class="fl"><span class="k">Equipment I use</span> Braces / glasses / hearing devices /<br>where they are ____________________</div>
+      <div class="fl"><span class="k">Baseline — this is normal for me</span> ____________________</div>
+      <div class="fl"><span class="k">Contacts</span> ____________________</div>
+    </div>
+
+    <div>
+      <h3 class="sub">Bring the card, tape it up</h3>
+      <p>One page, at the bedside, where every new face on every new shift will see it. It does more work than any conversation, because the conversation has to happen twelve times and the card only has to be written once.</p>
+      <p>The single most important line on it is the baseline. Hospital staff have no idea what your child looks like when they're well, so "this is normal for him" and "this is not" are the two most clinically useful sentences you own.</p>
+      <h3 class="sub">Insist on these</h3>
+      <ul>
+        <li><strong>Communication access is not optional.</strong> An AAC device must stay charged and within reach, including in intensive care. Losing access to language during a medical crisis is its own harm.</li>
+        <li><strong>Ask for a behavioral pain scale</strong> for a child who can't self-report — validated observational tools exist and are standard practice. Ask which one they're using.</li>
+        <li><strong>Name diagnostic overshadowing before it happens.</strong> New behavior in a child with a disability is a symptom until proven otherwise. "He is not doing this because he has autism — he does not normally do this" is a sentence worth having ready.</li>
+        <li><strong>Ask for comfort positioning rather than restraint</strong> for procedures — a child held supportively on a parent's lap, prepared and warned, rather than pinned. Ask for numbing cream and for a child life specialist every time.</li>
+        <li><strong>Cluster the pokes.</strong> Ask whether bloodwork, lines, imaging, and exams can be combined rather than spread over a day.</li>
+        <li><strong>Protect sleep and sensory load</strong> where possible. Ask for lights down, alarms adjusted, and non-urgent checks grouped.</li>
+        <li><strong>Bring the food.</strong> Hospital menus and restricted eating are a bad match, and nobody will solve this for you. Ask the dietitian for permission to bring safe foods in.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Tick-borne illness</h2>
+  <p class="secnote">Prevention and early treatment are uncontroversial, effective, and badly under-taught. What happens when symptoms persist after treatment is one of the most contested areas in medicine, and this page will describe that honestly rather than choose for you.</p>
+
+  <h3 class="sub">Prevention, which is the part that actually works</h3>
+  <ul>
+    <li>Repellents containing DEET or picaridin on skin; permethrin-treated clothing and shoes, which is more effective than most families realize and lasts through several washes.</li>
+    <li>Full body tick checks after outdoor time — behind ears, hairline, armpits, waistband, behind knees, groin. Nymphs are the size of a poppy seed and cause most human infections.</li>
+    <li>Shower within a couple of hours; put clothes in a hot dryer for ten minutes, which kills ticks better than washing does.</li>
+    <li>Check pets, who bring ticks indoors.</li>
+  </ul>
+
+  <h3 class="sub">If you find an attached tick</h3>
+  <ul>
+    <li>Fine-tipped tweezers, grasp as close to the skin as possible, pull straight out with steady pressure. Don't twist, burn, smother in petroleum jelly, or use any folk method — those increase the chance the tick regurgitates.</li>
+    <li>Clean the area. Note the date and, if you can, photograph the tick. Attachment time matters for risk assessment.</li>
+    <li>Call your pediatrician. In defined high-risk situations, a single preventive dose of antibiotic within 72 hours of removal is an option worth asking about.</li>
+    <li>Watch the site and the child for a month. Note that current guidance considers short courses of doxycycline appropriate in young children — the old tooth-staining concern has been revised.</li>
+  </ul>
+
+  <h3 class="sub">Early signs worth knowing</h3>
+  <ul>
+    <li>An expanding rash at the bite site, typically appearing days to weeks later. <strong>It is often not a bull's-eye</strong> — it can be uniformly red, and it looks different on darker skin. This rash is enough to diagnose and treat without waiting for blood tests.</li>
+    <li>Flu-like illness without respiratory symptoms, particularly in summer: fever, headache, aches, profound fatigue.</li>
+    <li>Blood testing is unreliable in the first few weeks, because it detects antibodies that haven't formed yet. A negative test early does not rule it out.</li>
+    <li>Co-infections exist and are treated differently — babesiosis, anaplasmosis, and others depending on region.</li>
+    <li><strong>Alpha-gal syndrome</strong> deserves its own mention: a tick bite can trigger an allergy to mammalian meat, with reactions that are delayed by hours after eating, which makes the connection very easy to miss. Worth raising with an allergist if unexplained reactions started after a bite.</li>
+  </ul>
+
+  <h3 class="sub">Most people never find the tick</h3>
+  <p>This is the correction worth making loudest, because it closes doors that should stay open. The majority of people diagnosed with Lyme disease do not recall a tick bite at all. The nymphs responsible for most human infection are about the size of a poppy seed, they bite painlessly, and they attach in places nobody inspects — hairline, behind the ear, waistband, groin, between toes.</p>
+  <p>A substantial minority also never develop the rash, or develop one somewhere they never see. So <em>we never found a tick</em> and <em>there was no bull's-eye</em> are not evidence against exposure, and neither should end the conversation. What matters more is where you live, where you've been, what season it was, and what the illness actually looked like.</p>
+
+  <h3 class="sub">Co-infections, and what's common where</h3>
+  <p>A single tick can carry more than one pathogen, and a single bite can transmit several at once. This matters practically rather than academically: the treatments are different, and treating one while missing another is a common reason someone doesn't get better. Tell any clinician both where you live and everywhere you've traveled.</p>
+  <ul>
+    <li><strong>Northeast and upper Midwest.</strong> The blacklegged tick carries Borrelia burgdorferi (Lyme), Babesia microti (babesiosis), and Anaplasma phagocytophilum (anaplasmosis) — the established co-infection picture for this region — along with Borrelia miyamotoi and, rarely, Powassan virus. <strong>Babesia is a parasite, not a bacterium, and does not respond to the antibiotics used for Lyme.</strong> If someone was treated for Lyme and stayed ill, an untreated babesiosis co-infection is one of the first things worth asking about.</li>
+    <li><strong>Southeast and south-central.</strong> The lone star tick carries ehrlichiosis, Heartland virus, and the alpha-gal trigger, and is associated with a Lyme-like rash illness. Rocky Mountain spotted fever occurs widely here and is rapidly dangerous when missed.</li>
+    <li><strong>Mountain West and Pacific.</strong> Rocky Mountain spotted fever, tularemia, Colorado tick fever, and tick-borne relapsing fever from soft ticks in rustic cabins. The western blacklegged tick transmits Lyme along the Pacific coast.</li>
+  </ul>
+
+  <h3 class="sub">Bartonella, and where the framing splits</h3>
+  <p>Bartonella infection is real, sometimes serious, and its main routes are well established — cat scratches and cat fleas cause cat scratch disease, and other Bartonella species are carried by body lice and sandflies. It can cause prolonged fever, lymph node swelling, eye involvement, and in some cases heart or neurological disease.</p>
+  <p>What is <em>not</em> established is tick-to-human transmission. Bartonella DNA has been detected in ticks, which is not the same as demonstrating that ticks infect people with it. You will encounter a widely used framing in the chronic Lyme community of a Northeast trifecta of Borrelia, Babesia, and Bartonella. Mainstream vector biology puts Anaplasma in that third position and treats tick-borne Bartonella as unproven. Both framings are in circulation and it helps to know which one you're being handed.</p>
+
+  <h3 class="sub">Other routes, sorted by what's actually established</h3>
+  <ul>
+    <li><strong>Babesiosis through blood transfusion and through pregnancy</strong> is documented and recognized. Blood supply screening exists in the US for this reason, and congenital cases have been reported.</li>
+    <li><strong>Borrelia across the placenta</strong> has been reported in case literature. The mainstream position is that Lyme disease treated appropriately during pregnancy has not been shown to produce a pattern of harm to the baby, and that the treatment is what matters. It has not been found to pass through breast milk. Pregnancy is a reason to treat promptly, not a reason to panic.</li>
+    <li><strong>Congenital Bartonella</strong> appears in occasional case reports and is not established.</li>
+  </ul>
+
+  <div class="note">
+    <h3>Where the field genuinely disagrees</h3>
+    <p>A minority of people have symptoms that persist after standard treatment — fatigue, pain, and cognitive difficulty. That this happens is not disputed. What causes it, what to call it, and how to treat it are disputed, sharply.</p>
+    <p>Mainstream infectious disease, neurology, and rheumatology guidelines hold that the infection is cleared by standard antibiotic courses, that persistent symptoms reflect immune or post-infectious processes rather than ongoing infection, and that extended antibiotic therapy has not been shown to help in controlled trials while carrying real risk. A separate body of clinicians and a separate set of guidelines hold that persistent infection occurs, that standard testing misses cases, and that longer or combination treatment is warranted.</p>
+    <p>Families arrive at this fork frightened, exhausted, and often after years of being told nothing is wrong — which is a real experience and part of why the dispute is as bitter as it is. This site is not going to resolve it for you.</p>
+  </div>
+
+  <div class="balance">
+    <div class="side">
+      <h3>What to hold onto whichever route you take</h3>
+      <p>Keep a mainstream clinician involved, even if you also see someone practicing outside the guidelines. The most avoidable harm here is a different treatable condition — autoimmune, metabolic, endocrine, sleep, or psychiatric — going undiagnosed while everything gets attributed to one explanation.</p>
+      <p>Get the acute care right. Prompt recognition and standard treatment of an early infection is the intervention with the strongest evidence by a wide margin, and it prevents most of what comes later.</p>
+    </div>
+    <div class="side">
+      <h3>Questions worth asking any practitioner, on either side</h3>
+      <p>What is the evidence for this specific recommendation, and how strong is it? What are the risks, including of the testing? How will we know if it's working, and at what point would you stop? What's the total cost over six months, including labs and supplements? What else could this be, and how have we ruled it out?</p>
+      <p>Be cautious with any clinician who is certain when the evidence isn't, on either side of this. Certainty is the warning sign, not the credential.</p>
+    </div>
+  </div>
+
+  <div class="warn">
+    <h3>Specific risks to know about</h3>
+    <p>Prolonged intravenous antibiotic therapy has caused documented serious harm in this context — bloodstream infections from central lines, severe intestinal infections, and deaths. Some specialty laboratories offer tests that public health authorities have cautioned against because they haven't been validated. Protocols costing many thousands of dollars are marketed to families with sick children and no answers.</p>
+    <p>None of that means every practitioner in this space is acting badly, and many are thoughtful. It does mean the usual consumer protections are weak here, and that asking hard questions is the only real safeguard you have.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The parts nobody warns you about</h2>
+
+  <h3 class="sub">Money, during</h3>
+  <ul>
+    <li><strong>Emergency care has protections.</strong> Federal rules limit surprise out-of-network billing for emergency services — if a bill arrives from a doctor you never chose at a hospital you didn't pick, question it rather than paying it.</li>
+    <li><strong>Nonprofit hospitals are required to have financial assistance policies.</strong> Ask for the financial assistance application by name, and ask early. Many families who would qualify never apply because nobody mentions it.</li>
+    <li><strong>Always request the itemized bill.</strong> Billing errors are common and almost always in the hospital's favor.</li>
+    <li><strong>Ask the social worker about transport, parking, and lodging funds,</strong> and about Ronald McDonald House or hospital family housing. Parking alone runs into real money over a long admission.</li>
+    <li><strong>Ask about payment plans before a bill goes to collections,</strong> and don't put medical debt on a credit card if a zero-interest hospital plan is available.</li>
+  </ul>
+
+  <h3 class="sub">Work and the rest of life</h3>
+  <ul>
+    <li>Family and medical leave protections may cover time off to care for a seriously ill child. Ask HR early and get the paperwork started before you need it, because approval takes time.</li>
+    <li>Ask about short-term disability, paid family leave in states that have it, and whether unused colleague leave donation exists at your workplace.</li>
+    <li>Let people help with specific things. "Bring dinner Tuesday" is a request people can fulfill; "let me know if you need anything" is not.</li>
+    <li>Tell the school early — both children's schools. Siblings need their teachers to know.</li>
+  </ul>
+
+  <h3 class="sub">Afterward, for everyone</h3>
+  <ul>
+    <li><strong>Medical trauma is real and treatable.</strong> Watch for new fear of doctors, nightmares, regression, or extreme reaction to routine appointments — in the patient and in the siblings. Trauma-focused therapy works.</li>
+    <li><strong>Expect the crash after,</strong> not during. People hold together through the emergency and fall apart in the calm afterward. That's the normal order, not a failure.</li>
+    <li><strong>Rebuild slowly.</strong> A child who's been out of school and out of routine needs a graded return, not a full week on day one.</li>
+    <li><strong>Get your own care.</strong> You have probably not slept, eaten properly, or seen your own doctor for months.</li>
+  </ul>
+</section>
+
+
+<div class="closenote"><b>Before you close this</b><p>Nobody feels ready for the day they need this page, and nobody is supposed to.</p><p>But you will walk in knowing where to go, what to ask, and what your child needs from the people treating them. A parent who arrives holding those three things changes the care their child gets. That is not a small thing, and it is entirely within your reach.</p></div>
+
+<footer>
+  <p><strong>This is a map, not medical advice, and nothing here should delay care.</strong> If you are worried about your child right now, stop reading and call someone — your pediatrician's nurse line, urgent care, or emergency services. First aid guidance and clinical recommendations change; verify against current guidance from your own clinicians.</p>
+  <p>Where medical opinion is genuinely divided, this page says so rather than picking for you. That includes the tick-borne section, and it is not a hedge — it is the most useful thing an information page can do with a live scientific dispute.</p>
+</footer>
+
+</div>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

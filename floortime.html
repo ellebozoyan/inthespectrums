@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Floortime & Child-Led Therapy — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --play:#1F6B63; --play-tint:#E2EFED;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: circles */
+.circ{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.circ h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.circ .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.turns{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:2px;margin-bottom:6px}
+.turn{background:rgba(255,255,255,.05);border-top:2px solid var(--rust);padding:13px 14px 15px}
+.turn.close{border-top-color:#7FA57A;background:rgba(127,165,122,.14)}
+.turn .who{font-family:var(--sans);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:#C6A98F;font-weight:700;margin:0 0 6px}
+.turn b{display:block;font-family:var(--serif);font-size:1rem;color:#EFEBE3;margin-bottom:5px;font-weight:400;font-style:italic}
+.turn span{font-size:.83rem;color:#B9C4B4;line-height:1.45;display:block}
+.circ .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:22px 0 0;max-width:60ch}
+.circ .cap strong{color:#EFEBE3}
+
+/* capacities */
+.caps{border-left:2px solid var(--line);padding-left:26px;margin-left:6px}
+.cap-item{position:relative;padding-bottom:24px}
+.cap-item::before{content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--play);border:3px solid var(--ground)}
+.cap-item .n{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--play);margin:0 0 5px}
+.cap-item h3{font-size:1.06rem;font-weight:400;margin:0 0 6px}
+.cap-item p{font-size:.94rem;margin:0 0 6px}
+.cap-item .ex{font-size:.9rem;color:var(--ink-soft);font-style:italic;margin:0}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+/* the floor moves */
+.moves{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.move{background:var(--card);border-left:3px solid var(--play);padding:19px 21px}
+.move .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 5px}
+.move h3{font-size:1.08rem;font-weight:400;margin:0 0 9px}
+.move p{font-size:.94rem;margin:0 0 10px}
+.move .where{background:var(--play-tint);padding:10px 12px;border-radius:2px;font-size:.9rem;margin:0 0 10px}
+.move .where b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--play);font-weight:700;display:block;margin-bottom:4px}
+.move ul{font-size:.91rem;padding-left:17px;margin:0}
+.move li{margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.strong{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.mixed{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.weak{background:#F6E4E0;border-left:4px solid #8A2B20}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.strong h3{color:var(--forest)}.ev.mixed h3{color:#A8641C}.ev.weak h3{color:#8A2B20}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:#F6E4E0;border-left:4px solid #8A2B20}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:#8A2B20}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.pnote{background:var(--play-tint);border-left:4px solid var(--play);padding:20px 22px;margin:24px 0}
+.pnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--play);font-weight:700;margin:0 0 10px}
+.pnote p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.move,.col,.cap-item{break-inside:avoid}
+  .circ{background:#fff;color:#000;border:1px solid #000}.circ .big,.turn b,.circ .cap strong{color:#000}}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Floortime and the case for <em>following the child</em></h1>
+  <p class="lede">Most therapy asks a child to come into the adult's world and do the adult's task. Child-led approaches invert that: the adult goes into the child's world, joins whatever is already happening, and builds from there. It looks like play — and it is play — which is exactly why it takes some explaining.</p>
+</header>
+
+<div class="profnote">
+  <b>Reading this as a professional</b>
+  <p>Covers the DIR/Floortime model specifically and the broader family of child-led and naturalistic approaches it belongs to. The evidence section distinguishes the branded model from the wider category, which have different research bases.</p>
+  <p>The section on how the work changes with age is the one most often missing from parent-facing material, and the question families ask most once their child is past preschool.</p>
+</div>
+
+<section>
+  <div class="circ">
+    <h2>The unit of the whole method</h2>
+    <p class="big">A circle of communication. The child does something. You respond to that thing. The child responds back. That's one closed circle — and the entire method is about opening and closing more of them, in a row, about whatever the child cares about.</p>
+    <div class="turns">
+      <div class="turn"><p class="who">Child opens</p><b>Rolls a car back and forth</b>
+        <span>An action, a glance, a sound, a word. Anything at all counts as an opening</span></div>
+      <div class="turn"><p class="who">You respond</p><b>Put your hand gently in the car's path</b>
+        <span>Join what's happening. Don't redirect it, don't improve it, don't quiz them about it</span></div>
+      <div class="turn close"><p class="who">Child closes</p><b>Pushes your hand away, or laughs, or looks up</b>
+        <span>Circle closed. That look is communication, and it counts</span></div>
+      <div class="turn"><p class="who">And again</p><b>You put your hand back</b>
+        <span>Now you're in a game. Two circles. Then five. Then twenty in a row</span></div>
+    </div>
+    <p class="cap"><strong>That's it. That's the technique.</strong> Everything else — the levels, the terminology, the training — is refinement on top of this one move: notice what your child is doing, become part of it, and give them a reason to come back to you. A child having twenty continuous back-and-forths about a car is doing more communicative work than a child correctly naming twenty flashcards, and it belongs to them.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What Floortime actually <em>is</em></h2>
+  <p class="secnote">Floortime is the practice. DIR is the framework it sits inside — Developmental, Individual differences, Relationship-based.</p>
+
+  <ul>
+    <li><strong>Developmental</strong> — meeting a child at the emotional and social capacities they actually have right now, rather than at their age, and building the next one.</li>
+    <li><strong>Individual differences</strong> — every child has a distinct sensory, motor, and regulation profile, and that profile determines <em>how</em> you engage. A child who needs big movement and a child who is overwhelmed by noise require completely different versions of the same session.</li>
+    <li><strong>Relationship-based</strong> — the relationship is the vehicle. Warmth, delight, and shared emotion are not the pleasant packaging around the intervention. They are the active ingredient.</li>
+  </ul>
+
+  <h3 class="sub">The moves that make it work</h3>
+  <ul>
+    <li><strong>Follow the lead.</strong> Whatever they're doing is the curriculum. Lining up trains is not something to be interrupted — it's the door.</li>
+    <li><strong>Join the perseveration rather than blocking it.</strong> If they're spinning a wheel, spin one too. Repetitive play stops being a wall the moment someone else is inside it.</li>
+    <li><strong>Use affect deliberately.</strong> Your face and voice carry more than your words. Animation is what makes a child look up; flat delivery closes circles that would otherwise open.</li>
+    <li><strong>Be a playful obstacle.</strong> Gently get in the way — hold the piece they need, block the track, pretend you can't find it — so they have to communicate with you rather than around you. Playfully, never to frustrate.</li>
+    <li><strong>Challenge one step up.</strong> Aim just above where they are now, not several rungs above.</li>
+    <li><strong>Regulation first, always.</strong> A dysregulated child cannot open circles. If they're overwhelmed, the session becomes co-regulation, and that is not a wasted session.</li>
+    <li><strong>Short and often beats long and rare.</strong> Twenty focused minutes several times a day, mostly delivered by the people who live with the child.</li>
+  </ul>
+
+  <div class="pnote">
+    <h3>The most common misunderstanding</h3>
+    <p>Following the child's lead is not the same as doing nothing, and it is not permissiveness. It is highly active — you are constantly noticing, joining, expanding, and gently obstructing to create another exchange.</p>
+    <p>Nor does child-led mean goal-free. Good Floortime has clear developmental targets. The difference is that the child chooses the <em>content</em> and the adult holds the <em>direction</em>. Who picks the toy and who knows what we're building are two different questions.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The capacities <em>being built</em></h2>
+  <p class="secnote">The developmental ladder underneath the play. Children move up it at their own rate, revisit lower rungs when stressed or unwell, and can be working across several at once.</p>
+
+  <div class="caps">
+    <div class="cap-item"><p class="n">One</p><h3>Regulation and shared attention</h3>
+      <p>Being calm enough to take the world in, and interested enough to look at it — including at you.</p>
+      <p class="ex">Looks like: settling with support, noticing a sound, letting you into their field of attention.</p></div>
+
+    <div class="cap-item"><p class="n">Two</p><h3>Engagement and relating</h3>
+      <p>Preferring people. Finding another person genuinely worth having around.</p>
+      <p class="ex">Looks like: seeking you out, warming when you arrive, protesting when you leave.</p></div>
+
+    <div class="cap-item"><p class="n">Three</p><h3>Two-way purposeful communication</h3>
+      <p>Opening and closing circles on purpose — with gestures, sounds, expression, a device, or words.</p>
+      <p class="ex">Looks like: handing you something to open, pushing your hand away, a look that clearly means <em>again</em>.</p></div>
+
+    <div class="cap-item"><p class="n">Four</p><h3>Shared social problem-solving</h3>
+      <p>Many circles in a row, strung together to get something done together. This is where a great deal of real progress happens.</p>
+      <p class="ex">Looks like: leading you to the cupboard, pointing, checking your face, negotiating which one — a whole sequence with a purpose.</p></div>
+
+    <div class="cap-item"><p class="n">Five</p><h3>Ideas and symbols</h3>
+      <p>Using words, symbols, or pretend to stand for things that aren't in front of them.</p>
+      <p class="ex">Looks like: feeding a toy, a block becoming a phone, talking about something that happened yesterday.</p></div>
+
+    <div class="cap-item"><p class="n">Six</p><h3>Connecting ideas — emotional thinking</h3>
+      <p>Building bridges between ideas, so play has a plot and conversation has logic. Cause, effect, and because.</p>
+      <p class="ex">Looks like: "the baby is crying because she's lost," answering <em>why</em> questions, a story that goes somewhere.</p></div>
+
+    <div class="cap-item"><p class="n">Beyond</p><h3>Multi-causal, gray-area, and reflective thinking</h3>
+      <p>The capacities that keep developing through the school years and adolescence — several reasons for one event, degrees rather than absolutes, and the ability to think about your own thinking.</p>
+      <p class="ex">Looks like: "he might have done it because he was tired, or maybe he didn't hear me," knowing you're <em>a bit</em> angry rather than furious, noticing your own pattern.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The floor <em>moves</em></h2>
+  <p class="secnote">The question families ask most: what does this become when a child is eight, or thirteen, or seventeen? The answer is that the stance never changes and the venue always does.</p>
+
+  <div class="moves">
+    <div class="move"><p class="age">Toddler and preschool</p><h3>Actually on the floor</h3>
+      <div class="where"><b>Where it happens</b>The rug, the bath, the sandpit, the sofa cushions</div>
+      <p>Sensory-motor play, chase and tickle, cause-and-effect toys, songs with pauses in them. Building the first four capacities: regulation, engagement, back-and-forth, and long strings of exchanges.</p>
+      <ul><li>Join whatever they're doing, however repetitive</li><li>Big affect, exaggerated faces, dramatic pauses</li><li>Playful obstruction as the main engine</li><li>Twenty minutes, several times daily</li></ul>
+    </div>
+
+    <div class="move"><p class="age">Early elementary</p><h3>Pretend and story</h3>
+      <div class="where"><b>Where it happens</b>The floor still, plus the table, the yard, the bathtub, small worlds and figures</div>
+      <p>Symbolic play deepens — characters, plots, problems that need solving. This is the age for capacities five and six: ideas standing for things, and ideas connecting to each other.</p>
+      <ul><li>Take a character and stay in role</li><li>Introduce a problem into the story and let them solve it</li><li>Play the one who doesn't understand, so they have to explain</li><li>Let the plot be theirs, even when it makes no sense</li></ul>
+    </div>
+
+    <div class="move"><p class="age">Late elementary</p><h3>Shared projects and games</h3>
+      <div class="where"><b>Where it happens</b>The kitchen counter, the workbench, a board game, a screen, a bike ride</div>
+      <p>Pretend play recedes and collaboration takes over. The circles now happen inside building something, cooking something, or playing something with real rules to negotiate.</p>
+      <ul><li>Build, cook, make, or play a game together — side by side beats face to face</li><li>Negotiate rules rather than enforcing them</li><li>Be wrong on purpose; let them correct you</li><li>Debate small things for fun — best flavor, worst superpower</li></ul>
+    </div>
+
+    <div class="move"><p class="age">Adolescence</p><h3>Conversation is the play</h3>
+      <div class="where"><b>Where it happens</b>The car, the walk, late at night, over a game, in the kitchen at eleven pm</div>
+      <p>The medium becomes talk, shared interest, and time spent alongside. Following their lead now means genuinely caring about their thing — the game, the music, the team, the hyperfocus — and not treating it as a way in to something else.</p>
+      <ul><li>Side-by-side conversation, no eye contact required</li><li>Ask about their world and mean it</li><li>Wonder aloud rather than questioning</li><li>Reflective capacities: why people did what they did, what they'd do differently</li></ul>
+    </div>
+
+    <div class="move"><p class="age">Toward adulthood</p><h3>It stops being therapy</h3>
+      <div class="where"><b>Where it happens</b>Anywhere. It's just how you are with each other now</div>
+      <p>What began as a technique becomes the shape of the relationship — you follow their lead, you take their interests seriously, you co-regulate without naming it, you leave room for them to initiate.</p>
+      <ul><li>Their goals lead; you consult rather than direct</li><li>Shared interests as the ongoing connection</li><li>Reflective conversation about their own patterns and needs</li><li>The relationship that makes self-advocacy possible</li></ul>
+    </div>
+
+    <div class="move"><p class="age">And it feeds into</p><h3>What this becomes next</h3>
+      <div class="where"><b>Where it leads</b>Other approaches that need the same foundation</div>
+      <p>The capacities built here are the prerequisites for the work that comes later.</p>
+      <ul><li>Collaborative problem-solving, which needs a child who can hold two ideas at once</li><li>Talking therapies, which need reflective thinking</li><li>Genuine friendship, which needs flexible back-and-forth</li><li>Self-advocacy, which needs a person who has always been listened to</li></ul>
+    </div>
+  </div>
+
+  <div class="pnote">
+    <h3>The constant across all of it</h3>
+    <p>Notice what they're already doing. Join it without changing it. Give them a reason to come back to you. Aim one step above where they are.</p>
+    <p>A parent doing that with a two-year-old on a rug and a parent doing it with a sixteen-year-old in a car at midnight are doing the same thing. That's why this doesn't expire — and why the families who learn it early tend to still have a way in during the years when other families lose one.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Why child-led <em>matters</em></h2>
+  <p class="secnote">Beyond Floortime specifically. This is the principle shared across a whole family of approaches, and the reason it keeps showing up in the evidence.</p>
+
+  <div class="domains">
+    <div class="dom"><h3>Initiation is the skill that generalizes</h3>
+      <p>A child who responds correctly when prompted has learned to respond to prompts. A child who initiates has learned to communicate. The second travels into new rooms with new people; the first frequently doesn't.</p>
+      <p class="look"><b>Why it matters</b>Prompt dependency is a real and well-documented outcome of heavily adult-directed teaching, and it's expensive to undo later.</p></div>
+
+    <div class="dom"><h3>Motivation you don't have to manufacture</h3>
+      <p>When the activity is already the child's, engagement comes free. No reinforcement schedule is needed to make a child interested in the thing they were doing anyway.</p>
+      <p class="look"><b>Why it matters</b>Learning attached to genuine interest is retained better and needs less maintaining than learning attached to an external reward.</p></div>
+
+    <div class="dom"><h3>Compliance is not progress</h3>
+      <p>A child who has stopped protesting may have learned that protest changes nothing. That looks like improvement on a data sheet and is the opposite of what anyone wanted.</p>
+      <p class="look"><b>Why it matters</b>Adults with disabilities have described lasting cost from years of being trained into compliance. Following the lead builds the opposite habit.</p></div>
+
+    <div class="dom"><h3>It builds the ground for self-advocacy</h3>
+      <p>Self-determination starts with discovering that your preferences change what happens. Every closed circle is a small demonstration of that — you did something, and the world responded.</p>
+      <p class="look"><b>Why it matters</b>The adults who can say what they need are usually the ones who were listened to long before they had words for it.</p></div>
+
+    <div class="dom"><h3>The people who deliver it are already there</h3>
+      <p>Child-led models are mostly parent-delivered, which means many hours a week rather than one, in the settings where skills actually need to work.</p>
+      <p class="look"><b>Why it matters</b>Parent-mediated intervention is among the better-supported approaches in early childhood, largely for this reason.</p></div>
+
+    <div class="dom"><h3>And the honest limits</h3>
+      <p>Child-led isn't sufficient for everything. Some things need direct teaching: road safety, specific academic skills, a motor sequence, a medical routine. Some children need more structure than a purely follow-the-lead model provides.</p>
+      <p class="look"><b>Why it matters</b>The useful question isn't child-led versus adult-led. It's <em>who initiates, who follows, and does this child have enough experience of being followed?</em> Most good programs blend, and the blend shifts by goal.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Approaches, sorted by <em>how well they're supported</em></h2>
+  <div class="evid">
+    <div class="ev strong"><h3>Well supported</h3>
+      <p><strong>Naturalistic developmental behavioral interventions</strong> as a category — play-based, child-initiated approaches delivered in natural settings. Among the strongest evidence in early autism intervention, and they share Floortime's core principles of following the lead and building on natural motivation.</p>
+      <p><strong>Parent-mediated intervention</strong> generally.</p>
+      <p><strong>Responsive, follow-in parenting styles</strong> for language development — one of the most replicated findings in child language research.</p>
+      <p><strong>Joint attention and symbolic play interventions.</strong></p>
+    </div>
+
+    <div class="ev mixed"><h3>Mixed or emerging</h3>
+      <p><strong>DIR/Floortime specifically.</strong> Several controlled trials show benefit, and home-consultation versions of the model have randomized support. Systematic reviews generally describe the evidence as promising but limited by small samples and methodological variability.</p>
+      <p>The honest position: the <em>principles</em> are well supported and shared with better-studied approaches; the branded model has less rigorous evidence than its popularity implies. That's a reason to ask questions, not a reason to dismiss it.</p>
+      <p><strong>Relationship-focused programs generally</strong> — plausible, warmly regarded, unevenly studied.</p>
+      <p><strong>Structured parent training programs</strong> for early language — good evidence for some, thinner for others.</p>
+    </div>
+
+    <div class="ev weak"><h3>Ask hard questions</h3>
+      <p><strong>Any program promising recovery</strong> or claiming a child will become indistinguishable from peers.</p>
+      <p><strong>Very expensive intensive packages</strong> sold to families with no other options, particularly where the cost is front-loaded and the outcome vague.</p>
+      <p><strong>Claims that one approach addresses everything.</strong> Floortime does not replace speech therapy, occupational therapy, medical care, or communication access.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Recognizing <em>strong child-led work</em></h2>
+  <div class="compare">
+    <div class="col good"><h3>What good looks like</h3>
+      <ul>
+        <li>The therapist gets on the floor and joins what your child is already doing</li>
+        <li>You are in the session, being coached, not waiting outside</li>
+        <li>Your child's sensory and regulation profile shapes how sessions run</li>
+        <li>Repetitive play is joined rather than redirected</li>
+        <li>Goals are developmental capacities, and progress is described in circles and initiations</li>
+        <li>Sessions look joyful — genuine delight is the tool, not a bonus</li>
+        <li>Clear guidance on what to do at home, in short daily blocks</li>
+        <li>Honest about what other disciplines need to be doing alongside</li>
+      </ul>
+    </div>
+    <div class="col bad"><h3>Worth asking about</h3>
+      <ul>
+        <li>The therapist arrives with an agenda and redirects your child into it</li>
+        <li>Parents excluded from sessions as a matter of policy</li>
+        <li>Repetitive or unusual play treated as something to stop</li>
+        <li>Compliance and sitting still described as progress</li>
+        <li>No developmental framework you can actually follow</li>
+        <li>Flat affect — going through the motions of play without any delight in it</li>
+        <li>Promises about outcomes, or about recovery</li>
+        <li>Presented as a replacement for communication access or medical care</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">Questions worth asking</h3>
+  <ul>
+    <li>Which developmental capacity are we working on right now, and what would the next one look like?</li>
+    <li>How does my child's sensory profile change how you engage with them?</li>
+    <li>How will you coach me, and how much should I be doing at home?</li>
+    <li>How do you measure progress in something that looks like play?</li>
+    <li>What do you do when my child won't engage at all today?</li>
+    <li>What does this look like in three years, when they're older?</li>
+    <li>What else does my child need alongside this?</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">From our library</h2>
+  <div class="lib">
+    <a class="libcard" href="#"><h3>Play schemas</h3>
+      <p>The repeated patterns children work through in play — transporting, enclosing, connecting, trajectory — with ways to join each one and build circles inside it.</p>
+      <span class="go">Browse the schemas</span></a>
+    <a class="libcard" href="#"><h3>Themed activities</h3>
+      <p>Activity sets with the developmental and language targets marked, built to be led by the child rather than run by the adult.</p>
+      <span class="go">Browse the activities</span></a>
+    <a class="libcard" href="speech-language-aac.html"><h3>Speech, language and AAC</h3>
+      <p>Circles of communication don't require speech. Following the lead works exactly the same way with a device, signs, or gestures.</p>
+      <span class="go">Read the SLP page</span></a>
+    <a class="libcard" href="occupational-therapy.html"><h3>Occupational therapy</h3>
+      <p>The individual-differences half of the model — sensory profile, regulation, and motor planning — is largely OT territory.</p>
+      <span class="go">Read the OT page</span></a>
+    <a class="libcard" href="their-own-voice.html"><h3>Their own voice</h3>
+      <p>Where following the lead leads: a young person who knows their own mind and can say what they need.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="maplewood-stories.html"><h3>The Maplewood stories</h3>
+      <p>Shared reading is child-led work too — stop when they stop, wonder aloud, and let them take the story somewhere.</p>
+      <span class="go">Read about Maplewood</span></a>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Practical matters</h2>
+  <h3 class="sub">Who provides it</h3>
+  <p>DIR/Floortime training is completed by psychologists, speech-language pathologists, occupational therapists, developmental specialists, and educators — it's a framework rather than a profession, so ask what discipline the person holds as well as what training. Many practitioners work through a home-consultation model, coaching parents on video and by visit rather than delivering all the hours directly.</p>
+
+  <h3 class="sub">Dosage</h3>
+  <p>The model is built around many short sessions delivered by the people who live with the child — often several twenty-minute blocks daily. A weekly clinic hour with no home component is not really this approach, whatever it's called. Ask how the home coaching works before you commit.</p>
+
+  <h3 class="sub">Paying for it</h3>
+  <ul>
+    <li>Coverage varies widely and much of it is out of pocket. When delivered by an SLP or OT it may be billable under their own codes — verify by code before starting.</li>
+    <li>Some state early intervention programs and Medicaid waiver services fund relationship-based models. Ask by name.</li>
+    <li>The home-delivered nature of the model means the biggest cost is often your time rather than the fees, which is worth planning for honestly.</li>
+  </ul>
+
+  <div class="note">
+    <h3>Meet our developmental therapist</h3>
+    <p>This section links to a practitioner page — background, training, approach, and how to get in touch. Written and approved by her.</p>
+    <p><em>Placeholder: add name, credentials, practice, a short statement in her own words, and a link. See the contributor guidance on the About page before publishing.</em></p>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>You can start this afternoon, and you do not need any training to begin. Sit down near whatever your child is already doing. Don't redirect it, don't quiz them, don't improve it. Join in, and then get gently, playfully in the way — and see whether they come back to you.</p>
+  <p>That's a circle. You already know how to do this; most of the skill is in resisting the urge to turn it into a lesson. And whatever their age, the door is still open — it just moved from the floor to the kitchen, or the car, or the game you don't really understand yet.</p>
+</div>
+
+<footer>
+  <p><strong>This is a map, not medical advice.</strong> Whether a particular approach suits a particular child is a decision for the family and the clinicians who know them. No single approach addresses everything, and relationship-based work sits alongside communication access, medical care, and other therapies rather than replacing them.</p>
+  <p>Where evidence for a specific model is limited, this page says so. That isn't a reason to avoid it — it's a reason to ask what outcome is expected, how it will be measured, and by when.</p>
+</footer>
+
+</div>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

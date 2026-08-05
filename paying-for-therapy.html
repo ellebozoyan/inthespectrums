@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paying For It — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --paper:#FFFDF8; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 20px;font-size:1.06rem}
+header.masthead{padding:56px 0 26px}
+section{margin:0 0 54px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2rem);font-weight:400;margin:0 0 8px;line-height:1.2}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:60ch;font-size:.99rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:34px 0 12px}
+p{margin:0 0 14px}
+ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* setting cards */
+.settings{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:13px}
+.set{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px}
+.set h3{font-size:1.08rem;font-weight:400;margin:0 0 4px}
+.set .tagline{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 13px}
+.set h4{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft);font-weight:700;margin:14px 0 6px}
+.set ul{padding-left:17px;margin:0;font-size:.9rem;line-height:1.5}
+.set li{margin-bottom:5px}
+
+/* compare table */
+.cmp{width:100%;border-collapse:collapse;font-size:.95rem;background:var(--card);
+  border:1px solid var(--line)}
+.cmp th,.cmp td{text-align:left;padding:13px 15px;border-bottom:1px solid var(--line);vertical-align:top}
+.cmp th{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;background:#EDF1EB}
+.cmp td:first-child{font-family:var(--sans);font-size:12.5px;color:var(--ink-soft);width:22%}
+.cmp tr:last-child td{border-bottom:none}
+.scroller{overflow-x:auto}
+@media(max-width:620px){.cmp{font-size:.88rem}.cmp td:first-child{width:30%}}
+
+/* superbill mockup */
+.billwrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:26px;align-items:start}
+@media(max-width:780px){.billwrap{grid-template-columns:1fr}}
+.bill{background:var(--paper);border:1px solid #CBC6B8;border-radius:2px;padding:22px 20px;
+  font-family:var(--mono);font-size:11.5px;line-height:1.55;color:#2A2A26;position:sticky;top:16px}
+@media(max-width:780px){.bill{position:static}}
+.bill .head{text-align:center;border-bottom:1.5px solid #2A2A26;padding-bottom:10px;margin-bottom:12px}
+.bill .head b{font-size:13px;letter-spacing:.06em}
+.brow{display:flex;justify-content:space-between;gap:12px;margin-bottom:4px;flex-wrap:wrap}
+.bk{color:#7A7568}
+.bline{border-top:1px dashed #C3BDAE;margin:12px 0}
+.btable{width:100%;border-collapse:collapse;font-size:10.5px;margin:6px 0}
+.btable th{text-align:left;border-bottom:1px solid #2A2A26;padding:4px 3px;font-weight:700}
+.btable td{padding:4px 3px;border-bottom:1px dotted #D5CFC0}
+.marker{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;
+  background:var(--rust);color:#fff;border-radius:50%;font-family:var(--sans);font-size:9.5px;
+  font-weight:700;margin-left:5px;vertical-align:middle;flex:0 0 auto}
+.paid{background:#E4EFE2;border:1px solid #7FA57A;padding:8px 10px;margin-top:10px;
+  display:flex;justify-content:space-between;align-items:center;font-weight:700}
+.legend{counter-reset:none}
+.lg{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}
+.lg:last-child{border-bottom:none}
+.lgnum{flex:0 0 22px;height:22px;background:var(--rust);color:#fff;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:11px;
+  font-weight:700;margin-top:2px}
+.lg div p{margin:0;font-size:.93rem;line-height:1.5}
+.lg div strong{display:block;font-family:var(--sans);font-size:12.5px;letter-spacing:.02em;
+  margin-bottom:3px;color:var(--ink)}
+
+/* steps */
+.flow{counter-reset:f}
+.fstep{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:18px 20px 18px 60px;
+  margin-bottom:11px;position:relative}
+.fstep::before{counter-increment:f;content:counter(f);position:absolute;left:19px;top:18px;
+  width:26px;height:26px;background:var(--forest);color:#fff;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:12px;font-weight:700}
+.fstep h3{font-size:1.05rem;font-weight:400;margin:0 0 7px}
+.fstep p{font-size:.95rem;margin:0 0 8px}
+.fstep p:last-child{margin-bottom:0}
+.fstep .flag{color:var(--alarm);font-size:.92rem}
+.fstep .flag b{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  margin-right:6px;font-weight:700}
+
+/* glossary */
+.gloss{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px}
+.gterm{background:var(--card);border-left:3px solid var(--forest);padding:15px 17px}
+.gterm h3{font-size:.99rem;font-weight:400;margin:0 0 5px;color:var(--forest)}
+.gterm p{margin:0;font-size:.92rem;color:var(--ink-soft)}
+
+/* worksheet */
+.sheet{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:26px}
+.q{border-top:1px solid var(--line);padding:14px 0 12px;display:grid;
+  grid-template-columns:minmax(0,1fr) 150px;gap:16px;align-items:start}
+.q:first-of-type{border-top:none}
+.q p{margin:0;font-size:.96rem}
+.q .qwhy{font-size:.86rem;color:var(--ink-soft);margin-top:4px}
+.blank{border-bottom:1px solid var(--ink-soft);height:26px;align-self:end}
+@media(max-width:620px){.q{grid-template-columns:1fr}.blank{height:30px}}
+
+/* callout */
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:26px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:26px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+code{font-family:var(--mono);font-size:.88em;background:#E7EBE5;padding:1px 5px;border-radius:2px}
+
+footer{border-top:1px solid var(--line);padding:26px 0 70px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+@media print{body{background:#fff;font-size:10.5pt}.bill{position:static}
+  .fstep,.gterm,.set,.q{break-inside:avoid}}
+
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Paying for it,<br><em>and getting some of it back</em></h1>
+  <p class="lede">Private therapy is where most families end up, and it's the part of this system with the least guidance and the most avoidable expense. Here's how the money actually moves, what a superbill has to say to be worth anything, and how to decide between a therapist who comes to your kitchen and a clinic across town.</p>
+</header>
+
+<section>
+  <h2 class="sec">Where therapy happens</h2>
+  <p class="secnote">There isn't a better setting, only a better match between a setting and a goal. Most families who get this right end up with a mix — and the mix changes as the child does.</p>
+
+  <div class="settings">
+    <div class="set">
+      <h3>In your home</h3>
+      <p class="tagline">Best for generalizing</p>
+      <h4>Where it wins</h4>
+      <ul>
+        <li>Skills are taught where they're actually used — this kitchen, this bathroom, these stairs</li>
+        <li>No transition cost; a child who spends twenty minutes recovering from a car ride gets a full session instead</li>
+        <li>You're present, so you learn the strategy rather than hearing it summarized at pickup</li>
+        <li>Strong fit for feeding, toileting, dressing, sleep, and routines</li>
+        <li>Often better for children who shut down under demand or in unfamiliar rooms</li>
+        <li>Siblings get pulled in naturally, which is usually a feature</li>
+      </ul>
+      <h4>Where it costs you</h4>
+      <ul>
+        <li>No sensory gym, swings, pool, or specialized equipment</li>
+        <li>No peers, which matters enormously for social communication goals</li>
+        <li>Home stops being the one place with no demands</li>
+        <li>Higher hourly rate and travel fees are common</li>
+        <li>Someone is in your house, on a schedule, and the house must be somewhat ready</li>
+      </ul>
+    </div>
+
+    <div class="set">
+      <h3>At a clinic or center</h3>
+      <p class="tagline">Best for equipment and peers</p>
+      <h4>Where it wins</h4>
+      <ul>
+        <li>Sensory gyms, therapy pools, standing frames, feeding kitchens, AAC device libraries</li>
+        <li>Peer groups and social opportunities you can't manufacture at home</li>
+        <li>Disciplines under one roof, which makes co-treatment sessions possible</li>
+        <li>Usually cheaper per hour, and more likely to be in network</li>
+        <li>Coverage and supervision when your therapist is out</li>
+        <li>The building itself cues some children that it's time to work</li>
+      </ul>
+      <h4>Where it costs you</h4>
+      <ul>
+        <li>Travel and transitions eat time and regulation, sometimes more than the session gives back</li>
+        <li>Waiting rooms are loud and hard for a lot of children</li>
+        <li>Skills can stay in the building unless someone deliberately bridges them home</li>
+        <li>Parents often wait outside and learn less</li>
+      </ul>
+    </div>
+
+    <div class="set">
+      <h3>At school</h3>
+      <p class="tagline">Free, and narrower on purpose</p>
+      <h4>Where it wins</h4>
+      <ul>
+        <li>No cost, no travel, no separate appointment to hold</li>
+        <li>Delivered in the setting where the difficulty is showing up</li>
+        <li>Therapist is in the building daily and sees the whole day</li>
+        <li>Written into an enforceable plan</li>
+      </ul>
+      <h4>Where it costs you</h4>
+      <ul>
+        <li>The legal standard is educational access, not overall development — real goals can fall outside it</li>
+        <li>Minutes are usually short and often delivered in a group</li>
+        <li>Push-in sessions in a busy classroom vary widely in what they accomplish</li>
+        <li>Services pause over summer and during every transition</li>
+      </ul>
+    </div>
+
+    <div class="set">
+      <h3>Over video</h3>
+      <p class="tagline">Best for coaching you</p>
+      <h4>Where it wins</h4>
+      <ul>
+        <li>Excellent for parent coaching, which is often the highest-yield format anyway</li>
+        <li>Reaches specialists who aren't within driving distance</li>
+        <li>Feeding work happens at your real table with your real food</li>
+        <li>No transitions, no travel, easier to keep consistent</li>
+      </ul>
+      <h4>Where it costs you</h4>
+      <ul>
+        <li>Poor fit for hands-on physical therapy and much of occupational therapy</li>
+        <li>Requires an adult present and engaged for the whole session</li>
+        <li>Screen attention is its own hurdle for some children</li>
+        <li>Coverage rules and licensure across state lines change often — verify both</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note">
+    <h3>The billing detail that decides this for some families</h3>
+    <p>Where a session happens is recorded on the claim as a place of service code — commonly <code>11</code> for an office or clinic, <code>12</code> for the home, <code>03</code> for a school, and <code>02</code> or <code>10</code> for telehealth. Some plans cover a service at one location and deny the identical service at another, and home-based therapy is the one most often excluded.</p>
+    <p>Ask your insurer directly: <em>is this CPT code covered at place of service 12?</em> Ask before you start, not after three months of denied claims. If the answer is no, that's worth knowing while you still have the option of choosing a clinic.</p>
+  </div>
+
+  <h3 class="sub">How to actually choose</h3>
+  <ul>
+    <li><strong>Match the setting to the goal, not to your preference.</strong> Feeding, toileting, dressing, and bedtime belong at home. Gross motor work, sensory equipment, and peer interaction belong at a center. Parent coaching works over video.</li>
+    <li><strong>Count the true hourly cost of a clinic.</strong> Forty minutes of driving plus twenty minutes of recovery on either end turns a one-hour session into a three-hour commitment, and for some children the regulation cost outruns the benefit.</li>
+    <li><strong>Whichever you choose, insist on generalization.</strong> Ask the center therapist how skills transfer home; ask the home therapist how your child will practice with peers. If neither has an answer, that's the gap you'll be living in.</li>
+    <li><strong>Ask to observe, every time.</strong> Some clinics discourage it. A practice that won't let you watch your own child's session is telling you something worth hearing.</li>
+    <li><strong>Ask what happens when your child says no.</strong> The answer tells you more about a provider than their credentials do.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">In network, out of network, and what the difference costs you</h2>
+  <p class="secnote">These are two entirely different transactions. In one, the provider chases the money. In the other, you do.</p>
+
+  <div class="scroller">
+  <table class="cmp">
+    <tr><th></th><th>In network</th><th>Out of network</th></tr>
+    <tr><td>Who pays whom</td>
+      <td>You pay a copay or coinsurance. The practice bills the insurer for the rest.</td>
+      <td>You pay the provider in full, at the time of service. You then ask your insurer to pay you back some of it.</td></tr>
+    <tr><td>The rate</td>
+      <td>A contracted rate the provider agreed to. They can't bill you above it.</td>
+      <td>Whatever the provider charges. Your insurer reimburses a percentage of its own <em>allowed amount</em>, which is usually lower than the charge — and the gap is yours.</td></tr>
+    <tr><td>Deductible</td>
+      <td>Your in-network deductible, often modest.</td>
+      <td>A separate, higher out-of-network deductible. Nothing gets reimbursed until it's met, and it resets annually.</td></tr>
+    <tr><td>Paperwork</td>
+      <td>Almost none.</td>
+      <td>Yours, permanently. Superbills, claim forms, follow-up calls, appeals.</td></tr>
+    <tr><td>Choice of provider</td>
+      <td>Whoever is on the list and taking patients — often a long wait, sometimes nobody with the right specialty.</td>
+      <td>Anyone. This is the whole reason families go out of network.</td></tr>
+    <tr><td>Session flexibility</td>
+      <td>Often capped visits, shorter sessions, prior authorization, and periodic proof of progress.</td>
+      <td>The provider answers to you rather than to a contract. Session length and approach are between you and them.</td></tr>
+    <tr><td>Worst case</td>
+      <td>A waitlist you can't get off.</td>
+      <td>Your plan has no out-of-network benefit at all — common with HMO and EPO plans — and you get back nothing.</td></tr>
+  </table>
+  </div>
+
+  <div class="warn">
+    <h3>Check this one thing before anything else</h3>
+    <p>Ask your insurer, in these words: <em>does my plan have out-of-network benefits for outpatient therapy, and what is my out-of-network deductible and coinsurance?</em> HMO and EPO plans frequently have no out-of-network coverage whatsoever except emergencies. PPO and POS plans usually do.</p>
+    <p>If the answer is no, stop and read the section on single case agreements below before you conclude you're stuck paying everything.</p>
+  </div>
+
+  <h3 class="sub">The terms, in plain language</h3>
+  <div class="gloss">
+    <div class="gterm"><h3>Allowed amount</h3><p>What your insurer decides a service is worth, regardless of what you paid. If your therapist charges $200 and the allowed amount is $120, your reimbursement is calculated on $120. The other $80 is simply yours.</p></div>
+    <div class="gterm"><h3>Coinsurance</h3><p>The percentage of the allowed amount you keep paying after the deductible. At 70/30 out of network with a $120 allowed amount, you're reimbursed $84 on a $200 session.</p></div>
+    <div class="gterm"><h3>Out-of-pocket maximum</h3><p>The annual ceiling on your own spending — but out-of-network costs often don't count toward it, and the amount above the allowed amount almost never does. Ask specifically.</p></div>
+    <div class="gterm"><h3>Prior authorization</h3><p>Approval required before services start. Retroactive approval is rarely granted, which makes this the most expensive box to leave unchecked.</p></div>
+    <div class="gterm"><h3>Habilitative vs. rehabilitative</h3><p>Rehabilitative restores a skill that was lost. Habilitative builds one that never developed — which is what most childhood therapy is. Some plans historically covered only the first. If a denial says services aren't restoring prior function, this is the distinction being used, and it's worth challenging.</p></div>
+    <div class="gterm"><h3>Self-funded vs. fully insured</h3><p>Ask your HR department which one your employer plan is. State insurance mandates — including autism coverage laws — generally don't apply to self-funded plans, which are governed by federal law instead. This single question explains a lot of otherwise baffling denials.</p></div>
+    <div class="gterm"><h3>Timely filing</h3><p>The deadline for submitting a claim, often 90 days to a year from the date of service. Miss it and the claim is dead regardless of merit. This is the main argument for submitting monthly rather than saving up a year of superbills.</p></div>
+    <div class="gterm"><h3>Single case agreement</h3><p>A one-off contract where your insurer agrees to cover a specific out-of-network provider at in-network rates, because no adequate in-network option exists. Also called a network gap exception. Underused, and frequently granted.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What a superbill has to say</h2>
+  <p class="secnote">A superbill is not a receipt. It's a claim written in the insurer's language, handed to you instead of sent by the practice. Missing one field and it comes back — sometimes months later, sometimes past the filing deadline.</p>
+
+  <div class="billwrap">
+    <div class="bill">
+      <div class="head"><b>SUPERBILL / STATEMENT FOR INSURANCE</b><br>Not a bill — for reimbursement purposes</div>
+      <div class="brow"><span><span class="bk">Provider</span> Jordan Ellery, MS CCC-SLP</span></div>
+      <div class="brow"><span><span class="bk">License</span> SLP-000000 (MA)</span><span><span class="bk">NPI</span> 1234567890<span class="marker">1</span></span></div>
+      <div class="brow"><span><span class="bk">Group NPI</span> 9876543210</span><span><span class="bk">Tax ID / EIN</span> 00-0000000<span class="marker">2</span></span></div>
+      <div class="brow"><span><span class="bk">Practice address</span> 1 Example St, Anytown MA 00000</span></div>
+      <div class="bline"></div>
+      <div class="brow"><span><span class="bk">Patient</span> Child A. Example</span><span><span class="bk">DOB</span> 01/01/2019<span class="marker">3</span></span></div>
+      <div class="brow"><span><span class="bk">Subscriber</span> Parent B. Example</span><span><span class="bk">Member ID</span> XYZ000000000</span></div>
+      <div class="brow"><span><span class="bk">Diagnosis</span> F80.2, F80.81<span class="marker">4</span></span></div>
+      <div class="brow"><span><span class="bk">Referring provider NPI</span> 1112223334<span class="marker">5</span></span></div>
+      <table class="btable">
+        <tr><th>Date</th><th>CPT<span class="marker">6</span></th><th>Mod<span class="marker">7</span></th><th>POS<span class="marker">8</span></th><th>Units</th><th>Charge</th></tr>
+        <tr><td>07/07/26</td><td>92507</td><td>GN</td><td>12</td><td>1</td><td>$200.00</td></tr>
+        <tr><td>07/14/26</td><td>92507</td><td>GN</td><td>12</td><td>1</td><td>$200.00</td></tr>
+        <tr><td>07/21/26</td><td>92507</td><td>GN</td><td>12</td><td>1</td><td>$200.00</td></tr>
+        <tr><td>07/28/26</td><td>92507</td><td>GN</td><td>12</td><td>1</td><td>$200.00</td></tr>
+      </table>
+      <div class="brow"><span><span class="bk">Total charged</span></span><span>$800.00</span></div>
+      <div class="brow"><span><span class="bk">Total paid by patient</span></span><span>$800.00</span></div>
+      <div class="paid"><span>BALANCE DUE $0.00 — PAID IN FULL<span class="marker">9</span></span></div>
+      <div class="bline"></div>
+      <div class="brow"><span><span class="bk">Provider signature</span> ______________________<span class="marker">10</span></span></div>
+      <div class="brow"><span><span class="bk">Date issued</span> 08/01/2026</span></div>
+    </div>
+
+    <div class="legend">
+      <div class="lg"><span class="lgnum">1</span><div><strong>Individual NPI</strong><p>The provider's own ten-digit identifier. Without it the claim can't be matched to a person, and it will be rejected before anyone reads it.</p></div></div>
+      <div class="lg"><span class="lgnum">2</span><div><strong>Tax ID and group NPI</strong><p>Identifies who was paid. Must match exactly what's on the W-9 the insurer has on file — a mismatch is one of the most common silent denial causes.</p></div></div>
+      <div class="lg"><span class="lgnum">3</span><div><strong>Patient details and member ID</strong><p>The patient is your child, not you. The subscriber is whoever holds the policy. Getting these reversed sends the claim into a loop that takes weeks to unwind.</p></div></div>
+      <div class="lg"><span class="lgnum">4</span><div><strong>Diagnosis codes (ICD-10)</strong><p>Justifies medical necessity. Codes must be current and specific — a vague or outdated code invites a denial that looks like a coverage decision but is really a coding problem.</p></div></div>
+      <div class="lg"><span class="lgnum">5</span><div><strong>Referring provider NPI</strong><p>Required by many plans for therapy services. Ask your insurer whether yours needs it, and get it from your pediatrician before the first claim rather than after the first denial.</p></div></div>
+      <div class="lg"><span class="lgnum">6</span><div><strong>CPT code per session</strong><p>The specific service performed. Reimbursement is set per code, so this is the line that determines what you get back — and the one to verify coverage on before you start.</p></div></div>
+      <div class="lg"><span class="lgnum">7</span><div><strong>Modifiers</strong><p>Two-character additions that qualify the service — commonly <code>GN</code> for speech, <code>GO</code> for occupational, and <code>GP</code> for physical therapy plans of care, and <code>95</code> for telehealth. Missing modifiers are a routine denial reason and a routine fix.</p></div></div>
+      <div class="lg"><span class="lgnum">8</span><div><strong>Place of service</strong><p>Where the session happened. Coverage genuinely differs by location, so this field is what turns a covered service into a denied one when a therapist starts coming to your house.</p></div></div>
+      <div class="lg"><span class="lgnum">9</span><div><strong>Paid in full, balance $0.00</strong><p>The most important line on the page. If the superbill shows any balance owed, most insurers will send payment directly to the provider instead of to you — which means you've paid twice and now have to chase a refund. It also muddies the record of what you actually spent, which matters at tax time. Do not accept a superbill that doesn't state a zero balance and confirm payment.</p></div></div>
+      <div class="lg"><span class="lgnum">10</span><div><strong>Provider signature and credentials</strong><p>An unsigned superbill is a receipt. A signed one is a claim. Ask for signature and license number on every issue.</p></div></div>
+    </div>
+  </div>
+
+  <h3 class="sub">Ask for session notes alongside it</h3>
+  <p>Request detailed notes for each session, containing the date, the CPT code and modifiers billed, the place of service, the diagnosis codes, the duration, what was worked on, and progress toward the plan of care. You won't submit these every time, but you will need them for the first claim, for any appeal, and for any audit.</p>
+  <p>Keep everything. Superbills, notes, EOBs, and denial letters — one folder per calendar year, because deductibles and filing deadlines both run on the calendar.</p>
+</section>
+
+<section>
+  <h2 class="sec">The out-of-network workflow, in order</h2>
+  <p class="secnote">Done in this sequence, most claims pay. Done out of order — starting therapy first and sorting out billing later — is how families end up eating six months of sessions.</p>
+
+  <div class="flow">
+    <div class="fstep">
+      <h3>Call your insurer before the first session and verify, code by code</h3>
+      <p>Have the provider give you the CPT codes they'll bill, their NPI, and their tax ID first. Then call and ask about each code specifically: is it covered, at what allowed amount, at which place of service, with what visit limit, and does it need prior authorization.</p>
+      <p class="flag"><b>Record this</b>Date, time, representative's name, and the call reference number. Ask for the reference number explicitly — it's the only thing that makes a phone conversation citable later, and you will need to cite it.</p>
+    </div>
+
+    <div class="fstep">
+      <h3>Check whether the provider is already in the insurer's system</h3>
+      <p>Ask: <em>is this provider already set up in your system as an out-of-network provider, under this NPI and tax ID?</em> Many are, from other families' claims. If so, your claims will process without a setup delay.</p>
+    </div>
+
+    <div class="fstep">
+      <h3>If they're not set up, submit one claim first — with the W-9</h3>
+      <p>Send a single superbill, the session notes for those dates, and the provider's signed W-9. Don't send a year of superbills into a system that doesn't yet recognize the provider; if the setup fails, everything denies at once and you're re-submitting under a filing deadline.</p>
+      <p class="flag"><b>Watch this</b>Insurers routinely require a current W-9 and will deny claims when the one on file has gone stale or the practice's name, address, or tax ID has changed. If claims start denying after a stretch of paying cleanly, an outdated W-9 is the first thing to check.</p>
+    </div>
+
+    <div class="fstep">
+      <h3>Pay your provider directly, and get the superbill marked paid in full</h3>
+      <p>Pay by a method that leaves a record. Then confirm the superbill shows a zero balance, because a superbill showing money owed redirects reimbursement to the provider — and then a check or a card authorization goes to their office rather than to you.</p>
+      <p class="flag"><b>Why it matters</b>Untangling that means asking your provider to refund money the insurer sent them for sessions you already paid for. It's awkward, it's slow, and it leaves your own records showing an expense you can't cleanly document at tax time.</p>
+    </div>
+
+    <div class="fstep">
+      <h3>Submit on a monthly rhythm</h3>
+      <p>Use the insurer's portal or app if one exists — it timestamps the submission and gives you an upload confirmation. Otherwise use their claim form with the superbill attached. Pick a day of the month and keep it.</p>
+      <p>Monthly submission keeps you well inside timely filing limits, and it surfaces a problem after one month of sessions rather than after ten.</p>
+    </div>
+
+    <div class="fstep">
+      <h3>Track claims in one simple spreadsheet</h3>
+      <p>Date of service, CPT, amount paid, date submitted, date processed, allowed amount, amount reimbursed, and status. Ten minutes a month, and it's the document that wins any appeal or answers any question a year later.</p>
+    </div>
+
+    <div class="fstep">
+      <h3>Read every EOB against what you expected</h3>
+      <p>An explanation of benefits is not a bill. Check the allowed amount against what you were quoted, check whether the deductible was applied correctly, and check the reason codes on anything reduced or denied. Errors here are common and almost always in the insurer's favor.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <h3>Codes you'll see, and what they mean</h3>
+    <p>Common therapy codes include <code>92507</code> for individual speech treatment, <code>92523</code> for a speech and language evaluation, <code>92526</code> for feeding and swallowing treatment, <code>97165–97167</code> for occupational therapy evaluations, <code>97530</code> for therapeutic activities, <code>97110</code> for therapeutic exercise, <code>97535</code> for self-care training, <code>97161–97163</code> for physical therapy evaluations, and <code>90791</code> and <code>90837</code> for psychological evaluation and therapy.</p>
+    <p>You don't need to master these — your provider selects them. What you need is to have them <em>in hand before you call your insurer</em>, because coverage is answered per code, not per profession. "Is speech therapy covered?" gets you a useless yes. "Is 92507 covered at place of service 12, and what's the allowed amount?" gets you a number you can plan against.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The verification call, on one page</h2>
+  <p class="secnote">Print this, fill it in, and keep it in the front of the folder. Everything on it is something you'll be asked to prove at some point.</p>
+  <div class="sheet">
+    <div class="q"><div><p>Date, time, representative's name, and call reference number</p>
+      <p class="qwhy">The reference number is the whole point of the call. Ask for it before you hang up.</p></div><div class="blank"></div></div>
+    <div class="q"><div><p>Does my plan include out-of-network outpatient therapy benefits?</p>
+      <p class="qwhy">If no, go straight to asking about a single case agreement.</p></div><div class="blank"></div></div>
+    <div class="q"><div><p>Is my plan self-funded or fully insured?</p>
+      <p class="qwhy">Determines whether state coverage mandates apply to you at all. HR can also answer this.</p></div><div class="blank"></div></div>
+    <div class="q"><div><p>Out-of-network deductible, how much is met, and when it resets</p>
+      <p class="qwhy">Nothing reimburses until it's met. Plan the year around the reset date.</p></div><div class="blank"></div></div>
+    <div class="q"><div><p>Coinsurance percentage after the deductible</p>
+      <p class="qwhy">Applied to the allowed amount, not to what you paid.</p></div><div class="blank"></div></div>
+    <div class="q"><div><p>Allowed amount for each specific CPT code</p>
+      <p class="qwhy">This is the number that tells you your real cost per session.</p></div><div class="blank"></div></div>
+    <div class="q"><div><p>Is each code covered at the place of service we'll be using?</p>
+      <p class="qwhy">Home, clinic, school, and telehealth are treated differently. Name the one you'll use.</p></div><div class="blank"></div></div>
+    <div class="q"><div><p>Visit limits per calendar year, per discipline</p>
+      <p class="qwhy">Ask whether evaluations count against the limit — often they do.</p></div><div class="blank"></div></div>
+    <div class="q"><div><p>Is prior authorization required, and for how many visits?</p>
+      <p class="qwhy">Retroactive authorization is rarely granted. This is the expensive one to miss.</p></div><div class="blank"></div></div>
+    <div class="q"><div><p>Is a physician referral required, and does the referring NPI go on the claim?</p>
+      <p class="qwhy">Get the NPI from your pediatrician's office now.</p></div><div class="blank"></div></div>
+    <div class="q"><div><p>Does the plan cover habilitative services, or only rehabilitative?</p>
+      <p class="qwhy">Most childhood therapy is habilitative. Ask before a denial teaches you the difference.</p></div><div class="blank"></div></div>
+    <div class="q"><div><p>Is this provider already loaded in your system under NPI ____ and tax ID ____?</p>
+      <p class="qwhy">If not, you'll lead with one claim plus a signed W-9.</p></div><div class="blank"></div></div>
+    <div class="q"><div><p>Timely filing deadline for out-of-network claims</p>
+      <p class="qwhy">Set a calendar reminder at half that interval.</p></div><div class="blank"></div></div>
+    <div class="q"><div><p>Where do I submit — portal, app, fax, or mail — and what's the address?</p>
+      <p class="qwhy">Portals timestamp. Use one if it exists.</p></div><div class="blank"></div></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">When a claim is denied</h2>
+  <p class="secnote">A large share of denials are clerical, and a meaningful share of appealed denials are overturned. Treat the first no as a request for more paperwork rather than a decision.</p>
+
+  <h3 class="sub">Find out which kind of no it is</h3>
+  <ul>
+    <li><strong>A coding or setup problem</strong> — wrong modifier, missing referring NPI, stale W-9, provider not loaded, place of service mismatch. Fix and resubmit; no appeal needed. Most denials are this.</li>
+    <li><strong>Not medically necessary</strong> — appealable, and often successfully. You need a letter of medical necessity from the prescribing physician, the therapist's evaluation and progress notes, and specific functional goals.</li>
+    <li><strong>Not a covered benefit</strong> — a plan design exclusion rather than a judgment about your child. Harder to appeal, but check whether a state mandate or the habilitative-services rule applies to your plan type first.</li>
+    <li><strong>Visit limit reached</strong> — ask about an exception based on medical necessity, and ask what documentation would support one.</li>
+  </ul>
+
+  <h3 class="sub">The appeal ladder</h3>
+  <ul>
+    <li>Call and ask for the specific denial reason code and the plan language it rests on. Get the call reference number.</li>
+    <li>File an internal appeal in writing before the deadline on the denial letter, usually 180 days. Attach the letter of medical necessity, notes, and evaluation.</li>
+    <li>If the internal appeal fails, request an external review by an independent reviewer — a right under federal law for most plans, and the stage where a meaningful number of denials get reversed.</li>
+    <li>If your plan is employer-sponsored, loop in HR benefits. An employer complaint to the plan administrator moves things that a member call cannot.</li>
+    <li>Your state insurance commissioner takes consumer complaints, and self-funded plans fall under the federal Department of Labor instead. Both are free.</li>
+  </ul>
+
+  <div class="note">
+    <h3>The request most families never make</h3>
+    <p>If there is no in-network provider with the right specialty within a reasonable distance or timeframe, ask for a <strong>single case agreement</strong> or <strong>network gap exception</strong> — the insurer covering your out-of-network provider at in-network rates, for this child, for a defined period.</p>
+    <p>Build the case before you call. Take the insurer's own directory, phone every in-network provider on it within your radius, and log the date, who you spoke to, and the outcome: no longer taking patients, doesn't treat this age, eleven-month wait, phone disconnected. That log — usually five or six failed calls — is the evidence. Directories are notoriously out of date, and demonstrating it is what converts a no into an exception.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Finding providers who are actually available</h2>
+  <p class="secnote">The insurer's directory is the worst list and the first one everybody uses.</p>
+  <ul>
+    <li><strong>Start with parent networks, not directories.</strong> Local parent groups, your Early Intervention coordinator, and your state's parent training and information center know who has openings this month. No directory does.</li>
+    <li><strong>Use professional association finders.</strong> The national bodies for speech, occupational, and physical therapy each publish searchable directories, and licensure boards let you verify a license and check for disciplinary history in about two minutes.</li>
+    <li><strong>Ask hospital outpatient departments and university training clinics.</strong> University clinics are supervised, low-cost, and frequently have openings when private practices don't.</li>
+    <li><strong>Call the waitlist, then call it back.</strong> Ask for the cancellation list, ask what moves families up it, and set a monthly reminder to check in. Persistence genuinely reorders these lists.</li>
+    <li><strong>Ask providers who they'd send their own child to.</strong> The best referrals in this system move between clinicians, not through directories.</li>
+    <li><strong>Log every failed call.</strong> It costs nothing while you're already making the calls, and it becomes your single case agreement evidence.</li>
+  </ul>
+
+  <h3 class="sub">Questions worth asking before you commit</h3>
+  <ul>
+    <li>How many children with this profile are on your caseload right now?</li>
+    <li>What does parent involvement look like — can I observe, and do you coach me?</li>
+    <li>How do you measure progress, and how often will I see it in writing?</li>
+    <li>What's your approach when my child refuses or shuts down?</li>
+    <li>What's your cancellation policy, including illness, and do you charge for travel?</li>
+    <li>Will you provide superbills with CPT codes, modifiers, place of service, diagnosis codes, and a zero balance — and session notes on request?</li>
+    <li>Are you willing to sign a letter of medical necessity or a W-9 if my insurer asks?</li>
+    <li>What would make you say we're finished here?</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Money that isn't insurance</h2>
+  <ul>
+    <li><strong>FSA and HSA funds</strong> cover therapy copays and out-of-pocket therapy costs, and often more than families realize. A letter of medical necessity can qualify items that otherwise wouldn't. Save every receipt.</li>
+    <li><strong>The medical expense deduction</strong> applies to unreimbursed medical costs above a percentage of your income if you itemize. Only the part you weren't reimbursed for counts — one more reason the paid-in-full superbill and a clean spreadsheet matter. Confirm specifics with a tax professional.</li>
+    <li><strong>State disability-based Medicaid pathways</strong> — often called a Katie Beckett or TEFRA pathway, or a home and community based waiver — can cover therapy for a child with significant needs regardless of parent income in many states. As secondary insurance behind a commercial plan, it can absorb copays and gaps. Ask by name.</li>
+    <li><strong>Sliding scale and hardship policies</strong> exist at many private practices and go unadvertised. Asking directly costs nothing.</li>
+    <li><strong>Grants</strong> from diagnosis-specific foundations and local family funds cover therapy, equipment, and AAC devices. Small, unglamorous, and frequently unclaimed.</li>
+    <li><strong>Your school district</strong> is a funding source you've already paid for. If a service is educationally necessary, it belongs in the plan rather than on your credit card.</li>
+  </ul>
+</section>
+
+
+<div class="closenote"><b>One last thing</b><p>None of this is a test of how much you love your child. It is an administrative system that would defeat most people, and getting tired of it is not a personal failure.</p><p>Learn the handful of moves on this page — verify by code, submit monthly, appeal the first no — and it stops being mysterious. Plenty of families have gotten good at this. You will too.</p></div>
+
+<footer>
+  <p><strong>This is a map, not insurance, tax, or legal advice.</strong> Codes, plan rules, deadlines, and program names change and vary by state, by plan, and by year. Verify everything against your own plan documents and confirm tax questions with a professional. Everything here assumes the United States.</p>
+  <p>The codes shown are illustrative examples of what commonly appears on therapy claims. Your provider selects the correct codes for the services they deliver.</p>
+  <p>One thing worth saying plainly: none of this is a test of how much you love your child. It's an administrative system that would defeat most people, and getting tired of it is not a personal failure.</p>
+</footer>
+
+</div>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

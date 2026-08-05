@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adaptive Sports, Classes & Community — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --team:#46508C; --team-tint:#E6E8F2;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: barriers */
+.gap{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.gap h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.gap .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.bars{display:grid;gap:2px}
+.bar{background:rgba(255,255,255,.05);border-left:3px solid #8A2B20;padding:13px 16px;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:6px 20px}
+@media(max-width:640px){.bar{grid-template-columns:1fr}}
+.bar .b{font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#E8C3BC}
+.bar .f{font-size:.9rem;color:#B9C4B4;line-height:1.5}
+.bar .f b{color:#EFEBE3;font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;
+  text-transform:uppercase;display:block;margin-bottom:3px;color:#7FA57A}
+.gap .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:22px 0 0;max-width:62ch}
+.gap .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.kinds{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:12px}
+.kind{background:var(--card);border-left:3px solid var(--team);padding:19px 21px}
+.kind h3{font-size:1.07rem;font-weight:400;margin:0 0 4px}
+.kind .who{font-family:var(--sans);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--team);font-weight:700;margin:0 0 10px}
+.kind p{font-size:.93rem;margin:0 0 9px}
+.kind ul{font-size:.91rem;padding-left:17px;margin:0}
+.kind li{margin-bottom:5px}
+
+.moves{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.move{background:var(--card);border-left:3px solid var(--forest);padding:19px 21px}
+.move .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 5px}
+.move h3{font-size:1.08rem;font-weight:400;margin:0 0 9px}
+.move p{font-size:.94rem;margin:0 0 10px}
+.move ul{font-size:.91rem;padding-left:17px;margin:0}
+.move li{margin-bottom:5px}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:#F6E4E0;border-left:4px solid #8A2B20}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:#8A2B20}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:0 0 16px}
+@media(max-width:680px){.two{grid-template-columns:1fr}}
+.side{background:var(--card);border-top:3px solid var(--team);padding:19px 21px}
+.side h3{font-size:1.05rem;font-weight:400;margin:0 0 10px}
+.side ul{font-size:.93rem;padding-left:18px;margin:0}
+.side li{margin-bottom:7px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.tnote{background:var(--team-tint);border-left:4px solid var(--team);padding:20px 22px;margin:24px 0}
+.tnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--team);font-weight:700;margin:0 0 10px}
+.tnote p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.kind,.move,.col,.side{break-inside:avoid}
+  .gap{background:#fff;color:#000;border:1px solid #000}.gap .big,.bar .b,.gap .cap strong{color:#000}}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Adaptive sports, classes <em>and community</em></h1>
+  <p class="lede">Most of a child's therapeutic life is spent in rooms where adults measure them. Community programs are the other thing — a team, a class, a Saturday, a place where they are simply a kid who does gymnastics. That isn't the reward for finishing therapy. For many children it's where the real gains show up.</p>
+</header>
+
+<div class="profnote">
+  <b>Reading this as a professional</b>
+  <p>Participation in out-of-school activity is a legitimate therapy goal and one of the better predictors of long-term wellbeing. If your goal sheets don't mention community activity, this page is a prompt to add one.</p>
+  <p>The barriers section names what actually blocks families, most of which are solvable with information rather than money — and information is something you can hand over in a five-minute conversation.</p>
+</div>
+
+<section>
+  <div class="gap">
+    <h2>Why so few children get there</h2>
+    <p class="big">Children with disabilities take part in far less out-of-school activity than their peers, and the gap widens with age. The reasons are well known and mostly fixable — which means they aren't really reasons.</p>
+    <div class="bars">
+      <div class="bar"><span class="b">Nobody knows the programs exist</span>
+        <span class="f"><b>What closes it</b>Ask three other parents, your state disability agency, the parks department, and your therapist. Almost nothing in this world is advertised where families look.</span></div>
+      <div class="bar"><span class="b">"They wouldn't be able to do it"</span>
+        <span class="f"><b>What closes it</b>Ask the program rather than deciding for them. Adaptive programs exist precisely for the child you're imagining can't participate.</span></div>
+      <div class="bar"><span class="b">Cost, equipment, and transport</span>
+        <span class="f"><b>What closes it</b>Scholarships are near-universal and rarely advertised. Ask directly. Waivers, disability grants, and equipment loan programs cover much of the rest.</span></div>
+      <div class="bar"><span class="b">Staff who haven't been trained</span>
+        <span class="f"><b>What closes it</b>A one-page profile and a ten-minute conversation with the coach solves more than any policy. Most staff want to get it right and have never been told how.</span></div>
+      <div class="bar"><span class="b">One bad first experience</span>
+        <span class="f"><b>What closes it</b>Visit before you enroll, start with one short session, and treat leaving early as a success. The first attempt is a trial, not a verdict.</span></div>
+      <div class="bar"><span class="b">The family is exhausted</span>
+        <span class="f"><b>What closes it</b>Pick one thing, not three. Choose the one nearest home. Accept that some seasons are for surviving and the program will still be there next year.</span></div>
+    </div>
+    <p class="cap"><strong>The one worth naming plainly:</strong> a great many children are never offered a chance because an adult decided in advance that it wouldn't work. Let the program tell you what they can accommodate, and let your child tell you whether they want it. Those are not your decisions to make alone.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What community offers that <em>therapy cannot</em></h2>
+  <p class="secnote">Not a replacement for therapy, and not a lesser version of it. A different thing entirely, doing work that clinical hours can't reach.</p>
+  <div class="domains">
+    <div class="dom"><h3>Peers, not adults</h3>
+      <p>Nearly every relationship in a child's therapeutic week is with an adult who is helping them. A team gives them people their own age who are doing the same thing at the same time, for the same reason.</p>
+      <p class="look"><b>Why it matters</b>Friendship is the outcome families care most about and the one no therapy hour produces directly.</p></div>
+
+    <div class="dom"><h3>An identity that isn't a diagnosis</h3>
+      <p>Being a swimmer, a gymnast, a drummer, a scout. A sentence about themselves that has nothing to do with what's hard.</p>
+      <p class="look"><b>Why it matters</b>Children who can describe themselves by what they do rather than what they struggle with carry that into adolescence, when it matters most.</p></div>
+
+    <div class="dom"><h3>Being good at something, publicly</h3>
+      <p>Therapy is by definition working at the edge of ability. Community programs let a child be competent, and be seen being competent.</p>
+      <p class="look"><b>Why it matters</b>Self-concept is built from evidence. Most children with disabilities accumulate a great deal of evidence about what they can't do.</p></div>
+
+    <div class="dom"><h3>Generalization, for free</h3>
+      <p>Skills practiced in a clinic often stay in the clinic. A skill used on a bike, on a field, or in a class is being used in the real world by definition.</p>
+      <p class="look"><b>Why it matters</b>Generalization is the hardest problem in therapy, and community participation solves a chunk of it without anyone designing a program.</p></div>
+
+    <div class="dom"><h3>Volume of practice</h3>
+      <p>An hour of PT a week versus two hours of gymnastics plus the walk there. Community activity delivers dose that no clinical schedule can match.</p>
+      <p class="look"><b>Why it matters</b>Dose is the thing that makes motor learning stick, and it is the thing therapy schedules can never provide enough of.</p></div>
+
+    <div class="dom"><h3>A family that gets a normal Saturday</h3>
+      <p>Siblings watching from the stands instead of the waiting room. Parents talking to other parents. A weekend that looks like other people's weekends.</p>
+      <p class="look"><b>Why it matters</b>The family is the unit that has to keep going. Ordinary weekends are part of how it does.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The <em>landscape</em></h2>
+  <p class="secnote">What exists, roughly grouped. Availability varies enormously by region — the ones you can reach matter more than the ones that are best.</p>
+
+  <div class="kinds">
+    <div class="kind"><h3>Adaptive and unified sports</h3><p class="who">Organized, often national, usually free or low cost</p>
+      <p>Sports organizations built for or adapted to athletes with disabilities. Many run year-round with multiple sports.</p>
+      <ul>
+        <li>Special Olympics — training and competition across many sports, from young children through adults, plus unified teams pairing athletes with and without disabilities</li>
+        <li>Baseball and soccer leagues built for players with disabilities, including barrier-free field programs and dedicated divisions of mainstream youth leagues</li>
+        <li>Wheelchair sport — basketball, tennis, racing, rugby — and para-sport pathways for competitive athletes</li>
+        <li>Adaptive skiing, snowboarding, sailing, surfing, climbing, and cycling programs, many run seasonally by regional nonprofits</li>
+      </ul></div>
+
+    <div class="kind"><h3>Learn-to-ride and skill camps</h3><p class="who">Short, intensive, often transformative</p>
+      <p>Intensive programs that teach one specific skill over a week using adapted equipment and a graduated approach. Bike-riding camps are the best known — a week of daily sessions on progressively less stable roller equipment until a child rides independently.</p>
+      <ul>
+        <li>Look for programs that run five consecutive days rather than weekly sessions</li>
+        <li>They fill early and often have a single annual session in a region</li>
+        <li>Volunteer spotters are usually needed, which is also a way in for siblings</li>
+      </ul></div>
+
+    <div class="kind"><h3>Adaptive and inclusive classes</h3><p class="who">Local, weekly, the everyday version</p>
+      <p>Ordinary children's classes with adapted instruction, or dedicated adaptive sections. Gymnastics is a common and unusually good fit — it's individual, repetitive, sensory-rich, and progress is visible.</p>
+      <ul>
+        <li>Adaptive gymnastics, dance, martial arts, yoga, and swim</li>
+        <li>Art, ceramics, drama, and music classes</li>
+        <li>Ask whether they run a dedicated adaptive class or accommodate within regular ones — both work, differently</li>
+        <li>Small studios are often more flexible than large franchises</li>
+      </ul></div>
+
+    <div class="kind"><h3>Equine programs</h3><p class="who">Two different things with similar names</p>
+      <p>Worth distinguishing, because they have different providers, goals, and funding.</p>
+      <ul>
+        <li><strong>Therapeutic riding</strong> — recreation and skill, taught by a certified riding instructor. The goal is riding. Usually private pay, often with scholarships</li>
+        <li><strong>Hippotherapy</strong> — a PT, OT, or SLP using the horse's movement as a treatment tool toward clinical goals. Sometimes billable</li>
+        <li>Ask which one a barn actually offers, and what credential the person holds</li>
+      </ul></div>
+
+    <div class="kind"><h3>Scouting, clubs, and youth groups</h3><p class="who">Belonging without a sport</p>
+      <p>For children who don't want anything athletic, these offer the same peer group, identity, and progression — often with more flexibility about how a member participates.</p>
+      <ul>
+        <li>Scouting organizations, which have long-standing accommodation practices and alternative advancement routes</li>
+        <li>Faith communities, 4-H, robotics and coding clubs, chess, gaming groups</li>
+        <li>Peer buddy programs pairing students with and without disabilities in schools and colleges</li>
+      </ul></div>
+
+    <div class="kind"><h3>Camps and respite programs</h3><p class="who">Day, overnight, disability-specific or inclusive</p>
+      <p>Summer and school-break programs, ranging from fully inclusive day camps to camps built for specific diagnoses with full nursing support.</p>
+      <ul>
+        <li>Diagnosis-specific camps, which often provide the first experience of a whole community who shares something</li>
+        <li>Inclusive day camps with one-to-one support funded through state programs</li>
+        <li>Overnight camp as a first independence experience — and a genuine break for the family</li>
+        <li>Book early. Good camps fill in January</li>
+      </ul></div>
+
+    <div class="kind"><h3>Therapeutic recreation</h3><p class="who">A credentialed profession people rarely hear of</p>
+      <p>Certified therapeutic recreation specialists design leisure and community participation as a clinical intervention — assessing what someone wants to do, and building the supports to make it possible.</p>
+      <ul>
+        <li>Found in hospitals, rehabilitation centers, parks departments, and some school districts</li>
+        <li>Particularly useful at transition age, when the question becomes what an adult life actually contains</li>
+        <li>Worth asking your parks and recreation department whether they employ one</li>
+      </ul></div>
+
+    <div class="kind"><h3>Your local parks department</h3><p class="who">The most overlooked option of all</p>
+      <p>Many municipal parks and recreation departments run adaptive programs, inclusion support, and subsidized places — and almost never market them where families look.</p>
+      <ul>
+        <li>Ask specifically for the inclusion coordinator or adaptive recreation staff</li>
+        <li>Public programs are usually the cheapest option available</li>
+        <li>They can often provide a support aide for a mainstream program on request</li>
+      </ul></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Days out: museums, zoos, <em>theaters and everything else</em></h2>
+  <p class="secnote">A whole parallel system of access exists at cultural venues, and almost none of it is advertised at the ticket desk. Most of it is free, and nearly all of it requires you to ask by name.</p>
+
+  <h3 class="sub">Ask for these by name</h3>
+  <div class="kinds">
+    <div class="kind"><h3>Free admission for a companion</h3><p class="who">Museums · Zoos · Aquariums · Theaters · Theme parks</p>
+      <p>A very common policy and a very rarely mentioned one: the person accompanying a visitor with a disability gets in free, because they're there to provide support rather than to visit.</p>
+      <ul>
+        <li>Ask for the "companion," "caregiver," or "personal care attendant" admission</li>
+        <li>Some venues require documentation, many require none at all</li>
+        <li>It often applies to memberships too, not just single tickets</li>
+      </ul></div>
+
+    <div class="kind"><h3>Discounted admission and memberships</h3><p class="who">Widely available, inconsistently published</p>
+      <p>Reduced-rate tickets and season passes for visitors with disabilities, and sometimes for the whole household.</p>
+      <ul>
+        <li>Ask about a disability rate before you buy anything</li>
+        <li>Many venues participate in a national program offering steeply reduced admission to families receiving food assistance — worth asking about by that description</li>
+        <li>A membership often pays for itself in two visits, which matters when you may need to leave after twenty minutes</li>
+      </ul></div>
+
+    <div class="kind"><h3>Sensory-friendly hours and performances</h3><p class="who">Increasingly standard, still hard to find</p>
+      <p>Dedicated times with the lights up, the sound down, reduced crowds, and — most importantly — an explicit understanding that moving, vocalizing, and leaving are all fine.</p>
+      <ul>
+        <li>Museums, zoos, and aquariums running early or quiet openings</li>
+        <li>"Relaxed performances" at theaters, with house lights up and a quiet room available</li>
+        <li>Sensory-friendly screenings at cinemas</li>
+        <li>Sensory rooms at some sports arenas and large venues</li>
+        <li>These sell out and are often monthly — get on the mailing list</li>
+      </ul></div>
+
+    <div class="kind"><h3>Sensory bags and quiet spaces</h3><p class="who">Free, on request, at the front desk</p>
+      <p>Many venues now hold loanable kits — ear defenders, fidgets, visual cue cards, weighted items — and have designated quiet rooms staff can direct you to.</p>
+      <ul>
+        <li>Ask at guest services whether they have sensory bags to borrow</li>
+        <li>Ask where the quietest space in the building is, and how to find it fast</li>
+        <li>Some venues train all staff in disability awareness and advertise that they've done so</li>
+      </ul></div>
+
+    <div class="kind"><h3>Your public library</h3><p class="who">The most under-used resource on this page</p>
+      <p>Libraries lend far more than books, and library cards are free.</p>
+      <ul>
+        <li>Free or discounted museum and zoo passes, borrowable like a book</li>
+        <li>Sensory storytimes and adaptive programs</li>
+        <li>Sensory kits, adaptive toys, and sometimes communication devices to borrow</li>
+        <li>Quiet rooms, and staff who tend to be genuinely welcoming</li>
+        <li>Ask what they have for families with disabilities — the answer is usually longer than you expect</li>
+      </ul></div>
+
+    <div class="kind"><h3>Queue and access passes</h3><p class="who">Theme parks and large attractions</p>
+      <p>Systems that let a visitor who can't manage a long line hold a return time instead of waiting in it.</p>
+      <ul>
+        <li>Register in advance where possible — some require it days or weeks ahead</li>
+        <li>Policies changed substantially at several major parks recently, so check the current version rather than an old blog post</li>
+        <li>Ask also about re-entry, stroller-as-wheelchair tagging, and rider swap arrangements</li>
+      </ul></div>
+
+    <div class="kind"><h3>Parks, trails, and the outdoors</h3><p class="who">Often free, sometimes for life</p>
+      <p>Public land systems typically have their own access provisions, separate from anything at a museum.</p>
+      <ul>
+        <li>In the United States, a free lifetime pass to federal recreation lands is available to people with permanent disabilities — one application, no renewal</li>
+        <li>State parks frequently have equivalent passes</li>
+        <li>Ask about accessible trails, all-terrain wheelchair loans, and beach wheelchairs, which many parks now stock</li>
+      </ul></div>
+
+    <div class="kind"><h3>Practical facilities</h3><p class="who">The thing that decides whether you can go at all</p>
+      <p>Worth checking before the visit rather than discovering on arrival.</p>
+      <ul>
+        <li>Adult-sized changing facilities, which are rarer than standard accessible restrooms and make longer outings possible</li>
+        <li>Companion restrooms where a parent and older child of a different gender can go together</li>
+        <li>Whether food can be brought in — often permitted for medical or dietary needs even where the general policy says no</li>
+        <li>Parking, drop-off points, and the real distance from the car to the door</li>
+      </ul></div>
+  </div>
+
+  <div class="tnote">
+    <h3>How to actually get any of this</h3>
+    <p><strong>Call, don't search.</strong> Access provisions are frequently buried three clicks deep or absent from the website entirely. Phone and ask for the accessibility coordinator, the guest services manager, or the education department — one of those three will know.</p>
+    <p><strong>Ask an open question.</strong> "What do you offer for a visitor with a disability?" produces far more than asking about one specific thing, because you don't know what they have.</p>
+    <p><strong>Ask for the pre-visit materials.</strong> Many venues publish social narratives, photo guides, maps marking quiet areas, and walkthrough videos. These make an enormous difference to how a first visit goes, and are usually available on request even when they aren't posted.</p>
+    <p><strong>Go at opening.</strong> Even without a dedicated sensory hour, the first hour of any day is quieter, cooler, and calmer than any other.</p>
+    <p><strong>Plan the exit before you go in.</strong> Twenty good minutes and a calm departure is a successful outing, and it is what makes the second visit possible.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Getting there: <em>parking, transit, and travel</em></h2>
+  <p class="secnote">The practical apparatus of leaving the house. None of it is difficult to obtain, and most families don't know it applies to a child.</p>
+
+  <h3 class="sub">Disabled parking: plate or placard?</h3>
+  <p>Both give the same parking rights. The difference is what they're attached to — and for a child, that difference matters more than it does for an adult.</p>
+
+  <div class="two">
+    <div class="side"><h3>The hanging placard</h3>
+      <ul>
+        <li><strong>Travels with the person, not the car.</strong> Works in your car, your partner's, a grandparent's, a taxi, a rental, a school trip vehicle. For a child driven by several different adults, this is usually decisive</li>
+        <li>Temporary versions exist for time-limited needs — after surgery, during a treatment course</li>
+        <li>Doesn't mark any vehicle permanently</li>
+        <li><strong>Must come down while driving</strong> — it obstructs the view and is an offense in many states</li>
+        <li>Easy to forget, and a common theft target. Take it inside</li>
+        <li>Usually free or a nominal fee</li>
+      </ul></div>
+    <div class="side"><h3>The plate</h3>
+      <ul>
+        <li><strong>Attached to the vehicle.</strong> Can't be forgotten, lost, or stolen, and nothing to hang or remove</li>
+        <li>Simplest option when one vehicle does nearly all the driving</li>
+        <li><strong>Only that vehicle.</strong> No help in anyone else's car</li>
+        <li>Permanently identifies the car, which some families find exposing — and it stays visible when your child isn't with you</li>
+        <li>Often requires the person with the disability to be an owner or registered keeper, which is a complication for a minor</li>
+        <li>Has to be dealt with when you change vehicles</li>
+      </ul></div>
+  </div>
+  <p><strong>The common answer for families is a placard,</strong> and quite often a placard plus a plate on the main vehicle. The placard covers every other car your child is ever in, and it follows them into adulthood.</p>
+
+  <div class="tnote">
+    <h3>Applying, when the reason isn't walking distance</h3>
+    <p>Most application forms are written around adult mobility — can the applicant walk a set distance without stopping, do they use a device, do they have a cardiac or respiratory condition. Plenty of children who genuinely need to park close don't tick any of those boxes.</p>
+    <p>The real reasons are often different: bolting in a parking lot, seizure risk, carrying a child who can no longer be carried, oxygen or a feeding pump, a tube site, fatigue that makes the last two hundred yards impossible, or the time spent in a lot being the single most dangerous part of an outing.</p>
+    <p><strong>So ask the certifying clinician to write the functional reason explicitly</strong> rather than only checking a box. Most forms have space for it, most reviewers read it, and a specific sentence about safety in traffic areas does more than any category. If a first application is declined, that sentence is usually what was missing.</p>
+    <p>Forms come from your state motor vehicle agency and need certification by a licensed clinician — in many states a physician, nurse practitioner, physician assistant, physical therapist, or occupational therapist can sign. Ask your team who is willing; it's often quicker than you expect.</p>
+  </div>
+
+  <h3 class="sub">What a permit does and doesn't do</h3>
+  <ul>
+    <li><strong>It belongs to the person, not the vehicle or the family.</strong> It may only be used when that person is actually being transported. Using it to run errands alone carries real penalties in most states, and it's the fastest way to lose it.</li>
+    <li>It doesn't permit parking anywhere at all — no fire lanes, no loading zones, no blocking access aisles.</li>
+    <li>Meter and time-limit exemptions vary by state and by city. Check locally rather than assuming.</li>
+    <li><strong>Leave the van-accessible spaces</strong> — the ones with the striped aisle — for people who need the aisle to deploy a ramp or lift. Take a standard accessible space if that's all you need.</li>
+    <li>Permits are generally recognized across states, and often in other countries. Worth carrying the paperwork when traveling.</li>
+    <li>Permanent placards renew on a cycle. Diary the expiry — they lapse quietly.</li>
+  </ul>
+
+  <h3 class="sub">Two more worth setting up</h3>
+  <ul>
+    <li><strong>Paratransit and reduced-fare transit.</strong> Public transit systems run door-to-door services for people who can't use fixed-route transit, plus reduced-fare cards. Eligibility usually needs an application and sometimes an in-person assessment, and it takes weeks — apply before you need it, particularly ahead of the transition to adulthood, when this becomes central.</li>
+    <li><strong>Air travel.</strong> Airport security programs exist for travelers who need assistance or extra time, and can be arranged in advance by phone. Many airports run familiarization events where families can practice the whole sequence — check-in, security, boarding a stationary aircraft — before a real trip. Ask your airport whether they run one.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Adaptive or inclusive? <em>Both, probably</em></h2>
+  <p class="secnote">A real question with no universal answer, and one worth revisiting as a child grows.</p>
+  <div class="two">
+    <div class="side"><h3>What disability-specific settings offer</h3>
+      <ul>
+        <li>Staff who already know, so you explain nothing</li>
+        <li>Competence — being average in the room rather than last</li>
+        <li>Peers who share the experience, which matters increasingly with age</li>
+        <li>Equipment, ratios, and pacing designed for the participants</li>
+        <li>Parents in the stands who understand your week</li>
+        <li>Genuine belonging rather than tolerated presence</li>
+      </ul></div>
+    <div class="side"><h3>What inclusive settings offer</h3>
+      <ul>
+        <li>Neighborhood peers your child will also see at school and in shops</li>
+        <li>Presence in ordinary community life, which changes the community too</li>
+        <li>Sometimes higher expectations, which children sometimes rise to</li>
+        <li>Siblings able to do the same activity</li>
+        <li>Convenience — it's the class down the road</li>
+        <li>A model of adult life, which is mixed rather than sorted</li>
+      </ul></div>
+  </div>
+  <p>Most families end up using both, and the balance shifts over the years. What matters more than the category is whether your child is <em>participating</em> rather than merely present — and whether they want to be there.</p>
+  <div class="tnote">
+    <h3>The question that settles it</h3>
+    <p>Ask your child, in whatever way they can answer. A child who is bored, humiliated, or overwhelmed in an inclusive program is not being included, whatever the label says. A child who is thriving in a disability-specific program is not being segregated — they're on a team.</p>
+    <p>And as they get older, this becomes entirely their call. Plenty of adults with disabilities describe adaptive sport as the first place they belonged; plenty describe it as somewhere they were placed without being asked. The difference is usually whether anyone asked.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Making it actually <em>work</em></h2>
+  <h3 class="sub">Before you sign up</h3>
+  <ul>
+    <li><strong>Visit without your child first,</strong> or watch a session. You'll learn more in fifteen minutes than from any website.</li>
+    <li><strong>Talk to the coach or instructor, not the front desk.</strong> The single biggest predictor of how this goes is the person running the room.</li>
+    <li><strong>Ask the real questions:</strong> ratios, staff training, what happens when a child is dysregulated, whether a parent can stay, and whether a support person can attend.</li>
+    <li><strong>Give them the one-pager.</strong> What helps, what makes it worse, how your child communicates, what a hard moment looks like and what actually works in it. The <a href="template-builders.html">template builder</a> makes one in ten minutes.</li>
+    <li><strong>Ask about scholarships before you ask about price.</strong> They almost always exist and are almost never mentioned.</li>
+  </ul>
+
+  <h3 class="sub">Preparing your child</h3>
+  <ul>
+    <li><strong>Photos and video first.</strong> Most programs will send some, or you can take them on your visit.</li>
+    <li><strong>A social story about the whole sequence</strong> — the car, the door, the changing room, the coach, the ending, the going home.</li>
+    <li><strong>Go once just to look,</strong> without participating. That visit is not wasted time; it's the first session.</li>
+    <li><strong>Agree the exit plan in advance</strong> and tell your child what it is. Knowing you can leave is often what makes staying possible.</li>
+  </ul>
+
+  <h3 class="sub">The first few weeks</h3>
+  <ul>
+    <li><strong>Start with one activity.</strong> Not three, however tempting the catalog is.</li>
+    <li><strong>Ten minutes counts.</strong> Leaving early is a successful first session, not a failed one. Build from there.</li>
+    <li><strong>Stay at first if it helps,</strong> and fade out deliberately rather than disappearing.</li>
+    <li><strong>Expect the crash afterward.</strong> A child holding it together for an hour in a new place will often fall apart in the car. That's the cost of the effort, not evidence it went badly.</li>
+    <li><strong>Give it more than one try.</strong> Three or four sessions before deciding — first experiences of anything are unrepresentative.</li>
+    <li><strong>Feed back to the coach specifically.</strong> "It went better when you gave him the warning before switching stations" is worth more than "thanks, that was great."</li>
+  </ul>
+
+  <div class="note">
+    <h3>One thing worth knowing about your rights</h3>
+    <p>In the United States, programs open to the public — including recreation programs, camps, and classes run by public entities and most private providers — generally must make reasonable modifications to include a child with a disability, and cannot exclude someone solely on the basis of disability. Public school extracurriculars and athletics carry their own obligation to provide equal opportunity to participate.</p>
+    <p>That doesn't require a program to fundamentally alter what it is, or to provide one-to-one support in every case. But "we don't take children like that" is not a lawful answer, and knowing so changes the conversation. Most of the time a calm, specific request about what would help is all it takes.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Recognizing a <em>good program</em></h2>
+  <div class="compare">
+    <div class="col good"><h3>Signs it will work</h3>
+      <ul>
+        <li>The coach asks about your child before you have to explain</li>
+        <li>Someone says "let's try it and see" rather than listing requirements</li>
+        <li>Clear structure and predictable routine within each session</li>
+        <li>Participants are doing things, not waiting in lines</li>
+        <li>Staff who have been there for years</li>
+        <li>Visible accommodations that nobody makes a fuss about</li>
+        <li>Families welcomed to watch, and a quiet place to go if needed</li>
+        <li>Your child is spoken to directly, not about</li>
+      </ul>
+    </div>
+    <div class="col bad"><h3>Worth a second look</h3>
+      <ul>
+        <li>Participation conditional on behavior or independence criteria</li>
+        <li>A child sitting out repeatedly while others take part</li>
+        <li>Staff who address only you and never your child</li>
+        <li>Constant turnover of volunteers with no training</li>
+        <li>Excessive praise for minimal participation, which children read accurately</li>
+        <li>Photographs and publicity that feel like the point</li>
+        <li>Vague answers about what happens in a crisis</li>
+        <li>Pressure to compete when your child just wants to take part</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">How it changes <em>with age</em></h2>
+  <div class="moves">
+    <div class="move"><p class="age">Preschool</p><h3>Exposure, briefly</h3>
+      <p>Short, low-stakes, parent-present. The goal is tolerating a new place with other children in it, not learning a sport.</p>
+      <ul><li>Parent-and-child classes, library groups, adaptive playgrounds</li><li>Twenty minutes is a full session</li><li>Sensory-friendly hours at museums and play centers</li></ul></div>
+
+    <div class="move"><p class="age">Early elementary</p><h3>Finding the thing</h3>
+      <p>Trying several, expecting most not to stick. This is the age to sample widely and follow whatever holds their attention.</p>
+      <ul><li>Adaptive gymnastics, swim, dance, martial arts</li><li>Team sports built for players with disabilities</li><li>First short camps and skill programs</li></ul></div>
+
+    <div class="move"><p class="age">Late elementary</p><h3>Getting good at it</h3>
+      <p>Depth over breadth. Sticking with one thing long enough to become competent, which is where the identity benefit lives.</p>
+      <ul><li>Learn-to-ride camps and other intensive skill programs</li><li>Regular teams with a season and a routine</li><li>Scouting and clubs for children who don't want sport</li><li>First overnight camp for some</li></ul></div>
+
+    <div class="move"><p class="age">Adolescence</p><h3>Their choice, and their social world</h3>
+      <p>Participation drops sharply at this age for children with disabilities, precisely when peer belonging matters most. Protecting one activity through the teenage years is worth a great deal.</p>
+      <ul><li>Unified and inclusive teams with same-age peers</li><li>Competitive pathways for those who want them</li><li>Volunteering and helping to coach younger participants</li><li>Their choice of activity, even when it isn't yours</li></ul></div>
+
+    <div class="move"><p class="age">Transition and adulthood</p><h3>What the week is made of</h3>
+      <p>Once school ends, community activity stops being enrichment and becomes the structure of a life. Build it before you need it.</p>
+      <ul><li>Adult sport and recreation programs, which are scarcer — find them early</li><li>Community ensembles, gyms, clubs, and faith communities</li><li>Volunteering and paid roles within programs they grew up in</li><li>Therapeutic recreation input on what an adult week will contain</li></ul></div>
+
+    <div class="move"><p class="age">Throughout</p><h3>Where to look</h3>
+      <p>Almost none of this is advertised where families would naturally look.</p>
+      <ul><li>Your parks and recreation department's inclusion coordinator</li><li>State disability agency and parent training center</li><li>Local parent groups — by far the best source</li><li>Children's hospital community resource lists</li><li>Disability sport organizations, regionally and nationally</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="physical-therapy.html"><h3>Physical therapy</h3>
+      <p>Adaptive sport is a legitimate PT goal, and a therapist can help work out which activity fits your child's body.</p>
+      <span class="go">Read the PT page</span></a>
+    <a class="libcard" href="aquatic-therapy.html"><h3>Aquatic therapy</h3>
+      <p>Swimming is often the most accessible sport of all, and the one most likely to continue into adulthood.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="safety.html"><h3>Safety</h3>
+      <p>Water safety, supervision ratios, and the responder profile worth giving any program your child attends.</p>
+      <span class="go">Read the safety page</span></a>
+    <a class="libcard" href="template-builders.html"><h3>Template builders</h3>
+      <p>Build the one-pager to hand a coach, and the emergency profile every camp and program should hold.</p>
+      <span class="go">Open the builders</span></a>
+    <a class="libcard" href="programs-and-entitlements.html"><h3>Programs and entitlements</h3>
+      <p>State waivers and disability agencies fund recreation, respite, and support staff more often than families realize.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="their-own-voice.html"><h3>Their own voice</h3>
+      <p>As they get older, which activity and whether to do it at all becomes their decision. Here's how that handover works.</p>
+      <span class="go">Read the page</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>Two phone calls this week. Your parks and recreation department, and ask for the inclusion coordinator — a role most families have never heard of, at an organization most families never think to call. And your public library, to ask what they lend beyond books.</p>
+  <p>And when you do find something, remember what you're actually there for. Not progress, not carryover, not a goal being met. A Saturday where your child is on a team, and you get to sit in the stands and watch them like any other parent watching any other kid.</p>
+</div>
+
+<footer>
+  <p><strong>This is a map, not medical or legal advice.</strong> Programs, eligibility, admission policies, and availability vary enormously by venue and by region, and change year to year. Verify anything that matters directly with the organization before you travel — and if a policy described here doesn't exist where you are, it's still worth asking whether they'd consider it.</p>
+  <p>Any program your child attends should hold current emergency and medical information, and know how to reach you.</p>
+</footer>
+
+</div>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

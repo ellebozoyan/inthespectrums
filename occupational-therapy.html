@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Occupational Therapy — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the day */
+.day{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.day h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.day .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:50ch}
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:2px}
+.slot{background:rgba(255,255,255,.05);border-top:2px solid var(--rust);padding:12px 13px 14px}
+.slot b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:#EFEBE3;margin-bottom:6px}
+.slot span{font-size:.84rem;color:#B9C4B4;line-height:1.45;display:block}
+.day .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:24px 0 0;max-width:60ch}
+.day .cap strong{color:#EFEBE3}
+
+/* domains */
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+/* evidence bands */
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.strong{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.mixed{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.weak{background:#F6E4E0;border-left:4px solid #8A2B20}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.strong h3{color:var(--forest)}.ev.mixed h3{color:#A8641C}.ev.weak h3{color:#8A2B20}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+/* stages */
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+/* good vs flags */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:#F6E4E0;border-left:4px solid #8A2B20}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:#8A2B20}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .day{background:#fff;color:#000;border:1px solid #000}.day .big,.slot b,.day .cap strong{color:#000}}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Occupational therapy:<br><em>the whole day is the treatment</em></h1>
+  <p class="lede">The name confuses almost everyone. "Occupation" here doesn't mean a job — it means the things that occupy a person's day. For a child that's dressing, eating, playing, writing, managing a body in a loud room, and getting to sleep. OT is the discipline that works on all of it, which is why it's often the hardest therapy to explain and the one families end up relying on most.</p>
+</header>
+
+<div class="profnote">
+  <b>Reading this as a professional</b>
+  <p>Written to be readable by families and by colleagues in other disciplines. The evidence section sorts common approaches into three bands, which may be useful when a family arrives asking about something they read online.</p>
+  <p>The section on what strong OT looks like is written so families can recognize it — and is worth a skim if you're ever explaining your own practice model to a parent who has had a poor experience elsewhere.</p>
+</div>
+
+<section>
+  <div class="day">
+    <h2>What an occupational therapist is actually looking at</h2>
+    <p class="big">Not a skill in isolation — a day, and every point in it where a child gets stuck, and what would have to change for them to take part.</p>
+    <div class="strip">
+      <div class="slot"><b>Waking</b><span>Arousal, transition out of sleep, tolerating the shift</span></div>
+      <div class="slot"><b>Dressing</b><span>Fasteners, sequencing, seams and textures, standing balance</span></div>
+      <div class="slot"><b>Breakfast</b><span>Utensils, chewing, sitting, noticing hunger</span></div>
+      <div class="slot"><b>Getting there</b><span>Car seats, transitions, carrying, coats and shoes</span></div>
+      <div class="slot"><b>Classroom</b><span>Posture, handwriting, attention, noise, staying regulated</span></div>
+      <div class="slot"><b>Recess</b><span>Playground equipment, motor planning, joining in</span></div>
+      <div class="slot"><b>Lunch</b><span>Opening packaging, noise, smells, eating enough</span></div>
+      <div class="slot"><b>Homework</b><span>Getting started, hand endurance, organizing materials</span></div>
+      <div class="slot"><b>Bathing</b><span>Water, hair washing, teeth, nails, sequencing</span></div>
+      <div class="slot"><b>Bedtime</b><span>Winding down, sensory environment, falling asleep</span></div>
+    </div>
+    <p class="cap"><strong>This is the reframe worth carrying.</strong> An OT working on core strength isn't interested in core strength. They're interested in a child who can sit through a lesson without sliding off the chair. The exercise is never the goal — the participation is, and if a therapist can't tell you which part of the day a goal is aimed at, that's the question to ask.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What OT <em>targets</em></h2>
+  <p class="secnote">Nine domains. Most children work on two or three at a time, and a good therapist is explicit about which and why.</p>
+
+  <div class="domains">
+    <div class="dom">
+      <h3>Fine motor and hand skills</h3>
+      <p>The building blocks of everything a child does with their hands, developed in a fairly predictable order.</p>
+      <ul>
+        <li>Grasp development and refinement</li>
+        <li>In-hand manipulation — shifting and rotating an object within one hand</li>
+        <li>Bilateral coordination — two hands doing different jobs at once</li>
+        <li>Hand and finger strength, and endurance over time</li>
+        <li>Scissors, fasteners, utensils, tool use</li>
+        <li>Separation of the two sides of the hand</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Avoiding coloring and building, tiring fast, an awkward or fisted pencil grip, difficulty with buttons and zips, dropping things, using two hands where one should do.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Handwriting and written output</h3>
+      <p>Its own domain, because it draws on motor skill, visual perception, memory, and endurance simultaneously — and because it gates so much of school.</p>
+      <ul>
+        <li>Letter formation, sizing, spacing, and line use</li>
+        <li>Pencil grip and pressure</li>
+        <li>Copying from board and from text</li>
+        <li>Speed and endurance across a full page</li>
+        <li>Keyboarding and speech-to-text as legitimate alternatives</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Homework that takes three times as long as it should, complaints of hand pain, work far below what the child can say aloud, refusal to write at all.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Postural control and motor foundations</h3>
+      <p>The stability underneath everything else. A body working hard to stay upright has less available for the task in front of it.</p>
+      <ul>
+        <li>Core and trunk stability; shoulder girdle stability for hand use</li>
+        <li>Balance and postural reactions</li>
+        <li>Motor planning and praxis — knowing how to organize a new movement</li>
+        <li>Crossing midline; body awareness in space</li>
+        <li>Endurance for sitting, standing, and carrying</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Slumping, leaning on furniture and people, W-sitting, fatiguing quickly, clumsiness, avoiding playgrounds, difficulty learning any new physical routine.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Sensory processing and regulation</h3>
+      <p>How a nervous system takes in and responds to information, and what a child needs to stay in a state where learning is possible.</p>
+      <ul>
+        <li>Over-responsiveness — sound, touch, texture, light, smell, movement</li>
+        <li>Under-responsiveness — not registering pain, temperature, mess, or being called</li>
+        <li>Sensory seeking — crashing, spinning, chewing, constant movement</li>
+        <li>Discrimination — telling apart what is being felt or heard</li>
+        <li>Interoception — noticing hunger, thirst, needing the bathroom, and rising emotion</li>
+        <li>Recovery after dysregulation, and prevention before it</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Clothing battles, haircuts and nail cutting as crises, meltdown after a busy environment rather than during it, never seeming to notice injury, unable to sit still.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Self-care and daily living</h3>
+      <p>The domain most directly tied to independence and to dignity, and the one most worth prioritizing over the long run.</p>
+      <ul>
+        <li>Dressing, fasteners, shoes, coats</li>
+        <li>Toileting — the motor, sensory, and sequencing pieces</li>
+        <li>Bathing, hair washing, teeth, nail care</li>
+        <li>Self-feeding and mealtime participation</li>
+        <li>For teens: cooking, laundry, money, transport, medication routines</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Needing full help long past the expected age, resistance to grooming tasks, morning routines that consume the whole household.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Feeding and mealtimes</h3>
+      <p>Often shared with a speech-language pathologist. OT tends to lead on the sensory, motor, and positioning side.</p>
+      <ul>
+        <li>Seating and positioning — feet supported, trunk stable</li>
+        <li>Oral motor skill for chewing and managing texture</li>
+        <li>Sensory tolerance of new foods, smells, and mess</li>
+        <li>Utensil use and self-feeding</li>
+        <li>Mealtime structure and reducing pressure</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>A shrinking food list, gagging at textures, refusing to sit, needing to be fed long past expectation, meals that end in tears.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Visual motor and visual perception</h3>
+      <p>What the brain does with visual information, and how it drives the hands. Distinct from whether the eyes see clearly.</p>
+      <ul>
+        <li>Visual motor integration — copying shapes, letters, and designs</li>
+        <li>Figure-ground — finding a thing among other things</li>
+        <li>Form constancy, spatial relations, visual memory</li>
+        <li>Tracking and shifting gaze between board and paper</li>
+        <li>Adapting materials for reduced clutter and higher contrast</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Losing place when reading or copying, difficulty finding things in a drawer, letter reversals persisting, puzzles and mazes avoided.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Executive function and organization</h3>
+      <p>Getting started, keeping going, and switching when the plan changes — approached through daily routines rather than as an abstract skill.</p>
+      <ul>
+        <li>Task initiation and breaking a task into a first step</li>
+        <li>Sequencing multi-step routines</li>
+        <li>Organizing materials and space</li>
+        <li>Transitions and time awareness</li>
+        <li>Self-monitoring and self-evaluation</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Standing in a room unable to begin, losing everything, morning and bedtime routines needing step-by-step prompting every single day.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Play, participation, and environment</h3>
+      <p>Play is a child's primary occupation, and the environment is often the fastest thing to change.</p>
+      <ul>
+        <li>Play skills, imagination, and playing alongside and with others</li>
+        <li>Access to playgrounds, sports, and community activities</li>
+        <li>Adaptive equipment, seating, and assistive technology</li>
+        <li>Home and classroom modification</li>
+        <li>Sleep environment and routine</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Playing alone or not at all, refusing birthday parties and playgrounds, a bedroom that never quite works, a classroom seat that isn't right.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">How an evaluation <em>works</em></h2>
+  <p class="secnote">Usually one to three sessions, plus a written report. The best part of it is the conversation about what your family actually wants to be different.</p>
+
+  <h3 class="sub">What happens</h3>
+  <ul>
+    <li><strong>An occupational profile.</strong> A structured interview about the day — what works, what doesn't, what you've tried, and what you'd most want changed. This is where the goals come from, and a therapist who skips it is choosing goals for you.</li>
+    <li><strong>Standardized assessment</strong> where it's useful. Common tools measure motor skills, visual motor integration, sensory processing patterns via caregiver and teacher questionnaires, and functional independence.</li>
+    <li><strong>Clinical observation</strong> — watching your child move, play, write, and handle materials, including in the setting where the difficulty happens whenever that's possible.</li>
+    <li><strong>Goal setting with you,</strong> ideally using a measure that scores progress against goals you named rather than against a norm table.</li>
+    <li><strong>A written report</strong> with baseline, goals, recommended frequency, and discharge criteria.</li>
+  </ul>
+
+  <div class="note">
+    <h3>The question that shapes the whole plan</h3>
+    <p>When an evaluator asks what you'd most like to change, answer with a moment from your day rather than a skill. Not <em>"his fine motor skills."</em> Instead: <em>"getting dressed takes forty minutes and we're late every morning,"</em> or <em>"he can't open anything in his lunchbox so he doesn't eat."</em></p>
+    <p>Concrete moments produce concrete goals, and concrete goals are the ones you can tell have been met.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Approaches, sorted by <em>how well they're supported</em></h2>
+  <p class="secnote">OT covers a lot of ground, and the evidence behind different approaches genuinely varies. This isn't a reason to distrust the field — it's the information that lets you ask better questions about a specific plan.</p>
+
+  <div class="evid">
+    <div class="ev strong"><h3>Well supported</h3>
+      <p><strong>Task-specific and occupation-based practice</strong> — practicing the actual activity, in the actual place. Consistently outperforms practicing underlying components in isolation.</p>
+      <p><strong>Goal-directed training</strong> with family-chosen goals and measured progress.</p>
+      <p><strong>Cognitive approaches such as CO-OP</strong>, where a child learns a strategy for solving motor problems themselves — strong evidence for coordination difficulty.</p>
+      <p><strong>Constraint-induced and bimanual therapy</strong> for one-sided weakness in cerebral palsy.</p>
+      <p><strong>Parent coaching in natural routines</strong> — as effective as or better than clinic-only models, and far more sustainable.</p>
+      <p><strong>Environmental modification and assistive technology</strong> — the fastest-acting intervention in the whole field, and the most under-used.</p>
+      <p><strong>Explicit handwriting instruction</strong> with self-evaluation, where handwriting is the goal.</p>
+    </div>
+
+    <div class="ev mixed"><h3>Mixed or emerging</h3>
+      <p><strong>Ayres Sensory Integration</strong>, delivered in its manualized form by a trained therapist: some randomized trial support for individually chosen goals in autism, weaker support for broader developmental or academic claims. Ask whether the therapist is trained in the actual protocol, and what specific goal it's aimed at.</p>
+      <p><strong>Interoception curricula</strong> — promising and increasingly used, with a young evidence base.</p>
+      <p><strong>Regulation curricula</strong> such as zones and alert-style programs — widely used, sensible, still thin on trial evidence.</p>
+      <p><strong>Sensory strategies in the classroom</strong> — the individual accommodations are well accepted even where the packaged programs are not.</p>
+    </div>
+
+    <div class="ev weak"><h3>Little support — ask hard questions</h3>
+      <p><strong>Weighted vests</strong> for attention or behavior. Repeatedly studied, repeatedly unimpressive.</p>
+      <p><strong>Prescribed "sensory diets"</strong> applied as a fixed schedule regardless of response, and brushing protocols.</p>
+      <p><strong>Therapeutic listening and auditory integration programs.</strong></p>
+      <p><strong>Primitive reflex integration</strong> as a treatment for learning or attention difficulties.</p>
+      <p>None of this means a therapist using them is acting in bad faith — many are widely taught. It means you should ask what outcome is expected, how it will be measured, and by when.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <h3>The single most useful question to ask</h3>
+    <p>Whatever the approach: <em>which part of our day will look different if this works, and when should I expect to see it?</em></p>
+    <p>Any approach that can answer that is worth trying. Any approach that can't is worth pausing over, regardless of how well-established it is.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What OT works on <em>at each stage</em></h2>
+  <div class="stage"><p class="age">Birth to three</p><h3>Foundations, in the family's routines</h3>
+    <p>Feeding, sleep, tolerating handling and positioning, early motor milestones, play, and calming. Delivered mostly through parent coaching in the home, because at this age the parent is the intervention and the therapist is the coach.</p></div>
+
+  <div class="stage"><p class="age">Preschool</p><h3>Participation and pre-academics</h3>
+    <p>Self-care independence, sitting and attending in a group, tool use, pre-writing, playground access, and managing sensory demands in a busy room. This is the window where dressing and toileting independence is most efficiently built.</p></div>
+
+  <div class="stage"><p class="age">Elementary</p><h3>Access to the school day</h3>
+    <p>Handwriting and keyboarding, endurance at a desk, organization of materials, regulation strategies that work in a classroom, lunchbox and bathroom independence, and playground participation with peers.</p></div>
+
+  <div class="stage"><p class="age">Middle and high school</p><h3>Independence and self-knowledge</h3>
+    <p>Executive function for a multi-teacher schedule, assistive technology, self-advocacy about what they need, hygiene and grooming routines, and the beginnings of cooking, laundry, money, and transport.</p></div>
+
+  <div class="stage"><p class="age">Transition to adulthood</p><h3>The life they're actually heading into</h3>
+    <p>Independent living skills, work readiness and job-site assessment, driving evaluation where relevant, community access, and the environmental adaptations that make an adult life workable. Start this at fourteen, not at twenty.</p></div>
+</section>
+
+<section>
+  <h2 class="sec">School OT and private OT <em>are not the same thing</em></h2>
+  <p class="secnote">A frequent source of confusion, and of families being told they're already getting something they aren't.</p>
+  <ul>
+    <li><strong>School-based OT exists to support access to education.</strong> That's the legal standard. If a difficulty doesn't affect educational participation, it's outside the mandate — however much it affects home life.</li>
+    <li><strong>Private OT can address anything</strong> the family and therapist agree matters: sleep, self-care, feeding, community participation, family routines.</li>
+    <li><strong>Service intensity differs sharply.</strong> School OT is often consultative or delivered in short group sessions. Ask whether the minutes on the IEP are direct or consult, and where they happen.</li>
+    <li><strong>Many families use both,</strong> which is reasonable — but ask the two therapists to speak to each other so goals aren't duplicated or working against each other.</li>
+    <li><strong>Home-based private OT</strong> is often the highest-yield option for self-care, sleep, and routine goals, because that's where those occupations actually happen.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Recognizing <em>strong OT</em></h2>
+  <div class="compare">
+    <div class="col good"><h3>What good looks like</h3>
+      <ul>
+        <li>Goals come from your day and are written so you can tell whether they've been met</li>
+        <li>The therapist explains the reasoning, not just the activity</li>
+        <li>Parent coaching is built in — you leave knowing what to do this week</li>
+        <li>Progress is measured and shown to you, not asserted</li>
+        <li>Work happens in real contexts where it can, not only in a therapy room</li>
+        <li>The plan changes when something isn't working</li>
+        <li>There is a discharge conversation, and it happens</li>
+        <li>They tell you honestly when a different discipline should lead</li>
+      </ul>
+    </div>
+    <div class="col bad"><h3>Worth asking about</h3>
+      <ul>
+        <li>The same activities every week for a year with no change in plan</li>
+        <li>No home program, or one you were handed once and never revisited</li>
+        <li>Goals you can't picture — "improve sensory processing," "increase core strength"</li>
+        <li>A sensory diet prescribed at intake and never reassessed</li>
+        <li>Progress described only as "he's doing great" with nothing measured</li>
+        <li>Claims about outcomes outside OT's scope — reading level, behavior, attention as a whole</li>
+        <li>Parents kept in the waiting room as a matter of policy</li>
+        <li>No discharge criteria, and no conversation about what "done" would look like</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">Questions worth asking a therapist</h3>
+  <ul>
+    <li>Which part of our day are we aiming at, and what will it look like if this works?</li>
+    <li>How will we measure it, and how often will you show me?</li>
+    <li>What should we be doing at home — and what should we stop doing?</li>
+    <li>What's your reasoning behind this particular approach?</li>
+    <li>How do you adapt when a child refuses or shuts down?</li>
+    <li>What would make you say we're finished here?</li>
+    <li>How do you coordinate with the school, and with our other therapists?</li>
+    <li>What's your experience with children who have this profile?</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Practical matters</h2>
+  <h3 class="sub">Frequency and duration</h3>
+  <p>Weekly is common; some goals do better with short intensive bursts and some with less frequent visits and a strong home program. What matters more than frequency is what happens between sessions — distributed practice in real routines consistently outperforms a single clinic hour, which is why parent coaching is a feature rather than a shortcut.</p>
+
+  <h3 class="sub">Finding an OT</h3>
+  <ul>
+    <li>Look for a licensed or registered occupational therapist, and ask about pediatric experience specifically.</li>
+    <li>Ask about additional training relevant to your child — feeding, sensory integration certification, assistive technology, hand therapy, or driving assessment for older teens.</li>
+    <li>Ask where they work: clinic, home, school, or a mix. Match the setting to the goal.</li>
+    <li>Ask what happens if your child can't tolerate the clinic environment. A good answer involves adapting; a poor one involves your child needing to be ready first.</li>
+  </ul>
+
+  <h3 class="sub">Paying for it</h3>
+  <ul>
+    <li>Evaluations and treatment are billed under specific codes — verify coverage by code and place of service before you start, as described on the therapy funding page.</li>
+    <li>Ask whether evaluations count against annual visit limits. They often do.</li>
+    <li>A letter of medical necessity tied to a functional problem is far more likely to be paid than a general request for OT.</li>
+    <li>School OT costs nothing and is written into the IEP. Private OT can run alongside it.</li>
+  </ul>
+
+  <div class="note">
+    <h3>Meet our occupational therapist</h3>
+    <p>This section links to a practitioner page — background, approach, what she works on, who she works with, and how to get in touch. Written and approved by her.</p>
+    <p><em>Placeholder: add name, credentials, practice, a short statement in her own words, and a link. See the contributor guidance on the About page before publishing.</em></p>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>If this page felt like a lot, here is the whole of it in one line: OT is the discipline that asks what your day is actually like, and then changes something so it goes better.</p>
+  <p>You already know which moments are hardest — the forty-minute morning, the lunchbox that never gets opened, the homework that ends in tears. That is the evaluation, done. Bring those three moments to a first appointment and a good therapist can build an entire plan from them.</p>
+</div>
+
+<footer>
+  <p><strong>This is a map, not medical advice.</strong> Whether occupational therapy is appropriate for a particular child, and what should be worked on first, is a decision for clinicians who have assessed them. Scope of practice, licensure, and school service rules vary by state.</p>
+  <p>Where evidence for a specific approach is limited, this page says so. That isn't a reason to avoid it — it's a reason to ask what outcome is expected, how it will be measured, and by when.</p>
+</footer>
+
+</div>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

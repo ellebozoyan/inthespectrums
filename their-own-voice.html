@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Their Own Voice — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --voice:#7A4A78; --voice-tint:#EFE6EE;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 54px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2rem);font-weight:400;margin:0 0 8px;line-height:1.2}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:.99rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: spoken lines */
+.say{background:var(--voice-tint);border-left:4px solid var(--voice);padding:18px 22px;margin:0 0 12px}
+.saywho{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--voice);font-weight:700;margin:0 0 9px}
+.say p{font-size:1.06rem;line-height:1.5;font-style:italic;margin:0 0 10px;color:#3B2A3A}
+.say p:last-child{margin:0}
+.say .after{font-style:normal;font-size:.9rem;color:var(--ink-soft);border-top:1px solid #DCCEDA;
+  padding-top:10px;margin-top:12px}
+
+.q{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px;margin-bottom:12px}
+.q h3{font-size:1.06rem;font-weight:400;margin:0 0 10px;color:var(--voice)}
+.q p{font-size:.95rem;margin:0 0 10px}
+.q p:last-child{margin:0}
+.q .avoid{color:var(--ink-soft);font-size:.9rem}
+.q .avoid b{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin-right:6px}
+
+/* ladder */
+.ladder{border-left:2px solid var(--line);padding-left:26px;margin-left:6px}
+.rung{position:relative;padding-bottom:24px}
+.rung::before{content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--voice);border:3px solid var(--ground)}
+.rung .age{font-family:var(--sans);font-size:11.5px;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--voice);margin:0 0 5px}
+.rung h3{font-size:1.04rem;font-weight:400;margin:0 0 6px}
+.rung p{font-size:.94rem;margin:0 0 6px}
+.rung ul{font-size:.93rem;padding-left:18px;margin:0}
+.rung li{margin-bottom:5px}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.card{background:var(--card);border-left:3px solid var(--forest);padding:17px 19px}
+.card h3{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:0 0 9px}
+.card p{font-size:.93rem;margin:0 0 9px}
+.card p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 70px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+@media print{body{background:#fff;font-size:10.5pt}.say,.q,.rung,.card{break-inside:avoid}}
+
+/* options */
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:12px;margin:0 0 16px}
+.opt{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:18px 20px}
+.opt h4{font-size:1.03rem;font-weight:400;margin:0 0 9px;color:var(--voice)}
+.opt .ex{font-family:var(--serif);font-style:italic;font-size:.94rem;color:#3B2A3A;
+  background:var(--voice-tint);padding:11px 13px;border-radius:2px;margin:0 0 11px;line-height:1.5}
+.opt dl{margin:0;font-size:.91rem}
+.opt dt{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;color:var(--forest);margin-top:9px}
+.opt dt.cost{color:var(--rust)}
+.opt dd{margin:3px 0 0;color:var(--ink-soft);line-height:1.5}
+.agree{background:var(--card);border-left:4px solid var(--forest);padding:20px 22px;margin:0 0 14px}
+.agree ul{margin:0;padding-left:19px}
+.agree li{margin-bottom:9px;font-size:.96rem}
+.agree li:last-child{margin-bottom:0}
+
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Their own voice:<br><em>talking with your child about their own life</em></h1>
+  <p class="lede">Every other page on this site is adults talking about children. This one runs the other direction — how families talk with a child about their own brain and body, and how ownership of that story gets handed over across childhood.</p>
+  <div class="note">
+    <h3>Before you read any of this</h3>
+    <p>There is no single right way to do this, and this page isn't going to pretend otherwise. What you tell your child, when, and in what words is one of the most personal decisions a family makes. It depends on your child, your values, your culture, your faith, what your family has already been through, and what your child is ready for on a given Tuesday.</p>
+    <p>So what follows is <strong>options with reasoning</strong>, not instructions. Where families genuinely differ, this page lays out several approaches and what each one tends to do well and cost. The area of actual agreement is much smaller than most resources imply, and it's marked as such.</p>
+  </div>
+</header>
+
+
+<div class="profnote"><b>Reading this as a therapist or teacher</b><p>Families ask for this language constantly and rarely get it. Having a few of these phrasings ready — and being clear that the framing is theirs to choose — is often the most useful thing a professional offers in a hard week.</p><p>The communication access section is written to be quotable in a report or a team meeting.</p></div>
+<section>
+  <h2 class="sec">The small area most people agree on</h2>
+  <p class="secnote">This list is short on purpose. Nearly everything else is a judgment call that belongs to you.</p>
+  <div class="agree">
+    <ul>
+      <li><strong>Children notice things about themselves.</strong> They notice they go to rooms other children don't, that adults talk in low voices, that something makes grown-ups worried. Whatever you decide to say, you're not deciding whether they notice — only what fills the gap.</li>
+      <li><strong>Something is better than silence.</strong> The most common regret reported by adults with disabilities isn't the words their parents used. It's that nobody said anything at all, so they built their own explanation out of whatever was available.</li>
+      <li><strong>Tone carries as much as content.</strong> A solemn delivery communicates <em>this is a tragedy</em> no matter which words follow. A matter-of-fact one communicates <em>this is manageable and we can talk about it.</em></li>
+      <li><strong>It's a conversation, not an event.</strong> Almost no family finds one big talk works. Most of this happens in cars, at bedtime, in small pieces, over years, returned to as a child changes.</li>
+      <li><strong>Their preference about language wins.</strong> Once a child can express a view about what they want to be called and how they want to be described, that view outranks any style guide — including the one this site uses.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">One word, four very different children</h2>
+  <p class="secnote">Worth naming early, because it changes how much explanatory weight a diagnostic label can actually carry.</p>
+  <p>Picture four children in the same classroom, all carrying the same diagnosis on their paperwork. One doesn't use speech, and is the most socially outgoing person in the room. One talks in long, detailed paragraphs and finds ten minutes of conversation with a peer completely exhausting. One takes every instruction completely literally, and is genuinely baffled when a teacher says “in a minute.” One is unbothered by noise or crowds, and needs to know exactly what is happening next.</p>
+  <p>They share a word. They share very little else. Any explanation built around what that word means will fit at most one of them, and will quietly misdescribe the other three.</p>
+  <p>This matters practically. <strong>A diagnostic label is largely an administrative and medical key</strong> — it opens doors to services, funding, protections, and research, and it tells a clinician roughly where to start. It is not a description of a person, and on its own it gives a child very little they can actually use about themselves. Which is one honest reason some families don't build their explanation around the word at all, and instead describe the specific thing in front of them: what's easy, what's hard, what helps.</p>
+  <p>The same holds anywhere several children share a label — a classroom, a clinic waiting room, a support group. A child who hears the word explained in general terms and doesn't recognize themselves in it may conclude the explanation is wrong, or that they are.</p>
+</section>
+
+<section>
+  <h2 class="sec">A voice is not the same as speech</h2>
+  <p class="secnote">This page is about a child having their own voice. For a significant number of children, that voice will not be speech — or will not be speech alone — and how early that is recognized shapes almost everything else.</p>
+
+  <p>Some children learn to speak on schedule. Some speak years later than anyone predicted, including children who were told they never would. Some will speak in a quiet room with a familiar person and lose access to speech entirely when stressed, tired, or frightened. And some will never use speech as their primary way of communicating.</p>
+  <p><strong>Nobody can reliably tell you at two or three which of those a particular child will be.</strong> Predictions made at that age turn out wrong often enough, in both directions, that most families and clinicians would rather act on what a child needs today than on a guess about where they will be at ten.</p>
+
+  <div class="note">
+    <h3>Which is the argument for giving access now</h3>
+    <p>Augmentative and alternative communication — a speech-generating device, a symbol system, signs, a low-tech board — belongs alongside speech from the very beginning, for any child whose speech is delayed or uncertain.</p>
+    <p>The research here is unusually consistent, and it is good news: children who are given AAC tend to make gains in spoken language too. Giving a child a way to communicate supports speech. The two work together.</p>
+    <p>And starting now buys something immediate. A child with a full communication system can want something, object to something, share an idea, tell a joke, and say where it hurts — today, years before anyone knows how their speech will turn out. Every month of access is a month of being understood — and of being more deeply connected to their people.</p>
+    <p>This matters especially where autism is part of the picture. Differences in social communication and social interaction are one of the two pillars the diagnosis actually rests on — the other being restricted and repetitive patterns of behavior and interest. Which means a reliable way to communicate and connect is not a support sitting at the edges of autism. It is aimed straight at the center of it, and it is among the most impactful interventions a family can pursue.</p>
+    <p>So the working principle many families and clinicians land on is simple: <strong>give access to a full communication system now, and keep working on speech at the same time.</strong> Both, together, from the start.</p>
+  </div>
+
+  <h3 class="sub">What "access" actually means</h3>
+  <ul>
+    <li><strong>Available from day one.</strong> A child gets a way to communicate because they are a person with things to say. Readiness tests, mastering a set of pictures first, and proving they understand cause and effect are all hurdles that can be set aside — access comes first, and understanding grows through using it.</li>
+    <li><strong>A vocabulary big enough to say anything,</strong> not just to request things. A system limited to asking for snacks teaches a child that communication is a vending machine. Commenting, refusing, asking questions, joking, complaining, and telling someone they're wrong all need to be available.</li>
+    <li><strong>Words for no, stop, and I don't like it</strong> — reachable in a couple of taps. A system that can only make requests cannot report that something is wrong.</li>
+    <li><strong>Adults using it too.</strong> Modeling language on the device, all day, without demanding the child use it back. Nobody learns a language they've only ever been quizzed in.</li>
+    <li><strong>Present everywhere.</strong> Charged, within reach, at lunch, on the playground, on the bus, in the bath if that's what it takes, and in a hospital bed.</li>
+    <li><strong>Never removed as a consequence.</strong> Taking away a communication device as a punishment is taking away a person's voice.</li>
+  </ul>
+
+  <h3 class="sub">And it is theirs, not the team's</h3>
+  <p>A device voice is a voice. Children have views about which one they want — many devices offer a choice, and a child who is going to speak with that voice for years should get a say in how it sounds. The same goes for what the device is called, what it looks like, what goes on the case, and who is allowed to touch it.</p>
+  <p>These sound like small things. They are the difference between a child who has a device and a child who has a voice.</p>
+</section>
+
+<section>
+  <h2 class="sec">Where families genuinely differ</h2>
+  <p class="secnote">Four decisions, each with real reasoning on more than one side. None of these has a consensus answer, and families change approach as children grow.</p>
+
+  <h3 class="sub">One · How you frame it</h3>
+  <div class="opts">
+    <div class="opt"><h4>Everyone is different</h4>
+      <p class="ex">"Everybody finds some things easy and some things hard. For you, noticing small details is easy and loud rooms are hard. For the person sitting next to you, it's completely the other way round. That's just how people are, and it's all okay."</p>
+      <dl><dt>Does well</dt><dd>Fits a child whose profile doesn't match the label's stereotype. Avoids defining a person by a category. Works when the children around them have needs that look nothing like theirs. Doesn't hand a child a word they may later reject or want to claim on their own terms.</dd>
+      <dt class="cost">Trades off</dt><dd>The specific word eventually becomes useful — for finding community, understanding themselves, and asking for what they're entitled to. Some adults have said they wished they'd had it sooner. Most families using this framing add the word later rather than never.</dd></dl></div>
+
+    <div class="opt"><h4>Name it early and plainly</h4>
+      <p class="ex">"You have autism. That's the word for why sounds are so loud for you, and why you know everything there is to know about trains. Lots of people share that word, grown-ups too."</p>
+      <dl><dt>Does well</dt><dd>Gives a child language for their own experience and access to a community. Prevents finding out by accident later, which some adults describe as the harder version. Makes the word ordinary rather than loaded.</dd>
+      <dt class="cost">Trades off</dt><dd>A label carries other people's assumptions with it, and a young child can't control who they tell. It may not fit how your child experiences themselves, and it can become the whole explanation for everything they do.</dd></dl></div>
+
+    <div class="opt"><h4>Follow their questions</h4>
+      <p class="ex">"That's a really good question. Do you want the long answer? There's a word for how your brain works, if you'd like to know it."</p>
+      <dl><dt>Does well</dt><dd>Meets a child exactly where their curiosity is, and lets them control the pace. Nothing arrives before it's wanted.</dd>
+      <dt class="cost">Trades off</dt><dd>Some children never ask — including children who've already sensed the topic is uncomfortable. Waiting for a question can become waiting indefinitely, so it helps to open small doors rather than only answering.</dd></dl></div>
+  </div>
+
+  <h3 class="sub">Two · Whether the word comes from you</h3>
+  <p>Some families are clear they want to be the source, so the word arrives with warmth attached. Others are comfortable with it emerging from school, a clinician, or the child's own reading, and would rather not make an announcement out of it. Both happen, and both work.</p>
+  <p>The practical consideration most families weigh: information a child finds by accident — an overheard call, a report left open — tends to feel like something that was being kept from them, whatever was actually intended. If you're not planning to raise it directly, it's worth thinking about what your child is likely to encounter and when.</p>
+
+  <h3 class="sub">Three · How much detail, and when</h3>
+  <p>There's a real spread here, from families who explain the full clinical picture as soon as a child can follow it, to families who stay entirely with lived experience — what's hard, what helps — and never make the medical detail central.</p>
+  <p>A useful test some families use: <em>is this information my child can do something with?</em> Knowing that headphones help is usable at seven. Knowing a genetic variant name usually isn't, until it becomes relevant to a decision they're making. Detail that a child can act on tends to land differently from detail they can only carry.</p>
+
+  <h3 class="sub">Four · Who else knows, and who decides</h3>
+  <p>Whether to tell teachers, extended family, friends' parents, and the child's own friends is a genuine values question, and families weigh privacy, access to support, and their child's future control over their own information differently.</p>
+  <p>What shifts over time is who holds that decision. Most families move from deciding for a young child, to deciding with an older one, to the young person deciding entirely — and the age at which that transfer happens varies widely and reasonably.</p>
+</section>
+
+<section>
+  <h2 class="sec">Some ways families answer the hard questions</h2>
+  <p class="secnote">These arrive in the car and at bedtime. Several possible answers to each — they're different in approach rather than better and worse, and the one that fits your child is the right one.</p>
+
+  <div class="q"><h3>"Why am I different?"</h3>
+    <p><strong>Universal framing —</strong> "Everyone's different from everyone. You and I are different, you and your best friend are different. Some things are easier for you than for other people and some are harder, and that's true of every single person I know."</p>
+    <p><strong>Specific framing —</strong> "Because your brain is built in a way that has a name — and that name comes with some things that are harder and some that are genuinely brilliant."</p>
+    <p><strong>Turn it back —</strong> "What made you think about that today?" Sometimes the question is about a specific thing that happened, and answering the big version misses what they actually needed.</p>
+    <p class="avoid"><b>Worth knowing</b>Children generally know when something is different, so an answer that flatly denies it can teach them not to raise the topic again. Beyond that, the framing is yours.</p></div>
+
+  <div class="q"><h3>"Am I stupid?"</h3>
+    <p><strong>Name the feeling first —</strong> "That sounds like a horrible way to feel. Tell me what happened." Then the correction, once they feel heard.</p>
+    <p><strong>Separate the two things —</strong> "Being smart and finding reading hard are different things. You can be brilliant and still need audiobooks — those aren't the same question at all."</p>
+    <p><strong>Name the effort —</strong> "What you're feeling is what it's like to work harder than the people around you and have nobody notice. That's exhausting, and it isn't the same as being stupid."</p>
+    <p class="avoid"><b>Worth knowing</b>A fast reassurance can land as not being heard. Most families find some version of acknowledging the feeling first makes the reassurance stick better — though a child who just wants a quick no from you is also telling you something.</p></div>
+
+  <div class="q"><h3>"Will I always be like this?"</h3>
+    <p><strong>Honest and steady —</strong> "You'll always have your brain. How much it gets in your way changes a lot, and mostly it gets easier as you learn what helps and get more say over your own life."</p>
+    <p><strong>Focused on change —</strong> "You're going to change a huge amount, the way everybody does. Some of the hard bits get easier, some stay, and you get better at handling them."</p>
+    <p class="avoid"><b>Worth knowing</b>The main thing families weigh here is what a promise costs later if it doesn't hold. Whatever you say, saying something you'll still stand behind in five years is the safer bet.</p></div>
+
+  <div class="q"><h3>"Why do I have to go to therapy?"</h3>
+    <p><strong>Goal-framed —</strong> "Because there are things you want to be able to do that are harder for you than they should be, and that's what these people help with."</p>
+    <p><strong>Ordinary-framed —</strong> "Lots of people work on things with someone who knows how. Some people have a tutor, some have a coach. This is yours."</p>
+    <p><strong>Open to their view —</strong> "If it stops being useful, tell me and we'll talk about it properly."</p>
+    <p class="avoid"><b>Worth knowing</b>If you offer the third one, it works best when objections actually get taken seriously — otherwise children learn their view doesn't change anything, which is its own lesson.</p></div>
+
+  <div class="q"><h3>"Why can't I do what my sibling does?"</h3>
+    <p><strong>Honest about unfairness —</strong> "Some things are harder for you and easier for them, and some are the other way round. It isn't fair, and I'm not going to pretend it is."</p>
+    <p><strong>Focused on their own path —</strong> "You're on different roads. What is it you actually want to be able to do? Let's work out how you get there."</p>
+    <p><strong>Concrete and specific —</strong> Sometimes the question is about one thing — riding a bike, going to a party — and can be answered as that one thing rather than as a statement about their whole life.</p>
+    <p class="avoid"><b>Worth knowing</b>Children tend to notice forced equivalence, so this is one where many families find honesty lands more comfortably than balance.</p></div>
+
+  <div class="q"><h3>"Do I have to tell people?"</h3>
+    <p><strong>Theirs to decide —</strong> "It's your information. Some people you'll want to tell, some you won't, and you get to choose each time."</p>
+    <p><strong>Practical —</strong> "Let's work out what you'd say if you did decide to, so you've got the words ready either way."</p>
+    <p class="avoid"><b>Worth knowing</b>Whatever you decide about disclosure while they're young, this becomes entirely their call as they get older, and it helps to have practiced the mechanics before it matters.</p></div>
+</section>
+
+<section>
+  <h2 class="sec">Growing self-advocacy</h2>
+  <p class="secnote">Not a sequence and not a set of milestones. These are directions to grow in, and children move through them at very different rates, out of order, and not all the way — which is fine.</p>
+
+  <div class="ladder">
+    <div class="rung"><p class="age">Foundation</p><h3>My preferences change what happens</h3>
+      <p>The root of all of it, and available long before language.</p>
+      <ul>
+        <li>Real choices with real consequences, honored once made</li>
+        <li>Refusal noticed and responded to in whatever form it comes — turning away, pushing off, going still</li>
+        <li>Stopping when they say stop, including in play</li>
+      </ul></div>
+
+    <div class="rung"><p class="age">Building</p><h3>I have words for what I need</h3>
+      <ul>
+        <li>"No," "stop," "help," "break" — in speech, signs, or on a device</li>
+        <li>Adults naming their own needs out loud, so it's visibly normal</li>
+        <li>The child asking for their own accommodation sometimes, rather than it always being arranged silently</li>
+      </ul></div>
+
+    <div class="rung"><p class="age">Growing</p><h3>I know what works for me</h3>
+      <ul>
+        <li>Strategies named as they work: "the timer helped — that's worth knowing about yourself"</li>
+        <li>Small real-world asks: the waiter, the librarian, the coach</li>
+        <li>Some understanding of their own profile, in whatever framing your family uses</li>
+      </ul></div>
+
+    <div class="rung"><p class="age">Extending</p><h3>I can explain myself to someone else</h3>
+      <ul>
+        <li>Practising "I need X because Y" with you, then with a teacher</li>
+        <li>Seeing their own school plan, if and when that fits your family</li>
+        <li>A defined role in their own meetings — reading a strengths list is a common first one</li>
+      </ul></div>
+
+    <div class="rung"><p class="age">Toward adulthood</p><h3>It's mine</h3>
+      <ul>
+        <li>Requesting their own accommodations, with you reviewing rather than sending</li>
+        <li>Knowing what their paperwork says and where it lives</li>
+        <li>Answering for themselves at their own appointments</li>
+        <li>Deciding what to disclose, to whom, and when</li>
+      </ul></div>
+  </div>
+
+  <div class="note">
+    <h3>For children who won't reach the later stages</h3>
+    <p>Plenty of children won't run their own meetings or request their own accommodations, and this isn't a list of things to be achieved. But almost every child can be moved further along it than adults tend to assume, and the foundation is available to everyone.</p>
+    <p>Self-determination for a person with significant support needs looks like having preferences that reliably change what happens. That's achievable for nearly anyone, and everything else is built on it.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Learning from adults <em>with disabilities</em></h2>
+  <p class="secnote">Worth seeking out, and worth reading critically — as you would any source.</p>
+
+  <div class="pair">
+    <div class="card"><h3>What they offer</h3>
+      <p>Adults who have lived this can describe things no clinician and no parent can: what a particular intervention felt like from inside, what the silence felt like, what they wish had been different.</p>
+      <p>For your child, meeting an adult who is like them and is living a life does something no explanation from you can do.</p></div>
+
+    <div class="card"><h3>They disagree with each other</h3>
+      <p>Disabled communities hold a wide range of views, sometimes sharply opposed — about therapy, about language, about what should have been done differently. There is no single community position to defer to.</p>
+      <p>Read widely enough to hear the range rather than one voice, and treat it as perspective to weigh rather than instruction to follow.</p></div>
+
+    <div class="card"><h3>Some of it may sting</h3>
+      <p>You will encounter strong criticism of choices you've made in good faith, sometimes about things you researched carefully.</p>
+      <p>Worth sitting with rather than dismissing — and also worth remembering that another person's experience of a different childhood isn't automatically a verdict on yours.</p></div>
+
+    <div class="card"><h3>On language</h3>
+      <p>Many adults with autism, and many Deaf people, prefer identity-first language for themselves; many others prefer person-first. Both are used in good faith and neither is a mistake.</p>
+      <p>Your child's own preference, once they have one, is the one that settles it for them.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Dignity in the ordinary moments</h2>
+  <p class="secnote">Practices many families adopt, with the reasoning behind them. Take what fits.</p>
+
+  <ul>
+    <li><strong>Not discussing them within earshot.</strong> Comprehension frequently runs well ahead of expression, so a child who can't respond may still be taking in every word about their difficulties. Many families find it easier to keep those conversations for later than to judge each time what's being understood.</li>
+    <li><strong>Speaking to them rather than about them.</strong> When someone addresses you instead of your child, redirecting — "you can ask him" — teaches both of them something.</li>
+    <li><strong>One adult at a time when things are hard.</strong> Several people talking to a dysregulated child multiplies the input without adding help.</li>
+    <li><strong>Asking before sharing their stories,</strong> including the good ones. "Can I tell Grandma about the swimming?" is small, and it establishes that their story belongs to them.</li>
+    <li><strong>Explaining before touching</strong> — personal care, moving equipment, adjusting braces — even where there's no answer. It models what respectful handling feels like, which is part of how a child recognizes handling that isn't.</li>
+    <li><strong>Age-respectful materials and topics,</strong> whatever level a child is working at.</li>
+    <li><strong>Repairing out loud when you get it wrong.</strong> "I talked about you like you weren't there. That wasn't fair." Repair tends to teach more than getting it right first time.</li>
+  </ul>
+
+  <div class="note">
+    <h3>And the harder one: what gets shared online</h3>
+    <p>Posts about meltdowns, therapy sessions, medical detail, and behavior are permanent and searchable by every future classmate, employer, and partner. A number of adults with disabilities have written about finding their childhoods published without their consent and what that was like.</p>
+    <p>Families land in different places on this, and there are real reasons to share — community, awareness, and support that's genuinely hard to find elsewhere. Two questions many find useful: <em>would I want this about myself at their age</em>, and <em>can I ask them</em>. If they're old enough to have a view, asking costs nothing. If they aren't, it's worth noticing that the choice is being made on their behalf and will be permanent.</p>
+  </div>
+</section>
+
+<footer>
+  <p><strong>This is a set of options, not a method.</strong> Your child, your family, your words, your values. If something here doesn't fit, that isn't a mistake on your part — it means the page is describing a family that isn't yours.</p>
+  <p>The aim shared across every approach here is a person who eventually knows their own mind, can say what they need, and holds their own story.</p>
+</footer>
+
+</div>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

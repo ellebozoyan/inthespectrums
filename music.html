@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Music — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --song:#8A6A1F; --song-tint:#F5EEDD;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: what music recruits */
+.brain{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.brain h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.brain .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2px}
+.bn{background:rgba(255,255,255,.05);border-top:2px solid var(--song);padding:12px 13px 14px}
+.bn b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:#EFEBE3;margin-bottom:6px}
+.bn span{font-size:.83rem;color:#B9C4B4;line-height:1.45;display:block}
+.brain .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:24px 0 0;max-width:62ch}
+.brain .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.kinds{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.kind{background:var(--card);border-left:3px solid var(--song);padding:18px 20px}
+.kind h3{font-size:1.05rem;font-weight:400;margin:0 0 4px}
+.kind .who{font-family:var(--sans);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--song);font-weight:700;margin:0 0 10px}
+.kind p{font-size:.93rem;margin:0}
+
+.moves{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.move{background:var(--card);border-left:3px solid var(--forest);padding:19px 21px}
+.move .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 5px}
+.move h3{font-size:1.08rem;font-weight:400;margin:0 0 9px}
+.move p{font-size:.94rem;margin:0 0 10px}
+.move ul{font-size:.91rem;padding-left:17px;margin:0}
+.move li{margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.strong{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.mixed{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.weak{background:#F6E4E0;border-left:4px solid #8A2B20}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.strong h3{color:var(--forest)}.ev.mixed h3{color:#A8641C}.ev.weak h3{color:#8A2B20}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.snote{background:var(--song-tint);border-left:4px solid var(--song);padding:20px 22px;margin:24px 0}
+.snote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--song);font-weight:700;margin:0 0 10px}
+.snote p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.move,.kind{break-inside:avoid}
+  .brain{background:#fff;color:#000;border:1px solid #000}.brain .big,.bn b,.brain .cap strong{color:#000}}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Music:<br><em>the thing that gets in everywhere</em></h1>
+  <p class="lede">Very few activities recruit as much of the brain at once as music does. Hearing, movement, timing, memory, language, emotion, reward and prediction all engage together — which is why a child who cannot yet speak may sing, why a body that struggles to walk may move to a beat, and why a song can carry a routine that a sentence cannot.</p>
+</header>
+
+<div class="profnote">
+  <b>Reading this as a professional</b>
+  <p>Covers both informal music exploration by families and educators, and board-certified music therapy — which are different things and are frequently conflated.</p>
+  <p>The evidence section separates mechanisms with genuine research support from claims that have been overstated in popular writing, including several a family may arrive quoting.</p>
+</div>
+
+<section>
+  <div class="brain">
+    <h2>What a single song recruits</h2>
+    <p class="big">Music is unusual because it engages so many systems simultaneously rather than in sequence. That overlap is the whole reason it can reach a child through one channel when another is blocked.</p>
+    <div class="bgrid">
+      <div class="bn"><b>Hearing</b><span>Pitch, timbre, and pattern — the entry point</span></div>
+      <div class="bn"><b>Movement</b><span>Motor areas activate even when you sit still and listen</span></div>
+      <div class="bn"><b>Timing</b><span>Beat and rhythm, tightly wired to motor circuits</span></div>
+      <div class="bn"><b>Emotion</b><span>Direct access to feeling, faster than language reaches it</span></div>
+      <div class="bn"><b>Reward</b><span>Predictable pleasure — motivation without a sticker chart</span></div>
+      <div class="bn"><b>Memory</b><span>Melody and rhythm as scaffolding that holds information</span></div>
+      <div class="bn"><b>Language</b><span>Shared machinery with speech — rhythm, stress, phrasing</span></div>
+      <div class="bn"><b>Prediction</b><span>Structure you can anticipate, which is what makes it feel safe</span></div>
+    </div>
+    <p class="cap"><strong>One honest caution about this idea.</strong> "Whole brain activation" gets used to sell a great deal that music cannot do. Music does not raise IQ, and the famous claim that listening to a particular composer makes children smarter did not survive replication. What the overlap genuinely offers is <em>access</em> — more than one route into a nervous system, and a way to reach movement through hearing, or emotion through rhythm, when the direct road is closed.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Four different things, <em>often confused</em></h2>
+  <p class="secnote">Families are frequently told to "try music" without anyone specifying which of these they mean. All four are worth having; they do different jobs.</p>
+  <div class="kinds">
+    <div class="kind"><h3>Music exploration</h3><p class="who">Anyone · Free · Starts today</p>
+      <p>Singing, drumming, dancing, and making noise with whoever is around. No credential, no talent, and no plan required. This is where most of the benefit in most families actually comes from, and it's the part this page spends the most time on.</p></div>
+    <div class="kind"><h3>Music therapy</h3><p class="who">Board-certified music therapist</p>
+      <p>A clinical discipline with assessment, non-musical goals, documentation, and measurement. A music therapist uses music to work on communication, motor, regulation, or social goals — the music is the method, not the outcome.</p></div>
+    <div class="kind"><h3>Adaptive music lessons</h3><p class="who">Music teacher with adapted methods</p>
+      <p>Learning an instrument, with the teaching adjusted for motor, sensory, attention, or learning differences. The goal here <em>is</em> musical — and being genuinely good at something is its own intervention.</p></div>
+    <div class="kind"><h3>Community music</h3><p class="who">Choirs, bands, ensembles, groups</p>
+      <p>Playing or singing with other people, for the ordinary reason that people do. Belonging, identity, a place to go on Thursdays, and a peer group organized around something other than difference.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What music <em>makes possible</em></h2>
+  <p class="secnote">Nine areas where the overlap pays off. Most families find two or three of these apply strongly to their child.</p>
+
+  <div class="domains">
+    <div class="dom">
+      <h3>Regulation, in about ninety seconds</h3>
+      <p>The fastest state-change tool most families have, and the one available in a car park with no equipment.</p>
+      <ul>
+        <li>Tempo and dynamics shift arousal reliably</li>
+        <li>Predictable structure lowers threat — you know what comes next</li>
+        <li>Rhythm organizes a disorganized nervous system</li>
+        <li>The same song, every time, becomes a signal in itself</li>
+      </ul>
+      <p class="look"><b>The technique to know</b>Match, then shift. Start with music that matches their current state — fast and loud if they're revved — then move gradually toward where you want them. Starting with calm music for an agitated child usually fails; they can't get there in one step.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Communication and speech</h3>
+      <p>Singing and speaking share machinery, and singing is often available when speech isn't.</p>
+      <ul>
+        <li>Melody and rhythm supporting word production</li>
+        <li>Breath support, volume, and prosody</li>
+        <li>Turn-taking built into the structure of a song</li>
+        <li>Sequencing and syllable segmentation for literacy</li>
+        <li>Leaving a gap for a child to fill — the single most useful move</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>A child who fills in the last word of a song but won't say it on request, who sings whole phrases and speaks in single words, who answers a sung question and not a spoken one.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Movement and motor</h3>
+      <p>The auditory and motor systems are unusually tightly coupled, and a beat can organize movement that instruction cannot.</p>
+      <ul>
+        <li>Rhythmic cueing for walking — pace, symmetry, and step length</li>
+        <li>Bilateral coordination through drumming and clapping</li>
+        <li>Motor planning through sequenced movement songs</li>
+        <li>Endurance, because moving to music feels shorter than exercising</li>
+        <li>Crossing midline, reaching, and grasping in a motivating frame</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Walking more evenly with a beat, dancing with coordination that doesn't show up in PE, sustaining movement for a whole song that they'd refuse as an exercise.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Connection and shared attention</h3>
+      <p>Making music together requires synchronizing with another person, which is the raw material of social communication.</p>
+      <ul>
+        <li>Joint attention around a shared sound source</li>
+        <li>Turn-taking with a built-in structure</li>
+        <li>Synchrony — doing the same thing at the same time</li>
+        <li>Shared delight, which is the point rather than the packaging</li>
+        <li>Group participation without the demand of conversation</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Looking at you during a song when they don't otherwise, waiting for their turn on a drum, joining a group activity that is musical when they won't join one that isn't.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Memory and routine</h3>
+      <p>Melody is a container. Information carried in a song survives when the same information in a sentence does not.</p>
+      <ul>
+        <li>Transition and routine songs — tidy up, shoes on, teeth</li>
+        <li>Sequences: steps of handwashing, getting dressed, a bedtime order</li>
+        <li>Academic content, phone numbers, addresses, safety information</li>
+        <li>Songs that mark the start and end of things</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>A transition that has been a battle for a year happening smoothly once it has a song, a child who remembers a sung instruction and not a spoken one.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Emotional expression and processing</h3>
+      <p>Music reaches feeling faster than language does, and offers a way to express something without having to name it.</p>
+      <ul>
+        <li>Feeling something without needing the vocabulary for it</li>
+        <li>Choosing music that matches a mood — a form of self-report</li>
+        <li>Songwriting and lyric work for older children</li>
+        <li>Processing grief, change, hospital experiences, and hard days</li>
+        <li>Safe access to big feelings inside a contained structure</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Playing the same song on repeat after a hard day, an intense reaction to particular music, a teenager who will talk about a lyric but not about themselves.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Attention and executive function</h3>
+      <p>Music demands sustained attention while supplying its own motivation, which is a rare combination.</p>
+      <ul>
+        <li>Sustained attention across a whole piece</li>
+        <li>Inhibition — stop-and-go games, freeze, waiting for a cue</li>
+        <li>Working memory for sequences and patterns</li>
+        <li>Shifting between parts, tempos, or roles</li>
+        <li>Practice as a model of effortful, incremental improvement</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Attention to a musical activity that far exceeds anything else, a child who can wait for a musical cue but not for a verbal instruction.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Medical settings and pain</h3>
+      <p>One of the better-supported uses, and badly under-requested by families.</p>
+      <ul>
+        <li>Procedural support during blood draws, IVs, dressing changes</li>
+        <li>Distraction and reduced distress in emergency and hospital settings</li>
+        <li>Familiar music in an unfamiliar and frightening environment</li>
+        <li>Sleep support in hospital</li>
+        <li>Something the child controls when nothing else is under their control</li>
+      </ul>
+      <p class="look"><b>What to do</b>Bring a familiar playlist and a speaker to every hospital stay, and ask whether the hospital has a music therapist. Many children's hospitals do, and few families know to ask.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Identity, agency, and being good at something</h3>
+      <p>The one that doesn't fit on a goal sheet, and matters as much as any of the others.</p>
+      <ul>
+        <li>Having preferences, and having them respected</li>
+        <li>Leading — choosing the song, setting the tempo, stopping the music</li>
+        <li>Being genuinely skilled at something, publicly</li>
+        <li>An identity that isn't organized around difficulty</li>
+        <li>A lifelong source of pleasure that needs no one's permission</li>
+      </ul>
+      <p class="look"><b>Why it matters</b>Most of a child's therapeutic life is spent working on things they find hard. Music can be the place where they are simply good, and where the adults are following rather than leading.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Music exploration <em>at home</em></h2>
+  <p class="secnote">No training, no talent, no equipment. Your child is not evaluating your singing — and the research on adult singing to children is not about pitch accuracy.</p>
+
+  <h3 class="sub">Seven moves that do most of the work</h3>
+  <ul>
+    <li><strong>Leave the gap.</strong> Sing a familiar line and stop before the last word. That pause is where communication happens — a look, a sound, a sign, a word, a device hit. Wait far longer than feels comfortable.</li>
+    <li><strong>Follow their music.</strong> If they're banging, bang with them. If they're humming, hum it back. Musical circles of communication work exactly like any other kind: notice, join, and give them a reason to come back.</li>
+    <li><strong>Put their name in it.</strong> Personalized songs get attention that generic ones don't. Any tune will do.</li>
+    <li><strong>Use songs for the hard moments,</strong> not the easy ones. The same short song every time for the transition that always goes badly.</li>
+    <li><strong>Match, then shift,</strong> for regulation. Meet the state they're in before you try to move it.</li>
+    <li><strong>Make sound with things you own.</strong> Pots, boxes, rice in a jar, body percussion, the stairs. Instruments that require no skill let a child succeed immediately.</li>
+    <li><strong>Let them lead, and let them stop.</strong> The power to end the music is as important as the power to start it — and for a child with little control over anything else, it may matter more.</li>
+  </ul>
+
+  <div class="snote">
+    <h3>And the honest caveat</h3>
+    <p>Music is not universally calming, and for some children it is the opposite. Unexpected sound, layered noise, particular timbres, or singing directed at them can be genuinely aversive. A child who covers their ears, leaves the room, or escalates when music starts is telling you something accurate.</p>
+    <p>If that's your child: try much quieter, try instrumental rather than vocal, try letting them control the volume and the off switch, and try music they choose rather than music offered. And accept that silence may be their preference — which is a legitimate sensory profile rather than a problem to be solved.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">How it grows <em>with them</em></h2>
+  <div class="moves">
+    <div class="move"><p class="age">Infants and toddlers</p><h3>Voice, lap, and rhythm</h3>
+      <p>Your voice is the instrument that matters most. Bouncing, rocking, and songs with big obvious pauses.</p>
+      <ul><li>Familiar songs for feeds, changes, and sleep</li><li>Anticipation games with a pause before the payoff</li><li>Shakers and drums with no rules attached</li></ul></div>
+
+    <div class="move"><p class="age">Preschool</p><h3>Songs that do jobs</h3>
+      <p>Transition songs, routine songs, movement songs, and the first real turn-taking.</p>
+      <ul><li>A song per hard transition</li><li>Stop-and-go and freeze games for inhibition</li><li>Instrument exploration with no correct way to do it</li><li>Group singing at library or playgroup</li></ul></div>
+
+    <div class="move"><p class="age">Elementary</p><h3>Skill, and being part of something</h3>
+      <p>The age to try an instrument if there's interest, and to find a group. Adaptive lessons exist and are worth seeking out.</p>
+      <ul><li>Adapted lessons — ask about color coding, notation alternatives, shorter sessions</li><li>Choir, band, drumming circle, or an ensemble that accommodates</li><li>Songwriting about real things</li><li>Music as the reliable regulation tool for homework and evenings</li></ul></div>
+
+    <div class="move"><p class="age">Adolescence</p><h3>Music as identity</h3>
+      <p>Taste becomes self-definition. This is when music shifts from something adults provide to something the young person owns — and that shift should be honored, not managed.</p>
+      <ul><li>Their playlist, their choice, their volume where possible</li><li>Production, recording, and music technology as a real route</li><li>Talking about lyrics as a way into talking about themselves</li><li>Bands, ensembles, and going to see live music</li></ul></div>
+
+    <div class="move"><p class="age">Toward adulthood</p><h3>Something that lasts</h3>
+      <p>Of everything on this site, music is among the few things that stays available for life without a service system, a funding stream, or an eligibility determination.</p>
+      <ul><li>Community ensembles and choirs that welcome adults with disabilities</li><li>A regulation strategy they carry into work and independent living</li><li>For some, employment or performance</li><li>A social world organized around a shared interest</li></ul></div>
+
+    <div class="move"><p class="age">Throughout</p><h3>In hospital and hard seasons</h3>
+      <p>Music travels. It works in an emergency department, a waiting room, an MRI, and a bad week.</p>
+      <ul><li>A familiar playlist saved offline on every device</li><li>Ask about the hospital music therapist</li><li>The same song for the same procedure, every time</li><li>Headphones as standard equipment in the bag</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Evidence, <em>sorted honestly</em></h2>
+  <p class="secnote">Music attracts more overstatement than almost any other intervention on this site. Here is roughly where things stand.</p>
+  <div class="evid">
+    <div class="ev strong"><h3>Well supported</h3>
+      <p><strong>Rhythmic auditory cueing for walking</strong> — using a beat to improve gait speed, symmetry, and stride. Among the best-evidenced applications, drawing on the direct coupling between auditory and motor systems.</p>
+      <p><strong>Music for procedural distress and pain</strong> in medical settings, including in children.</p>
+      <p><strong>Music for anxiety reduction</strong> around procedures and hospitalization.</p>
+      <p><strong>Melody-based approaches to speech production</strong> in certain language disorders.</p>
+      <p><strong>Music-supported joint attention and turn-taking</strong> in early social communication work.</p>
+      <p><strong>Music as a memory scaffold</strong> — sung information is retained better than spoken.</p>
+    </div>
+
+    <div class="ev mixed"><h3>Mixed or emerging</h3>
+      <p><strong>Music therapy for autism outcomes</strong> — trials show gains in social interaction and shared attention in some studies and not others; reviews describe modest, inconsistent effects. Worth doing for goals it plausibly reaches, rather than as a general treatment.</p>
+      <p><strong>Music for sleep</strong> — plausible, popular, unevenly studied in children.</p>
+      <p><strong>Instrument learning and executive function</strong> — associations exist; whether the training causes the improvement is much less clear.</p>
+      <p><strong>Group music-making and prosocial behavior</strong> — interesting findings, early days.</p>
+    </div>
+
+    <div class="ev weak"><h3>Overstated or discredited</h3>
+      <p><strong>The claim that listening to particular classical music makes children smarter.</strong> It did not replicate, and the original finding was small, brief, and about spatial tasks in adults.</p>
+      <p><strong>Music training raising general intelligence.</strong> Large meta-analyses find little to no far transfer. Learn an instrument because it's worth learning, not to raise test scores.</p>
+      <p><strong>Auditory integration and sound-based listening therapies</strong> marketed for language, attention, or processing.</p>
+      <p><strong>Specific frequencies or tones</strong> claimed to heal, detoxify, or rewire.</p>
+      <p>Music offers a great deal. It does not need the exaggerations, and the exaggerations make it easier to dismiss the parts that are real.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Finding a music therapist</h2>
+  <ul>
+    <li><strong>Look for board certification.</strong> In the United States that's an MT-BC credential, which requires a degree, clinical training, and an exam. "Music practitioner" and "sound healer" are not the same thing.</li>
+    <li><strong>Ask what the non-musical goals are.</strong> A music therapist should be able to tell you what communication, motor, regulation, or social target they're working on and how they'll measure it.</li>
+    <li><strong>Ask about experience</strong> with your child's profile, and whether they work in home, clinic, school, or hospital.</li>
+    <li><strong>Ask whether they coach you,</strong> so the music continues between sessions — this is where most of the value sits.</li>
+    <li><strong>Check the hospital.</strong> Many children's hospitals employ music therapists and provide the service at no charge during admissions.</li>
+    <li><strong>Ask schools about it too.</strong> Music therapy can be written into an IEP as a related service where it supports educational goals, though it is not commonly offered unless requested.</li>
+  </ul>
+  <h3 class="sub">Paying for it</h3>
+  <ul>
+    <li>Insurance coverage is inconsistent and often absent. Verify by code before starting, and ask about self-pay rates and sliding scales.</li>
+    <li>Some state disability agencies and Medicaid waiver programs fund music therapy. Ask by name.</li>
+    <li>Adaptive music lessons are usually private pay, and some community music schools run scholarship programs specifically for students with disabilities.</li>
+  </ul>
+
+  <div class="note">
+    <h3>Meet our music therapist</h3>
+    <p>This section links to a practitioner page — background, credentials, approach, and how to get in touch. Written and approved by them.</p>
+    <p><em>Placeholder: add name, credentials, practice, a short statement in their own words, and a link. See the contributor guidance on the About page before publishing.</em></p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">From our library</h2>
+  <div class="lib">
+    <a class="libcard" href="#"><h3>Routine and transition songs</h3>
+      <p>Short, simple songs for the moments that go wrong — leaving the house, tidying up, the bath, the car, teeth, bedtime.</p>
+      <span class="go">Browse the songs</span></a>
+    <a class="libcard" href="#"><h3>Themed activities</h3>
+      <p>Activity sets with the musical, language, and motor targets marked, built to be led by the child.</p>
+      <span class="go">Browse the activities</span></a>
+    <a class="libcard" href="floortime.html"><h3>Floortime and child-led therapy</h3>
+      <p>Musical exchanges are circles of communication. Everything on that page applies with a drum in your hands.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="speech-language-aac.html"><h3>Speech, language and AAC</h3>
+      <p>Leaving a gap in a song is one of the most reliable ways to invite a first word, sign, or device hit.</p>
+      <span class="go">Read the SLP page</span></a>
+    <a class="libcard" href="injuries-and-illness.html"><h3>When something happens</h3>
+      <p>Familiar music is one of the few things a child controls in a hospital. Pack it deliberately.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="maplewood-stories.html"><h3>The Maplewood stories</h3>
+      <p>Shared reading and shared singing work the same way — rhythm, repetition, anticipation, and someone's arm around you.</p>
+      <span class="go">Read about Maplewood</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>Here is the whole page as one experiment, to try tonight. Pick a song your child knows. Sing it, and stop right before the last word.</p>
+  <p>Then wait. Longer than feels comfortable. What comes back — a glance, a sound, a hand, a word — is a conversation, and you started it without asking them for anything. You do not need to be able to sing, and they are not judging you. They are just glad you came into their world for a minute.</p>
+</div>
+
+<footer>
+  <p><strong>This is a map, not medical advice.</strong> Music therapy is a clinical discipline with its own credentialing; music exploration is something any family can do. Neither replaces medical care, communication access, or the other therapies a child may need.</p>
+  <p>Where claims about music have been overstated in popular writing, this page says so. Music offers a great deal without them.</p>
+</footer>
+
+</div>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

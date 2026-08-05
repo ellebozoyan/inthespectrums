@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Myofunctional Therapy — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 54px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2rem);font-weight:400;margin:0 0 8px;line-height:1.2}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:.99rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: five jobs */
+.jobs{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.jobs h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.jobs .big{font-size:1.16rem;line-height:1.45;margin:0 0 24px;max-width:48ch}
+.jobgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.job{border-top:2px solid var(--rust);padding-top:11px}
+.job b{display:block;font-family:var(--sans);font-size:12.5px;letter-spacing:.06em;
+  color:#EFEBE3;margin-bottom:5px}
+.job span{font-size:.88rem;color:#B9C4B4;line-height:1.45;display:block}
+.jobs .cap{font-size:.94rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:17px;margin:22px 0 0;max-width:58ch}
+.jobs .cap strong{color:#EFEBE3}
+
+.risk{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:20px 22px;margin-bottom:12px}
+.risk h3{font-size:1.1rem;font-weight:400;margin:0 0 12px}
+.risk p{font-size:.96rem;margin:0 0 11px}
+.risk ul{font-size:.94rem;padding-left:18px}
+.risk li{margin-bottom:6px}
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(262px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:17px 19px}
+.ev.strong{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.mixed{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.weak{background:#F6E4E0;border-left:4px solid #8A2B20}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  font-weight:700;margin:0 0 10px}
+.ev.strong h3{color:var(--forest)}.ev.mixed h3{color:#A8641C}.ev.weak h3{color:#8A2B20}
+.ev p{font-size:.93rem;margin:0 0 9px}
+.ev p:last-child{margin:0}
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+footer{border-top:1px solid var(--line);padding:26px 0 70px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+@media print{body{background:#fff;font-size:10.5pt}.risk,.ev{break-inside:avoid}
+  .jobs{background:#fff;color:#000;border:1px solid #000}.jobs .big,.job b,.jobs .cap strong{color:#000}}
+
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Myofunctional therapy:<br><em>the mouth has five jobs, and they're connected</em></h1>
+  <p class="lede">Orofacial myofunctional therapy works on the muscles and habits of the face, mouth, and tongue — how a person breathes, rests their tongue, chews, swallows, and speaks. It's one of the least known therapies on this site, and for the right child it addresses several problems that were being treated separately by people who never spoke to each other.</p>
+</header>
+
+<section>
+  <div class="jobs">
+    <h2>Why one therapy touches so many things</h2>
+    <p class="big">The same set of muscles and the same resting posture are involved in all five of these. Change the pattern and you're not treating one of them — you're treating the system they share.</p>
+    <div class="jobgrid">
+      <div class="job"><b>Breathing</b><span>Through the nose, lips together, at rest and asleep</span></div>
+      <div class="job"><b>Sleeping</b><span>Airway open, no snoring, no mouth breathing</span></div>
+      <div class="job"><b>Eating</b><span>Chewing efficiently, managing texture, a mature swallow</span></div>
+      <div class="job"><b>Drinking</b><span>Lip seal, controlled sipping, no spillage</span></div>
+      <div class="job"><b>Speaking</b><span>Tongue placement for sounds, clarity, endurance</span></div>
+    </div>
+    <p class="cap"><strong>The unifying question is where the tongue lives and how the person breathes.</strong> A tongue that rests low and forward, and a mouth that stays open, changes swallowing, changes how the jaw and palate grow, changes how sounds are formed, and changes what happens to the airway at night. This is why families sometimes find that a single referral answers questions they'd been carrying to four different specialists.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What it actually is</h2>
+  <p class="secnote">Physical therapy for the mouth and face — assessment, then a set of small daily exercises, practiced over months.</p>
+
+  <p>A therapist assesses resting tongue and lip posture, nasal versus mouth breathing, the swallow pattern, chewing, oral structure including any tethered tissue, and habits like thumb sucking or prolonged pacifier use. From there comes a program of short exercises — usually a few minutes, a couple of times a day — retraining the muscles and then the automatic patterns they produce.</p>
+  <p>Courses typically run several months to a year. <strong>Daily home practice is the single biggest determinant of whether it works,</strong> more than the specific protocol or the specific therapist, which is worth knowing before you commit a family to it.</p>
+
+  <h3 class="sub">Who provides it</h3>
+  <p>Most commonly speech-language pathologists with additional myofunctional training, and also some dentists, dental hygienists, and occupational therapists. There's a certification for orofacial myology, and asking what training a practitioner holds is a fair and useful question. Many myofunctional therapists work closely with ENT, orthodontics, dentistry, sleep medicine, and feeding therapy — and the good ones will tell you when your child needs one of those first.</p>
+
+  <h3 class="sub">Signs that make it worth asking about</h3>
+  <ul>
+    <li>Mouth breathing during the day, or sleeping with the mouth open</li>
+    <li>Snoring, restless sleep, or waking unrefreshed</li>
+    <li>Tongue visible between the teeth at rest or during swallowing</li>
+    <li>Messy or noisy eating, food pocketing, slow chewing, swallowing food whole</li>
+    <li>Drooling past the age you'd expect</li>
+    <li>Speech sound errors involving tongue placement, particularly s and z sounds</li>
+    <li>A narrow palate, crowded teeth, or an open bite</li>
+    <li>Orthodontic work that has relapsed after braces came off</li>
+    <li>Thumb sucking or pacifier use continuing past the toddler years</li>
+    <li>Chapped lips, dark circles, or a habitually forward head posture</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">What the evidence supports, and what it doesn't</h2>
+  <p class="secnote">This field has enthusiastic advocates and a research base that is real but uneven. Sorting the claims by strength is more useful than either dismissing it or accepting all of it.</p>
+
+  <div class="evid">
+    <div class="ev strong"><h3>Reasonable support</h3>
+      <p>Retraining a tongue-thrust swallow and correcting resting tongue posture. Supporting speech sound work where tongue placement is the barrier. Stabilizing orthodontic results and reducing relapse. Eliminating sucking habits.</p>
+      <p>As an <em>adjunct</em> in pediatric sleep-disordered breathing, alongside ENT and dental treatment rather than instead of them, there is evidence of modest benefit.</p></div>
+
+    <div class="ev mixed"><h3>Plausible, still emerging</h3>
+      <p>Improving chewing efficiency and feeding in children with oral motor difficulty. Reducing drooling. Rehabilitation after a frenectomy — widely practiced, though the frenectomy field itself has genuine internal disagreement about who needs the procedure at all.</p>
+      <p>Effects on facial growth and palate development, where the theory is coherent and the long-term outcome data is thinner than the confidence with which it's often presented.</p></div>
+
+    <div class="ev weak"><h3>Treat with caution</h3>
+      <p>Claims that myofunctional therapy alone resolves obstructive sleep apnea, or replaces ENT surgery, orthodontics, or CPAP where those are indicated.</p>
+      <p>Claims extending to attention, behavior, posture, or general health outcomes. Packages bundling an expensive tongue-tie release with a mandatory therapy course sold together.</p></div>
+  </div>
+
+  <div class="note">
+    <h3>The practical version</h3>
+    <p>If a child snores, mouth breathes, or has disrupted sleep, <strong>get the airway assessed first</strong> — ENT, and sleep medicine if indicated. Enlarged tonsils and adenoids are the most common cause of pediatric sleep apnea, and no amount of tongue exercise addresses them. Myofunctional therapy has a real role alongside that work, and sometimes afterward to consolidate it. It is not a substitute for finding out what's blocking the airway.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">For a child with additional needs</h2>
+  <p class="secnote">Standard protocols assume a person who can follow verbal instruction, imitate a movement on request, and practice daily without a fight. That describes some children and not others.</p>
+
+  <div class="risk">
+    <h3>What to ask before starting</h3>
+    <ul>
+      <li><strong>Have you worked with children who can't follow verbal directions?</strong> A skilled therapist adapts through play, mirrors, food, music, and modeling rather than abandoning the work — but not everyone can.</li>
+      <li><strong>How will this fit a child with oral sensory sensitivity?</strong> Exercises involving touch in and around the mouth are a genuine barrier for many children and need to be built up slowly, or the whole program collapses in week two.</li>
+      <li><strong>What does the home program look like realistically?</strong> If it needs ten cooperative minutes twice a day, and your household has none, say so at the assessment rather than failing quietly for six months.</li>
+      <li><strong>What comes first?</strong> If a child is not eating enough, aspirating, or in an acute airway situation, that outranks this. Ask directly what the sequence should be.</li>
+      <li><strong>How will we know it's working, and when would you stop?</strong> Ask for the specific functional change you're aiming at and a date to reassess.</li>
+    </ul>
+  </div>
+
+  <div class="risk">
+    <h3>Where it can genuinely help</h3>
+    <p>For children with low tone, feeding difficulty, or chronic mouth breathing, the targets here — lip seal, tongue posture, chewing, nasal breathing — are functional and matter daily. Better nasal breathing supports better sleep. Better sleep supports nearly everything else on this site.</p>
+    <p>It also tends to be one of the few therapies where progress is visible to a family at home, which is worth something on its own.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Practical matters</h2>
+  <h3 class="sub">Finding a practitioner</h3>
+  <ul>
+    <li>Look for a speech-language pathologist with specific orofacial myofunctional training, or a practitioner holding orofacial myology certification.</li>
+    <li>Ask who they coordinate with. A myofunctional therapist who never refers out to ENT, dentistry, or sleep medicine is a warning sign, not a convenience.</li>
+    <li>Ask about experience with your child's specific profile — sensory sensitivity, developmental disability, feeding difficulty, or limited speech.</li>
+    <li>Ask what happens if the exercises don't stick. A good answer involves adapting the approach; a poor one involves blaming compliance.</li>
+  </ul>
+
+  <h3 class="sub">Paying for it</h3>
+  <ul>
+    <li>Coverage varies widely and a fair amount of this work is out of pocket. When it is delivered by an SLP and billed under speech therapy codes it is sometimes covered — verify by code before starting, as described on the therapy funding page.</li>
+    <li>A letter of medical necessity tied to a documented functional problem — sleep-disordered breathing, feeding difficulty, speech intelligibility — is far more likely to be paid than a general request for myofunctional therapy.</li>
+    <li>Ask about session frequency and total expected duration upfront so you can price the whole course rather than the first visit.</li>
+  </ul>
+</section>
+
+
+<div class="closenote"><b>One last thing</b><p>Three questions carry most of this: what outcome are we aiming at, how will we know it is working, and by when.</p><p>Ask those in any first appointment and you are already ahead of most people walking through the door — including on the days you feel like you have no idea what you are doing.</p></div>
+
+<footer>
+  <p><strong>This is a map, not medical advice.</strong> Whether myofunctional therapy is appropriate for a particular child, and what should be treated first, is a decision for clinicians who have examined them. Airway symptoms in children warrant medical assessment.</p>
+  <p>Where the evidence is still developing, this page says so. That isn't a reason to avoid the therapy — it's a reason to ask what outcome is expected, how it will be measured, and by when.</p>
+</footer>
+
+</div>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

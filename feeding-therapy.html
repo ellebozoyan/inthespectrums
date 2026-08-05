@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feeding Therapy — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --say:#6B4A78; --say-tint:#EFE6F1;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: steps before a bite */
+.steps{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.steps h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.steps .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(138px,1fr));gap:2px}
+.st{background:rgba(255,255,255,.05);border-top:2px solid var(--rust);padding:12px 13px 14px}
+.st.last{border-top-color:#C6A98F;background:rgba(198,169,143,.13)}
+.st b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:#EFEBE3;margin-bottom:6px}
+.st span{font-size:.83rem;color:#B9C4B4;line-height:1.45;display:block}
+.steps .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:24px 0 0;max-width:60ch}
+.steps .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+/* language swap */
+.swap{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:2px;
+  overflow:hidden;margin:0 0 12px;background:var(--card)}
+@media(max-width:620px){.swap{grid-template-columns:1fr}}
+.swap div{padding:15px 18px}
+.swap .out{background:#F6E4E0;border-right:1px solid var(--line)}
+.swap .in{background:var(--say-tint)}
+.swap .lbl{font-family:var(--sans);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:700;margin:0 0 7px}
+.swap .out .lbl{color:#8A2B20}.swap .in .lbl{color:var(--say)}
+.swap p{margin:0 0 6px;font-size:.97rem;font-style:italic;line-height:1.45}
+.swap p:last-child{margin:0}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.strong{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.mixed{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.weak{background:#F6E4E0;border-left:4px solid #8A2B20}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.strong h3{color:var(--forest)}.ev.mixed h3{color:#A8641C}.ev.weak h3{color:#8A2B20}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:#F6E4E0;border-left:4px solid #8A2B20}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:#8A2B20}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.saynote{background:var(--say-tint);border-left:4px solid var(--say);padding:20px 22px;margin:24px 0}
+.saynote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--say);font-weight:700;margin:0 0 10px}
+.saynote p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col,.swap{break-inside:avoid}
+  .steps{background:#fff;color:#000;border:1px solid #000}.steps .big,.st b,.steps .cap strong{color:#000}}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Feeding therapy:<br><em>the one skill you cannot make a child perform</em></h1>
+  <p class="lede">You can guide a hand to a pencil, support a body into standing, and put a device within reach. You cannot make a swallow happen. Eating is the only major developmental skill that is entirely, unavoidably voluntary — which is why pressure fails so reliably here, and why the best feeding work looks so much less like therapy than families expect.</p>
+</header>
+
+<div class="profnote">
+  <b>Reading this as a professional</b>
+  <p>Written for families and for colleagues getting oriented. The sections on ARFID, on demand avoidance, and on declarative language are the three that most change how a mealtime plan gets built, and the three most often missing when a family arrives having tried everything.</p>
+  <p>The evidence section names several widely used approaches whose research base is thinner than their reputation, and one category of practice with real potential for harm.</p>
+</div>
+
+<section>
+  <div class="steps">
+    <h2>What "eating it" is actually made of</h2>
+    <p class="big">Families understandably think of eating as one thing: they ate it, or they didn't. It is closer to thirty things, and a child can make months of genuine progress without a single new food being swallowed.</p>
+    <div class="sgrid">
+      <div class="st"><b>In the room</b><span>Tolerating the food existing nearby without distress</span></div>
+      <div class="st"><b>On the table</b><span>Present at the meal, not on their plate</span></div>
+      <div class="st"><b>On the plate</b><span>Sharing a surface with a preferred food</span></div>
+      <div class="st"><b>Looking</b><span>Attending to it on purpose</span></div>
+      <div class="st"><b>Moving it</b><span>With a fork, a napkin, a stick, anything but fingers</span></div>
+      <div class="st"><b>Touching</b><span>Fingertip, then hand, then getting messy</span></div>
+      <div class="st"><b>Smelling</b><span>Close enough to actually get the smell</span></div>
+      <div class="st"><b>To the lips</b><span>Contact without entry</span></div>
+      <div class="st"><b>Licking</b><span>Taste without commitment</span></div>
+      <div class="st"><b>In the mouth</b><span>Held, then removed — spitting out is allowed and is progress</span></div>
+      <div class="st"><b>Biting, chewing</b><span>Managing it, still with permission to spit</span></div>
+      <div class="st last"><b>Swallowing</b><span>The only step nobody else can do any part of</span></div>
+    </div>
+    <p class="cap"><strong>Two things follow from this.</strong> First, celebrate the rung they're on rather than the one at the end — a child who will now let a strawberry sit on their plate has moved several steps. Second, <em>spitting it out must always be allowed</em>. A child who knows they can get it back out is a child who will let it in. Take that exit away and the whole ladder closes.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What feeding therapy <em>addresses</em></h2>
+  <p class="secnote">Nine areas. Almost every difficult eater has more than one going on, which is why single-explanation approaches so often stall.</p>
+
+  <div class="domains">
+    <div class="dom">
+      <h3>Medical drivers, first</h3>
+      <p>The step most often skipped, and the one that makes everything else possible. A child who associates eating with pain will not be talked out of it.</p>
+      <ul>
+        <li>Constipation — the single most common hidden cause of poor appetite</li>
+        <li>Reflux, and pain that isn't obvious from outside</li>
+        <li>Eosinophilic esophagitis and food allergy</li>
+        <li>Dental pain, tonsil size, mouth breathing</li>
+        <li>Delayed gastric emptying and motility problems</li>
+        <li>Iron deficiency; sleep-disordered breathing suppressing appetite</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Appetite that comes and goes with bowel patterns, arching or crying with meals, gagging with no texture explanation, a food list that shrank suddenly rather than gradually.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Swallow safety</h3>
+      <p>The non-negotiable first question. Variety never outranks safety.</p>
+      <ul>
+        <li>Signs of aspiration during or after meals</li>
+        <li>Instrumental assessment — video swallow study or endoscopic evaluation</li>
+        <li>Texture and liquid modification where indicated</li>
+        <li>Positioning for a safer swallow</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Coughing or throat clearing while eating or drinking, a wet or gurgly voice after meals, watering eyes, repeated chest infections, refusing thin liquids specifically.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Oral motor skill</h3>
+      <p>The mechanics of managing food once it's in. A child who cannot chew safely is right to refuse the texture.</p>
+      <ul>
+        <li>Chewing pattern and jaw strength</li>
+        <li>Tongue lateralization — moving food to the teeth</li>
+        <li>Bolus formation and clearing the mouth</li>
+        <li>Cup, straw, and utensil skills</li>
+        <li>Managing mixed textures, which are the hardest of all</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Pocketing food in the cheeks, swallowing pieces whole, very long meals, only accepting purees or only accepting crunchy, spitting out anything that changes texture as it's chewed.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Sensory processing</h3>
+      <p>Food is the most sensory-loaded thing anyone does — texture, temperature, smell, appearance, sound, and the feeling of it in the mouth, all at once.</p>
+      <ul>
+        <li>Texture and mixed-texture tolerance</li>
+        <li>Smell sensitivity, including smells across the room</li>
+        <li>Visual expectations — shape, color, brand, packaging</li>
+        <li>Tolerance of mess on hands and face</li>
+        <li>Oral sensitivity or seeking, and gag response</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>The same brand only, refusing a food if it's broken or a different shape, gagging at the sight of something, needing foods not to touch, leaving the room when certain foods are cooked.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Appetite and interoception</h3>
+      <p>Noticing hunger and fullness is a learned, felt skill — and some children genuinely do not receive the signal.</p>
+      <ul>
+        <li>Recognizing hunger, thirst, and fullness</li>
+        <li>Grazing patterns that suppress meal appetite</li>
+        <li>Appetite effects of medication, constipation, and poor sleep</li>
+        <li>Tube feeding schedules and hunger provocation during weaning</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Never asking for food, going all day without eating and then not being upset about it, eating past comfortable, drinking instead of eating.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Positioning and the physical setup</h3>
+      <p>Unglamorous, immediately fixable, and frequently the thing that changes intake fastest.</p>
+      <ul>
+        <li>Hips, knees, and ankles near ninety degrees with <strong>feet fully supported</strong></li>
+        <li>Trunk stable, head in midline, chin neutral rather than extended</li>
+        <li>Table at the right height; utensils and cups that suit the hands</li>
+        <li>Reducing noise, visual clutter, and traffic at mealtimes</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Dangling feet, sliding down the chair, eating standing up or on the move, meals collapsing in a busy kitchen but going fine in a quiet room.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Anxiety and fear-based restriction</h3>
+      <p>Where the barrier is not skill or sensation but genuine fear — and where the treatment looks like anxiety treatment rather than feeding practice.</p>
+      <ul>
+        <li>Fear of choking, vomiting, or a past frightening episode</li>
+        <li>Anticipatory anxiety building for hours before a meal</li>
+        <li>Graded exposure at a pace the child sets</li>
+        <li>Treating the anxiety directly, sometimes with a psychologist alongside</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>A food list that collapsed after a specific incident, distress before a meal rather than during it, checking food obsessively, refusing anything unfamiliar categorically.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Autonomy and the demand load</h3>
+      <p>Mealtimes contain more direct instructions per minute than almost any other part of a day. For some children that is the whole problem — see the section below.</p>
+      <ul>
+        <li>Reducing the number of demands at the table</li>
+        <li>Genuine choice and control over the plate</li>
+        <li>Declarative language instead of questions and instructions</li>
+        <li>Letting the child serve, prepare, and decide</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Eating happily when nobody is watching, refusing the exact food they asked for once it's offered, meals that fail in direct proportion to how much anyone comments.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Nutrition, growth, and the family system</h3>
+      <p>What's actually going in, and what mealtimes are costing everyone.</p>
+      <ul>
+        <li>Growth, nutrient adequacy, and sensible supplementation</li>
+        <li>Using supplemental drinks without displacing eating</li>
+        <li>Rebuilding mealtimes that have become a battleground</li>
+        <li>Sibling dynamics, eating outside the home, school lunches</li>
+        <li>Caregiver stress, which is a real clinical variable here</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Cooking separate meals every night, dreading dinner, avoiding restaurants and other people's houses, arguments between adults about how to handle it.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">ARFID</h2>
+  <p class="secnote">Avoidant/restrictive food intake disorder. Not picky eating, and advice built for picky eating tends to make it worse.</p>
+  <p>ARFID is restriction significant enough to cause weight or growth problems, nutritional deficiency, dependence on supplements or tube feeding, or serious interference with daily life. Unlike anorexia, <strong>it has nothing to do with body image or weight concern.</strong> A person with ARFID would usually very much like to be able to eat more, and cannot.</p>
+
+  <h3 class="sub">Three drivers, usually mixed</h3>
+  <ul>
+    <li><strong>Sensory sensitivity.</strong> Texture, smell, appearance, and taste are experienced intensely enough that many foods are genuinely intolerable. This is the most common driver in children with developmental differences.</li>
+    <li><strong>Low interest and low appetite.</strong> Eating simply isn't compelling, hunger signals are faint or absent, and food doesn't register as a priority. These children eat small amounts of anything rather than large amounts of a few things.</li>
+    <li><strong>Fear of aversive consequences.</strong> Often traceable to a specific choking, vomiting, or pain episode. The fear generalizes fast, and the food list can collapse in a matter of weeks.</li>
+  </ul>
+  <p>Most people have more than one driver, and the balance shifts over time. Identifying which is dominant right now is what determines whether the plan looks like sensory work, appetite work, or anxiety treatment — and getting that wrong is the usual reason therapy stalls.</p>
+
+  <div class="note">
+    <h3>The principle that protects everything else</h3>
+    <p><strong>Protect the accepted foods before expanding.</strong> A lost safe food is a serious setback and is very hard to recover, and the fastest way to lose one is to attach pressure to it. Never use a safe food as leverage, never modify one without telling the child, and never sneak or hide anything inside one.</p>
+    <p>Sneaking gets recommended constantly by well-meaning people. For a child whose restriction is sensory or fear-driven, being deceived about food is catastrophic — it teaches them that no food is trustworthy and no adult is either, and children have lost their entire remaining list this way.</p>
+  </div>
+
+  <h3 class="sub">Where ARFID advice differs from picky-eating advice</h3>
+  <ul>
+    <li><strong>"They'll eat when they're hungry" does not hold.</strong> Children with ARFID will go without, sometimes to the point of medical crisis. Waiting them out is not a strategy here — it's a risk.</li>
+    <li><strong>Brand, packaging, and shape consistency is an access requirement,</strong> not fussiness. Buy in bulk when you find something that works, and check whether a manufacturer is about to change a recipe.</li>
+    <li><strong>Volume matters before variety.</strong> Adequate intake of five foods beats inadequate intake of fifteen.</li>
+    <li><strong>Supplemental drinks are a tool, not a defeat</strong> — used deliberately, on a schedule that protects rather than replaces appetite for meals.</li>
+    <li><strong>Expansion is measured in months.</strong> A rate of a few new foods a year is real progress for many people.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">When demands are the problem</h2>
+  <p class="secnote">For children with a demand-avoidant profile — often discussed as PDA — mealtimes are close to a worst-case scenario, and the usual feeding strategies actively backfire.</p>
+
+  <p>Count the demands in an ordinary family dinner. Come to the table. Sit down. Sit properly. Use your fork. Try it. Just one bite. Take a smaller bite. Chew. Don't play with it. Do you like it? What does it taste like? Look at me. Finish that piece. Two more. That's dozens of direct instructions and questions inside twenty minutes, all attached to the one act nobody else can perform on the child's behalf.</p>
+  <p>For a child whose nervous system reads demands as threat, this is not a mealtime — it is a sustained confrontation. And the harder anyone pushes, the more completely the eating shuts down. Families in this position are usually working extremely hard and getting worse results for it, which is its own kind of demoralizing.</p>
+
+  <h3 class="sub">What tends to help</h3>
+  <ul>
+    <li><strong>Strip the demands out.</strong> Not soften them — remove them. Aim for a meal where nobody is instructed to do anything.</li>
+    <li><strong>Give real control.</strong> Serving themselves, choosing the plate, deciding where to sit, deciding whether to come at all.</li>
+    <li><strong>Drop the audience.</strong> Being watched is itself a demand. Eat your own food, talk about something else, let them eat unobserved.</li>
+    <li><strong>Let food be available rather than offered.</strong> A bowl on the table that nobody mentions is a different proposition from a plate handed over with expectation attached.</li>
+    <li><strong>Beware of praise.</strong> "You ate it! Well done!" often ends a food permanently, because it reveals that someone was watching and wanted something.</li>
+    <li><strong>Rewards and sticker charts usually function as demands</strong> in this profile, and can make things worse rather than better.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Declarative language, <em>at the table</em></h2>
+  <p class="secnote">The single most useful technique on this page, and it costs nothing but practice. It works for demand avoidance, for anxiety, for ARFID — and, frankly, for most children.</p>
+
+  <p>Most of what adults say at mealtimes is either an <strong>imperative</strong> ("take a bite," "sit down") or an <strong>interrogative</strong> ("do you want some?", "what do you think of it?"). Both require a response. Both are demands, even when the tone is warm — a question obliges an answer just as firmly as an instruction obliges an action.</p>
+  <p><strong>Declarative language</strong> is a statement, an observation, or a wondering. It requires nothing. It leaves a door open and lets the child choose whether to walk through it — and because nothing is being asked, there is nothing to resist.</p>
+
+  <div class="swap">
+    <div class="out"><p class="lbl">Requires a response</p>
+      <p>"Take one bite."</p><p>"Do you want to try it?"</p><p>"Can you just lick it?"</p></div>
+    <div class="in"><p class="lbl">Leaves a door open</p>
+      <p>"I'm going to try mine."</p><p>"There's some here if anyone wants it."</p><p>"I wonder what this one tastes like."</p></div>
+  </div>
+
+  <div class="swap">
+    <div class="out"><p class="lbl">Requires a response</p>
+      <p>"What do you think of it?"</p><p>"Do you like it?"</p><p>"Is it good?"</p></div>
+    <div class="in"><p class="lbl">Leaves a door open</p>
+      <p>"Mine is saltier than I expected."</p><p>"I notice this one is really crunchy."</p><p>"This smells like the ones at Grandma's."</p></div>
+  </div>
+
+  <div class="swap">
+    <div class="out"><p class="lbl">Requires a response</p>
+      <p>"You ate it! Good job!"</p><p>"See? I told you you'd like it."</p></div>
+    <div class="in"><p class="lbl">Leaves a door open</p>
+      <p>[Say nothing. Carry on eating.]</p><p>"There's more in the bowl."</p></div>
+  </div>
+
+  <div class="swap">
+    <div class="out"><p class="lbl">Requires a response</p>
+      <p>"Sit down properly."</p><p>"Come to the table now."</p></div>
+    <div class="in"><p class="lbl">Leaves a door open</p>
+      <p>"Dinner's on the table."</p><p>"I'm sitting down to eat."</p></div>
+  </div>
+
+  <div class="saynote">
+    <h3>Why it works</h3>
+    <p>A declarative gives a child information and leaves the decision with them. There is no demand to refuse, so refusal isn't triggered. It models thinking out loud — noticing, comparing, being curious about food — which is exactly the internal process a restricted eater has never had a chance to develop. And it removes the adult's expectation from the table, which is usually the heaviest thing on it.</p>
+    <p>Aim for most of what you say at a meal to be declarative. It feels unnatural for about a week and then becomes automatic, and many families report that mealtime tension drops before intake changes at all — which is itself worth having.</p>
+    <p>One warning: a declarative said <em>at</em> a child while staring at them is still a demand. The tone and the eyes have to match the words.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Approaches, sorted by <em>how well they're supported</em></h2>
+  <div class="evid">
+    <div class="ev strong"><h3>Well supported</h3>
+      <p><strong>Treating medical drivers first</strong> — particularly constipation, reflux, and eosinophilic esophagitis.</p>
+      <p><strong>Instrumental swallow assessment</strong> where aspiration is suspected.</p>
+      <p><strong>Removing pressure from mealtimes.</strong> One of the most consistent findings in the whole feeding literature.</p>
+      <p><strong>Caregiver coaching and responsive feeding</strong> approaches.</p>
+      <p><strong>Intensive multidisciplinary feeding programs</strong> for severe restriction and tube weaning — medicine, nutrition, therapy, and psychology working together.</p>
+      <p><strong>Cognitive behavioral therapy adapted for ARFID</strong> in older children and teenagers who can engage with it.</p>
+      <p><strong>Graded exposure at the child's pace,</strong> including the full ladder of steps before swallowing.</p>
+      <p><strong>Positioning and seating</strong> — small change, quick effect.</p>
+    </div>
+
+    <div class="ev mixed"><h3>Mixed or emerging</h3>
+      <p><strong>Widely used packaged feeding programs</strong> built on sensory hierarchies — clinically sensible, warmly regarded, and supported mainly by descriptive rather than controlled research.</p>
+      <p><strong>Food chaining</strong> — building outward from accepted foods by small changes. Plausible and popular, limited formal evidence.</p>
+      <p><strong>Division of responsibility</strong> — parent decides what, when and where; child decides whether and how much. Good for typical picky eating; <em>needs adaptation for ARFID and medical complexity</em>, where the assumption that a hungry child will eventually eat does not hold.</p>
+      <p><strong>Food play and messy play</strong> away from mealtimes — reasonable, modest evidence.</p>
+    </div>
+
+    <div class="ev weak"><h3>Little support, or potential for harm</h3>
+      <p><strong>Pressure in all its forms</strong> — the one-bite rule, bribery, dessert as payment, praise for eating, negotiation. Consistently associated with worse outcomes.</p>
+      <p><strong>Hiding or sneaking foods.</strong> Breaks trust, and for sensory-driven eaters can cost the safe foods entirely.</p>
+      <p><strong>Waiting a child out</strong> by withholding preferred foods. Genuinely unsafe in ARFID.</p>
+      <p><strong>Non-speech oral motor exercises</strong> — whistles, horns, blowing — used to improve chewing or swallowing.</p>
+      <p><strong>Protocols that physically prevent a child from leaving or turning away.</strong> Some intensive programs use variants of this and report results; there are real ethical concerns and real trauma risk. If it is proposed, ask exactly what will happen, what the alternatives are, and what the plan is if your child becomes distressed.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Feeding work <em>at each stage</em></h2>
+  <div class="stage"><p class="age">Infancy</p><h3>Safety, transfer, and early textures</h3>
+    <p>Latch and bottle feeding, swallow safety, the move to solids, and early texture progression. Difficulty here is worth acting on rather than watching — early intervention in feeding is unusually effective.</p></div>
+
+  <div class="stage"><p class="age">Toddler and preschool</p><h3>Where the list narrows</h3>
+    <p>The years when many food lists shrink. Chewing skill, mixed textures, self-feeding, and the beginning of strong preferences. Also the window where removing pressure early prevents a decade of mealtime conflict.</p></div>
+
+  <div class="stage"><p class="age">Elementary</p><h3>Eating outside the home</h3>
+    <p>School lunch, birthday parties, sleepovers, and noticing that they eat differently from peers. Self-awareness arrives here, and so does the social cost — which is often what finally motivates a child's own interest in expanding.</p></div>
+
+  <div class="stage"><p class="age">Adolescence</p><h3>Their project, not yours</h3>
+    <p>Growth demands rise sharply while independence does too. Work shifts toward the young person's own goals — eating with friends, managing a school day, cooking for themselves — and away from parent-led plans, which stop working around now anyway.</p></div>
+
+  <div class="stage"><p class="age">Transition to adulthood</p><h3>Feeding themselves, for life</h3>
+    <p>Shopping, cooking, and knowing their own nutritional risks. Being able to explain their eating to a roommate, a partner, or a doctor without shame is a genuine and achievable goal.</p></div>
+</section>
+
+<section>
+  <h2 class="sec">Recognizing <em>strong feeding therapy</em></h2>
+  <div class="compare">
+    <div class="col good"><h3>What good looks like</h3>
+      <ul>
+        <li>Medical causes investigated before behavior is blamed</li>
+        <li>Swallow safety established early</li>
+        <li>Accepted foods protected as a first principle</li>
+        <li>Progress measured across the whole ladder, not only at swallowing</li>
+        <li>The child can always spit something out, decline, and leave</li>
+        <li>Parents coached, and mealtime dynamics addressed directly</li>
+        <li>The dominant driver named — sensory, appetite, or fear — and the plan built around it</li>
+        <li>Works with a dietitian, and refers on when nutrition or anxiety needs leading</li>
+      </ul>
+    </div>
+    <div class="col bad"><h3>Worth asking about</h3>
+      <ul>
+        <li>Bites required, counted, or rewarded</li>
+        <li>Foods hidden or modified without telling the child</li>
+        <li>A child prevented from turning away or leaving the table</li>
+        <li>Praise and celebration used as the main tool</li>
+        <li>Advice that amounts to "hold firm and they'll eat"</li>
+        <li>Constipation never asked about</li>
+        <li>Progress defined solely as new foods swallowed</li>
+        <li>Blowing and whistle exercises presented as feeding treatment</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">Questions worth asking</h3>
+  <ul>
+    <li>What do you think is driving this — sensory, appetite, fear, skill, or medical?</li>
+    <li>Have we ruled out constipation, reflux, and pain?</li>
+    <li>Is swallowing safe, and how do we know?</li>
+    <li>How will we protect the foods we already have?</li>
+    <li>What happens when my child says no?</li>
+    <li>What should we stop doing at home, starting tonight?</li>
+    <li>What does progress look like in three months if this is working?</li>
+    <li>When would you involve a dietitian, a psychologist, or a feeding program?</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">From our library</h2>
+  <p class="secnote">Materials that support this work between sessions, where most of the progress actually happens.</p>
+  <div class="lib">
+    <a class="libcard" href="#"><h3>Mealtime social stories</h3>
+      <p>Stories for new foods, restaurants, school lunch, eating at other people's houses, and the situations that make eating hardest.</p>
+      <span class="go">Browse the stories</span></a>
+    <a class="libcard" href="#"><h3>Food play schemas</h3>
+      <p>Play frameworks that put food in a child's hands away from the pressure of a meal, with the sensory and language targets marked.</p>
+      <span class="go">Browse the schemas</span></a>
+    <a class="libcard" href="#"><h3>Mealtime tablet vocabulary</h3>
+      <p>Device pages for the table — including refusal, "all done," "I don't like it," and asking for a change, which are missing from most food pages.</p>
+      <span class="go">Browse the vocabularies</span></a>
+    <a class="libcard" href="speech-language-aac.html"><h3>Speech, language and AAC</h3>
+      <p>Feeding and swallowing sit inside SLP scope. If communication and eating are both difficult, they belong in one plan.</p>
+      <span class="go">Read the SLP page</span></a>
+    <a class="libcard" href="occupational-therapy.html"><h3>Occupational therapy</h3>
+      <p>Positioning, sensory processing, self-feeding, and the seating setup that changes intake faster than anything else.</p>
+      <span class="go">Read the OT page</span></a>
+    <a class="libcard" href="conditions-library.html"><h3>The conditions library</h3>
+      <p>Full entries on ARFID, chronic constipation, and the medical conditions that sit underneath many feeding difficulties.</p>
+      <span class="go">Open the library</span></a>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Practical matters</h2>
+  <h3 class="sub">Who provides it</h3>
+  <p>Feeding therapy is delivered by speech-language pathologists and occupational therapists with additional feeding training, usually alongside a dietitian, and with a psychologist where anxiety leads. Ask what specific feeding training a therapist holds and how many children with your child's profile they currently see. For severe restriction or tube dependence, hospital-based intensive programs bring the whole team together and can achieve in weeks what outpatient work hasn't in years.</p>
+
+  <h3 class="sub">Paying for it</h3>
+  <ul>
+    <li>Verify coverage by code and place of service before starting. Feeding and swallowing treatment is billed differently from general speech or occupational therapy — get the codes from the provider first.</li>
+    <li>A documented medical diagnosis and a letter of medical necessity tied to growth, nutrition, or swallow safety is far more likely to be covered than a request framed around food variety.</li>
+    <li>Dietitian visits are covered separately and often more generously than families expect. Ask.</li>
+  </ul>
+
+  <div class="note">
+    <h3>Meet our feeding therapist</h3>
+    <p>This section links to a practitioner page — background, approach, who she works with, and how to get in touch. Written and approved by her.</p>
+    <p><em>Placeholder: add name, credentials, practice, a short statement in her own words, and a link. See the contributor guidance on the About page before publishing.</em></p>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>If you change one thing after reading this, make it the language. Swap the questions and instructions at your table for observations and wonderings, and give it two weeks without measuring anything.</p>
+  <p>Most families notice the tension drop before the eating changes — and a calmer table is not a consolation prize. It is the ground everything else has to be built on, and you can start building it at the very next meal.</p>
+</div>
+
+<footer>
+  <p><strong>This is a map, not medical advice.</strong> Feeding difficulty can have medical causes that need diagnosis, and restricted intake can become a medical emergency. If your child is losing weight, refusing liquids, or showing signs of aspiration, speak to a clinician promptly rather than working through this page.</p>
+  <p>Where evidence for a specific approach is limited or contested, this page says so. That isn't a reason to avoid it — it's a reason to ask what outcome is expected, how it will be measured, and by when.</p>
+</footer>
+
+</div>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

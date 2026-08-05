@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Conditions Library — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --band:#B7C9B4;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);
+  font-size:17px;line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 24px;font-size:1.06rem}
+header.masthead{padding:56px 0 24px}
+
+.langnote{background:var(--card);border-left:3px solid var(--forest);padding:17px 20px;margin:0 0 30px;
+  font-size:.95rem;color:var(--ink-soft);max-width:70ch}
+.langnote strong{color:var(--ink)}
+
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 12px}
+#search{font-family:var(--sans);font-size:15px;padding:11px 15px;width:min(320px,100%);
+  border:1px solid var(--line);border-radius:2px;background:var(--card);color:var(--ink)}
+#search:focus{outline:2px solid var(--rust);outline-offset:1px;border-color:transparent}
+.pills{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 8px}
+.pill{font-family:var(--sans);font-size:12px;letter-spacing:.03em;padding:7px 13px;border-radius:2px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink-soft);cursor:pointer}
+.pill:hover{border-color:var(--rust);color:var(--rust)}
+.pill.on{background:var(--forest);border-color:var(--forest);color:#fff}
+.pill:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+#count{font-family:var(--sans);font-size:12.5px;color:var(--ink-soft);letter-spacing:.04em;margin:0 0 22px}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(246px,1fr));gap:12px;padding-bottom:60px}
+.cond{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:16px 17px;font-family:var(--serif);color:var(--ink);cursor:pointer;width:100%;
+  display:flex;flex-direction:column;gap:7px;transition:border-color .18s,transform .18s,box-shadow .18s}
+.cond:hover,.cond:focus-visible{border-color:var(--rust);transform:translateY(-2px);
+  box-shadow:0 6px 18px -10px rgba(22,40,60,.4);outline:none}
+.cond:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+.cat{font-family:var(--sans);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--forest);font-weight:700}
+.cname{font-size:1.03rem;line-height:1.25;margin:0}
+.chook{font-size:.85rem;line-height:1.45;color:var(--ink-soft);margin:0}
+.hidden{display:none !important}
+.empty{font-style:italic;color:var(--ink-soft);padding:30px 0;grid-column:1/-1}
+
+/* detail */
+.detail{position:fixed;inset:0;background:var(--ground);overflow-y:auto;z-index:60;
+  opacity:0;visibility:hidden;transition:opacity .22s}
+.detail.open{opacity:1;visibility:visible}
+.detailbar{position:sticky;top:0;background:var(--ground);border-bottom:1px solid var(--line);
+  padding:14px 0;z-index:2}
+.back{font-family:var(--sans);font-size:13px;color:var(--rust);background:none;border:none;
+  cursor:pointer;padding:6px 0;font-weight:600}
+.back:hover{text-decoration:underline}
+.dbody{padding:30px 0 90px;max-width:740px}
+.dbody h2{font-size:clamp(1.7rem,4.4vw,2.4rem);font-weight:400;line-height:1.15;margin:6px 0 10px}
+.dbody h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);margin:34px 0 11px;font-weight:700}
+.dhook{font-size:1.12rem;font-style:italic;color:var(--rust);margin:0 0 22px;
+  padding-bottom:20px;border-bottom:1px solid var(--line)}
+.dbody p{margin:0 0 14px}
+.dbody ul{margin:0 0 14px;padding-left:20px}
+.dbody li{margin-bottom:8px}
+.callout{background:var(--card);border-left:3px solid var(--forest);padding:16px 18px;font-size:.96rem;color:var(--ink-soft)}
+.unlock{background:var(--rust-tint);border-left:3px solid var(--rust);padding:16px 18px;font-size:.96rem}
+
+/* signature: range bands */
+.ranges{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:20px 22px}
+.axis{margin-bottom:15px}
+.axis:last-of-type{margin-bottom:0}
+.axlabel{font-family:var(--sans);font-size:11.5px;letter-spacing:.06em;color:var(--ink-soft);
+  margin:0 0 5px;display:flex;justify-content:space-between;gap:10px}
+.axtrack{height:10px;background:#E7EBE5;border-radius:1px;position:relative;overflow:hidden}
+.axband{position:absolute;top:0;bottom:0;background:var(--band);
+  background-image:linear-gradient(90deg,rgba(46,78,63,.25),rgba(156,74,33,.55));
+  left:0;width:0;transition:width .7s ease,left .7s ease}
+.axends{display:flex;justify-content:space-between;font-family:var(--sans);font-size:9.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:#8A9A88;margin-top:16px}
+.rangecap{font-size:.88rem;color:var(--ink-soft);margin:14px 0 0;font-style:italic}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--sans);font-size:12.5px;background:var(--rust-tint);color:var(--rust);
+  border:none;border-radius:2px;padding:7px 12px;cursor:pointer;font-weight:600}
+.chip:hover{background:var(--rust);color:#fff}
+.chip:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+
+footer{border-top:1px solid var(--line);padding:26px 0 70px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>The Conditions Library:<br><em>what it is, how widely it varies, and what helps</em></h1>
+  <p class="lede">Every entry here answers the same four questions: what this actually is, how much it differs from one person to the next, what genuinely helps, and what commonly gets missed. None of it diagnoses anyone.</p>
+  <div class="langnote">
+    <strong>A note on language.</strong> This site uses person-first language — a child with autism — as its house style. Many adults with autism, and many Deaf people, prefer identity-first language for themselves — &ldquo;autistic person,&rdquo; &ldquo;Deaf person.&rdquo; That preference is not a matter of etiquette but of identity. Where a person or community tells you what they want to be called, that wins over any style guide, including this one.
+  </div>
+  <div class="controls"><input id="search" type="search" placeholder="Search a condition, symptom, or word" aria-label="Search conditions"></div>
+  <div class="pills" id="pills"></div>
+  <p id="count"></p>
+</header>
+
+<div class="profnote"><b>Reading this as a professional</b><p>Written to be readable across disciplines, so an SLP can get oriented in a genetics question and a teacher can get oriented in a medical one.</p><p>The section most worth your time is <em>what commonly gets missed</em> — it's where the errors made by well-meaning people outside their own specialty tend to sit.</p></div>
+<main class="grid" id="grid"></main>
+
+<div class="closenote"><b>One last thing</b><p>A label tells a clinician where to start looking. It never explains your child.</p><p>Whatever word brought you to this page, you will still know things about them that no summary and no evaluation will ever capture — how they wake up, what settles them, what they are like on a good day. That knowledge is what makes every plan on this site work, and you are the only person who has it.</p></div>
+
+<footer>
+  <p><strong>This is a map, not a diagnostic tool and not medical advice.</strong> Descriptions here are general and simplified. Real people don't match summaries, co-occurrence is the rule rather than the exception, and only a qualified clinician who has met your child can diagnose anything.</p>
+  <p>Where a condition is contested, disputed, or not formally recognized, this library says so rather than choosing a side for you.</p>
+</footer>
+</div>
+
+<div class="detail" id="detail" role="dialog" aria-modal="true" aria-labelledby="dname">
+  <div class="wrap">
+    <div class="detailbar"><button class="back" id="back">← Back to the library</button></div>
+    <div class="dbody" id="dbody"></div>
+  </div>
+</div>
+
+<script>
+const CATS=[
+ {id:"neuro",label:"Neurodevelopmental"},
+ {id:"access",label:"Sensory & access"},
+ {id:"mind",label:"Mental health"},
+ {id:"body",label:"Neurological & medical"}
+];
+const C=[
+{id:"autism",cat:"neuro",name:"Autism",
+hook:"A different way of processing people, language, and sensation — not a severity scale.",
+what:"A neurodevelopmental difference in social communication, sensory processing, and patterns of interest and behavior, present from early development. It is lifelong, it is not caused by parenting, and it is not something a person grows out of — though what they need changes enormously across a life.",
+range:"The word spectrum is widely misread as a line from mild to severe. It isn't. One person with autism may speak fluently and be unable to tolerate a grocery store; another may not use speech at all and navigate crowds comfortably. Support needs move independently across domains and they move day to day with stress, illness, sleep, and demand load. A child who manages a full school day may be entirely out of capacity by four o'clock, and that is the same child.",
+axes:[{l:"Communication",f:5,t:95},{l:"Sensory",f:25,t:95},{l:"Daily living",f:10,t:90},{l:"Learning",f:5,t:90},{l:"Emotional regulation",f:20,t:90}],
+signs:["Differences in eye contact, joint attention, or back-and-forth interaction","Language that is delayed, absent, scripted, or highly advanced but hard to use socially","Deep, sustained interests","Strong need for predictability; distress at unexpected change","Sensory seeking or avoiding — sound, texture, light, movement, smell","Repetitive movement that helps regulate","Skills that look uneven — advanced in one area, much younger in another"],
+helps:["Communication access first, in whatever form works — speech, AAC, signs, pictures. Nothing else improves until a child can be understood.","Predictability and preparation: visual schedules, advance notice of change, previewing new places.","Adjust the environment before adjusting the child. Lighting, noise, and crowding are cheaper to change than a nervous system.","Treat behavior as communication and ask what it's telling you, rather than what will stop it.","Protect regulation time after demanding days; assume recovery is required, not optional.","Build on interests rather than around them — they are the most reliable route into learning and connection.","Involve adults with autism in your thinking. They are the only people who can tell you what this is like from the inside."],
+missed:["Girls, and children who mask well, are diagnosed years later or not at all — often after anxiety or burnout arrives first.","Intelligence gets estimated from speech. Nonspeaking is not non-thinking, and assuming otherwise is the single most damaging error made about children with autism.","Medical pain is read as behavior. Constipation, dental pain, reflux, and headaches are frequent hidden drivers of escalation.","Compliance is mistaken for progress. A child who has stopped protesting may have learned that protest doesn't work.","Co-occurring ADHD, anxiety, and learning differences are frequently overshadowed by the autism diagnosis and go untreated."],
+unlock:"Diagnosed by developmental-behavioral pediatrics, child psychiatry, neuropsychology, or a multidisciplinary autism clinic. Opens the door to school special education eligibility, insurance coverage of therapies under state autism mandates where they apply, state developmental disability agency services, Medicaid disability pathways, and adult service eligibility later.",
+learn:"The The Autistic Self Advocacy Network for the inside view; AANE for practical family support across the lifespan; your state's autism support centers and parent training centers for local navigation."},
+
+{id:"adhd",cat:"neuro",name:"ADHD",
+hook:"A difference in attention regulation and executive function — not a shortage of effort.",
+what:"A neurodevelopmental condition affecting the brain's systems for regulating attention, impulse, motivation, and time. It presents as predominantly inattentive, predominantly hyperactive-impulsive, or combined. The core difficulty is regulating attention rather than lacking it — hyperfocus on something interesting is entirely characteristic.",
+range:"Impact varies from a person who needs structure and does well with it, to a person for whom starting and finishing anything is a daily crisis. The inattentive presentation is quiet and gets missed for years, especially in girls. Difficulty scales with demand: the same child who thrives in second grade may collapse in sixth when executive load jumps.",
+axes:[{l:"Attention",f:30,t:95},{l:"Executive function",f:30,t:95},{l:"Emotional regulation",f:15,t:90},{l:"Impulse control",f:10,t:90}],
+signs:["Difficulty starting tasks, especially unrewarding ones, regardless of intention","Losing track of time, materials, and multi-step directions","Interrupting, blurting, difficulty waiting","Restlessness, or in the inattentive presentation, quiet drifting","Intense focus on high-interest activities that looks like it contradicts the diagnosis","Strong emotional reactions and slow recovery from them","Chronic underperformance relative to obvious ability"],
+helps:["Externalize everything — timers, checklists, visible calendars. Working memory is the bottleneck; take the load off it.","Break tasks down to the first physical action. \"Write the essay\" is paralyzing; \"open the document\" is not.","Movement is a regulation tool, not a disruption. Build it in before it's demanded out.","Medication helps a majority of children substantially and is among the better-evidenced treatments in child psychiatry — it is also not the whole plan.","Parent training in behavior management has strong evidence, particularly for younger children.","Protect self-esteem deliberately. Children with ADHD absorb an enormous volume of correction and start believing it early."],
+missed:["Inattentive presentation in a quiet child who isn't disrupting anyone.","Sleep problems, which both imitate and worsen ADHD — screen before concluding.","Anxiety and learning disorders hiding underneath, which look like inattention and don't respond to stimulants.","Emotional dysregulation, which isn't in the diagnostic criteria but is one of the most impairing features for many families.","The assumption that good performance in a preferred activity disproves the diagnosis. It doesn't — it demonstrates it."],
+unlock:"Diagnosed by pediatrics, developmental-behavioral pediatrics, psychiatry, or psychology using rating scales across settings. May support a 504 plan or an IEP under Other Health Impairment, testing accommodations, and insurance coverage for behavioral treatment.",
+learn:"CHADD for family education and local chapters; Understood.org for school-focused practical strategy; ADDitude for day-to-day management."},
+
+{id:"id",cat:"neuro",name:"Intellectual disability",
+hook:"Differences in reasoning and adaptive skills — with a life that can be full, chosen, and largely independent.",
+what:"Significant limitations in intellectual functioning and in adaptive behavior — the conceptual, social, and practical skills used every day — with onset during development. Diagnosis requires both, and the adaptive half is the part that actually predicts what support a person needs.",
+range:"Support needs range from intermittent — a person who lives independently with help for finances and paperwork — through pervasive, requiring daily support across all areas. Most people with intellectual disability fall at the milder end, and outcomes depend far more on expectations, teaching, and opportunity than on any score. Skills continue developing across a lifetime; the trajectory just moves at a different rate.",
+axes:[{l:"Learning",f:35,t:95},{l:"Daily living",f:20,t:95},{l:"Communication",f:15,t:90},{l:"Independence",f:25,t:95}],
+signs:["Reaching milestones later across several domains","Difficulty with abstract reasoning, generalizing, and problem-solving","Daily living skills lagging behind same-age peers","Language delay","Difficulty transferring a learned skill to a new setting"],
+helps:["Teach the actual skill in the actual place — generalization is the central challenge, so practice happens where the skill is used.","Presume competence and keep age-respectful materials. A fourteen-year-old should not be given toddler content.","Break skills into concrete steps with visual supports, and build in far more repetition than feels necessary.","Prioritize functional skills that expand a life: safety, money, transport, self-care, self-advocacy, saying no.","Start transition planning in the early teens; adult service systems require years of lead time.","Involve the person in every decision that's about them, in whatever form they can participate."],
+missed:["Adaptive functioning is under-assessed because IQ is easier to measure — but adaptive skill is what determines eligibility and daily reality.","Mental health conditions are attributed to the disability itself, a pattern called diagnostic overshadowing, and go untreated for years.","Communication ability is underestimated when speech is limited.","Vision and hearing problems go undetected because testing is harder.","Expectations get lowered early and then never raised, which becomes its own ceiling."],
+unlock:"Diagnosed via neuropsychological or psychological evaluation including standardized adaptive behavior measures. This is the key that opens most state developmental disability agency services, Medicaid waivers, SSI, and adult supports — and the adaptive measure is usually the deciding evidence.",
+learn:"The Arc, nationally and through local chapters, is the central organization; your state developmental disability agency; Parent to Parent networks."},
+
+{id:"gdd",cat:"neuro",name:"Global developmental delay",
+hook:"A placeholder diagnosis for young children — accurate, temporary, and useful.",
+what:"Significant delay in two or more developmental domains in a child under five, when they're too young for reliable cognitive testing. It's a description, not an explanation, and it frequently resolves into a more specific diagnosis — or into no diagnosis at all — as the child grows.",
+range:"Some children with this label catch up fully with intervention. Others are later identified as having autism, intellectual disability, a genetic condition, or a specific language disorder. The label's purpose is to open service doors during the years when intervention matters most, without forcing a premature guess.",
+axes:[{l:"Motor",f:15,t:85},{l:"Communication",f:20,t:90},{l:"Learning",f:15,t:85},{l:"Daily living",f:10,t:80}],
+signs:["Sitting, walking, talking, or self-feeding arriving well after expected windows","Delay across several areas rather than one","Difficulty with play, imitation, or engaging with others","Skills that plateau or come and go"],
+helps:["Start Early Intervention immediately — the label is enough, and no further diagnosis is required.","Pursue a medical workup in parallel: hearing, vision, and a genetics conversation.","Treat the label as a working hypothesis and expect it to be revisited at five or six.","Focus on function now rather than waiting for a name that may not arrive for years."],
+missed:["Families wait for a specific diagnosis before starting therapy, losing the highest-yield years.","Hearing loss and vision impairment are the most common missed explanations.","Regression within a delay picture is treated as part of the delay when it warrants urgent neurology.","The label is treated as permanent when it is explicitly provisional."],
+unlock:"Establishes Early Intervention eligibility before age three and preschool special education eligibility after. In most states this label alone is sufficient for services; a specific diagnosis is not required.",
+learn:"Your state's Early Intervention program; the CDC's developmental milestone materials; your state parent training and information center."},
+
+{id:"dld",cat:"neuro",name:"Developmental language disorder",
+hook:"Language that doesn't develop as expected, with no other condition explaining it — common, and nearly invisible.",
+what:"Persistent difficulty understanding or using language that isn't explained by hearing loss, intellectual disability, autism, or another condition. It affects roughly one child in fourteen, which makes it far more common than autism and dramatically less recognized.",
+range:"Some children have mild word-finding and grammar difficulty that shows mainly in writing. Others struggle to follow classroom instruction all day, every day. Because comprehension difficulty is invisible, impact is regularly underestimated — a child who speaks in full sentences may be understanding half of what's said to them.",
+axes:[{l:"Understanding",f:25,t:90},{l:"Expression",f:30,t:90},{l:"Reading & writing",f:25,t:85},{l:"Social",f:15,t:75}],
+signs:["Late talking, or talking on time but with limited grammar and vocabulary","Difficulty following multi-step directions","Word-finding difficulty; vague language full of thing and stuff","Trouble retelling events or explaining ideas in order","Reading comprehension well below decoding ability","Behavior that worsens during language-heavy parts of the day"],
+helps:["Direct speech-language therapy, ideally intensive, with goals tied to classroom demands.","Slow down, simplify, and pause. Give processing time rather than repeating faster.","Pair language with visuals — written steps, pictures, gesture.","Check comprehension by asking the child to explain back, not by asking whether they understood.","Preteach vocabulary before a new topic rather than after the confusion.","Explicit teaching of grammar and narrative structure; these do not arrive on their own here."],
+missed:["Comprehension difficulty is mistaken for inattention, defiance, or slow processing.","Children who speak fluently are assumed to understand fluently.","The condition is under-diagnosed nationally and lacks the public recognition of dyslexia or autism.","Behavior problems in later elementary years frequently trace back to years of not following what's being said."],
+unlock:"Diagnosed by a speech-language pathologist. Supports IEP eligibility under a speech or language impairment category, classroom accommodations, and insurance coverage for therapy.",
+learn:"ASHA for family-facing explanations and finding a certified SLP; RADLD (Raising Awareness of Developmental Language Disorder) for advocacy materials."},
+
+{id:"apraxia",cat:"neuro",name:"Childhood apraxia of speech",
+hook:"The words are there. The motor plan to say them isn't.",
+what:"A motor speech disorder in which the brain has difficulty planning and sequencing the movements needed for speech, despite intact muscle strength and, usually, intact language knowledge. The child knows what they want to say and cannot reliably produce it.",
+range:"From speech that's understandable to family but not to strangers, through to a child with very little functional speech. Progress with the right therapy is usually real but slow, measured over years rather than months.",
+axes:[{l:"Speech clarity",f:30,t:95},{l:"Understanding",f:0,t:35},{l:"Frustration",f:35,t:90},{l:"Literacy",f:15,t:70}],
+signs:["Inconsistent errors — the same word said differently each time","Groping or visible searching for mouth position","Vowel distortions","Much better comprehension than production","Speech that gets harder as words get longer","Limited babbling as an infant"],
+helps:["Frequent, short, intensive therapy — this condition responds to motor practice and does not respond well to once-weekly generic speech therapy.","Motor-planning approaches specifically designed for apraxia; ask the SLP by name whether they use them.","AAC alongside speech work, not instead of it. It reduces frustration and supports speech development.","Practice at home in short frequent bursts — this is one where daily minutes beat weekly hours.","Explicit literacy support; reading and spelling are commonly affected too."],
+missed:["Diagnosed as a general speech delay and given the wrong therapy for years.","Intelligence and comprehension underestimated because output is limited.","AAC withheld to encourage speech, which the evidence does not support.","Under-diagnosed before age three, when diagnosis is genuinely difficult — but therapy shouldn't wait for certainty."],
+unlock:"Diagnosed by an SLP, ideally one experienced with motor speech disorders. Supports IEP eligibility, intensive service minutes, and insurance-funded AAC evaluation.",
+learn:"Apraxia Kids for family education, therapist directories, and a well-regarded parent library."},
+
+{id:"sld",cat:"neuro",name:"Specific learning disorders",
+hook:"Dyslexia, dysgraphia, dyscalculia — targeted difficulties in a child whose thinking is not.",
+what:"Persistent difficulty acquiring a specific academic skill despite adequate instruction and intact general ability. Dyslexia affects reading, dysgraphia affects written expression and handwriting, dyscalculia affects number sense and math.",
+range:"From a strong reader who is exhausted by it and slow on tests, to a child who cannot decode text at all without intervention. With appropriate instruction most children with dyslexia become functional readers; without it, most don't, and the gap widens every year.",
+axes:[{l:"Reading",f:20,t:90},{l:"Writing",f:20,t:90},{l:"Math",f:10,t:90},{l:"Self-esteem impact",f:30,t:90}],
+signs:["Difficulty with rhyming, letter sounds, and sounding out words","Reading that is slow, effortful, and inaccurate","Spelling much weaker than speaking vocabulary","Avoiding reading and writing; complaints of stomachaches at homework time","Handwriting that is painful, slow, or illegible","Difficulty with number quantity, math facts, and telling time","A large gap between what a child can say and what they can write down"],
+helps:["Structured literacy — explicit, systematic, phonics-based instruction. This is the intervention with the evidence, and generic reading support is not a substitute.","Start as early as possible; kindergarten and first grade intervention is dramatically more effective than fourth grade.","Accommodations that separate the disability from the content: audiobooks, speech-to-text, extra time, reduced copying.","Keep the child in grade-level ideas while remediating the skill. Intellectual starvation does its own damage.","Explicitly name it to the child. Understanding why reading is hard is protective against concluding they're stupid."],
+missed:["Bright children compensate and fall apart around third or fourth grade when text demands rise.","Schools sometimes decline to use the word dyslexia; you can use it, and the federal education department has confirmed districts may too.","Anxiety and behavior problems trace back to daily academic failure and get treated instead of the cause.","Dysgraphia and dyscalculia get far less attention than dyslexia and are frequently never identified at all."],
+unlock:"Identified through psychoeducational or neuropsychological evaluation. Supports IEP eligibility under specific learning disability, or a 504 plan, plus testing accommodations that carry through to college entrance exams.",
+learn:"International Dyslexia Association for evidence-based instruction and provider lists; Understood.org for classroom strategy; your state's decoding-dyslexia parent chapter."},
+
+{id:"dcd",cat:"neuro",name:"Developmental coordination disorder",
+hook:"Also called dyspraxia — the body doesn't do what the child is asking it to.",
+what:"Significant difficulty acquiring and executing coordinated motor skills, well below what's expected for age, affecting daily activities and schoolwork. It is not caused by muscle weakness or a neurological injury; the difficulty is in planning and coordinating movement.",
+range:"From a clumsy child who avoids sports, to one who cannot dress independently at nine or write legibly enough to be graded. It persists into adulthood in most cases and affects driving, cooking, and workplace tasks — it is not outgrown, though strategies improve everything.",
+axes:[{l:"Fine motor",f:30,t:90},{l:"Gross motor",f:25,t:85},{l:"Daily living",f:20,t:85},{l:"Confidence",f:35,t:90}],
+signs:["Late crawling, walking, or difficulty with stairs and balance","Trouble with buttons, zips, laces, and cutlery","Handwriting that is slow, effortful, or illegible","Bumping into things; frequent spills and drops","Avoiding playground equipment, ball games, and PE","Difficulty learning any new physical routine, including bike riding and swimming"],
+helps:["Task-specific occupational and physical therapy — teach the actual skill the child needs rather than generic coordination exercises.","Accommodate handwriting early: keyboarding, scribing, reduced copying, oral answers.","Break motor tasks into steps and allow far more practice time.","Find a physical activity that is individual and non-competitive — swimming, climbing, martial arts, cycling — and protect it.","Reduce time pressure. Speed is what breaks down first."],
+missed:["Dismissed as clumsiness or laziness for years, particularly in children who are academically strong.","Handwriting difficulty is treated as effort rather than motor planning, and children are made to write more.","The emotional cost is underestimated — the daily experience of being visibly bad at things peers find easy.","Frequently co-occurs with ADHD and dyslexia and is the one that gets left off the list."],
+unlock:"Diagnosed by occupational therapy, physical therapy, developmental pediatrics, or neuropsychology. Supports IEP or 504 accommodations for handwriting, PE, and assistive technology.",
+learn:"CanChild for research-based family materials; the Dyspraxia Foundation; AOTA for finding an occupational therapist."},
+
+{id:"tics",cat:"neuro",name:"Tic disorders and Tourette syndrome",
+hook:"Involuntary movements and sounds — and the enormous effort of holding them in.",
+what:"Sudden, repetitive movements or vocalizations. Tourette syndrome involves both motor and vocal tics persisting over a year. Tics are involuntary but often preceded by an uncomfortable premonitory urge, and can be suppressed briefly at real cost.",
+range:"From occasional eye blinking that nobody notices, to tics that are painful, exhausting, and socially isolating. Tics wax and wane naturally, worsen with stress, excitement, and fatigue, and typically peak in early adolescence before improving for most people. Coprolalia — involuntary swearing — is what the public associates with Tourette's and occurs in only a small minority.",
+axes:[{l:"Frequency",f:15,t:90},{l:"Physical discomfort",f:10,t:80},{l:"Social impact",f:20,t:90},{l:"Suppression effort",f:25,t:90}],
+signs:["Repetitive blinking, head jerking, shoulder shrugging, facial movements","Throat clearing, sniffing, grunting, repeated words","A build-up of tension relieved by the tic","Tics that shift and change over time","Worsening when tired, stressed, or excited — and sometimes when relaxing after holding them in all day"],
+helps:["Behavioral therapy for tics — comprehensive behavioral intervention for tics, known as CBIT — is first-line and well evidenced.","Reduce attention to tics. Commenting on them, however kindly, tends to increase them.","Allow a tic release space at school. A child suppressing all day will explode into tics at home; that's not misbehavior, it's the bill coming due.","Treat co-occurring OCD, ADHD, and anxiety, which frequently cause more impairment than the tics themselves.","Medication is available for significant impairment and is a reasonable step, not a last resort."],
+missed:["Tics are read as deliberate, attention-seeking, or a habit that could be stopped.","The premonitory urge is unknown to most adults, so suppression is assumed to be free.","Co-occurring OCD and ADHD are more impairing than tics for most people and get overshadowed.","A sudden explosive onset of tics warrants a different medical conversation — see the entry on PANS and PANDAS."],
+unlock:"Diagnosed clinically by neurology, psychiatry, or developmental pediatrics. Supports 504 or IEP accommodations including breaks, alternative testing space, and reduced writing.",
+learn:"Tourette Association of America for family support, school materials, and CBIT provider lists."},
+{id:"cvi",cat:"access",name:"Cerebral visual impairment (CVI)",
+hook:"The eyes work. The brain's processing of what they send doesn't.",
+what:"A brain-based visual impairment in which the visual pathways or processing areas are affected rather than the eye itself. It is now the leading cause of childhood visual impairment in wealthy countries, and it is routinely missed because standard eye exams come back normal.",
+range:"From a child who sees well in a quiet room and not at all in a busy one, to a child with very limited functional vision. What varies most is not acuity but conditions: clutter, movement, fatigue, competing sound, novelty, and complexity all change how much a child can see, sometimes minute to minute.",
+axes:[{l:"Visual clarity",f:20,t:90},{l:"Effect of clutter",f:40,t:95},{l:"Processing time",f:30,t:90},{l:"Consistency",f:35,t:95}],
+signs:["Vision that varies dramatically by setting, day, or fatigue level","Difficulty finding an object in a busy field but finding it easily on a plain background","A delay of seconds between looking and recognizing","Preference for particular colors, often highly saturated","Looking away while reaching, or reaching without looking","Difficulty with faces, stairs, curbs, and depth","Normal or near-normal eye exam results despite obvious visual difficulty"],
+helps:["Reduce visual clutter ruthlessly — plain backgrounds, one item at a time, uncrowded pages.","Allow latency. A child may need several seconds to process something novel, and rushing them costs the whole attempt.","Use consistent, high-contrast presentation, and get the specifics in writing: point size, font, color combination, spacing.","Pair vision with other senses — narrate, let them touch, use sound to locate.","Salience cues: outline, highlight, or point to the thing you want them to find.","Build in visual rest. Looking is effortful here, and fatigue erases capacity.","A functional vision assessment is what turns any of this into an IEP; a medical eye exam will not."],
+missed:["Normal eye exam is taken as proof of normal vision, and the child is labeled inattentive or non-compliant instead.","Inconsistency is read as choosing not to look.","Materials are adapted for ocular blindness — braille and magnification — when the child needs decluttering and time.","Visual behavior is assessed on a good day in a quiet room, which is exactly where CVI looks mildest.","Cognitive ability is underestimated because assessments are visually loaded."],
+unlock:"Identified through neuro-ophthalmology, developmental optometry, or a CVI-specific functional assessment. Establishes visual impairment eligibility for IEP services, a teacher of students with visual impairments, orientation and mobility instruction, and state commission for the blind services.",
+learn:"Perkins School for the Blind's CVI Now for the best current family-facing material; the American Printing House for the Blind; your state commission for the blind."},
+
+{id:"lowvision",cat:"access",name:"Blindness and low vision",
+hook:"An access difference, not a learning difference — provided access is actually provided.",
+what:"Vision loss from conditions of the eye or optic nerve, ranging from low vision that limits detail to no light perception. Children who are blind learn the same things as sighted children through different channels, on a timeline that depends almost entirely on how early and how well access is built.",
+range:"From a child who reads large print with magnification, to one who is a fluent braille reader and independent cane traveler, to a child with additional disabilities for whom vision loss is one factor among several. Independence is far more determined by early instruction in braille, technology, and mobility than by degree of vision loss.",
+axes:[{l:"Usable vision",f:0,t:70},{l:"Print access need",f:40,t:100},{l:"Mobility support",f:20,t:90},{l:"Technology need",f:35,t:95}],
+signs:["Diagnosed eye or optic nerve condition","Holding materials very close, or unusual head position","Difficulty in low light or bright light","Bumping into objects; hesitation at stairs and curbs","Not noticing gestures, facial expression, or distant events"],
+helps:["Early braille instruction where indicated — literacy is the foundation of independence and the decision shouldn't be delayed for a child with progressive loss.","Orientation and mobility instruction from young, in real environments.","Screen readers, refreshable braille, and accessible formats, taught to fluency and available at home as well as school.","Teach the expanded core curriculum deliberately: self-advocacy, daily living, social skills, recreation, career. Sighted children absorb these incidentally; blind children must be taught them.","Give hands-on experience with real objects. Concepts built only from description have holes in them.","Expect independence, and resist doing things for a child that they could learn to do."],
+missed:["Materials arrive late or not at all, and the child sits through lessons they can't access.","Consultation-only TVI service is accepted where direct instruction is needed.","The expanded core curriculum is skipped entirely because it isn't academic.","Additional disabilities are assumed, or missed, because assessment is visually loaded.","Adults help too much, and independence quietly never develops."],
+unlock:"Eligibility for IEP services under visual impairment, TVI and orientation and mobility services, state commission for the blind registration, assistive technology funding, and in the US the National Library Service and Bookshare.",
+learn:"American Foundation for the Blind; National Federation of the Blind's parent division; American Printing House for the Blind; your state commission or school for the blind."},
+
+{id:"deaf",cat:"access",name:"Deaf and hard of hearing",
+hook:"A language question first, a hearing question second.",
+what:"Hearing levels ranging from mild loss to profound deafness, present at birth or acquired. The critical variable for a child's development is not degree of loss but whether they get full access to a complete language — spoken, signed, or both — during the early years when language is built.",
+range:"From a child with mild loss who needs a classroom microphone system, to a bilingual child fluent in a signed and a written language, to a child with cochlear implants developing spoken language. Outcomes vary enormously and track early language access far more than they track audiogram.",
+axes:[{l:"Hearing level",f:15,t:100},{l:"Language access need",f:30,t:100},{l:"Listening in noise",f:40,t:95},{l:"Technology reliance",f:20,t:90}],
+signs:["Failed or inconclusive newborn hearing screening","Not responding to name or to sound out of view","Delayed speech and language","Speaking loudly, watching faces closely, or asking for repetition","Difficulty in noisy rooms while managing fine in quiet","Frequent ear infections or fluid"],
+helps:["Full language access from the earliest possible point, in whatever modality reaches the child. The cost of delay here is measured in years of development.","Take sign language seriously as an option, and don't accept framing that treats it as a fallback for failure.","Amplification and classroom listening technology, checked daily — devices fail silently and children rarely report it.","Reduce background noise and reverberation; add visual information and captions.","Connect the family with Deaf adults. They are the strongest source of information on what a Deaf life actually looks like.","Learn language alongside your child so home is not a place where they miss things."],
+missed:["Mild and unilateral loss is assumed to be inconsequential; it isn't, and it affects listening in noise all day.","Fluctuating loss from middle ear fluid goes untracked while behavior is treated instead.","Language delay is attributed to another condition when access is the issue.","Families are steered toward one communication approach without being told the real options.","Deaf children with additional disabilities are underserved by both systems."],
+unlock:"Diagnosed through audiology. Opens IEP eligibility, teacher of the deaf and interpreter services, classroom amplification, early intervention with a deaf-specific program, and state commission for the deaf services.",
+learn:"Hands & Voices for unbiased, non-partisan family support across all communication approaches; your state's early intervention program for deaf children; the National Association of the Deaf."},
+
+{id:"apd",cat:"access",name:"Auditory processing differences",
+hook:"Hearing is fine. Making sense of speech in a real room is not.",
+what:"Difficulty processing auditory information despite normal hearing thresholds — particularly distinguishing speech in noise, following rapid speech, and holding spoken sequences. Auditory processing disorder is a recognized audiological diagnosis, though there's ongoing professional debate about how distinct it is from language and attention difficulties.",
+range:"From a child who struggles only in the noisiest settings, to one who understands very little in any classroom. Because the audiogram is normal, impact is regularly disbelieved.",
+axes:[{l:"Speech in noise",f:35,t:95},{l:"Following directions",f:25,t:85},{l:"Processing speed",f:25,t:85},{l:"Fatigue",f:30,t:90}],
+signs:["Frequent what and huh despite passing hearing tests","Much worse comprehension in busy rooms","Difficulty following multi-step spoken instructions","Mishearing similar-sounding words","Exhaustion after a school day","Better performance one to one than in a group"],
+helps:["Remote microphone systems, where the teacher's voice goes directly to the child — the single most effective accommodation.","Reduce background noise and improve room acoustics.","Give instructions in writing as well as speech; pause between steps.","Preferential seating with a clear view of the speaker's face.","Check comprehension by asking for a summary back.","Rule out language disorder and ADHD, which overlap heavily and require different responses."],
+missed:["Mistaken for inattention or non-compliance for years.","Testing usually isn't valid before around age seven, and families are told nothing can be done meanwhile — accommodations can start immediately.","Overlap with language disorder and ADHD leads to one diagnosis where two or three apply.","Listening fatigue is invisible and enormous."],
+unlock:"Assessed by an audiologist with specific auditory processing training. Supports 504 or IEP accommodations including remote microphone systems, written instructions, and preferential seating.",
+learn:"ASHA for the clinical picture and finding an audiologist; your school's audiologist or hearing specialist for classroom technology."},
+
+{id:"sensory",cat:"access",name:"Sensory processing differences",
+hook:"The volume knobs are set differently — and the world doesn't adjust itself.",
+what:"Differences in how sensory information is registered, interpreted, and responded to: sound, touch, movement, body position, taste, smell, and internal signals like hunger and needing the bathroom. Sensory processing disorder is not a standalone diagnosis in the DSM, and there is genuine professional disagreement about whether it should be — but the difficulty itself is real, widely observed, and very responsive to environmental change.",
+range:"From a child who dislikes tags and loud restaurants, to one for whom a fire drill is genuinely unbearable and a shirt seam ends the morning. Over-responsiveness, under-responsiveness, and sensory seeking can all appear in one child across different senses, and states shift with fatigue, illness, and stress.",
+axes:[{l:"Sound sensitivity",f:15,t:95},{l:"Touch & texture",f:15,t:90},{l:"Movement seeking",f:10,t:90},{l:"Interoception",f:20,t:90}],
+signs:["Distress at specific sounds, textures, clothing, lighting, or smells","Constant movement, crashing, spinning, chewing","Not noticing injury, hunger, temperature, or a full bladder","Meltdown after a busy environment rather than during it","Extreme food selectivity driven by texture and smell","Difficulty with haircuts, nail cutting, teeth brushing, and dressing"],
+helps:["Change the environment first — noise-reducing headphones, seamless clothing, dimmer lighting, a quiet retreat space. These are cheap and immediately effective.","Build sensory input into the day proactively rather than waiting for dysregulation.","Teach interoception explicitly for children who don't register hunger or bathroom signals; it can be learned.","Prepare for known-hard events and allow escape routes.","Be aware that sensory integration therapy as a standalone treatment has a mixed evidence base, while accommodation and environmental change do not — put your energy where the evidence is."],
+missed:["Sensory distress is read as behavior, drama, or manipulation.","Under-responsiveness gets missed entirely because the child isn't complaining — including not noticing pain or illness.","Interoception is rarely assessed and explains a great deal about toileting, eating, and emotional awareness.","Adults expect tolerance to build through exposure; forced exposure usually sensitizes rather than habituates."],
+unlock:"Assessed by occupational therapy. Not a standalone special education category, but sensory needs are routinely written into IEPs and 504 plans as accommodations under another eligibility.",
+learn:"STAR Institute for family materials; AOTA for finding an occupational therapist; the growing literature on interoception in schools."},
+
+{id:"deafblind",cat:"access",name:"Deafblindness",
+hook:"Combined vision and hearing differences — not two disabilities added, but a third thing entirely.",
+what:"Any combination of vision and hearing loss significant enough that services designed for one alone are insufficient. Most people described as deafblind have some usable vision or hearing. The defining challenge is access to incidental information — everything a child normally learns by overhearing and glimpsing.",
+range:"From mild loss in both senses with substantial functional access, to no usable vision or hearing. Combined loss is not additive; each sense normally compensates for the other, so losing both changes learning fundamentally and requires touch, routine, and deliberate teaching of what others absorb passively.",
+axes:[{l:"Vision access",f:0,t:65},{l:"Hearing access",f:0,t:65},{l:"Incidental learning",f:60,t:100},{l:"Intervener need",f:35,t:100}],
+signs:["Diagnosed loss in both vision and hearing, at any level","Difficulty anticipating events; startling at contact","Limited exploration of the environment","Communication that relies heavily on touch, routine, or a familiar person"],
+helps:["Every US state has a federally funded deafblind project offering free technical assistance and family support. This is the single most valuable phone call — start there.","Interveners: trained one-to-one professionals who provide access to information and communication.","Tactile communication systems, hand-under-hand exploration, object cues, and predictable routines.","Announce yourself before touching; narrate what's happening and what's coming.","Deliberately teach what other children learn incidentally, because none of it is arriving on its own."],
+missed:["Children with milder combined loss are served under one label and never identified as deafblind, missing the entire dedicated support system.","Families never learn their state deafblind project exists — it's free and requires no diagnosis threshold to contact.","Communication ability is underestimated, sometimes for years.","Additional disabilities are assumed rather than assessed."],
+unlock:"Registration with your state deafblind project and the national deafblind child count; IEP eligibility under deafblindness, which carries specific service entitlements including interveners.",
+learn:"The National Center on Deaf-Blindness, and through it your state's deafblind project; Perkins School for the Blind; the Helen Keller National Center for transition-age youth."},
+{id:"anxiety",cat:"mind",name:"Anxiety disorders",
+hook:"The most common and most treatable childhood mental health condition — and the most often mistaken for behavior.",
+what:"Persistent, excessive worry or fear that interferes with daily life. Includes generalized anxiety, separation anxiety, social anxiety, specific phobias, and panic. Anxiety is not a character trait and it does not resolve with reassurance; it responds to a specific, well-evidenced treatment.",
+range:"From a child who worries more than most but functions, to one who cannot leave the house or attend school. Anxiety escalates predictably when accommodated — each avoidance makes the next demand harder — which is why families often find things worsening despite doing everything to help.",
+axes:[{l:"Worry intensity",f:20,t:95},{l:"Avoidance",f:15,t:95},{l:"Physical symptoms",f:20,t:90},{l:"School impact",f:10,t:95}],
+signs:["Stomachaches and headaches with no medical cause, especially on school mornings","Reassurance-seeking that never quite lands","Avoiding activities, places, or people","Difficulty separating; distress at bedtime","Perfectionism and fear of mistakes","Irritability and anger — in children, anxiety very often looks like defiance","Sleep difficulty and rumination"],
+helps:["Cognitive behavioral therapy with exposure. This is the treatment with the strongest evidence, and exposure is the active ingredient — talk therapy without it works far less well.","Reduce family accommodation gradually. The SPACE approach works entirely through parents and has good evidence, which matters when a child won't engage in therapy.","Name the anxiety and separate it from the child. It's the worry talking, not you.","Don't reassure repeatedly — it relieves for a minute and strengthens the loop.","Medication, typically an SSRI, is effective and appropriate for moderate to severe anxiety, often alongside therapy.","Keep the child in school in some form. School avoidance is much harder to reverse the longer it runs."],
+missed:["Anxiety presenting as anger, refusal, or meltdown, which gets treated as a discipline problem.","In children with autism, anxiety is frequently attributed to autism itself and left untreated.","Physical complaints get medically investigated repeatedly and the underlying anxiety is never named.","Well-behaved anxious children are missed entirely because they cause no trouble.","Family accommodation grows so gradually that nobody notices the household has reorganized around avoiding things."],
+unlock:"Diagnosed by psychology, psychiatry, or pediatrics. May support a 504 plan or an IEP under emotional disability, plus accommodations for testing, attendance, and safe exit from class.",
+learn:"The Child Mind Institute for family-facing explanation; the Anxiety and Depression Association of America for provider directories; ask specifically about CBT with exposure or the SPACE parent program."},
+
+{id:"ocd",cat:"mind",name:"OCD",
+hook:"Intrusive thoughts and the rituals that briefly quiet them — and a specific treatment that works.",
+what:"Obsessions are unwanted intrusive thoughts, images, or urges that cause distress. Compulsions are repetitive behaviors or mental acts performed to reduce that distress. The relief is real and temporary, which is exactly what makes the cycle so strong.",
+range:"From rituals that cost twenty minutes a day, to a child spending most of their waking hours in compulsions and unable to attend school. Content varies widely — contamination, symmetry, harm, moral or religious themes — and often shifts over time while the mechanism stays identical.",
+axes:[{l:"Time consumed",f:15,t:95},{l:"Distress",f:35,t:95},{l:"Family involvement",f:20,t:95},{l:"Insight",f:10,t:85}],
+signs:["Repetitive checking, washing, counting, ordering, or asking the same question","Distress if a ritual is interrupted or done wrong","Needing things just right before moving on","Slowness with routine tasks that used to be fast","Involving family in rituals — repeated reassurance, specific phrasing, participating in routines","Avoiding triggers"],
+helps:["Exposure and response prevention. This is the treatment, and generic talk therapy is not a substitute — a therapist without specific ERP training can make OCD worse.","Stop accommodating rituals, in a planned and gradual way, with the therapist's guidance. Family accommodation is the strongest predictor of poor outcome and is entirely modifiable.","Externalize it — many children benefit from naming the OCD as a separate bully.","Medication, usually an SSRI at higher doses than for anxiety, is effective for moderate to severe cases.","Treat the compulsion, not the content. Chasing the theme is a trap; the themes change and the mechanism doesn't."],
+missed:["Mental compulsions and reassurance-seeking are invisible and get missed entirely.","Repetitive behaviors in children with autism are assumed to be autism rather than OCD — the distinguishing question is whether the behavior is distressing and driven by fear, or soothing and enjoyable.","Therapists without ERP training deliver reassurance-based therapy, which reinforces the disorder.","Sudden, dramatic onset of OCD symptoms after an illness warrants a different medical conversation."],
+unlock:"Diagnosed by psychology or psychiatry. Can support 504 or IEP accommodations for time, testing, and bathroom access.",
+learn:"The International OCD Foundation, which maintains a directory of ERP-trained therapists and excellent family materials."},
+
+{id:"depression",cat:"mind",name:"Depression",
+hook:"In children it often looks like irritability, not sadness.",
+what:"Persistent low or irritable mood with loss of interest, lasting at least two weeks and affecting functioning. In children and teenagers the dominant presentation is frequently irritability, anger, and withdrawal rather than visible sadness.",
+range:"From a persistent low-grade heaviness that lets a young person function while enjoying nothing, to an inability to get out of bed or attend school, to acute risk requiring immediate help.",
+axes:[{l:"Mood",f:25,t:95},{l:"Energy & motivation",f:25,t:95},{l:"Withdrawal",f:20,t:95},{l:"Function",f:15,t:95}],
+signs:["Irritability, anger, or a short fuse that's new","Loss of interest in things they used to love","Changes in sleep and appetite in either direction","Fatigue and slowed movement or speech","Withdrawal from friends and family","Statements of worthlessness or hopelessness","Falling grades and school avoidance"],
+helps:["Cognitive behavioral therapy and interpersonal therapy both have good evidence for adolescents.","Behavioral activation — scheduling small, achievable, valued activity — works even when motivation is absent, and often before mood shifts.","Medication is appropriate for moderate to severe depression, typically alongside therapy.","Protect sleep, movement, and daylight; these are treatment, not lifestyle advice.","Keep connection open without demanding conversation. Presence beats questions.","Screen for and treat what's underneath — learning difficulty, undiagnosed ADHD, bullying, and chronic pain all produce depression."],
+missed:["Irritability is treated as attitude rather than a symptom.","Depression in young people with autism or intellectual disability presents differently — through loss of skills, increased self-injury, or withdrawal — and is regularly attributed to the disability.","High-achieving young people who keep functioning are assumed to be fine.","Medical contributors — thyroid, iron, sleep apnea — go unchecked."],
+unlock:"Diagnosed by psychology, psychiatry, or pediatrics. May support 504 or IEP eligibility, attendance flexibility, and reduced workload during acute periods.",
+learn:"The Child Mind Institute; NAMI for family support and local groups. If safety is a concern at any point, the 988 Suicide and Crisis Lifeline is available by call or text in the US, and an emergency department is always an appropriate choice."},
+
+{id:"trauma",cat:"mind",name:"Trauma and PTSD",
+hook:"A nervous system that learned the world isn't safe — and can learn otherwise.",
+what:"Persistent symptoms following exposure to threatening or overwhelming events: intrusive memories, avoidance, negative changes in mood and belief, and hyperarousal. In children this includes medical trauma, which is badly underrecognized in families who have spent years in hospitals.",
+range:"From a child who is jumpy and struggles at bedtime, to one whose functioning is organized entirely around avoiding reminders. Children with developmental disabilities experience higher rates of trauma and are less likely to be recognized or treated for it.",
+axes:[{l:"Hyperarousal",f:25,t:95},{l:"Avoidance",f:20,t:95},{l:"Re-experiencing",f:15,t:90},{l:"Trust & connection",f:20,t:90}],
+signs:["Startling easily; constant scanning for threat","Nightmares, sleep difficulty, bedwetting returning","Avoidance of reminders — places, people, medical settings","Loss of previously mastered skills","Re-enacting events in play","Emotional numbing or unusual clinginess","Sudden intense reactions that seem disproportionate to the moment"],
+helps:["Trauma-focused CBT is the best-evidenced treatment for children, and involves the caregiver directly.","Restore predictability and control. Choice, warning, and routine are the active ingredients in daily life.","For medical trauma, use child life specialists, preparation, and real choices during procedures wherever possible.","Regulate before reasoning. A dysregulated nervous system cannot process explanation.","Support the caregiver too — caregiver wellbeing is one of the strongest predictors of child recovery."],
+missed:["Medical trauma from procedures, restraint, and hospitalization is rarely named as trauma at all.","Trauma symptoms in children look like ADHD, oppositionality, or autism and get diagnosed as such.","Children with communication differences can't report what happened, and behavior change is read as the disability progressing.","Restraint and seclusion in school settings are traumatic and frequently underreported to families."],
+unlock:"Diagnosed by psychology or psychiatry. May support IEP eligibility under emotional disability and, importantly, a functional behavior assessment that treats behavior as trauma response rather than defiance.",
+learn:"The National Child Traumatic Stress Network for family materials and finding trauma-trained clinicians."},
+
+{id:"mutism",cat:"mind",name:"Selective mutism",
+hook:"A child who talks freely at home and cannot speak at school — an anxiety disorder, not defiance.",
+what:"Consistent inability to speak in specific social situations despite speaking normally in others, lasting more than a month and not explained by a language disorder. It is an anxiety condition, and the silence is not a choice.",
+range:"From a child who whispers to one friend and not the teacher, to one who cannot speak, nod, or point anywhere outside home, and in some cases cannot eat or use the bathroom at school. Untreated it tends to entrench.",
+axes:[{l:"Situational range",f:25,t:95},{l:"Non-verbal communication",f:15,t:85},{l:"School participation",f:25,t:95},{l:"Duration if untreated",f:40,t:95}],
+signs:["Fluent speech at home, silence at school or with unfamiliar people","Freezing, blank expression, or turning away when addressed","Communicating by gesture, writing, or through a sibling","Avoiding eating, drinking, or the bathroom outside home","Symptoms present for months and stable across the school year"],
+helps:["Treatment works and works best early — this is one where a year of waiting genuinely matters.","Remove the pressure to speak while systematically building toward it. Direct questions in front of a class make it worse.","Behavioral techniques designed for this condition, including stimulus fading and shaping, delivered by someone who knows it specifically.","Build a bridge person at school — one adult, in a private space, working up from non-verbal to whispered to spoken.","Medication is sometimes used for children who cannot engage in treatment at all.","Never bribe, reward, or wait a child out into speaking. It is an anxiety response, not a negotiation."],
+missed:["Read as shyness the child will grow out of, or as stubbornness.","Mistaken for autism, or for a language disorder, when the give-away is fluent speech in a comfortable setting.","School teams accommodate the silence indefinitely rather than treating it, so the child gets more comfortable being silent.","Bathroom and eating avoidance goes unnoticed and is a genuine health issue."],
+unlock:"Diagnosed by psychology or psychiatry. Supports 504 or IEP accommodations including alternative participation formats and, where impact is significant, IEP eligibility.",
+learn:"The Selective Mutism Association for family guidance and provider lists; look for clinicians who name this condition specifically."},
+
+{id:"arfid",cat:"mind",name:"ARFID",
+hook:"Not picky eating. A restriction serious enough to affect growth, nutrition, or life.",
+what:"Avoidant/restrictive food intake disorder — eating that is limited enough to cause weight or growth problems, nutritional deficiency, dependence on supplements, or significant interference with daily life. Unlike anorexia, it is not driven by body image. Drivers are usually sensory aversion, fear of choking or vomiting, or simply low interest in eating.",
+range:"From a stable list of twenty accepted foods with adequate growth, to a handful of foods, to full tube dependence. The list tends to shrink rather than grow without intervention, and each dropped food is very difficult to recover.",
+axes:[{l:"Food variety",f:30,t:98},{l:"Nutritional risk",f:15,t:95},{l:"Mealtime distress",f:25,t:95},{l:"Social impact",f:20,t:90}],
+signs:["A very short and shrinking list of accepted foods","Rejecting foods by texture, smell, color, brand, or packaging","Distress at new foods on the plate or at the table","Eating almost nothing outside the home","Poor growth, fatigue, or nutrient deficiency","Fear of choking or vomiting after a specific incident","Very low appetite and no interest in eating"],
+helps:["Protect what's already accepted before trying to expand. A lost safe food is a real setback.","Work with an ARFID-informed dietitian and a feeding therapist together — nutrition and mechanics are different problems.","Reduce mealtime pressure entirely. Pressure, hiding foods, and waiting a child out reliably backfire here.","Expand in tiny steps from accepted foods — same brand, different shape; same texture, different flavor.","Brand and packaging consistency isn't fussiness. Treat it as a genuine access requirement.","Rule out medical drivers: reflux, constipation, eosinophilic esophagitis, swallowing difficulty, dental pain."],
+missed:["Treated as picky eating, with advice built for typical picky eating that actively worsens ARFID.","Normal weight is taken as reassurance while nutritional intake is severely limited.","Underlying medical pain — constipation is the biggest one — never gets investigated.","In children with autism it's attributed to autism and no specific treatment is offered.","Family stress and social restriction go unacknowledged; this condition reshapes a household."],
+unlock:"Diagnosed by psychology, psychiatry, pediatrics, or a feeding program. Supports insurance coverage for feeding therapy and dietitian services, school accommodations for meals, and access to intensive feeding programs.",
+learn:"ARFID-specific resources through the National Alliance for Eating Disorders, which also runs a helpline; hospital-based feeding programs; look for clinicians who name ARFID rather than picky eating."},
+
+{id:"dmdd",cat:"mind",name:"Severe emotional dysregulation",
+hook:"Explosive, prolonged reactions that outlast the trigger — a skill problem more often than a will problem.",
+what:"Persistent irritability with frequent severe outbursts, disproportionate to the situation and to developmental level. Diagnosed as disruptive mood dysregulation disorder when it meets specific criteria, though dysregulation of this kind occurs across many conditions and rarely stands alone.",
+range:"From a child who takes an hour to recover from disappointment, to daily outbursts involving aggression or property damage, to a family that has restructured its entire life around avoiding triggers. Frequency and intensity both vary widely with sleep, hunger, illness, demand load, and predictability.",
+axes:[{l:"Outburst intensity",f:30,t:95},{l:"Recovery time",f:25,t:95},{l:"Baseline irritability",f:20,t:90},{l:"Family impact",f:35,t:98}],
+signs:["Outbursts several times a week, out of proportion to the trigger","Persistent irritable or angry mood between outbursts","Aggression toward people or property during escalation","Very long recovery, sometimes with no memory of the episode","Triggers that look trivial to adults","A pattern that is much worse at home than at school, or the reverse"],
+helps:["Assume a skill gap rather than a motivation gap. Collaborative problem-solving approaches — Ross Greene's model is the best known — treat outbursts as unsolved problems and have good real-world traction.","Identify triggers systematically. Most escalation is predictable once someone writes it down for two weeks.","Intervene early in the escalation curve; once a child is at the top, teaching is over and only safety and calm matter.","Debrief afterward, later, briefly, and without punishment — the goal is a shared plan for next time.","Treat what's underneath. Anxiety, ADHD, language disorder, sleep problems, pain, and trauma are the usual engines.","Get the family real support. Living with this is genuinely hard, and burnout undermines every plan."],
+missed:["Treated as a discipline problem, and met with escalating consequences that reliably make it worse.","The underlying driver — often anxiety or a language difficulty — never gets identified.","Pain and medical causes are missed in children who can't report them.","Masking at school means home reports are disbelieved. A child who holds it together all day has spent everything they had.","Parent blame arrives early and does considerable damage."],
+unlock:"Assessed by psychiatry or psychology. Supports IEP eligibility, a functional behavior assessment, and a behavior intervention plan — request the assessment in writing rather than accepting a generic behavior chart.",
+learn:"Lives in the Balance for the collaborative problem-solving model, with free parent materials; NAMI for family support."},
+
+{id:"pda",cat:"mind",name:"Demand avoidance profile (PDA)",
+hook:"An anxiety-driven need for autonomy, where ordinary requests feel like threats.",
+what:"A described profile — most often discussed within autism — characterized by extreme avoidance of everyday demands, driven by anxiety and a need for control rather than by defiance. It is recognized clinically in the UK and some other places, is not a formal DSM diagnosis, and remains debated in the research literature. Many families find it the single most useful description they've encountered, and that usefulness is worth taking seriously even while the science is unsettled.",
+range:"From a child who resists direct instruction but manages with choice, to one for whom any perceived demand — including invitations, praise, and their own intentions — triggers panic and refusal. Capacity fluctuates dramatically; what was fine yesterday may be impossible today.",
+axes:[{l:"Demand sensitivity",f:35,t:98},{l:"Anxiety",f:35,t:95},{l:"Social strategy use",f:25,t:90},{l:"Day-to-day variability",f:40,t:95}],
+signs:["Resisting ordinary requests far beyond typical defiance, including things they want to do","Using social strategies to avoid — negotiating, distracting, role play, excuses","Extreme need for control over what happens and when","Meltdown or shutdown when control is removed","Better response to indirect language than to instruction","Capacity that swings enormously day to day"],
+helps:["Drop direct demands. Use declarative language — I wonder if the shoes are by the door — instead of instructions.","Offer genuine choice and real control wherever the stakes allow.","Prioritize ruthlessly. Pick the two things that truly matter today and let the rest go.","Reduce the total demand load, including invisible ones: noise, transitions, social expectation, and being watched.","Recognize that praise, rewards, and sticker charts often function as demands here and can backfire.","Relationship and trust do the heavy lifting; compliance-based approaches typically escalate things."],
+missed:["Read as willful defiance or as a parenting failure, which it is not.","Standard behavior programs built on rewards and consequences frequently make this profile worse, and families are then blamed for poor implementation.","Anxiety underneath the refusal is missed because it doesn't look like anxiety.","Because it isn't a formal diagnosis in most countries, families can't get it named — describe the pattern and what helps rather than fighting for the label."],
+unlock:"Not a standalone diagnostic category in the US. Practically, families pursue an autism and anxiety evaluation and then get the specific supports written into the IEP by describing the pattern — low-demand approaches, choice, and reduced direct instruction — rather than by naming PDA.",
+learn:"PDA Society (UK) has the most developed family-facing material; look for writing by adults with autism on demand avoidance, which is often the most illuminating."},
+
+{id:"pans",cat:"mind",name:"PANS and PANDAS",
+hook:"Sudden, dramatic onset of OCD or restricted eating after an illness — real, contested, and worth understanding carefully.",
+what:"Proposed conditions in which an abrupt onset of obsessive-compulsive symptoms, restricted eating, tics, or dramatic behavior change follows an infection, thought to involve an immune-mediated process. PANDAS specifically involves streptococcal infection; PANS is broader. Diagnostic criteria exist and specialty clinics treat it, but the conditions remain genuinely contested — some clinicians consider them well established, others question the causal link and the treatment protocols.",
+range:"From a single episode that resolves, to a relapsing-remitting course over years. Severity ranges from noticeable to a child who cannot eat, sleep, attend school, or be left alone.",
+axes:[{l:"Onset speed",f:60,t:100},{l:"OCD & anxiety",f:30,t:95},{l:"Eating restriction",f:10,t:90},{l:"Course variability",f:35,t:95}],
+signs:["An abrupt, dramatic change measured in days, which parents typically date precisely","New severe OCD or dramatically restricted eating","Sudden separation anxiety, rage, or regression to younger behavior","Handwriting deterioration","Bedwetting or urinary frequency returning","Tics, sleep disruption, and sensory sensitivity arriving together"],
+helps:["Get standard, well-evidenced treatment for the symptoms regardless of what's driving them — ERP for OCD, nutritional support for restricted eating, and psychiatric care. This is the part that helps most children and it should not wait on the causal debate.","Treat any confirmed infection.","Involve an immunologist or infectious disease physician alongside psychiatry.","Document the onset carefully with dates, video, and handwriting samples; the abruptness is the diagnostically meaningful feature.","Approach immune-directed treatments cautiously and with clinicians who will discuss the evidence and the risks honestly."],
+missed:["The abruptness gets lost in a general psychiatric workup, and the timeline is what matters most.","Families encounter clinicians with strong opposing views and are left to adjudicate a research controversy alone.","Standard psychiatric treatment is sometimes declined while pursuing an immune explanation, so a child goes untreated during the search.","Expensive, unproven protocols are available to families who are frightened and out of options. Ask about evidence and about risk, every time."],
+unlock:"There is no education category for this. Practically, families document functional impact and pursue IEP or 504 eligibility under other health impairment or emotional disability, with attendance and workload flexibility for a relapsing course.",
+learn:"The PANDAS Physicians Network for clinical criteria; ask any clinician directly where they stand on the evidence before you commit to a treatment path."},
+{id:"epilepsy",cat:"body",name:"Epilepsy and seizures",
+hook:"Recurrent seizures — and the fatigue, memory, and mood effects nobody warns you about.",
+what:"A condition of recurrent unprovoked seizures caused by abnormal electrical activity in the brain. Seizures take many forms: convulsive, brief staring absences, drop attacks, or focal events where the person stays partly aware. Many are subtle enough to be missed for years.",
+range:"From a single seizure type fully controlled by one medication with a normal life, to daily seizures resistant to every treatment. Roughly two thirds of people achieve good control with medication. The cognitive, mood, and fatigue effects — from seizures, from medication, or from both — are frequently more limiting day to day than the seizures themselves.",
+axes:[{l:"Seizure control",f:5,t:95},{l:"Cognitive effect",f:10,t:90},{l:"Medication burden",f:15,t:90},{l:"Activity limits",f:10,t:85}],
+signs:["Staring spells with unresponsiveness, sometimes with lip smacking or fumbling","Stiffening, jerking, or sudden loss of tone","Brief episodes of confusion or unusual sensation","Unexplained falls","Morning jerks, particularly in adolescents","Skill loss or plateau, which can indicate frequent subclinical seizures"],
+helps:["Film everything. Video is more diagnostically useful than any description, and phones make it possible.","Keep a seizure diary with time, duration, description, and what preceded it.","A written seizure action plan for school, camp, and any caregiver.","If two medications haven't achieved control, ask for referral to a comprehensive epilepsy center — waiting longer rarely helps and other options exist, including dietary therapy and surgery.","Protect sleep; sleep deprivation is one of the most reliable triggers.","Ask specifically about cognitive and mood side effects of medication, and raise them if they appear — there are usually alternatives."],
+missed:["Absence and focal seizures are read as daydreaming, inattention, or behavior for years.","Subclinical seizure activity affecting learning goes undetected without extended EEG.","Medication side effects on mood, attention, and processing are attributed to the child's underlying condition.","Depression and anxiety occur at high rates with epilepsy and are underdiagnosed and undertreated.","Families aren't taught rescue medication protocols or when to call for help."],
+unlock:"Diagnosed by neurology with EEG. Supports IEP or 504 eligibility under other health impairment, a school health plan, nursing support, and accommodations for fatigue and missed instruction.",
+learn:"The Epilepsy Foundation for school action plans, family support, and local chapters; ask about a comprehensive epilepsy center if seizures aren't controlled."},
+
+{id:"cp",cat:"body",name:"Cerebral palsy",
+hook:"A movement difference from early brain development — non-progressive, but the body around it keeps changing.",
+what:"A group of permanent disorders of movement and posture from a disturbance in the developing brain. The brain injury itself does not worsen, but muscles, joints, and bones change as a child grows, which is why ongoing orthopedic and rehabilitation care matters so much.",
+range:"From a person who walks independently with a subtle gait difference, to one who uses a power wheelchair and needs support for all daily activities. Intelligence spans the full range and is entirely independent of physical involvement — a critical point, since speech and motor difficulty cause cognitive ability to be badly underestimated.",
+axes:[{l:"Mobility",f:10,t:95},{l:"Speech clarity",f:5,t:90},{l:"Daily living",f:10,t:95},{l:"Learning",f:0,t:80}],
+signs:["Early motor milestones delayed or asymmetric","Muscle tone that is stiff, floppy, or fluctuating","Preferring one side; a fisted hand or toe walking","Difficulty with fine motor tasks","Feeding, swallowing, and drooling difficulty","Frequently accompanied by epilepsy, vision differences, and hearing loss"],
+helps:["Physical and occupational therapy focused on function and participation rather than on normalizing movement.","Hip surveillance on a schedule for children with limited walking — hips can migrate silently and painlessly, and monitoring prevents major surgery.","Equipment early and adjusted often: seating, standers, walkers, wheelchairs. Order well ahead; delivery takes months.","Communication access first for children with speech difficulty. Never let motor impairment determine assumptions about thinking.","Tone management options in sequence — therapy, orthotics, injections, medication, surgery — with a physiatrist coordinating.","Adaptive sport and recreation, which do more for participation and mood than an extra therapy block."],
+missed:["Cognitive ability underestimated because of speech and motor difficulty. This is the most consequential error made about people with CP.","Hip surveillance not done, and a painful dislocation discovered late.","Pain is under-assessed and undertreated; a large proportion of people with CP live with chronic pain.","Fatigue is underestimated — moving costs far more energy here.","Communication needs unaddressed for years while therapy focuses on walking."],
+unlock:"Diagnosed by neurology, developmental pediatrics, or physiatry. Supports IEP eligibility, PT/OT/speech services, assistive technology and AAC funding, state developmental disability agency eligibility, Medicaid waivers, and SSI.",
+learn:"The Cerebral Palsy Foundation for practical family material; CanChild for research-based resources on function and participation."},
+
+{id:"hypotonia",cat:"body",name:"Low muscle tone (hypotonia)",
+hook:"A symptom rather than a diagnosis — and always worth asking what's underneath.",
+what:"Reduced muscle tone: the resting tension in muscle that holds a body up against gravity. It's a finding, not a condition, and can stem from genetic conditions, metabolic disorders, neurological differences, connective tissue conditions, or no identified cause at all.",
+range:"From a child who fatigues easily and sits with poor posture, to one who cannot hold their head up or breathe and swallow safely. Many children with benign hypotonia improve substantially with therapy and time; others have a progressive underlying condition, which is why the workup matters.",
+axes:[{l:"Postural strength",f:20,t:95},{l:"Endurance",f:25,t:95},{l:"Feeding & speech",f:10,t:85},{l:"Motor milestones",f:20,t:90}],
+signs:["Feeling floppy when held; slipping through your hands as an infant","Late head control, sitting, and walking","Sitting in a W position or leaning on furniture and people","Fatiguing quickly during physical activity","Open mouth posture, drooling, unclear speech","Poor endurance for handwriting and sitting at a desk"],
+helps:["Pursue the underlying cause — genetics, metabolic workup, and neurology. Hypotonia alone is not an answer.","Physical and occupational therapy focused on strength, endurance, and postural stability.","Seating and positioning support at school; a child spending all their energy staying upright has none left for learning.","Build in rest and pace the day; fatigue is the real limiter.","Watch for feeding and swallowing safety, and for sleep-disordered breathing, which co-occur often."],
+missed:["Accepted as a standalone explanation and never investigated further.","Fatigue is read as laziness or poor motivation.","Handwriting and desk endurance difficulties are treated as attention problems.","Associated feeding, speech, and breathing issues aren't connected to the same cause."],
+unlock:"Identified by pediatrics, neurology, or therapy evaluation. Supports Early Intervention and IEP eligibility for PT, OT, and speech, plus adaptive equipment funding.",
+learn:"Start with genetics and neurology rather than a hypotonia-specific organization; once a cause is identified, the condition-specific foundation becomes the resource."},
+
+{id:"genetic",cat:"body",name:"Genetic syndromes",
+hook:"Down syndrome, Fragile X, 22q, Rett, Angelman, Prader-Willi and hundreds more — each with its own community and its own map.",
+what:"Conditions caused by changes in chromosomes or single genes, often affecting several body systems together. Some are common and well characterized; many are rare, with only a handful of identified individuals worldwide. A specific diagnosis matters because it converts an unknown future into a known one, with a community, a medical surveillance schedule, and sometimes a specific treatment.",
+range:"Enormous, both between syndromes and within them. Two people with the same diagnosis can differ substantially, which is why syndrome descriptions in older medical literature — often written from the most severely affected cases — tend to be unduly bleak. Ask the family community what the range actually looks like now.",
+axes:[{l:"Medical complexity",f:10,t:95},{l:"Learning",f:5,t:95},{l:"Communication",f:5,t:90},{l:"Daily living",f:10,t:95}],
+signs:["Developmental differences across several domains","Distinctive physical features or growth patterns","Congenital differences in heart, kidney, or other organs","Feeding difficulty in infancy","A family history pattern","Sometimes no outward signs at all until testing"],
+helps:["Find the syndrome-specific foundation immediately. For rare conditions, parent-led registries frequently hold better current information than the published literature.","Ask for the condition's medical surveillance guidelines — many syndromes have published schedules for hearing, vision, thyroid, heart, and spine monitoring that prevent avoidable problems.","Ask whether any medication should be used with caution or avoided; several syndromes have specific contraindications.","Request genetic counseling for the family, and ask about reanalysis every two to three years.","Read recent material, not old textbooks. Expectations for most syndromes have risen substantially.","Connect with families whose children are older. They know what the next five years look like."],
+missed:["Older, pessimistic descriptions shape expectations that don't match current reality.","Surveillance schedules aren't followed because no single clinician owns them — ask who does.","Behavior is attributed to the syndrome rather than assessed as pain, anxiety, or a treatable condition.","Reanalysis of uncertain results never happens because nobody requests it.","Ordinary childhood conditions — ADHD, anxiety, ear infections — are missed under diagnostic overshadowing."],
+unlock:"Diagnosed through genetics. Frequently establishes eligibility for state developmental disability services, Medicaid waivers, SSI, and specific research registries or clinical trials.",
+learn:"The syndrome-specific foundation first — NDSS and NDSC for Down syndrome, National Fragile X Foundation, IRSF for Rett, the Angelman Syndrome Foundation, PWSA for Prader-Willi. For rare conditions, Global Genes and NORD help you find a community."},
+
+{id:"metabolic",cat:"body",name:"Mitochondrial and metabolic conditions",
+hook:"Problems making or using energy — with a characteristic pattern of crashing when ill.",
+what:"Inherited conditions affecting how the body processes nutrients or produces cellular energy. Mitochondrial disease affects the cell's energy machinery; other inborn errors of metabolism affect specific pathways handling proteins, fats, sugars, or vitamins. Many have specific treatments, which is why identifying them matters.",
+range:"From mild fatigue and exercise intolerance, to a progressive multi-system condition. The hallmark for many is fluctuation — periods of stability punctuated by decompensation during illness, fasting, surgery, or heat.",
+axes:[{l:"Energy & endurance",f:25,t:95},{l:"Illness vulnerability",f:30,t:95},{l:"Multi-system involvement",f:15,t:95},{l:"Day-to-day variability",f:35,t:95}],
+signs:["Fatigue and poor endurance out of proportion to everything else","Getting dramatically worse with ordinary illness and slow to recover","Developmental regression during or after illness","Muscle weakness, exercise intolerance, or exercise-induced pain","Several unrelated-seeming systems involved at once","Abnormal lactate, ammonia, amino acid, or newborn screening results"],
+helps:["Get a written emergency protocol letter. This is the single most valuable document — it tells an emergency department at three in the morning what this child needs, and it changes care immediately.","A sick-day plan covering fasting, hydration, and when to seek care.","Avoid fasting, dehydration, and temperature extremes; plan around surgery and anesthesia carefully.","Pace activity and build in rest. Pushing through does real harm in energy-limited conditions.","Ask about cofactors and vitamins with actual evidence for the specific pathway, and be wary of expensive protocols without it.","Metabolic dietitian involvement where a specific pathway is affected."],
+missed:["Fatigue read as deconditioning or lack of effort.","Illness decompensation not recognized as a medical emergency requiring specific management.","Regression during illness attributed to the underlying developmental condition.","No emergency letter, so each ER visit starts from zero.","Anesthesia risks not flagged before surgery."],
+unlock:"Diagnosed by metabolic or biochemical genetics. Supports IEP eligibility under other health impairment, attendance and fatigue accommodations, nursing support, and often Medicaid disability pathways.",
+learn:"United Mitochondrial Disease Foundation; MitoAction for family support; your metabolic clinic for the emergency letter and sick-day protocol."},
+
+{id:"eds",cat:"body",name:"Hypermobility and Ehlers-Danlos",
+hook:"Very flexible joints — and often fatigue, gut symptoms, and dizziness that nobody had connected.",
+what:"Connective tissue differences producing joint hypermobility, which may occur alone or as part of a hypermobility spectrum disorder or hypermobile Ehlers-Danlos syndrome. Connective tissue is everywhere, so effects reach joints, skin, gut, blood vessels, and the autonomic nervous system.",
+range:"From flexibility that's an advantage in gymnastics and causes no problems, to chronic pain, frequent dislocations, severe fatigue, and significant disability. Symptoms often escalate in adolescence, and the diagnosis frequently arrives years after the symptoms.",
+axes:[{l:"Joint instability",f:20,t:90},{l:"Pain",f:15,t:95},{l:"Fatigue",f:20,t:95},{l:"Autonomic symptoms",f:10,t:90}],
+signs:["Unusually flexible joints; able to bend fingers, elbows, or knees beyond normal range","Joints that partially or fully dislocate","Joint and muscle pain, often worse in the evening","Clumsiness, poor proprioception, frequent injuries","Fatigue that rest doesn't fix","Dizziness on standing, racing heart","Gut symptoms — constipation, reflux, nausea","Soft, stretchy skin; slow healing; easy bruising"],
+helps:["Physical therapy focused on stability and strength, especially core and around unstable joints, with a therapist who knows hypermobility — generic stretching can make things worse.","Pacing. Boom-and-bust cycles of overdoing it and crashing are the central pattern to break.","Bracing and orthotics for unstable joints; written PE and activity modifications.","Address the co-travelers as a package — autonomic symptoms, gut symptoms, and fatigue are usually part of the same picture, not separate complaints.","Take pain seriously and early; chronic pain is easier to prevent than reverse.","Say the word hypermobility out loud to every clinician. It reframes several otherwise mysterious complaints at once."],
+missed:["Flexibility is treated as a talent and the pain as growing pains or attention-seeking.","Gut, autonomic, and fatigue symptoms are managed by separate specialists who never connect them.","Young people are told their tests are normal and their symptoms are anxiety.","Proprioceptive difficulty causes clumsiness that gets labeled a coordination disorder without the connective tissue picture being examined.","Diagnosis is delayed by years, commonly into adulthood."],
+unlock:"Assessed by rheumatology, genetics, or a knowledgeable pediatrician using a scored exam. Supports 504 or IEP accommodations for PE, writing, mobility, seating, and attendance.",
+learn:"The Ehlers-Danlos Society for diagnostic criteria and clinician directories; look for physical therapists who name hypermobility specifically."},
+
+{id:"pots",cat:"body",name:"Dysautonomia and POTS",
+hook:"The automatic systems misfiring — dizziness, racing heart, and a fatigue that isn't laziness.",
+what:"Dysfunction of the autonomic nervous system, which regulates heart rate, blood pressure, digestion, and temperature. Postural orthostatic tachycardia syndrome is the most commonly identified form in young people: an excessive heart rate rise on standing, with symptoms that improve lying down.",
+range:"From occasional lightheadedness, to being unable to stand for more than a few minutes and unable to attend school. It often appears or worsens in adolescence, sometimes after an illness, and frequently co-occurs with hypermobility and gut symptoms.",
+axes:[{l:"Standing tolerance",f:20,t:95},{l:"Fatigue",f:30,t:95},{l:"Cognitive fog",f:20,t:90},{l:"School attendance",f:15,t:95}],
+signs:["Dizziness, lightheadedness, or fainting on standing","Racing heart when upright","Fatigue that's disproportionate and not relieved by rest","Brain fog and difficulty concentrating, worse when upright","Nausea, poor appetite, gut symptoms","Heat intolerance; symptoms worse in hot showers and hot weather","Symptoms worse in the morning and after meals"],
+helps:["Increase fluids and salt substantially under medical guidance — this is first-line treatment and often the most effective single change.","Compression garments, particularly waist-high.","Recumbent exercise reconditioning — rowing, recumbent bike, swimming — building very gradually. Upright exercise early usually fails.","School accommodations: water and salty snacks in class, permission to sit or lie down, elevator access, a reduced or flexible schedule, and late starts.","Medication is available and effective for many when the basics aren't enough.","Get the autonomic picture assessed as a whole rather than symptom by symptom."],
+missed:["Dismissed as anxiety, deconditioning, or school avoidance — this happens constantly and does real harm.","Standard cardiac testing is normal, which is taken as proof nothing is wrong.","Cognitive fog is read as a learning or attention problem.","Co-occurring hypermobility and gut symptoms are managed separately by clinicians who never speak.","Attendance policies punish a fluctuating condition, and families end up in truancy proceedings."],
+unlock:"Diagnosed by cardiology or neurology, often via a standing test or tilt table. Supports 504 or IEP eligibility under other health impairment, with attendance flexibility, homebound instruction, and physical accommodations.",
+learn:"Dysautonomia International for family material, school accommodation letters, and physician directories."},
+
+{id:"sleepdis",cat:"body",name:"Sleep disorders",
+hook:"Fix this first. It imitates almost everything else on this page.",
+what:"Conditions disrupting sleep quality, quantity, or timing: obstructive sleep apnea, insomnia, restless legs, circadian rhythm disorders, and parasomnias like night terrors and sleepwalking. Sleep problems are dramatically more common in children with developmental differences and dramatically under-investigated.",
+range:"From difficulty falling asleep on school nights, to a child waking fifteen times, to untreated apnea causing daytime symptoms that get diagnosed as ADHD or a mood disorder for years.",
+axes:[{l:"Sleep quality",f:25,t:95},{l:"Daytime effect",f:25,t:95},{l:"Family impact",f:30,t:98},{l:"Breathing involvement",f:0,t:90}],
+signs:["Snoring, mouth breathing, gasping, or pauses in breathing","Restless sleep, sweating, unusual positions","Taking more than an hour to fall asleep, or waking for hours at night","Daytime irritability, inattention, hyperactivity","Morning headaches","Night terrors or sleepwalking","Bedwetting past the expected age"],
+helps:["Investigate breathing first. Untreated sleep apnea in children looks exactly like ADHD, and treating it can transform daytime behavior.","A sleep study when breathing symptoms are present; ask about home studies or desensitization visits for children who can't tolerate a lab.","Consistent timing, a wind-down routine, a dark cool room, and screens out well before bed — unglamorous and genuinely effective.","Behavioral sleep intervention has good evidence, including for children with autism, and specific adaptations exist.","Melatonin helps many children with neurodevelopmental conditions with sleep onset; discuss dose and timing with a clinician rather than guessing.","Treat what's underneath: pain, constipation, reflux, anxiety, restless legs, and low iron are all common and fixable causes."],
+missed:["Poor sleep is accepted as a permanent feature of having a child with a disability. It usually isn't.","Apnea goes undiagnosed while stimulants are trialed.","Low iron, a common and treatable cause of restless legs, is never checked.","The family's own sleep deprivation is never acknowledged, and it undermines everything else."],
+unlock:"Diagnosed by sleep medicine, ENT, or pulmonology. Supports school accommodations for late starts, reduced load, and attendance flexibility.",
+learn:"The American Academy of Sleep Medicine's family site; your children's hospital sleep clinic; ask about behavioral sleep programs adapted for neurodevelopmental conditions."},
+
+{id:"constipation",cat:"body",name:"Chronic constipation and encopresis",
+hook:"Ordinary, hugely under-treated, and one of the most common hidden drivers of behavior.",
+what:"Infrequent or painful stooling, often with stool withholding, and sometimes encopresis — soiling that happens when liquid stool leaks past a large retained mass. The soiling is involuntary and is a sign of severe constipation rather than of laziness or defiance.",
+range:"From occasional hard stools, to a child with a chronically distended rectum, daily soiling, poor appetite, urinary accidents, and pain they can no longer feel. It is extremely common in children with developmental differences, restricted diets, and low mobility.",
+axes:[{l:"Stool frequency",f:20,t:90},{l:"Withholding behavior",f:15,t:95},{l:"Appetite & behavior effect",f:20,t:90},{l:"Bladder involvement",f:0,t:85}],
+signs:["Fewer than three or four stools a week, or hard painful stools","Withholding posture — crossing legs, standing on tiptoe, hiding","Soiling or skid marks in underwear","Large stools that block the toilet","Poor appetite; complaining of a full stomach","Urinary accidents, urgency, or recurrent urinary infections","Irritability and behavior escalation that follows a pattern"],
+helps:["Treat it properly and for long enough. Most treatment fails because it's stopped as soon as things look normal — maintenance usually needs months, sometimes a year or more.","A proper clean-out first, then daily maintenance, under medical guidance.","Address the withholding as well as the stool: unhurried scheduled sitting after meals, a foot stool for leverage, no pressure, no punishment.","Fix the fear. A child who has had a painful stool will withhold, which causes a bigger one, which hurts more. Breaking that loop is the whole job.","Watch for it constantly in children with restricted diets, low mobility, or reduced interoception.","Consider bladder symptoms as part of the same problem rather than a separate one."],
+missed:["Soiling treated as a behavior problem and punished, which is both ineffective and cruel.","Treatment stopped far too early, so the cycle restarts.","Never considered as a driver of irritability, poor sleep, poor appetite, or refusal to eat — in children who can't report pain, this is one of the most commonly missed causes of escalation.","Bladder symptoms treated separately by a different specialist.","Families are embarrassed and don't raise it, and clinicians don't ask."],
+unlock:"Managed by pediatrics or gastroenterology. Supports school health plans covering bathroom access, privacy, clean-up supplies, and no-questions-asked passes.",
+learn:"Your gastroenterology team; the North American Society for Pediatric Gastroenterology's family materials on constipation and soiling."}
+];
+
+const byId=Object.fromEntries(C.map(x=>[x.id,x]));
+const catLabel=Object.fromEntries(CATS.map(x=>[x.id,x.label]));
+let activeCat='all';
+
+const pills=document.getElementById('pills');
+[{id:'all',label:'All'}].concat(CATS).forEach(c=>{
+  const b=document.createElement('button');
+  b.className='pill'+(c.id==='all'?' on':'');b.textContent=c.label;b.dataset.cat=c.id;b.type='button';
+  b.addEventListener('click',()=>{
+    activeCat=c.id;
+    document.querySelectorAll('.pill').forEach(p=>p.classList.toggle('on',p.dataset.cat===c.id));
+    filter();
+  });
+  pills.appendChild(b);
+});
+
+const grid=document.getElementById('grid');
+C.forEach(d=>{
+  const b=document.createElement('button');
+  b.className='cond';b.dataset.id=d.id;b.dataset.cat=d.cat;b.type='button';
+  b.innerHTML='<span class="cat">'+catLabel[d.cat]+'</span><h2 class="cname">'+d.name+
+    '</h2><p class="chook">'+d.hook+'</p>';
+  b.addEventListener('click',()=>open_(d.id));
+  grid.appendChild(b);
+});
+
+const detail=document.getElementById('detail'),dbody=document.getElementById('dbody');
+let lastFocus=null;
+function open_(id){
+  const d=byId[id];if(!d)return;
+  lastFocus=document.activeElement;
+  const axes=d.axes.map(a=>'<div class="axis"><p class="axlabel"><span>'+a.l+
+    '</span></p><div class="axtrack"><div class="axband" data-f="'+a.f+'" data-t="'+a.t+'"></div></div></div>').join('');
+  const related=C.filter(x=>x.cat===d.cat&&x.id!==d.id).slice(0,4);
+  dbody.innerHTML='<span class="cat">'+catLabel[d.cat]+'</span>'+
+    '<h2 id="dname">'+d.name+'</h2><p class="dhook">'+d.hook+'</p>'+
+    '<h3>What it is</h3><p>'+d.what+'</p>'+
+    '<h3>How widely it varies</h3><p>'+d.range+'</p>'+
+    '<div class="ranges">'+axes+
+      '<div class="axends"><span>Little or no impact</span><span>Substantial support needed</span></div>'+
+      '<p class="rangecap">Each band shows how much people with this diagnosis differ from one another on that domain. It is not a rating of any individual child, and no child sits at one fixed point — capacity moves with sleep, health, stress, and demand.</p></div>'+
+    '<h3>How it tends to show up</h3><ul>'+d.signs.map(s=>'<li>'+s+'</li>').join('')+'</ul>'+
+    '<h3>What actually helps</h3><ul>'+d.helps.map(s=>'<li>'+s+'</li>').join('')+'</ul>'+
+    '<h3>What commonly gets missed</h3><ul>'+d.missed.map(s=>'<li>'+s+'</li>').join('')+'</ul>'+
+    '<h3>Who assesses it, and what it can unlock</h3><div class="unlock">'+d.unlock+'</div>'+
+    '<h3>Where to learn more</h3><div class="callout">'+d.learn+'</div>'+
+    '<h3>Also in this section</h3><div class="chips">'+
+      related.map(r=>'<button class="chip" data-go="'+r.id+'">'+r.name+'</button>').join('')+'</div>';
+  dbody.querySelectorAll('[data-go]').forEach(c=>c.addEventListener('click',()=>open_(c.dataset.go)));
+  detail.classList.add('open');document.body.style.overflow='hidden';detail.scrollTop=0;
+  document.getElementById('back').focus();
+  requestAnimationFrame(()=>setTimeout(()=>{
+    dbody.querySelectorAll('.axband').forEach(b=>{
+      b.style.left=b.dataset.f+'%';b.style.width=(b.dataset.t-b.dataset.f)+'%';});
+  },120));
+}
+function close_(){detail.classList.remove('open');document.body.style.overflow='';if(lastFocus)lastFocus.focus();}
+document.getElementById('back').addEventListener('click',close_);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&detail.classList.contains('open'))close_();});
+
+const search=document.getElementById('search'),count=document.getElementById('count');
+function hay(d){return (d.name+' '+d.hook+' '+d.what+' '+d.range+' '+d.signs.join(' ')+' '+
+  d.missed.join(' ')+' '+d.helps.join(' ')).toLowerCase();}
+function filter(){
+  const q=search.value.trim().toLowerCase();let shown=0;
+  document.querySelectorAll('.cond').forEach(el=>{
+    const d=byId[el.dataset.id];
+    const hit=(activeCat==='all'||d.cat===activeCat)&&(!q||hay(d).includes(q));
+    el.classList.toggle('hidden',!hit);if(hit)shown++;
+  });
+  count.textContent=shown===C.length?C.length+' entries across four areas'
+    :shown+' of '+C.length+' entries shown';
+  let e=document.getElementById('empty');
+  if(!shown){if(!e){e=document.createElement('p');e.id='empty';e.className='empty';grid.appendChild(e);}
+    e.textContent='Nothing matches that. Try a symptom instead of a condition — "sleep", "eating", "handwriting", "dizzy".';}
+  else if(e)e.remove();
+}
+search.addEventListener('input',filter);
+filter();
+</script>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

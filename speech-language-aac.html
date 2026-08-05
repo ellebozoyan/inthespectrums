@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speech, Language & AAC — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --voice:#6B4A78; --voice-tint:#EFE6F1;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: functions of communication */
+.funcs{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.funcs h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.funcs .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(146px,1fr));gap:2px}
+.fn{background:rgba(255,255,255,.05);border-top:2px solid var(--rust);padding:12px 13px 14px}
+.fn.first{border-top-color:#C6A98F;background:rgba(198,169,143,.13)}
+.fn b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:#EFEBE3;margin-bottom:6px}
+.fn span{font-size:.84rem;color:#B9C4B4;line-height:1.45;display:block}
+.funcs .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:24px 0 0;max-width:60ch}
+.funcs .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.strong{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.mixed{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.weak{background:#F6E4E0;border-left:4px solid #8A2B20}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.strong h3{color:var(--forest)}.ev.mixed h3{color:#A8641C}.ev.weak h3{color:#8A2B20}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:#F6E4E0;border-left:4px solid #8A2B20}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:#8A2B20}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+/* AAC vocabulary tiles */
+.words{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:8px;margin:0 0 16px}
+.word{background:var(--voice-tint);border:1px solid #DCCEE2;border-radius:2px;padding:11px 13px;
+  font-family:var(--sans);font-size:13px;color:var(--ink)}
+.word b{display:block;color:var(--voice);font-size:14.5px;margin-bottom:2px}
+
+/* library */
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.vnote{background:var(--voice-tint);border-left:4px solid var(--voice);padding:20px 22px;margin:24px 0}
+.vnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--voice);font-weight:700;margin:0 0 10px}
+.vnote p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col,.libcard{break-inside:avoid}
+  .funcs{background:#fff;color:#000;border:1px solid #000}.funcs .big,.fn b,.funcs .cap strong{color:#000}}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Speech, language <em>and AAC</em></h1>
+  <p class="lede">Speech-language pathology covers far more than speech sounds. Understanding, expressing, socializing, reading, swallowing, and — for a great many children — communicating in a form that isn't speech at all. This page covers the direct work and the augmentative work as one discipline, because for most children they belong together from the start.</p>
+</header>
+
+<div class="profnote">
+  <b>Reading this as a professional</b>
+  <p>Written for families and for colleagues in other disciplines. The AAC section is the most substantial, because it is the area where family understanding most often lags and where a poorly implemented system fails for reasons that have nothing to do with the device.</p>
+  <p>The evidence section names several popular approaches whose research base is thinner than their reputation, and one area where professional bodies have taken a clear position. Both may be useful when a family arrives having read something online.</p>
+</div>
+
+<section>
+  <div class="funcs">
+    <h2>What communication is actually for</h2>
+    <p class="big">Almost every system starts with requesting, and a great many never move past it. But requesting is one function out of many — and it is the only one that serves the adult as much as the child.</p>
+    <div class="fgrid">
+      <div class="fn first"><b>Requesting</b><span>I want that. Where nearly everything starts, and stalls</span></div>
+      <div class="fn"><b>Refusing</b><span>No. Stop. Not that one. I don't want to</span></div>
+      <div class="fn"><b>Commenting</b><span>Look at that. That's weird. I like this</span></div>
+      <div class="fn"><b>Questioning</b><span>What is it? Where are we going? Why?</span></div>
+      <div class="fn"><b>Greeting</b><span>Hi. Bye. I'm here. I'm leaving</span></div>
+      <div class="fn"><b>Protesting</b><span>That's not fair. You're wrong. Stop doing that</span></div>
+      <div class="fn"><b>Sharing feeling</b><span>I'm scared. I'm excited. That hurt</span></div>
+      <div class="fn"><b>Narrating</b><span>Telling what happened, to someone who wasn't there</span></div>
+      <div class="fn"><b>Joking</b><span>Being funny on purpose, being silly with someone</span></div>
+      <div class="fn"><b>Negotiating</b><span>Five more minutes. Can I do it later instead?</span></div>
+      <div class="fn"><b>Directing</b><span>Come here. Do it this way. Watch me</span></div>
+      <div class="fn"><b>Self-advocating</b><span>I need a break. That's too loud. Ask me, not her</span></div>
+    </div>
+    <p class="cap"><strong>This is the test to apply to any therapy plan or any device.</strong> Can this child refuse, comment, question, joke, complain, and tell someone they're wrong? A system that only produces requests teaches a child that communication is a vending machine — and leaves them unable to say the sentences that matter most.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What speech-language therapy <em>targets</em></h2>
+  <p class="secnote">Nine areas. Most children work on two or three, and the balance between them shifts a lot as they grow.</p>
+
+  <div class="domains">
+    <div class="dom">
+      <h3>Understanding language</h3>
+      <p>The receptive side — and the one most often overestimated, because a child who talks fluently is assumed to follow everything.</p>
+      <ul>
+        <li>Vocabulary and concept understanding</li>
+        <li>Following directions of increasing length and complexity</li>
+        <li>Grammar comprehension — who did what to whom</li>
+        <li>Processing time and processing under noise or fatigue</li>
+        <li>Inference, figurative language, and what wasn't said outright</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Doing the last part of a three-part instruction, "what?" as a reflex, behavior falling apart during language-heavy parts of the day, following better one-to-one than in a group.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Using language</h3>
+      <p>The expressive side — vocabulary, sentence structure, and being able to get an idea across the way it was intended.</p>
+      <ul>
+        <li>Vocabulary growth, including words that aren't nouns</li>
+        <li>Sentence length, grammar, and word order</li>
+        <li>Word finding and retrieval</li>
+        <li>Narrative — telling a story in an order someone else can follow</li>
+        <li>Repair strategies when the listener doesn't understand</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Short sentences past the expected age, heavy reliance on "thing" and "stuff," stories that jump around, giving up when misunderstood.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Speech sounds</h3>
+      <p>Producing the sounds of a language accurately enough to be understood by people who don't know the child.</p>
+      <ul>
+        <li>Articulation of individual sounds</li>
+        <li>Phonological patterns — whole classes of sounds affected together</li>
+        <li>Intelligibility to familiar and unfamiliar listeners</li>
+        <li>Carryover into real conversation, which is where most of the work is</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Family understands and strangers don't, frustration when not understood, avoiding speaking to unfamiliar people, being asked to repeat constantly.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Motor speech</h3>
+      <p>When the difficulty is planning and sequencing the movements of speech, or executing them with weakened muscles. Treated very differently from an articulation difficulty.</p>
+      <ul>
+        <li>Childhood apraxia of speech — inconsistent errors, groping, worse with longer words</li>
+        <li>Dysarthria — weakness affecting clarity, volume, and breath support</li>
+        <li>High-frequency motor practice, cueing hierarchies, and prosody</li>
+        <li>AAC alongside, so the child isn't waiting years to be understood</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>The same word said differently each time, visible searching for mouth position, far better understanding than production, speech that gets worse as sentences get longer.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Social communication</h3>
+      <p>Using language with other people — and worth approaching as a two-way difference rather than a deficit to be corrected.</p>
+      <ul>
+        <li>Conversation: starting, maintaining, ending, repairing</li>
+        <li>Taking another person's perspective and knowledge into account</li>
+        <li>Figurative language, sarcasm, indirect requests</li>
+        <li>Adjusting communication for different people and settings</li>
+        <li>Self-advocacy and describing your own needs</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Monologues about a favorite topic, missing hints, taking things literally, difficulty entering a group, conversations that go fine one-to-one and not in a crowd.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Fluency and voice</h3>
+      <p>How speech flows, and how it sounds. Both areas where the emotional impact often outruns the technical severity.</p>
+      <ul>
+        <li>Stuttering — repetitions, prolongations, blocks, and the tension around them</li>
+        <li>Avoidance, word substitution, and reduced participation</li>
+        <li>Voice quality, loudness, pitch, and vocal strain</li>
+        <li>Resonance, including after palate surgery</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Getting stuck on words, physical tension while speaking, avoiding phone calls and reading aloud, a hoarse voice that doesn't clear, a voice that's always too loud or too quiet.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Literacy and language for learning</h3>
+      <p>An underused part of the scope. Reading and writing are language, and an SLP has a genuine role in both.</p>
+      <ul>
+        <li>Phonological awareness — the foundation of decoding</li>
+        <li>Vocabulary and comprehension of academic text</li>
+        <li>Written narrative and organization</li>
+        <li>Literacy instruction for children who use AAC, including alphabet access</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Trouble rhyming or hearing syllables, reading the words without getting the meaning, writing far below speaking ability.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Feeding and swallowing</h3>
+      <p>With additional training, SLPs assess and treat the mechanics and safety of eating and drinking — often alongside occupational therapy.</p>
+      <ul>
+        <li>Swallowing safety and aspiration risk</li>
+        <li>Chewing, texture management, and oral motor skill for eating</li>
+        <li>Bottle, cup, and straw drinking</li>
+        <li>Transition off tube feeding where appropriate</li>
+        <li>Coordination with instrumental swallow assessment</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Coughing or wet breathing during meals, holding food in the cheeks, gagging on textures, very long meals, repeated chest infections.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Augmentative and alternative communication</h3>
+      <p>Any way of communicating that supplements or replaces speech. For many children this is the central work rather than a fallback — see the full section below.</p>
+      <ul>
+        <li>Speech-generating devices and communication apps</li>
+        <li>Low-tech boards and books, including partner-assisted approaches</li>
+        <li>Signs, gestures, and visual supports</li>
+        <li>Access methods: touch, keyguard, switch, eye gaze</li>
+        <li>Training the people around the child, which is most of the work</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Frustration and escalation around being misunderstood, leading you by the hand, a device that arrived and is rarely used, communication that works at home and nowhere else.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">AAC, <em>properly</em></h2>
+  <p class="secnote">The most common reason AAC fails is not the wrong device. It is a device nobody was trained to use, holding a vocabulary too small to say anything interesting.</p>
+
+  <h3 class="sub">The four beliefs that cost children years</h3>
+  <ul>
+    <li><strong>"AAC will stop them talking."</strong> The evidence points the other way — AAC use is associated with gains in spoken language, and this is one of the more consistent findings in the field. It is not a trade.</li>
+    <li><strong>"They need to be ready first."</strong> There are no prerequisites for communication. Not matching pictures, not proving cause and effect, not a cognitive threshold, not good behavior. Access comes first, and understanding grows through use.</li>
+    <li><strong>"It's a last resort."</strong> AAC belongs alongside speech work from the beginning, particularly in motor speech disorders where the gap between understanding and production is widest.</li>
+    <li><strong>"They're too young."</strong> Toddlers use AAC. Waiting until school age wastes the years when language is most readily built.</li>
+  </ul>
+
+  <h3 class="sub">What a real system contains</h3>
+  <p>Vocabulary is usually described as <em>core</em> — the small set of high-frequency words that make up most of what anyone says, like <em>go, more, stop, want, not, that, help, mine</em> — and <em>fringe</em>, the specific nouns like <em>dinosaur</em> or <em>trampoline</em>. Systems heavy on fringe and light on core produce children who can name things and can't say anything about them.</p>
+  <p>Check that these are present, and reachable in a couple of taps rather than buried:</p>
+  <div class="words">
+    <div class="word"><b>No</b>and stop</div>
+    <div class="word"><b>I don't like it</b>and don't do that</div>
+    <div class="word"><b>Help</b>and I need someone</div>
+    <div class="word"><b>Hurt</b>and where it hurts</div>
+    <div class="word"><b>Feelings</b>scared, angry, sad, excited</div>
+    <div class="word"><b>Body parts</b>correct names</div>
+    <div class="word"><b>Questions</b>what, where, why, who</div>
+    <div class="word"><b>People</b>naming who they want</div>
+    <div class="word"><b>Go away</b>and leave me alone</div>
+    <div class="word"><b>Alphabet</b>for spelling anything else</div>
+  </div>
+
+  <div class="vnote">
+    <h3>The safety reason this matters</h3>
+    <p>A system that can only make requests cannot report harm. A child who cannot say <em>no</em>, <em>stop</em>, <em>that hurt</em>, or name a body part or a person has no way to tell anyone that something has happened to them.</p>
+    <p>Ask your SLP to build refusal, protest, feelings, body, and people vocabulary explicitly. It is missing from a great many setups because nobody thought to ask for it — and it belongs in place long before it is ever needed.</p>
+  </div>
+
+  <h3 class="sub">How AAC actually gets learned</h3>
+  <ul>
+    <li><strong>Aided language modeling.</strong> Adults use the system themselves, all day, while talking — pointing to words as they speak. Nobody becomes fluent in a language they have only ever been tested in.</li>
+    <li><strong>No demands attached.</strong> Model far more than you prompt. A device used only when an adult wants an answer becomes an unpleasant object.</li>
+    <li><strong>Motor planning consistency.</strong> Words should stay in the same place. Rearranging a display resets the physical memory a child has built, so ask before anyone reorganizes it.</li>
+    <li><strong>Present everywhere, always charged.</strong> Specials, lunch, playground, bus, bath, car, hospital. A device left in a backpack is a device that doesn't exist.</li>
+    <li><strong>Everyone trained.</strong> Not just the SLP — teachers, aides, grandparents, babysitters, bus drivers. Written into the IEP with a named person and a frequency.</li>
+    <li><strong>Never taken away as a consequence.</strong> Removing a device is removing a voice.</li>
+    <li><strong>Assume competence and give response time.</strong> Composing a message takes far longer than speaking one. Wait longer than feels comfortable.</li>
+  </ul>
+
+  <h3 class="sub">Choosing a system</h3>
+  <p>A good evaluation is a trial rather than a recommendation on paper. It compares systems with your actual child, considering vocabulary organization, access method, physical positioning, vision needs, durability, voice options, and — critically — whether the system can grow for the next decade rather than the next year. The written report is what supports insurance funding, so ask that it be built for that purpose.</p>
+
+  <div class="note">
+    <h3>On methods involving physical support</h3>
+    <p>Families researching AAC will encounter approaches in which a facilitator provides physical support to a person's hand, wrist, or arm, or holds the letterboard. Major professional associations in speech pathology, psychology, and intellectual disability have taken formal positions against facilitated communication, and have raised serious concerns about related prompting methods, on the grounds that the message may originate with the facilitator rather than the person.</p>
+    <p>This matters more here than anywhere else on this site, because the entire purpose of AAC is that the words are genuinely the person's. The protective standard is independent, verifiable authorship — a person selecting messages without physical contact, and able to convey information the facilitator does not know. Any method should be moving toward that, and be willing to demonstrate it.</p>
+    <p>This is a painful area for many families, and the desire behind it is entirely understandable. That is exactly why the standard matters: a person's voice is only theirs if it can be shown to be theirs.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Approaches, sorted by <em>how well they're supported</em></h2>
+  <div class="evid">
+    <div class="ev strong"><h3>Well supported</h3>
+      <p><strong>AAC introduction alongside speech work,</strong> including for very young children.</p>
+      <p><strong>Parent-implemented language intervention</strong> and naturalistic approaches embedded in play and routines — among the strongest findings for early language.</p>
+      <p><strong>Focused stimulation and enhanced milieu teaching</strong> for early vocabulary and grammar.</p>
+      <p><strong>Phonological awareness instruction</strong> as a route into reading.</p>
+      <p><strong>Established speech sound approaches</strong> — minimal pairs, complexity approaches, traditional articulation therapy.</p>
+      <p><strong>Motor-based treatment for childhood apraxia,</strong> delivered frequently and in short sessions.</p>
+      <p><strong>Early stuttering intervention</strong> in preschool.</p>
+      <p><strong>Video modeling</strong> for specific social communication targets.</p>
+      <p><strong>Telepractice</strong> — comparable outcomes to in-person for many goals.</p>
+    </div>
+
+    <div class="ev mixed"><h3>Mixed or emerging</h3>
+      <p><strong>Gestalt language processing and natural language acquisition frameworks</strong> — increasingly popular, clinically compelling to many families and therapists, and still supported mainly by descriptive rather than controlled research. Worth using thoughtfully and worth knowing the evidence is young.</p>
+      <p><strong>Social skills groups</strong> — modest gains, with generalization outside the group being the persistent problem.</p>
+      <p><strong>Tactile-kinesthetic cueing approaches</strong> for motor speech — some support, less than their popularity implies.</p>
+      <p><strong>Packaged social cognition curricula</strong> — widely used, mixed evidence, and criticized by some adults with autism for teaching masking rather than genuine communication.</p>
+    </div>
+
+    <div class="ev weak"><h3>Little support — ask hard questions</h3>
+      <p><strong>Non-speech oral motor exercises</strong> — blowing, tongue push-ups, straw hierarchies — used to improve speech sound production. Repeatedly studied and not supported for that purpose. Feeding goals are a separate question.</p>
+      <p><strong>Auditory integration training</strong> for language or attention.</p>
+      <p><strong>Withholding AAC to encourage speech.</strong> Not merely unsupported — the evidence points the other direction, and the cost is measured in years of a child not being understood.</p>
+      <p><strong>Requiring picture-matching or other prerequisites</strong> before granting access to a system.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Our library — <em>things you can use tomorrow</em></h2>
+  <p class="secnote">Materials built to sit alongside therapy: what a child practices between sessions is where most of the progress actually happens. All free, all adaptable.</p>
+  <div class="lib">
+    <a class="libcard" href="#">
+      <h3>Play schemas</h3>
+      <p>A large library of play frameworks — the repeated patterns children work through in play — with language targets and social and emotional learning built in. Ready to run at home, in a classroom, or in a session.</p>
+      <span class="go">Browse the schemas</span></a>
+
+    <a class="libcard" href="#">
+      <h3>Social stories</h3>
+      <p>Short, personalizable stories for the situations that are hardest: haircuts, doctors, new places, changes in routine, and the conversations nobody prepared anyone for.</p>
+      <span class="go">Browse the stories</span></a>
+
+    <a class="libcard" href="#">
+      <h3>Tablet vocabularies</h3>
+      <p>Ready-built device pages and vocabulary sets — including questions, refusal, feelings, and self-advocacy pages that are missing from a great many setups.</p>
+      <span class="go">Browse the vocabularies</span></a>
+
+    <a class="libcard" href="#">
+      <h3>Themed activities</h3>
+      <p>Activity sets organized by theme and season, with the language, motor, and regulation targets marked so you can see what each one is actually working on.</p>
+      <span class="go">Browse the activities</span></a>
+
+    <a class="libcard" href="maplewood-stories.html">
+      <h3>The Maplewood stories</h3>
+      <p>Fifty-two picture books about ten friends who are not alike — built for shared reading, and for the conversations that shared reading makes possible.</p>
+      <span class="go">Read about Maplewood</span></a>
+
+    <a class="libcard" href="template-builders.html">
+      <h3>Template builders</h3>
+      <p>Fill-in documents that build themselves as you type, including a one-pager that tells a new therapist how your child communicates before the first session.</p>
+      <span class="go">Open the builders</span></a>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What SLPs work on <em>at each stage</em></h2>
+  <div class="stage"><p class="age">Birth to three</p><h3>Foundations, through the people already there</h3>
+    <p>Early gestures, joint attention, first words, feeding, and coaching families to build language into everyday routines. AAC belongs here too — not later. Referral is worth making on a suspicion rather than a certainty.</p></div>
+
+  <div class="stage"><p class="age">Preschool</p><h3>Vocabulary, sentences, and being understood</h3>
+    <p>Vocabulary explosion, sentence building, speech sound development, early social communication, and early literacy foundations. This is also when a robust AAC system should be fully in place if speech isn't yet reliable.</p></div>
+
+  <div class="stage"><p class="age">Elementary</p><h3>Language for learning</h3>
+    <p>Following classroom instruction, narrative, reading comprehension, written expression, conversation with peers, and carryover of speech sounds into everyday talk. AAC vocabulary expands into academic and social language.</p></div>
+
+  <div class="stage"><p class="age">Middle and high school</p><h3>Complexity, and self-knowledge</h3>
+    <p>Figurative and academic language, group conversation, advocating for accommodations, understanding their own communication profile, and — for AAC users — speed, independence, and literacy for independent message construction.</p></div>
+
+  <div class="stage"><p class="age">Transition to adulthood</p><h3>Communication in the world they're entering</h3>
+    <p>Workplace and college communication, disclosure decisions, managing their own device and its funding, and knowing how to explain to a stranger how to communicate with them.</p></div>
+</section>
+
+<section>
+  <h2 class="sec">Recognizing <em>strong speech therapy</em></h2>
+  <div class="compare">
+    <div class="col good"><h3>What good looks like</h3>
+      <ul>
+        <li>Goals you can picture happening in your kitchen, not just in a session</li>
+        <li>Comprehension and expression assessed separately, and the gap named</li>
+        <li>AAC raised early, without being framed as giving up</li>
+        <li>Parents coached, not just updated at pickup</li>
+        <li>Progress measured and shown, including carryover outside the room</li>
+        <li>Communication treated as the goal rather than speech specifically</li>
+        <li>The child's own attempts honored, in whatever form they arrive</li>
+        <li>Honest handoffs when another discipline should lead</li>
+      </ul>
+    </div>
+    <div class="col bad"><h3>Worth asking about</h3>
+      <ul>
+        <li>The same worksheet or flashcard drill for a year with no carryover plan</li>
+        <li>Non-speech oral motor exercises presented as speech treatment</li>
+        <li>AAC deferred until speech has been "given a chance"</li>
+        <li>A device introduced with no plan to train the adults around the child</li>
+        <li>Goals about compliance — sitting, waiting, quiet hands — rather than communication</li>
+        <li>Echolalia treated as something to eliminate rather than understand</li>
+        <li>Parents kept out of sessions as policy</li>
+        <li>Progress described only as "she's doing great"</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">Questions worth asking</h3>
+  <ul>
+    <li>What's the gap between what my child understands and what they can say?</li>
+    <li>What are we doing right now, today, so they can be understood while we work on speech?</li>
+    <li>Which communication functions can they currently use — and which are missing?</li>
+    <li>How do you train me, and the school, and everyone else?</li>
+    <li>What's your experience with AAC, and with children like mine?</li>
+    <li>How do you know progress is real and not just better test-taking?</li>
+    <li>What would make you say we're finished here?</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Practical matters</h2>
+  <h3 class="sub">School SLP and private SLP</h3>
+  <p>School speech therapy exists to support educational access, is often delivered in small groups, and is measured in minutes on an IEP — ask whether they're direct or consultative. Private therapy can pursue anything you and the therapist agree matters, including social communication, feeding, and AAC implementation at home. Many families use both; ask the two therapists to coordinate so goals don't duplicate.</p>
+
+  <h3 class="sub">Frequency</h3>
+  <p>Motor speech disorders generally need frequent, short sessions — this is one of the clearer dosage findings. Language goals often do better with less frequent sessions plus strong parent coaching and daily practice embedded in routines. Ask which model applies to your child and why.</p>
+
+  <h3 class="sub">Paying for it</h3>
+  <ul>
+    <li>Verify coverage by code and place of service before starting. Ask whether evaluations count against annual visit limits.</li>
+    <li>AAC devices are usually funded separately as durable medical equipment and require a formal SLP evaluation with specific documentation language. Ask the SLP to write it for funding from the outset.</li>
+    <li>School-provided devices may not come home or travel with a child between districts. Ask, in writing, before you rely on one.</li>
+  </ul>
+
+  <div class="note">
+    <h3>Meet our speech-language pathologist</h3>
+    <p>This section links to a practitioner page — background, approach, who she works with, and how to get in touch. Written and approved by her.</p>
+    <p><em>Placeholder: add name, credentials, practice, a short statement in her own words, and a link. See the contributor guidance on the About page before publishing.</em></p>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>The whole page in one line: the goal was never speech. It was being understood, and being able to say the things that matter.</p>
+  <p>If you take one action from here, make it this — look at whatever system your child has right now, and check whether they can refuse, ask a question, and tell someone something hurts. If any of those are missing, that is the next conversation, and it is a conversation you are fully equipped to start.</p>
+</div>
+
+<footer>
+  <p><strong>This is a map, not medical advice.</strong> Assessment and treatment decisions belong to clinicians who have met your child. Scope of practice, licensure, and school service rules vary by state.</p>
+  <p>Where evidence for a specific approach is limited or contested, this page says so. That isn't a reason to avoid it — it's a reason to ask what outcome is expected, how it will be measured, and by when.</p>
+</footer>
+
+</div>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

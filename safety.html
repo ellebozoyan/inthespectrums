@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Safety — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --paper:#FFFDF8; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 54px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2rem);font-weight:400;margin:0 0 8px;line-height:1.2}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:.99rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* layers signature */
+.layers{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 26px;margin:0 0 20px}
+.layers h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 8px;font-weight:700}
+.layers .big{font-size:1.16rem;line-height:1.45;margin:0 0 24px;max-width:50ch}
+.lyr{margin-bottom:11px}
+.lyrname{font-family:var(--sans);font-size:12px;letter-spacing:.03em;color:#EDE7DD;margin:0 0 5px}
+.lyrbar{display:flex;gap:3px;height:15px}
+.seg{flex:1;background:#7FA57A;border-radius:1px}
+.seg.gap{background:rgba(255,255,255,.1)}
+.layers .cap{font-size:.94rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:22px 0 0;max-width:58ch}
+.layers .cap strong{color:#EFEBE3}
+
+/* risk cards */
+.risk{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:21px 23px;margin-bottom:13px}
+.risk h3{font-size:1.14rem;font-weight:400;margin:0 0 4px}
+.risk .stat{font-family:var(--sans);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 13px}
+.risk p{font-size:.96rem;margin:0 0 11px}
+.risk h4{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:16px 0 7px}
+.risk ul{font-size:.94rem;padding-left:18px;margin:0 0 8px}
+.risk li{margin-bottom:6px}
+
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+
+/* profile card */
+.cardwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+@media(max-width:780px){.cardwrap{grid-template-columns:1fr}}
+.pcard{background:var(--paper);border:1px solid #CBC6B8;border-radius:2px;padding:22px 20px;
+  font-family:var(--mono);font-size:11.5px;line-height:1.6;color:#2A2A26}
+.pcard .ph{text-align:center;border-bottom:2px solid #2A2A26;padding-bottom:9px;margin-bottom:12px}
+.pcard .ph b{font-size:13px;letter-spacing:.05em}
+.pcard .fl{margin-bottom:9px}
+.pcard .k{color:#7A7568;display:block;font-size:10px;letter-spacing:.09em;text-transform:uppercase}
+.pcard .hot{background:#F4E2DD;border:1px solid #B57C70;padding:8px 10px;margin:10px 0}
+.pcard .dash{border-top:1px dashed #C3BDAE;margin:12px 0}
+
+.words{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:0 0 14px}
+.word{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:11px 13px;
+  font-family:var(--sans);font-size:13px;color:var(--ink)}
+.word b{display:block;color:var(--rust);font-size:14px;margin-bottom:2px}
+
+footer{border-top:1px solid var(--line);padding:26px 0 70px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+@media print{body{background:#fff;font-size:10.5pt}.risk,.pcard,.word{break-inside:avoid}
+  .layers{background:#fff;color:#000;border:1px solid #000}}
+
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Safety:<br><em>the page nobody wants to read first</em></h1>
+  <p class="lede">This is the most important page on this site. Not because danger is everywhere, but because the risks that most affect children with disabilities are specific, predictable, and largely preventable — and almost nobody tells families about them until after something has happened.</p>
+</header>
+
+
+<div class="profnote"><b>Reading this as a school, camp, or clinic</b><p>The water, elopement, equipment, and vehicle sections are written to be lifted into a setting's own safety plan. Take them and adapt them.</p><p>Two things worth raising with every family you serve, because almost nobody is asked: whether a child has ever left a safe place unaccompanied, and whether they are drawn to water.</p></div>
+<section>
+  <div class="layers">
+    <h2>The one idea to take from this page</h2>
+    <p class="big">Every single safety measure fails sometimes. The door gets left unlocked, the alarm battery dies, the adult looks away, the lesson doesn't hold under stress. Protection comes from layers that overlap, so that no single failure reaches the child.</p>
+
+    <div class="lyr"><p class="lyrname">Supervision — fails when you're tired, distracted, or in the bathroom</p>
+      <div class="lyrbar"><span class="seg"></span><span class="seg"></span><span class="seg gap"></span><span class="seg"></span><span class="seg"></span><span class="seg gap"></span><span class="seg"></span><span class="seg"></span></div></div>
+    <div class="lyr"><p class="lyrname">Barriers — fail when a gate is propped, a lock is reachable, a battery dies</p>
+      <div class="lyrbar"><span class="seg"></span><span class="seg gap"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg gap"></span><span class="seg"></span><span class="seg"></span></div></div>
+    <div class="lyr"><p class="lyrname">Alarms and tracking — fail when they're off, uncharged, or removed</p>
+      <div class="lyrbar"><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg gap"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg gap"></span></div></div>
+    <div class="lyr"><p class="lyrname">Skills — fail under stress, in novel places, when dysregulated</p>
+      <div class="lyrbar"><span class="seg gap"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg gap"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span></div></div>
+    <div class="lyr"><p class="lyrname">Other people knowing — fails when nobody was told</p>
+      <div class="lyrbar"><span class="seg"></span><span class="seg"></span><span class="seg gap"></span><span class="seg"></span><span class="seg"></span><span class="seg"></span><span class="seg gap"></span><span class="seg"></span></div></div>
+
+    <p class="cap"><strong>Look at where the gaps line up — and where they don't.</strong> A family relying on one layer is relying on the gaps never aligning. This is standard practice in aviation and wilderness risk management, and it applies exactly here. When you assess your own situation, don't ask <em>is this safe</em>. Ask <em>what happens when this particular layer fails, and what catches it</em>.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Water</h2>
+  <p class="secnote">If you read one section, read this one. Drowning is the leading cause of death among children with autism who wander, and it is quick, quiet, and survivable only in the first minutes.</p>
+
+  <div class="risk">
+    <h3>What makes this different</h3>
+    <p class="stat">Fast · Silent · Often within minutes of leaving the house</p>
+    <p>Many children with developmental differences are drawn strongly to water — it looks beautiful, it feels regulating, and it doesn't frighten them the way it should. A child who leaves the house often goes toward water rather than away from anything, which is why <strong>a missing child is a water search until proven otherwise.</strong></p>
+    <p>Drowning does not look like it does in films. There is usually no splashing and no shouting. A child can be face-down and silent within twenty seconds, in a garden pond, a neighbor's pool, a drainage ditch, a bathtub, or a bucket.</p>
+    <h4>Layers worth having</h4>
+    <ul>
+      <li><strong>Swim instruction is a safety intervention, not a hobby.</strong> Look for adapted or one-to-one lessons for children who can't manage a group. Ask specifically that they teach floating on the back, rolling over, and getting to an edge — survival skills before stroke technique.</li>
+      <li><strong>Practice in clothes at least once.</strong> A child who falls in fully dressed has never experienced how differently that feels.</li>
+      <li><strong>Proper fitted life jackets, not armbands, floats, or swim rings.</strong> Inflatable toys are the opposite of safety equipment.</li>
+      <li><strong>Four-sided isolation fencing</strong> around any home pool, with a self-latching gate above reach. Fencing that uses the house as one side means the back door is the only barrier.</li>
+      <li><strong>Alarms on gates, doors, and the water surface itself.</strong> Check batteries monthly on the same day you do smoke alarms.</li>
+      <li><strong>A named water watcher</strong> at any gathering — one adult whose only job is watching, handing off explicitly, phone away. Group supervision means nobody is watching.</li>
+      <li><strong>Empty and store buckets, paddling pools, and water tables</strong> immediately after use. Toddlers drown in very little water.</li>
+      <li><strong>Learn CPR.</strong> Everyone in the household who is old enough.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Wandering and elopement</h2>
+  <p class="secnote">Around half of children with autism leave a safe place at some point, and most families are never asked about it by any professional. If it has happened once in your family, it will very likely happen again.</p>
+
+  <div class="risk">
+    <h3>Understand the why before you build the plan</h3>
+    <p class="stat">Toward something · Or away from something</p>
+    <p>Children generally go <strong>toward</strong> something they love — water, trains, a road, a particular store, an animal — or <strong>away</strong> from something intolerable: noise, demand, crowding, a change nobody warned them about. Both patterns are predictable once you know which one you're dealing with, and they need different responses.</p>
+    <p>Going toward means securing the destination and adding barriers. Going away means reducing what's driving them out, because a child escaping distress will get past almost any lock you install.</p>
+    <h4>Prevention layers</h4>
+    <ul>
+      <li>Locks placed out of reach, at the top of doors; door chimes on every exterior door; window stops upstairs.</li>
+      <li>Fencing and self-latching gates; check them physically each season rather than assuming.</li>
+      <li>Consider a tracking device — wearable, shoe-mounted, or sewn in. Some fire and police departments run programs providing them free. Involve the child in choosing where it goes if you can; something they accept wearing works better than something better that comes off.</li>
+      <li>Identification on the child: bracelet, shoe tag, clothing label, temporary tattoo. Include a phone number, and the words <em>non-speaking</em> or <em>has autism</em> if that's accurate and you're comfortable.</li>
+      <li>Tell the neighbors, in advance, with a photo. This is the layer families skip out of privacy concern and it is often the one that works — a neighbor who recognizes your child and knows to call you rather than watching them walk past.</li>
+      <li>Get an elopement plan into the IEP, with staff responsibilities named. Schools are where a meaningful share of incidents happen.</li>
+    </ul>
+    <h4>Write the plan before you need it</h4>
+    <ul>
+      <li><strong>Call 911 immediately.</strong> Do not search for twenty minutes first. Say the child has autism or another disability, may not answer to their name, may hide, and may be drawn to water.</li>
+      <li><strong>Send someone to water first</strong> — every pond, pool, ditch, and stream within a half mile — while others search the house, including under beds, inside cupboards, behind furniture, and in vehicles.</li>
+      <li>Keep a current photo on your phone and a written description of what they were wearing that morning. Take one every day if that's what it takes.</li>
+      <li>Have the first responder profile ready to hand over rather than explaining under pressure.</li>
+    </ul>
+  </div>
+
+  <div class="warn">
+    <h3>The response that makes it worse</h3>
+    <p>Punishing a child for leaving does not reduce elopement, and it teaches them to hide better and to avoid being found. Treat it as a safety engineering problem and a communication problem, not a discipline problem. If a child is running from something, the useful question is what they were running from.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Emergency responders</h2>
+  <p class="secnote">The behaviors that come naturally to many people with disabilities — not answering, not making eye contact, moving suddenly, repeating a phrase, walking away — read to an untrained responder as evasion, intoxication, or non-compliance. The fix is preparation, done in advance, by you.</p>
+
+  <div class="cardwrap">
+    <div class="pcard">
+      <div class="ph"><b>EMERGENCY RESPONDER PROFILE</b><br>Keep on the fridge · glovebox · school office</div>
+      <div class="fl"><span class="k">Name · age · photo attached</span> ____________________</div>
+      <div class="fl"><span class="k">Diagnosis and what it means practically</span> ____________________</div>
+      <div class="hot"><span class="k">Critical</span>
+        May not respond to name · may not follow spoken commands ·<br>
+        may run, hide, or go silent · may not feel or report pain ·<br>
+        <b>IS DRAWN TO WATER — SEARCH WATER FIRST</b></div>
+      <div class="fl"><span class="k">How I communicate</span> Device / signs / few words / none<br>My device is: ____________________</div>
+      <div class="fl"><span class="k">What calms me</span> ____________________</div>
+      <div class="fl"><span class="k">What escalates me</span> Sirens · touch · shouting · crowding ·<br>bright lights · being surrounded</div>
+      <div class="dash"></div>
+      <div class="fl"><span class="k">Places I go</span> ____________________</div>
+      <div class="fl"><span class="k">Medical — conditions, medications, allergies</span> ____________________</div>
+      <div class="fl"><span class="k">Contacts, in order</span> ____________________</div>
+    </div>
+
+    <div>
+      <h3 class="sub">Do this before anything happens</h3>
+      <ul>
+        <li><strong>Take the profile to your local police and fire station in person.</strong> Ask whether they keep a voluntary registry or a premises flag for the address — many do, and almost no families know to ask.</li>
+        <li><strong>Ask whether officers receive crisis intervention or disability response training,</strong> and who to request by name if there's an incident.</li>
+        <li><strong>Add the information to your address in the 911 system</strong> if your area supports it. Ask the non-emergency line how.</li>
+        <li><strong>Practice what you'll say to dispatch.</strong> Lead with the disability and the water risk — not with the child's name.</li>
+      </ul>
+      <h3 class="sub">Worth thinking about carefully</h3>
+      <p>Car decals and visible identification are genuinely debated. They help a responder understand quickly; they also mark a vulnerable person to everyone else who sees them, permanently, without that person's consent. There isn't one right answer, and it's worth revisiting as your child gets old enough to have a view. Where you can, ask them.</p>
+      <p>Teaching a child what to do when approached — hands visible, stay still, say a phrase — has limited reach for many children, and none at all in the moments that matter most. Put the weight on the system knowing about your child in advance, not on your child performing correctly under stress.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Body autonomy and protection from abuse</h2>
+  <p class="secnote">Children with disabilities are abused at several times the rate of other children. The reasons are structural rather than mysterious, and most of them are things we can change.</p>
+
+  <div class="risk">
+    <h3>Why the risk is higher — and what that tells us to do</h3>
+    <p class="stat">More caregivers · More compliance training · Less believed</p>
+    <p>Children with disabilities typically have more adults handling their bodies, more intimate care from more people, and more instruction to cooperate with adults. Many are explicitly taught, across years of therapy and school, that complying with adult requests earns approval. A child trained to be compliant has been trained out of the exact instinct that protects them.</p>
+    <p>They are also less likely to be able to report, and less likely to be believed when they do — behavior change gets attributed to the disability rather than investigated as a sign. That last one is the piece adults control completely.</p>
+    <h4>What actually protects children</h4>
+    <ul>
+      <li><strong>Teach correct anatomical names for body parts,</strong> from young. Children who have words are more likely to disclose, and disclosures using real words are taken more seriously.</li>
+      <li><strong>Honour refusal at home, first and consistently.</strong> Stop tickling when they say stop. Never force hugs or kisses, including with relatives. A child whose no is respected at home learns their no has force.</li>
+      <li><strong>Teach the difference between a surprise and a secret.</strong> Surprises are fun and get told eventually. Secrets that are meant to be kept forever, especially by an adult, are the warning sign. Nobody should ask a child to keep a secret from their parents.</li>
+      <li><strong>Name three trusted adults</strong> and teach: keep telling until someone listens. The single most common feature of prolonged abuse is a child who told once and wasn't heard.</li>
+      <li><strong>Narrate and ask permission during personal care,</strong> every time, even with a child who can't answer. It models what respectful care feels like, which is how a child recognizes care that isn't.</li>
+      <li><strong>Set rules for how care happens:</strong> who provides intimate care, in what settings, with what visibility. Be wary of any adult who seeks time alone with your child, gives gifts, or builds a special relationship that excludes you.</li>
+      <li><strong>Vet caregivers properly</strong> — references actually called, background checks, unannounced visits, and a child who knows they can tell you anything about anyone.</li>
+      <li><strong>Investigate behavior change.</strong> New fear of a person or place, regression, sleep changes, new sexualised behavior, or refusing a previously fine activity are signals, not symptoms of the diagnosis.</li>
+    </ul>
+  </div>
+
+  <div class="note">
+    <h3>The AAC point that matters most on this page</h3>
+    <p>A communication device that can only request things cannot report harm. Check right now whether your child's system contains — accessible in a few taps, not buried — the vocabulary to refuse, to object, and to describe.</p>
+    <div class="words">
+      <div class="word"><b>No</b>and stop</div>
+      <div class="word"><b>I don't like it</b>and don't do that</div>
+      <div class="word"><b>Hurt</b>and where it hurts</div>
+      <div class="word"><b>Help</b>and I need someone</div>
+      <div class="word"><b>Scared</b>and other feelings</div>
+      <div class="word"><b>Body parts</b>correct names</div>
+      <div class="word"><b>Go away</b>and leave me alone</div>
+      <div class="word"><b>Tell mom</b>naming people</div>
+    </div>
+    <p>Then teach it, model it, and — the hard part — <strong>honour it when your child uses it on you.</strong> A refusal that gets overridden every time teaches a child that the button does nothing. Ask your SLP to build this out explicitly; refusal and body vocabulary are missing from a great many device setups because nobody thought to ask for them.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">At home</h2>
+  <div class="risk">
+    <h3>Fire, and the child who hides</h3>
+    <p class="stat">Many children hide from alarms and won't answer a firefighter</p>
+    <p>The standard advice — get out, meet at the tree, call for help — assumes a child who responds to alarms, tolerates chaos, and answers strangers in masks. Many won't.</p>
+    <ul>
+      <li>Tell your fire department in advance which room the child sleeps in and that they may hide. Ask them to note it on the address.</li>
+      <li>Practice with the alarm actually sounding, in short doses, until it's familiar rather than terrifying. Consider alarms with a recorded parent voice, which children respond to better than tones.</li>
+      <li>Show your child what a firefighter in full gear and mask looks and sounds like — many fire stations will arrange this, and it removes a genuine source of hiding.</li>
+      <li>Practice the route repeatedly, including at night, including from asleep.</li>
+      <li>Consider a bedroom door sign for responders and a window sticker, weighing the same privacy trade-off as elsewhere on this page.</li>
+    </ul>
+    <h4>The rest of the house</h4>
+    <ul>
+      <li>Medications, cleaning products, and anything a child might mouth locked away — not high up, locked. Include visitors' handbags and grandparents' pill organizers.</li>
+      <li>If your child mouths or eats non-food items, tell the pediatrician; it has medical causes worth checking, including low iron.</li>
+      <li>Window falls: stops or guards on any upstairs window, and furniture moved away from windows. Screens do not hold a child.</li>
+      <li>Furniture and televisions anchored to walls.</li>
+      <li>Hot water thermostat turned down; supervise baths regardless of age if seizures or mobility are a factor.</li>
+      <li>Cords, blind pulls, and small items assessed at your own child's actual developmental stage rather than their age.</li>
+    </ul>
+  </div>
+
+  <div class="risk">
+    <h3>Safety beds and enclosed sleep systems</h3>
+    <p class="stat">For night-time elopement · falls · seizures · night-time self-injury</p>
+    <p>An enclosed safety bed is a purpose-built sleep system with padded or mesh sides, a zippered or latched canopy, and a solid frame. For some families it is the difference between a household that sleeps and a household where one adult stays awake in shifts — and for children who leave the house at night, it addresses the highest-stakes version of elopement, the one where nobody is awake to notice.</p>
+    <p>It is also, honestly, a restrictive intervention. A person cannot get out of it on their own. That doesn't make it wrong — being awake and safe is a genuine good, and so is a family that isn't running on two hours of sleep — but it does mean it deserves a real decision rather than a purchase.</p>
+
+    <h4>Questions worth answering before you buy</h4>
+    <ul>
+      <li><strong>What exactly is the risk?</strong> Leaving the house at night, falling, injuring themselves, seizure safety, or wandering within the house? Different risks have different least-restrictive answers, and some don't need an enclosure at all.</li>
+      <li><strong>What have we tried?</strong> Door and window alarms, a floor mattress in a fully safety-proofed room, a video or audio monitor, a bed sensor pad, and treating the underlying sleep problem. A child who isn't sleeping usually has a reason — apnea, restless legs, low iron, pain, constipation, anxiety — and fixing that is better than containing the consequences.</li>
+      <li><strong>Would we still use it if we weren't exhausted?</strong> An honest question, asked kindly. Exhaustion is a legitimate factor in family wellbeing, and it is not by itself a safety justification. Both things are true.</li>
+      <li><strong>What's the plan for reducing it?</strong> Write down what would need to change for this to become unnecessary, and revisit annually rather than letting it become permanent by default.</li>
+    </ul>
+
+    <h4>Non-negotiable safety points</h4>
+    <ul>
+      <li><strong>Never improvise an enclosure.</strong> Homemade nets, tents over cots, zip-tied panels, and standard adult bed rails added to a child's bed have caused entrapment, strangulation, and asphyxiation deaths. Gaps between a rail and a mattress are the specific hazard. Use equipment designed and tested for this purpose, or don't enclose.</li>
+      <li><strong>You must be able to open it in seconds, in the dark, half asleep.</strong> Practice it. Every adult in the house, including occasional caregivers, should be able to do it without thinking.</li>
+      <li><strong>Tell the fire department</strong> that a child sleeps in an enclosed bed and cannot exit unaided, and which room. Add it to your responder profile. This is exactly the situation the earlier fire section is about.</li>
+      <li>Check for breathable panels, no entrapment gaps, padded rigid edges, flammability standards, and a clear view in.</li>
+      <li>Reassess fit as your child grows — an outgrown enclosure is an entrapment risk rather than a safeguard.</li>
+    </ul>
+
+    <h4>Making it something your child accepts</h4>
+    <ul>
+      <li>Introduce it in daylight, open, with no pressure — as a den or a fort before it's ever a closed space.</li>
+      <li>Let them choose the bedding, the lighting, what goes in there. Ownership matters.</li>
+      <li><strong>Never use it as punishment, for time-out, or during waking hours to contain behavior.</strong> That is a different intervention entirely, and it turns a safe sleep space into a place they're sent when adults are angry.</li>
+      <li>Involve your child in the decision to whatever degree they can participate, and keep asking as they get older. At some point the answer should become partly theirs.</li>
+    </ul>
+
+    <h4>Paying for it</h4>
+    <ul>
+      <li>These typically run into thousands of dollars, and a first insurance denial is close to standard. Appeal — many are overturned.</li>
+      <li>You need a letter of medical necessity from a physician, usually alongside an occupational or physical therapy evaluation. The winning argument is documented safety risk and prevention of injury or out-of-home placement, not sleep quality.</li>
+      <li>Bring evidence: dated elopement incidents, injuries, ER visits, seizure history, and what less restrictive measures you tried and what happened.</li>
+      <li>Other routes: state developmental disability agency, Medicaid waiver equipment funding, and disability foundation grants. Manufacturers often have staff who help with funding paperwork — ask them before you start.</li>
+      <li>Ask about travel or portable versions if your family stays elsewhere; the risk doesn't stay home.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Equipment, and how it fails</h2>
+  <p class="secnote">Adaptive equipment prevents a great deal of harm. It also causes harm when it's the wrong size, badly fitted, used without supervision, or bought from a catalogue without a therapist involved. Fit is a safety issue, not a comfort issue.</p>
+
+  <div class="risk">
+    <h3>Specialty and adaptive strollers</h3>
+    <p class="stat">Containment · Fatigue · Regulation · Not babying</p>
+    <p>An adaptive stroller — a supportive stroller sized for an older or larger child — solves a problem that has no other good answer: a child who <em>can</em> walk but cannot be safely walked. That includes children who bolt, children who fatigue after a couple hundred yards, children who become dysregulated in crowds, and children whose safety awareness doesn't yet match their legs.</p>
+    <p>Families using one are told they're babying their child, sometimes by strangers and sometimes by relatives. It's worth saying plainly: a stroller that lets a child be somewhere safely is expanding their world, not shrinking it. Walking is not the goal. Participating is.</p>
+    <h4>Getting it right</h4>
+    <ul>
+      <li><strong>Have an OT or PT involved in choosing it.</strong> Postural support, seat width and depth, footplate height, and trunk and head support all affect the body over years. A poorly fitted seat creates the problems it was meant to prevent.</li>
+      <li><strong>A harness the child cannot release themselves,</strong> if elopement is the reason you're using it — the whole point fails otherwise.</li>
+      <li><strong>Don't hang bags on the handles.</strong> Rear tipping with a heavy child is sudden and hard to catch.</li>
+      <li><strong>Brakes on every single stop,</strong> including flat ground and including for ten seconds.</li>
+      <li><strong>Watch heat.</strong> A child who can't move, remove a cover, or tell you they're overheating is at real risk. Covers over the canopy trap heat badly.</li>
+      <li><strong>Most strollers are not crash-tested for use as a vehicle seat.</strong> Unless the model is specifically certified for transport, the child transfers to a proper car seat every time.</li>
+      <li><strong>Re-measure annually.</strong> Outgrown equipment is unsafe equipment.</li>
+    </ul>
+    <h4>Funding tip</h4>
+    <p>Insurers routinely deny anything described as a stroller, because that reads as a convenience item. The same equipment described as an <em>adaptive positioning device</em> or <em>mobility base</em>, with a letter of medical necessity documenting postural need, fatigue, or safety risk, is much more likely to be approved. Have the therapist write it in those terms from the start.</p>
+    <h4>As they get older</h4>
+    <p>At some point the choice between a stroller and a wheelchair becomes partly about identity and independence, not only about function. Bring your child into that decision as soon as they can hold a view, and let them choose the color whatever their age.</p>
+  </div>
+
+  <div class="risk">
+    <h3>Adaptive seating and feeding chairs</h3>
+    <p class="stat">Posture is a swallowing safety issue</p>
+    <p>This one is under-appreciated: <strong>a child who is fighting gravity cannot eat safely or use their hands well.</strong> Postural stability comes before feeding skill and before fine motor skill, and an unstable child spends all their effort staying upright.</p>
+    <h4>What good positioning looks like</h4>
+    <ul>
+      <li><strong>Hips, knees, and ankles at roughly ninety degrees, with feet fully supported.</strong> Dangling feet is one of the most common and most easily fixed feeding problems in any household — a footrest or even a stack of books under the feet changes intake for some children.</li>
+      <li>Trunk supported, hips back in the seat, head in midline.</li>
+      <li><strong>Chin slightly tucked, never extended back.</strong> Head extension opens the airway in exactly the wrong way and increases aspiration risk.</li>
+      <li>The tray is not a restraint. The harness is the restraint, and it should be used every time.</li>
+    </ul>
+    <h4>Safety points people miss</h4>
+    <ul>
+      <li><strong>You must be able to release the harness in seconds during a choking emergency.</strong> Practice it. A harness that's fiddly is a hazard at the exact moment it matters.</li>
+      <li>Never leave a child unattended in a seat with a harness, at any age.</li>
+      <li>Check anti-tip stability, and check it again on your actual floor surface.</li>
+      <li>Skin checks where straps and supports sit, especially for children who don't report discomfort.</li>
+      <li>Have an OT or a feeding-trained SLP involved in selection. This is not a catalogue decision.</li>
+    </ul>
+  </div>
+
+  <div class="risk">
+    <h3>Other equipment worth thinking twice about</h3>
+    <ul>
+      <li><strong>Weighted blankets.</strong> Widely used and genuinely calming for many. The rule that matters: <strong>a child must be able to remove it independently.</strong> Deaths have occurred where a child could not. Not for infants or toddlers, never over the head, and follow the manufacturer's weight guidance rather than a rule of thumb from the internet.</li>
+      <li><strong>Bath seats and rings.</strong> The documented hazard is not the seat — it's the false confidence. They tip, and a child can slip beneath. Never a reason to leave the bathroom, not even briefly.</li>
+      <li><strong>Standers, gait trainers, and walkers.</strong> Fit and supervision are everything, and tolerance times should be built up gradually on a therapist's schedule rather than pushed.</li>
+      <li><strong>Protective helmets</strong> for seizures or head-directed self-injury: get fitted properly, check skin and heat, and reassess the need regularly rather than defaulting to permanent use.</li>
+      <li><strong>Secondhand equipment.</strong> Enormously helpful for costs, and worth checking for recalls, missing parts, damaged straps, and — for anything with an expiry date, especially car seats — whether it's still in date. Never buy a used car seat with an unknown history.</li>
+    </ul>
+    <p><strong>The general rule:</strong> equipment is a layer, and like every layer it fails. It fails when it's outgrown, when the harness isn't done up because you're in a hurry, when someone unfamiliar uses it wrongly, and when nobody has re-measured in two years. Put an annual equipment review on the calendar alongside the safety review.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Out in the world</h2>
+  <div class="risk">
+    <h3>Roads, parking lots, and getting separated</h3>
+    <ul>
+      <li><strong>Parking lots are where near-misses happen.</strong> Establish one rule that never varies — hand on the car, or hand held, from door to door. Same rule every time, so it holds when you're distracted.</li>
+      <li><strong>Never let a child move behind a car in a driveway,</strong> and check behind your own vehicle physically before reversing.</li>
+      <li><strong>Teach road crossing in real conditions, repeatedly, over years.</strong> A child who can recite the rule cannot necessarily apply it while excited, and knowing is not the same as doing.</li>
+      <li><strong>Have a plan for separation in a store:</strong> stay where you are, or go to a checkout. Teach it, practice it, and photograph your child at the start of any big outing so you have today's clothes on your phone.</li>
+      <li><strong>For non-speaking children, a card in a pocket</strong> saying who they are and who to call.</li>
+      <li><strong>Bus and transport:</strong> ask who supervises loading and unloading, and get it written into the IEP if that's where the risk sits.</li>
+    </ul>
+  </div>
+
+  <div class="risk">
+    <h3>Car seats, and the child who unbuckles</h3>
+    <p class="stat">A real danger · With a real trade-off on the other side</p>
+    <p>A child who releases their harness at speed is in immediate life-threatening danger, and a parent driving alone cannot fix it from the front seat. The impulse to add a buckle guard, chest clip cover, or similar device is entirely understandable.</p>
+    <p>Here is the honest problem with them. <strong>Anything that makes a harness harder for a child to release also makes it harder for a rescuer to release.</strong> After a crash, in a fire, or in water, the margin is seconds. Most of these devices are aftermarket products that were never crash-tested with your seat, and adding unapproved parts can void a car seat's certification and change how it performs in a collision.</p>
+    <p>That doesn't mean never. It means work through the alternatives first, and if you do use one, do it with your eyes open and with a plan.</p>
+
+    <h4>Work through these first</h4>
+    <ul>
+      <li><strong>Ask why they're unbuckling.</strong> Boredom, a strap rubbing, heat, a seam, needing the bathroom, wanting attention, or escaping a journey they hate. Sensory discomfort is the most commonly missed cause and often the most fixable.</li>
+      <li><strong>Check the fit.</strong> Straps too tight, too loose, or rubbing at the neck produce fiddling that turns into unbuckling.</li>
+      <li><strong>See a child passenger safety technician with special needs training.</strong> This is a real credential, consultations are often free through hospitals, fire departments, and safety programs, and it is by a wide margin the best first call. Most families have never heard of it.</li>
+      <li><strong>Consider a properly certified special needs restraint.</strong> Car seats with higher weight and height limits, harnesses genuinely difficult for a child to release, and crash-tested vehicle harness vests all exist and are tested as complete systems. A certified restraint designed for this is always safer than a standard seat with something added to it.</li>
+      <li><strong>Change the journey.</strong> Preferred music, a job to do, a visual of where you're going and how long, a preferred item only available in the car, sitting where they can see you, or a second adult for the hardest trips.</li>
+    </ul>
+
+    <h4>If you do use a buckle guard</h4>
+    <ul>
+      <li><strong>Read your car seat manual.</strong> Manufacturers state what may and may not be added. Anything altering the harness path or introducing padding between child and harness is out.</li>
+      <li><strong>Keep a seatbelt cutter and window breaker within the driver's reach</strong> — mounted, not in the glovebox — and make sure every adult who drives your child knows where it is and has handled it.</li>
+      <li><strong>Practice the release.</strong> Every driver, until it's automatic and doable without looking.</li>
+      <li><strong>Tell first responders it's there.</strong> Put it on the emergency responder profile, and consider a note visible from the window. A responder who knows to expect a guard loses no time finding it.</li>
+      <li><strong>Review it periodically.</strong> This is a temporary measure while you solve the underlying problem, not a permanent fixture. Ask each year whether it's still needed.</li>
+    </ul>
+
+    <h4>The other direction: getting out</h4>
+    <ul>
+      <li><strong>Child locks on every rear door, every journey,</strong> and window locks engaged. A child who opens a door at a junction or in a parking lot is the same risk running the other way.</li>
+      <li>Have a rule for exiting the car that never varies — nobody moves until an adult opens the door, hand on the car from door to door.</li>
+      <li><strong>Check vehicles when a child is missing.</strong> Children hide and fall asleep in cars, including in a neighbor's, and cars heat lethally fast. Search them early, and keep vehicles locked so a child can't get in unnoticed.</li>
+      <li><strong>Consider a disabled parking permit</strong> if bolting in parking lots is a risk. Less time crossing a lot is less exposure in the most dangerous environment most families enter daily — see the <a href="adaptive-community.html">community page</a> for how to apply when walking distance isn't the reason.</li>
+    </ul>
+  </div>
+
+  <div class="risk">
+    <h3>Emergencies and evacuation</h3>
+    <ul>
+      <li>A go-bag with medications, a copy of the medication list, the AAC device and its charger, comfort items, headphones, safe foods, and copies of key documents.</li>
+      <li>If any equipment needs power, contact your utility about a medical priority register and plan for outages before one happens.</li>
+      <li>Ask whether your area keeps a voluntary registry of residents needing evacuation assistance.</li>
+      <li>Think through what evacuation looks like for a child who cannot transition quickly, and what you'd need in the car already.</li>
+    </ul>
+  </div>
+
+  <div class="risk">
+    <h3>Online, as they get older</h3>
+    <ul>
+      <li>Social difficulty translates online into over-trusting, over-sharing, and being an easier target for grooming and financial exploitation.</li>
+      <li>Teach concretely rather than abstractly: never send a photo, never share where you live or go to school, tell me if anyone asks you to keep something secret.</li>
+      <li>Keep devices in shared spaces for as long as is reasonable, and keep talking rather than only monitoring.</li>
+      <li>Make it explicit that they will never be in trouble for telling you about something that happened online. Fear of losing the device is why young people don't disclose.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Teaching safety, honestly</h2>
+  <p class="secnote">Safety instruction is worth doing and is the least reliable of the layers. Holding both of those at once is what keeps a child safe.</p>
+  <ul>
+    <li><strong>Environment first, teaching second.</strong> Change what you can control before you rely on what a child does under pressure. Skills fail exactly when they're most needed — when a child is dysregulated, excited, frightened, or somewhere unfamiliar.</li>
+    <li><strong>Teach in the real place.</strong> Safety skills generalize poorly, so practice at the actual road, the actual pool, the actual parking lot.</li>
+    <li><strong>Rehearse rather than explain.</strong> A rule stated once is not a skill. Repetition over years, in short doses, in calm moments.</li>
+    <li><strong>Test before you trust.</strong> Before removing a layer, check whether the skill holds when your child is tired and distracted, not when they're calm and being observed.</li>
+    <li><strong>Grant independence deliberately and in stages,</strong> with an honest assessment each time rather than by age or by what other families do.</li>
+    <li><strong>Include your child in their own safety planning</strong> as soon as they can contribute anything. A young person who understands their own risks is safer than one who has merely been contained, and eventually the plan has to become theirs.</li>
+    <li><strong>Review annually.</strong> Children change, get taller, get faster, learn to open the lock. What worked last year is not automatically working now.</li>
+  </ul>
+
+  <div class="warn">
+    <h3>And this, which belongs on a safety page</h3>
+    <p>If something has already happened — a close call, an escape, an injury, an incident with a caregiver — you are not a bad parent. Every experienced family has a story that still makes their stomach drop. The families who prevent the next one are the ones who look at what failed and add a layer, rather than the ones who never had anything go wrong.</p>
+  </div>
+</section>
+
+
+<div class="closenote"><b>Before you close this</b><p>This page is not meant to make you afraid of your own house. Read it once, add a single layer this week, and put a note in next year's calendar to look again.</p><p>The families who prevent the next incident are the ones who sat down and looked honestly at what could fail. You just did the looking — that is the part most people never get to.</p></div>
+
+<footer>
+  <p><strong>This is a map, not a substitute for professional safety advice or emergency services.</strong> Equipment standards, local programs, and registries vary; check with your own fire department, police department, and pediatrician. If a child is missing right now, stop reading and call emergency services.</p>
+  <p>Layers reduce risk; they don't eliminate it. Every experienced family has a story that still makes their stomach drop — and they are still the people their children rely on.</p>
+</footer>
+
+</div>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>

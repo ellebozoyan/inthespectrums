@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Accommodations Finder — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5; --paper:#FFFDF8;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 22px;font-size:1.04rem}
+header.masthead{padding:50px 0 10px}
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:17px 20px;margin:0 0 24px;
+  font-size:.95rem;max-width:70ch}
+.note strong{color:var(--rust)}
+#search{font-family:var(--sans);font-size:15px;padding:12px 16px;width:min(400px,100%);
+  border:1px solid var(--line);border-radius:2px;background:var(--card);color:var(--ink)}
+#search:focus{outline:2px solid var(--rust);outline-offset:1px;border-color:transparent}
+.pills{display:flex;gap:7px;flex-wrap:wrap;margin:14px 0 8px}
+.pill{font-family:var(--sans);font-size:12px;padding:7px 13px;border-radius:2px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink-soft);cursor:pointer}
+.pill:hover{border-color:var(--rust);color:var(--rust)}
+.pill.on{background:var(--forest);border-color:var(--forest);color:#fff}
+.pill:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+#count{font-family:var(--sans);font-size:12.5px;color:var(--ink-soft);margin:0 0 22px}
+
+.item{background:var(--card);border:1px solid var(--line);border-radius:2px;margin-bottom:11px;
+  overflow:hidden}
+.head{width:100%;text-align:left;background:none;border:none;padding:17px 19px;cursor:pointer;
+  font-family:var(--serif);color:var(--ink);display:flex;gap:12px;align-items:baseline}
+.head:hover{background:#F5F7F4}
+.head:focus-visible{outline:2px solid var(--rust);outline-offset:-2px}
+.diff{font-size:1.03rem;line-height:1.3;margin:0;flex:1}
+.cat{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;flex:0 0 auto}
+.chev{font-family:var(--sans);font-size:13px;color:var(--rust);flex:0 0 auto}
+.body{padding:0 19px 19px;border-top:1px solid var(--line);margin-top:-1px}
+.body h4{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:17px 0 8px}
+.body p{font-size:.95rem;margin:0 0 10px}
+.body ul{padding-left:19px;margin:0 0 8px;font-size:.94rem}
+.body li{margin-bottom:6px}
+.lang{background:var(--paper);border:1px solid #CBC6B8;border-radius:2px;padding:14px 16px;
+  font-family:var(--mono);font-size:12.5px;line-height:1.6;color:#2A2A26;margin:0 0 9px;
+  white-space:pre-wrap}
+.copy{font-family:var(--sans);font-size:11.5px;background:none;border:1px solid var(--line);
+  border-radius:2px;padding:6px 12px;cursor:pointer;color:var(--ink-soft)}
+.copy:hover{border-color:var(--rust);color:var(--rust)}
+.copy:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+.empty{font-style:italic;color:var(--ink-soft);padding:30px 0}
+.hidden{display:none!important}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:24px 0 60px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+@media print{.pills,#search,#count,.copy{display:none}.body{display:block!important}
+  body{background:#fff;font-size:10.5pt}.item{break-inside:avoid;border-color:#999}}
+
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style id="spectrums-skin">
+:root{
+  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
+  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
+  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
+  --song:#8A7A45; --song-tint:#F3EEE0;
+  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
+h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
+h1{font-weight:500}
+h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
+.pull,.said,.q,.say{font-style:italic}
+.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
+.lede,.secnote,.thesis,p{text-wrap:pretty}
+.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
+a{color:var(--rust)}
+a:hover{color:#23211E}
+code,kbd,samp,.mono{font-family:var(--mono)}
+
+/* shared chrome */
+.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
+.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
+.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
+.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
+.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
+.spx-links a:hover{opacity:1;color:#23211E}
+.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
+.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
+.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
+.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
+  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
+.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
+.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
+.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
+.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
+.spx-foot a{color:#EDE9DF;text-decoration:none}
+.spx-foot a:hover{color:#A9A296}
+.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
+.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
+@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
+@media print{.spx-nav,.spx-foot{display:none}}
+</style>
+</head>
+<body>
+<div class="spx-rainbow"></div>
+<nav class="spx-nav">
+  <a class="spx-mark" href="index.html">In the Spectrums</a>
+  <div class="spx-links">
+    <a href="what-to-do-first.html">Start here</a>
+    <a href="care-team-map.html">Care team</a>
+    <a href="conditions-library.html">Conditions</a>
+    <a href="inside-the-iep.html">School</a>
+    <a href="safety.html">Safety</a>
+    <a href="maplewood-stories.html">Stories</a>
+    <a href="about.html">About</a>
+    <a class="spx-pill" href="mockup.html#contact">Contact</a>
+  </div>
+</nav>
+<div class="wrap">
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>The accommodations finder:<br><em>start with the difficulty, not the diagnosis</em></h1>
+  <p class="lede">Most accommodation lists are organized by label, which is no help when you're sitting in a meeting knowing what's wrong but not what to call it. This one starts where you start — with what you actually see — and gives you language you can ask for word for word.</p>
+  <div class="note"><strong>Two things before you use it.</strong> Ask for a small number of accommodations that will actually be delivered rather than a long list that won't. And say the phrase out loud in the meeting — specific wording is what gets written into the document, and what's written is what's enforceable.</div>
+  <input id="search" type="search" placeholder="Search what you're seeing — pencil, noise, reading, bathroom, transitions" aria-label="Search difficulties">
+  <div class="pills" id="pills"></div>
+  <p id="count"></p>
+</header>
+
+<div class="profnote"><b>Reading this as a teacher or therapist</b><p>Everything here can be proposed by anyone at the table. What differs is weight: a written parent request starts formal timelines and creates an obligation to respond, while a professional's suggestion is advice the team can take or leave.</p><p>Which makes the fastest route counterintuitive — handing a family the exact phrase, so they can ask for it in writing, often achieves more than raising it yourself.</p></div>
+<main id="list"></main>
+
+<div class="closenote"><b>One last thing</b><p>You already know what is hard for your child. That was always the difficult part, and you have had it all along.</p><p>This page only exists to hand you the words — and words can be borrowed. Take three, ask for them clearly, and see what happens.</p></div>
+
+<footer>
+  <p><strong>This is a map, not legal advice.</strong> Whether a given support belongs in an IEP, a 504 plan, or a health plan depends on your child and your state. Your state's parent training and information center gives free local guidance.</p>
+  <p>Adapt every phrase to your own child. A specific accommodation that names your child's actual situation always beats a generic one copied from a list.</p>
+</footer>
+</div>
+<script>
+const CATS=[{id:"write",l:"Writing & recording"},{id:"read",l:"Reading & instruction"},
+ {id:"sens",l:"Sensory & environment"},{id:"reg",l:"Regulation & behavior"},
+ {id:"comm",l:"Communication"},{id:"body",l:"Body, movement & medical"},
+ {id:"exec",l:"Organization & attention"},{id:"test",l:"Tests & assessment"},
+ {id:"soc",l:"Social & unstructured time"}];
+const A=[
+{c:"write",d:"My child can't hold a pencil for more than a few minutes without pain or fatigue",
+why:"Handwriting is a motor task. When it's effortful, all the working memory goes into forming letters and none is left for the ideas — so written work looks far below what the child actually knows.",
+ask:["Separate the content from the handwriting wherever the goal isn't handwriting itself","Reduce the volume of writing rather than the difficulty of the thinking","Get a keyboarding or speech-to-text plan started early rather than after years of struggle"],
+lang:"Student will not be required to copy from the board or from a textbook. Notes, worksheets, and problem sets will be provided pre-printed.\n\nFor any assignment where handwriting is not the skill being assessed, Student may respond using a keyboard, speech-to-text, a scribe, or oral answers, at Student's choice.\n\nWritten output expectations will be reduced by [half] compared to peers, with the same content expectations maintained.\n\nStudent will receive explicit keyboarding instruction as a related service."},
+
+{c:"write",d:"My child knows the answer but what they write down is a fraction of what they know",
+why:"The gap between spoken and written expression is one of the most common and most missed patterns. It is not laziness and it is not a comprehension problem — it's a bottleneck at output.",
+ask:["Alternative ways to demonstrate knowledge","Assessment of the gap so it's documented rather than argued about","Grading that separates content from mechanics"],
+lang:"Student may demonstrate knowledge through oral response, recorded audio or video, diagram, demonstration, or a project in place of written work, at Student's choice, unless writing is the skill being assessed.\n\nWritten work will be graded for content only. Spelling, punctuation, and handwriting will be graded separately or not at all, except in assignments explicitly assessing those skills.\n\nStudent will be provided with graphic organizers, sentence starters, and outlines for all extended writing tasks."},
+
+{c:"read",d:"Reading is slow and exhausting, and they fall behind in every subject because of it",
+why:"When decoding takes all the effort, comprehension suffers, and a child falls behind in history and science for reasons that have nothing to do with history or science.",
+ask:["Access to grade-level content through a channel that isn't print","Structured literacy instruction running alongside — accommodation is not a substitute for teaching reading","Time adjustments that acknowledge how much longer the same task takes"],
+lang:"All grade-level text will be made available in audio format, including textbooks, novels, worksheets, and test items, provided at the same time as it is given to peers.\n\nStudent will have access to text-to-speech software on all school devices and instruction in using it independently.\n\nStudent will receive [X] minutes per week of explicit, systematic, multisensory reading instruction delivered by a trained provider.\n\nReading assignments will be reduced in length while maintaining content, or provided in advance to allow additional time."},
+
+{c:"read",d:"They can read the words but don't seem to take in what the text or the teacher said",
+why:"Decoding and comprehension are separate skills, and so are hearing speech and processing it. A child who reads aloud fluently may be understanding very little of it.",
+ask:["Preteaching so new vocabulary isn't encountered cold","Visual and written backup for spoken instruction","Comprehension checked by asking for a summary, not by asking whether they understood"],
+lang:"Key vocabulary and concepts will be pre-taught before each new unit.\n\nAll multi-step spoken directions will also be provided in writing or visually, and broken into single steps.\n\nStaff will check comprehension by asking Student to restate the task in their own words rather than by asking whether Student understands.\n\nStudent will be given processing time of at least [X] seconds after a question before the question is repeated or rephrased."},
+
+{c:"sens",d:"Noise in the classroom, cafeteria, or hallway is unbearable",
+why:"Sensory over-responsiveness is a nervous system difference, not a preference, and a child spending the day managing it has less capacity for everything else. This is one of the cheapest problems in school to solve.",
+ask:["Access to sound reduction that the child controls","Advance warning of predictably loud events","An exit route that doesn't require permission each time"],
+lang:"Student will have access to noise-reducing headphones or earplugs at all times, including in the cafeteria, assemblies, and hallway transitions, and may use them without requesting permission.\n\nStudent will be given advance notice of fire drills and assemblies where possible, and an alternative location for drills that cannot be pre-announced.\n\nStudent may eat lunch in an alternative quiet setting with a peer of their choosing.\n\nStudent may leave a loud environment and go to [named location] without seeking permission first."},
+
+{c:"sens",d:"Lighting, visual clutter, or busy displays make it hard for them to focus or see",
+why:"Visual environment affects both attention and, for children with brain-based visual impairment, actual access. A cluttered worksheet can be genuinely unreadable to a child whose eye exam is normal.",
+ask:["Reduced clutter in materials, not just in the room","Written specifications rather than general adjectives","Seating that accounts for glare and visual field"],
+lang:"Materials will be presented in [X] point [font] on a plain, uncluttered background with [color] on [color] contrast, with a maximum of [X] items per page.\n\nStudent's seating will avoid glare and backlighting, with a clear sightline to the primary instructional area.\n\nStudent will be allowed [X] seconds of additional viewing time when new visual material is presented before being asked to respond.\n\nClassroom displays in Student's immediate visual field will be minimized."},
+
+{c:"sens",d:"They can't sit still, or they need to move constantly",
+why:"Movement is often regulation rather than disruption. Requiring stillness usually costs more attention than it buys.",
+ask:["Movement built in proactively rather than granted after dysregulation","Flexible seating","Legitimate reasons to move that don't single the child out"],
+lang:"Student will have access to flexible seating options including [wobble stool / cushion / standing desk] and may change position without permission.\n\nStudent will be provided with movement opportunities at least every [X] minutes, scheduled proactively rather than in response to behavior.\n\nStudent will be given classroom jobs involving movement (delivering messages, handing out materials) as a regular part of the day.\n\nStudent will not have recess, PE, or movement breaks withheld as a consequence for behavior or incomplete work."},
+
+{c:"reg",d:"They hold it together all day at school and fall apart the moment they get home",
+why:"This is masking, and it is exhausting. The school sees a child who is coping; the family sees the bill. Because the school's evidence looks fine, families are often disbelieved — which is exactly why it must be documented.",
+ask:["Recognition that the absence of school difficulty is not the absence of difficulty","Regulation built into the day rather than offered after a crisis","Homework reduction, because there is no capacity left"],
+lang:"The team acknowledges that Student masks distress during the school day and that dysregulation occurs at home afterward. Parent report of after-school dysregulation will be treated as data about the school day.\n\nStudent will have [X] scheduled regulation breaks per day in [named location], provided proactively and not contingent on behavior or work completion.\n\nHomework will be limited to [X] minutes per night, and Student will not be penalised for incomplete homework.\n\nProgress will be measured with attention to sustainability across the full day, not only to in-class compliance."},
+
+{c:"reg",d:"Transitions and changes to routine cause meltdowns",
+why:"Difficulty is usually about not knowing what's coming, not about the activity itself. Predictability is the intervention.",
+ask:["Advance warning as standard practice, not as a courtesy","Visual schedules that live where the child can see them","A plan for unavoidable changes like substitute teachers"],
+lang:"Student will receive advance warning before all transitions, using [verbal countdown / timer / visual cue] at [X] and [X] minutes.\n\nA visual daily schedule will be available to Student at all times, and changes to it will be shown and explained in advance where possible.\n\nWhen a substitute teacher, assembly, schedule change, or fire drill is known in advance, Student will be told before the school day begins.\n\nStudent will be provided with a written or visual plan for any unfamiliar activity, trip, or event at least [X] days beforehand."},
+
+{c:"reg",d:"When they're overwhelmed, adults talking to them makes it worse",
+why:"A dysregulated nervous system cannot process language. Continuing to talk, reason, or issue instructions extends the episode. This needs to be written down because it is counterintuitive to most adults.",
+ask:["A written de-escalation plan with what NOT to do","One responder, not several","No consequences applied during dysregulation"],
+lang:"When Student is dysregulated, staff will reduce language to short phrases or silence, avoid direct questions, and allow physical space. Reasoning, instruction, and discussion will be deferred until Student is regulated.\n\nOnly one adult will communicate with Student during dysregulation. Additional staff will remain available but silent and at a distance.\n\nStudent will not be asked to explain, apologize, or process the incident until at least [X] minutes after full regulation, and preferably on a later day.\n\nRestraint and seclusion will not be used. Any incident will be reported to parents the same day in writing."},
+
+{c:"comm",d:"They use a communication device and it isn't with them, charged, or used by staff",
+why:"A device that isn't present is not a communication system. Device abandonment is caused by lack of staff training far more often than by the wrong device.",
+ask:["The device physically present in every setting including specials, lunch, playground, and the bus","Staff training as a written service, with a named person and a frequency","Modeling by adults, not just prompting the child to use it"],
+lang:"Student's speech-generating device will be within reach and charged during all school activities, including specials, lunch, recess, transitions, field trips, assemblies, and transport.\n\nAll staff working with Student will receive training in operating and modeling on the device, delivered by [SLP] for [X] minutes at the start of the year and [X] minutes per quarter thereafter.\n\nStaff will model language on the device throughout the day rather than only prompting Student to use it.\n\nStudent's device vocabulary will be reviewed and expanded at least [quarterly] to include commenting, refusing, asking questions, and social language, not only requesting."},
+
+{c:"comm",d:"They understand much more than they can say, and get treated as if they don't understand",
+why:"Comprehension is routinely estimated from speech, which produces systematic underestimation of nonspeaking and minimally speaking children. It affects the materials they're given, the topics they're taught, and how people talk in front of them.",
+ask:["Presumed competence written into the document","Age-appropriate content regardless of expressive language","Assessment methods that don't require speech"],
+lang:"Staff will presume competence. Student will be provided with age-appropriate and grade-level content and will be spoken to in age-appropriate language.\n\nStaff will not discuss Student's difficulties, behavior, or diagnosis in Student's presence.\n\nAssessment of Student's knowledge will use methods that do not require spoken response, including device use, eye gaze, multiple choice, and demonstration.\n\nStudent will be given [X] seconds of response time before a question is repeated, rephrased, or answered by an adult."},
+
+{c:"comm",d:"They can speak, but not when they're anxious or with unfamiliar people",
+why:"For selective mutism this is an anxiety response, not a choice, and pressure to speak reliably makes it worse. Well-meaning encouragement in front of a class is the most common way it gets entrenched.",
+ask:["Removal of speaking demands while a treatment plan builds toward speech","Alternative participation that counts","One bridge adult in a private setting"],
+lang:"Student will not be required to speak in front of the class, read aloud, or answer direct questions in group settings.\n\nStudent may demonstrate participation through writing, typing, gesture, a communication partner, or pre-recorded response, and these will count fully toward participation grades.\n\nOne designated staff member will work with Student individually in a low-pressure setting, following a stepwise plan developed with Student's treating clinician.\n\nStaff will not comment on Student's speech or silence, praise Student for speaking, or draw attention to it in front of peers."},
+
+{c:"body",d:"They need the bathroom urgently, frequently, or have accidents",
+why:"Bowel and bladder difficulty is common, medical, and humiliating to manage in a school system built around permission. The dignity cost of getting this wrong is very high.",
+ask:["Unrestricted access, with no permission required","Private facilities and a clean-up plan that doesn't expose the child","No academic penalty for time out of class"],
+lang:"Student will have unrestricted access to the bathroom at any time, without needing to request permission or use a pass in front of peers. A discreet non-verbal signal will be agreed with staff.\n\nStudent will have access to a private bathroom and a stored change of clothes.\n\nIf an accident occurs, staff will manage it discreetly and without comment, and will notify parents privately. Student will not be questioned or corrected about it.\n\nStudent will not be penalised academically for time out of class for toileting, and missed instruction will be provided."},
+
+{c:"body",d:"Eating is severely restricted, and lunch is a daily problem",
+why:"Restricted eating driven by sensory or anxiety factors is not a preference, and school pressure around food frequently causes children to eat nothing all day.",
+ask:["Permission for preferred foods with no comment from adults","Nutrition access separated from social eating","No encouragement, bargaining, or praise about food"],
+lang:"Student may bring and eat preferred foods from home. Staff will not comment on, encourage, restrict, bargain about, or praise Student's food choices.\n\nStudent may eat in [alternative setting] if the cafeteria environment prevents eating.\n\nStudent will have access to [named supplement or drink] during the school day, prepared according to the plan provided by parents.\n\nStudent will be given additional time to eat, and will not have eating time reduced for any reason."},
+
+{c:"body",d:"They fatigue quickly, or can't manage a full day",
+why:"Fatigue from chronic conditions, low tone, autonomic conditions, or the effort of processing is invisible and routinely read as poor motivation. Attendance policies punish it.",
+ask:["A schedule built around actual capacity","Attendance flexibility written in, so absence doesn't trigger truancy processes","Rest that isn't contingent on proving illness"],
+lang:"Student's schedule will be arranged to place the most demanding subjects at [time of day], with rest built in.\n\nStudent will have access to a rest space for [X] minutes as needed, without needing to demonstrate illness.\n\nAbsences and late arrivals related to Student's documented condition will be recorded as excused and will not trigger attendance or truancy procedures.\n\nStudent may attend a reduced schedule of [X] with instruction provided for missed content, and will not be penalised for work missed during documented flare periods."},
+
+{c:"body",d:"They have seizures, allergies, or another condition staff need to act on",
+why:"Emergency protocols fail when they live in a file nobody has read. They need to be attached to the plan, trained, and known by every adult including substitutes and bus drivers.",
+ask:["A written health plan attached to the IEP","Named trained staff and a coverage plan for their absence","Substitutes and transport staff briefed"],
+lang:"Student's individual health care plan is attached to and incorporated into this IEP.\n\nAt least [X] staff members in the building will be trained in Student's emergency protocol, including administration of [medication], with a documented plan for coverage when trained staff are absent.\n\nSubstitute teachers, transport staff, and staff supervising trips will be provided with Student's health plan before contact with Student.\n\nStudent's medication and equipment will accompany Student on all off-site activities, with a trained adult present."},
+
+{c:"exec",d:"They lose everything, forget assignments, and can't get started",
+why:"Executive function difficulty is a processing difference rather than a character flaw, and it does not respond to reminders to try harder. It responds to systems built outside the child's head.",
+ask:["Externalised organization rather than instruction to be organized","Task initiation support, which is a distinct problem from task completion","Direct communication of assignments to parents"],
+lang:"Assignments, due dates, and materials lists will be posted in a consistent written location and sent directly to parents, rather than relying on Student to record them.\n\nStaff will check in with Student at the start of each independent task to confirm Student has begun, and will help break the first step down.\n\nLong assignments will be broken into segments with separate interim due dates and checkpoints.\n\nStudent will be provided with a duplicate set of materials to keep at home, and will not be penalised for forgotten materials."},
+
+{c:"exec",d:"They can't sustain attention long enough to finish anything",
+why:"Attention regulation difficulty means output drops sharply with task length, not with task difficulty. Shorter chunks often produce more work, not less.",
+ask:["Work broken into shorter segments","Reduced volume with maintained rigour","Extended time as standard, not as a favour"],
+lang:"Assignments will be broken into segments of no more than [X] minutes, with a break or change of activity between segments.\n\nWhere a task involves repetition of a mastered skill, the number of items will be reduced by [half] with the same content expectations maintained.\n\nStudent will receive extended time of [X] on all assignments and assessments as standard.\n\nStudent will be seated away from high-traffic areas and given a reduced-distraction setting for independent work."},
+
+{c:"test",d:"They know the material but do badly on tests",
+why:"Standard testing conditions assess speed, reading, writing, and stress tolerance alongside knowledge. For many children the score measures access rather than learning.",
+ask:["Conditions that isolate what's being tested","Accommodations documented early, because college entrance testing requires a history of use","Alternative formats where the format is the barrier"],
+lang:"Student will receive extended time of [X] on all quizzes, tests, and standardised assessments.\n\nTesting will take place in a separate, reduced-distraction setting with a familiar adult.\n\nTest items and directions will be read aloud or provided in audio format, except where reading is the skill being assessed.\n\nStudent may respond orally, by scribe, or by keyboard. Tests will be broken across multiple sessions where length exceeds [X] minutes.\n\nThese accommodations will be applied consistently to classroom and standardised testing to establish the record required for future accommodation requests."},
+
+{c:"soc",d:"Recess, lunch, and free time are the hardest parts of their day",
+why:"Unstructured time removes every scaffold at once, and it's where exclusion and bullying happen. It is also the part of the day nobody plans.",
+ask:["Structure and adult facilitation in unstructured settings","A named alternative that isn't a punishment","Facilitated peer connection rather than hoping it happens"],
+lang:"Student will have access to a structured alternative during recess and lunch, such as a supervised club, library, or activity group, chosen with Student's input.\n\nAn adult will facilitate peer interaction during unstructured time rather than supervising only, using [named approach].\n\nStudent will be supported to join at least one structured interest-based group with peers.\n\nStaff supervising unstructured time will be briefed on Student's needs and will not treat withdrawal as a discipline issue."},
+
+{c:"soc",d:"They're being excluded or bullied and it isn't being taken seriously",
+why:"Children with disabilities are bullied at much higher rates, and it is frequently reframed as social skills difficulty on the child's part rather than as a safety issue.",
+ask:["Written into the plan as a safety matter, not a social skills goal","Specific supervision at specific times and places","Reporting that doesn't require the child to disclose in public"],
+lang:"The team recognizes Student's increased vulnerability to bullying and exclusion. Incidents will be addressed under the school's bullying policy and reported to parents in writing the same day.\n\nAdult supervision will be increased during [named times and locations] where incidents have occurred.\n\nStudent will have a discreet way to report incidents to a named trusted adult without disclosing in front of peers.\n\nInterventions will address peer and environmental factors, not only Student's social skills."}
+];
+
+const catLabel=Object.fromEntries(CATS.map(c=>[c.id,c.l]));
+let active='all';
+const pills=document.getElementById('pills'),list=document.getElementById('list'),
+      count=document.getElementById('count'),search=document.getElementById('search');
+
+[{id:'all',l:'All'}].concat(CATS).forEach(c=>{
+  const b=document.createElement('button');
+  b.className='pill'+(c.id==='all'?' on':'');b.textContent=c.l;b.type='button';b.dataset.c=c.id;
+  b.addEventListener('click',()=>{active=c.id;
+    document.querySelectorAll('.pill').forEach(p=>p.classList.toggle('on',p.dataset.c===c.id));
+    filter();});
+  pills.appendChild(b);
+});
+
+A.forEach((a,i)=>{
+  const el=document.createElement('div');
+  el.className='item';el.dataset.i=i;el.dataset.c=a.c;
+  el.innerHTML='<button class="head" type="button" aria-expanded="false">'+
+      '<span class="cat">'+catLabel[a.c]+'</span>'+
+      '<span class="diff">'+a.d+'</span><span class="chev">+</span></button>'+
+    '<div class="body hidden">'+
+      '<h4>Why this happens</h4><p>'+a.why+'</p>'+
+      '<h4>What to ask for</h4><ul>'+a.ask.map(x=>'<li>'+x+'</li>').join('')+'</ul>'+
+      '<h4>Language you can request word for word</h4>'+
+      '<div class="lang">'+a.lang.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</div>'+
+      '<button class="copy" type="button">Copy this wording</button>'+
+      '<p style="font-size:.88rem;color:var(--ink-soft);margin-top:11px">'+
+      'Replace anything in [square brackets] with your child\'s specifics. A number is enforceable; an adjective is not.</p>'+
+    '</div>';
+  const head=el.querySelector('.head'),body=el.querySelector('.body'),chev=el.querySelector('.chev');
+  head.addEventListener('click',()=>{
+    const open=body.classList.toggle('hidden');
+    head.setAttribute('aria-expanded',String(!open));chev.textContent=open?'+':'−';});
+  el.querySelector('.copy').addEventListener('click',e=>{
+    const btn=e.currentTarget;
+    navigator.clipboard.writeText(a.lang).then(()=>{btn.textContent='Copied';})
+      .catch(()=>{btn.textContent='Select the text above to copy';});
+    setTimeout(()=>{btn.textContent='Copy this wording';},2200);});
+  list.appendChild(el);
+});
+
+function hay(a){return (a.d+' '+a.why+' '+a.ask.join(' ')+' '+a.lang+' '+catLabel[a.c]).toLowerCase();}
+function filter(){
+  const q=search.value.trim().toLowerCase();let n=0;
+  document.querySelectorAll('.item').forEach(el=>{
+    const a=A[+el.dataset.i];
+    const hit=(active==='all'||a.c===active)&&(!q||hay(a).includes(q));
+    el.classList.toggle('hidden',!hit);if(hit)n++;});
+  count.textContent=n===A.length?A.length+' difficulties covered':n+' of '+A.length+' shown';
+  let e=document.getElementById('empty');
+  if(!n){if(!e){e=document.createElement('p');e.id='empty';e.className='empty';list.appendChild(e);}
+    e.textContent='Nothing matches that yet. Try plainer words — "pencil", "noise", "bathroom", "tired", "lunch", "tests".';}
+  else if(e)e.remove();
+}
+search.addEventListener('input',filter);
+filter();
+</script>
+<footer class="spx-foot">
+  <div class="spx-rainbow"></div>
+  <div class="spx-foot-in">
+    <div>
+      <h4>In the Spectrums</h4>
+      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
+    </div>
+    <div class="spx-col">
+      <span>Beginning</span>
+      <a href="what-to-do-first.html">What to do first</a>
+      <a href="care-team-map.html">The care team map</a>
+      <a href="conditions-library.html">Conditions library</a>
+    </div>
+    <div class="spx-col">
+      <span>School &amp; money</span>
+      <a href="inside-the-iep.html">Inside the IEP</a>
+      <a href="accommodations-finder.html">Accommodations finder</a>
+      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
+      <a href="paying-for-therapy.html">Paying for it</a>
+      <a href="template-builders.html">Template builders</a>
+    </div>
+    <div class="spx-col">
+      <span>More</span>
+      <a href="safety.html">Safety</a>
+      <a href="injuries-and-illness.html">When something happens</a>
+      <a href="maplewood-stories.html">Maplewood stories</a>
+      <a href="their-own-voice.html">Their own voice</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
+</footer>
+</body>
+</html>
