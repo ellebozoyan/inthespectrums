@@ -74,72 +74,19 @@ ul{padding-left:20px;margin:0 0 15px}li{margin-bottom:9px}
 footer{border-top:1px solid var(--line);padding:28px 0 80px;font-family:var(--sans);
   font-size:12.5px;color:var(--ink-soft);line-height:1.75}
 @media print{.sit,.pg,.belief{break-inside:avoid}body{background:#fff}}
-</style>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
-<style id="spectrums-skin">
-:root{
-  --ink:#23211E; --ink-soft:#6B675F; --forest:#4C5B4B; --rust:#A2543C;
-  --rust-tint:#F0E4DC; --ground:#F7F5EF; --card:#FCFBF6; --line:#E3DFD4;
-  --alarm:#8C3A2C; --alarm-tint:#F3E7E2; --paper:#FBF8F1;
-  --song:#8A7A45; --song-tint:#F3EEE0;
-  --sans:Inter,"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
-  --mono:"IBM Plex Mono",ui-monospace,monospace;
-}
-body{background:#F7F5EF;color:#23211E;font-family:var(--sans);font-size:17px;line-height:1.72}
-h1,h2,h3,h4,h5,.sec,.big,.pull,.said,.steptitle,.branchtitle,.leafname,.cname,.lgnum,.phasehead{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
-h1{font-weight:500}
-h1 em,h2 em,h3 em{font-style:italic;color:var(--forest)}
-.pull,.said,.q,.say{font-style:italic}
-.eyebrow{font-family:var(--sans);color:#8A857A;font-weight:500;letter-spacing:.18em}
-.lede,.secnote,.thesis,p{text-wrap:pretty}
-.card,.pg,.sit,.libcard,.dom,.col,.leaf,.note,.ev{background:var(--card)}
-a{color:var(--rust)}
-a:hover{color:#23211E}
-code,kbd,samp,.mono{font-family:var(--mono)}
 
-/* shared chrome */
-.spx-rainbow{height:3px;width:100%;background:linear-gradient(90deg,#C4685C,#D19A55,#CFC066,#7FA86B,#6389AC,#8B7BA8)}
-.spx-nav{max-width:1080px;margin:0 auto;padding:22px 20px 0;display:flex;align-items:center;
-  justify-content:space-between;gap:28px;flex-wrap:wrap;font-family:var(--sans)}
-.spx-nav .spx-mark{font-family:var(--serif);font-size:20px;color:#23211E;text-decoration:none;font-weight:500}
-.spx-links{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:13.5px}
-.spx-links a{color:#23211E;text-decoration:none;opacity:.62}
-.spx-links a:hover{opacity:1;color:#23211E}
-.spx-links a.spx-pill{opacity:1;border:1px solid #23211E;border-radius:999px;padding:8px 18px;font-size:12.5px}
-.spx-links a.spx-pill:hover{background:#23211E;color:#F7F5EF}
-.spx-foot{background:#23211E;color:#EDE9DF;margin-top:72px;font-family:var(--sans)}
-.spx-foot-in{max-width:1080px;margin:0 auto;padding:60px 20px 40px;
-  display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:44px}
-.spx-foot h4{font-family:var(--serif);font-size:22px;font-weight:500;margin:0 0 12px;color:#EDE9DF}
-.spx-foot p{font-size:14px;line-height:1.75;color:#A9A296;margin:0;max-width:40ch}
-.spx-foot .spx-col{display:flex;flex-direction:column;gap:11px;font-size:14px}
-.spx-foot .spx-col span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#7C766B}
-.spx-foot a{color:#EDE9DF;text-decoration:none}
-.spx-foot a:hover{color:#A9A296}
-.spx-foot-base{max-width:1080px;margin:0 auto;padding:0 20px 56px}
-.spx-foot-base div{border-top:1px solid #383430;padding-top:22px;font-size:12.5px;color:#7C766B;line-height:1.7}
-@media(max-width:880px){.spx-foot-in{grid-template-columns:1fr 1fr;gap:32px}}
-@media print{.spx-nav,.spx-foot{display:none}}
+/* thumbnail cards */
+.pg{display:grid;grid-template-columns:74px minmax(0,1fr);gap:16px;align-items:start}
+.pg .mark{width:74px;height:74px;border-radius:2px;display:block}
+.pg .txt{min-width:0}
+@media(max-width:420px){.pg{grid-template-columns:58px minmax(0,1fr);gap:13px}
+  .pg .mark{width:58px;height:58px}}
+.sit{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center}
+.sit .said{margin:0}
+.sit .go{white-space:nowrap;align-self:end}
 </style>
 </head>
 <body>
-<div class="spx-rainbow"></div>
-<nav class="spx-nav">
-  <a class="spx-mark" href="index.html">In the Spectrums</a>
-  <div class="spx-links">
-    <a href="what-to-do-first.html">Start here</a>
-    <a href="care-team-map.html">Care team</a>
-    <a href="conditions-library.html">Conditions</a>
-    <a href="inside-the-iep.html">School</a>
-    <a href="safety.html">Safety</a>
-    <a href="maplewood-stories.html">Stories</a>
-    <a href="about.html">About</a>
-    <a class="spx-pill" href="mockup.html#contact">Contact</a>
-  </div>
-</nav>
 <div class="wrap">
 
 <header class="hero">
@@ -311,92 +258,92 @@ code,kbd,samp,.mono{font-family:var(--mono)}
 
   <p class="grouplabel">When you're just beginning</p>
   <div class="pages">
-    <a class="pg" href="what-to-do-first.html"><span class="kind">Start here</span>
+    <a class="pg" href="what-to-do-first.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#16283C"/><rect x="14" y="18" width="46" height="4" fill="#9C4A21"/><rect x="14" y="28" width="30" height="4" fill="#C6A98F" opacity=".8"/><rect x="14" y="38" width="38" height="4" fill="#C6A98F" opacity=".6"/><rect x="14" y="48" width="20" height="4" fill="#C6A98F" opacity=".4"/></svg><div class="txt"><span class="kind">Start here</span>
       <h3>What to do first</h3>
-      <p>Thirty steps from the day you start worrying. The waits run in parallel or they run one at a time, and that difference is about two years. Includes the scripts that start legal clocks.</p></a>
-    <a class="pg" href="care-team-map.html"><span class="kind">Reference</span>
+      <p>Thirty steps from the day you start worrying. The waits run in parallel or they run one at a time, and that difference is about two years. Includes the scripts that start legal clocks.</p></div></a>
+    <a class="pg" href="care-team-map.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#E7EDE5"/><circle cx="37" cy="16" r="5" fill="#16283C"/><path d="M37 21v10M37 31H16v8M37 31h21v8M37 31v8" stroke="#2E4E3F" stroke-width="1.5" fill="none"/><circle cx="16" cy="45" r="4.5" fill="#9C4A21"/><circle cx="37" cy="45" r="4.5" fill="#2E4E3F"/><circle cx="58" cy="45" r="4.5" fill="#9C4A21"/></svg><div class="txt"><span class="kind">Reference</span>
       <h3>The care team map</h3>
-      <p>Forty-five specialties in seven branches — who does what, why you'd call them, what a first visit looks like, and what commonly gets missed.</p></a>
-    <a class="pg" href="conditions-library.html"><span class="kind">Reference</span>
+      <p>Forty-five specialties in seven branches — who does what, why you'd call them, what a first visit looks like, and what commonly gets missed.</p></div></a>
+    <a class="pg" href="conditions-library.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#16283C"/><rect x="12" y="20" width="50" height="5" rx="2.5" fill="#3A4A5C"/><rect x="18" y="20" width="30" height="5" rx="2.5" fill="#9C4A21"/><rect x="12" y="34" width="50" height="5" rx="2.5" fill="#3A4A5C"/><rect x="30" y="34" width="26" height="5" rx="2.5" fill="#C6A98F"/><rect x="12" y="48" width="50" height="5" rx="2.5" fill="#3A4A5C"/><rect x="14" y="48" width="34" height="5" rx="2.5" fill="#2E4E3F"/></svg><div class="txt"><span class="kind">Reference</span>
       <h3>The conditions library</h3>
-      <p>Thirty-three conditions and profiles. What each one is, how widely it varies between people, what genuinely helps, and what gets overlooked.</p></a>
+      <p>Thirty-three conditions and profiles. What each one is, how widely it varies between people, what genuinely helps, and what gets overlooked.</p></div></a>
   </div>
 
   <p class="grouplabel">School and services</p>
   <div class="pages">
-    <a class="pg" href="inside-the-iep.html"><span class="kind">Guide</span>
+    <a class="pg" href="inside-the-iep.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#EFE0D5"/><rect x="17" y="12" width="40" height="50" fill="#FFF" stroke="#16283C" stroke-width="1.5"/><rect x="23" y="22" width="28" height="2.5" fill="#16283C"/><rect x="23" y="30" width="28" height="2.5" fill="#16283C" opacity=".4"/><rect x="23" y="38" width="20" height="2.5" fill="#16283C" opacity=".4"/><rect x="23" y="47" width="28" height="6" fill="#9C4A21"/></svg><div class="txt"><span class="kind">Guide</span>
       <h3>Inside the IEP</h3>
-      <p>How to read a goal, what the words actually mean, and the one section of the document you write. Write every concern in it — if it isn't there, it didn't happen.</p></a>
-    <a class="pg" href="accommodations-finder.html"><span class="kind">Interactive</span>
+      <p>How to read a goal, what the words actually mean, and the one section of the document you write. Write every concern in it — if it isn't there, it didn't happen.</p></div></a>
+    <a class="pg" href="accommodations-finder.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#2E4E3F"/><circle cx="32" cy="32" r="14" fill="none" stroke="#E7EDE5" stroke-width="3"/><path d="M43 43l12 12" stroke="#C6A98F" stroke-width="4" stroke-linecap="round"/></svg><div class="txt"><span class="kind">Interactive</span>
       <h3>The accommodations finder</h3>
-      <p>Search by the difficulty you actually see, not the diagnosis. Returns wording you can request word for word.</p></a>
-    <a class="pg" href="programs-and-entitlements.html"><span class="kind">Guide</span>
+      <p>Search by the difficulty you actually see, not the diagnosis. Returns wording you can request word for word.</p></div></a>
+    <a class="pg" href="programs-and-entitlements.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#E7EDE5"/><path d="M14 56V34l23-16 23 16v22" fill="none" stroke="#16283C" stroke-width="2"/><rect x="30" y="40" width="14" height="16" fill="#9C4A21"/></svg><div class="txt"><span class="kind">Guide</span>
       <h3>Programs and entitlements</h3>
-      <p>What exists in every state, when each door opens, and the ages that matter. Special education is an entitlement; adult services generally are not.</p></a>
+      <p>What exists in every state, when each door opens, and the ages that matter. Special education is an entitlement; adult services generally are not.</p></div></a>
   </div>
 
   <p class="grouplabel">Money and paperwork</p>
   <div class="pages">
-    <a class="pg" href="paying-for-therapy.html"><span class="kind">Guide</span>
+    <a class="pg" href="paying-for-therapy.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#16283C"/><rect x="15" y="14" width="44" height="46" fill="#FBF7F0"/><rect x="21" y="23" width="32" height="2" fill="#16283C" opacity=".5"/><rect x="21" y="30" width="32" height="2" fill="#16283C" opacity=".3"/><rect x="21" y="37" width="32" height="2" fill="#16283C" opacity=".3"/><rect x="21" y="47" width="32" height="7" fill="#2E4E3F"/></svg><div class="txt"><span class="kind">Guide</span>
       <h3>Paying for it</h3>
-      <p>Home visits versus clinic, in-network versus out, and an annotated superbill showing every field a claim needs to survive. Plus appeals and single case agreements.</p></a>
-    <a class="pg" href="template-builders.html"><span class="kind">Interactive</span>
+      <p>Home visits versus clinic, in-network versus out, and an annotated superbill showing every field a claim needs to survive. Plus appeals and single case agreements.</p></div></a>
+    <a class="pg" href="template-builders.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#EFE0D5"/><rect x="12" y="16" width="22" height="42" fill="#16283C"/><rect x="40" y="16" width="22" height="42" fill="#FFF" stroke="#16283C" stroke-width="1.5"/><rect x="45" y="24" width="12" height="2" fill="#9C4A21"/><rect x="45" y="31" width="12" height="2" fill="#16283C" opacity=".3"/><rect x="45" y="38" width="8" height="2" fill="#16283C" opacity=".3"/></svg><div class="txt"><span class="kind">Interactive</span>
       <h3>Template builders</h3>
-      <p>Four documents that build themselves as you type: the child one-pager, parent concerns, an emergency responder profile, and a hospital bedside card.</p></a>
+      <p>Four documents that build themselves as you type: the child one-pager, parent concerns, an emergency responder profile, and a hospital bedside card.</p></div></a>
   </div>
 
   <p class="grouplabel">Safety and health</p>
   <div class="pages">
-    <a class="pg" href="safety.html"><span class="kind">Essential</span>
+    <a class="pg" href="safety.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#8A2B20"/><rect x="10" y="18" width="12" height="7" fill="#F6E4E0"/><rect x="26" y="18" width="12" height="7" fill="#F6E4E0" opacity=".25"/><rect x="42" y="18" width="22" height="7" fill="#F6E4E0"/><rect x="10" y="33" width="22" height="7" fill="#F6E4E0"/><rect x="36" y="33" width="12" height="7" fill="#F6E4E0" opacity=".25"/><rect x="52" y="33" width="12" height="7" fill="#F6E4E0"/><rect x="10" y="48" width="12" height="7" fill="#F6E4E0" opacity=".25"/><rect x="26" y="48" width="38" height="7" fill="#F6E4E0"/></svg><div class="txt"><span class="kind">Essential</span>
       <h3>Safety</h3>
-      <p>Water, wandering, first responders, body autonomy, equipment, and car seats. Built on one idea: every layer fails, so the layers have to overlap.</p></a>
-    <a class="pg" href="injuries-and-illness.html"><span class="kind">Guide</span>
+      <p>Water, wandering, first responders, body autonomy, equipment, and car seats. Built on one idea: every layer fails, so the layers have to overlap.</p></div></a>
+    <a class="pg" href="injuries-and-illness.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#EFE0D5"/><rect x="31" y="14" width="12" height="46" fill="#9C4A21"/><rect x="14" y="31" width="46" height="12" fill="#9C4A21"/></svg><div class="txt"><span class="kind">Guide</span>
       <h3>When something happens</h3>
-      <p>Where to go right now, the common injuries, a serious diagnosis, hospital navigation, and getting good care for a child who can't say where it hurts.</p></a>
-    <a class="pg" href="adaptive-community.html"><span class="kind">Guide</span>
+      <p>Where to go right now, the common injuries, a serious diagnosis, hospital navigation, and getting good care for a child who can't say where it hurts.</p></div></a>
+    <a class="pg" href="adaptive-community.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#46508C"/><circle cx="22" cy="26" r="7" fill="#E6E8F2"/><circle cx="52" cy="26" r="7" fill="#E6E8F2" opacity=".6"/><circle cx="37" cy="50" r="7" fill="#E6E8F2" opacity=".8"/><path d="M22 26h30M22 26l15 24M52 26L37 50" stroke="#E6E8F2" stroke-width="1.5" opacity=".55"/></svg><div class="txt"><span class="kind">Guide</span>
       <h3>Adaptive sports, classes and community</h3>
-      <p>Why so few children get there and what closes the gap, the full landscape of programs, adaptive versus inclusive, and how to make a first season actually work.</p></a>
-    <a class="pg" href="music.html"><span class="kind">Guide</span>
+      <p>Why so few children get there and what closes the gap, the full landscape of programs, adaptive versus inclusive, and how to make a first season actually work.</p></div></a>
+    <a class="pg" href="music.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#16283C"/><rect x="14" y="34" width="5" height="10" fill="#C6A98F"/><rect x="23" y="26" width="5" height="26" fill="#8A6A1F"/><rect x="32" y="18" width="5" height="42" fill="#9C4A21"/><rect x="41" y="28" width="5" height="22" fill="#8A6A1F"/><rect x="50" y="22" width="5" height="34" fill="#C6A98F"/><rect x="59" y="32" width="5" height="14" fill="#C6A98F" opacity=".6"/></svg><div class="txt"><span class="kind">Guide</span>
       <h3>Music</h3>
-      <p>What a single song recruits, the four different things people mean by "try music," nine areas it opens up, and how it grows with a child into something that lasts a lifetime.</p></a>
-    <a class="pg" href="floortime.html"><span class="kind">Guide</span>
+      <p>What a single song recruits, the four different things people mean by "try music," nine areas it opens up, and how it grows with a child into something that lasts a lifetime.</p></div></a>
+    <a class="pg" href="floortime.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#1F6B63"/><circle cx="28" cy="37" r="15" fill="none" stroke="#E2EFED" stroke-width="3"/><circle cx="46" cy="37" r="15" fill="none" stroke="#E2EFED" stroke-width="3" opacity=".6"/></svg><div class="txt"><span class="kind">Guide</span>
       <h3>Floortime and child-led therapy</h3>
-      <p>Circles of communication, the developmental capacities underneath the play, why following the child's lead works — and what it turns into at eight, thirteen, and seventeen.</p></a>
-    <a class="pg" href="feeding-therapy.html"><span class="kind">Guide</span>
+      <p>Circles of communication, the developmental capacities underneath the play, why following the child's lead works — and what it turns into at eight, thirteen, and seventeen.</p></div></a>
+    <a class="pg" href="feeding-therapy.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#EFE0D5"/><circle cx="37" cy="37" r="22" fill="none" stroke="#16283C" stroke-width="1.5"/><circle cx="37" cy="37" r="11" fill="none" stroke="#16283C" stroke-width="1.5" opacity=".4"/><path d="M37 15v44" stroke="#9C4A21" stroke-width="2"/></svg><div class="txt"><span class="kind">Guide</span>
       <h3>Feeding therapy</h3>
-      <p>The ladder of steps before a bite, ARFID, demand avoidance at the table, and declarative language — the technique that costs nothing and changes mealtimes fastest.</p></a>
-    <a class="pg" href="speech-language-aac.html"><span class="kind">Guide</span>
+      <p>The ladder of steps before a bite, ARFID, demand avoidance at the table, and declarative language — the technique that costs nothing and changes mealtimes fastest.</p></div></a>
+    <a class="pg" href="speech-language-aac.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#6B4A78"/><rect x="13" y="16" width="20" height="14" rx="3" fill="#EFE6F1"/><rect x="38" y="16" width="23" height="14" rx="3" fill="#EFE6F1" opacity=".5"/><rect x="13" y="34" width="23" height="14" rx="3" fill="#EFE6F1" opacity=".5"/><rect x="41" y="34" width="20" height="14" rx="3" fill="#EFE6F1"/><rect x="13" y="52" width="48" height="8" rx="3" fill="#EFE6F1" opacity=".75"/></svg><div class="txt"><span class="kind">Guide</span>
       <h3>Speech, language and AAC</h3>
-      <p>Nine areas of speech-language therapy, a full section on doing AAC properly, evidence sorted three ways, and the gateway to our library of play schemas, social stories, and tablet vocabularies.</p></a>
-    <a class="pg" href="aquatic-therapy.html"><span class="kind">Guide</span>
+      <p>Nine areas of speech-language therapy, a full section on doing AAC properly, evidence sorted three ways, and the gateway to our library of play schemas, social stories, and tablet vocabularies.</p></div></a>
+    <a class="pg" href="aquatic-therapy.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#1D6A82"/><path d="M6 28c8-6 14 6 22 0s14 6 22 0 14 6 22 0" fill="none" stroke="#E1EEF2" stroke-width="3"/><path d="M6 40c8-6 14 6 22 0s14 6 22 0 14 6 22 0" fill="none" stroke="#E1EEF2" stroke-width="3" opacity=".65"/><path d="M6 52c8-6 14 6 22 0s14 6 22 0 14 6 22 0" fill="none" stroke="#E1EEF2" stroke-width="3" opacity=".35"/></svg><div class="txt"><span class="kind">Guide</span>
       <h3>Aquatic therapy</h3>
-      <p>Six properties of water that change what a body can do, what it targets, precautions families are rarely warned about, and the survival skills that outrank everything else.</p></a>
-    <a class="pg" href="physical-therapy.html"><span class="kind">Guide</span>
+      <p>Six properties of water that change what a body can do, what it targets, precautions families are rarely warned about, and the survival skills that outrank everything else.</p></div></a>
+    <a class="pg" href="physical-therapy.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#E7EDE5"/><rect x="12" y="50" width="8" height="8" fill="#2E4E3F"/><rect x="24" y="43" width="8" height="15" fill="#2E4E3F"/><rect x="36" y="34" width="8" height="24" fill="#9C4A21"/><rect x="48" y="22" width="8" height="36" fill="#9C4A21"/></svg><div class="txt"><span class="kind">Guide</span>
       <h3>Physical therapy</h3>
-      <p>Nine domains, the three things families are told too late, approaches sorted by evidence, and how to recognize strong PT. Not normal movement — more life.</p></a>
-    <a class="pg" href="occupational-therapy.html"><span class="kind">Guide</span>
+      <p>Nine domains, the three things families are told too late, approaches sorted by evidence, and how to recognize strong PT. Not normal movement — more life.</p></div></a>
+    <a class="pg" href="occupational-therapy.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#16283C"/><circle cx="19" cy="24" r="6" fill="#9C4A21"/><circle cx="37" cy="24" r="6" fill="#C6A98F" opacity=".7"/><circle cx="55" cy="24" r="6" fill="#C6A98F" opacity=".45"/><circle cx="19" cy="46" r="6" fill="#C6A98F" opacity=".45"/><circle cx="37" cy="46" r="6" fill="#C6A98F" opacity=".7"/><circle cx="55" cy="46" r="6" fill="#9C4A21"/></svg><div class="txt"><span class="kind">Guide</span>
       <h3>Occupational therapy</h3>
-      <p>Nine domains, what an evaluation covers, approaches sorted by how well they're supported, and how to recognize strong OT. The whole day is the treatment.</p></a>
-    <a class="pg" href="myofunctional-therapy.html"><span class="kind">Guide</span>
+      <p>Nine domains, what an evaluation covers, approaches sorted by how well they're supported, and how to recognize strong OT. The whole day is the treatment.</p></div></a>
+    <a class="pg" href="myofunctional-therapy.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#E7EDE5"/><circle cx="37" cy="37" r="21" fill="none" stroke="#16283C" stroke-width="1.5"/><path d="M23 37c5-8 23-8 28 0-5 8-23 8-28 0z" fill="#9C4A21"/></svg><div class="txt"><span class="kind">Guide</span>
       <h3>Myofunctional therapy</h3>
-      <p>Breathing, sleeping, eating, drinking, speaking — five jobs sharing one set of muscles, and an under-known therapy that works on all of them.</p></a>
+      <p>Breathing, sleeping, eating, drinking, speaking — five jobs sharing one set of muscles, and an under-known therapy that works on all of them.</p></div></a>
   </div>
 
   <p class="grouplabel">The child at the center</p>
   <div class="pages">
-    <a class="pg" href="their-own-voice.html"><span class="kind">Guide</span>
+    <a class="pg" href="their-own-voice.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#EFE0D5"/><path d="M16 18h42v26H34l-10 10v-10h-8z" fill="#16283C"/><circle cx="30" cy="31" r="2.5" fill="#C6A98F"/><circle cx="38" cy="31" r="2.5" fill="#C6A98F"/><circle cx="46" cy="31" r="2.5" fill="#9C4A21"/></svg><div class="txt"><span class="kind">Guide</span>
       <h3>Their own voice</h3>
-      <p>Talking with a child about their own life, communication access from day one, and handing over ownership of their story across childhood. Options, not instructions.</p></a>
-    <a class="pg" href="maplewood-stories.html"><span class="kind">Stories</span>
+      <p>Talking with a child about their own life, communication access from day one, and handing over ownership of their story across childhood. Options, not instructions.</p></div></a>
+    <a class="pg" href="maplewood-stories.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#FBF7F0"/><path d="M37 20v34" stroke="#16283C" stroke-width="1.5"/><path d="M37 22c-6-6-16-6-22-3v30c6-3 16-3 22 3z" fill="#FFF" stroke="#16283C" stroke-width="1.5"/><path d="M37 22c6-6 16-6 22-3v30c-6-3-16-3-22 3z" fill="#EFE0D5" stroke="#16283C" stroke-width="1.5"/></svg><div class="txt"><span class="kind">Stories</span>
       <h3>The Maplewood stories</h3>
-      <p>Fifty-two picture books about ten friends who are not alike. Nobody is the exception, so nobody has to be the lesson.</p></a>
+      <p>Fifty-two picture books about ten friends who are not alike. Nobody is the exception, so nobody has to be the lesson.</p></div></a>
   </div>
 
   <p class="grouplabel">About this site</p>
   <div class="pages">
-    <a class="pg" href="about.html"><span class="kind">About</span>
+    <a class="pg" href="about.html"><svg class="mark" viewBox="0 0 74 74" aria-hidden="true" focusable="false"><rect width="74" height="74" fill="#E7EDE5"/><circle cx="26" cy="28" r="8" fill="#16283C"/><circle cx="48" cy="28" r="8" fill="#9C4A21" opacity=".75"/><path d="M12 58c0-9 6-14 14-14s14 5 14 14" fill="#16283C"/><path d="M34 58c0-9 6-14 14-14s14 5 14 14" fill="#9C4A21" opacity=".75"/></svg><div class="txt"><span class="kind">About</span>
       <h3>About and contributors</h3>
-      <p>Who writes this, the practitioners whose work shaped it and who are available for consultation, the people who helped build it, and how to tell us what's wrong.</p></a>
+      <p>Who writes this, the practitioners whose work shaped it and who are available for consultation, the people who helped build it, and how to tell us what's wrong.</p></div></a>
   </div>
 </section>
 
@@ -456,37 +403,7 @@ code,kbd,samp,.mono{font-family:var(--mono)}
 </footer>
 
 </div>
-<footer class="spx-foot">
-  <div class="spx-rainbow"></div>
-  <div class="spx-foot-in">
-    <div>
-      <h4>In the Spectrums</h4>
-      <p>A free field guide for anyone raising, teaching, or caring for a child who needs more than the standard version of things.</p>
-    </div>
-    <div class="spx-col">
-      <span>Beginning</span>
-      <a href="what-to-do-first.html">What to do first</a>
-      <a href="care-team-map.html">The care team map</a>
-      <a href="conditions-library.html">Conditions library</a>
-    </div>
-    <div class="spx-col">
-      <span>School &amp; money</span>
-      <a href="inside-the-iep.html">Inside the IEP</a>
-      <a href="accommodations-finder.html">Accommodations finder</a>
-      <a href="programs-and-entitlements.html">Programs &amp; entitlements</a>
-      <a href="paying-for-therapy.html">Paying for it</a>
-      <a href="template-builders.html">Template builders</a>
-    </div>
-    <div class="spx-col">
-      <span>More</span>
-      <a href="safety.html">Safety</a>
-      <a href="injuries-and-illness.html">When something happens</a>
-      <a href="maplewood-stories.html">Maplewood stories</a>
-      <a href="their-own-voice.html">Their own voice</a>
-      <a href="about.html">About</a>
-    </div>
-  </div>
-  <div class="spx-foot-base"><div>Free · No login · No ads · Nothing sold · Nothing on this site is medical, legal, financial, or educational advice.</div></div>
-</footer>
+
+<script src="site-nav.js"></script>
 </body>
 </html>
