@@ -498,3 +498,250 @@
     h.insertAdjacentHTML('afterbegin', svg(name, 26));
   });
 })();
+
+/* ===================================================================
+   9. BELIEF BLOCKS — the "How this site is written" panel on the home
+   page. Six bespoke marks, each meant to carry the idea without words.
+   To swap one for a commissioned illustration later, replace the entry
+   in BELIEF_ICONS with:  '<img class="nv-ic" src="img/name.svg" alt="">'
+   =================================================================== */
+(function () {
+  'use strict';
+
+  var css = [
+    '.belief h3{display:flex;align-items:flex-start;gap:12px}',
+    '.belief h3 .nv-ic{margin-top:.15em}',
+    '.belief h3 img.nv-ic{width:26px;height:26px;object-fit:contain}',
+    '@media(max-width:520px){.belief h3{gap:10px}}'
+  ].join('');
+  var st = document.createElement('style');
+  st.textContent = css;
+  document.head.appendChild(st);
+
+  /* Six drawings, in the order the blocks appear. */
+  var MARKS = {
+    /* contested — two arrows meeting head-on, neither winning */
+    contested:
+      '<path d="M3 12h6"/><path class="a" d="m7 9 3 3-3 3"/>' +
+      '<path d="M21 12h-6"/><path class="a" d="m17 9-3 3 3 3"/>' +
+      '<path d="M12 5v3m0 8v3" stroke-dasharray="1.5 2"/>',
+    /* options — one stem, three equally valid paths */
+    paths:
+      '<path d="M12 21v-5"/><path class="a" d="M12 16 5 9V5"/>' +
+      '<path d="M12 16v-6M12 16l7-7V5"/>' +
+      '<circle class="fm" cx="5" cy="4" r="1.4"/><circle class="f" cx="12" cy="9" r="1.4"/>' +
+      '<circle class="fm" cx="19" cy="4" r="1.4"/>',
+    /* competence — the visible tip, and everything under the line */
+    iceberg:
+      '<path class="a" d="m12 3 4 6H8z"/>' +
+      '<path d="M2.5 9.5h19" stroke-dasharray="2.5 2"/>' +
+      '<path d="M6.5 9.5 12 21l6.5-11.5z"/>',
+    /* free to take — an open hand, offering rather than holding */
+    give:
+      '<path class="a" d="M12 3v6m-2.5-3.5L12 3l2.5 2.5"/>' +
+      '<path d="M4 12v3a6 6 0 0 0 6 6h4a6 6 0 0 0 6-6v-3"/>' +
+      '<path d="M4 12a1.6 1.6 0 0 1 3.2 0m9.6 0a1.6 1.6 0 0 1 3.2 0"/>',
+    /* goes out of date — a cycle that has to keep turning */
+    refresh:
+      '<path d="M20 12a8 8 0 1 1-2.7-6"/><path class="a" d="M20 4v5h-5"/>' +
+      '<circle class="f" cx="12" cy="12" r="1.5"/>',
+    /* language — two quotation marks, not the same size */
+    quotes:
+      '<path class="a" d="M5 14c0-4 1.5-6 4-7M5 14h4v4H5z"/>' +
+      '<path d="M14 15c0-3 1-4.5 3-5.5M14 15h3v3h-3z"/>'
+  };
+
+  var BELIEF_ICONS = ['contested', 'paths', 'iceberg', 'give', 'refresh', 'quotes'];
+
+  function svg(name) {
+    var d = MARKS[name];
+    if (!d) return '';
+    if (d.charAt(0) !== '<' || d.indexOf('<path') === 0 || d.indexOf('<circle') === 0) {
+      return '<svg class="nv-ic" width="26" height="26" viewBox="0 0 24 24" ' +
+             'aria-hidden="true" focusable="false">' + d + '</svg>';
+    }
+    return d; /* already a full element, e.g. a commissioned <img> */
+  }
+
+  var blocks = document.querySelectorAll('.belief h3');
+  blocks.forEach(function (h, i) {
+    if (h.querySelector('.nv-ic')) return;
+    h.insertAdjacentHTML('afterbegin', svg(BELIEF_ICONS[i] || 'paths'));
+  });
+})();
+
+/* ===================================================================
+   10. POINT MARKS — a slot on every discrete point on the site.
+   Each list item that carries a real idea gets a mark drawn from a
+   shared library. The same drawing always means the same thing, so a
+   reader learns the vocabulary as they go.
+
+   TO SWAP IN COMMISSIONED ARTWORK: replace any entry in LIB with a
+   full element, e.g.  water: '<img class="nv-ic" src="img/water.svg" alt="">'
+   Nothing else needs to change.
+
+   TO CHANGE DENSITY: edit SCOPE below. Add or remove selectors.
+   =================================================================== */
+(function () {
+  'use strict';
+
+  var css = [
+    'section > ul > li, section > ol > li, .agree li, .col li, .side li{',
+    'list-style:none;display:flex;align-items:flex-start;gap:11px}',
+    'section > ul, section > ol, .agree ul, .col ul, .side ul{padding-left:2px}',
+    'section > ul > li > .nv-ic, section > ol > li > .nv-ic,',
+    '.agree li > .nv-ic, .col li > .nv-ic, .side li > .nv-ic{margin-top:.22em;opacity:.9}',
+    'li > img.nv-ic{width:20px;height:20px;object-fit:contain}',
+    '@media(max-width:520px){section > ul > li, section > ol > li{gap:9px}}',
+    '@media print{li > .nv-ic{opacity:1}}'
+  ].join('');
+  var st = document.createElement('style');
+  st.textContent = css;
+  document.head.appendChild(st);
+
+  /* ---- the shared library ---- */
+  var LIB = {
+    /* people */
+    family:   '<circle cx="8" cy="7" r="2.4"/><circle class="a" cx="16" cy="7" r="2.4"/><circle cx="12" cy="15" r="2"/><path d="M4 20v-2a4 4 0 0 1 8 0v2m0-2a4 4 0 0 1 8 0v2"/>',
+    teacher:  '<rect x="3" y="4" width="14" height="10" rx="1"/><path class="a" d="M6.5 7.5h7M6.5 10.5h4"/><circle cx="19" cy="15" r="2.2"/><path d="M16 21v-1.5a3 3 0 0 1 6 0V21"/>',
+    therapist:'<circle cx="9" cy="6" r="2.4"/><path d="M4 20v-3a5 5 0 0 1 10 0v3"/><path class="a" d="M16 11h5m-2.5-2.5V13.5"/><circle class="a" cx="18.5" cy="17.5" r="2.6"/>',
+    doctor:   '<circle cx="12" cy="6" r="2.6"/><path d="M6 21v-4a6 6 0 0 1 12 0v4"/><path class="a" d="M10.2 12.5h3.6m-1.8-1.8v3.6"/>',
+    village:  '<circle cx="6" cy="8" r="2.1"/><circle cx="12" cy="6.5" r="2.1"/><circle class="a" cx="18" cy="8" r="2.1"/><path d="M3 20v-2a3 3 0 0 1 6 0m6 0a3 3 0 0 1 6 0v2m-12 0v-3a3 3 0 0 1 6 0v3"/>',
+    anyone:   '<circle class="a" cx="12" cy="12" r="9" stroke-dasharray="3 2.5"/><circle cx="12" cy="9.5" r="2.3"/><path d="M8 17.5v-.8a4 4 0 0 1 8 0v.8"/>',
+    child2:   '<circle cx="12" cy="7" r="3"/><path d="M7 21v-4a5 5 0 0 1 10 0v4"/><path class="a" d="M12 12v3"/>',
+    /* action & process */
+    call:     '<path class="a" d="M6 3.5 9 8l-2 2c1 2.5 3.5 5 6 6l2-2 4.5 3-2 3c-8 1-15.5-6.5-14.5-14.5z"/>',
+    write:    '<path class="a" d="m4.5 19.5 1-4L16 5a2 2 0 0 1 3 3L8.5 18.5z"/><path d="M14 7l3 3M3 21h18"/>',
+    ask:      '<circle cx="12" cy="12" r="8.5"/><path class="a" d="M9.6 9.4a2.5 2.5 0 0 1 4.6 1.3c0 1.7-2.2 2-2.2 3.3"/><circle class="f" cx="12" cy="16.6" r=".95"/>',
+    ready:    '<circle cx="12" cy="12" r="8.5"/><path class="a" d="m8.2 12.2 2.6 2.6 5-5.4"/>',
+    stop:     '<circle class="a" cx="12" cy="12" r="8.5"/><path d="M9 9h6v6H9z"/>',
+    watch:    '<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle class="a" cx="12" cy="12" r="2.6"/>',
+    listen:   '<path class="a" d="M9 20a4 4 0 0 1-4-4V9a5 5 0 0 1 10 0c0 3-3 3-3 5"/><circle class="f" cx="12" cy="17.5" r="1"/>',
+    warn:     '<path class="a" d="M12 4 2.5 20h19z"/><path d="M12 10v4"/><circle class="fm" cx="12" cy="17" r="1"/>',
+    time:     '<circle cx="12" cy="12" r="8.5"/><path class="a" d="M12 7.5V12l3.5 2"/>',
+    repeat:   '<path d="M20 12a8 8 0 1 1-2.7-6"/><path class="a" d="M20 4v5h-5"/>',
+    /* things */
+    paper:    '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path class="a" d="M9 12h6m-6 4h4"/>',
+    folder:   '<path d="M3 7h6l2 2.5h10V20H3z"/><path class="a" d="M3 7V4h6l2 3"/>',
+    key:      '<circle class="a" cx="8" cy="12" r="4"/><path d="M12 12h9m-2 0v3m-3-3v2.5"/>',
+    lock:     '<rect x="5" y="10" width="14" height="10" rx="2"/><path class="a" d="M8.5 10V7a3.5 3.5 0 0 1 7 0v3"/>',
+    coin:     '<circle cx="12" cy="12" r="8.5"/><path class="a" d="M12 7.5v9M9.8 9.8h4a1.7 1.7 0 0 1 0 3.4h-2.6a1.7 1.7 0 0 0 0 3.4h4"/>',
+    tool:     '<path class="a" d="M14.5 5.5a4 4 0 0 0 5 5L21 9v2.5a5.5 5.5 0 0 1-8 4.9L7 21l-4-4 4.6-6A5.5 5.5 0 0 1 12.5 3H15z"/>',
+    place:    '<path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle class="a" cx="12" cy="10" r="2.6"/>',
+    route:    '<circle class="a" cx="5" cy="6" r="2.2"/><circle cx="19" cy="18" r="2.2"/><path d="M5 8.5V13a4 4 0 0 0 4 4h8" stroke-dasharray="2.5 2.5"/>',
+    /* body & care */
+    bodycare: '<circle cx="12" cy="5.5" r="2.5"/><path d="M12 8v7m-4 6 4-6 4 6"/><path class="a" d="M7 11h10"/>',
+    heart:    '<path class="a" d="M12 20s-7.5-4.7-7.5-9.6A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.8C19.5 15.3 12 20 12 20z"/>',
+    calm:     '<path class="a" d="M4 12h3"/><path d="M8 12c1-5 2-5 3 0s2 5 3 0"/><path class="a" d="M15.5 12H20"/>',
+    sleep:    '<path d="M20 14.5A8.5 8.5 0 1 1 10 4a6.8 6.8 0 0 0 10 10.5z"/><path class="a" d="M14 4h4l-4 4h4"/>',
+    food:     '<circle cx="12" cy="12" r="8.5"/><circle class="a" cx="12" cy="12" r="3.6"/>',
+    /* talk */
+    say:      '<path d="M20 14a3 3 0 0 1-3 3H9l-4 3v-3.5A3 3 0 0 1 4 14V7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3z"/><path class="a" d="M9 10.5h6"/>',
+    tablet:   '<rect class="a" x="4" y="5" width="16" height="14" rx="2"/><path d="M8 9.5h2m4 0h2M8 14.5h8"/>',
+    /* learn */
+    read:     '<path d="M12 6v14"/><path d="M12 6C9.5 3.8 6.5 3.8 4 5v13c2.5-1.2 5.5-1.2 8 1"/><path class="a" d="M12 6c2.5-2.2 5.5-2.2 8-1v13c-2.5-1.2-5.5-1.2-8 1"/>',
+    idea:     '<path class="a" d="M9 16a5.5 5.5 0 1 1 6 0v2H9z"/><path d="M9.8 21h4.4"/>',
+    step:     '<path class="a" d="M4 20h4v-4"/><path d="M10 16h4v-4m2 0h4V8"/>',
+    balance:  '<path d="M12 4v16M6 20h12"/><path class="a" d="M4 9h16M6.5 9 4 14h5zM17.5 9 15 14h5z"/>',
+    /* environment */
+    house:    '<path d="M4 11 12 4l8 7v9H4z"/><path class="a" d="M9.5 20v-5.5h5V20"/>',
+    outdoors: '<path class="a" d="M12 3 6 13h12z"/><path d="M12 8 5 20h14z"/><path d="M10.5 20v-2h3v2"/>',
+    ripple:   '<path class="a" d="M3 10c3-2.2 5-.2 8 0s6-2 10 0"/><path d="M3 15c3-2.2 5-.2 8 0s6-2 10 0"/>',
+    group:    '<circle cx="8" cy="8" r="2.6"/><circle cx="16" cy="8" r="2.6"/><circle class="a" cx="12" cy="16" r="2.6"/><path d="M8 10.6v1.9M16 10.6v1.9"/>',
+    /* default */
+    point:    '<circle class="a" cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="8" stroke-dasharray="2.5 3"/>'
+  };
+
+  function draw(name) {
+    var d = LIB[name] || LIB.point;
+    if (d.indexOf('<img') === 0 || d.indexOf('<svg') === 0) return d;
+    return '<svg class="nv-ic" width="19" height="19" viewBox="0 0 24 24" ' +
+           'aria-hidden="true" focusable="false">' + d + '</svg>';
+  }
+
+  /* ---- bespoke sets, applied by exact list, in page order ---- */
+  var EXACT = [
+    { match: /Who this is/i,
+      icons: ['family', 'teacher', 'therapist', 'doctor', 'village', 'anyone'] }
+  ];
+
+  /* ---- keyword rules for everything else ---- */
+  var RULES = [
+    [/\bcall\b|phone|dial|ring them|nurse line/i,        'call'],
+    [/\bwrite|written|email|letter|document|in writing/i,'write'],
+    [/\bask\b|asking|question|request/i,                 'ask'],
+    [/never|don.t|do not|avoid|stop|refus/i,             'stop'],
+    [/watch|notice|observ|look for|signs?\b/i,           'watch'],
+    [/listen|\bhear\b|heard\b|\btold\b|\bsays?\b|\bsaid\b|\btalk/i,'listen'],
+    [/danger|risk|warn|emergency|urgent|911|immediate/i, 'warn'],
+    [/water|pool|swim|drown|bath/i,                      'ripple'],
+    [/sleep|\bnight|\bbed(time|room)?\b|snor|\btired\b|fatigue|nap\b/i,'sleep'],
+    [/\beat(s|ing|en)?\b|food|meal|feed|chew|swallow|drink|bite|appetite/i,'food'],
+    [/device|aac|tablet|screen|app\b|technolog/i,        'tablet'],
+    [/speech|language|word|communicat|voice|sign/i,      'say'],
+    [/read|book|stor(y|ies)|literac/i,                   'read'],
+    [/school|iep|teacher|classroom|lesson|student/i,     'teacher'],
+    [/doctor|clinic|physician|nurse|hospital|medical/i,  'doctor'],
+    [/therap|\bslp\b|\bot\b|\bpt\b|\bsessions?\b|clinician/i,   'therapist'],
+    [/famil|parent|caregiver|home|household/i,           'family'],
+    [/\bchild|\bkids?\b|\bsons?\b|daughter|\bteens?\b|toddler|infant/i,'child2'],
+    [/friend|peer|team|group|communit|club/i,            'group'],
+    [/money|cost|pay|fee|insur|claim|fund|bill/i,        'coin'],
+    [/form|paperwork|report|record|file|note/i,          'paper'],
+    [/keep|store|folder|binder|copy|track/i,             'folder'],
+    [/eligib|qualif|access|unlock|entitle|right/i,       'key'],
+    [/lock|secur|priva|safe(ty)?\b|protect/i,            'lock'],
+    [/equipment|brace|chair|walker|stroller|tool/i,      'tool'],
+    [/\bwhere\b|\bplace\b|location|venue|\bparks?\b|\brooms?\b|building/i,'place'],
+    [/travel|transport|route|bus|drive|car\b/i,          'route'],
+    [/\btime\b|\bwait|minutes?\b|hours?\b|weeks?\b|months?\b|years?\b|deadline|annual/i,'time'],
+    [/\bagain\b|repeat|\breview\b|each year|renew|re-?check/i,     'repeat'],
+    [/\bbody\b|\bpain\b|hurts?\b|posture|muscle|\bphysical\b|joint/i,'bodycare'],
+    [/love|care|kind|gentle|comfort|dignit/i,            'heart'],
+    [/calm|regulat|breath|soothe|quiet/i,                'calm'],
+    [/\bsteps?\b|\bfirst\b|\bstart|\bbegin|\bnext\b/i,           'step'],
+    [/evidence|proof|research|study|data|measure/i,      'balance'],
+    [/idea|think|understand|learn|know/i,                'idea'],
+    [/outdoor|park|trail|nature|camp/i,                  'outdoors'],
+    [/program|service|support|provider|agency/i,       'folder'],
+    [/sport|gymnast|dance|martial|bike|ride|climb/i,   'outdoors'],
+    [/art\b|music|sing|drama|craft|paint/i,             'idea'],
+    [/goal|progress|improve|outcome|result/i,          'balance'],
+    [/appointment|visit|meeting|evaluation|assess/i,   'ready'],
+    [/policy|law|legal|state|federal|require/i,        'key'],
+    [/ready|prepare|plan|check|confirm|make sure/i,      'ready']
+  ];
+
+  function pick(text) {
+    for (var i = 0; i < RULES.length; i++) {
+      if (RULES[i][0].test(text)) return RULES[i][1];
+    }
+    return 'point';
+  }
+
+  /* ---- which points get a mark. Edit to widen or narrow. ---- */
+  var SCOPE = 'section > ul > li, section > ol > li, .agree li, .col li, .side li';
+
+  /* bespoke lists first */
+  var claimed = [];
+  document.querySelectorAll('h2.sec, h3.sub').forEach(function (h) {
+    EXACT.forEach(function (e) {
+      if (!e.match.test(h.textContent)) return;
+      var n = h.nextElementSibling;
+      while (n && n.tagName !== 'UL' && n.tagName !== 'OL') n = n.nextElementSibling;
+      if (!n) return;
+      Array.prototype.forEach.call(n.children, function (li, i) {
+        if (li.querySelector('.nv-ic')) return;
+        li.insertAdjacentHTML('afterbegin', draw(e.icons[i] || 'point'));
+        claimed.push(li);
+      });
+    });
+  });
+
+  /* everything else, by keyword */
+  document.querySelectorAll(SCOPE).forEach(function (li) {
+    if (li.querySelector(':scope > .nv-ic')) return;
+    if (claimed.indexOf(li) > -1) return;
+    li.insertAdjacentHTML('afterbegin', draw(pick(li.textContent || '')));
+  });
+})();
