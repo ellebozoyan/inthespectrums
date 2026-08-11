@@ -322,3 +322,179 @@
     '</div>';
   document.body.appendChild(foot);
 })();
+
+/* ===================================================================
+   8. ICONS — a mark for every router card and every section heading.
+   Two-tone line drawings: .a = rust accent, everything else = muted ink.
+   Edit ICONS to change a drawing; edit CARD_ICONS / HEAD_RULES to
+   change which drawing appears where.
+   =================================================================== */
+(function () {
+  'use strict';
+
+  var iconCss = [
+    '.nv-ic{flex:0 0 auto;display:block}',
+    '.nv-ic path,.nv-ic circle,.nv-ic rect,.nv-ic line,.nv-ic polyline{',
+    'fill:none;stroke:#5C6E7E;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}',
+    '.nv-ic .a{stroke:#9C4A21;stroke-width:1.9}',
+    '.nv-ic .f{fill:#9C4A21;stroke:none}',
+    '.nv-ic .fm{fill:#5C6E7E;stroke:none}',
+    /* router card gets a two-column layout with the icon on the left */
+    '.sit{grid-template-columns:34px minmax(0,1fr) auto!important;gap:14px!important;align-items:center}',
+    '@media(max-width:560px){.sit{grid-template-columns:28px minmax(0,1fr)!important;',
+    'grid-template-rows:auto auto;row-gap:8px}.sit .go{grid-column:2}}',
+    /* section headings */
+    'h2.sec{display:flex;align-items:flex-start;gap:13px}',
+    'h2.sec .nv-ic{margin-top:.32em}',
+    '@media(max-width:520px){h2.sec{gap:10px}}',
+    '@media print{.nv-ic .a{stroke:#000}.nv-ic path,.nv-ic circle,.nv-ic rect,.nv-ic line{stroke:#444}}'
+  ].join('');
+  var st = document.createElement('style');
+  st.textContent = iconCss;
+  document.head.appendChild(st);
+
+  var ICONS = {
+    /* --- uncertainty, seeking, orientation --- */
+    signal:   '<circle cx="12" cy="17" r="1.6" class="f"/><path class="a" d="M8 13a5.5 5.5 0 0 1 8 0"/><path d="M5 10a10 10 0 0 1 14 0"/>',
+    fork:     '<path d="M12 21v-6"/><path class="a" d="M12 15 5 8V4"/><path d="m12 15 7-7V4"/>',
+    compass:  '<circle cx="12" cy="12" r="8.5"/><path class="a" d="m15 9-2.2 5.2L7.6 16l2.2-5.2z"/>',
+    door:     '<path d="M6 21V4h9v17"/><path class="a" d="M15 12h5m-2.5-2.5L20 12l-2.5 2.5"/>',
+    doorout:  '<path d="M13 21H5V3h8"/><path class="a" d="M11 12h9m-2.5-3L21 12l-3.5 3"/>',
+    doorshut: '<rect x="5" y="3" width="14" height="18" rx="1"/><path class="a" d="m9 9 6 6m0-6-6 6"/>',
+    /* --- time, waiting, growth --- */
+    clock:    '<circle cx="12" cy="12" r="8.5"/><path class="a" d="M12 7.5V12l3.5 2"/>',
+    hourglass:'<path d="M7 3h10M7 21h10"/><path d="M7 3c0 5 5 6 5 9s-5 4-5 9"/><path d="M17 3c0 5-5 6-5 9s5 4 5 9"/><path class="a" d="M9.5 18h5"/>',
+    steps:    '<path class="a" d="M4 20h4v-4"/><path d="M10 16h4v-4m2 0h4V8"/>',
+    growth:   '<path d="M4 20h16"/><rect x="6" y="14" width="3" height="6"/><rect x="11" y="10" width="3" height="10"/><rect class="a" x="16" y="5" width="3" height="15"/>',
+    cliff:    '<path d="M3 9h7v12"/><path class="a" d="M14 15h7"/><path d="M21 15v6"/><path class="a" d="M10 12h4" stroke-dasharray="1.5 2"/>',
+    /* --- people, teams, connection --- */
+    node:     '<circle cx="12" cy="5" r="2.4" class="a"/><path d="M12 7.4V11m0 0H6v4m6-4h6v4m-6-4v4"/><circle cx="6" cy="17" r="2"/><circle cx="12" cy="17" r="2"/><circle cx="18" cy="17" r="2"/>',
+    team:     '<circle cx="8" cy="8" r="2.6"/><circle cx="16" cy="8" r="2.6"/><circle class="a" cx="12" cy="16" r="2.6"/><path d="M8 10.6v1.9M16 10.6v1.9"/>',
+    outside:  '<circle cx="8" cy="9" r="2.4"/><circle cx="14" cy="9" r="2.4"/><circle cx="11" cy="15" r="2.4"/><circle class="a" cx="19.5" cy="18.5" r="2.4" stroke-dasharray="2 2"/>',
+    hands:    '<path d="M9 20V9.5a1.5 1.5 0 0 1 3 0V13"/><path class="a" d="M12 12.5V8a1.5 1.5 0 0 1 3 0v6"/><path d="M15 11.5a1.5 1.5 0 0 1 3 0V16a5 5 0 0 1-9 3l-3-4"/>',
+    child:    '<circle cx="12" cy="7" r="3"/><path d="M6 21v-3a6 6 0 0 1 12 0v3"/><path class="a" d="M12 13v4"/>',
+    /* --- talk, language, devices --- */
+    bubble:   '<path d="M20 14a3 3 0 0 1-3 3H9l-4 3v-3.5A3 3 0 0 1 4 14V7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3z"/><path class="a" d="M9 10.5h6"/>',
+    bubbleq:  '<path d="M20 14a3 3 0 0 1-3 3H9l-4 3v-3.5A3 3 0 0 1 4 14V7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3z"/><path class="a" d="M10.3 8.6a1.9 1.9 0 0 1 3.4 1.1c0 1.3-1.7 1.5-1.7 2.6"/><circle class="f" cx="12" cy="14.4" r=".85"/>',
+    twobub:   '<path d="M3.5 12a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a3 3 0 0 1-3 3H8l-3 2.5V16a3 3 0 0 1-1.5-3z"/><path class="a" d="M15 4h4.5a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-.5" stroke-dasharray="2.2 2.2"/>',
+    device:   '<rect class="a" x="4" y="5" width="16" height="14" rx="2"/><path d="M8 9.5h2m4 0h2M8 14.5h8"/>',
+    deviceoff:'<rect x="4" y="5" width="16" height="14" rx="2" stroke-dasharray="2.5 2.5"/><path class="a" d="m9 10 6 4m0-4-6 4"/>',
+    note:     '<path class="a" d="M9 18V6l9-2v12"/><circle class="a" cx="6.5" cy="18" r="2.5"/><circle cx="15.5" cy="16" r="2.5"/>',
+    wave:     '<path d="M3 12h2.5"/><path class="a" d="M7 12c1-6 2.2-6 3.2 0s2.2 6 3.2 0"/><path d="M14.4 12c.8-3 1.6-3 2.4 0M18.5 12H21"/>',
+    /* --- documents, money, admin --- */
+    doc:      '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path class="a" d="M9 12h6m-6 4h4"/>',
+    docx:     '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path class="a" d="m9.5 12.5 5 5m0-5-5 5"/>',
+    docstack: '<path d="M8 2h6l4 4v12H8z"/><path class="a" d="M5 6v14h11"/><path d="M14 2v4h4"/>',
+    docheart: '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path class="a" d="M12 17s-2.6-1.7-2.6-3.3A1.6 1.6 0 0 1 12 12.6a1.6 1.6 0 0 1 2.6 1.1C14.6 15.3 12 17 12 17z"/>',
+    money:    '<circle cx="12" cy="12" r="8.5"/><path class="a" d="M12 7v10M9.5 9.5h4a1.8 1.8 0 0 1 0 3.6h-3a1.8 1.8 0 0 0 0 3.6h4"/>',
+    search:   '<circle cx="10.5" cy="10.5" r="6"/><path class="a" d="m15 15 5 5"/>',
+    searchlist:'<path d="M4 6h8M4 10h6M4 14h4"/><circle class="a" cx="15.5" cy="14.5" r="4"/><path class="a" d="m18.5 17.5 2.5 2.5"/>',
+    calendar: '<rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 10h16M8 3v4m8-4v4"/><rect class="f" x="14" y="13" width="3" height="3" rx=".6"/>',
+    check:    '<circle cx="12" cy="12" r="8.5"/><path class="a" d="m8.2 12.2 2.6 2.6 5-5.4"/>',
+    /* --- home, safety, medical --- */
+    home:     '<path d="M4 11 12 4l8 7v9H4z"/><path class="a" d="M9.5 20v-5.5h5V20"/>',
+    layers:   '<path d="M4 7h5m2 0h9"/><path class="a" d="M4 12h9m2 0h5"/><path d="M4 17h3m2 0h11"/>',
+    shield:   '<path d="M12 3 5 6v6c0 4.5 3 7.6 7 9 4-1.4 7-4.5 7-9V6z"/><path class="a" d="m9 12 2.2 2.2L15.5 10"/>',
+    cross:    '<rect x="3.5" y="8.5" width="17" height="7" rx="1.5"/><rect class="a" x="8.5" y="3.5" width="7" height="17" rx="1.5"/>',
+    siren:    '<path class="a" d="M6 18a6 6 0 0 1 12 0z"/><path d="M4 21h16M12 5v2M6.5 7 8 8.4M17.5 7 16 8.4"/>',
+    water:    '<path class="a" d="M3 9c3-2.4 5.2 2.4 8.2 0S16.2 6.6 21 9"/><path d="M3 14c3-2.4 5.2 2.4 8.2 0S16.2 11.6 21 14"/><path d="M3 19c3-2.4 5.2 2.4 8.2 0S16.2 16.6 21 19"/>',
+    /* --- body, movement, food, sleep --- */
+    walk:     '<circle cx="13" cy="4.5" r="2"/><path class="a" d="m13 8-2.5 5 3 2.5 1 5.5"/><path d="m10.5 13-3 3-.5 4M15.5 9 19 11"/>',
+    wheel:    '<circle class="a" cx="11" cy="16.5" r="4.5"/><path d="M11 12V7h4"/><circle cx="15.5" cy="5" r="1.8"/><path d="M11 16.5h5.5l2 4"/>',
+    plate:    '<circle cx="12" cy="12" r="8.5"/><circle class="a" cx="12" cy="12" r="4"/>',
+    plateless:'<circle cx="12" cy="12" r="8.5"/><circle class="f" cx="9" cy="10" r="1.1"/><circle class="f" cx="14" cy="10.5" r="1.1"/><circle class="fm" cx="11" cy="14.5" r="1.1"/>',
+    moon:     '<path d="M20 14.5A8.5 8.5 0 1 1 10 4a6.8 6.8 0 0 0 10 10.5z"/><path class="a" d="M4 20c1.5-1 2.5 1 4 0" stroke-dasharray="0"/>',
+    breath:   '<path class="a" d="M5 8h7a3 3 0 1 0-3-3"/><path d="M5 12h11a3 3 0 1 1-3 3"/><path d="M5 16h6"/>',
+    /* --- learning, books, play --- */
+    book:     '<path d="M12 6v14"/><path d="M12 6C9.5 3.8 6.5 3.8 4 5v13c2.5-1.2 5.5-1.2 8 1"/><path class="a" d="M12 6c2.5-2.2 5.5-2.2 8-1v13c-2.5-1.2-5.5-1.2-8 1"/>',
+    circles:  '<circle cx="9.5" cy="12" r="5.5"/><circle class="a" cx="14.5" cy="12" r="5.5"/>',
+    grid:     '<rect x="4" y="4" width="6.5" height="6.5" rx="1"/><rect class="a" x="13.5" y="4" width="6.5" height="6.5" rx="1"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1"/>',
+    map:      '<path d="m3 6 6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path class="a" d="M9 4v14m6-12v14"/>',
+    scale:    '<path d="M12 4v16M6 20h12"/><path class="a" d="M4 9h16M6.5 9 4 14h5zM17.5 9 15 14h5z"/>'
+  };
+
+  function svg(name, size) {
+    var d = ICONS[name];
+    if (!d) return '';
+    return '<svg class="nv-ic" width="' + size + '" height="' + size +
+           '" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + d + '</svg>';
+  }
+
+  /* --- 35 router cards, in page order --- */
+  var CARD_ICONS = [
+    'signal','hourglass','node','bubbleq','calendar','searchlist','docx','door',
+    'doorout','child','bubble','docstack','cross','moon','clock','scale',
+    'walk','wheel','deviceoff','twobub','plateless','plate','circles','growth',
+    'note','wave','water','team','doorshut','book','cliff','docstack',
+    'fork','compass','docheart'
+  ];
+
+  var cards = document.querySelectorAll('.sit');
+  if (cards.length) {
+    cards.forEach(function (c, i) {
+      var n = CARD_ICONS[i] || 'signal';
+      c.insertAdjacentHTML('afterbegin', svg(n, 30));
+    });
+  }
+
+  /* --- section headings, matched on keywords (first match wins) --- */
+  var HEAD_RULES = [
+    [/verification call|phone|call, on one|worksheet/i,'check'],
+    [/tell us|missing or wrong|feedback|corrections/i, 'twobub'],
+    [/related pages|from our librar|our librar/i,      'book'],
+    [/recogni[sz]|what good looks|strong \w+ therapy|choosing a/i,'check'],
+    [/genuinely differ|families differ|adaptive or inclusive/i,'grid'],
+    [/read a goal|how to read|goals?\b/i,               'searchlist'],
+    [/parts nobody|nobody warns|worth knowing/i,       'signal'],
+    [/water|aquatic|pool|swim/i,                       'water'],
+    [/wander|elop|missing|responder|emergency|911/i,   'siren'],
+    [/safe|precaution|protect|abuse|autonomy|risk/i,   'shield'],
+    [/hospital|diagnosis|illness|injur|medical|whos who/i,'cross'],
+    [/evidence|supported|sorted|research/i,            'scale'],
+    [/evaluat|assess|how an|what.*targets|addresses/i, 'searchlist'],
+    [/\bages?\b|\bstages?\b|grows with|changes with|the floor moves|progress/i,'growth'],
+    [/librar|stories|read|book|maplewood/i,            'book'],
+    [/money|pay|superbill|network|claim|fund|cost/i,   'money'],
+    [/school|iep|goal|meeting|accommodat|classroom/i,  'calendar'],
+    [/program|entitle|framework|state|massachusetts/i, 'map'],
+    [/communit|team|sport|inclusive|adaptive|belong/i, 'team'],
+    [/aac|speech|language|voice|communicat|talk|word/i, 'bubble'],
+    [/declarative|say|phrase|script|question/i,        'twobub'],
+    [/feed|\beat\b|eating|food|arfid|meal|dinner|swallow/i,   'plate'],
+    [/breath|sleep|snor|airway|myofunctional/i,        'breath'],
+    [/music|song|sound|listen/i,                       'note'],
+    [/play|floortime|circle|child-led|capacit/i,       'circles'],
+    [/\bmove|walk|motor|gait|distance|\bbody\b|posture/i,     'walk'],
+    [/equipment|stroller|chair|device|technolog/i,     'device'],
+    [/parking|travel|transit|getting there|days out/i, 'map'],
+    [/home|house|famil|parent|caregiver/i,             'home'],
+    [/demand|refus|avoid|pressure/i,                   'doorshut'],
+    [/dignity|ordinary|respect|listen/i,               'hands'],
+    [/self-advoca|grow|own voice|their own/i,          'growth'],
+    [/agree|principle|belie|how this|what.*written/i,  'check'],
+    [/learning from|adults with|disabilit/i,           'team'],
+    [/practitioner|therapist|clinician|specialist/i,   'node'],
+    [/common|injur|hurt|pain|where it/i,               'cross'],
+    [/everything|all |site|landscape|kinds|types/i,    'grid'],
+    [/woven|thread|inside|what.?s in/i,                'circles'],
+    [/where.*happen|home|setting|place/i,              'home'],
+    [/out in the world|world|outside|communit/i,       'map'],
+    [/additional needs|child|children|young/i,         'child'],
+    [/actually is|what it is|introduc|overview/i,      'compass'],
+    [/who|find|choos|recogni|good|strong/i,            'check'],
+    [/practical|matter|work|making it|before you/i,    'doc'],
+    [/first|start|begin|now|right now/i,               'signal'],
+    [/differ|vary|range|options|both/i,                'grid'],
+    [/about|contribut|written|built/i,                 'child'],
+    [/landscape|kinds|types|four|three|nine/i,         'grid']
+  ];
+
+  document.querySelectorAll('h2.sec').forEach(function (h) {
+    if (h.querySelector('.nv-ic')) return;
+    var t = h.textContent || '', name = 'fork';
+    for (var i = 0; i < HEAD_RULES.length; i++) {
+      if (HEAD_RULES[i][0].test(t)) { name = HEAD_RULES[i][1]; break; }
+    }
+    h.insertAdjacentHTML('afterbegin', svg(name, 26));
+  });
+})();
