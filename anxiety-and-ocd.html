@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anxiety, OCD and School Refusal — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#6B4A78; --book-tint:#EFE6F1; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the equation */
+.eqn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.eqn h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.eqn .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.parts{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:18px}
+@media(max-width:700px){.parts{grid-template-columns:1fr;gap:6px}.op{text-align:center;padding:2px 0}}
+.pt{background:rgba(255,255,255,.06);border-top:3px solid var(--book);padding:15px 16px}
+.pt.res{border-top-color:var(--rust);background:rgba(156,74,33,.13)}
+.pt b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#EFEBE3;margin-bottom:6px}
+.pt span{font-size:.86rem;color:#B9C4B4;line-height:1.45;display:block}
+.op{font-size:1.5rem;color:#C6A98F;text-align:center}
+.eqn .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:20px 0 0;max-width:62ch}
+.eqn .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .eqn{background:#fff;color:#000;border:1px solid #000}.eqn .big,.pt b,.eqn .cap strong{color:#000}}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Anxiety, OCD <em>and school refusal</em></h1>
+  <p class="lede">The most common childhood mental health difficulty, among the most treatable, and the one where loving instincts most reliably make things worse. Nearly everything a caring adult does naturally — reassuring, removing the hard thing, letting them skip it today — feeds the problem. This page is about what to do instead.</p>
+</header>
+
+<div class="profnote">
+  <b>Reading this as a professional</b>
+  <p>This page is deliberately direct that accommodation maintains anxiety, and that exposure is the active ingredient. It also names where low-demand approaches — appropriate elsewhere on this site — are contraindicated here.</p>
+  <p>The section on distinguishing anxiety-driven avoidance from demand avoidance and from sensory overload may be useful when a family arrives with a plan built for the wrong one.</p>
+</div>
+
+<section>
+  <div class="eqn">
+    <h2>The loop that keeps it going</h2>
+    <p class="big">Anxiety is maintained by relief. Every time avoidance or reassurance ends the discomfort, the brain records that the danger was real and that escaping worked — so next time the fear is bigger, not smaller.</p>
+    <div class="parts">
+      <div class="pt"><b>The fear arrives</b><span>A thought, a situation, a question they can't stop asking.</span></div>
+      <div class="op">→</div>
+      <div class="pt res"><b>We help</b><span>We reassure. We answer again. We let them stay home. We do it for them.</span></div>
+      <div class="op">→</div>
+      <div class="pt"><b>Relief — then more fear</b><span>Instant calm. And a lesson learned: that was dangerous, and escaping is what works.</span></div>
+    </div>
+    <p class="cap"><strong>This is why families so often find things getting steadily worse while doing everything right.</strong> The accommodations grow — different routes, avoided foods, a parent sleeping in the room, questions answered forty times a night — and the household quietly reorganizes around a fear that is expanding rather than shrinking. Nobody did anything wrong. The instinct to protect is correct in almost every other situation and precisely backwards in this one.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What anxiety looks like <em>in a child</em></h2>
+  <p class="secnote">Frequently not like worry. This is why it is missed, and why it is so often treated as behavior.</p>
+
+  <div class="domains">
+    <div class="dom"><h3>Anger and refusal</h3>
+      <p>The most common disguise and the most consequential misreading. A child who cannot escape something frightening will fight it, and it looks exactly like defiance.</p>
+      <ul><li>Explosive reactions to being asked to do specific things</li><li>Refusal that is situation-specific rather than general</li><li>Escalation when escape is blocked</li><li>Complete calm once the demand is removed</li></ul>
+      <p class="look"><b>The tell</b>It's predictable and it's attached to particular situations. Genuine defiance is broader; anxiety is narrow and consistent.</p></div>
+
+    <div class="dom"><h3>Physical symptoms</h3>
+      <p>Real, felt symptoms rather than invented ones. The stomach genuinely hurts.</p>
+      <ul><li>Stomachaches and headaches, worst on school mornings</li><li>Nausea, needing the bathroom frequently</li><li>Symptoms that resolve by mid-morning at home</li><li>Repeated medical workups finding nothing</li></ul>
+      <p class="look"><b>What helps</b>Investigate medically once, properly. Then stop investigating and start treating the anxiety.</p></div>
+
+    <div class="dom"><h3>Reassurance-seeking</h3>
+      <p>The same question asked repeatedly, with the answer never quite landing. Each answer buys a few minutes.</p>
+      <ul><li>"Are you sure?" "What if?" "Promise?"</li><li>Checking plans, times, and details over and over</li><li>Needing a specific phrase said in a specific way</li><li>Distress if the answer is worded differently</li></ul>
+      <p class="look"><b>Why it grows</b>Reassurance is relief, and relief is fuel. This is the single most important accommodation to reduce.</p></div>
+
+    <div class="dom"><h3>Perfectionism and avoidance of failure</h3>
+      <p>Often praised rather than noticed, which is why it can run for years unaddressed.</p>
+      <ul><li>Rewriting, erasing, refusing to hand things in</li><li>Not attempting things they might not do well</li><li>Extreme distress over small mistakes</li><li>Procrastination that is fear rather than laziness</li></ul>
+      <p class="look"><b>The tell</b>The distress is disproportionate and the avoidance is specific to things that could be judged.</p></div>
+
+    <div class="dom"><h3>Separation and bedtime</h3>
+      <p>Where a great deal of family accommodation accumulates, gradually enough that nobody notices the household has changed shape.</p>
+      <ul><li>A parent sleeping in the room, or the child in theirs</li><li>Difficulty at drop-off long past the expected age</li><li>Needing to know exactly where a parent is</li><li>Fear of something happening to a parent</li></ul>
+      <p class="look"><b>What helps</b>Reduce accommodation gradually and in a planned way, with the child told in advance — never abruptly.</p></div>
+
+    <div class="dom"><h3>The quiet, compliant child</h3>
+      <p>Severe anxiety in someone who causes no trouble at all is missed constantly, because nothing about it inconveniences an adult.</p>
+      <ul><li>Never puts a hand up, never asks for help</li><li>Holds it together entirely at school, falls apart at home</li><li>Described by teachers as no trouble</li><li>Physical symptoms and sleep difficulty are often the only signal</li></ul>
+      <p class="look"><b>Worth remembering</b>A child who is no trouble is not evidence of a child who is fine.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The treatment that <em>works</em></h2>
+  <p class="secnote">Anxiety has some of the strongest evidence in child mental health. This is one of the more hopeful pages on this site.</p>
+
+  <p><strong>Cognitive behavioral therapy with exposure</strong> is the first-line treatment, and the exposure part is the active ingredient. Talking about worries without gradually approaching them works considerably less well — so a therapist who only does talk therapy for anxiety is not delivering the evidence-based version, however kind and skilled they are.</p>
+
+  <h3 class="sub">How exposure actually works</h3>
+  <ul>
+    <li><strong>Graded and collaborative.</strong> A ladder built <em>with</em> the child, from mildly uncomfortable to genuinely hard. They choose the pace and they choose the next rung.</li>
+    <li><strong>Approach, stay, and let it come down on its own.</strong> The learning is that the feared thing didn't happen and that the feeling passed without escaping.</li>
+    <li><strong>Repeated, in different contexts.</strong> Once is not enough; the brain needs the evidence several times and in several settings.</li>
+    <li><strong>Never a surprise, never forced.</strong> Exposure done <em>to</em> someone is not exposure therapy — it's a frightening experience, and it can set things back a long way.</li>
+    <li><strong>The goal is not feeling calm.</strong> It's doing the thing while feeling anxious, and discovering that's survivable.</li>
+  </ul>
+
+  <div class="bnote">
+    <h3>When your child won't engage in therapy</h3>
+    <p>Extremely common, and not a dead end. <strong>SPACE — Supportive Parenting for Anxious Childhood Emotions</strong> — is a parent-only treatment that works entirely by changing how the family responds, with the child never attending a session. It has good trial evidence and produces outcomes comparable to child-delivered CBT.</p>
+    <p>Its mechanism is exactly the loop above: parents systematically reduce accommodation while increasing supportive statements, so the child gets both the message that the fear isn't dangerous <em>and</em> the message that the parent believes they can handle it.</p>
+    <p>This matters enormously for families whose child refuses therapy, can't access talk therapy, or has a profile that makes traditional CBT hard. Ask for it by name — many clinicians have not heard of it.</p>
+  </div>
+
+  <h3 class="sub">Reducing accommodation without cruelty</h3>
+  <ul>
+    <li><strong>Pick one thing.</strong> Not all of them. One accommodation, chosen because it's the most manageable rather than the most important.</li>
+    <li><strong>Tell them in advance,</strong> calmly and in writing if useful. Never withdraw support by surprise.</li>
+    <li><strong>Say both halves.</strong> <em>"I know this is hard for you, and I know you can handle it."</em> Acceptance and confidence together — either alone doesn't work.</li>
+    <li><strong>Expect it to get louder before it gets quieter.</strong> Protest usually increases first. That is the change happening, not the plan failing.</li>
+    <li><strong>Stay warm and don't argue.</strong> You are not negotiating; you are being unshakeably kind about something you have already decided.</li>
+    <li><strong>Give it two to three weeks</strong> before judging, then move to the next one.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">What to say <em>instead of reassurance</em></h2>
+  <p class="secnote">Reassurance feels like love and functions like fuel. These say the same warmth without feeding the loop.</p>
+
+  <div class="domains">
+    <div class="dom"><h3>Instead of answering again</h3>
+      <p><em>"I've answered that one, and I think you know what I'd say."</em></p>
+      <p><em>"That sounds like the worry asking. I'm not going to answer the worry, but I'm right here."</em></p>
+      <p class="look"><b>Why</b>Declining to reassure while remaining present separates you from the anxiety without abandoning them.</p></div>
+
+    <div class="dom"><h3>Instead of "you'll be fine"</h3>
+      <p><em>"I don't know exactly how it'll go. I do know you can handle it."</em></p>
+      <p><em>"That does sound hard. And I think you're up to it."</em></p>
+      <p class="look"><b>Why</b>Predicting a good outcome is a promise you can't keep, and it teaches that certainty is required before acting.</p></div>
+
+    <div class="dom"><h3>Instead of removing the hard thing</h3>
+      <p><em>"We're going to do it, and I'll be there for the first part."</em></p>
+      <p><em>"What's the smallest version of this we could do today?"</em></p>
+      <p class="look"><b>Why</b>Keeps approach going while making it achievable. A smaller step is progress; skipping is not.</p></div>
+
+    <div class="dom"><h3>Instead of arguing with the fear</h3>
+      <p><em>"You might be right that it could happen. What would you do if it did?"</em></p>
+      <p class="look"><b>Why</b>Debating probability is a game anxiety always wins. Building coping is a game it doesn't.</p></div>
+
+    <div class="dom"><h3>Naming the anxiety as separate</h3>
+      <p><em>"Is that you talking, or the worry?"</em> — and for younger children, giving it a name and a personality.</p>
+      <p class="look"><b>Why</b>Externalizing puts you and the child on the same side, working against something rather than against each other.</p></div>
+
+    <div class="dom"><h3>Afterward</h3>
+      <p><em>"You did that while feeling scared. That's the brave version."</em></p>
+      <p class="look"><b>Why</b>Praise the approaching, not the calmness. Feeling fine wasn't the goal and shouldn't be the thing that gets noticed.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">OCD, <em>specifically</em></h2>
+  <p class="secnote">Related but distinct, and it needs a particular treatment that a general therapist may not provide.</p>
+
+  <p>Obsessions are unwanted intrusive thoughts, images, or urges. Compulsions are what a person does to make the resulting distress go away — washing, checking, counting, ordering, confessing, asking for reassurance, or mental rituals nobody can see. The relief is real and short, which is exactly what makes the cycle so strong.</p>
+
+  <ul>
+    <li><strong>Exposure and response prevention is the treatment.</strong> Approaching the trigger and <em>not</em> performing the compulsion. A therapist without specific ERP training can actively worsen OCD by providing reassurance, so ask directly whether they practice ERP.</li>
+    <li><strong>Family accommodation is the strongest predictor of poor outcome</strong> and is entirely modifiable. Participating in rituals, answering reassurance questions, and arranging life around triggers all maintain it.</li>
+    <li><strong>Treat the mechanism, not the theme.</strong> Content shifts — contamination, harm, symmetry, moral or religious themes — while the machinery stays identical. Chasing the theme is a trap.</li>
+    <li><strong>Mental compulsions and reassurance-seeking are invisible</strong> and routinely missed entirely. Ask about them specifically.</li>
+    <li><strong>Medication</strong>, usually an SSRI and often at higher doses than for anxiety, is effective for moderate to severe OCD.</li>
+    <li><strong>Sudden, dramatic onset</strong> of OCD symptoms — particularly after an illness, and particularly with restricted eating — warrants a different medical conversation. The <a href="conditions-library.html">conditions library</a> covers it.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">School refusal</h2>
+  <p class="secnote">Rarely about school, almost never about laziness, and much harder to reverse the longer it runs.</p>
+
+  <p>The term covers several different things, and the response depends on which one it is. A child may be avoiding <strong>something specific</strong> at school — a teacher, a subject, a bathroom, a bully, being called on. They may be avoiding <strong>separation</strong> from home. They may be avoiding <strong>social evaluation</strong>. Or the demands may genuinely exceed what they can currently do, in which case the answer is changing the demands rather than treating the anxiety.</p>
+
+  <h3 class="sub">What tends to help</h3>
+  <ul>
+    <li><strong>Act early.</strong> Days matter here. A week off becomes a month with alarming ease, and re-entry difficulty rises steeply with time away.</li>
+    <li><strong>Find out what specifically is being avoided</strong> before building a plan. The answer is often surprisingly concrete and sometimes solvable outright.</li>
+    <li><strong>Rule out the ordinary explanations</strong> — a learning difficulty producing daily failure, undiagnosed ADHD, sensory overload, a medical problem, bullying, or a bathroom they won't use.</li>
+    <li><strong>Keep some contact with school,</strong> in whatever form. Partial attendance, a shortened day, the library, coming in after everyone is settled. Full absence is far harder to reverse.</li>
+    <li><strong>Build a graded return plan with the child,</strong> written down, with the steps and the timeline visible.</li>
+    <li><strong>Name one person at school</strong> they can go to, and make sure that person knows.</li>
+    <li><strong>Make home during school hours unstimulating</strong> without making it punitive — no screens or gaming during the school day, as a neutral fact rather than a consequence.</li>
+    <li><strong>Get attendance and truancy processes paused</strong> while a plan is in place. Ask for this explicitly and in writing.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Where this <em>collides</em> with the rest of this site</h2>
+  <p class="secnote">The most important section on this page, and the reason it exists.</p>
+
+  <div class="note">
+    <h3>Reduce demands, or approach them?</h3>
+    <p>Much of this site describes reducing demands, honoring refusal, and lowering pressure — because for demand-avoidant profiles, for sensory overload, and for someone past their limit, that is exactly right.</p>
+    <p><strong>For anxiety and OCD it is exactly wrong.</strong> Avoidance is what maintains the disorder, and a plan built on removing whatever causes distress will make an anxious child steadily worse while everyone believes they are being kind.</p>
+    <p>Both things are true. They apply to different situations, and telling them apart is the single most useful clinical judgment a family can make.</p>
+  </div>
+
+  <h3 class="sub">Telling them apart</h3>
+  <ul>
+    <li><strong>Anxiety-driven avoidance.</strong> Specific and predictable triggers. The person often <em>wants</em> to do the thing and can say so. Anticipatory dread building beforehand. Relief when it's over, and frequently regret at having avoided it. <em>Response: graded approach, with support.</em></li>
+    <li><strong>Demand avoidance.</strong> Triggered by the demand itself rather than by the content — including things they wanted to do a minute ago. Resistance rises with any pressure, including praise and rewards. Autonomy is the issue. <em>Response: remove the demand, restore control, use declarative language.</em></li>
+    <li><strong>Sensory overload.</strong> Attached to specific sensory conditions rather than to the activity. Predictable from the environment. Worse when tired or after a loud day. <em>Response: change the environment, and don't push through.</em></li>
+    <li><strong>Skill gap.</strong> The demand genuinely exceeds current ability. <em>Response: teach the skill or change the demand \u2014 not exposure.</em></li>
+  </ul>
+  <p>Most people are some combination, and the mix shifts. When you are unsure, that uncertainty is itself the reason to get a clinician involved rather than picking one framework and committing to it.</p>
+
+  <div class="warn">
+    <h3>One important exception to hold</h3>
+    <p>Exposure work is for anxiety about things that are not actually dangerous. It is <strong>not</strong> for a person who is avoiding something because of genuine harm — bullying, an unsafe placement, a frightening adult, or a real medical problem.</p>
+    <p>Before building any approach plan, be confident that what is being avoided is safe. A child avoiding something for a good reason is not exhibiting a disorder, and treating it as one is its own harm.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Evidence, <em>sorted honestly</em></h2>
+  <div class="evid">
+    <div class="ev a"><h3>Strongly supported</h3>
+      <p><strong>CBT with exposure</strong> for childhood anxiety — one of the better-evidenced treatments in child mental health.</p>
+      <p><strong>Exposure and response prevention</strong> for OCD.</p>
+      <p><strong>Parent-based treatment reducing family accommodation</strong>, including SPACE, with outcomes comparable to child-delivered CBT.</p>
+      <p><strong>SSRIs</strong> for moderate to severe anxiety and OCD, particularly combined with therapy.</p>
+      <p><strong>Early intervention in school refusal</strong> — time away is the strongest predictor of difficulty returning.</p>
+      <p><strong>Treating what's underneath</strong> — learning disorders, ADHD, sleep problems, and bullying all generate anxiety and don't respond to anxiety treatment alone.</p>
+    </div>
+    <div class="ev b"><h3>Mixed or supporting</h3>
+      <p><strong>Mindfulness and relaxation</strong> — helpful alongside exposure, insufficient on their own, and occasionally counterproductive if used to escape a feeling rather than sit with it.</p>
+      <p><strong>Exercise and sleep</strong> — genuine contributors, not substitutes.</p>
+      <p><strong>Acceptance-based approaches</strong> — promising, less studied in children than CBT.</p>
+      <p><strong>School-based anxiety programs</strong> — modest effects, wide variation in delivery.</p>
+    </div>
+    <div class="ev c"><h3>Counterproductive</h3>
+      <p><strong>Reassurance</strong>, however kindly given and however many times.</p>
+      <p><strong>Accommodating the avoidance</strong> — the single largest maintaining factor and the most modifiable.</p>
+      <p><strong>Talk therapy without exposure</strong> for anxiety or OCD. Pleasant, and not the treatment.</p>
+      <p><strong>Forcing exposure without consent or a plan</strong> — frightening, damaging to trust, and it sets progress back.</p>
+      <p><strong>Waiting for them to grow out of it.</strong> Untreated childhood anxiety frequently persists and predicts later difficulties.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="de-escalation.html"><h3>In the moment</h3>
+      <p>Anxiety frequently presents as anger and refusal. What to do when someone is past the point of reasoning.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="learning-and-literacy.html"><h3>Learning and literacy</h3>
+      <p>Years of daily academic failure produce anxiety reliably. Treating the reading is often treating the anxiety.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="adhd-executive-function.html"><h3>ADHD and executive function</h3>
+      <p>Frequently sits alongside anxiety, sometimes imitates it, and needs a different response.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="behavior.html"><h3>Behavior is communication</h3>
+      <p>Zooming out before responding, and the frame that makes anxious behavior legible.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="care-team-map.html"><h3>The care team map</h3>
+      <p>Psychiatry, psychology, and how to find someone who actually practices exposure and ERP.</p>
+      <span class="go">Open the map</span></a>
+    <a class="libcard" href="conditions-library.html"><h3>The conditions library</h3>
+      <p>Fuller entries on anxiety disorders, OCD, selective mutism, depression, and PANS.</p>
+      <span class="go">Open the library</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>If you take one thing, take this: pick a single accommodation you have been making, tell your child in advance that it is changing, and then say both halves out loud — <em>I know this is hard for you, and I know you can handle it.</em></p>
+  <p>Expect the protest to get louder before it gets quieter. That is not the plan failing. That is the sound of something starting to change, and you have not done anything wrong by having accommodated in the first place — every loving parent does. Knowing what to do instead is the whole of it.</p>
+</div>
+
+<footer>
+  <p><strong>This is a map, not clinical advice.</strong> Anxiety and OCD are treatable and treatment works best with a clinician trained in exposure-based approaches. If a child is at risk of harm, or if you are worried about their safety, seek help promptly rather than working through this page.</p>
+  <p>Before building any approach plan, be confident that what is being avoided is genuinely safe. Avoidance for a good reason is not a disorder.</p>
+</footer>
+
+</div>
+<script src="site-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learning and Literacy — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#6B4226; --book-tint:#F0E7DE; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the equation */
+.eqn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.eqn h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.eqn .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.parts{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:18px}
+@media(max-width:700px){.parts{grid-template-columns:1fr;gap:6px}.op{text-align:center;padding:2px 0}}
+.pt{background:rgba(255,255,255,.06);border-top:3px solid var(--book);padding:15px 16px}
+.pt.res{border-top-color:var(--rust);background:rgba(156,74,33,.13)}
+.pt b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#EFEBE3;margin-bottom:6px}
+.pt span{font-size:.86rem;color:#B9C4B4;line-height:1.45;display:block}
+.op{font-size:1.5rem;color:#C6A98F;text-align:center}
+.eqn .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:20px 0 0;max-width:62ch}
+.eqn .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .eqn{background:#fff;color:#000;border:1px solid #000}.eqn .big,.pt b,.eqn .cap strong{color:#000}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Learning and literacy:<br><em>reading is taught, not caught</em></h1>
+  <p class="lede">Difficulty with reading, writing, or math is among the most common reasons a child struggles at school, and among the most fixable — provided the instruction is the right kind. The evidence here is unusually strong and unusually often ignored, which means knowing what to ask for matters more on this topic than on almost any other.</p>
+</header>
+
+<div class="profnote">
+  <b>Reading this as a professional</b>
+  <p>This page describes structured literacy and names the instructional approaches that research has not supported, because families are frequently told their child's program is evidence-based when it isn't.</p>
+  <p>The section on evaluating a school's reading instruction is written to be usable by a parent in a meeting, and may be useful if you are ever explaining your own program to one.</p>
+</div>
+
+<section>
+  <div class="eqn">
+    <h2>What reading is actually made of</h2>
+    <p class="big">Reading comprehension is not one skill. It is two, and they multiply rather than add \u2014 which means if either one is near zero, the result is too, however strong the other is.</p>
+    <div class="parts">
+      <div class="pt"><b>Decoding</b><span>Turning marks on a page into the sounds of words. A code, and codes are taught.</span></div>
+      <div class="op">\u00d7</div>
+      <div class="pt"><b>Language comprehension</b><span>Understanding those words when spoken \u2014 vocabulary, grammar, background knowledge.</span></div>
+      <div class="op">=</div>
+      <div class="pt res"><b>Reading comprehension</b><span>Understanding what was written.</span></div>
+    </div>
+    <p class="cap"><strong>This is why two children can both be failing at reading for completely opposite reasons.</strong> One decodes fluently and understands almost nothing of what they read. Another understands every word when it's read aloud and cannot get the letters off the page. They need entirely different help, and a school that treats them the same will fail at least one of them. The first question is always <em>which side is the problem on \u2014 or is it both?</em></p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Structured literacy: <em>what actually works</em></h2>
+  <p class="secnote">The approach with the strongest evidence base, and the one to ask for by name.</p>
+
+  <p>Structured literacy teaches the code explicitly, in a planned order, with enough practice for each step to stick before the next arrives. It is not one branded program \u2014 it's a set of features that good programs share.</p>
+
+  <ul>
+    <li><strong>Explicit.</strong> Each element is directly taught rather than discovered. Nothing is left for a child to infer.</li>
+    <li><strong>Systematic and cumulative.</strong> Skills are sequenced from simple to complex, and each builds on what came before.</li>
+    <li><strong>Phonemic awareness first.</strong> Hearing and manipulating the individual sounds inside spoken words \u2014 before letters are involved at all. This is the single strongest predictor of later reading, and the most commonly skipped.</li>
+    <li><strong>Phonics, taught in an order.</strong> Letter-sound relationships taught deliberately, not incidentally.</li>
+    <li><strong>Decodable text at the start.</strong> Early books that use only patterns the child has been taught, so reading is practice rather than guesswork.</li>
+    <li><strong>Multisensory.</strong> Seeing, saying, hearing, and moving together \u2014 tracing letters while saying sounds, tapping out phonemes.</li>
+    <li><strong>Diagnostic and responsive.</strong> The teacher knows exactly which sounds and patterns a child has and hasn't mastered, and reteaches accordingly.</li>
+    <li><strong>Morphology and syntax</strong> as reading advances \u2014 prefixes, roots, suffixes, sentence structure. Not just sounds.</li>
+  </ul>
+
+  <div class="bnote">
+    <h3>The thing families are rarely told</h3>
+    <p>Structured literacy is not remedial or specialized. It is simply how reading is most reliably taught, and it works for children who would have learned to read anyway. What differs for a child with dyslexia is the <em>intensity</em> \u2014 more explicit, more practice, more repetition, smaller group \u2014 not the method.</p>
+    <p>Which means a school saying "we don't do that here, we do it differently" is not describing a philosophical alternative. It is describing a program that is likely to leave some children behind.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">How to tell what your school <em>is actually doing</em></h2>
+  <p class="secnote">The word "evidence-based" appears on nearly every curriculum. These questions get past it.</p>
+
+  <h3 class="sub">Ask these, and listen carefully</h3>
+  <ul>
+    <li><strong>"What reading program do you use, by name?"</strong> Then look it up independently. Reviews of program quality are published and freely available.</li>
+    <li><strong>"Is phonics taught systematically, in a set sequence \u2014 or as it comes up?"</strong> As-it-comes-up is incidental phonics, and it is not the same thing.</li>
+    <li><strong>"Do beginning readers get decodable books?"</strong> If early books are predictable or pattern-based, children memorize and guess rather than decode.</li>
+    <li><strong>"When my child hits a word they don't know, what are they taught to do?"</strong> This is the most revealing question on the list \u2014 see below.</li>
+    <li><strong>"How do you know which specific sounds my child hasn't mastered?"</strong> A good answer involves diagnostic assessment, not a reading level.</li>
+    <li><strong>"How much time per day, in what group size, with whom?"</strong> Intensity is what makes intervention work.</li>
+  </ul>
+
+  <div class="warn">
+    <h3>The answer that tells you the most</h3>
+    <p>If a child stuck on a word is taught to <strong>look at the picture, guess from context, or think about what word would make sense</strong>, that is a cueing strategy \u2014 and it teaches children to avoid the code rather than use it. It works passably in simple early books and collapses around third grade when the text gets harder and the pictures disappear.</p>
+    <p>The answer you want is that they are taught to <strong>look at the letters and sound it out</strong>, using patterns they have been explicitly taught.</p>
+    <p>Curricula built around guessing strategies were widely used for decades and have been substantially withdrawn or revised following sustained criticism. Some schools are still using them, and many teachers were trained in them in good faith. Asking this question is not an accusation \u2014 but the answer tells you what your child is being taught to do.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The <em>specific difficulties</em></h2>
+  <div class="domains">
+    <div class="dom">
+      <h3>Dyslexia</h3>
+      <p>Difficulty with accurate and fluent word recognition, and with spelling and decoding \u2014 typically stemming from a weakness in processing the sounds of language, and unexpected given the person's other abilities.</p>
+      <ul>
+        <li>Trouble rhyming, hearing syllables, and isolating sounds in words</li>
+        <li>Slow, effortful, inaccurate reading</li>
+        <li>Spelling much weaker than spoken vocabulary</li>
+        <li>Reading comprehension better when listening than when reading</li>
+        <li>Family history is common</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Homework taking three times as long, stomachaches before reading, avoiding books entirely, reading a word correctly on one line and not the next.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Dysgraphia</h3>
+      <p>Difficulty with the physical and organizational demands of writing. Frequently overlooked, because it looks like carelessness.</p>
+      <ul>
+        <li>Handwriting that is slow, effortful, or illegible</li>
+        <li>Hand pain and fatigue while writing</li>
+        <li>Written work far below what the person can say aloud</li>
+        <li>Difficulty organizing thoughts on a page</li>
+        <li>Trouble with spacing, sizing, and staying on lines</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Refusing to write anything, a page of work that took an hour, ideas that vanish between thinking and writing.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Dyscalculia</h3>
+      <p>Difficulty with number sense, math facts, and calculation \u2014 the least recognized of the three, and rarely identified without a parent pushing for it.</p>
+      <ul>
+        <li>Poor sense of quantity \u2014 which number is bigger, roughly how many</li>
+        <li>Math facts that never become automatic despite endless practice</li>
+        <li>Counting on fingers well past the age peers stop</li>
+        <li>Difficulty with time, money, sequencing, and estimation</li>
+        <li>Math anxiety that arrives early and runs deep</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Tears over math homework, memorizing facts and losing them overnight, no idea whether an answer is roughly right.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Language-based comprehension difficulty</h3>
+      <p>The other side of the equation. A person decodes accurately and does not understand what they've read \u2014 usually because the underlying spoken language is weaker than anyone realized.</p>
+      <ul>
+        <li>Reads aloud fluently, can't say what it was about</li>
+        <li>Limited vocabulary and background knowledge</li>
+        <li>Difficulty with inference and figurative language</li>
+        <li>Often overlaps with developmental language disorder</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Being praised as a good reader while grades slide, and struggling with instructions and conversation too.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Fluency without accuracy \u2014 or the reverse</h3>
+      <p>Fluency is the bridge. A person who decodes accurately but very slowly uses so much effort on the words that nothing is left for meaning.</p>
+      <ul>
+        <li>Accurate but painfully slow reading</li>
+        <li>Word-by-word reading with no expression</li>
+        <li>Comprehension collapsing on longer texts specifically</li>
+        <li>Repeated reading and partner reading are the usual interventions</li>
+      </ul>
+      <p class="look"><b>What you'd see at home</b>Getting through a page correctly and remembering none of it, and being exhausted by short assignments.</p>
+    </div>
+
+    <div class="dom">
+      <h3>Executive function in the middle of all of it</h3>
+      <p>Getting started, holding a plan, tracking materials, and finishing. Difficulty here can look exactly like a reading or math problem and needs a different response.</p>
+      <ul>
+        <li>Knows the material, can't produce the assignment</li>
+        <li>Loses work between completing it and handing it in</li>
+        <li>Freezes at the start of an open-ended task</li>
+        <li>Time and long-range planning are the hardest parts</li>
+      </ul>
+      <p class="look"><b>See also</b>The <a href="adhd-executive-function.html">ADHD and executive function page</a> covers this in full.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Accommodation and instruction are <em>both required</em></h2>
+  <p class="secnote">A common and costly mistake is choosing one.</p>
+
+  <p><strong>Instruction</strong> is the work of building the skill \u2014 structured literacy, delivered intensively enough to close a gap. <strong>Accommodation</strong> is the work of keeping a person's access to everything else while the skill is being built.</p>
+  <p>A child given only accommodations may reach adulthood unable to read. A child given only instruction spends years locked out of history, science, and literature because they can't access the text. They need both, at the same time, and asking for one should never mean giving up the other.</p>
+
+  <h3 class="sub">Accommodations that preserve access</h3>
+  <ul>
+    <li><strong>Audiobooks and text-to-speech</strong> for all grade-level content, provided at the same time as peers get the printed version.</li>
+    <li><strong>Speech-to-text and keyboarding</strong> where handwriting is the barrier, with real instruction in using them.</li>
+    <li><strong>Extended time</strong> as standard, and reduced volume where a task repeats a mastered skill.</li>
+    <li><strong>Not being asked to read aloud</strong> in front of the class unless they volunteer.</li>
+    <li><strong>Grading content separately from spelling and mechanics</strong>, except where those are what's being assessed.</li>
+    <li><strong>Calculators and reference sheets</strong> for math facts, so a fact-retrieval problem doesn't block conceptual learning.</li>
+  </ul>
+
+  <div class="note">
+    <h3>Documenting early matters more than families expect</h3>
+    <p>Accommodations used consistently through school are what establish the record required for accommodations on college entrance exams and in higher education. A student who first requests extended time at sixteen, with no history of it, is in a much harder position than one who has had it written and used since third grade.</p>
+    <p>So even where a family is managing without a formal plan, there is a real argument for getting it documented anyway.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Evidence, <em>sorted honestly</em></h2>
+  <div class="evid">
+    <div class="ev a"><h3>Strongly supported</h3>
+      <p><strong>Explicit, systematic phonics instruction</strong> \u2014 one of the most replicated findings in education research.</p>
+      <p><strong>Phonemic awareness training</strong>, particularly in the earliest years.</p>
+      <p><strong>Early intervention.</strong> Kindergarten and first grade instruction is dramatically more effective than the same instruction in fourth grade. The gap widens every year it isn't addressed.</p>
+      <p><strong>Repeated reading</strong> for fluency.</p>
+      <p><strong>Explicit vocabulary and background knowledge instruction</strong> for comprehension.</p>
+      <p><strong>Assistive technology</strong> \u2014 audiobooks and text-to-speech preserve access to content and do not reduce reading motivation.</p>
+      <p><strong>Explicit, structured math instruction</strong> with concrete-to-abstract sequencing.</p>
+    </div>
+
+    <div class="ev b"><h3>Mixed or context-dependent</h3>
+      <p><strong>Specific branded programs.</strong> Many quality programs share the same underlying features; the features matter more than the brand. Some heavily marketed programs have thinner evidence than their reputation.</p>
+      <p><strong>Multisensory elements specifically</strong> \u2014 widely used and clinically sensible; the evidence that the multisensory component adds beyond good structured instruction is less clear.</p>
+      <p><strong>Fluency practice for comprehension</strong> \u2014 helps some readers substantially, others less.</p>
+    </div>
+
+    <div class="ev c"><h3>Not supported \u2014 ask hard questions</h3>
+      <p><strong>Three-cueing and guessing strategies</strong> \u2014 using pictures, context, or first letters to predict a word. This is the central instructional problem in reading, and it teaches avoidance of the code.</p>
+      <p><strong>Predictable and pattern books as beginning readers,</strong> which reward memorization over decoding.</p>
+      <p><strong>Colored overlays and tinted lenses</strong> for dyslexia.</p>
+      <p><strong>Vision therapy, eye exercises, and eye tracking training</strong> as a treatment for dyslexia \u2014 distinct from treating a genuine diagnosed vision problem, which is a separate and legitimate matter.</p>
+      <p><strong>Working memory training programs</strong> marketed to improve reading.</p>
+      <p><strong>Primitive reflex integration, auditory training, and balance programs</strong> offered as reading interventions.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">At each <em>stage</em></h2>
+  <div class="stage"><p class="age">Preschool</p><h3>Sounds, before letters</h3>
+    <p>Rhyming, clapping syllables, playing with the sounds inside words, and being read to constantly. Difficulty with rhyme and sound awareness at four or five is the earliest reliable signal there is \u2014 and the cheapest moment to act.</p></div>
+
+  <div class="stage"><p class="age">Kindergarten and first grade</p><h3>The window</h3>
+    <p>Explicit phonics, decodable texts, and daily practice. Intervention here is far more effective than at any later point. If a child is behind at the end of first grade, act now rather than waiting to see \u2014 waiting is what turns a gap into a chasm.</p></div>
+
+  <div class="stage"><p class="age">Second to fourth grade</p><h3>Where it gets visible</h3>
+    <p>Text becomes harder, pictures disappear, and children who were coping by guessing hit a wall. This is when many families are first told there's a problem, and when compensating readers stop compensating. Accommodations become essential alongside continued instruction.</p></div>
+
+  <div class="stage"><p class="age">Middle school</p><h3>Content, self-knowledge, and self-esteem</h3>
+    <p>Reading to learn rather than learning to read. Assistive technology becomes central, and so does the young person understanding their own profile well enough to explain it. Protecting self-esteem is a real goal here, not a soft one.</p></div>
+
+  <div class="stage"><p class="age">High school and beyond</p><h3>Independence and the paper trail</h3>
+    <p>Self-advocacy, technology they own and can use anywhere, and the documentation required for college entrance exams and higher education accommodations. Start the documentation conversation two years before it's needed.</p></div>
+</section>
+
+<section>
+  <h2 class="sec">Recognizing <em>good instruction</em></h2>
+  <div class="compare">
+    <div class="col good"><h3>Signs it's working</h3>
+      <ul>
+        <li>Phonics is taught in a stated sequence, and someone can tell you where your child is in it</li>
+        <li>Beginning readers get decodable books</li>
+        <li>Progress is measured in specific skills, not reading levels</li>
+        <li>Intervention is daily, small-group or individual, and delivered by someone trained in the program</li>
+        <li>Accommodations run alongside instruction rather than instead of it</li>
+        <li>Your child can tell you what they're working on</li>
+        <li>The word dyslexia is used freely, without discomfort</li>
+        <li>Grade-level content is still reaching them through audio while reading is being built</li>
+      </ul>
+    </div>
+    <div class="col bad"><h3>Reasons to push</h3>
+      <ul>
+        <li>"He's just a late bloomer" or "let's give it another year"</li>
+        <li>Reading level is the only measure anyone can produce</li>
+        <li>Your child is taught to guess from pictures or context</li>
+        <li>Intervention is twice a week in a group of eight</li>
+        <li>The program name changes each year, or nobody can name it</li>
+        <li>Accommodations offered in place of instruction</li>
+        <li>Reluctance to use the word dyslexia</li>
+        <li>Homework rising because school time isn't working</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note">
+    <h3>On the word itself</h3>
+    <p>Some districts avoid saying dyslexia, and families are sometimes told the term can't be used in a school setting. The US Department of Education has issued guidance clarifying that there is nothing preventing schools from using dyslexia, dysgraphia, and dyscalculia in evaluations and IEP documents.</p>
+    <p>You can use the word. So can they.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="adhd-executive-function.html"><h3>ADHD and executive function</h3>
+      <p>Getting started, holding a plan, and finishing. Frequently sits alongside a learning difficulty and needs its own response.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="anxiety-and-ocd.html"><h3>Anxiety, OCD and school refusal</h3>
+      <p>Years of daily academic failure produce anxiety reliably. Worth treating rather than waiting for reading to fix it.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="accommodations-finder.html"><h3>The accommodations finder</h3>
+      <p>Search by the difficulty you see and get wording you can request word for word.</p>
+      <span class="go">Open the finder</span></a>
+    <a class="libcard" href="inside-the-iep.html"><h3>Inside the IEP</h3>
+      <p>How to read a goal, what the words mean, and writing every concern into the parent statement.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="speech-language-aac.html"><h3>Speech, language and AAC</h3>
+      <p>Reading is language. Phonological awareness and comprehension both sit inside speech-language scope.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="conditions-library.html"><h3>The conditions library</h3>
+      <p>Fuller entries on specific learning disorders, developmental language disorder, and phonological disorders.</p>
+      <span class="go">Open the library</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>One question, at the next school meeting: <em>when my child comes to a word they don't know, what are they taught to do?</em></p>
+  <p>The answer takes ten seconds and tells you most of what you need. And if the answer isn't <em>look at the letters and sound it out</em>, you now know exactly what to ask for \u2014 which is a great deal more than most parents have when they walk into that room.</p>
+</div>
+
+<footer>
+  <p><strong>This is a map, not an evaluation.</strong> Identifying a specific learning disorder requires proper assessment by a qualified evaluator, and instructional decisions belong to teams who know your child. Program availability and state requirements vary.</p>
+  <p>Where a widely used approach is not supported by evidence, this page says so. Many teachers were trained in those approaches in good faith and are excellent at their jobs.</p>
+</footer>
+
+</div>
+<script src="site-nav.js"></script>
+</body>
+</html>

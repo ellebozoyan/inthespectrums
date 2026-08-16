@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Choosing Behavior Support — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --slate:#435A6F; --slate-tint:#E5EAEE; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: zoom out */
+.zoom{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.zoom h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.zoom .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.frames{display:grid;gap:2px}
+.fr{background:rgba(255,255,255,.05);border-left:3px solid var(--slate);padding:13px 16px;
+  display:grid;grid-template-columns:132px minmax(0,1fr);gap:6px 20px}
+@media(max-width:620px){.fr{grid-template-columns:1fr}}
+.fr.wide{border-left-color:var(--rust);background:rgba(156,74,33,.13)}
+.fr b{font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#C6A98F}
+.fr span{font-size:.92rem;color:#B9C4B4;line-height:1.5}
+.zoom .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:22px 0 0;max-width:62ch}
+.zoom .cap strong{color:#EFEBE3}
+
+/* translation pairs */
+.trans{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);
+  border-radius:2px;overflow:hidden;margin:0 0 11px;background:var(--card)}
+@media(max-width:620px){.trans{grid-template-columns:1fr}}
+.trans div{padding:15px 18px}
+.trans .saw{background:#EEF1ED;border-right:1px solid var(--line)}
+.trans .mean{background:var(--slate-tint)}
+.trans .lbl{font-family:var(--sans);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:700;margin:0 0 7px}
+.trans .saw .lbl{color:var(--ink-soft)}.trans .mean .lbl{color:var(--slate)}
+.trans p{margin:0;font-size:.96rem;line-height:1.5}
+.trans .saw p{font-style:italic}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+/* curve */
+.curve{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:2px;margin:0 0 14px}
+.st{background:var(--card);border-top:3px solid var(--line);padding:15px 16px}
+.st.win{border-top-color:var(--forest);background:#E6EDE4}
+.st.peak{border-top-color:var(--alarm);background:var(--alarm-tint)}
+.st.rep{border-top-color:var(--rust);background:var(--rust-tint)}
+.st b{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;margin-bottom:7px;color:var(--ink)}
+.st p{font-size:.9rem;margin:0;line-height:1.5}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.says{background:var(--card);border-left:4px solid var(--slate);padding:20px 22px;margin:0 0 12px}
+.says .who{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--slate);font-weight:700;margin:0 0 9px}
+.says p{margin:0 0 10px;font-size:.97rem}
+.says p:last-child{margin:0}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.snote{background:var(--slate-tint);border-left:4px solid var(--slate);padding:20px 22px;margin:24px 0}
+.snote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--slate);font-weight:700;margin:0 0 10px}
+.snote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.col,.trans,.st,.says{break-inside:avoid}
+  .zoom{background:#fff;color:#000;border:1px solid #000}.zoom .big,.fr b,.zoom .cap strong{color:#000}}
+
+/* the inside of it */
+.inside{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:26px 28px;margin:0 0 14px}
+.inside h3{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--slate);font-weight:700;margin:0 0 12px}
+.inside h3:not(:first-child){margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}
+.inside p{font-size:1.02rem;line-height:1.68;margin:0 0 14px}
+.inside p:last-child{margin:0}
+.inside strong{color:var(--ink)}
+.inside .quiet{font-size:.95rem;color:var(--ink-soft)}
+/* portable phrases */
+.phrases{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:11px;margin:0 0 16px}
+.ph{background:var(--slate-tint);border-left:3px solid var(--slate);padding:16px 18px}
+.ph b{display:block;font-family:var(--serif);font-size:1.06rem;line-height:1.35;color:#22303C;
+  font-style:italic;margin-bottom:8px}
+.ph span{display:block;font-size:.88rem;color:var(--ink-soft);line-height:1.5}
+
+/* phrase bank */
+.bank{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:20px 22px;margin:0 0 12px}
+.bank h4{font-family:var(--sans);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--slate);font-weight:700;margin:0 0 6px}
+.bank .why{font-size:.9rem;color:var(--ink-soft);margin:0 0 14px;line-height:1.5}
+.bank ul{list-style:none;margin:0;padding:0}
+.bank li{font-size:1rem;line-height:1.45;font-style:italic;color:#22303C;padding:9px 0 9px 15px;
+  border-left:2px solid var(--slate-tint);margin:0 0 6px}
+.bank li:last-child{margin:0}
+.bank li b{font-style:normal;font-family:var(--sans);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-soft);display:block;margin-top:5px;font-weight:700}
+.steps4{counter-reset:s4;margin:0 0 14px}
+.s4{background:var(--card);border-left:3px solid var(--forest);padding:16px 20px 16px 54px;
+  margin-bottom:9px;position:relative}
+.s4::before{counter-increment:s4;content:counter(s4);position:absolute;left:16px;top:16px;
+  width:24px;height:24px;background:var(--forest);color:#fff;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:11.5px;font-weight:700}
+.s4 b{display:block;font-size:1.02rem;font-weight:400;margin-bottom:5px}
+.s4 p{font-size:.93rem;margin:0;color:var(--ink-soft)}
+
+/* five-question processing sequence */
+.qseq{counter-reset:q;margin:0 0 16px}
+.qstep{background:var(--card);border:1px solid var(--line);border-radius:2px;margin-bottom:10px;
+  display:grid;grid-template-columns:44px minmax(0,1fr);overflow:hidden}
+.qnum{background:var(--slate);color:#fff;display:flex;align-items:flex-start;justify-content:center;
+  padding-top:19px;font-family:var(--sans);font-size:13px;font-weight:700}
+.qbody{padding:17px 20px}
+.qbody .q{font-size:1.14rem;line-height:1.3;margin:0 0 9px;color:#22303C}
+.qbody p{font-size:.94rem;margin:0 0 8px;color:var(--ink-soft)}
+.qbody p:last-child{margin:0}
+.qbody .ex{font-style:italic;color:#22303C;background:var(--slate-tint);padding:9px 12px;
+  border-radius:2px;margin:9px 0 0;font-size:.95rem}
+
+/* sentence frame */
+.frame{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:3px;margin:0 0 10px}
+.fcol{padding:12px 13px;text-align:center;border-top:4px solid;border-radius:2px}
+.fcol.who{background:#FAEFC0;border-top-color:#C9A227}
+.fcol.did{background:#D4E7C5;border-top-color:#4E7C3A}
+.fcol.what{background:#F7DAB8;border-top-color:#C2701C}
+.fcol.link{background:#EFEFEA;border-top-color:#8A8F86}
+.fcol b{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;margin-bottom:7px}
+.fcol.who b{color:#7A611A}.fcol.did b{color:#33521F}
+.fcol.what b{color:#8A4E13}.fcol.link b{color:#5C6058}
+.fcol span{display:block;font-size:.98rem;color:#22261F;line-height:1.4;font-weight:600}
+.fcol em{font-style:normal;color:#5A5F55;font-size:.82rem;display:block;margin-top:5px;font-weight:400}
+.swatch{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:-1px;margin-right:5px;border:1px solid rgba(0,0,0,.15)}
+.fex{background:var(--card);border:1px solid var(--line);padding:12px 15px;font-size:1.02rem;
+  color:#22303C;margin:0 0 14px;font-style:italic;text-align:center}
+.prog{counter-reset:pg;margin:0 0 14px}
+.pgs{background:var(--card);border-left:3px solid var(--slate);padding:15px 19px 15px 50px;
+  margin-bottom:9px;position:relative}
+.pgs::before{counter-increment:pg;content:counter(pg);position:absolute;left:14px;top:15px;
+  width:22px;height:22px;background:var(--slate);color:#fff;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:11px;font-weight:700}
+.pgs b{display:block;font-size:1rem;font-weight:400;margin-bottom:4px}
+.pgs p{font-size:.92rem;margin:0;color:var(--ink-soft)}
+.pgs .say{font-style:italic;color:#22303C;display:block;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Choosing behavior support, <em>and the ABA conversation</em></h1>
+  <p class="lede">One of the most contested topics in this field, and one where families are handed strong opinions from every direction while making a decision under time pressure. Here is the landscape, the questions that actually predict how it will go, and how to build a team that works together.</p>
+</header>
+
+<div class="profnote">
+  <b>Part of a three-page set</b>
+  <p>The companion pages are <a href="behavior.html">behavior is communication</a> and <a href="de-escalation.html">in the moment</a>.</p>
+</div>
+
+<section>
+  <h2 class="sec">The ABA conversation</h2>
+  <p class="secnote">One of the most contested topics in this whole field, and one where families are handed strong opinions from every direction while trying to make a decision under time pressure. Here is the landscape, as fairly as this site can lay it out.</p>
+
+  <div class="note">
+    <h3>Where this site stands</h3>
+    <p>This page does not tell you to pursue applied behavior analysis, and does not tell you to avoid it. That decision belongs to you, and it depends on your child, on what's actually available where you live, on what your insurance will fund, and on the specific people who would be doing the work.</p>
+    <p>What this page will do is give you the map, the vocabulary, and the questions — because the single most useful thing to understand here is that <strong>the label tells you almost nothing about what will happen in your living room.</strong></p>
+  </div>
+
+  <h3 class="sub">"ABA" covers an enormous range</h3>
+  <p>The term spans practices that have very little in common. At one end sit highly structured, adult-directed models built on repeated trials, prompting, and reinforcement schedules, with goals chosen by adults and progress measured in compliance. At the other sit naturalistic, play-based, child-led approaches delivered in everyday routines, where the child's motivation drives the session and the goals are chosen with the family. Both may be billed under the same insurance code and delivered by people with the same credential.</p>
+  <p>Some of the approaches at the more progressive end are named and worth knowing by name — for example, practical functional assessment paired with skills-based treatment, which is built around the person being <strong>happy, relaxed and engaged</strong> as a precondition for any teaching, and which puts functional communication at the center rather than at the edges. Asking a provider which specific model they practice, and what their philosophy is about a person's assent, tells you a great deal more than the label does.</p>
+  <p>That range sits <em>inside</em> the field rather than across its border. Two providers can hold the same credential, bill the same code, and describe their work with the same vocabulary while doing things that have almost nothing in common — one following a child's lead in the kitchen, another running trials at a table with a token board. Families comparing options are often not comparing two versions of the same thing.</p>
+  <p><strong>So evaluate the practice, not the acronym.</strong> Everything in the next section applies whatever the approach is called.</p>
+
+  <h3 class="sub">Where it fits in a team</h3>
+  <p>The specialist disciplines are the ones building the skills: occupational therapy, physical therapy, speech-language pathology, AAC-specialized SLP, feeding therapy, orofacial myofunctional therapy, teacher of students with visual impairments, orientation and mobility, and the special education teacher. Each of them assesses, teaches, and owns a domain.</p>
+  <p>Where behavioral support works well alongside them, it is generally not driving the plan. It is <strong>extending what the specialists have already taught into the rest of the day</strong> — more hours, more settings, more people, which is exactly the generalization problem that clinic-based therapy struggles with and that families feel most acutely.</p>
+
+  <div class="snote">
+    <h3>What that partnership actually requires</h3>
+    <p><strong>Direction flows from the specialist.</strong> The SLP, OT, PT, or TVI says which skills have been established and are ready to be generalized — and specifies them properly: what the skill is, when to use it, why it matters, with whom, where, and how. A behavioral provider inventing targets independently of the disciplines that own those domains is the root of a great many problems.</p>
+    <p><strong>Support inside sessions and transitions</strong> where an extra pair of hands makes a specialist session possible, rather than replacing it.</p>
+    <p><strong>A written loop that runs both ways</strong> — a way to impart what was taught, monitor how it's holding up in real settings, coach the adults who are there when the specialist isn't, and report back what's working and what isn't. Standing check-ins, shared notes, and deliberate overlap where two providers are in the room together.</p>
+    <p>Where that structure is missing, generalization doesn't happen and the two halves of a child's week can end up teaching opposite things. Ask directly how the coordination works, who leads on each domain, and how often the team meets. A provider who can't answer that has told you something important.</p>
+  </div>
+
+  <div class="evid">
+    <div class="ev a"><h3>What supporters point to</h3>
+      <p>Early intensive intervention has a substantial research literature, and naturalistic developmental behavioral interventions — which grew out of this tradition — are among the better-evidenced approaches in early autism support.</p>
+      <p>Behavioral methods have real strength in specific areas: teaching concrete skills, toileting, safety behaviors, and reducing behaviors that are genuinely dangerous.</p>
+      <p>In much of the US it is the only intensive service that insurance reliably funds, which is not a clinical argument but is a real constraint families live inside.</p>
+      <p>The field has changed. Assent-based practice, trauma-informed frameworks, and explicit attention to the person's own goals are now actively debated and taught within it.</p></div>
+
+    <div class="ev b"><h3>What the criticism says</h3>
+      <p>Many autistic adults describe lasting harm from compliance-focused programs — being trained out of self-regulating movement, taught that their no doesn't count, and shaped toward masking, with anxiety and burnout following later.</p>
+      <p>Critics point to the historical roots in behaviorism, to a research base with acknowledged methodological weaknesses and conflicts of interest, and to a shortage of long-term outcome data.</p>
+      <p>The strongest critique is structural rather than technical: that treating outward behavior as the target risks missing the person, their reasons, and their pain — and that a child who has stopped protesting may have learned that protest changes nothing.</p></div>
+
+    <div class="ev c"><h3>What both sides mostly agree on</h3>
+      <p>Compliance for its own sake is not a legitimate goal.</p>
+      <p>Prompting a person to suppress harmless self-regulating behavior is not defensible.</p>
+      <p>Aversives, restraint, and seclusion have no place in routine practice.</p>
+      <p>Communication should come before compliance.</p>
+      <p>A person's refusal is information, not an obstacle.</p>
+      <p>Where a provider disagrees with any of these, that is worth knowing before you start — whatever they call their approach.</p></div>
+  </div>
+
+  <h3 class="sub">Reading widely, on purpose</h3>
+  <p>Families researching this will encounter published accounts at both ends. Some parents describe intensive behavioral programs as the thing that made family life possible. Others have written detailed public accounts of the opposite — including in the Boston Globe, where a Massachusetts father documented years of intensive ABA that produced no progress on its own targets and, he argues, considerable cost to his son.</p>
+  <p>Both kinds of account are true experiences and neither is data. Read several from each side, notice which resonate with what you're seeing in your own child, and give particular weight to writing by autistic adults who received these services — they are the only people who can describe what it was like from inside, and their perspectives are neither uniform nor unanimous.</p>
+</section>
+
+<section>
+  <h2 class="sec">Evaluating <em>any</em> behavior support</h2>
+  <p class="secnote">Whatever it's called. These are the things that actually predict how it will go.</p>
+
+  <div class="compare">
+    <div class="col good"><h3>Signs it's the right kind of help</h3>
+      <ul>
+        <li>The first questions are about communication, pain, sleep, and what changed — not about consequences</li>
+        <li>They ask what your child enjoys, and build from it</li>
+        <li>Refusal is treated as information and is honored</li>
+        <li>Sessions look like play, or like real life, rather than like drills</li>
+        <li>An SLP is genuinely involved where communication is part of the picture</li>
+        <li>They take direction from the specialist disciplines on what's ready to generalize, rather than setting those targets themselves</li>
+        <li>There is a real coordination process — shared notes, standing check-ins, and time where providers overlap</li>
+        <li>Goals are things your child would want, and you helped choose them</li>
+        <li>You are coached and present, not waiting in another room</li>
+        <li>They can explain what they do when a child is dysregulated, and it involves fewer demands rather than more</li>
+        <li>Self-regulating movement is left alone</li>
+        <li>They talk about what the behavior is communicating, unprompted</li>
+      </ul>
+    </div>
+    <div class="col bad"><h3>Reasons to slow down</h3>
+      <ul>
+        <li>Compliance, sitting still, or quiet hands described as goals</li>
+        <li>Your child's no is treated as something to work through</li>
+        <li>Hand-over-hand prompting used routinely and without consent</li>
+        <li>Rewards withheld, or preferred items removed, to force participation</li>
+        <li>Harmless self-regulating movement targeted for reduction</li>
+        <li>Parents discouraged from observing sessions</li>
+        <li>Data presented as progress when you can't see it at home</li>
+        <li>The same program regardless of the child in front of them</li>
+        <li>Working in isolation from the OT, PT, SLP, or teacher — or setting communication and motor targets without them</li>
+        <li>Vague or defensive answers about restraint</li>
+        <li>Pressure to start immediately, or claims about recovery</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">Questions worth asking any provider</h3>
+  <ul>
+    <li>What do you do when my child says no — in any form?</li>
+    <li>How do you find out what a behavior is communicating before you plan a response?</li>
+    <li>What's your approach to a child who shuts down under demands?</li>
+    <li>How does communication access fit into this, and who leads that?</li>
+    <li>How do you coordinate with our OT, PT, and SLP — and who decides what's ready to be generalized?</li>
+    <li>How are goals chosen, and can I decline one?</li>
+    <li>What do you do about self-regulating movement?</li>
+    <li>What's your position on restraint, and when did you last use it?</li>
+    <li>Can I watch a full session before we decide?</li>
+    <li>How would we know this isn't working, and what would you change?</li>
+    <li>What does progress look like at home, not on a chart?</li>
+  </ul>
+
+  <div class="snote">
+    <h3>You can stop</h3>
+    <p>If something feels wrong, you are allowed to pause it, change providers, or end it — including something you agreed to, including something everyone recommended, and including something that is working on paper.</p>
+    <p>Watch your child rather than the data. A child who is more anxious, more shut down, more compliant but less themselves, or newly frightened of a person or a room is telling you something, and that report outranks a progress graph. You will be told that stopping risks losing gains. Weigh that honestly, and then decide anyway.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">One team, <em>one language</em></h2>
+  <p class="secnote">The single biggest predictor of whether any of this holds is not the quality of any individual provider. It is whether the adults around a person are doing the same things, saying the same words, and making sense of the same events the same way.</p>
+
+  <p>A person who gets a communication-first response at home, a compliance response at school, and something else again in a clinic is not receiving three approaches. They are receiving a message that adults are unpredictable and that what works depends on who's in the room — which is destabilizing in itself, and which teaches nothing that generalizes.</p>
+
+  <p>Coordinating that is real work, and in most cases it falls to the family. What follows is how to make it less work.</p>
+
+  <h3 class="sub">Write the shared phrase set</h3>
+  <p>Pick a small number of lines that everyone — parents, teachers, aides, therapists, grandparents, babysitters — uses the same way. Not a script for every situation. Six to ten phrases that carry the framework, so that the person hears the same language wherever they are and knows what it means.</p>
+
+  <div class="bank">
+    <h4>A starting set to adapt</h4>
+    <p class="why">Choose what fits your person, write it down, and give it to everyone. Consistency matters more than perfect wording.</p>
+    <ul>
+      <li>"I can see you're not ready yet."<b>The universal pause. Everyone should have this one.</b></li>
+      <li>"I'm wondering if something about this is hard."</li>
+      <li>"You can tell me no. I'll listen."</li>
+      <li>"Let me explain why, and then you decide."</li>
+      <li>"If you choose ___, you're choosing ___ — and that's okay, we can try again tomorrow."</li>
+      <li>"Let's try this again tomorrow. Nothing is lost."</li>
+      <li>"That was hard. You're not in trouble. I'm still here."<b>The repair line. Non-negotiable across every setting.</b></li>
+      <li>"Can I tell them about the good thing you did?"<b>Permission, every time.</b></li>
+    </ul>
+  </div>
+
+  <h3 class="sub">Reframing, out loud, in meetings</h3>
+  <p>Teams often already believe the right things and are using inherited vocabulary that pulls in the opposite direction. Offering the translation gently, in the moment, changes the conversation more than arguing about philosophy does.</p>
+
+  <div class="trans">
+    <div class="saw"><p class="lbl">What gets said</p><p>"He was non-compliant."</p></div>
+    <div class="mean"><p class="lbl">Offer instead</p><p>"He didn't do what was asked — can we work out what got in the way? What was he trying to tell us?"</p></div>
+  </div>
+  <div class="trans">
+    <div class="saw"><p class="lbl">What gets said</p><p>"She's attention-seeking."</p></div>
+    <div class="mean"><p class="lbl">Offer instead</p><p>"She's connection-seeking, and she's doing it the only way that reliably works. What would make an easier way work better?"</p></div>
+  </div>
+  <div class="trans">
+    <div class="saw"><p class="lbl">What gets said</p><p>"He's doing it on purpose."</p></div>
+    <div class="mean"><p class="lbl">Offer instead</p><p>"He's doing it for a purpose. Those are different, and the second one gives us something to work with."</p></div>
+  </div>
+  <div class="trans">
+    <div class="saw"><p class="lbl">What gets said</p><p>"It came out of nowhere."</p></div>
+    <div class="mean"><p class="lbl">Offer instead</p><p>"Let's zoom out — what happened in the hour before, the day before, the season? What did we miss earlier?"</p></div>
+  </div>
+  <div class="trans">
+    <div class="saw"><p class="lbl">What gets said</p><p>"He knows better."</p></div>
+    <div class="mean"><p class="lbl">Offer instead</p><p>"He knows it when he's regulated. Knowing and being able to are different things, and we lost the second one before the behavior started."</p></div>
+  </div>
+  <div class="trans">
+    <div class="saw"><p class="lbl">What gets said</p><p>"She's manipulating."</p></div>
+    <div class="mean"><p class="lbl">Offer instead</p><p>"She's influencing her environment with the tools she has. That's communication working — we just want to give her better tools."</p></div>
+  </div>
+
+  <h3 class="sub">The team debrief, after a hard incident</h3>
+  <p>Separate from processing with the person. This is the adults, together, and it works best as a standing structure rather than something convened only when things have gone badly enough.</p>
+
+  <div class="steps4">
+    <div class="s4"><b>Reconstruct the timeline, not the behavior</b>
+      <p>Start well before the incident. What was the day like, the night before, the transition, the request that preceded it, who was in the room, what changed. Everyone contributes what they saw.</p></div>
+    <div class="s4"><b>Find the precursors we missed</b>
+      <p>Not to assign blame — to grow the map. What were the earliest signs in hindsight? Add anything new to the written precursor list so the next person catches it sooner.</p></div>
+    <div class="s4"><b>Name the communication breakdown</b>
+      <p>What was the person trying to say, and what got in the way of them saying it? What did they need to know that nobody explained? This question should be asked every single time.</p></div>
+    <div class="s4"><b>Decide what changes, and who owns it</b>
+      <p>One or two concrete changes with a name attached to each — an environmental adjustment, a vocabulary addition, a warning that gets given earlier. Vague resolutions produce vague results.</p></div>
+    <div class="s4"><b>Plan the repair with the person</b>
+      <p>Who reconnects, when, and how — including how it will be processed with them, using their supports, at a time they're ready for it. Never skipped, however busy the week.</p></div>
+  </div>
+
+  <div class="note">
+    <h3>Three questions to bring to every debrief</h3>
+    <p><strong>What was the communication breakdown?</strong> — If a team can answer this reliably, most of the plan writes itself.</p>
+    <p><strong>What could we have done fifteen minutes earlier?</strong> — Moves the whole conversation into the precursor window, where the answers actually live.</p>
+    <p><strong>What did this cost them?</strong> — Keeps the person's inner experience in a room that otherwise gravitates toward frequency counts.</p>
+  </div>
+
+  <h3 class="sub">The ongoing rhythm</h3>
+  <ul>
+    <li><strong>One shared document</strong> everyone can see: the precursor map, the phrase set, what's currently working, what to avoid, and the current priorities. Living, dated, and short enough that people actually read it.</li>
+    <li><strong>A standing check-in</strong> rather than crisis-triggered meetings — even fifteen minutes monthly with the core people. Teams that only meet after incidents come to associate meeting with failure.</li>
+    <li><strong>Deliberate overlap.</strong> Time where two providers are in the room together, and where a specialist watches the person in another setting. This is where the real transfer happens and it is almost never scheduled unless someone asks.</li>
+    <li><strong>A named lead for each domain,</strong> so it's clear who decides on communication, on motor, on regulation — and so nobody sets targets in someone else's territory.</li>
+    <li><strong>A quick way to flag things between meetings.</strong> A shared thread, a notebook that travels, a weekly two-line email. Most course corrections are small and time-sensitive.</li>
+    <li><strong>Onboarding for every new person.</strong> New aide, new substitute, new therapist — they get the one-pager and the phrase set before their first day, not after their first incident.</li>
+  </ul>
+
+  <h3 class="sub">Asking for it, without becoming the difficult parent</h3>
+  <p>Most teams want this and have never been asked for it specifically. Frame it as making their job easier, because it does.</p>
+
+  <div class="says">
+    <p class="who">Proposing the shared language</p>
+    <p>"We've found a handful of phrases that reliably work at home, and I think the biggest gain available to us is everyone using the same ones. Could I write them up on one page and walk the team through them? It should take ten minutes and it would mean he hears the same thing everywhere."</p>
+  </div>
+
+  <div class="says">
+    <p class="who">Asking for a standing debrief</p>
+    <p>"Rather than meeting only when something has gone wrong, could we set up a short monthly check-in? I think we'd catch more early, and it would give us somewhere to put the small things before they become big ones."</p>
+  </div>
+
+  <div class="says">
+    <p class="who">Redirecting a meeting that's become a list of incidents</p>
+    <p>"Can I ask a different question about that one — what do we think he was trying to tell us? And what was happening in the ten minutes before?"</p>
+  </div>
+
+  <div class="says">
+    <p class="who">When you disagree with an approach</p>
+    <p>"I want to be careful not to second-guess your expertise. What I'm seeing at home is ___, and I'm worried this might be doing ___. Can we try it a different way for two weeks and compare notes?"</p>
+  </div>
+
+  <div class="says">
+    <p class="who">Asking for coordination between providers</p>
+    <p>"Could you and the SLP have a conversation about what's ready to be generalized, and let me know what you land on? I'd rather you two decide that together than have me relay it between you."</p>
+  </div>
+
+  <div class="snote">
+    <h3>And tell them when it works</h3>
+    <p>Teams get told what's going wrong constantly and almost never hear the other half. When a phrase lands, when a new strategy prevents something, when someone catches a precursor early — say so, by name, specifically, and in front of their supervisor where you can.</p>
+    <p>This is not just kindness, though it is that. Specific positive feedback is how a team learns which of the many things they do is the thing that mattered — and people who feel like partners rather than service providers stay, go further, and tell you the truth when something isn't working.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="de-escalation.html"><h3>In the moment</h3>
+      <p>Precursors, de-escalation, and the language that works in the window before escalation.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="behavior.html"><h3>Behavior is communication</h3>
+      <p>The frame underneath all of it — what a behavior is saying, and communication access.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="speech-language-aac.html"><h3>Speech, language and AAC</h3>
+      <p>Communication access in detail — what a real system contains, and why refusal vocabulary matters most.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="floortime.html"><h3>Floortime and child-led therapy</h3>
+      <p>Following the lead, circles of communication, and why initiation generalizes when compliance doesn't.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="conditions-library.html"><h3>The conditions library</h3>
+      <p>Entries on demand avoidance, severe emotional dysregulation, anxiety, trauma, and the medical conditions that drive behavior.</p>
+      <span class="go">Open the library</span></a>
+    <a class="libcard" href="feeding-therapy.html"><h3>Feeding therapy</h3>
+      <p>Declarative language worked through in full, at the table — where demands stack up faster than anywhere else.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="their-own-voice.html"><h3>Their own voice</h3>
+      <p>Where all of this is heading: a person who knows their own mind and can say what they need.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="inside-the-iep.html"><h3>Inside the IEP</h3>
+      <p>Getting a functional behavior assessment, and writing supports into a plan that a school has to follow.</p>
+      <span class="go">Read the page</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>The next time something happens, try one thing before anything else: widen the frame. Not what did they do, but what has this week been like — and what has this season been like.</p>
+  <p>You know things about your child that no assessment will capture. You know who left, what changed, what they've been carrying. That knowledge is the most valuable diagnostic instrument in the room, and it belongs to you.</p>
+</div>
+
+<footer>
+  <p><strong>This is a map, not clinical advice.</strong> Behavior can have medical causes that need diagnosis, and behavior that is unsafe needs a plan built with clinicians who know your child. If someone is at risk of harm, seek help promptly rather than working through this page.</p>
+  <p>Where opinion is genuinely divided, this page describes the disagreement rather than resolving it. That is deliberate, and it is not neutrality about harm — the practices this page names as indefensible are ones both sides of that disagreement broadly reject.</p>
+</footer>
+
+</div>
+<script src="site-nav.js"></script>
+</body>
+</html>

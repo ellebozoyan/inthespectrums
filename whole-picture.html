@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Whole Picture — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#4A4E7A; --book-tint:#E7E8F2; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the equation */
+.eqn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.eqn h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.eqn .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.parts{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:18px}
+@media(max-width:700px){.parts{grid-template-columns:1fr;gap:6px}.op{text-align:center;padding:2px 0}}
+.pt{background:rgba(255,255,255,.06);border-top:3px solid var(--book);padding:15px 16px}
+.pt.res{border-top-color:var(--rust);background:rgba(156,74,33,.13)}
+.pt b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#EFEBE3;margin-bottom:6px}
+.pt span{font-size:.86rem;color:#B9C4B4;line-height:1.45;display:block}
+.op{font-size:1.5rem;color:#C6A98F;text-align:center}
+.eqn .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:20px 0 0;max-width:62ch}
+.eqn .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .eqn{background:#fff;color:#000;border:1px solid #000}.eqn .big,.pt b,.eqn .cap strong{color:#000}}
+
+/* domino chains */
+.chain{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;margin:0 0 12px}
+.dm{flex:1 1 118px;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--book);
+  padding:12px 13px;position:relative;min-width:118px}
+.dm.first{border-left-color:var(--forest);background:#E9EFE7}
+.dm.last{border-left-color:var(--alarm);background:var(--alarm-tint)}
+.dm b{display:block;font-family:var(--sans);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-soft);font-weight:700;margin-bottom:5px}
+.dm.first b{color:var(--forest)}.dm.last b{color:var(--alarm)}
+.dm span{font-size:.88rem;line-height:1.4;display:block;color:var(--ink)}
+.chainlabel{font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:22px 0 8px}
+/* bottle */
+.load{display:grid;grid-template-columns:repeat(auto-fit,minmax(84px,1fr));gap:3px;margin:0 0 12px}
+.mt{background:var(--book-tint);border-top:3px solid var(--book);padding:10px 11px;font-size:.85rem;line-height:1.35}
+.mt.tip{background:var(--alarm-tint);border-top-color:var(--alarm)}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>The whole picture:<br><em>when one diagnosis isn't the whole story</em></h1>
+  <p class="lede">Most children who receive one neurodevelopmental diagnosis turn out to have more than one. This is ordinary rather than alarming — but it changes what help looks like, and a plan built around a single label will quietly fail a child whose picture is layered. This page is about seeing the whole thing, and what to do once you can.</p>
+</header>
+
+<div class="profnote">
+  <b>Reading this as a professional</b>
+  <p>This page names diagnostic overshadowing directly and works through what commonly hides beneath what. It is written to help families ask for a fuller workup without it landing as a challenge to anyone's competence.</p>
+  <p>The section on designing intervention for a layered picture may be useful when a family arrives with four separate plans that were each built as though the others didn't exist.</p>
+</div>
+
+<section>
+  <div class="eqn">
+    <h2>Start here: one behavior, many sources</h2>
+    <p class="big">A child is not following along in class. Every one of the following produces exactly that, and they need completely different responses.</p>
+    <div class="parts" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
+      <div class="pt"><b>They can't hear it</b><span>Fluctuating hearing loss, fluid, listening in noise</span></div>
+      <div class="pt"><b>They can't see it</b><span>Vision, visual processing, or access that changes through the day</span></div>
+      <div class="pt"><b>They don't understand it</b><span>Language disorder — following speech is the barrier, not attention</span></div>
+      <div class="pt"><b>They can't hold it</b><span>Working memory and executive function</span></div>
+      <div class="pt"><b>They're frightened</b><span>Anxiety takes the capacity that attending requires</span></div>
+      <div class="pt"><b>They didn't sleep</b><span>Sleep-disordered breathing imitates inattention exactly</span></div>
+      <div class="pt"><b>They're in pain</b><span>Teeth, ears, gut, headaches — often unreported</span></div>
+      <div class="pt"><b>They're absent</b><span>Brief seizures look like daydreaming</span></div>
+      <div class="pt"><b>It's overwhelming</b><span>Sensory load leaves nothing for the lesson</span></div>
+      <div class="pt res"><b>Or several at once</b><span>Which is the most common answer of all</span></div>
+    </div>
+    <p class="cap"><strong>This is the whole argument of the page.</strong> Behavior is the visible layer, and the visible layer is where investigation usually stops. A single label attached early is often accurate and rarely complete — and the parts that were missed are the parts that keep the plan from working.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Co-occurrence is <em>the rule</em></h2>
+  <p class="secnote">Worth knowing plainly, because families are often told a second diagnosis is unusual.</p>
+
+  <p>Most children with one neurodevelopmental diagnosis meet criteria for at least one more, and many meet criteria for several. This is consistent across autism, ADHD, learning disorders, language disorders, and coordination difficulties — they cluster, they share underlying mechanisms, and the clean single-condition child is the exception rather than the standard.</p>
+  <p>Some specific patterns are so common they're close to expected: attention difficulties alongside autism, learning disorders alongside attention difficulties, language difficulties underneath both, anxiety accompanying nearly everything, and sleep problems running through all of it.</p>
+
+  <div class="bnote">
+    <h3>What this is, and what it isn't</h3>
+    <p><strong>It is not a child getting worse.</strong> A person with four diagnoses is not sicker than a person with one. They are more accurately described — and description is what makes targeted help possible.</p>
+    <p><strong>It is not a series of failures by anyone.</strong> Diagnoses arrive in the order they become visible, which is rarely the order of importance. The first one to be identified is usually the loudest, not the most fundamental.</p>
+    <p><strong>It is not a permanent verdict.</strong> A diagnostic picture is a working hypothesis that gets more accurate over time. Some parts will be confirmed, some revised, some removed. That's the process working, not evidence anyone got it wrong.</p>
+    <p>The useful stance is neither alarm nor resignation. It is curiosity: <em>what else is going on here, and what would change if we knew?</em></p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Why one diagnosis <em>hides the others</em></h2>
+  <p class="secnote">Six mechanisms, none of which involve anyone doing their job badly.</p>
+
+  <div class="domains">
+    <div class="dom"><h3>Diagnostic overshadowing</h3>
+      <p>Once a label is attached, new symptoms get attributed to it rather than investigated. A child with autism who stops sleeping is assumed to be autistic rather than possibly having sleep apnea, pain, or anxiety.</p>
+      <p class="look"><b>The counter</b>Ask directly: "if this child didn't have that diagnosis, what would we be investigating right now?"</p></div>
+
+    <div class="dom"><h3>The search stops at the first find</h3>
+      <p>An evaluation that identifies something meaningful often ends there, because the referral question has been answered. The child leaves with a real diagnosis and an incomplete picture.</p>
+      <p class="look"><b>The counter</b>Ask what was <em>not</em> assessed, and whether anything was ruled out versus simply not looked at.</p></div>
+
+    <div class="dom"><h3>Evaluators find what they specialize in</h3>
+      <p>Not bias in any dishonest sense — a specialist has better instruments and deeper pattern recognition for their own domain. Who you happen to see shapes what gets named.</p>
+      <p class="look"><b>The counter</b>Notice who has and hasn't looked. A picture assessed only by one discipline is a picture from one angle.</p></div>
+
+    <div class="dom"><h3>Symptoms overlap heavily</h3>
+      <p>Inattention, irritability, poor sleep, and slow work appear in a dozen conditions. The same observable feature can arise from very different mechanisms, and observation alone can't distinguish them.</p>
+      <p class="look"><b>The counter</b>Ask what would distinguish the possibilities from each other, and whether that test has been done.</p></div>
+
+    <div class="dom"><h3>One difficulty masks another by preventing it showing</h3>
+      <p>A child who can't decode never demonstrates a comprehension problem. A child who doesn't speak can't demonstrate a word-finding difficulty. The second problem is invisible until the first is addressed.</p>
+      <p class="look"><b>The counter</b>Expect new things to surface as progress is made. That is success revealing the next layer, not deterioration.</p></div>
+
+    <div class="dom"><h3>Communication limits what can be reported</h3>
+      <p>Pain, nausea, dizziness, visual change, fear, and sensory overload are all things a person has to be able to report. Where they can't, those causes are systematically under-identified.</p>
+      <p class="look"><b>The counter</b>Assume unreported symptoms are present rather than absent, and investigate medically before concluding behaviorally.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What commonly hides <em>under what</em></h2>
+  <p class="secnote">Specific pairings worth checking, drawn from where the misses cluster.</p>
+
+  <ul>
+    <li><strong>Under a behavior label:</strong> pain, constipation, reflux, dental problems, sleep-disordered breathing, seizures, medication effects, and — very often — a language difficulty that makes instruction unintelligible.</li>
+    <li><strong>Under autism:</strong> attention difficulties, anxiety, OCD, learning disorders, and gastrointestinal and sleep conditions. Attention difficulties could not formally be diagnosed alongside autism until relatively recently, and that legacy still shapes practice.</li>
+    <li><strong>Under attention difficulties:</strong> learning disorders, language disorders, anxiety, sleep-disordered breathing, iron deficiency, and hearing loss. Any of these produce inattention on their own.</li>
+    <li><strong>Under a learning difficulty:</strong> attention difficulties, language disorder, vision or hearing problems, and the anxiety that years of daily academic failure reliably produce.</li>
+    <li><strong>Under intellectual disability:</strong> nearly everything, because of overshadowing — mental health conditions in particular go unrecognized and untreated for years.</li>
+    <li><strong>Under a speech delay:</strong> hearing loss, a motor speech disorder needing a different treatment entirely, and a broader language disorder affecting comprehension.</li>
+    <li><strong>Under anxiety:</strong> an undiagnosed learning difficulty or attention difficulty generating the anxiety, and sometimes a medical driver.</li>
+    <li><strong>Under "she's fine at school":</strong> masking, and the exhaustion that follows it. Difficulty appearing only at home is a finding rather than an absence of one.</li>
+    <li><strong>Under a genetic diagnosis:</strong> ordinary treatable childhood conditions, missed because everything gets attributed to the syndrome.</li>
+  </ul>
+
+  <div class="note">
+    <h3>The three questions that surface most of this</h3>
+    <p><strong>"What have we not looked at?"</strong> — the difference between ruled out and never assessed is enormous, and rarely stated.</p>
+    <p><strong>"If this diagnosis weren't here, what would we be investigating?"</strong> — the single most effective antidote to overshadowing, and it works in a meeting.</p>
+    <p><strong>"What would change if we found something else?"</strong> — keeps investigation tethered to usefulness rather than collecting labels.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Dominoes and <em>Mentos</em></h2>
+  <p class="secnote">Two things are happening at once, and they need two different pictures. One explains how a difficulty in one area knocks over areas that look unrelated. The other explains why the same day can end in an explosion or not, with nothing obviously different about it.</p>
+
+  <h3 class="sub">The domino model: one thing knocks over the next</h3>
+  <p>A difficulty in a single domain rarely stays there. It sets off a chain across domains that appear unconnected — which is why the visible problem at the end is so often the wrong place to intervene.</p>
+
+  <p class="chainlabel">A chain that starts in the airway</p>
+  <div class="chain">
+    <div class="dm first"><b>First domino</b><span>Blocked nose, mouth breathing</span></div>
+    <div class="dm"><b>Then</b><span>Broken, unrefreshing sleep</span></div>
+    <div class="dm"><b>Then</b><span>Inattention and short fuse all day</span></div>
+    <div class="dm"><b>Then</b><span>Falling behind, work unfinished</span></div>
+    <div class="dm"><b>Then</b><span>Anxiety about school</span></div>
+    <div class="dm last"><b>What gets seen</b><span>"Behavior problem" and a behavior plan</span></div>
+  </div>
+
+  <p class="chainlabel">A chain that starts in the gut</p>
+  <div class="chain">
+    <div class="dm first"><b>First domino</b><span>Constipation and abdominal pain</span></div>
+    <div class="dm"><b>Then</b><span>Appetite drops, intake narrows</span></div>
+    <div class="dm"><b>Then</b><span>Low energy, poor regulation</span></div>
+    <div class="dm"><b>Then</b><span>More frequent meltdowns</span></div>
+    <div class="dm last"><b>What gets seen</b><span>Feeding therapy and a consequence system</span></div>
+  </div>
+
+  <p class="chainlabel">A chain that starts in the ears</p>
+  <div class="chain">
+    <div class="dm first"><b>First domino</b><span>Fluctuating hearing loss from fluid</span></div>
+    <div class="dm"><b>Then</b><span>Speech sounds heard inconsistently</span></div>
+    <div class="dm"><b>Then</b><span>Phonics never quite lands</span></div>
+    <div class="dm"><b>Then</b><span>Reading failure, daily and public</span></div>
+    <div class="dm"><b>Then</b><span>Avoidance, clowning, refusal</span></div>
+    <div class="dm last"><b>What gets seen</b><span>"Lazy" — or an attention referral</span></div>
+  </div>
+
+  <p class="chainlabel">A chain that loops back on itself</p>
+  <div class="chain">
+    <div class="dm first"><b>First domino</b><span>Handwriting is painful and slow</span></div>
+    <div class="dm"><b>Then</b><span>Work goes unfinished</span></div>
+    <div class="dm"><b>Then</b><span>Recess withheld to finish it</span></div>
+    <div class="dm"><b>Then</b><span>No movement, worse regulation</span></div>
+    <div class="dm last"><b>Then, again</b><span>Less work finished than before</span></div>
+  </div>
+
+  <div class="note">
+    <h3>What the model asks you to do</h3>
+    <p><strong>Look for the first domino, not the last one.</strong> The visible difficulty is usually several steps downstream of the thing that would actually change the picture.</p>
+    <p><strong>Notice which dominoes are cheap to knock back.</strong> Constipation, sleep-disordered breathing, ear fluid, an outdated glasses prescription, and iron deficiency are common, treatable, and sit near the front of a great many chains. Fixing one can undo an entire line — which is why the boring medical checks come first.</p>
+    <p><strong>Watch for loops.</strong> Where a response to the problem worsens the cause — withholding movement from a person who needs movement to regulate, or adding homework because school time isn't working — the chain stops being a line and becomes a circle. Those are the situations that feel unfixable, and they resolve the moment someone names the loop.</p>
+  </div>
+
+  <h3 class="sub">The Mentos model: capacity is finite, and it fills</h3>
+  <p>The other picture, for a different question. Imagine capacity as a bottle. Every demand, transition, disappointment, noise, unexpected change, and effort at holding it together drops something in. Individually, none of them is a big deal. Together, they build pressure — and at some point the bottle goes.</p>
+
+  <div class="load">
+    <div class="mt">Woke early</div>
+    <div class="mt">Different cereal</div>
+    <div class="mt">Rushed out</div>
+    <div class="mt">Fire drill</div>
+    <div class="mt">Substitute teacher</div>
+    <div class="mt">Held it together all day</div>
+    <div class="mt">Noisy bus</div>
+    <div class="mt">Hungry</div>
+    <div class="mt tip">The wrong socks</div>
+  </div>
+
+  <p><strong>Nobody blames the first eight.</strong> The story afterward is that a child melted down over a pair of socks — and everyone, including the child, comes away with a false and unflattering explanation of what happened.</p>
+
+  <div class="bnote">
+    <h3>The thing worth saying out loud in meetings</h3>
+    <p><strong>Please don't judge the moment.</strong> What you saw was almost never a response to the thing that immediately preceded it. It was a stacking that finally went past capacity, and the last item on the pile is simply the one that happened to be there when the pressure was reached.</p>
+    <p>This is not an argument that nothing matters or that behavior needs no response. It is an argument about where to look, and about what a person deserves to have understood about them. Two things follow from it that a consequence for the socks will never achieve: <em>reduce what goes in the bottle</em>, and <em>build in places where it can empty</em>.</p>
+    <p>It also explains something families are constantly asked to account for and can't: why the same request is fine on Tuesday and catastrophic on Thursday. The request didn't change. The bottle was already full.</p>
+  </div>
+
+  <h3 class="sub">What the two models do together</h3>
+  <ul>
+    <li><strong>Dominoes explain the pattern across months.</strong> Use it when asking why an area is going badly and nothing is working — the answer is usually upstream and in a different domain.</li>
+    <li><strong>Mentos explains the variance across a single day.</strong> Use it when asking why today went wrong and yesterday didn't, and when someone is about to attribute an incident to the last visible thing.</li>
+    <li><strong>Together they explain complexity.</strong> A person with several diagnoses has more chains running and more going into the bottle every day. Not because they are more difficult — because more is being asked of them, in more domains, all day, for the same twenty-four hours everyone else gets.</li>
+    <li><strong>And they point at the same practical move:</strong> reduce the load, and fix things as far upstream as you can reach.</li>
+  </ul>
+
+  <div class="note">
+    <h3>Emptying the bottle</h3>
+    <p>Worth planning as deliberately as anything else in a support plan, because capacity does come back — it just needs somewhere to go.</p>
+    <p>Movement, water, food, and a genuine break with no demands attached. Time in the thing they love, protected rather than made contingent on performance. Sleep treated as a clinical priority rather than a household preference. Predictability, which costs a person far less than novelty. And unstructured recovery time after any setting where they have been holding it together — the after-school hour is not the time to make requests of someone who has spent the whole day at capacity.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Parsing it out, <em>in a sensible order</em></h2>
+  <p class="secnote">Not everything at once. There is an order that finds the cheapest and most treatable things first.</p>
+
+  <div class="stage"><p class="age">First</p><h3>The medical and sensory floor</h3>
+    <p>Hearing, vision, sleep, pain, constipation, iron, thyroid, and seizure activity where anything suggests it. These are common, treatable, they imitate almost everything else, and they undermine every intervention built on top of them. Nothing on this list is exotic and all of it gets skipped.</p></div>
+
+  <div class="stage"><p class="age">Second</p><h3>Communication</h3>
+    <p>Receptive and expressive language assessed separately, because the gap between them is where a great deal hides. A person who cannot follow instruction will look inattentive, non-compliant, or cognitively limited, and none of those is the finding.</p></div>
+
+  <div class="stage"><p class="age">Third</p><h3>Learning and cognition</h3>
+    <p>Psychoeducational or neuropsychological assessment covering reading, writing, math, memory, processing speed, and executive function — with the accommodations required for the results to measure ability rather than access.</p></div>
+
+  <div class="stage"><p class="age">Fourth</p><h3>Mental health</h3>
+    <p>Anxiety, OCD, mood, and trauma. Frequently last to be assessed and frequently the thing making everything else harder. Worth asking about explicitly, since a child who is not disruptive rarely gets asked.</p></div>
+
+  <div class="stage"><p class="age">Alongside</p><h3>Genetics and metabolic</h3>
+    <p>Where several systems are involved, where the picture is unusual, where development regressed, or where family history suggests a pattern. Ask about reanalysis of any result more than a couple of years old.</p></div>
+
+  <div class="stage"><p class="age">Continuously</p><h3>The functional picture</h3>
+    <p>What the person can actually do across settings, which is what determines services — and which changes as they grow. Adaptive functioning is under-assessed relative to how much it decides.</p></div>
+
+  <div class="warn">
+    <h3>One caution about the search</h3>
+    <p>There is a version of this that becomes its own harm — years of appointments chasing an explanation while the child receives no actual intervention, and a family whose life becomes a search.</p>
+    <p>Two things keep it useful. <strong>Start services on need, not on label</strong> — therapy, accommodations, and support don't require a diagnosis to begin. And ask of every proposed investigation: <em>what would we do differently depending on the answer?</em> If the honest answer is nothing, it can wait.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Designing intervention for a <em>layered picture</em></h2>
+  <p class="secnote">The hardest part, the least well done, and the place where genuine expertise shows.</p>
+
+  <p>Four diagnoses do not mean four plans. A plan built for a single condition, applied to a person who has several, will often be neutral at best and counterproductive at worst — because the strategies that suit one profile can directly contradict those that suit another.</p>
+
+  <h3 class="sub">Where approaches genuinely conflict</h3>
+  <ul>
+    <li><strong>Anxiety wants graded approach. Demand avoidance wants demands removed.</strong> Applying either to the wrong one makes things worse. Telling them apart is a clinical judgment, not a preference.</li>
+    <li><strong>Attention difficulties want more external structure. Demand-avoidant profiles resist imposed structure.</strong> Resolution: structure designed with the person, not for them.</li>
+    <li><strong>Sensory overload wants less input. Sensory seeking wants more.</strong> The same person can need both at different hours of the same day.</li>
+    <li><strong>Reading intervention wants intensity and repetition. Anxiety and burnout want reduced load.</strong> Both are legitimate and the balance has to be deliberate rather than accidental.</li>
+    <li><strong>Independence goals want less adult support. Safety wants more.</strong> This one gets resolved by staging rather than by choosing.</li>
+  </ul>
+
+  <div class="note">
+    <h3>What good design looks like</h3>
+    <p><strong>One coherent plan, not several stapled together.</strong> Someone has to hold the whole picture and reconcile the conflicts, rather than each discipline optimizing its own domain.</p>
+    <p><strong>A stated priority order.</strong> When everything is a goal, nothing is. Ask the team: if we can only move two things this year, which two, and why those?</p>
+    <p><strong>The floor before the ceiling.</strong> Regulation, communication, sleep, pain, and safety come before academic and skill goals — not because the others don't matter, but because they don't hold without the floor.</p>
+    <p><strong>Sequencing rather than simultaneity.</strong> A person cannot work intensively on five things. Deciding what comes first, and saying so out loud, is a real clinical skill.</p>
+    <p><strong>Named conflicts, named resolutions.</strong> Where two approaches pull against each other, that should appear in writing with a decision attached, so a new team member doesn't undo it by accident.</p>
+  </div>
+
+  <h3 class="sub">Who can actually hold this</h3>
+  <p>Complexity of this kind needs someone whose job is the whole picture rather than one domain. In practice that role is filled by a developmental-behavioral pediatrician, a neuropsychologist, a hospital complex care program, a psychologist embedded in the team, or occasionally an exceptional case manager or advocate.</p>
+  <p>It is worth asking directly who holds it. If the honest answer is that nobody does — and often it is you — that is worth naming rather than absorbing silently, because it is a real job and it is being done unpaid, uncredited, and usually at night.</p>
+</section>
+
+<section>
+  <h2 class="sec">Navigating it <em>over the years</em></h2>
+  <ul>
+    <li><strong>Keep your own timeline.</strong> Dated: what was noticed, when, by whom, what was assessed, what was found, what was tried and what happened. No system holds this, and it becomes the most valuable document you own.</li>
+    <li><strong>Reassess at transitions.</strong> New school, new stage, puberty, a placement change. Demands shift and previously hidden difficulties surface — which is information, not regression.</li>
+    <li><strong>Expect new things to appear as others improve.</strong> A child who starts communicating may reveal an anxiety nobody could see. That is progress uncovering the next layer.</li>
+    <li><strong>Revisit old conclusions.</strong> Diagnostic criteria change, knowledge improves, and a "no" from six years ago may not hold. Genetic results in particular should be reanalyzed every few years.</li>
+    <li><strong>Watch for what's being explained away.</strong> Any time someone says "that's just the autism" or "that's the ADHD," treat it as a prompt to check rather than a conclusion.</li>
+    <li><strong>Don't chase completeness.</strong> The goal is a picture accurate enough to plan from, not a full accounting. Some things stay unexplained, and a person can be well supported anyway.</li>
+    <li><strong>Tell your child the truth about it,</strong> in a form they can hold. Several diagnoses is not several problems — it's several accurate descriptions of one person, and that's a much easier sentence to live with.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="conditions-library.html"><h3>The conditions library</h3>
+      <p>Thirty-four entries. Read more than one — most people are described by several of them.</p>
+      <span class="go">Open the library</span></a>
+    <a class="libcard" href="care-team-map.html"><h3>The care team map</h3>
+      <p>Who assesses what, and which specialty owns each of the questions above.</p>
+      <span class="go">Open the map</span></a>
+    <a class="libcard" href="what-to-do-first.html"><h3>What to do first</h3>
+      <p>Running the assessments in parallel rather than one at a time, and the order that finds treatable things first.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="behavior.html"><h3>Behavior is communication</h3>
+      <p>Zooming out before responding — including to medical and sensory causes that never get reported.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="anxiety-and-ocd.html"><h3>Anxiety, OCD and school refusal</h3>
+      <p>Where approaches genuinely conflict, and how to tell anxiety from demand avoidance and sensory overload.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="template-builders.html"><h3>Template builders</h3>
+      <p>Build the one-pager and the parent concerns statement that carry the whole picture between providers.</p>
+      <span class="go">Open the builders</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>If your child's plan isn't working, the most useful question is often not <em>what else should we try</em> but <em>what else is going on</em>. Ask what hasn't been looked at. Ask what you'd be investigating if the existing diagnosis weren't there.</p>
+  <p>And hold onto this: a longer list is not a worse outcome. Every accurate name on it is a door that opens, a strategy that fits better, and a piece of your child that someone finally sees properly. You are not collecting problems. You are getting a better description of a person you already knew was complicated and remarkable.</p>
+</div>
+
+<footer>
+  <p><strong>This is a map, not a diagnostic tool.</strong> Deciding what to assess, in what order, belongs with clinicians who know your child. Investigation should be tethered to what would change as a result.</p>
+  <p>Services and support do not require a complete diagnostic picture. Start on need rather than waiting for a label.</p>
+</footer>
+
+</div>
+<script src="site-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADHD and Executive Function — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#1F5C6B; --book-tint:#DFEDF1; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the equation */
+.eqn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.eqn h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.eqn .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.parts{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:18px}
+@media(max-width:700px){.parts{grid-template-columns:1fr;gap:6px}.op{text-align:center;padding:2px 0}}
+.pt{background:rgba(255,255,255,.06);border-top:3px solid var(--book);padding:15px 16px}
+.pt.res{border-top-color:var(--rust);background:rgba(156,74,33,.13)}
+.pt b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#EFEBE3;margin-bottom:6px}
+.pt span{font-size:.86rem;color:#B9C4B4;line-height:1.45;display:block}
+.op{font-size:1.5rem;color:#C6A98F;text-align:center}
+.eqn .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:20px 0 0;max-width:62ch}
+.eqn .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .eqn{background:#fff;color:#000;border:1px solid #000}.eqn .big,.pt b,.eqn .cap strong{color:#000}}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>ADHD and executive function:<br><em>the gap between knowing and doing</em></h1>
+  <p class="lede">People with ADHD almost always know what they are supposed to do. The difficulty is doing it at the moment it needs doing — which is a different problem from not knowing, and needs an entirely different response. Almost everything that helps works by moving the demand out of the person's head and into the world around them.</p>
+</header>
+
+<div class="profnote">
+  <b>Reading this as a professional</b>
+  <p>This page treats ADHD as a performance-point difficulty rather than a knowledge or motivation one, and is deliberately direct about medication, which has a stronger evidence base than most interventions described elsewhere on this site.</p>
+  <p>It also names where low-demand approaches — useful for demand-avoidant profiles — can mislead here, since ADHD generally needs more external structure rather than less.</p>
+</div>
+
+<section>
+  <div class="eqn">
+    <h2>Where the difficulty actually sits</h2>
+    <p class="big">Not at the point of knowing. At the point of performance — the moment when what a person knows has to turn into what they do, usually while something more interesting is available.</p>
+    <div class="parts">
+      <div class="pt"><b>Knows what to do</b><span>Can explain the rule, the routine, and why it matters. Often better than you can.</span></div>
+      <div class="op">→</div>
+      <div class="pt res"><b>The gap</b><span>Starting. Holding it in mind. Noticing time. Resisting the more interesting thing. Coming back after a break.</span></div>
+      <div class="op">→</div>
+      <div class="pt"><b>Does it</b><span>Reliably, on time, without someone standing there.</span></div>
+    </div>
+    <p class="cap"><strong>This is why explaining harder, reminding more, and increasing consequences do so little.</strong> All three target the first box, which was never the problem. What changes outcomes is building scaffolding at the second box — timers, lists, visible calendars, another person in the room, the task broken into a first physical action. Not because the person is incapable, but because the machinery for holding a plan in mind is the exact thing that isn't reliable.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What ADHD <em>actually is</em></h2>
+  <p class="secnote">The name is one of the worst in medicine, and it causes real misunderstanding.</p>
+
+  <p>It is not a deficit of attention. Anyone who has watched a person with ADHD spend six uninterrupted hours on something that genuinely interests them knows the attention is there. <strong>What is unreliable is the regulation of attention</strong> — directing it at will toward something that isn't intrinsically compelling, and sustaining it there.</p>
+  <p>The same applies across the board. It isn't a shortage of effort; it's difficulty deploying effort on demand. It isn't not caring; people with ADHD frequently care enormously and are devastated by their own follow-through. The condition sits between intention and action.</p>
+
+  <div class="bnote">
+    <h3>Three presentations, and one that gets missed</h3>
+    <p><strong>Predominantly hyperactive-impulsive</strong> — visible, disruptive, and usually identified early because it inconveniences adults.</p>
+    <p><strong>Predominantly inattentive</strong> — quiet, drifting, disorganized, and frequently missed for years. Girls and quiet children are disproportionately in this group and disproportionately undiagnosed. A child who is no trouble at all can be struggling severely.</p>
+    <p><strong>Combined</strong> — both, and the most common.</p>
+    <p>Presentation also shifts with age. Visible hyperactivity often settles into internal restlessness by adolescence while the executive difficulties stay or worsen, which is why some people are only identified at fifteen, or thirty, or when their own child is diagnosed.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What is actually <em>hard</em></h2>
+  <div class="domains">
+    <div class="dom"><h3>Getting started</h3>
+      <p>Task initiation is often the single biggest barrier, and the least understood. A person can want to do something, know how, have time, and be unable to begin.</p>
+      <ul><li>Standing in a room unable to start</li><li>Doing everything except the thing</li><li>Starting only once panic arrives</li><li>Open-ended tasks are worst</li></ul>
+      <p class="look"><b>What helps</b>Break it to a first physical action — not "write the essay" but "open the document." Body doubling: another person present, doing their own thing. Start together for two minutes, then leave.</p></div>
+
+    <div class="dom"><h3>Working memory</h3>
+      <p>Holding several things in mind while doing something else. This is the machinery most instructions assume, and it is the least available.</p>
+      <ul><li>Three-step directions where step three is done</li><li>Walking into a room and forgetting why</li><li>Losing the thread mid-sentence</li><li>Reading a page and retaining nothing</li></ul>
+      <p class="look"><b>What helps</b>Externalize everything. Written lists, visible boards, photos of the steps. Never rely on someone remembering something they can see instead.</p></div>
+
+    <div class="dom"><h3>Time</h3>
+      <p>Often described as time blindness. Time is not felt accurately, so ten minutes and an hour feel similar, and future deadlines feel unreal until they're imminent.</p>
+      <ul><li>Chronic lateness despite genuine effort</li><li>Wild misestimation of how long things take</li><li>Long-range projects starting the night before</li><li>Losing hours without noticing</li></ul>
+      <p class="look"><b>What helps</b>Make time visible — analog clocks, visual timers that show duration shrinking, alarms for start times rather than end times. Deadlines broken into checkpoints someone else holds.</p></div>
+
+    <div class="dom"><h3>Emotional regulation</h3>
+      <p>Not in the diagnostic criteria, and for many families the most impairing feature. Emotions arrive fast, at full volume, and take a long time to come down.</p>
+      <ul><li>Small frustrations producing large reactions</li><li>Recovery taking far longer than the trigger warrants</li><li>Difficulty being redirected mid-feeling</li><li>Enormous joy as well — this runs both ways</li></ul>
+      <p class="look"><b>What helps</b>Treat it as a regulation issue rather than a behavior one. The <a href="de-escalation.html">de-escalation page</a> applies directly here.</p></div>
+
+    <div class="dom"><h3>Rejection sensitivity</h3>
+      <p>An intense, physically painful response to perceived criticism or rejection. Widely described by people with ADHD, less formally studied, and enormously significant in daily life.</p>
+      <ul><li>Mild feedback experienced as devastating</li><li>Avoiding anything they might fail at</li><li>Reading neutral faces as disapproval</li><li>Sudden shutdown or rage after a correction</li></ul>
+      <p class="look"><b>Why it matters</b>People with ADHD absorb an extraordinary volume of correction — one widely cited estimate puts it at many times what other children receive. Whatever the exact number, the accumulation is real and it shapes how feedback lands.</p></div>
+
+    <div class="dom"><h3>Impulse and inhibition</h3>
+      <p>The gap between thought and action being very short. It produces the interrupting and the risk-taking, and also the spontaneity and the fast, funny responses.</p>
+      <ul><li>Blurting, interrupting, answering before the question ends</li><li>Physical impulsivity and injury</li><li>Buying, saying, or doing before weighing it</li><li>Difficulty waiting, at any age</li></ul>
+      <p class="look"><b>What helps</b>Reduce the number of moments requiring inhibition rather than demanding more of it. Environmental design beats willpower every time.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The organizing principle: <em>externalize everything</em></h2>
+  <p class="secnote">Nearly every effective strategy is a version of the same move — take the thing that has to be held in mind and put it somewhere it can be seen, heard, or bumped into.</p>
+
+  <ul>
+    <li><strong>Make it visible.</strong> Written lists, whiteboards in the kitchen, clear bins, a calendar on the wall that everyone can see. Anything in a drawer, an app nobody opens, or a person's head does not exist.</li>
+    <li><strong>Make time physical.</strong> Visual timers that show time shrinking, alarms for when to <em>start</em>, and clocks in every room including the bathroom.</li>
+    <li><strong>Make the first step tiny.</strong> The goal is only ever to begin. Momentum handles a surprising amount after that.</li>
+    <li><strong>Use another person.</strong> Body doubling works and nobody quite knows why. Sitting alongside someone doing their own work makes the task possible.</li>
+    <li><strong>Reduce the decisions.</strong> Same place for keys, shoes, bag, charger. Clothes chosen the night before. Every decision removed is capacity returned.</li>
+    <li><strong>Build in movement.</strong> Movement supports attention rather than competing with it. Standing desks, walking while thinking, movement before homework rather than after.</li>
+    <li><strong>Add interest deliberately.</strong> Music, a timer as a race, doing it somewhere different. Interest is the fuel here, and manufacturing it is a legitimate strategy rather than a compromise.</li>
+    <li><strong>Expect systems to expire.</strong> A system that works for six weeks and then stops has not failed — that is the normal lifecycle. Plan to refresh rather than to fix.</li>
+  </ul>
+
+  <div class="note">
+    <h3>Where the site's usual framing needs adjusting</h3>
+    <p>Much of this site describes reducing demands, following the lead, and lowering structure — which is right for demand-avoidant profiles and for a person in overload.</p>
+    <p><strong>ADHD generally needs the opposite.</strong> More external structure, more scaffolding, more visible reminders, more people co-working. Not more pressure, and not more consequences — but genuinely more support architecture, because the internal version isn't reliably available.</p>
+    <p>Where both profiles are present, and they frequently are, the resolution is usually: structure imposed <em>with</em> the person rather than <em>on</em> them. They choose the system, they set it up, and it lives where they can see it. Autonomy over the scaffolding, not less scaffolding.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Strategies that <em>actually work at home</em></h2>
+  <p class="secnote">Specific, tested, and mostly free. Each is a version of the same move — make the invisible visible, and check that what you said is what landed.</p>
+
+  <div class="bnote">
+    <h3>Start by giving them a truer sentence about themselves</h3>
+    <p>Children work out early that they forget things other people remember, and they draw a conclusion about it. Some will say it out loud — <em>my brain is good at forgetting</em> — usually sadly, as a fact about who they are.</p>
+    <p>It is worth having a better sentence ready, and the better sentence is also the accurate one: <strong>their brain is remarkable at remembering the things it finds interesting.</strong> Ask what they know about their favorite subject. Watch them produce detail nobody taught them and nobody could forget.</p>
+    <p>That isn't a consolation prize. It is how this kind of brain works — attention and memory follow interest and salience rather than importance-as-decided-by-adults — and a child who understands that about themselves has an explanation that fits the evidence. Otherwise they will build one out of <em>lazy</em>, <em>careless</em>, or <em>stupid</em>, because those are the words available.</p>
+    <p>Then say the second half: <em>so we're going to put the boring things somewhere your brain doesn't have to hold them.</em> That reframes every strategy below as working with them rather than fixing them.</p>
+  </div>
+
+  <h3 class="sub">Visual schedules, in whatever form fits</h3>
+  <p>The single most useful tool for sequences that have to happen the same way repeatedly — mornings, bedtimes, homework, leaving the house. The format matters enormously and it is worth trying several, because the one a person will actually use beats the one that is theoretically best.</p>
+  <ul>
+    <li><strong>Tactile boards with a slider or a moving piece.</strong> Some people need the physical satisfaction of moving something to <em>done</em> — a slide, a peg, a card flipped over, a piece into a pocket. The movement is doing real work: it marks completion in a way that looking at a list doesn't.</li>
+    <li><strong>Low-tech laminated boards</strong> with velcro or magnets. Cheap, durable, repositionable, no battery, and easy to duplicate so there's one upstairs and one down.</li>
+    <li><strong>Tablet apps and photo-based story tools.</strong> Excellent for schedules built from real photographs of the actual rooms, objects and people involved — recognition is faster than symbols, and it makes the schedule about their life.</li>
+    <li><strong>Printouts of a digital schedule</strong> — worth knowing about. If a person will want to repurpose the device the moment it appears, presenting the schedule on that device turns the tool into a negotiation. Printing it removes the conflict entirely and keeps the schedule as a schedule.</li>
+    <li><strong>A whiteboard on the wall</strong> for older children, written by them where possible.</li>
+  </ul>
+  <p>A few things that make any of these work better: keep it in the place the routine happens rather than in a folder; use real photos where you can; make it short enough to be scannable; and let the person build it or choose the order wherever the sequence genuinely allows.</p>
+
+  <div class="note">
+    <h3>Teach-back: the check that changes everything</h3>
+    <p>People say yes constantly. Sometimes it means <em>I heard and understood you.</em> Very often it means <em>I want this conversation to end</em>, or <em>I was thinking about something else and yes seems safe</em>, or <em>I heard your voice but not your words.</em></p>
+    <p>The fix is small and it works: <strong>ask them to tell it back.</strong> Not "do you understand?" — which produces another yes — but "tell me what the plan is," or "what are you going to do first?"</p>
+    <ul>
+      <li>Ask for it warmly and without any suggestion of testing. <em>"Say it back so I know I explained it properly"</em> puts the responsibility on you rather than on them.</li>
+      <li>If it comes back wrong, that is useful information rather than a failure — you have just discovered a gap that would otherwise have surfaced as non-compliance in twenty minutes.</li>
+      <li>Reteach the part that was missing rather than the whole thing.</li>
+      <li>Use it for anything that matters: instructions, plans, consequences, and especially anything you would otherwise be annoyed about later.</li>
+    </ul>
+    <p>It takes about eight seconds and it prevents a substantial share of the conflicts that follow from someone genuinely not having heard.</p>
+  </div>
+
+  <h3 class="sub">Previewing outings, and the one-ask rule</h3>
+  <p>Most transition difficulty is not resistance. It is being surprised, or being asked to stop something absorbing with no warning and no say. Previewing solves the first problem. A structured single negotiation solves the second, and it works because it gives real control inside a firm boundary.</p>
+  <ol>
+    <li><strong>Preview it before you go</strong> — where you're going, what happens there, roughly how long, and what happens afterward. Photos or a written list if that helps.</li>
+    <li><strong>Say the exit time before the activity starts.</strong> Not once you're there and they're absorbed.</li>
+    <li><strong>Name the one-ask rule out loud:</strong> when it's time, they can ask for five more minutes, once. You will say yes.</li>
+    <li><strong>Teach-back the whole thing</strong> — the plan, the exit time, and the rule. "What happens when I say it's time?"</li>
+    <li><strong>Honor the five minutes fully and warmly,</strong> and set a visible timer so it isn't your word against theirs.</li>
+    <li><strong>Then leave, calmly, without renegotiating.</strong> This is the part that makes the whole thing work — and it only works if step three was genuinely honored.</li>
+  </ol>
+  <p>What makes this land is that the extra five minutes is <strong>guaranteed rather than earned</strong>. Nobody has to escalate to get it, so the escalation stops being useful. And because they agreed to the shape of it in advance and said it back in their own words, leaving is the completion of a plan they were part of rather than something being done to them.</p>
+  <p>Two things protect it: use the same script every time so it becomes familiar, and make sure whoever is doing the outing is the person who both has the conversation and holds the boundary. A rule that different adults apply differently is not a rule.</p>
+
+  <h3 class="sub">Other things worth trying</h3>
+  <ul>
+    <li><strong>A landing zone.</strong> One spot by the door where the bag, shoes, keys, and charger live. Everything that leaves the house departs from there and returns to it. Removes a dozen daily searches.</li>
+    <li><strong>Photograph the finished state.</strong> "Tidy room" means nothing. A photo of the room when it was tidy, taped to the door, means something checkable.</li>
+    <li><strong>Ask for the first step, not the task.</strong> "What's your first move?" beats "get started" — it converts something abstract into a physical action.</li>
+    <li><strong>Start together for two minutes.</strong> Sit down, begin alongside them, then leave. Initiation is the barrier; company gets past it.</li>
+    <li><strong>Tie warnings to events, not just clocks.</strong> "After this song" or "when the level ends" is more meaningful than "in ten minutes" to someone who doesn't feel time reliably.</li>
+    <li><strong>Do the demanding thing in the good window.</strong> Everyone has hours when this is easier. Put homework and hard conversations there rather than fighting the wrong part of the day.</li>
+    <li><strong>Let them design the system.</strong> One they invented and one you imposed have completely different survival rates, even when they're identical.</li>
+    <li><strong>A weekly reset.</strong> Fifteen minutes on a Sunday, together, checking the week ahead and putting things back where they live. Prevents a great deal of Monday.</li>
+    <li><strong>Give one instruction at a time.</strong> Then wait for it to be done before the next. A three-step instruction is a working memory test, and the third step is what disappears.</li>
+    <li><strong>Say what to do rather than what to stop.</strong> "Feet on the floor" is a target; "stop kicking" is a prohibition with nothing to aim at.</li>
+    <li><strong>Expect systems to expire</strong> and plan to refresh them. Six weeks is a normal lifespan, and it isn't a failure of the system or the person.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Medication, <em>honestly</em></h2>
+  <p class="secnote">This site is generally cautious about treatments. This is one where the caution should be pointed the other way, because medication for ADHD is among the better-evidenced interventions in child psychiatry — and families are frequently steered away from it by people with strong feelings and thin information.</p>
+
+  <ul>
+    <li><strong>It works for most people who try it,</strong> with substantial improvement in core symptoms for a large majority — an effect size well above most behavioral or educational interventions.</li>
+    <li><strong>It is not sedating and it is not a personality change.</strong> A person who becomes flat, dulled, or unlike themselves is on the wrong medication or the wrong dose. That is information, not an outcome to accept.</li>
+    <li><strong>Finding the right one takes time.</strong> There are two main stimulant families and several non-stimulant options, and response varies between them. A first medication that doesn't suit says nothing about the second.</li>
+    <li><strong>It doesn't teach skills.</strong> Medication opens a window in which the scaffolding, the instruction, and the practice can actually land. It is not a substitute for any of them.</li>
+    <li><strong>Ask about monitoring</strong> — appetite, sleep, growth, heart rate, and mood — and ask what the plan is if any of those become a problem.</li>
+    <li><strong>Genetic metabolizer status can matter</strong> for some medications. If pharmacogenomic results exist, bring them.</li>
+    <li><strong>It is entirely reasonable to decline</strong> or to wait. This is a real decision with real trade-offs, and no one should be pressured in either direction — including by people who are certain.</li>
+  </ul>
+
+  <p>Parent training in behavior management has good evidence, particularly for younger children, and the combination of behavioral support and medication generally does better than either alone.</p>
+</section>
+
+<section>
+  <h2 class="sec">Evidence, <em>sorted honestly</em></h2>
+  <div class="evid">
+    <div class="ev a"><h3>Well supported</h3>
+      <p><strong>Stimulant medication</strong>, and non-stimulants where stimulants don't suit.</p>
+      <p><strong>Parent training in behavior management</strong>, especially for younger children.</p>
+      <p><strong>Classroom behavioral supports</strong> — daily report cards, immediate specific feedback, structured routines.</p>
+      <p><strong>Organizational skills training</strong> delivered directly, with materials and systems rather than advice.</p>
+      <p><strong>Environmental modification</strong> — the cheapest and most reliably effective category available.</p>
+      <p><strong>Exercise and sleep</strong> as genuine contributors, not lifestyle garnish.</p>
+      <p><strong>Treating what's underneath</strong> — sleep-disordered breathing, iron deficiency, anxiety, and learning disorders all imitate or worsen ADHD.</p>
+    </div>
+    <div class="ev b"><h3>Mixed or emerging</h3>
+      <p><strong>Cognitive behavioral therapy for ADHD</strong> in adolescents and adults — reasonable support for coping and organization, less for core symptoms.</p>
+      <p><strong>Mindfulness training</strong> — modest findings, hard to implement with the population it targets.</p>
+      <p><strong>Omega-3 supplementation</strong> — small effects at best.</p>
+      <p><strong>Body doubling and coaching</strong> — widely reported as transformative by people with ADHD, thin formal literature.</p>
+    </div>
+    <div class="ev c"><h3>Not supported</h3>
+      <p><strong>Working memory training programs</strong> and brain-training apps. Improve performance on the trained task; do not transfer to daily life.</p>
+      <p><strong>Elimination diets and sugar restriction</strong> as general treatment. A minority respond to specific food dye elimination; broad dietary restriction is not supported.</p>
+      <p><strong>Neurofeedback</strong> — extensively studied, and blinded trials have not supported it.</p>
+      <p><strong>Vision therapy, auditory training, and balance programs</strong> for ADHD.</p>
+      <p><strong>"He just needs more discipline."</strong> Consequences do not build executive function, and escalating them reliably damages the relationship that everything else depends on.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">At each <em>stage</em></h2>
+  <div class="stage"><p class="age">Preschool</p><h3>Behavior support before medication</h3>
+    <p>Parent training in behavior management is first-line at this age. Structure, routine, movement, and sleep. Diagnosis is possible but harder, and a great deal of ordinary four-year-old behavior looks similar.</p></div>
+  <div class="stage"><p class="age">Elementary</p><h3>Where school demands expose it</h3>
+    <p>Sitting, waiting, following multi-step instructions, producing work, and keeping track of materials all arrive at once. Most diagnoses happen here. Build the external systems now, while an adult is still available to run them.</p></div>
+  <div class="stage"><p class="age">Middle school</p><h3>The cliff</h3>
+    <p>Multiple teachers, moving rooms, lockers, long-range projects, and the disappearance of the one adult who kept track. Executive demands multiply exactly as adult scaffolding is withdrawn. This is the most common point of collapse and it is predictable — plan for it a year ahead.</p></div>
+  <div class="stage"><p class="age">High school</p><h3>Ownership, and self-knowledge</h3>
+    <p>Systems they choose and maintain themselves. Understanding their own profile well enough to explain it. Driving, which carries genuinely elevated risk and warrants a conversation about medication timing. Accommodations documented for college entrance exams.</p></div>
+  <div class="stage"><p class="age">Adulthood</p><h3>It does not go away</h3>
+    <p>Hyperactivity often becomes internal restlessness; executive difficulty usually remains. Work, finances, and relationships become where it shows. Choosing an environment that fits — variety, movement, deadlines, interest — does more than any strategy.</p></div>
+</section>
+
+<section>
+  <h2 class="sec">Living with it <em>well</em></h2>
+  <div class="compare">
+    <div class="col good"><h3>What helps most</h3>
+      <ul>
+        <li>Scaffolding built with the person, not imposed on them</li>
+        <li>Feedback that is immediate, specific, and mostly positive</li>
+        <li>Interest treated as fuel rather than as a distraction to be suppressed</li>
+        <li>Movement built in before demands, not withheld as a consequence</li>
+        <li>Recess and PE never removed for incomplete work</li>
+        <li>Naming what they're good at, often, out loud</li>
+        <li>Explaining the diagnosis to them clearly and early</li>
+        <li>Treating a forgotten thing as a system failure, not a character failure</li>
+      </ul>
+    </div>
+    <div class="col bad"><h3>What backfires</h3>
+      <ul>
+        <li>More reminders, delivered more loudly</li>
+        <li>Consequences for things that are executive rather than chosen</li>
+        <li>Removing movement or preferred activities to force output</li>
+        <li>"You did it yesterday, so you can do it today" — consistency is precisely what's unreliable</li>
+        <li>Public correction, which lands far harder than intended</li>
+        <li>Systems the adult designed and the person never agreed to</li>
+        <li>Waiting for maturity to solve it</li>
+        <li>Framing it as laziness, in any words</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note">
+    <h3>The self-esteem problem</h3>
+    <p>Children with ADHD receive an extraordinary volume of correction, across years, from every adult in their lives — most of it deserved in the narrow sense and devastating in the aggregate. Many arrive at adolescence convinced they are lazy, stupid, or bad, having been told so in a hundred small ways by people who love them.</p>
+    <p>This is worth treating as a goal in its own right. Name what they're good at deliberately and often. Explain the diagnosis so they have an accurate explanation rather than inventing a crueler one. And when something goes wrong, fix the system out loud rather than the person — <em>that reminder didn't work, let's put it somewhere you'll actually see it.</em></p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="learning-and-literacy.html"><h3>Learning and literacy</h3>
+      <p>Learning disorders co-occur with ADHD often, and look similar from outside. Worth ruling in or out properly.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="anxiety-and-ocd.html"><h3>Anxiety, OCD and school refusal</h3>
+      <p>Anxiety frequently sits alongside ADHD, and sometimes imitates it. Treating one without the other rarely works.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="de-escalation.html"><h3>In the moment</h3>
+      <p>Emotional dysregulation is often the most impairing part. Everything on that page applies here.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="occupational-therapy.html"><h3>Occupational therapy</h3>
+      <p>Executive function, organization, sensory regulation, and handwriting endurance.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="accommodations-finder.html"><h3>The accommodations finder</h3>
+      <p>Search "getting started," "losing things," or "attention" and get wording you can request.</p>
+      <span class="go">Open the finder</span></a>
+    <a class="libcard" href="conditions-library.html"><h3>The conditions library</h3>
+      <p>Fuller entries on ADHD, sleep disorders, anxiety, and the conditions that imitate or worsen it.</p>
+      <span class="go">Open the library</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>When something doesn't get done, try asking a different question. Not <em>why didn't you</em>, but <em>what would have had to be different for that to happen?</em></p>
+  <p>Almost always the answer is something in the environment rather than something in the person — a reminder in the wrong place, a step that was too big, a plan nobody could see. That is fixable, and fixing it costs your relationship nothing.</p>
+</div>
+
+<footer>
+  <p><strong>This is a map, not medical advice.</strong> Diagnosis and medication decisions belong with clinicians who have assessed your child. Several treatable conditions imitate ADHD and are worth excluding first.</p>
+  <p>Where a widely marketed intervention is not supported by evidence, this page says so. Where an intervention is well supported — including medication — this page says that too.</p>
+</footer>
+
+</div>
+<script src="site-nav.js"></script>
+</body>
+</html>

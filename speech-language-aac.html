@@ -119,6 +119,35 @@ footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sa
   font-size:12.5px;color:var(--ink-soft);line-height:1.75}
 @media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col,.libcard{break-inside:avoid}
   .funcs{background:#fff;color:#000;border:1px solid #000}.funcs .big,.fn b,.funcs .cap strong{color:#000}}
+
+.frame{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:3px;margin:0 0 10px}
+.fcol{padding:12px 13px;text-align:center;border-top:4px solid;border-radius:2px}
+.fcol.who{background:#FAEFC0;border-top-color:#C9A227}
+.fcol.did{background:#D4E7C5;border-top-color:#4E7C3A}
+.fcol.what{background:#F7DAB8;border-top-color:#C2701C}
+.fcol.link{background:#EFEFEA;border-top-color:#8A8F86}
+.fcol b{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;margin-bottom:7px}
+.fcol.who b{color:#7A611A}.fcol.did b{color:#33521F}
+.fcol.what b{color:#8A4E13}.fcol.link b{color:#5C6058}
+.fcol span{display:block;font-size:.98rem;color:#22261F;line-height:1.4;font-weight:600}
+.fcol em{font-style:normal;color:#5A5F55;font-size:.82rem;display:block;margin-top:5px;font-weight:400}
+.swatch{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:-1px;margin-right:5px;border:1px solid rgba(0,0,0,.15)}
+.fex{background:var(--card);border:1px solid var(--line);padding:12px 15px;font-size:1.02rem;
+  color:#22303C;margin:0 0 14px;font-style:italic;text-align:center}
+.prog{counter-reset:pg;margin:0 0 14px}
+.pgs{background:var(--card);border-left:3px solid var(--voice);padding:15px 19px 15px 50px;
+  margin-bottom:9px;position:relative}
+.pgs::before{counter-increment:pg;content:counter(pg);position:absolute;left:14px;top:15px;
+  width:22px;height:22px;background:var(--voice);color:#fff;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:11px;font-weight:700}
+.pgs b{display:block;font-size:1rem;font-weight:400;margin-bottom:4px}
+.pgs p{font-size:.92rem;margin:0;color:var(--ink-soft)}
+.pgs .say{font-style:italic;color:#22303C;display:block;margin-top:6px}
+.snote{background:var(--voice-tint);border-left:4px solid var(--voice);padding:20px 22px;margin:24px 0}
+.snote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--voice);font-weight:700;margin:0 0 10px}
+.snote p:last-child{margin-bottom:0}
 </style>
 </head>
 <body>
@@ -198,7 +227,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sa
         <li>Intelligibility to familiar and unfamiliar listeners</li>
         <li>Carryover into real conversation, which is where most of the work is</li>
       </ul>
-      <p class="look"><b>What you'd see at home</b>Family understands and strangers don't, frustration when not understood, avoiding speaking to unfamiliar people, being asked to repeat constantly.</p>
+      <p class="look"><b>What you'd see at home</b>Family understands and strangers don't, frustration when not understood, avoiding speaking to unfamiliar people, being asked to repeat constantly. Where errors follow a pattern rather than landing on single sounds, see <a href="conditions-library.html">phonological disorders</a>; where structure may be limiting movement, see <a href="myofunctional-therapy.html">myofunctional therapy</a>.</p>
     </div>
 
     <div class="dom">
@@ -279,6 +308,43 @@ footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sa
 </section>
 
 <section>
+  <h2 class="sec">Touch cues, and <em>hands-on facilitation</em></h2>
+  <p class="secnote">A technique many families have never heard of, and one that a lot of speech therapists don't use — not because it's controversial, but because doing it well takes separate training that most have never had the chance to do.</p>
+
+  <p>Some people cannot get to a sound by hearing it or watching a mouth make it. The information they need is <em>felt</em> — where the jaw sits, how much the lips round, whether the tongue is up or back. <strong>Touch cues supply that information directly:</strong> the clinician places their hands on the jaw, cheeks, lips, chin, or under the chin to shape and stabilize the movement while the person is speaking.</p>
+
+  <p>It's most used with childhood apraxia of speech, dysarthria, and severe articulation difficulty — the situations where a person knows exactly what they want to say and cannot get their mouth to do it. The most established formal system is PROMPT, and tactile cueing also forms part of other motor speech approaches such as dynamic temporal and tactile cueing.</p>
+
+  <h3 class="sub">Why most therapists don't do it</h3>
+  <p>Tactile cueing as a general idea is part of the standard set of cues every speech therapist learns — verbal, visual, gestural, tactile. What's uncommon is doing it <em>systematically and skilfully</em>, which is a genuine motor skill in the clinician's own hands and improves with training and practice.</p>
+  <p>Formal certification is a substantial commitment — multiple levels of coursework typically taken over several years, with practical requirements — which is simply out of reach for a lot of working clinicians. So it isn't that your therapist is behind; it's that this is a specialty within a specialty.</p>
+
+  <div class="note">
+    <h3>Who is most likely to have this in their hands</h3>
+    <p><strong>Motor speech specialists.</strong> Clinicians trained in PROMPT or in tactile-cueing motor speech approaches, and those whose caseload is mostly apraxia and dysarthria. This is the primary group. Ask directly whether a therapist is PROMPT-trained and at what level.</p>
+    <p><strong>Orofacial myofunctional clinicians.</strong> Myofunctional training teaches tactile stimulation and oral placement techniques as a cueing system in their own right, and this work is hands-in-and-around-the-mouth by nature — so these clinicians tend to be comfortable and practiced with orofacial touch. The <a href="myofunctional-therapy.html">myofunctional therapy page</a> covers that discipline in full.</p>
+    <p>If touch cues are something you want to try, those are the two places to look. A generalist speech therapist working mainly on language or phonology may never have needed the skill, and that is not a mark against them.</p>
+  </div>
+
+  <h3 class="sub">Before anyone puts hands on a person's face</h3>
+  <ul>
+    <li><strong>Rapport comes first.</strong> Good practitioners spend sessions building a relationship before introducing touch at all. Anyone reaching for a face in the first ten minutes is doing it wrong.</li>
+    <li><strong>Sensory tolerance is a real consideration,</strong> not an obstacle to be worked through. For a person with oral or facial sensitivity, this may need long desensitization — or may not be the right approach at all.</li>
+    <li><strong>Assent matters, every single time.</strong> Ask, explain what you're about to do, and stop when the person indicates stop. Touch that is allowed to be refused is a completely different experience from touch that isn't.</li>
+    <li><strong>It should fade.</strong> Touch cues are scaffolding. Ask what the plan is for reducing them, and by when.</li>
+    <li><strong>Watch for distress,</strong> and say so. A person who becomes tense, avoidant, or upset about sessions is reporting something that outranks any protocol.</li>
+  </ul>
+
+  <p>On the evidence: tactile cueing approaches have real support for motor speech disorders and are widely used, though reviews describe the research base as less robust than the popularity of these methods implies. Worth trying where it fits, and worth asking the same question as anywhere else — what specifically should change, how will we measure it, and by when.</p>
+
+  <div class="snote">
+    <h3>A different thing with the same name</h3>
+    <p>"Touch cues" also means something else entirely in work with people who are deafblind or have combined sensory impairments: a small set of consistent touches on the body used to signal what is about to happen — a particular touch on the shoulder meaning <em>I'm going to lift you</em>, another meaning <em>we're going to move</em>.</p>
+    <p>That system is about predictability and consent rather than speech production, and it is enormously valuable for anyone who can't see or hear what is coming. If someone recommends touch cues, it's worth clarifying which of the two they mean.</p>
+  </div>
+</section>
+
+<section>
   <h2 class="sec">AAC, <em>properly</em></h2>
   <p class="secnote">The most common reason AAC fails is not the wrong device. It is a device nobody was trained to use, holding a vocabulary too small to say anything interesting.</p>
 
@@ -292,6 +358,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sa
 
   <h3 class="sub">What a real system contains</h3>
   <p>Vocabulary is usually described as <em>core</em> — the small set of high-frequency words that make up most of what anyone says, like <em>go, more, stop, want, not, that, help, mine</em> — and <em>fringe</em>, the specific nouns like <em>dinosaur</em> or <em>trampoline</em>. Systems heavy on fringe and light on core produce children who can name things and can't say anything about them.</p>
+  <p><strong>And beyond both sits recounting</strong> — the ability to tell someone about something that already happened, which they did not witness. It needs past-tense marking, names of people and places, verbs for what people do, sequencing words, and feelings attached to a past event. Most systems never get there, and it is the vocabulary that lets a person report being hurt. Build it daily on ordinary happy events so the machinery exists before it is needed.</p>
   <p>Check that these are present, and reachable in a couple of taps rather than buried:</p>
   <div class="words">
     <div class="word"><b>No</b>and stop</div>
@@ -303,6 +370,9 @@ footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sa
     <div class="word"><b>Questions</b>what, where, why, who</div>
     <div class="word"><b>People</b>naming who they want</div>
     <div class="word"><b>Go away</b>and leave me alone</div>
+    <div class="word"><b>Too loud</b>and too bright, too fast</div>
+    <div class="word"><b>What happened</b>past tense, before, yesterday</div>
+    <div class="word"><b>I don't understand</b>and say it again</div>
     <div class="word"><b>Alphabet</b>for spelling anything else</div>
   </div>
 
@@ -315,6 +385,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sa
   <h3 class="sub">How AAC actually gets learned</h3>
   <ul>
     <li><strong>Aided language modeling.</strong> Adults use the system themselves, all day, while talking — pointing to words as they speak. Nobody becomes fluent in a language they have only ever been tested in.</li>
+    <li><strong>Model declaratives, not just requests.</strong> Comment, notice, and wonder aloud on the device rather than only prompting for wants. This is what teaches that the system is for saying things, not only for getting things — see the <a href="behavior.html">behavior page</a> for how declarative language works and why it matters.</li>
     <li><strong>No demands attached.</strong> Model far more than you prompt. A device used only when an adult wants an answer becomes an unpleasant object.</li>
     <li><strong>Motor planning consistency.</strong> Words should stay in the same place. Rearranging a display resets the physical memory a child has built, so ask before anyone reorganizes it.</li>
     <li><strong>Present everywhere, always charged.</strong> Specials, lunch, playground, bus, bath, car, hospital. A device left in a backpack is a device that doesn't exist.</li>
@@ -332,6 +403,86 @@ footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sa
     <p>This matters more here than anywhere else on this site, because the entire purpose of AAC is that the words are genuinely the person's. The protective standard is independent, verifiable authorship — a person selecting messages without physical contact, and able to convey information the facilitator does not know. Any method should be moving toward that, and be willing to demonstrate it.</p>
     <p>This is a painful area for many families, and the desire behind it is entirely understandable. That is exactly why the standard matters: a person's voice is only theirs if it can be shown to be theirs.</p>
   </div>
+</section>
+
+<section>
+  <h2 class="sec">Teaching someone to <em>recount</em></h2>
+  <p class="secnote">Telling a person who wasn't there about something that already happened. It's the vocabulary that carries a life between settings and the vocabulary that lets someone report being hurt — and it is the one most systems never reach.</p>
+
+  <p>Most communication work stays in the here and now: requesting what's in the room, commenting on what's in front of them. Recounting is a different task and it has to be built deliberately. It needs past-tense marking, names of people and places, verbs for what people do, sequencing words, and feelings attached to a past event.</p>
+  <p>The <a href="behavior.html">behavior page</a> sets out why this matters so much for safety. What follows is how to teach it.</p>
+
+    <h3 class="sub">Practice on the good things</h3>
+  <p>Here is the part that makes it work: <strong>you build recounting on ordinary and happy events, every day, so that the machinery already exists when something bad happens.</strong> Nobody can learn to narrate a frightening experience during the frightening experience.</p>
+  <p>So ask about the swimming lesson. Ask who was there. Ask what happened first. Model it constantly — tell them about your own day, out loud, in the same structure, with the same words. Send a photo home from school so there's a shared reference to talk from. Use their device for it, not just for requests, so recounting is a thing that page does.</p>
+  <p>A person who has recounted a thousand small good things has the words, the format, and — crucially — the expectation of being listened to. That expectation is what makes a disclosure possible at all.</p>
+
+  <h3 class="sub">Start much earlier than open questions</h3>
+  <p><em>"Tell me about today"</em> is an enormous ask. It requires choosing an event from a whole day, retrieving it, sequencing it, and producing it from nothing. For most people building this skill, that is several years ahead of where they are — and asking it too early teaches only that the question has no answer.</p>
+  <p>Build it the other way round, starting with a closed frame the adult fills in.</p>
+
+  <h3 class="sub">The three-column frame</h3>
+  <p>A dedicated page or low-tech board with three columns — who, what they did, and what they did it to. Add a past-tense marker they can press, and later a column for the people in their life.</p>
+
+  <div class="frame">
+    <div class="fcol who"><b>Who</b><span>mommy<em>people and names</em></span></div>
+    <div class="fcol did"><b>Did what</b><span>play<em>+ ed for past</em></span></div>
+    <div class="fcol what"><b>What</b><span>blocks<em>things and places</em></span></div>
+    <div class="fcol link"><b>Added later</b><span>with<em>joining word</em></span></div>
+    <div class="fcol who"><b>Who else</b><span>Jane<em>their people</em></span></div>
+  </div>
+  <p class="fex">"Mommy play<strong>ed</strong> blocks — with Jane."</p>
+
+  <p><strong>Color-code the columns, and match whatever their device already uses.</strong> Most systems follow a widely used convention where <span class="swatch" style="background:#FAEFC0;border-color:#C9A227"></span>yellow marks people and pronouns, <span class="swatch" style="background:#D4E7C5;border-color:#4E7C3A"></span>green marks actions, <span class="swatch" style="background:#F7DAB8;border-color:#C2701C"></span>orange marks things, and <span class="swatch" style="background:#EFEFEA;border-color:#8A8F86"></span>white or grey marks the small joining words. Consistency with <em>their</em> system matters far more than matching any standard — if their device colors things differently, copy their device.</p>
+  <p>The colors are doing real work. They let someone find the right kind of word by location and color rather than by reading, they make the sentence structure visible, and they mean a low-tech board and a tablet page can be used interchangeably without relearning anything.</p>
+
+  <p>The frame does the hard part. Instead of generating a sentence, the person is choosing between visible options — which is a completely different cognitive task and a reachable one. The past-tense button matters more than it looks: it is the thing that marks <em>this already happened</em>, which is the whole foundation of reporting.</p>
+
+  <h3 class="sub">Build it low-tech as well as on the tablet</h3>
+  <p>Whatever system someone uses, they need a paper version of the same thing — not as a lesser substitute, but because devices run out of battery, go for repair, get left at school, and cannot come in the pool or the bath. <strong>Every device user should have a low-tech backup, and the backup should look like the device.</strong></p>
+
+  <h3 class="sub">Making one</h3>
+  <ul>
+    <li><strong>The board.</strong> A cotton-covered cardboard painting board — the cheap artist's canvas boards from any craft shop — works beautifully. The fabric surface grips hook velcro without any adhesive backing failing, it's rigid enough to hold on a lap, and it's light enough to carry.</li>
+    <li><strong>The dots.</strong> Adhesive velcro dots on the board in a grid, and the opposite side of the velcro on the back of each card. Cards come off, go on, and swap out as vocabulary grows.</li>
+    <li><strong>The cards.</strong> Print, laminate, and cut. Laminating matters more than it sounds — these get handled constantly, taken outdoors, and dropped in food.</li>
+    <li><strong>The colors.</strong> Print each card on its color-coded background, matching the tablet page exactly. Same colors, same positions, same layout.</li>
+    <li><strong>Storage.</strong> An envelope taped to the back, or a ring of extra cards clipped to a corner, so vocabulary that isn't on the board today is still within reach.</li>
+    <li><strong>Make more than one.</strong> One at home, one in the bag, one at school. They get lost, and a lost board should be a nuisance rather than a crisis.</li>
+  </ul>
+
+  <div class="snote">
+    <h3>Use real photographs wherever you can</h3>
+    <p>On both the board and the tablet page, customized images beat generic symbols nearly every time. Not a clip-art drawing of a slide — <em>their</em> slide, at <em>their</em> playground. Not a stock figure labeled "teacher" — a photograph of the actual person, with their actual name under it.</p>
+    <p>Recognition is faster, the meaning is unambiguous, and it turns the system into a record of their real life rather than a set of abstractions. It also makes recounting genuinely possible: a person can point to the actual human being who was there.</p>
+    <p>Some practical notes. Take photos deliberately — of staff, classrooms, vehicles, the bathroom, the therapy room, the people in their week — and ask school to send some too; most will if you explain why. Shoot on plain uncluttered backgrounds with the subject filling the frame, which matters enormously for anyone with cerebral visual impairment. Keep a folder so replacing a worn card takes two minutes. And update them as people and places change, because an out-of-date board quietly teaches that the system doesn't match reality.</p>
+  </div>
+
+  <h3 class="sub">The progression</h3>
+  <div class="prog">
+    <div class="pgs"><b>Model it immediately after the activity</b>
+      <p>The adult builds the sentence on the board or device while the memory is fresh and the objects are still in sight. No question is asked and nothing is required of the person. Do this many times a day.</p></div>
+    <div class="pgs"><b>Model it, then ask yes or no</b>
+      <p>Build the sentence, then check it. A yes-or-no answer is achievable long before a narrative is.
+      <span class="say">"You climbed the slide with Jane. Is that right?"</span></p></div>
+    <div class="pgs"><b>Leave one slot for them</b>
+      <p>Fill in two columns and pause at the third. Then swap which column you leave open, so they aren't only ever choosing the object.
+      <span class="say">"You climbed the ___ with Jane."</span></p></div>
+    <div class="pgs"><b>They build it with the frame in front of them</b>
+      <p>The columns are still there, doing the structural work. They are now selecting across all of it, with the adult only prompting where it stalls.</p></div>
+    <div class="pgs"><b>They recount with a cue, not a frame</b>
+      <p>A photo, an object from the day, a line in the home log. Something concrete to talk from, but the sentence is theirs.</p></div>
+    <div class="pgs"><b>Open questions</b>
+      <p>Only now. <em>"Tell me about today."</em> <em>"Who was there?"</em> <em>"What happened then?"</em> — and wait far longer than is comfortable.</p></div>
+  </div>
+
+  <h3 class="sub">The home log as the bridge</h3>
+  <p>This is what makes it work across settings, and it is worth asking school for specifically. Have the daily log record <strong>the activities themselves</strong>, in frame-shaped detail — who, what, with whom — not just <em>had a good day</em>.</p>
+  <p>Then at home, read the log first, and model it back on the device:</p>
+  <p class="fex">"I heard that at school today — you climb<strong>ed</strong> the slide with Jane. Is that right?"</p>
+  <p>Now something remarkable is available. The adult knows enough to ask a real question about a real event they weren't present for, and the person gets the experience of being asked about their own life by someone who is genuinely interested. Congratulate the thing they did. Ask whether it was scary. Talk about the bit where they slipped getting off, and how that felt.</p>
+  <p><strong>That exchange is not a language exercise.</strong> It is a person telling someone who loves them about their day and being met — which is what relationships are made of, and what a great many people with communication differences have never once had. The reporting skill this builds is essential and it is the byproduct. The connection is the point.</p>
+
 </section>
 
 <section>

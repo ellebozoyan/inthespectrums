@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In The Moment — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --slate:#435A6F; --slate-tint:#E5EAEE; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: zoom out */
+.zoom{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.zoom h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.zoom .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.frames{display:grid;gap:2px}
+.fr{background:rgba(255,255,255,.05);border-left:3px solid var(--slate);padding:13px 16px;
+  display:grid;grid-template-columns:132px minmax(0,1fr);gap:6px 20px}
+@media(max-width:620px){.fr{grid-template-columns:1fr}}
+.fr.wide{border-left-color:var(--rust);background:rgba(156,74,33,.13)}
+.fr b{font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#C6A98F}
+.fr span{font-size:.92rem;color:#B9C4B4;line-height:1.5}
+.zoom .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:22px 0 0;max-width:62ch}
+.zoom .cap strong{color:#EFEBE3}
+
+/* translation pairs */
+.trans{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);
+  border-radius:2px;overflow:hidden;margin:0 0 11px;background:var(--card)}
+@media(max-width:620px){.trans{grid-template-columns:1fr}}
+.trans div{padding:15px 18px}
+.trans .saw{background:#EEF1ED;border-right:1px solid var(--line)}
+.trans .mean{background:var(--slate-tint)}
+.trans .lbl{font-family:var(--sans);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:700;margin:0 0 7px}
+.trans .saw .lbl{color:var(--ink-soft)}.trans .mean .lbl{color:var(--slate)}
+.trans p{margin:0;font-size:.96rem;line-height:1.5}
+.trans .saw p{font-style:italic}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+/* curve */
+.curve{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:2px;margin:0 0 14px}
+.st{background:var(--card);border-top:3px solid var(--line);padding:15px 16px}
+.st.win{border-top-color:var(--forest);background:#E6EDE4}
+.st.peak{border-top-color:var(--alarm);background:var(--alarm-tint)}
+.st.rep{border-top-color:var(--rust);background:var(--rust-tint)}
+.st b{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;margin-bottom:7px;color:var(--ink)}
+.st p{font-size:.9rem;margin:0;line-height:1.5}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.says{background:var(--card);border-left:4px solid var(--slate);padding:20px 22px;margin:0 0 12px}
+.says .who{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--slate);font-weight:700;margin:0 0 9px}
+.says p{margin:0 0 10px;font-size:.97rem}
+.says p:last-child{margin:0}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.snote{background:var(--slate-tint);border-left:4px solid var(--slate);padding:20px 22px;margin:24px 0}
+.snote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--slate);font-weight:700;margin:0 0 10px}
+.snote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.col,.trans,.st,.says{break-inside:avoid}
+  .zoom{background:#fff;color:#000;border:1px solid #000}.zoom .big,.fr b,.zoom .cap strong{color:#000}}
+
+/* the inside of it */
+.inside{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:26px 28px;margin:0 0 14px}
+.inside h3{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--slate);font-weight:700;margin:0 0 12px}
+.inside h3:not(:first-child){margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}
+.inside p{font-size:1.02rem;line-height:1.68;margin:0 0 14px}
+.inside p:last-child{margin:0}
+.inside strong{color:var(--ink)}
+.inside .quiet{font-size:.95rem;color:var(--ink-soft)}
+/* portable phrases */
+.phrases{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:11px;margin:0 0 16px}
+.ph{background:var(--slate-tint);border-left:3px solid var(--slate);padding:16px 18px}
+.ph b{display:block;font-family:var(--serif);font-size:1.06rem;line-height:1.35;color:#22303C;
+  font-style:italic;margin-bottom:8px}
+.ph span{display:block;font-size:.88rem;color:var(--ink-soft);line-height:1.5}
+
+/* phrase bank */
+.bank{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:20px 22px;margin:0 0 12px}
+.bank h4{font-family:var(--sans);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--slate);font-weight:700;margin:0 0 6px}
+.bank .why{font-size:.9rem;color:var(--ink-soft);margin:0 0 14px;line-height:1.5}
+.bank ul{list-style:none;margin:0;padding:0}
+.bank li{font-size:1rem;line-height:1.45;font-style:italic;color:#22303C;padding:9px 0 9px 15px;
+  border-left:2px solid var(--slate-tint);margin:0 0 6px}
+.bank li:last-child{margin:0}
+.bank li b{font-style:normal;font-family:var(--sans);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-soft);display:block;margin-top:5px;font-weight:700}
+.steps4{counter-reset:s4;margin:0 0 14px}
+.s4{background:var(--card);border-left:3px solid var(--forest);padding:16px 20px 16px 54px;
+  margin-bottom:9px;position:relative}
+.s4::before{counter-increment:s4;content:counter(s4);position:absolute;left:16px;top:16px;
+  width:24px;height:24px;background:var(--forest);color:#fff;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:11.5px;font-weight:700}
+.s4 b{display:block;font-size:1.02rem;font-weight:400;margin-bottom:5px}
+.s4 p{font-size:.93rem;margin:0;color:var(--ink-soft)}
+
+/* five-question processing sequence */
+.qseq{counter-reset:q;margin:0 0 16px}
+.qstep{background:var(--card);border:1px solid var(--line);border-radius:2px;margin-bottom:10px;
+  display:grid;grid-template-columns:44px minmax(0,1fr);overflow:hidden}
+.qnum{background:var(--slate);color:#fff;display:flex;align-items:flex-start;justify-content:center;
+  padding-top:19px;font-family:var(--sans);font-size:13px;font-weight:700}
+.qbody{padding:17px 20px}
+.qbody .q{font-size:1.14rem;line-height:1.3;margin:0 0 9px;color:#22303C}
+.qbody p{font-size:.94rem;margin:0 0 8px;color:var(--ink-soft)}
+.qbody p:last-child{margin:0}
+.qbody .ex{font-style:italic;color:#22303C;background:var(--slate-tint);padding:9px 12px;
+  border-radius:2px;margin:9px 0 0;font-size:.95rem}
+
+/* sentence frame */
+.frame{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:3px;margin:0 0 10px}
+.fcol{padding:12px 13px;text-align:center;border-top:4px solid;border-radius:2px}
+.fcol.who{background:#FAEFC0;border-top-color:#C9A227}
+.fcol.did{background:#D4E7C5;border-top-color:#4E7C3A}
+.fcol.what{background:#F7DAB8;border-top-color:#C2701C}
+.fcol.link{background:#EFEFEA;border-top-color:#8A8F86}
+.fcol b{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;margin-bottom:7px}
+.fcol.who b{color:#7A611A}.fcol.did b{color:#33521F}
+.fcol.what b{color:#8A4E13}.fcol.link b{color:#5C6058}
+.fcol span{display:block;font-size:.98rem;color:#22261F;line-height:1.4;font-weight:600}
+.fcol em{font-style:normal;color:#5A5F55;font-size:.82rem;display:block;margin-top:5px;font-weight:400}
+.swatch{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:-1px;margin-right:5px;border:1px solid rgba(0,0,0,.15)}
+.fex{background:var(--card);border:1px solid var(--line);padding:12px 15px;font-size:1.02rem;
+  color:#22303C;margin:0 0 14px;font-style:italic;text-align:center}
+.prog{counter-reset:pg;margin:0 0 14px}
+.pgs{background:var(--card);border-left:3px solid var(--slate);padding:15px 19px 15px 50px;
+  margin-bottom:9px;position:relative}
+.pgs::before{counter-increment:pg;content:counter(pg);position:absolute;left:14px;top:15px;
+  width:22px;height:22px;background:var(--slate);color:#fff;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:11px;font-weight:700}
+.pgs b{display:block;font-size:1rem;font-weight:400;margin-bottom:4px}
+.pgs p{font-size:.92rem;margin:0;color:var(--ink-soft)}
+.pgs .say{font-style:italic;color:#22303C;display:block;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>In the moment: <em>precursors and de-escalation</em></h1>
+  <p class="lede">What to actually do — before, during, and after. Almost everything useful happens earlier than people think, in the window where a person is only beginning to move away from regulated. This page is about seeing that window and knowing what to say inside it.</p>
+</header>
+
+<div class="profnote">
+  <b>Part of a three-page set</b>
+  <p>The companion pages are <a href="behavior.html">behavior is communication</a>, which covers how to understand what is happening, and <a href="behavior-support.html">choosing behavior support</a>, which covers working with a team.</p>
+</div>
+
+<section>
+  <h2 class="sec">Precursor behavior: <em>the whole ballgame</em></h2>
+  <p class="secnote">If there is one thing on this page to build a plan around, it is this. Precursor behavior is the earliest observable sign that someone is moving away from regulated — and it is the only window in which almost everything useful can still happen.</p>
+
+  <p><strong>Precursors are the small things that come before the big thing.</strong> A change in voice. Going quiet. Pacing, or going very still. Repeating a phrase. Seeking pressure. Eyes going somewhere else. A particular sound. Standing up. Moving toward a door. They are usually specific to the person, often subtle, and almost always visible to someone who has learned to look.</p>
+
+  <p>Once the escalation is underway, the options narrow to safety and waiting. In the precursor window, everything is still available: communication, choice, adjustment, connection, and the chance to solve whatever is actually wrong. <strong>De-escalation at the earliest possible onset outranks every other goal in that moment</strong> — including the task, the schedule, the lesson, and whatever anyone had planned.</p>
+
+  <div class="snote">
+    <h3>This is also where you come to know the person</h3>
+    <p>Precursors are not generic. They are a specific person's specific tells, and learning them takes attention over time — which is exactly why the people who know someone best can often see a hard moment coming twenty minutes before anyone else in the room.</p>
+    <p>Cataloging them is not surveillance. It is the practical form of paying attention, and it is one of the most respectful things a team can do: it says <em>we are watching closely enough to help you before you have to shout.</em></p>
+  </div>
+
+  <h3 class="sub">Build the map, and give it to everyone</h3>
+  <ul>
+    <li><strong>List the precursors you actually see</strong>, in order of how early they appear — the earliest ones first, since those are the most valuable.</li>
+    <li><strong>Note what usually precedes them</strong>: transitions, being rushed, unexpected change, being watched, a denied request, hunger, a specific sound, a particular part of the day.</li>
+    <li><strong>Name what has worked at each stage</strong>, specifically enough for someone new to do it.</li>
+    <li><strong>Put it in writing and into the plan</strong> — in the IEP, in the behavior plan, in the one-pager that goes to substitutes and new staff. A precursor map that lives only in a parent's head protects nobody.</li>
+    <li><strong>Review it as they change.</strong> Precursors shift with age, with new settings, and as communication grows.</li>
+  </ul>
+
+  <div class="note">
+    <h3>The pattern underneath most of it</h3>
+    <p>Families who track this carefully often arrive at the same conclusion: nearly every dysregulation traces back to a <strong>communication breakdown</strong>. Most commonly, an adult moving a person through a transition or a task without explaining the why and the how.</p>
+    <p>Which means the highest-yield intervention is not a response at all. It is a change in how adults communicate as a default — not as a de-escalation technique deployed once things are already going wrong.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What to say <em>in the precursor window</em></h2>
+  <p class="secnote">Language that opens a door rather than adding a demand. Most of these work because they carry no obligation — there is nothing to comply with, and therefore nothing to resist.</p>
+
+  <div class="bank">
+    <h4>Cognitive verbs and wondering</h4>
+    <p class="why">Starting a sentence with a thinking word models the internal process and invites without requiring. These are the workhorses.</p>
+    <ul>
+      <li>"I'm wondering if something about this is hard right now."</li>
+      <li>"I'm noticing your voice got quieter."</li>
+      <li>"I think something changed for you just then."</li>
+      <li>"I'm guessing you were expecting something different."</li>
+      <li>"I'm not sure I explained that very well."</li>
+      <li>"I'm remembering that last time this part was tricky."</li>
+    </ul>
+  </div>
+
+  <div class="bank">
+    <h4>Handing over the question they can't ask</h4>
+    <p class="why">Frequently a person is stuck because they have a question and no way to form it. Offering the question itself — out loud, and on their device or visual support at the same time — gives them the words to borrow. This dual verbal-and-visual prompting is one of the most powerful moves available.</p>
+    <ul>
+      <li>"Are you wondering what happens next?"</li>
+      <li>"Are you asking me why we're stopping?"</li>
+      <li>"Do you want to know how long this will take?"</li>
+      <li>"Are you checking whether we're coming back to this?"</li>
+      <li>"Do you want to ask me to change something?"<b>Then wait. Longer than feels comfortable.</b></li>
+    </ul>
+  </div>
+
+  <div class="bank">
+    <h4>Making protest available</h4>
+    <p class="why">A person who cannot object will find another way to object. Explicitly offering the protest — and then honoring it visibly — is often the entire intervention.</p>
+    <ul>
+      <li>"You can tell me no. I'll listen."</li>
+      <li>"Do you want to say <em>stop</em>? You can."</li>
+      <li>"You're allowed to not like this. Tell me and I'll hear you."</li>
+      <li>"It sounds like you're saying this isn't okay with you. Am I getting that right?"</li>
+      <li>"I heard you. You don't want to. Let me think about what we can do."<b>Then actually change something, so the protest is shown to work.</b></li>
+    </ul>
+  </div>
+
+  <div class="bank">
+    <h4>The why and the how, before the ask</h4>
+    <p class="why">A directive without context lands as being bossed. The same request with the reasoning attached lands as an invitation. Give the why <em>and</em> the how — what is ending, why it's ending, and what happens next.</p>
+    <ul>
+      <li>"We're going to wrap up the puzzle in a few minutes, because lunch is starting — I want to make sure your body has time to fuel up."</li>
+      <li>"I'm going to turn the light on in a second so we can see the page. I'll tell you before I do it."</li>
+      <li>"We're leaving after this song, because the pool closes at four and I don't want us to miss the good part."</li>
+      <li>"This is the last one, and then it goes away until tomorrow — not because you did anything, just because that's when we have time again."</li>
+    </ul>
+  </div>
+
+  <div class="bank">
+    <h4>Naming what you see, without asking for anything</h4>
+    <p class="why">Being accurately seen is regulating in itself. These require no answer and no compliance.</p>
+    <ul>
+      <li>"I can see you're not ready yet. I'll wait."</li>
+      <li>"That looked like it took a lot."</li>
+      <li>"Something about this is too much right now. That makes sense."</li>
+      <li>"You've been holding it together all morning. I noticed."</li>
+      <li>"I'm right here. You don't have to do anything."</li>
+    </ul>
+  </div>
+
+  <div class="bank">
+    <h4>Readiness, instead of refusal</h4>
+    <p class="why">Reframing a stopped activity as a question of readiness rather than a punishment removes the sting, keeps dignity intact, teaches tolerance and compromise, and preserves the chance of buy-in another day.</p>
+    <ul>
+      <li>"I don't think your body is ready for this one today. We can try again tomorrow."</li>
+      <li>"Let's find out tomorrow whether it's a better day for this."</li>
+      <li>"You were ready for the first part — that's real. This part can wait."</li>
+      <li>"Nothing is lost. It'll be here tomorrow, and so will we."</li>
+    </ul>
+  </div>
+
+  <div class="bank">
+    <h4>"You choose" — natural consequences without power</h4>
+    <p class="why">The consequence lives inside the choice rather than being imposed by an adult. Said calmly and in advance, it teaches cause and effect. Said angrily and after the fact, it's a punishment wearing a disguise.</p>
+    <ul>
+      <li>"If you choose to throw it, you're choosing for it to go away today — and that's okay, we can try again tomorrow."</li>
+      <li>"You can choose to stay and finish, or choose to be done. Both are real choices."</li>
+      <li>"If you choose to keep the headphones off, it'll be loud. That's your call."</li>
+      <li>"That was your choice and I'm not upset with you. Tomorrow's a new day."<b>Say the last part every time. It's what keeps the consequence from becoming shame.</b></li>
+    </ul>
+  </div>
+
+  <div class="bank">
+    <h4>Buying time and slowing everything down</h4>
+    <p class="why">Speed is the enemy in a precursor moment. These create room without conceding anything.</p>
+    <ul>
+      <li>"Let me think about that for a second."</li>
+      <li>"That's a good question and I want to answer it properly. Give me a moment."</li>
+      <li>"Nothing has to happen right now."</li>
+      <li>"We've got time. There's no rush on this."</li>
+      <li>"Let's both take a minute."<b>Then actually take one. Sit down if you can — it changes the room.</b></li>
+    </ul>
+  </div>
+
+  <div class="bank">
+    <h4>Flexibility, modeled out loud</h4>
+    <p class="why">If we want flexibility, we demonstrate it visibly and name it — including noticing theirs, at a moment when they aren't being asked for anything.</p>
+    <ul>
+      <li>"I can be flexible about this one."</li>
+      <li>"I changed my mind, and that's allowed."</li>
+      <li>"You were flexible earlier when we changed the plan. I noticed that, and it helped me."</li>
+      <li>"I got that wrong. Let me try again."</li>
+    </ul>
+  </div>
+
+  <h3 class="sub">And what not to say</h3>
+  <ul>
+    <li><strong>Threats of punishment.</strong> To many people these land as mean, or as bullying, and the relationship cost outlasts the moment by a long way.</li>
+    <li><strong>Stacked questions.</strong> "What's wrong? Why are you doing that? Can you use your words?" Each one is a demand at the worst possible time.</li>
+    <li><strong>Counting down to a consequence.</strong> It adds time pressure to a nervous system already out of room.</li>
+    <li><strong>"You're fine."</strong> They are demonstrably not fine, and being told otherwise teaches them their own signals can't be trusted.</li>
+    <li><strong>"Calm down."</strong> Nobody in history has calmed down because of it.</li>
+    <li><strong>Talking about them to another adult in front of them.</strong> Assume everything is heard and understood, whatever their communication looks like.</li>
+    <li><strong>Laughing while observing.</strong> Even affectionate laughter is frequently experienced as being laughed at, and the damage is disproportionate.</li>
+  </ul>
+
+  <div class="snote">
+    <h3>Four things a communication partner is doing</h3>
+    <p>In a precursor moment, an adult's job is not to manage the behavior. It's to hold up the communication that isn't available yet — in this order.</p>
+  </div>
+
+  <div class="steps4">
+    <div class="s4"><b>Help them ask the question</b>
+      <p>Including clarifying questions they may not know they have. Offer the question out loud and on their device or visuals at the same time, then wait.</p></div>
+    <div class="s4"><b>Make sure they receive and understand the answer</b>
+      <p>Check rather than assume. Ask them to tell it back, or watch for the shift that means it landed. An answer that wasn't understood is not an answer.</p></div>
+    <div class="s4"><b>Let them protest — and feel heard</b>
+      <p>Not just permitted to object, but visibly listened to. Say back what you heard. Where anything can move, move it, so protest is shown to be worth using.</p></div>
+    <div class="s4"><b>Process it and make a plan together</b>
+      <p>What happens now, what gets redirected or replaced, and what happens next time. Ending with a plan is what turns a hard moment into something learned rather than something survived.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Dysregulation is a <em>communication breakdown</em></h2>
+  <p class="secnote">Not a choice, not manipulation, not a discipline problem. A nervous system past the point where language, reasoning, and self-control are available.</p>
+
+  <div class="curve">
+    <div class="st"><b>Baseline</b><p>Regulated. This is where learning happens — and the only place new skills can actually be taught.</p></div>
+    <div class="st win"><b>Early signs</b><p>The window. Voice changes, pacing, going quiet, seeking pressure, repeating a phrase. Almost everything useful happens here.</p></div>
+    <div class="st"><b>Escalation</b><p>Language is going offline. Reduce demands, reduce words, increase space. Stop teaching.</p></div>
+    <div class="st peak"><b>Peak</b><p>Safety only. No teaching, no reasoning, no consequences, no questions. Fewest words possible, one adult.</p></div>
+    <div class="st"><b>Recovery</b><p>Coming down, and fragile. Re-escalation is common here. Quiet, low demand, no debrief yet.</p></div>
+    <div class="st rep"><b>Repair</b><p>Later — often a different day. Reconnect first. Then, if they're willing, make sense of it together.</p></div>
+  </div>
+
+  <h3 class="sub">What helps at the peak</h3>
+  <ul>
+    <li><strong>One adult communicating.</strong> Others available, silent, and at a distance. Several people talking at a dysregulated person multiplies the input without adding help.</li>
+    <li><strong>Fewer words, or none.</strong> Short phrases, long pauses, or silence. Reasoning is not available to them and attempting it extends the episode.</li>
+    <li><strong>No questions.</strong> Questions demand processing. "What's wrong?" is a demand at the worst possible moment.</li>
+    <li><strong>Lower your voice rather than raising it.</strong> Volume and pace are contagious in both directions.</li>
+    <li><strong>Space, and a route out.</strong> Being cornered escalates almost everyone.</li>
+    <li><strong>Keep their communication system within reach.</strong> This is exactly when they need it and exactly when it tends to get put down.</li>
+    <li><strong>Nothing is being taught right now.</strong> Consequences delivered at the peak teach only that you become frightening when they're at their worst.</li>
+  </ul>
+
+  <h3 class="sub">Repair, afterward</h3>
+  <p>Later — sometimes hours, often the next day — and only if they're willing. Ask permission before revisiting it. Lead with reconnection rather than review. Then, if they want to, make sense of it together: what was happening, what was too much, what might help next time. Keep it short and end it warm.</p>
+  <p>A useful test: if the conversation is mostly you talking about what they did wrong, it isn't repair. Repair is two people rebuilding something, and the adult goes first.</p>
+
+  <div class="warn">
+    <h3>Restraint and seclusion</h3>
+    <p>Physical restraint and seclusion carry real risk of injury and of trauma, and their use is heavily restricted in schools in many states. They are not treatment and they teach nothing.</p>
+    <p>If they are being used with your child, you are entitled to know: every incident, in writing, the same day; what led up to it; what was tried first; and what the plan is to prevent the next one. Repeated restraint is evidence that a support plan is failing, not evidence that a child is difficult. Ask for the plan to be rewritten.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">When demands are the trigger</h2>
+  <p class="secnote">For people with a demand-avoidant profile — often discussed as PDA — the usual behavior strategies don't just fail. They make things worse, and the harder anyone pushes, the more completely things shut down.</p>
+
+  <div class="snote">
+    <h3>A reframe worth knowing</h3>
+    <p>The initialism is usually expanded as <em>pathological demand avoidance</em> — a phrase that locates the problem in the person and describes them by what they won't do. Some families and clinicians instead read it as <strong>pervasive drive for autonomy</strong>: same pattern, described by what the person is reaching for rather than what they're refusing.</p>
+    <p>That isn't word games. It changes what the plan looks like. If the issue is avoidance, the goal becomes getting more compliance. If the issue is an unmet need for autonomy, the goal becomes finding more places to give real control — and the second version is the one that actually works. This is a nervous-system-level response to perceived loss of autonomy, not a behavior choice.</p>
+  </div>
+
+  <p>Where anxiety attaches to demands themselves, ordinary requests land as threats — including invitations, praise, and sometimes a person's own intentions. Reward charts, consequence systems, first-then framing, and countdowns all function as demands in this profile, which is why families are often working extremely hard and getting steadily worse results.</p>
+
+  <h3 class="sub">What tends to help instead</h3>
+  <ul>
+    <li><strong>Take demands out rather than softening them.</strong> Aim for stretches where nobody is asked to do anything.</li>
+    <li><strong>Declarative language throughout</strong>, as above. This profile is where it matters most.</li>
+    <li><strong>Genuine control</strong> over what happens and when, wherever the stakes allow.</li>
+    <li><strong>Drop the audience.</strong> Being watched is itself a demand.</li>
+    <li><strong>Prioritize ruthlessly.</strong> Two things that truly matter today; let the rest go.</li>
+    <li><strong>Watch praise.</strong> "Well done, you did it!" reveals that someone was watching and wanted something, and can end an activity permanently.</li>
+    <li><strong>Trust and relationship do the work</strong> that compliance systems cannot. This takes longer and holds better.</li>
+  </ul>
+  <p>The <a href="conditions-library.html">conditions library</a> has a fuller entry on demand avoidance, including the honest note that it isn't a formal diagnosis in the US and what that means practically.</p>
+</section>
+
+<section>
+  <h2 class="sec">Dignity, in the <em>ordinary mechanics</em></h2>
+  <p class="secnote">Small practices, applied consistently, that determine whether someone experiences a room as safe. Most cost nothing and are missed anyway.</p>
+
+  <div class="domains">
+    <div class="dom"><h3>One adult at a time</h3>
+      <p>One designated person communicating directly, at eye level where possible, with any additional adults distanced and quiet. When someone else takes over, the first person fades back deliberately rather than both talking at once.</p>
+      <p class="look"><b>Why</b>Multiple adults engaging simultaneously is overload dressed as help, and it escalates people reliably.</p></div>
+
+    <div class="dom"><h3>Never discussed in front of them</h3>
+      <p>No talking about a person to another adult within earshot — not their difficulties, not their diagnosis, not how the morning went. Assume everything is heard and understood, whatever their communication looks like.</p>
+      <p class="look"><b>Why</b>Being talked about is minimizing and anxiety-provoking, and it teaches someone that they are a topic rather than a person in the room.</p></div>
+
+    <div class="dom"><h3>Permission first</h3>
+      <p>Ask before recounting something they did — including good things. Ask before praising their flexibility or patience to someone else. Ask before inviting them into a conversation meant to teach them something.</p>
+      <p class="look"><b>Why</b>It's their story. Asking also builds the expectation that they get a say in what's said about them — which is the root of self-advocacy.</p></div>
+
+    <div class="dom"><h3>Tone and body</h3>
+      <p>Softer voice than feels necessary. Kind and encouraging language modeled deliberately. No laughing while observing. No threats of punishment. Body positioned alongside rather than over.</p>
+      <p class="look"><b>Why</b>Observed laughter is frequently experienced as being laughed at, and threats are frequently experienced as bullying. Both cost far more than they achieve.</p></div>
+
+    <div class="dom"><h3>Their size of the problem</h3>
+      <p>Where a person is being taught to gauge how big a problem is, the adults acknowledge, affirm, and honor <em>their</em> perceived size first — which may be entirely different from anyone else's, and is not wrong.</p>
+      <p class="look"><b>Why</b>It's information about what they find hard and why. Correcting the size before understanding it closes the only door you had.</p></div>
+
+    <div class="dom"><h3>Careful what is said nearby</h3>
+      <p>People absorb what adults say around them, including conversations not meant for them, and may later reproduce language or behavior they have overheard — sometimes in ways that carry serious consequences for them.</p>
+      <p class="look"><b>Why</b>The risk falls on the person who repeated it, not on the adult who said it first. Keep adult conversation for adult spaces.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The calming and processing <em>plan</em></h2>
+  <p class="secnote">Two separate things, in order, both worth writing down in advance: what happens while someone is dysregulated, and what happens afterward when they're ready to make sense of it. The second one is where the learning lives — and it only works if the first one is done properly and without hurry.</p>
+
+  <h3 class="sub">First: reset, with no talking at all</h3>
+  <p>A neutral invitation — not a directive — to a specific comfortable place that is not a punishment place. A sofa, a bed, a beanbag. Their drink, something to eat, and a few sensory items within reach. Then time. A few minutes, or considerably longer, with nothing asked of them.</p>
+  <p>This is self-care and self-regulation, and it has to be allowed to finish. Processing attempted before someone is genuinely back does not teach anything, and it converts the safe place into a place where you get talked at — after which it stops working.</p>
+
+  <h3 class="sub">Then: check whether they're ready</h3>
+  <p>Ask, don't assume, and accept a no. <em>"Are you ready to talk about it?"</em> If not, wait longer, or leave it for later, or for tomorrow. A conversation they consented to is a different event from one that was imposed on them, and only one of the two builds anything.</p>
+
+  <h3 class="sub">Then: five questions, with visual support</h3>
+  <p>A consistent sequence, in the same order every time, on a dedicated page or board they recognize — with a feelings vocabulary and a choices bank alongside so the words they need are within reach rather than having to be generated from nothing.</p>
+
+  <div class="qseq">
+    <div class="qstep"><div class="qnum">1</div><div class="qbody">
+      <p class="q">What did I want?</p>
+      <p>Start with their goal, not with the behavior. This one is enormously important: it establishes that they wanted something legitimate, and that the problem was how it went — not that wanting was wrong.</p>
+    </div></div>
+    <div class="qstep"><div class="qnum">2</div><div class="qbody">
+      <p class="q">How did I feel?</p>
+      <p>With a feelings bank available. Naming an internal state after the fact is a skill built entirely through repetition, and it's the foundation of noticing it earlier next time.</p>
+    </div></div>
+    <div class="qstep"><div class="qnum">3</div><div class="qbody">
+      <p class="q">How did I react?</p>
+      <p>Factual, not moral. What happened, in plain words. No tone of disappointment attached — they already know, and adding weight here is what makes people refuse to do this conversation at all.</p>
+    </div></div>
+    <div class="qstep"><div class="qnum">4</div><div class="qbody">
+      <p class="q">How could I react next time?</p>
+      <p>The heart of it, and the step that needs the most scaffolding. Offer two concrete choices rather than an open question — an open question here is a demand for something they cannot yet produce.</p>
+      <p>One of the two is very often <strong>"I could use my words."</strong> Then model the actual sentence, because "use your words" without the words is not help.</p>
+      <p class="ex">"You could use your words. You could say — <em>can I have more time?</em>"</p>
+      <p>For someone who echoes, the repetition is the mechanism, not a failure of it. When they say it back, <strong>affirm it as theirs</strong>: <em>"Yes. That's it. You could say, can I have more time."</em> Said enough times, in enough calm moments, it becomes available in a hard one.</p>
+    </div></div>
+    <div class="qstep"><div class="qnum">5</div><div class="qbody">
+      <p class="q">How did the other person feel?</p>
+      <p>Perspective-taking, offered rather than demanded. Supply the answer if they can't reach it — <em>"I think she felt scared"</em> — rather than leaving a silence they'll fill with shame.</p>
+      <p>Keep it brief and matter-of-fact. The goal is understanding that other people have insides too, not producing guilt.</p>
+    </div></div>
+  </div>
+
+  <h3 class="sub">And then the closing exchange</h3>
+  <p>Ask what they want to say to the person involved. Often it's <em>sorry</em>.</p>
+
+  <div class="note">
+    <h3>Don't say "it's okay"</h3>
+    <p>It's the reflex, and it teaches the wrong thing. <em>It's okay</em> in response to an apology for hitting says, quite literally, that the hitting was okay — which is not what anyone means and is exactly what gets absorbed.</p>
+    <p>Say this instead:</p>
+    <p class="ex" style="font-style:italic;background:var(--card);padding:14px 16px;border-radius:2px;margin:0 0 12px"><strong>"Thank you for apologizing. And thank you for talking about it and learning with me. We're all always learning."</strong></p>
+    <p>Look at what that does in three short sentences. The apology is <em>received</em> rather than waved away, so it counts for something. The harder thing — sitting through this whole conversation — is the thing that actually gets thanked. And the last sentence puts the adult inside the learning rather than above it, which is what makes it safe to come back and do this again next week.</p>
+    <p>It leaves the person with something true to hold: <em>I did something I regret, and I stayed, and I worked on it, and the people who love me are working on things too.</em> That is the opposite of what a hard moment usually teaches someone about themselves.</p>
+  </div>
+
+  <div class="snote">
+    <h3>Why the sequence being identical matters</h3>
+    <p>Same five questions, same order, same page, every time. The predictability is what makes the conversation possible — someone who knows exactly what is coming can spend their capacity on thinking rather than on bracing for what might be asked.</p>
+    <p>It also means the sequence eventually runs without you. People start answering question one before it's asked, and then start noticing the answer to question two while it's still happening. That's the whole purpose: not a debrief protocol, but a set of questions that gradually moves inside.</p>
+  </div>
+
+  <div class="warn">
+    <h3>Punishment-based approaches, named</h3>
+    <p>It's worth stating plainly in your own plan what you don't want used, because otherwise it appears by default. Families commonly rule out: loss of preferred items as a consequence for unrelated behavior; time-out used as discipline; withholding attention or connection; and any approach that relies on the person experiencing distress or shame in order to learn.</p>
+    <p>The reasoning is simple and worth writing down: people don't learn from punishment. They learn from connection, from repair, and from natural consequences they can causally understand. And a consequence tied to an adult's frustration rather than to the person's own choice is experienced as bullying — after which trust in that adult can take a very long time to come back.</p>
+    <p>Put it in writing, ask the whole team to align on it, and ask them to flag it for you if anyone working with the person is using punishment-based language or contingencies.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Working through it: <em>an example</em></h2>
+  <p class="secnote">What zooming out looks like in practice, using the shape of a situation many families will recognize.</p>
+
+  <div class="says">
+    <p class="who">What's happening</p>
+    <p>A child who hasn't hit anyone in months suddenly has a very short fuse and is hitting. Nothing obvious has changed at home or at school. The behavior appears to have come from nowhere, and everyone's first instinct is to ask what consequence should follow.</p>
+  </div>
+
+  <div class="says">
+    <p class="who">Zoom out</p>
+    <p>The moment: mostly transitions and being asked to stop something. The day: sleep is fine, no illness. The week: nothing unusual. <strong>The season: the two mother's helpers he has known and loved for years are both leaving for college in the same month.</strong></p>
+  </div>
+
+  <div class="says">
+    <p class="who">What it may be saying</p>
+    <p>People I love are disappearing and nobody has explained it in a way I can hold. I don't have words for grief. I don't know whether other people will leave too. Something enormous is happening to me and I cannot tell you about it, so I am telling you like this.</p>
+  </div>
+
+  <div class="says">
+    <p class="who">What follows from that</p>
+    <p>A consequence system for hitting would address the wrong thing entirely, and would add a loss to a situation that is already about loss. What the situation calls for instead is naming what's happening, out loud, repeatedly, in whatever form he can access — a social story, photographs, a countdown, a visual of who is going where and when.</p>
+    <p>Then: vocabulary for the feeling, given to him rather than requested from him. A plan for goodbyes that he can see. Something concrete about what stays — who will still be here, what will still happen on Tuesdays. Reduced demands during the weeks around it, because grief takes capacity. And a way to contact the people leaving, if that's possible, so that leaving is not the same as vanishing.</p>
+    <p>Safety still matters, and hitting still has to be interrupted. But interrupting a behavior and understanding a behavior are two different jobs, and only one of them changes anything next month.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="behavior.html"><h3>Behavior is communication</h3>
+      <p>Zooming out to find what a behavior is saying, communication access, and what it costs on the inside.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="behavior-support.html"><h3>Choosing behavior support</h3>
+      <p>The ABA conversation, evaluating providers, and coordinating a team.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="speech-language-aac.html"><h3>Speech, language and AAC</h3>
+      <p>Communication access in detail — what a real system contains, and why refusal vocabulary matters most.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="floortime.html"><h3>Floortime and child-led therapy</h3>
+      <p>Following the lead, circles of communication, and why initiation generalizes when compliance doesn't.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="conditions-library.html"><h3>The conditions library</h3>
+      <p>Entries on demand avoidance, severe emotional dysregulation, anxiety, trauma, and the medical conditions that drive behavior.</p>
+      <span class="go">Open the library</span></a>
+    <a class="libcard" href="feeding-therapy.html"><h3>Feeding therapy</h3>
+      <p>Declarative language worked through in full, at the table — where demands stack up faster than anywhere else.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="their-own-voice.html"><h3>Their own voice</h3>
+      <p>Where all of this is heading: a person who knows their own mind and can say what they need.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="inside-the-iep.html"><h3>Inside the IEP</h3>
+      <p>Getting a functional behavior assessment, and writing supports into a plan that a school has to follow.</p>
+      <span class="go">Read the page</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>The next time something happens, try one thing before anything else: widen the frame. Not what did they do, but what has this week been like — and what has this season been like.</p>
+  <p>You know things about your child that no assessment will capture. You know who left, what changed, what they've been carrying. That knowledge is the most valuable diagnostic instrument in the room, and it belongs to you.</p>
+</div>
+
+<footer>
+  <p><strong>This is a map, not clinical advice.</strong> Behavior can have medical causes that need diagnosis, and behavior that is unsafe needs a plan built with clinicians who know your child. If someone is at risk of harm, seek help promptly rather than working through this page.</p>
+  <p>Where opinion is genuinely divided, this page describes the disagreement rather than resolving it. That is deliberate, and it is not neutrality about harm — the practices this page names as indefensible are ones both sides of that disagreement broadly reject.</p>
+</footer>
+
+</div>
+<script src="site-nav.js"></script>
+</body>
+</html>
