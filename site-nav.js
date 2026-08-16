@@ -13,7 +13,8 @@
     { label: 'Start here', items: [
       ['what-to-do-first.html',        'What to do first',        'The first 90 days, and the scripts that start legal clocks'],
       ['care-team-map.html',           'The care team map',       'Forty-five specialties — who does what, and why you\u2019d call them'],
-      ['conditions-library.html',      'The conditions library',  'Thirty-three conditions, how widely each varies, what helps']
+      ['conditions-library.html',      'The conditions library',  'Thirty-three conditions, how widely each varies, what helps'],
+      ['whole-picture.html',           'The whole picture',       'When one diagnosis isn\u2019t the whole story \u2014 and how to see the rest']
     ]},
     { label: 'School and services', items: [
       ['inside-the-iep.html',          'Inside the IEP',          'Reading a goal, the words that matter, the section you write'],
@@ -38,7 +39,15 @@
       ['floortime.html',               'Floortime and child-led', 'Circles of communication, and how they grow up'],
       ['music.html',                   'Music',                   'The thing that gets in everywhere']
     ]},
+    { label: 'Learning, attention and mood', items: [
+      ['learning-and-literacy.html',   'Learning and literacy',   'Dyslexia, dysgraphia, dyscalculia \u2014 and what reading instruction should look like'],
+      ['adhd-executive-function.html', 'ADHD and executive function','The gap between knowing and doing, and how to close it'],
+      ['anxiety-and-ocd.html',         'Anxiety, OCD and school refusal','The accommodation loop, and the treatment that works']
+    ]},
     { label: 'Community and the child', items: [
+      ['behavior.html',                'Behavior is communication','What a behavior is saying, and what it costs on the inside'],
+      ['de-escalation.html',           'In the moment',           'Precursors, de-escalation, calming and processing'],
+      ['behavior-support.html',        'Choosing behavior support','The ABA conversation, and building one team'],
       ['adaptive-community.html',      'Adaptive sports and community','Programs, days out, parking and travel'],
       ['their-own-voice.html',         'Their own voice',         'Talking with a child about their own life'],
       ['maplewood-stories.html',       'The Maplewood stories',   'Fifty-two picture books about ten friends']
@@ -744,4 +753,440 @@
     if (claimed.indexOf(li) > -1) return;
     li.insertAdjacentHTML('afterbegin', draw(pick(li.textContent || '')));
   });
+})();
+
+/* ===================================================================
+   11. BREADCRUMBS — orientation for readers arriving from a search
+   engine, who have no idea this page belongs to a larger site.
+   Reads: In The Spectrums  ›  Therapies  ›  Aquatic therapy
+   Groups come from the site map at the top of this file, so nothing
+   needs maintaining separately.
+   =================================================================== */
+(function () {
+  'use strict';
+
+  var file = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+
+  /* On the home page: tag the library section so breadcrumb group links
+     have somewhere to land, then stop — home needs no trail of its own. */
+  if (file === 'index.html' || file === '') {
+    var heads = document.querySelectorAll('h2.sec');
+    for (var k = 0; k < heads.length; k++) {
+      if (/everything|on the site/i.test(heads[k].textContent)) {
+        var sec = heads[k].closest('section') || heads[k].parentNode;
+        if (sec && !sec.id) sec.id = 'library';
+        heads[k].style.scrollMarginTop = '76px';
+        break;
+      }
+    }
+    return;
+  }
+
+  /* rebuild the map (same data as the nav, kept local so order is safe) */
+  var MAP = [
+    ['Start here', ['what-to-do-first.html','care-team-map.html','conditions-library.html','whole-picture.html']],
+    ['School and services', ['inside-the-iep.html','accommodations-finder.html','programs-and-entitlements.html']],
+    ['Money and paperwork', ['paying-for-therapy.html','template-builders.html']],
+    ['Safety and health', ['safety.html','injuries-and-illness.html']],
+    ['Therapies', ['occupational-therapy.html','physical-therapy.html','speech-language-aac.html',
+                   'feeding-therapy.html','aquatic-therapy.html','myofunctional-therapy.html',
+                   'floortime.html','music.html']],
+    ['Learning, attention and mood', ['learning-and-literacy.html','adhd-executive-function.html','anxiety-and-ocd.html']],
+    ['Community and the child', ['behavior.html','de-escalation.html','behavior-support.html','adaptive-community.html','their-own-voice.html','maplewood-stories.html']],
+    ['About', ['about.html']]
+  ];
+
+  var group = null;
+  MAP.forEach(function (g) { if (g[1].indexOf(file) > -1) group = g[0]; });
+
+  /* page title: first h1 on the page, flattened */
+  var h1 = document.querySelector('h1');
+  var title = h1 ? h1.textContent.replace(/\s+/g, ' ').trim() : document.title;
+  if (title.length > 46) title = title.slice(0, 44).replace(/[\s:,\u2014-]+$/, '') + '\u2026';
+
+  var css = [
+    '.nv-crumb{max-width:1040px;margin:0 auto;padding:14px 22px 0;',
+    'font-family:var(--nv-sans);font-size:12.5px;color:var(--nv-soft);letter-spacing:.02em}',
+    '.nv-crumb ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;align-items:center;gap:7px}',
+    '.nv-crumb li{display:flex;align-items:center;gap:7px;margin:0}',
+    '.nv-crumb a{color:var(--nv-soft);text-decoration:none;border-bottom:1px solid transparent}',
+    '.nv-crumb a:hover{color:var(--nv-rust);border-bottom-color:var(--nv-rust)}',
+    '.nv-crumb a:focus-visible{outline:2px solid var(--nv-rust);outline-offset:2px}',
+    '.nv-crumb .sep{color:#B9C4B4}',
+    '.nv-crumb [aria-current]{color:var(--nv-ink);font-weight:600}',
+    '@media(max-width:520px){.nv-crumb{padding-top:12px;font-size:12px}}',
+    '@media print{.nv-crumb{padding-left:0}}'
+  ].join('');
+  var st = document.createElement('style');
+  st.textContent = css;
+  document.head.appendChild(st);
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+
+  var parts = '<li><a href="index.html">In The Spectrums</a></li>';
+  if (group) {
+    parts += '<li><span class="sep" aria-hidden="true">\u203a</span>' +
+             '<a href="index.html#library">' + esc(group) + '</a></li>';
+  }
+  parts += '<li><span class="sep" aria-hidden="true">\u203a</span>' +
+           '<span aria-current="page">' + esc(title) + '</span></li>';
+
+  var nav = document.createElement('nav');
+  nav.className = 'nv-crumb';
+  nav.setAttribute('aria-label', 'Breadcrumb');
+  nav.innerHTML = '<ol>' + parts + '</ol>';
+
+  var bar = document.querySelector('.nv-bar');
+  if (bar && bar.nextSibling) {
+    bar.parentNode.insertBefore(nav, bar.nextSibling);
+  } else {
+    document.body.insertBefore(nav, document.body.firstChild);
+  }
+
+  /* trim the top padding of the page header so the trail sits snugly */
+  var mast = document.querySelector('header.masthead, .masthead, .spread');
+  if (mast) mast.style.paddingTop = '18px';
+
+  /* structured data, so search engines show the trail in results */
+  var items = [{ name: 'In The Spectrums', item: 'index.html' }];
+  if (group) items.push({ name: group, item: 'index.html#library' });
+  items.push({ name: title, item: file });
+  var ld = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map(function (o, i) {
+      return {
+        '@type': 'ListItem', position: i + 1, name: o.name,
+        item: new URL(o.item, location.href).href
+      };
+    })
+  };
+  var tag = document.createElement('script');
+  tag.type = 'application/ld+json';
+  tag.textContent = JSON.stringify(ld);
+  document.head.appendChild(tag);
+})();
+
+/* ===================================================================
+   12. LONG-PAGE READING TOOLS
+   - reading time and section count on the contents box
+   - OUTLINE VIEW: one click collapses every section to its heading,
+     turning a long page into a one-screen menu
+   - per-section collapse by clicking a heading
+   - the contents box highlights whichever section you are in
+   - a thin progress bar at the top of the window
+   =================================================================== */
+(function () {
+  'use strict';
+
+  var heads = Array.prototype.slice.call(document.querySelectorAll('h2.sec'));
+  if (heads.length < 4) return;
+
+  var css = [
+    /* progress */
+    '.nv-prog{position:fixed;top:0;left:0;height:3px;background:var(--nv-rust);z-index:960;width:0;',
+    'transition:width .1s linear}',
+    /* contents box additions */
+    '.nv-toc .meta{font-family:var(--nv-sans);font-size:11px;letter-spacing:.05em;color:var(--nv-soft);',
+    'margin:9px 0 0;display:flex;gap:14px;flex-wrap:wrap;align-items:center}',
+    '.nv-outline{font-family:var(--nv-sans);font-size:11px;letter-spacing:.05em;background:none;',
+    'border:1px solid var(--nv-line);border-radius:2px;padding:5px 10px;cursor:pointer;color:var(--nv-forest);',
+    'font-weight:700;text-transform:uppercase}',
+    '.nv-outline:hover{border-color:var(--nv-rust);color:var(--nv-rust)}',
+    '.nv-outline:focus-visible{outline:2px solid var(--nv-rust);outline-offset:2px}',
+    '.nv-toc a.on{color:var(--nv-rust);font-weight:600}',
+    /* collapsible sections */
+    'h2.sec{cursor:pointer;position:relative}',
+    'h2.sec::after{content:"\\2212";position:absolute;right:0;top:.1em;font-family:var(--nv-sans);',
+    'font-size:.62em;color:var(--nv-rust);opacity:.45;font-weight:400}',
+    'h2.sec:hover::after{opacity:1}',
+    'section.nv-shut h2.sec::after{content:"+"}',
+    'section.nv-shut > *:not(h2.sec){display:none}',
+    'section.nv-shut{margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--nv-line)}',
+    'section.nv-shut h2.sec{font-size:1.15rem;margin:0}',
+    '@media print{h2.sec{cursor:auto}h2.sec::after{display:none}',
+    'section.nv-shut > *{display:block !important}.nv-prog{display:none}}'
+  ].join('');
+  var st = document.createElement('style');
+  st.textContent = css;
+  document.head.appendChild(st);
+
+  /* ---- reading time ---- */
+  var words = (document.body.innerText || '').trim().split(/\s+/).length;
+  var mins = Math.max(1, Math.round(words / 220));
+
+  var toc = document.querySelector('.nv-toc');
+  var links = toc ? Array.prototype.slice.call(toc.querySelectorAll('a')) : [];
+
+  if (toc) {
+    var meta = document.createElement('p');
+    meta.className = 'meta';
+    meta.innerHTML = '<span>' + mins + ' min read \u00b7 ' + heads.length + ' sections</span>';
+    var btn = document.createElement('button');
+    btn.className = 'nv-outline';
+    btn.type = 'button';
+    btn.textContent = 'Outline view';
+    btn.setAttribute('aria-pressed', 'false');
+    meta.appendChild(btn);
+    toc.querySelector('div').appendChild(meta);
+
+    var collapsed = false;
+    btn.addEventListener('click', function () {
+      collapsed = !collapsed;
+      heads.forEach(function (h) {
+        var sec = h.closest('section');
+        if (sec) sec.classList.toggle('nv-shut', collapsed);
+      });
+      btn.textContent = collapsed ? 'Show everything' : 'Outline view';
+      btn.setAttribute('aria-pressed', String(collapsed));
+      if (collapsed) window.scrollTo({ top: toc.offsetTop - 70, behavior: 'smooth' });
+    });
+  }
+
+  /* ---- click a heading to fold just that section ---- */
+  heads.forEach(function (h) {
+    h.setAttribute('role', 'button');
+    h.setAttribute('tabindex', '0');
+    function toggle() {
+      var sec = h.closest('section');
+      if (sec) sec.classList.toggle('nv-shut');
+    }
+    h.addEventListener('click', function (e) {
+      if (e.target.tagName === 'A') return;
+      toggle();
+    });
+    h.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+  });
+
+  /* ---- progress bar + current-section highlight ---- */
+  var bar = document.createElement('div');
+  bar.className = 'nv-prog';
+  document.body.appendChild(bar);
+
+  var ticking = false;
+  function update() {
+    var h = document.documentElement;
+    var max = h.scrollHeight - h.clientHeight;
+    bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+
+    if (links.length) {
+      var current = 0;
+      for (var i = 0; i < heads.length; i++) {
+        if (heads[i].getBoundingClientRect().top < 140) current = i;
+      }
+      links.forEach(function (a, i) { a.classList.toggle('on', i === current); });
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
+})();
+
+/* ===================================================================
+   13. THE SHORT VERSION
+   A few lines at the top of each page for someone who has three
+   minutes. Edit the text here; it appears on every page at once.
+   =================================================================== */
+(function () {
+  'use strict';
+
+  var SHORT = {
+'what-to-do-first.html': ["Start every long wait at once \u2014 in parallel, you have answers in a year; one at a time, it takes three.",
+  "You do not need a diagnosis or a referral to begin. Call Early Intervention or email the district yourself, today.",
+  "Put your request in writing. A dated email starts a legal clock; a conversation at pickup does not.",
+  "Get hearing and vision properly checked before anything else. Both imitate almost everything and both are treatable.",
+  "Regression, seizures, sudden change after illness, or any safety worry means this week, not this sequence."],
+
+'care-team-map.html': ["Forty-five specialties, grouped by the kind of question you have rather than by body part.",
+  "You need the two or three that match what you are living with now. Nobody needs all of them.",
+  "Each entry says what they do, why you would call, what a first visit looks like, and what gets missed.",
+  "Search by a symptom rather than a specialty if you don't know the name of what you need."],
+
+'conditions-library.html': ["Thirty-four entries, each covering what it is, how widely it varies, what helps, and what gets overlooked.",
+  "The bands show how much people with the same diagnosis differ from one another \u2014 not a rating of any child.",
+  "A label is a key that opens doors to services. It is not a description of a person.",
+  "The section worth reading first on any entry is what commonly gets missed."],
+
+'inside-the-iep.html': ["Write every concern into the parent concerns statement. It is the only part of the IEP you write.",
+  "If it isn't in writing, it didn't happen. That section is the dated record everything later rests on.",
+  "Comprehensive on paper, focused in the room \u2014 submit everything, then push on two or three things.",
+  "A goal without a baseline, a number, and a named measure cannot be enforced.",
+  "You do not have to sign at the meeting. Take it home."],
+
+'accommodations-finder.html': ["Search by the difficulty you actually see, not by diagnosis.",
+  "Each entry explains why it happens and gives wording you can request word for word.",
+  "Replace anything in brackets with your child's specifics. A number is enforceable; an adjective is not.",
+  "Ask for a small number that will actually be delivered rather than a long list that won't."],
+
+'programs-and-entitlements.html': ["Special education is an entitlement. Adult disability services generally are not \u2014 they depend on funding.",
+  "Apply for things years before you need them. Waitlists are the currency here.",
+  "Several Medicaid pathways are based on the child's disability and ignore parent income entirely. Ask by name.",
+  "Every state has a free parent training and information center. It is the cheapest hour you will spend."],
+
+'paying-for-therapy.html': ["Verify coverage by CPT code and place of service before the first session, not after the first denial.",
+  "Out of network means you pay and claim back. Get superbills marked paid in full with a zero balance.",
+  "Lead with one claim plus the provider's signed W-9. A stale W-9 is a common silent denial cause.",
+  "Appeal the first no. A large share of denials are clerical rather than decisions.",
+  "If no in-network provider is genuinely available, ask for a single case agreement."],
+
+'template-builders.html': ["Four documents that build themselves as you type. Nothing is saved or sent anywhere.",
+  "The child one-pager is the one families reuse most \u2014 give it to every new person.",
+  "The parent concerns builder produces a statement you can email ahead of an IEP meeting.",
+  "Print or copy before you close the tab."],
+
+'safety.html': ["Every safety measure fails sometimes. Protection comes from layers whose gaps don't line up.",
+  "A missing child is a water search until proven otherwise. Call 911 first and send someone to water.",
+  "Swim instruction is a safety intervention, not a hobby. Survival skills before stroke technique.",
+  "A communication system that can only request things cannot report harm.",
+  "Take a responder profile to your police and fire departments in person, before anything happens."],
+
+'injuries-and-illness.html': ["Most families over-wait or go to the wrong place. The triage strip at the top sorts it in ten seconds.",
+  "Fever with a port, central line, or immune suppression means the emergency department now.",
+  "Ask what your hospital's family-activated rapid response line is called, and write it down.",
+  "Bring a bedside card. The most useful line on it is what your child looks like when they are well.",
+  "New behavior in a child with a disability is a symptom until proven otherwise."],
+
+'occupational-therapy.html': ["OT works on the whole day \u2014 dressing, eating, writing, regulating, sleeping \u2014 not a skill in isolation.",
+  "The exercise is never the goal. Ask which part of your day will look different, and by when.",
+  "Task-specific practice in real settings beats practicing underlying components. This is the clearest finding in the field.",
+  "Environmental change and assistive technology are the fastest-acting interventions and the most under-used.",
+  "Bring three concrete moments from your week. A good therapist can build a whole plan from them."],
+
+'physical-therapy.html': ["The goal is not normal movement. It is more places your child can get to, with energy left over.",
+  "Ask which distance or activity a goal is aimed at. \"Improve gait\" tells you nothing.",
+  "Children with limited walking need hip surveillance on a schedule. Ask who owns it.",
+  "Strength training is safe and helpful in cerebral palsy. The old warning has not held up.",
+  "Wheels are not giving up. Early mobility is associated with more independence, not less walking."],
+
+'speech-language-aac.html': ["The goal was never speech. It was being understood, and being able to say the things that matter.",
+  "Check whether your child can refuse, ask a question, and say something hurts. If not, that's the next conversation.",
+  "AAC belongs alongside speech from the beginning. It is associated with gains in speech, not losses.",
+  "There are no prerequisites for communication. No readiness test, no threshold to clear.",
+  "Recounting \u2014 telling someone about something they didn't see \u2014 is the vocabulary that protects a person."],
+
+'feeding-therapy.html': ["Eating is the one skill nobody can perform on a child's behalf, which is why pressure fails here.",
+  "Progress is a ladder of about twelve steps. Swallowing is only the last one.",
+  "Spitting it out must always be allowed. A child who knows they can get it out will let it in.",
+  "Protect the accepted foods first. Never hide or sneak anything \u2014 it can cost the whole list.",
+  "Change the language before anything else: observations and wonderings instead of questions and instructions."],
+
+'aquatic-therapy.html': ["Water changes the physics \u2014 weight, speed, resistance, and how long you have to react.",
+  "A child may genuinely do something in the pool months before they can do it on land. That practice is real.",
+  "Aquatic therapy is not swim instruction. Ask for survival skills explicitly, or arrange lessons separately.",
+  "Comfort in water without competence in water is a hazard, not a safeguard.",
+  "Check the pool temperature, and check the sensory experience around the pool, not just in it."],
+
+'myofunctional-therapy.html': ["Breathing, sleeping, eating, drinking and speaking share one set of muscles and one resting posture.",
+  "The unifying question is where the tongue rests and whether the person breathes through their nose.",
+  "If there is snoring or mouth breathing, get the airway assessed first. Exercises don't shrink tonsils.",
+  "Daily home practice determines whether it works, more than the protocol or the practitioner.",
+  "For any release procedure, get a second opinion from someone who does not perform it."],
+
+'floortime.html': ["Join whatever your child is already doing, then give them a reason to come back to you. That's a circle.",
+  "Following the lead is not permissiveness. The child chooses the content; the adult holds the direction.",
+  "It never expires \u2014 it just moves from the floor to the kitchen, the car, and the game you don't understand yet.",
+  "Initiation generalizes. Compliance often doesn't.",
+  "You can start this afternoon, and you do not need any training to begin."],
+
+'music.html': ["Music engages hearing, movement, timing, emotion, reward, memory and language at the same time.",
+  "That overlap gives you more than one route in \u2014 reaching movement through hearing, or feeling through rhythm.",
+  "For regulation: match their current state first, then shift. Starting calm for an agitated child fails.",
+  "Leave a gap in a familiar song and wait. That pause is where communication happens.",
+  "Music does not raise IQ. It does not need the exaggerations, and they make the real parts easier to dismiss."],
+
+'behavior.html': ["Every behavior is a message from someone doing the best they can with what they have available.",
+  "Zoom out before responding. The moment, the hour, the day, the week \u2014 and the season, which gets missed most.",
+  "Communication access comes first. Most behavior problems are communication problems in disguise.",
+  "The person hardest hit is almost never the adult it happened to. It is the child who did it.",
+  "Every question is a demand. Lowering how many you ask lowers the load a person carries all day."],
+
+'de-escalation.html': ["Precursor behavior is the whole ballgame. Once escalation is underway, only safety is available.",
+  "De-escalation outranks the task, the schedule, and the lesson \u2014 every time.",
+  "At the peak: one adult, fewer words, no questions, more space. Nothing is being taught right now.",
+  "Reset fully before processing. A conversation attempted too early teaches nothing and costs the safe place.",
+  "Don't say \"it's okay\" to an apology. Say thank you for apologizing, and for talking about it with me."],
+
+'behavior-support.html': ["The label tells you almost nothing about what will happen in your living room. Evaluate the practice.",
+  "This site does not tell you to pursue ABA or to avoid it. It gives you the map and the questions.",
+  "Ask what they do when your child says no, in any form. The answer tells you most of what you need.",
+  "Behavioral support should extend what the specialists have taught, not set targets in their domains.",
+  "You are allowed to pause, change providers, or stop \u2014 including something that looks fine on paper."],
+
+'adaptive-community.html': ["Most children never get there because an adult decided in advance that it wouldn't work.",
+  "Ask your parks and recreation department for the inclusion coordinator. Almost nobody knows the role exists.",
+  "Ask about scholarships before you ask about price. They usually exist and are rarely mentioned.",
+  "Museums, zoos and theaters often have free companion admission, sensory hours and sensory bags. Call and ask.",
+  "Your public library may lend museum passes, sensory kits, and more. Free, and badly under-used."],
+
+'their-own-voice.html': ["There is no single right way to tell a child about their own life. This page gives options with reasoning.",
+  "The common regret from disabled adults isn't being told too soon. It's nobody telling them at all.",
+  "A diagnosis is an administrative key that opens doors. It is not a description of a person.",
+  "Self-determination starts with discovering that your preferences reliably change what happens.",
+  "Their preference about language, and about what gets shared, outranks any style guide including this one."],
+
+'learning-and-literacy.html': ["Reading comprehension is decoding multiplied by language comprehension. If either is near zero, so is reading.",
+  "Structured literacy \u2014 explicit, systematic phonics \u2014 has the strongest evidence base in education.",
+  "Ask what your child is taught to do at an unknown word. If the answer involves guessing from pictures or context, that's the problem.",
+  "Instruction and accommodation are both required. One without the other fails.",
+  "Early intervention works dramatically better than later. A gap at the end of first grade should be acted on now."],
+
+'adhd-executive-function.html': ["People with ADHD know what to do. The difficulty is doing it at the moment it needs doing.",
+  "Almost everything that helps works by moving the demand out of their head and into the world \u2014 externalize it.",
+  "Medication is among the better-evidenced treatments in child psychiatry, and it is a real decision either way.",
+  "This is where low-demand approaches mislead. ADHD needs more scaffolding, not less \u2014 built with the person, not imposed.",
+  "Fix the system out loud rather than the person. Self-esteem is a goal here, not a side effect.",
+  "Their brain is not good at forgetting \u2014 it is remarkable at remembering what interests it. Give them that sentence."],
+
+'anxiety-and-ocd.html': ["Anxiety is maintained by relief. Reassurance and avoidance feel like love and function as fuel.",
+  "The treatment is CBT with exposure. Talk therapy without exposure is not the evidence-based version.",
+  "If your child won't attend therapy, ask about SPACE \u2014 a parent-only treatment with comparable outcomes.",
+  "Say both halves: I know this is hard for you, and I know you can handle it.",
+  "This is where the rest of this site's low-demand framing is wrong. Avoidance maintains anxiety."],
+
+'whole-picture.html': ["Most children with one neurodevelopmental diagnosis have more than one. That is ordinary, not alarming.",
+  "The first diagnosis is usually the loudest, not the most fundamental. The search often stops there.",
+  "Ask: what have we not looked at? And \u2014 if this diagnosis weren\u2019t here, what would we be investigating?",
+  "Order matters. Hearing, vision, sleep, pain and constipation first: common, treatable, and they imitate everything.",
+  "Four diagnoses do not mean four plans. Someone has to hold the whole picture and reconcile the conflicts.",
+  "Don\u2019t judge the moment. What you saw was a stacking that finally went past capacity, not a response to the last thing."],
+
+'maplewood-stories.html': ["Fifty-two picture books about ten friends who are not alike, figuring it out together.",
+  "No child in them is labeled, and none of them is the lesson.",
+  "Social and emotional learning, executive function, and safety awareness are the plots, not the moral.",
+  "Built for a lap, a sofa, and a shared page. The talking is what does the work."],
+
+'about.html': ["Free, no login, no ads, no sponsors, nothing sold.",
+  "Where evidence is contested, this site describes the disagreement rather than choosing for you.",
+  "Take anything here, rewrite it, and put your own name on it.",
+  "Corrections are the most valuable thing anyone sends."]
+  };
+
+  var file = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+  var items = SHORT[file];
+  if (!items || !items.length) return;
+
+  var css = [
+    '.nv-short{max-width:1040px;margin:0 auto 30px;padding:0 22px}',
+    '.nv-short > div{background:var(--nv-card);border-left:4px solid var(--nv-forest);padding:20px 24px}',
+    '.nv-short h2{font-family:var(--nv-sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;',
+    'color:var(--nv-forest);font-weight:700;margin:0 0 13px}',
+    '.nv-short ul{list-style:none;margin:0;padding:0}',
+    '.nv-short li{display:flex;gap:11px;align-items:flex-start;margin:0 0 10px;font-size:1.01rem;line-height:1.5}',
+    '.nv-short li:last-child{margin:0}',
+    '.nv-short li::before{content:"";flex:0 0 6px;height:6px;border-radius:50%;background:var(--nv-rust);margin-top:.55em}',
+    '@media(max-width:520px){.nv-short > div{padding:17px 19px}.nv-short li{font-size:.97rem}}'
+  ].join('');
+  var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+
+  var box = document.createElement('div');
+  box.className = 'nv-short';
+  box.innerHTML = '<div><h2>The short version</h2><ul>' +
+    items.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul></div>';
+
+  var mast = document.querySelector('header.masthead, .masthead, .spread');
+  if (mast && mast.parentNode) mast.parentNode.insertBefore(box, mast.nextSibling);
 })();
