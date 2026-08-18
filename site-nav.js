@@ -14,16 +14,20 @@
       ['what-to-do-first.html',        'What to do first',        'The first 90 days, and the scripts that start legal clocks'],
       ['care-team-map.html',           'The care team map',       'Forty-five specialties — who does what, and why you\u2019d call them'],
       ['conditions-library.html',      'The conditions library',  'Thirty-three conditions, how widely each varies, what helps'],
-      ['whole-picture.html',           'The whole picture',       'When one diagnosis isn\u2019t the whole story \u2014 and how to see the rest'],
-      ['symptom-tracker.html',         'The symptom tracker',     'Log what changed, spot the pattern, print a summary for the appointment'],
-      ['goals-tracker.html',           'Goals and generalization','Every provider\u2019s goals in one place, and which ones should travel'],
-      ['share-builder.html',           'The share builder',       'Assemble a packet for one person \u2014 you tick exactly what goes in'],
-      ['using-these-tools.html',       'Using these tools',       'Saving to your home screen, printing to PDF, and backing up']
+      ['whole-picture.html',           'The whole picture',       'When one diagnosis isn\u2019t the whole story \u2014 and how to see the rest']
     ]},
     { label: 'School and services', items: [
       ['inside-the-iep.html',          'Inside the IEP',          'Reading a goal, the words that matter, the section you write'],
       ['accommodations-finder.html',   'Accommodations finder',   'Search by the difficulty you see, get wording you can request'],
       ['programs-and-entitlements.html','Programs and entitlements','What exists, when each door opens, the ages that matter']
+    ]},
+    { label: 'Money, paperwork and tracking', items: [
+      ['paying-for-therapy.html',      'Paying for it',           'In-network vs out, the annotated superbill, appeals'],
+      ['template-builders.html',       'Template builders',       'Four documents that build themselves as you type'],
+      ['symptom-tracker.html',         'The symptom tracker',     'Log what changed today, print a summary before the appointment'],
+      ['goals-tracker.html',           'Goals and generalization','Every provider\u2019s goals in one place, and which ones should travel'],
+      ['share-builder.html',           'The share builder',       'Assemble a packet for one person \u2014 you tick exactly what goes in'],
+      ['using-these-tools.html',       'Using these tools',       'Saving to your home screen, printing to PDF, and backing up']
     ]},
     { label: 'Safety and health', items: [
       ['safety.html',                  'Safety',                  'Water, wandering, responders, body autonomy, equipment'],
@@ -39,23 +43,19 @@
       ['floortime.html',               'Floortime and child-led', 'Circles of communication, and how they grow up'],
       ['music.html',                   'Music',                   'The thing that gets in everywhere']
     ]},
-    { label: 'Behavior', items: [
-      ['behavior.html',                'Behavior is communication','What a behavior is saying, and what it costs on the inside'],
-      ['de-escalation.html',           'In the moment',           'Precursors, de-escalation, calming and processing'],
-      ['behavior-support.html',        'Choosing behavior support','The ABA conversation, and building one team']
-    ]},
     { label: 'Learning, attention and mood', items: [
       ['learning-and-literacy.html',   'Learning and literacy',   'Dyslexia, dysgraphia, dyscalculia \u2014 and what reading instruction should look like'],
       ['adhd-executive-function.html', 'ADHD and executive function','The gap between knowing and doing, and how to close it'],
       ['anxiety-and-ocd.html',         'Anxiety, OCD and school refusal','The accommodation loop, and the treatment that works']
     ]},
-    { label: 'Money and paperwork', items: [
-      ['paying-for-therapy.html',      'Paying for it',           'In-network vs out, the annotated superbill, appeals'],
-      ['template-builders.html',       'Template builders',       'Four documents that build themselves as you type']
+    { label: 'Behavior', items: [
+      ['behavior.html',                'Behavior is communication','What a behavior is saying, and what it costs on the inside'],
+      ['de-escalation.html',           'In the moment',           'Precursors, de-escalation, calming and processing'],
+      ['behavior-support.html',        'Choosing behavior support','The ABA conversation, and building one team']
     ]},
-    { label: 'Community and the child', items: [
-      ['adaptive-community.html',      'Adaptive sports and community','Programs, days out, parking and travel'],
+    { label: 'The child', items: [
       ['their-own-voice.html',         'Their own voice',         'Talking with a child about their own life'],
+      ['adaptive-community.html',      'Adaptive sports and community','Programs, days out, parking and travel'],
       ['maplewood-stories.html',       'The Maplewood stories',   'Fifty-two picture books about ten friends']
     ]},
     { label: 'About', items: [
@@ -80,16 +80,41 @@
     /* header */
     '.nv-bar{position:sticky;top:0;z-index:900;background:rgba(252,252,250,.97);',
     'backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid var(--nv-line)}',
-    '.nv-in{max-width:1040px;margin:0 auto;padding:0 22px;height:56px;display:flex;',
+    '.nv-in{max-width:1040px;margin:0 auto;padding:0 22px;min-height:56px;display:flex;',
     'align-items:center;justify-content:space-between;gap:16px}',
     '.nv-logo{font-family:var(--nv-serif);font-size:1.05rem;color:var(--nv-ink);text-decoration:none;',
     'letter-spacing:-.01em;white-space:nowrap}',
     '.nv-logo em{font-style:italic;color:var(--nv-forest)}',
-    '.nv-quick{display:flex;gap:20px;font-family:var(--nv-sans);font-size:13px}',
-    '.nv-quick a{color:var(--nv-soft);text-decoration:none;letter-spacing:.02em;white-space:nowrap}',
-    '.nv-quick a:hover,.nv-quick a[aria-current]{color:var(--nv-rust)}',
-    '.nv-quick a[aria-current]{font-weight:700}',
-    '@media(max-width:840px){.nv-quick{display:none}}',
+    /* section menubar — wraps to a second row rather than hiding anything */
+    '.nv-menu{max-width:1040px;margin:0 auto;padding:0 22px 9px;display:flex;flex-wrap:wrap;',
+    'gap:3px 4px;font-family:var(--nv-sans);font-size:12.5px;align-items:center}',
+    '.nv-mb,.nv-mone{font-family:inherit;font-size:inherit;background:none;border:1px solid transparent;',
+    'border-radius:2px;padding:6px 9px;cursor:pointer;color:var(--nv-soft);letter-spacing:.02em;',
+    'white-space:nowrap;text-decoration:none;display:inline-flex;align-items:center;gap:6px;line-height:1.2}',
+    '.nv-mb:hover,.nv-mone:hover{color:var(--nv-rust);border-color:var(--nv-line);background:var(--nv-card)}',
+    '.nv-mb:focus-visible,.nv-mone:focus-visible{outline:2px solid var(--nv-rust);outline-offset:1px}',
+    '.nv-mb[data-here="1"],.nv-mone[aria-current]{color:var(--nv-rust);font-weight:700}',
+    '.nv-mb b{display:block;width:0;height:0;border-left:3.5px solid transparent;',
+    'border-right:3.5px solid transparent;border-top:4px solid currentColor;opacity:.6;',
+    'transition:transform .16s}',
+    '.nv-m{position:relative}',
+    '.nv-m.open>.nv-mb{color:var(--nv-rust);border-color:var(--nv-line);background:var(--nv-card)}',
+    '.nv-m.open>.nv-mb b{transform:rotate(180deg)}',
+    '.nv-mp{position:absolute;top:calc(100% + 4px);left:0;z-index:920;min-width:264px;',
+    'max-width:min(340px,86vw);background:var(--nv-card);border:1px solid var(--nv-line);',
+    'border-radius:2px;box-shadow:0 14px 34px -18px rgba(22,40,60,.55);padding:5px;',
+    'display:none}',
+    '.nv-m.open>.nv-mp{display:block}',
+    '.nv-mp a{display:block;padding:8px 10px;text-decoration:none;color:var(--nv-ink);border-radius:2px}',
+    '.nv-mp a:hover{background:var(--nv-ground)}',
+    '.nv-mp a:focus-visible{outline:2px solid var(--nv-rust);outline-offset:-2px}',
+    '.nv-mp a strong{display:block;font-weight:400;font-size:13px;line-height:1.3}',
+    '.nv-mp a small{display:block;font-size:11.5px;color:var(--nv-soft);line-height:1.4;margin-top:2px}',
+    '.nv-mp a[aria-current] strong{color:var(--nv-rust);font-weight:700}',
+    /* right-hand menus open leftwards so they do not run off the page */
+    '.nv-m:nth-last-child(-n+3)>.nv-mp{left:auto;right:0}',
+    '@media(max-width:840px){.nv-menu{display:none}}',
+    '@media print{.nv-menu{display:none}}',
     '.nv-burger{display:flex;align-items:center;gap:8px;background:none;border:1px solid var(--nv-line);',
     'border-radius:2px;padding:7px 12px;cursor:pointer;font-family:var(--nv-sans);font-size:12.5px;',
     'color:var(--nv-ink);letter-spacing:.04em}',
@@ -191,33 +216,117 @@
   /* ---------------------------------------------------------------
      3. HEADER
      --------------------------------------------------------------- */
-  /* ---- TABS ACROSS THE TOP ----------------------------------------
-     Edit this list to change the header tabs. Each line is:
-        ['filename.html', 'Label shown']
-     Keep it to about six or seven — they hide below 840px wide,
-     where the "All pages" button takes over.
-     ------------------------------------------------------------------ */
-  var quick = [
-    ['what-to-do-first.html','Start here'],
-    ['care-team-map.html','Care team'],
-    ['conditions-library.html','Conditions'],
-    ['inside-the-iep.html','School'],
-    ['behavior.html','Behavior'],
-    ['safety.html','Safety']
-  ];
-  var qHtml = quick.map(function (q) {
-    return '<a href="' + q[0] + '"' + (q[0] === here ? ' aria-current="page"' : '') + '>' + q[1] + '</a>';
+  /* Short labels for the header strip. The long label stays in the drawer and
+     the breadcrumb; these only have to survive being read sideways at speed. */
+  var BARLABEL = {
+    'Start here':                    'Start here',
+    'School and services':           'School',
+    'Money, paperwork and tracking': 'Money & paperwork',
+    'Safety and health':             'Safety',
+    'Therapies':                     'Therapies',
+    'Learning, attention and mood':  'Learning & mood',
+    'Behavior':                      'Behavior',
+    'The child':                     'The child',
+    'About':                         'About'
+  };
+
+  var qHtml = GROUPS.map(function (g, i) {
+    var isHere = g.items.some(function (it) { return it[0] === here; });
+    var label = esc(BARLABEL[g.label] || g.label);
+
+    /* A section with one page is a link, not a menu. Nothing to choose between. */
+    if (g.items.length === 1) {
+      return '<a class="nv-mone" href="' + g.items[0][0] + '"' +
+             (isHere ? ' aria-current="page"' : '') + '>' + label + '</a>';
+    }
+
+    var links = g.items.map(function (it) {
+      return '<a role="menuitem" href="' + it[0] + '"' +
+             (it[0] === here ? ' aria-current="page"' : '') + '>' +
+             '<strong>' + esc(it[1]) + '</strong><small>' + esc(it[2]) + '</small></a>';
+    }).join('');
+
+    return '<div class="nv-m" data-m="' + i + '">' +
+             '<button class="nv-mb" type="button" aria-expanded="false" aria-haspopup="true" ' +
+             'aria-controls="nvM' + i + '"' + (isHere ? ' data-here="1"' : '') + '>' +
+               label + '<b aria-hidden="true"></b></button>' +
+             '<div class="nv-mp" id="nvM' + i + '" role="menu" aria-label="' + label + '">' +
+               links +
+             '</div>' +
+           '</div>';
   }).join('');
 
   var bar = el('div', 'nv-bar');
   bar.innerHTML =
     '<div class="nv-in">' +
       '<a class="nv-logo" href="' + HOME + '">In The <em>Spectrums</em></a>' +
-      '<nav class="nv-quick" aria-label="Main">' + qHtml + '</nav>' +
       '<button class="nv-burger" id="nvOpen" aria-expanded="false" aria-controls="nvDrawer">' +
         '<i aria-hidden="true"></i>All pages</button>' +
-    '</div>';
+    '</div>' +
+    '<nav class="nv-menu" aria-label="Sections">' + qHtml + '</nav>';
   document.body.insertBefore(bar, document.body.firstChild);
+
+  /* --- dropdown behaviour: click to open, one at a time, Escape closes --- */
+  (function () {
+    var menus = [].slice.call(bar.querySelectorAll('.nv-m'));
+    if (!menus.length) return;
+
+    function closeAll(except) {
+      menus.forEach(function (m) {
+        if (m === except) return;
+        m.classList.remove('open');
+        m.querySelector('.nv-mb').setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    menus.forEach(function (m) {
+      var btn = m.querySelector('.nv-mb');
+      var panel = m.querySelector('.nv-mp');
+
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var willOpen = !m.classList.contains('open');
+        closeAll(m);
+        m.classList.toggle('open', willOpen);
+        btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      });
+
+      /* Arrow down from the button walks into the list. */
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowDown' || e.key === 'Down') {
+          e.preventDefault();
+          closeAll(m);
+          m.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          var first = panel.querySelector('a');
+          if (first) first.focus();
+        }
+      });
+
+      panel.addEventListener('keydown', function (e) {
+        var items = [].slice.call(panel.querySelectorAll('a'));
+        var i = items.indexOf(document.activeElement);
+        if (e.key === 'ArrowDown' || e.key === 'Down') {
+          e.preventDefault(); if (items[i + 1]) items[i + 1].focus();
+        } else if (e.key === 'ArrowUp' || e.key === 'Up') {
+          e.preventDefault();
+          if (i > 0) items[i - 1].focus(); else btn.focus();
+        }
+      });
+    });
+
+    document.addEventListener('click', function () { closeAll(null); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' || e.key === 'Esc') {
+        var open = bar.querySelector('.nv-m.open');
+        if (open) { var b = open.querySelector('.nv-mb'); closeAll(null); b.focus(); }
+      }
+    });
+    /* Leaving the section entirely with the keyboard closes it behind you. */
+    bar.addEventListener('focusout', function (e) {
+      if (!bar.contains(e.relatedTarget)) closeAll(null);
+    });
+  })();
 
   /* ---------------------------------------------------------------
      4. DRAWER
@@ -335,8 +444,8 @@
   foot.innerHTML =
     '<div class="nv-fin">' +
       '<p class="nv-fbrand">In The <em>Spectrums</em></p>' +
-      '<p class="nv-ftag">A free field guide for anyone raising, teaching, or caring for children \u2014 ' +
-        'written most carefully for the ones who need more than the standard version of things.</p>' +
+      '<p class="nv-ftag">A free field guide for anyone raising, teaching, or caring for a child ' +
+        'who needs more than the standard version of things.</p>' +
       '<div class="nv-fgrid">' + cols + '</div>' +
       '<p class="nv-fend">Free \u00b7 No login \u00b7 No ads \u00b7 Nothing sold \u00b7 Take it and adapt it.<br>' +
         '<a href="terms-and-privacy.html" style="color:#C6A98F">Terms, privacy and disclaimers</a><br>' +
@@ -798,16 +907,16 @@
 
   /* rebuild the map (same data as the nav, kept local so order is safe) */
   var MAP = [
-    ['Start here', ['what-to-do-first.html','care-team-map.html','conditions-library.html','whole-picture.html','symptom-tracker.html','goals-tracker.html','share-builder.html','using-these-tools.html']],
+    ['Start here', ['what-to-do-first.html','care-team-map.html','conditions-library.html','whole-picture.html']],
     ['School and services', ['inside-the-iep.html','accommodations-finder.html','programs-and-entitlements.html']],
+    ['Money, paperwork and tracking', ['paying-for-therapy.html','template-builders.html','symptom-tracker.html','goals-tracker.html','share-builder.html','using-these-tools.html']],
     ['Safety and health', ['safety.html','injuries-and-illness.html']],
     ['Therapies', ['occupational-therapy.html','physical-therapy.html','speech-language-aac.html',
                    'feeding-therapy.html','aquatic-therapy.html','myofunctional-therapy.html',
                    'floortime.html','music.html']],
     ['Learning, attention and mood', ['learning-and-literacy.html','adhd-executive-function.html','anxiety-and-ocd.html']],
     ['Behavior', ['behavior.html','de-escalation.html','behavior-support.html']],
-    ['Money and paperwork', ['paying-for-therapy.html','template-builders.html']],
-    ['Community and the child', ['adaptive-community.html','their-own-voice.html','maplewood-stories.html']],
+    ['The child', ['their-own-voice.html','adaptive-community.html','maplewood-stories.html']],
     ['About', ['about.html','terms-and-privacy.html']]
   ];
 
@@ -1065,6 +1174,12 @@
   "Bring a bedside card. The most useful line on it is what your child looks like when they are well.",
   "New behavior in a child with a disability is a symptom until proven otherwise."],
 
+'symptom-tracker.html': ["Track what was different, not everything. A tracker abandoned after three weeks is worse than none.",
+  "The printed summary is the point. Build it the day before the appointment, not in the waiting room.",
+  "Write down what happened just before a hard moment. That is usually the useful part.",
+  "Two things rising together is the most ordinary coincidence there is. Bring it as a question, not a conclusion.",
+  "It saves only in the browser you are using — download a backup or you will eventually lose the lot."],
+
 'occupational-therapy.html': ["OT works on the whole day \u2014 dressing, eating, writing, regulating, sleeping \u2014 not a skill in isolation.",
   "The exercise is never the goal. Ask which part of your day will look different, and by when.",
   "Task-specific practice in real settings beats practicing underlying components. This is the clearest finding in the field.",
@@ -1169,12 +1284,6 @@
   "Four diagnoses do not mean four plans. Someone has to hold the whole picture and reconcile the conflicts.",
   "Don\u2019t judge the moment. What you saw was a stacking that finally went past capacity, not a response to the last thing."],
 
-'symptom-tracker.html': ["Log only what was different today. Comprehensive daily checklists get abandoned; this one takes twenty seconds.",
-  "Rate how full the bottle was. Over time that number explains more than any single symptom.",
-  "Tap the early signs you saw first \u2014 the tracker builds your precursor map, which is what a new teacher needs.",
-  "Record what helped. Most trackers only capture what went wrong, which is half the picture.",
-  "Print the summary the day before an appointment. Download a backup every few weeks \u2014 it lives only in this browser."],
-
 'goals-tracker.html': ["Most children with several providers have several sets of goals that nobody else has read. This puts them in one place.",
   "The generalization sheet is the part that changes outcomes \u2014 which goals travel, and exactly how.",
   "Three generalization goals per provider is the ceiling. More than that and none of them get done properly.",
@@ -1234,4 +1343,174 @@
 
   var mast = document.querySelector('header.masthead, .masthead, .spread');
   if (mast && mast.parentNode) mast.parentNode.insertBefore(box, mast.nextSibling);
+})();
+
+/* =================================================================
+   PAGE MARKS — one icon per page, kept in one place.
+
+   To change a page's icon, edit its entry below and every card
+   pointing at that page updates at once: the router quotes on the
+   home page, the library card, everywhere.
+
+   Each value is the INSIDE of a 74x74 SVG. Keep the viewBox square
+   and the artwork will scale itself to whatever size the card asks
+   for — the layouts size the box, not the drawing, so swapping art
+   never moves the text beside it.
+
+   House palette:
+     ink   #16283C    forest #2E4E3F    rust  #9C4A21
+     tan   #C6A98F    pale   #E7EDE5    sand  #EFE0D5
+     alarm #8A2B20    paper  #FBF7F0
+   ================================================================= */
+(function () {
+  'use strict';
+
+  var MARKS = {
+
+  'goals-tracker.html':
+    '<rect width="74" height="74" fill="#E7EDE5"/><rect x="12" y="14" width="20" height="46" fill="#FFF" stroke="#16283C" stroke-width="1.5"/><rect x="42" y="14" width="20" height="46" fill="#FFF" stroke="#16283C" stroke-width="1.5"/><path d="M32 26h10M32 37h10M32 48h10" stroke="#9C4A21" stroke-width="2"/><circle cx="42" cy="26" r="2.6" fill="#2E4E3F"/><circle cx="42" cy="37" r="2.6" fill="#2E4E3F"/><circle cx="42" cy="48" r="2.6" fill="#C6A98F"/>',
+
+  'share-builder.html':
+    '<rect width="74" height="74" fill="#16283C"/><rect x="13" y="17" width="20" height="9" fill="#9C4A21"/><rect x="13" y="30" width="20" height="9" fill="#C6A98F" opacity=".85"/><rect x="13" y="43" width="20" height="9" fill="#3A4A5C"/><path d="M37 22h9m-2.5-3 3 3-3 3M37 35h9m-2.5-3 3 3-3 3" stroke="#C6A98F" stroke-width="1.6" fill="none" stroke-linecap="round"/><rect x="50" y="17" width="12" height="35" fill="#FBF7F0"/>',
+
+  'using-these-tools.html':
+    '<rect width="74" height="74" fill="#EFE0D5"/><rect x="24" y="12" width="26" height="44" rx="4" fill="#FFF" stroke="#16283C" stroke-width="1.6"/><rect x="29" y="19" width="7" height="7" rx="1.5" fill="#9C4A21"/><rect x="39" y="19" width="7" height="7" rx="1.5" fill="#2E4E3F"/><rect x="29" y="30" width="7" height="7" rx="1.5" fill="#C6A98F"/><rect x="39" y="30" width="7" height="7" rx="1.5" fill="#9C4A21" opacity=".55"/><rect x="31" y="48" width="12" height="2.5" rx="1.2" fill="#16283C" opacity=".35"/>',
+
+  'terms-and-privacy.html':
+    '<rect width="74" height="74" fill="#E7EDE5"/><path d="M37 12l18 7v14c0 12-8 20-18 24-10-4-18-12-18-24V19z" fill="none" stroke="#16283C" stroke-width="2"/><path d="M29 37l6 6 12-13" stroke="#9C4A21" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
+
+
+  'what-to-do-first.html':
+    '<rect width="74" height="74" fill="#16283C"/><rect x="14" y="18" width="46" height="4" fill="#9C4A21"/><rect x="14" y="28" width="30" height="4" fill="#C6A98F" opacity=".8"/><rect x="14" y="38" width="38" height="4" fill="#C6A98F" opacity=".6"/><rect x="14" y="48" width="20" height="4" fill="#C6A98F" opacity=".4"/>',
+
+  'care-team-map.html':
+    '<rect width="74" height="74" fill="#E7EDE5"/><circle cx="37" cy="16" r="5" fill="#16283C"/><path d="M37 21v10M37 31H16v8M37 31h21v8M37 31v8" stroke="#2E4E3F" stroke-width="1.5" fill="none"/><circle cx="16" cy="45" r="4.5" fill="#9C4A21"/><circle cx="37" cy="45" r="4.5" fill="#2E4E3F"/><circle cx="58" cy="45" r="4.5" fill="#9C4A21"/>',
+
+  'conditions-library.html':
+    '<rect width="74" height="74" fill="#16283C"/><rect x="12" y="20" width="50" height="5" rx="2.5" fill="#3A4A5C"/><rect x="18" y="20" width="30" height="5" rx="2.5" fill="#9C4A21"/><rect x="12" y="34" width="50" height="5" rx="2.5" fill="#3A4A5C"/><rect x="30" y="34" width="26" height="5" rx="2.5" fill="#C6A98F"/><rect x="12" y="48" width="50" height="5" rx="2.5" fill="#3A4A5C"/><rect x="14" y="48" width="34" height="5" rx="2.5" fill="#2E4E3F"/>',
+
+  /* one label sitting over others that were there all along */
+  'whole-picture.html':
+    '<rect width="74" height="74" fill="#E7EDE5"/><circle cx="30" cy="29" r="15" fill="#2E4E3F" opacity=".62"/><circle cx="45" cy="29" r="15" fill="#9C4A21" opacity=".55"/><circle cx="37" cy="45" r="15" fill="#16283C" opacity=".45"/>',
+
+  'inside-the-iep.html':
+    '<rect width="74" height="74" fill="#EFE0D5"/><rect x="17" y="12" width="40" height="50" fill="#FFF" stroke="#16283C" stroke-width="1.5"/><rect x="23" y="22" width="28" height="2.5" fill="#16283C"/><rect x="23" y="30" width="28" height="2.5" fill="#16283C" opacity=".4"/><rect x="23" y="38" width="20" height="2.5" fill="#16283C" opacity=".4"/><rect x="23" y="47" width="28" height="6" fill="#9C4A21"/>',
+
+  'accommodations-finder.html':
+    '<rect width="74" height="74" fill="#2E4E3F"/><circle cx="32" cy="32" r="14" fill="none" stroke="#E7EDE5" stroke-width="3"/><path d="M43 43l12 12" stroke="#C6A98F" stroke-width="4" stroke-linecap="round"/>',
+
+  'programs-and-entitlements.html':
+    '<rect width="74" height="74" fill="#E7EDE5"/><path d="M14 56V34l23-16 23 16v22" fill="none" stroke="#16283C" stroke-width="2"/><rect x="30" y="40" width="14" height="16" fill="#9C4A21"/>',
+
+  'paying-for-therapy.html':
+    '<rect width="74" height="74" fill="#16283C"/><rect x="15" y="14" width="44" height="46" fill="#FBF7F0"/><rect x="21" y="23" width="32" height="2" fill="#16283C" opacity=".5"/><rect x="21" y="30" width="32" height="2" fill="#16283C" opacity=".3"/><rect x="21" y="37" width="32" height="2" fill="#16283C" opacity=".3"/><rect x="21" y="47" width="32" height="7" fill="#2E4E3F"/>',
+
+  'template-builders.html':
+    '<rect width="74" height="74" fill="#EFE0D5"/><rect x="12" y="16" width="22" height="42" fill="#16283C"/><rect x="40" y="16" width="22" height="42" fill="#FFF" stroke="#16283C" stroke-width="1.5"/><rect x="45" y="24" width="12" height="2" fill="#9C4A21"/><rect x="45" y="31" width="12" height="2" fill="#16283C" opacity=".3"/><rect x="45" y="38" width="8" height="2" fill="#16283C" opacity=".3"/>',
+
+  /* a month of days, only some of them marked */
+  'symptom-tracker.html':
+    '<rect width="74" height="74" fill="#2E4E3F"/><rect x="11" y="13" width="8" height="8" fill="#E7EDE5" opacity=".28"/><rect x="24" y="13" width="8" height="8" fill="#C6A98F"/><rect x="37" y="13" width="8" height="8" fill="#E7EDE5" opacity=".28"/><rect x="50" y="13" width="8" height="8" fill="#E7EDE5" opacity=".28"/><rect x="11" y="26" width="8" height="8" fill="#9C4A21"/><rect x="24" y="26" width="8" height="8" fill="#E7EDE5" opacity=".28"/><rect x="37" y="26" width="8" height="8" fill="#C6A98F"/><rect x="50" y="26" width="8" height="8" fill="#E7EDE5" opacity=".28"/><rect x="11" y="39" width="8" height="8" fill="#E7EDE5" opacity=".28"/><rect x="24" y="39" width="8" height="8" fill="#9C4A21"/><rect x="37" y="39" width="8" height="8" fill="#9C4A21"/><rect x="50" y="39" width="8" height="8" fill="#E7EDE5" opacity=".28"/><rect x="11" y="52" width="8" height="8" fill="#E7EDE5" opacity=".28"/><rect x="24" y="52" width="8" height="8" fill="#E7EDE5" opacity=".28"/><rect x="37" y="52" width="8" height="8" fill="#C6A98F"/><rect x="50" y="52" width="8" height="8" fill="#E7EDE5" opacity=".28"/>',
+
+  'safety.html':
+    '<rect width="74" height="74" fill="#8A2B20"/><rect x="10" y="18" width="12" height="7" fill="#F6E4E0"/><rect x="26" y="18" width="12" height="7" fill="#F6E4E0" opacity=".25"/><rect x="42" y="18" width="22" height="7" fill="#F6E4E0"/><rect x="10" y="33" width="22" height="7" fill="#F6E4E0"/><rect x="36" y="33" width="12" height="7" fill="#F6E4E0" opacity=".25"/><rect x="52" y="33" width="12" height="7" fill="#F6E4E0"/><rect x="10" y="48" width="12" height="7" fill="#F6E4E0" opacity=".25"/><rect x="26" y="48" width="38" height="7" fill="#F6E4E0"/>',
+
+  'injuries-and-illness.html':
+    '<rect width="74" height="74" fill="#EFE0D5"/><rect x="31" y="14" width="12" height="46" fill="#9C4A21"/><rect x="14" y="31" width="46" height="12" fill="#9C4A21"/>',
+
+  'occupational-therapy.html':
+    '<rect width="74" height="74" fill="#16283C"/><circle cx="19" cy="24" r="6" fill="#9C4A21"/><circle cx="37" cy="24" r="6" fill="#C6A98F" opacity=".7"/><circle cx="55" cy="24" r="6" fill="#C6A98F" opacity=".45"/><circle cx="19" cy="46" r="6" fill="#C6A98F" opacity=".45"/><circle cx="37" cy="46" r="6" fill="#C6A98F" opacity=".7"/><circle cx="55" cy="46" r="6" fill="#9C4A21"/>',
+
+  'physical-therapy.html':
+    '<rect width="74" height="74" fill="#E7EDE5"/><rect x="12" y="50" width="8" height="8" fill="#2E4E3F"/><rect x="24" y="43" width="8" height="15" fill="#2E4E3F"/><rect x="36" y="34" width="8" height="24" fill="#9C4A21"/><rect x="48" y="22" width="8" height="36" fill="#9C4A21"/>',
+
+  'speech-language-aac.html':
+    '<rect width="74" height="74" fill="#6B4A78"/><rect x="13" y="16" width="20" height="14" rx="3" fill="#EFE6F1"/><rect x="38" y="16" width="23" height="14" rx="3" fill="#EFE6F1" opacity=".5"/><rect x="13" y="34" width="23" height="14" rx="3" fill="#EFE6F1" opacity=".5"/><rect x="41" y="34" width="20" height="14" rx="3" fill="#EFE6F1"/><rect x="13" y="52" width="48" height="8" rx="3" fill="#EFE6F1" opacity=".75"/>',
+
+  'feeding-therapy.html':
+    '<rect width="74" height="74" fill="#EFE0D5"/><circle cx="37" cy="37" r="22" fill="none" stroke="#16283C" stroke-width="1.5"/><circle cx="37" cy="37" r="11" fill="none" stroke="#16283C" stroke-width="1.5" opacity=".4"/><path d="M37 15v44" stroke="#9C4A21" stroke-width="2"/>',
+
+  'aquatic-therapy.html':
+    '<rect width="74" height="74" fill="#1D6A82"/><path d="M6 28c8-6 14 6 22 0s14 6 22 0 14 6 22 0" fill="none" stroke="#E1EEF2" stroke-width="3"/><path d="M6 40c8-6 14 6 22 0s14 6 22 0 14 6 22 0" fill="none" stroke="#E1EEF2" stroke-width="3" opacity=".65"/><path d="M6 52c8-6 14 6 22 0s14 6 22 0 14 6 22 0" fill="none" stroke="#E1EEF2" stroke-width="3" opacity=".35"/>',
+
+  'myofunctional-therapy.html':
+    '<rect width="74" height="74" fill="#E7EDE5"/><circle cx="37" cy="37" r="21" fill="none" stroke="#16283C" stroke-width="1.5"/><path d="M23 37c5-8 23-8 28 0-5 8-23 8-28 0z" fill="#9C4A21"/>',
+
+  'floortime.html':
+    '<rect width="74" height="74" fill="#1F6B63"/><circle cx="28" cy="37" r="15" fill="none" stroke="#E2EFED" stroke-width="3"/><circle cx="46" cy="37" r="15" fill="none" stroke="#E2EFED" stroke-width="3" opacity=".6"/>',
+
+  'music.html':
+    '<rect width="74" height="74" fill="#16283C"/><rect x="14" y="34" width="5" height="10" fill="#C6A98F"/><rect x="23" y="26" width="5" height="26" fill="#8A6A1F"/><rect x="32" y="18" width="5" height="42" fill="#9C4A21"/><rect x="41" y="28" width="5" height="22" fill="#8A6A1F"/><rect x="50" y="22" width="5" height="34" fill="#C6A98F"/><rect x="59" y="32" width="5" height="14" fill="#C6A98F" opacity=".6"/>',
+
+  /* blocks on a line: sounds being blended */
+  'learning-and-literacy.html':
+    '<rect width="74" height="74" fill="#16283C"/><rect x="12" y="28" width="16" height="16" fill="#9C4A21"/><rect x="31" y="28" width="16" height="16" fill="#C6A98F"/><rect x="50" y="28" width="12" height="16" fill="#C6A98F" opacity=".45"/><rect x="12" y="50" width="50" height="3" fill="#E7EDE5" opacity=".5"/>',
+
+  /* the gap between knowing and doing */
+  'adhd-executive-function.html':
+    '<rect width="74" height="74" fill="#E7EDE5"/><circle cx="17" cy="37" r="7" fill="#2E4E3F"/><rect x="28" y="35" width="10" height="4" fill="#9C4A21"/><rect x="42" y="35" width="6" height="4" fill="#9C4A21" opacity=".55"/><rect x="52" y="35" width="3" height="4" fill="#9C4A21" opacity=".3"/><circle cx="62" cy="37" r="6" fill="none" stroke="#2E4E3F" stroke-width="2" stroke-dasharray="3 3"/>',
+
+  /* the loop that keeps closing */
+  'anxiety-and-ocd.html':
+    '<rect width="74" height="74" fill="#16283C"/><circle cx="37" cy="37" r="20" fill="none" stroke="#C6A98F" stroke-width="3" stroke-dasharray="92 34"/><circle cx="37" cy="37" r="12" fill="none" stroke="#9C4A21" stroke-width="3" stroke-dasharray="54 22"/><circle cx="37" cy="37" r="4" fill="#E7EDE5"/>',
+
+  /* what is above the water, and what is under it */
+  'behavior.html':
+    '<rect width="74" height="74" fill="#1F4A6B"/><path d="M37 13l11 17H26z" fill="#F1F4F0"/><rect x="8" y="30" width="58" height="1.5" fill="#C6A98F"/><path d="M37 33l23 29H14z" fill="#F1F4F0" opacity=".42"/>',
+
+  /* it comes down if you let it */
+  'de-escalation.html':
+    '<rect width="74" height="74" fill="#EFE0D5"/><path d="M9 21c10 0 11 31 21 31s10-23 20-23 8 15 15 15" fill="none" stroke="#9C4A21" stroke-width="3"/><circle cx="65" cy="44" r="4" fill="#2E4E3F"/>',
+
+  /* two sides, one beam */
+  'behavior-support.html':
+    '<rect width="74" height="74" fill="#2E4E3F"/><rect x="35" y="20" width="4" height="36" fill="#E7EDE5"/><rect x="14" y="24" width="46" height="3" fill="#E7EDE5"/><circle cx="19" cy="37" r="7" fill="#C6A98F"/><circle cx="55" cy="37" r="7" fill="#9C4A21"/><rect x="24" y="56" width="26" height="4" fill="#E7EDE5" opacity=".7"/>',
+
+  'their-own-voice.html':
+    '<rect width="74" height="74" fill="#EFE0D5"/><path d="M16 18h42v26H34l-10 10v-10h-8z" fill="#16283C"/><circle cx="30" cy="31" r="2.5" fill="#C6A98F"/><circle cx="38" cy="31" r="2.5" fill="#C6A98F"/><circle cx="46" cy="31" r="2.5" fill="#9C4A21"/>',
+
+  'adaptive-community.html':
+    '<rect width="74" height="74" fill="#46508C"/><circle cx="22" cy="26" r="7" fill="#E6E8F2"/><circle cx="52" cy="26" r="7" fill="#E6E8F2" opacity=".6"/><circle cx="37" cy="50" r="7" fill="#E6E8F2" opacity=".8"/><path d="M22 26h30M22 26l15 24M52 26L37 50" stroke="#E6E8F2" stroke-width="1.5" opacity=".55"/>',
+
+  'maplewood-stories.html':
+    '<rect width="74" height="74" fill="#FBF7F0"/><path d="M37 20v34" stroke="#16283C" stroke-width="1.5"/><path d="M37 22c-6-6-16-6-22-3v30c6-3 16-3 22 3z" fill="#FFF" stroke="#16283C" stroke-width="1.5"/><path d="M37 22c6-6 16-6 22-3v30c-6-3-16-3-22 3z" fill="#EFE0D5" stroke="#16283C" stroke-width="1.5"/>',
+
+  'about.html':
+    '<rect width="74" height="74" fill="#E7EDE5"/><circle cx="26" cy="28" r="8" fill="#16283C"/><circle cx="48" cy="28" r="8" fill="#9C4A21" opacity=".75"/><path d="M12 58c0-9 6-14 14-14s14 5 14 14" fill="#16283C"/><path d="M34 58c0-9 6-14 14-14s14 5 14 14" fill="#9C4A21" opacity=".75"/>'
+
+  };
+
+  /* Expose it so a page can reach in for one mark if it ever needs to. */
+  window.ITS_MARKS = MARKS;
+
+  function markFor(href) {
+    if (!href) return null;
+    var f = href.split('#')[0].split('?')[0].split('/').pop().toLowerCase();
+    return MARKS[f] || null;
+  }
+
+  /* Give every card its page's mark, unless the card already carries one. */
+  function paint(root) {
+    var cards = (root || document).querySelectorAll('a.pg, a.sit');
+    [].forEach.call(cards, function (a) {
+      if (a.querySelector('svg.mark, img.mark')) return;
+      var art = markFor(a.getAttribute('href'));
+      if (!art) return;
+      var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('class', 'mark');
+      svg.setAttribute('viewBox', '0 0 74 74');
+      svg.setAttribute('aria-hidden', 'true');
+      svg.setAttribute('focusable', 'false');
+      svg.innerHTML = art;
+      a.insertBefore(svg, a.firstChild);
+    });
+  }
+
+  window.ITS_PAINT_MARKS = paint;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { paint(document); });
+  } else {
+    paint(document);
+  }
 })();
