@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>After school ends — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#4A5C2E; --book-tint:#E9EDDF; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the equation */
+.eqn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.eqn h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.eqn .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.parts{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:18px}
+@media(max-width:700px){.parts{grid-template-columns:1fr;gap:6px}.op{text-align:center;padding:2px 0}}
+.pt{background:rgba(255,255,255,.06);border-top:3px solid var(--book);padding:15px 16px}
+.pt.res{border-top-color:var(--rust);background:rgba(156,74,33,.13)}
+.pt b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#EFEBE3;margin-bottom:6px}
+.pt span{font-size:.86rem;color:#B9C4B4;line-height:1.45;display:block}
+.op{font-size:1.5rem;color:#C6A98F;text-align:center}
+.eqn .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:20px 0 0;max-width:62ch}
+.eqn .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .eqn{background:#fff;color:#000;border:1px solid #000}.eqn .big,.pt b,.eqn .cap strong{color:#000}}
+
+.cliff{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin:0 0 18px}
+@media(max-width:640px){.cliff{grid-template-columns:1fr}}
+.cliff .side{padding:18px 20px}
+.cliff .l{background:rgba(255,255,255,.07);border-top:3px solid #7FA57A}
+.cliff .r{background:rgba(156,74,33,.16);border-top:3px solid #C6704A}
+.cliff .gap{display:flex;align-items:center;justify-content:center;padding:0 14px;
+  font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C6A98F}
+@media(max-width:640px){.cliff .gap{padding:10px 0}}
+.cliff b{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px}
+.cliff .l b{color:#7FA57A}.cliff .r b{color:#E8C3BC}
+.cliff ul{margin:0;padding-left:17px;font-size:.9rem;line-height:1.5}
+.cliff li{margin-bottom:6px;color:#B9C4B4}
+.ladder{margin:0 0 16px}
+.rung{background:var(--card);border-left:4px solid var(--line);padding:15px 19px;margin-bottom:8px}
+.rung.least{border-left-color:#2E4E3F}
+.rung.mid{border-left-color:#A8641C}
+.rung.most{border-left-color:#8A2B20}
+.rung b{display:block;font-size:1.03rem;font-weight:400;margin-bottom:5px}
+.rung .tag{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;float:right;margin-left:12px}
+.rung.least .tag{color:#2E4E3F}.rung.mid .tag{color:#A8641C}.rung.most .tag{color:#8A2B20}
+.rung p{font-size:.93rem;margin:0;color:var(--ink-soft)}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>After school ends:<br><em>legal, money, and where life happens</em></h1>
+  <p class="lede">The day special education ends, an entitlement becomes an application. Nothing is owed anymore — everything has to be qualified for, applied for, and funded. This is the part families are least prepared for and the part that most determines how an adult life actually goes, and almost all of it has to be started years before it is needed.</p>
+</header>
+
+<div class="warn">
+  <h3>This is not legal or financial advice</h3>
+  <p>Estate planning, trusts, guardianship, and public benefits are governed by state law and by federal rules that change. Getting any of it wrong can disqualify someone from benefits for years. This page is written so you know what exists and what to ask about — <strong>not so you can do it yourself.</strong></p>
+  <p>For anything involving money or legal status, use an attorney who specializes in <strong>special needs planning</strong> or <strong>elder law</strong>. A general estate attorney who does not do this work regularly can cause serious and expensive damage with an ordinary, well-drafted will.</p>
+</div>
+
+<section>
+  <div class="eqn">
+    <h2>The cliff</h2>
+    <p class="big">School services are an entitlement: owed by law, to everyone who qualifies, regardless of budget. Adult services are eligibility-based: you apply, you may qualify, and you may still wait years for funding. It is the same person on both sides of a birthday.</p>
+    <div class="cliff">
+      <div class="side l"><b>Until school ends</b>
+        <ul>
+          <li>Owed by law, whatever the budget</li>
+          <li>One agency coordinates it</li>
+          <li>Free, and it comes to you</li>
+          <li>A written plan, legally enforceable</li>
+          <li>A dispute process that works</li>
+          <li>Someone else notices what's missing</li>
+        </ul></div>
+      <div class="gap">then</div>
+      <div class="side r"><b>After</b>
+        <ul>
+          <li>Apply, qualify, and then wait for funding</li>
+          <li>Several agencies, none of them in charge</li>
+          <li>Means-tested, and you go to it</li>
+          <li>A service plan that depends on appropriation</li>
+          <li>Appeals that are slower and narrower</li>
+          <li>Nobody notices but you</li>
+        </ul></div>
+    </div>
+    <p class="cap"><strong>Which is why the work starts at fourteen, not at twenty-one.</strong> Nearly everything here has a waiting list, an application window, or a rule about when it must be set up. The families who land well are not the ones with more money \u2014 they are the ones who started earlier.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What changes <em>at eighteen</em></h2>
+  <p class="secnote">Legally, everything. Your child becomes an adult with full decision-making rights, whether or not that reflects their actual capacity — and whether or not anybody has planned for it.</p>
+
+  <ul>
+    <li><strong>You lose the automatic right to information.</strong> Doctors, therapists, and colleges are no longer obliged to speak to you. Even where you are still doing everything, the legal answer is no unless something is signed.</li>
+    <li><strong>They can sign contracts, consent to treatment, and refuse it.</strong> Including refusing things you believe they need.</li>
+    <li><strong>Benefits are recalculated.</strong> SSI is reassessed on the young adult's own income and resources rather than the household's, so many people who were denied as children qualify at eighteen. Apply at eighteen even if you were turned down before.</li>
+    <li><strong>Special education continues</strong> until the state's exit age even though they are legally adults, but educational rights may transfer to them at eighteen unless something is in place.</li>
+    <li><strong>Selective Service registration</strong> is required of most people assigned male at birth at eighteen, regardless of disability, and failing to register can affect later benefits and employment.</li>
+  </ul>
+
+  <div class="note">
+    <h3>The three documents that solve most of it</h3>
+    <p>Before assuming guardianship is necessary, know that a great deal of what families actually need can be handled by three signed forms, if the person can understand and agree to them:</p>
+    <p><strong>A health care proxy</strong> naming who can make medical decisions if they can't. <strong>A HIPAA release</strong> letting providers talk to you. <strong>A durable power of attorney</strong> for financial and legal matters.</p>
+    <p>These take an hour, cost little, keep the person's rights intact, and can be changed by them at any time. Ask an attorney whether they're sufficient before anyone files anything more restrictive.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Decision-making, from <em>least to most restrictive</em></h2>
+  <p class="secnote">There is a legal principle behind this order: use the least restrictive option that actually works. Courts increasingly expect it, and starting at the bottom of this list is difficult to undo.</p>
+
+  <div class="ladder">
+    <div class="rung least"><span class="tag">Least restrictive</span><b>Supported decision-making</b>
+      <p>The person keeps all their rights and chooses trusted people to help them understand options and communicate choices. Formal agreements are now recognized in many states. This is the default to start from, not the fallback.</p></div>
+    <div class="rung least"><span class="tag">Rights intact</span><b>Health care proxy and HIPAA release</b>
+      <p>Names who decides medically if they cannot, and lets providers speak with you. Revocable, cheap, and solves the single most common practical problem.</p></div>
+    <div class="rung least"><span class="tag">Rights intact</span><b>Durable power of attorney</b>
+      <p>Authority over financial and legal matters, granted by the person. It can be broad or narrow and it can be withdrawn.</p></div>
+    <div class="rung mid"><span class="tag">Narrow</span><b>Representative payee</b>
+      <p>Someone appointed to receive and manage Social Security payments only. Does not affect any other right and is administered by the agency, not a court.</p></div>
+    <div class="rung mid"><span class="tag">Partial</span><b>Limited guardianship or conservatorship</b>
+      <p>A court removes decision-making in specific named areas only — medical, or financial — and leaves the rest. Where a court process is genuinely needed, ask for the narrowest version that addresses the actual risk.</p></div>
+    <div class="rung most"><span class="tag">Most restrictive</span><b>Full guardianship</b>
+      <p>A court finds the person legally incapacitated and transfers decision-making to someone else. They may lose the right to vote, marry, consent to or refuse treatment, sign anything, choose where to live, and manage their own money.</p></div>
+  </div>
+
+  <div class="bnote">
+    <h3>What to weigh before filing</h3>
+    <p>Guardianship is sometimes genuinely necessary, and families who pursue it are usually acting out of well-founded fear about safety and exploitation. It is not a moral failing to seek it.</p>
+    <p>But it is worth knowing what it costs. It is a removal of civil rights. It is hard, slow, and expensive to reverse. It can make a person more vulnerable to a bad guardian rather than less vulnerable overall. And many adults who were placed under guardianship have described it as the thing that ended their sense of being a person with a life of their own.</p>
+    <p>The question to bring an attorney is not <em>should we get guardianship</em>. It is <em>what specific risks are we trying to prevent, and what is the least restrictive tool that prevents them?</em></p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The money trap <em>nobody warns you about</em></h2>
+  <p class="secnote">The single most expensive mistake in this whole area, and it is usually made by loving people doing something generous.</p>
+
+  <div class="warn">
+    <h3>Never leave money directly to a person receiving benefits</h3>
+    <p>Means-tested benefits — SSI, and Medicaid with it — have a strict resource limit, historically <strong>$2,000</strong> for an individual. Assets above it disqualify the person until the money is spent down.</p>
+    <p>Which means an inheritance, a life insurance payout, a grandparent's bequest, or a well-meant gift can end the benefits that pay for their housing, health care, and support — and the Medicaid eligibility that came with them is often far harder to get back than it was to lose.</p>
+    <p><strong>This includes beneficiary designations.</strong> Retirement accounts and life insurance pass by designation and override your will entirely. A will that carefully protects them means nothing if a 401(k) form filled out fifteen years ago names them directly.</p>
+  </div>
+
+  <h3 class="sub">The structures that solve it</h3>
+  <div class="domains">
+    <div class="dom"><h3>A third-party special needs trust</h3>
+      <p>Funded with <em>other people's</em> money — yours, grandparents', anyone's — for the person's benefit. Assets in it are not counted as theirs, so benefits continue.</p>
+      <ul>
+        <li>Set it up now, even if unfunded, so relatives have somewhere to direct gifts and bequests</li>
+        <li>Tell every relative it exists — this is the step most often skipped</li>
+        <li>No Medicaid payback on what's left when the person dies; it can pass to siblings</li>
+      </ul>
+      <p class="look"><b>Why it matters most</b>This is the one to establish first. Everything else can be redirected into it.</p></div>
+
+    <div class="dom"><h3>A first-party special needs trust</h3>
+      <p>Funded with the person's <em>own</em> money — a legal settlement, an inheritance that arrived directly, back benefits.</p>
+      <ul>
+        <li>Different rules, and usually a Medicaid payback requirement on death</li>
+        <li>Age limits apply to establishing one</li>
+        <li>A pooled trust run by a nonprofit is often the practical route for smaller amounts</li>
+      </ul>
+      <p class="look"><b>When it comes up</b>Usually as a rescue, after money has already landed in their name. Better to have the third-party trust in place first.</p></div>
+
+    <div class="dom"><h3>An ABLE account</h3>
+      <p>A tax-advantaged savings account for people whose disability began before a set age. Money in it, up to a substantial threshold, doesn't count against SSI resource limits.</p>
+      <ul>
+        <li>The person can control it themselves, which is the real value</li>
+        <li>Spend on housing, transport, education, health, assistive technology, and more</li>
+        <li>Contribution caps apply annually; a working account holder may add more</li>
+        <li>Simple and cheap to open — many states run one, and you usually needn't live there</li>
+      </ul>
+      <p class="look"><b>What it does not replace</b>A trust. ABLE is for everyday spending and modest savings; a trust is for the larger picture and for what happens after you.</p></div>
+
+    <div class="dom"><h3>Your will, rewritten</h3>
+      <p>An ordinary will drafted without this in mind is actively dangerous here.</p>
+      <ul>
+        <li>Leave their share to the <strong>trust</strong>, never to them directly</li>
+        <li>Name a trustee, and a successor trustee, and think hard about both</li>
+        <li>Check every beneficiary designation — retirement accounts, life insurance, payable-on-death accounts</li>
+        <li>Tell grandparents and relatives to do the same in theirs</li>
+        <li>Consider life insurance as the funding mechanism if there isn't an estate</li>
+      </ul>
+      <p class="look"><b>The commonest failure</b>A perfect trust that never gets funded, because nobody updated the insurance form.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The letter of <em>intent</em></h2>
+  <p class="secnote">Not a legal document, and arguably the most valuable thing you will ever write about your child.</p>
+
+  <p>A trust says where the money goes. A letter of intent says <strong>who this person is</strong> — so that whoever steps in when you cannot has something better than a file.</p>
+  <ul>
+    <li>Their history, in your words. Diagnoses, but also what they have been through.</li>
+    <li>How they communicate, including everything a stranger would misread.</li>
+    <li>What a good day looks like, and what a hard one looks like — and what helps in each.</li>
+    <li>Routines that matter, and which ones can move.</li>
+    <li>Food, sleep, medical, sensory. The specifics nobody thinks to write down.</li>
+    <li>Who their people are, and who should stay in their life.</li>
+    <li>What they love. What frightens them. What they have said they want.</li>
+    <li>Your hopes for them, stated plainly, so someone knows what you were aiming at.</li>
+  </ul>
+  <p>Keep it with the trust documents, give a copy to the successor trustee, and update it once a year. The <a href="template-builders.html">child one-pager builder</a> is a starting point for the practical half of this; the rest is yours to write.</p>
+</section>
+
+<section>
+  <h2 class="sec">Where an adult <em>lives</em></h2>
+  <p class="secnote">The options vary enormously by state and are almost all funded through Medicaid waivers with waiting lists measured in years. Get on lists long before you want a place.</p>
+
+  <div class="domains">
+    <div class="dom"><h3>At home, with support coming in</h3>
+      <p>The most common outcome by a wide margin. Personal care attendants, in-home supports, and respite funded through waivers.</p>
+      <p class="look"><b>Plan for</b>What happens when you can no longer do it. This is the arrangement most likely to end in a crisis placement, and least likely to have a written plan.</p></div>
+    <div class="dom"><h3>Shared living or host homes</h3>
+      <p>The person lives with a paid individual or family, often long-term. Can be extraordinary where the match is right.</p>
+      <p class="look"><b>Ask about</b>How matches are made, what happens if it breaks down, and how the provider is monitored.</p></div>
+    <div class="dom"><h3>Supported or independent living</h3>
+      <p>Their own apartment, with staff hours attached. Ranges from daily drop-in to overnight support.</p>
+      <p class="look"><b>Ask about</b>Overnight coverage, what happens in an emergency, and whether the lease is theirs.</p></div>
+    <div class="dom"><h3>Group homes</h3>
+      <p>Several residents with staff on site. Quality varies enormously between providers and between individual houses run by the same provider.</p>
+      <p class="look"><b>Visit unannounced</b>More than once, at different times of day. Talk to families of current residents, not to the agency's references.</p></div>
+    <div class="dom"><h3>Intermediate care facilities</h3>
+      <p>Larger, medically oriented settings for people with significant medical or behavioral needs.</p>
+      <p class="look"><b>Weigh carefully</b>Federal policy strongly favors community settings, and moving out of an institutional placement later can be harder than moving in.</p></div>
+    <div class="dom"><h3>Family and sibling arrangements</h3>
+      <p>A sibling, relative, or friend taking on a role — living together, nearby, or simply overseeing.</p>
+      <p class="look"><b>Have the conversation early</b>Explicitly, with the sibling, without pressure, and long before it is needed. Assumed arrangements are the ones that fail.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Days that are <em>worth having</em></h2>
+  <p class="secnote">Where the person actually spends their waking hours matters more to quality of life than almost anything else on this page, and it gets the least planning.</p>
+  <ul>
+    <li><strong>Competitive integrated employment</strong> — a real job, in the community, at the going wage, alongside people without disabilities. The stated goal of federal policy, and achieved far less often than it should be. Ask for it first.</li>
+    <li><strong>Supported employment</strong> — a job coach helping someone get and keep ordinary work. Well evidenced, and often funded through vocational rehabilitation.</li>
+    <li><strong>Customized employment</strong> — building a role around what the person can do and what an employer needs, rather than fitting them into an existing job description. Particularly valuable for people with significant support needs.</li>
+    <li><strong>Day habilitation programs</strong> — structured group programs. Quality ranges from genuinely engaging to a room and a television. Visit before agreeing to anything.</li>
+    <li><strong>Post-secondary education</strong> — inclusive college programs for students with intellectual disability now exist at many institutions, some with federal funding.</li>
+    <li><strong>Volunteering, community groups, and continuing recreation</strong> — see <a href="adaptive-community.html">adaptive sports and community</a>. Adult programs are scarcer and worth finding early.</li>
+    <li><strong>Vocational rehabilitation</strong> — a state agency, separate from everything else, funding assessment, training, equipment, and job support. Apply well before school ends.</li>
+  </ul>
+  <div class="note">
+    <h3>Two things worth knowing about work and benefits</h3>
+    <p><strong>Working does not automatically end benefits.</strong> There are established work incentive programs that let someone earn while keeping health coverage. Fear of losing benefits keeps many people out of work unnecessarily — ask a benefits counselor before assuming.</p>
+    <p><strong>Sub-minimum wage employment is being phased out</strong> in many places and is contested where it remains. If it is offered, ask what the alternatives are and why they were ruled out.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">When you are <em>no longer here</em></h2>
+  <p class="secnote">The hardest section to write and the one families most need. Nothing here requires you to be morbid — it requires you to be ordinary about something that is certain.</p>
+  <ul>
+    <li><strong>Name a successor trustee, and a successor to them.</strong> Consider a professional or corporate trustee alongside a family member, so no one person carries it alone.</li>
+    <li><strong>Separate the money role from the caring role</strong> if that suits your family. The person who manages a trust need not be the person who shows up on Sundays.</li>
+    <li><strong>Do not assume a sibling will take over.</strong> Ask them, plainly, and give them a real option to say no. Then write down whatever they agree to. Siblings who were assumed into the role, without ever being asked, carry a particular kind of resentment that damages the relationship you were trying to protect.</li>
+    <li><strong>Write the letter of intent,</strong> and keep it current.</li>
+    <li><strong>Put the paperwork where it will be found</strong> — trust, will, letter of intent, benefit numbers, medical summary, provider contacts, passwords. One place, and tell more than one person where it is.</li>
+    <li><strong>Introduce the successor now.</strong> A trustee who has met the person, seen a hard day, and been to an appointment will do the job immeasurably better than one handed a file.</li>
+    <li><strong>Revisit every few years,</strong> and after any change in law, family, or the person's needs.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">What to do, <em>and when</em></h2>
+  <div class="stage"><p class="age">Age 14 to 16</p><h3>Transition planning begins</h3>
+    <p>Transition goals enter the IEP. Start visiting adult programs and residential options — years before you need them, purely to know what exists. Open an ABLE account. Apply to the state developmental disability agency for eligibility, which is separate from school and often slow.</p></div>
+  <div class="stage"><p class="age">Age 16 to 17</p><h3>Applications and lists</h3>
+    <p>Apply to vocational rehabilitation. Get onto Medicaid waiver waiting lists — this is the single most time-sensitive item on the page, because the lists are years long and your place depends on when you applied. Begin work experience while school still supports it.</p></div>
+  <div class="stage"><p class="age">Before 18</p><h3>The legal conversation</h3>
+    <p>See a special needs attorney. Decide on decision-making support and get the documents signed while the person can sign them. Establish the third-party trust and update your will and every beneficiary designation. Tell relatives. Register for Selective Service where required.</p></div>
+  <div class="stage"><p class="age">At 18</p><h3>Benefits</h3>
+    <p>Apply for SSI in the month they turn eighteen, even if previously denied — the calculation changes. Apply for Medicaid. Set up representative payee if needed. Confirm educational rights and who holds them.</p></div>
+  <div class="stage"><p class="age">Two years before school ends</p><h3>The formal handover</h3>
+    <p>The state transition process begins. Referral is not the same as funded services, and it is subject to appropriation. Push for a specific written plan naming programs, hours, and start dates rather than categories.</p></div>
+  <div class="stage"><p class="age">The final year</p><h3>Do not wait for the last month</h3>
+    <p>Confirm what is actually funded, in writing. Have a fallback if it isn't. Build the day: program, work, transport, and what happens in the gaps. The summer after school ends is where families most often fall off a cliff, and it is entirely predictable.</p></div>
+  <div class="stage"><p class="age">Adulthood, ongoing</p><h3>Keep it alive</h3>
+    <p>Redetermination for benefits, annual service plan reviews, trust review, and the letter of intent updated. Watch for the person's own preferences changing — this is their life now, and the plan should follow them rather than the other way round.</p></div>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="programs-and-entitlements.html"><h3>Programs and entitlements</h3>
+      <p>The school-years framework, the age timeline, and how eligibility works before the cliff.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="their-own-voice.html"><h3>Their own voice</h3>
+      <p>Self-determination, and the handover of decisions across childhood. Everything here works better if that started early.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="adaptive-community.html"><h3>Adaptive sports and community</h3>
+      <p>Adult recreation is scarcer and harder to find. Once school ends, this is the structure of a week.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="template-builders.html"><h3>Template builders</h3>
+      <p>The one-pager and emergency profile — the practical half of a letter of intent.</p>
+      <span class="go">Open the builders</span></a>
+    <a class="libcard" href="inside-the-iep.html"><h3>Inside the IEP</h3>
+      <p>Transition goals belong in the IEP from fourteen. This is how to get them written properly.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="care-team-map.html"><h3>The care team map</h3>
+      <p>Who to call — including the specialties that matter more in adulthood than in childhood.</p>
+      <span class="go">Open the map</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>One thing this week, whatever age your child is: <strong>find out whether your state has a Medicaid waiver waiting list, and get on it.</strong> It costs nothing, it commits you to nothing, and your position depends entirely on the date you applied. Families who did this at fifteen have options at twenty-two. Families who did it at twenty-two are waiting.</p>
+  <p>And if your child is small and this page frightened you, close it. Come back when they're thirteen. It will all still be here.</p>
+</div>
+
+<footer>
+  <p><strong>Nothing here is legal or financial advice.</strong> Rules governing benefits, trusts, guardianship, and adult services are set by state and federal law, vary enormously, and change. Use a special needs planning attorney and a benefits counselor for anything involving money or legal status.</p>
+  <p>Program names, thresholds, and age limits shift. Verify every specific against your own state's current rules before acting on it.</p>
+</footer>
+
+</div>
+<script src="site-nav.js"></script>
+</body>
+</html>

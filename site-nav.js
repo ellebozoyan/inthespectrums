@@ -19,7 +19,8 @@
     { label: 'School and services', items: [
       ['inside-the-iep.html',          'Inside the IEP',          'Reading a goal, the words that matter, the section you write'],
       ['accommodations-finder.html',   'Accommodations finder',   'Search by the difficulty you see, get wording you can request'],
-      ['programs-and-entitlements.html','Programs and entitlements','What exists, when each door opens, the ages that matter']
+      ['programs-and-entitlements.html','Programs and entitlements','What exists, when each door opens, the ages that matter'],
+      ['adult-life.html',              'After school ends',       'The cliff, decision-making, trusts and wills, housing and work']
     ]},
     { label: 'Money, paperwork and tracking', items: [
       ['paying-for-therapy.html',      'Paying for it',           'In-network vs out, the annotated superbill, appeals'],
@@ -913,7 +914,7 @@
   /* rebuild the map (same data as the nav, kept local so order is safe) */
   var MAP = [
     ['Start here', ['what-to-do-first.html','care-team-map.html','conditions-library.html','whole-picture.html']],
-    ['School and services', ['inside-the-iep.html','accommodations-finder.html','programs-and-entitlements.html']],
+    ['School and services', ['inside-the-iep.html','accommodations-finder.html','programs-and-entitlements.html','adult-life.html']],
     ['Money, paperwork and tracking', ['paying-for-therapy.html','template-builders.html','symptom-tracker.html','goals-tracker.html','share-builder.html','using-these-tools.html']],
     ['Safety and health', ['safety.html','injuries-and-illness.html']],
     ['Therapies', ['occupational-therapy.html','physical-therapy.html','speech-language-aac.html',
@@ -1313,6 +1314,12 @@
   "Practitioner listings involve no payment, no vetting, and no endorsement.",
   "If any part of the site is hard for you to use, tell us and we will provide it another way."],
 
+'adult-life.html': ["School services are an entitlement. Adult services are an application \u2014 you qualify, then wait for funding.",
+  "Get on your state\u2019s Medicaid waiver waiting list now. Your place depends entirely on the date you applied.",
+  "Never leave money directly to someone on benefits \u2014 including via life insurance or retirement beneficiary forms.",
+  "Start decision-making at the least restrictive option. Guardianship removes civil rights and is hard to undo.",
+  "Write the letter of intent. A trust says where the money goes; that says who the person is."],
+
 'maplewood-stories.html': ["Fifty-two picture books about ten friends who are not alike, figuring it out together.",
   "No child in them is labeled, and none of them is the lesson.",
   "Social and emotional learning, executive function, and safety awareness are the plots, not the moral.",
@@ -1371,6 +1378,10 @@
   'use strict';
 
   var MARKS = {
+
+  'adult-life.html':
+    '<rect width="74" height="74" fill="#E9EDDF"/><path d="M10 50h22V26" fill="none" stroke="#16283C" stroke-width="2"/><path d="M42 50h22V38" fill="none" stroke="#9C4A21" stroke-width="2"/><path d="M32 38h10" stroke="#8A2B20" stroke-width="1.6" stroke-dasharray="2.5 3"/><circle cx="21" cy="20" r="4" fill="#4A5C2E"/><circle cx="53" cy="32" r="4" fill="#9C4A21"/>',
+
 
   'goals-tracker.html':
     '<rect width="74" height="74" fill="#E7EDE5"/><rect x="12" y="14" width="20" height="46" fill="#FFF" stroke="#16283C" stroke-width="1.5"/><rect x="42" y="14" width="20" height="46" fill="#FFF" stroke="#16283C" stroke-width="1.5"/><path d="M32 26h10M32 37h10M32 48h10" stroke="#9C4A21" stroke-width="2"/><circle cx="42" cy="26" r="2.6" fill="#2E4E3F"/><circle cx="42" cy="37" r="2.6" fill="#2E4E3F"/><circle cx="42" cy="48" r="2.6" fill="#C6A98F"/>',
