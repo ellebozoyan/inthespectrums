@@ -718,13 +718,18 @@
   'use strict';
 
   var css = [
+    /* The icon is positioned, never a flex/grid child. A list item keeps
+       display:list-item, so <strong>, <em> and text inside it stay in
+       normal inline flow and wrap as ordinary prose. */
     'section > ul > li, section > ol > li, .agree li, .col li, .side li{',
-    'list-style:none;display:flex;align-items:flex-start;gap:11px}',
+    'list-style:none;position:relative;padding-left:30px}',
     'section > ul, section > ol, .agree ul, .col ul, .side ul{padding-left:2px}',
     'section > ul > li > .nv-ic, section > ol > li > .nv-ic,',
-    '.agree li > .nv-ic, .col li > .nv-ic, .side li > .nv-ic{margin-top:.22em;opacity:.9}',
+    '.agree li > .nv-ic, .col li > .nv-ic, .side li > .nv-ic{',
+    'position:absolute;left:0;top:.28em;opacity:.9}',
     'li > img.nv-ic{width:20px;height:20px;object-fit:contain}',
-    '@media(max-width:520px){section > ul > li, section > ol > li{gap:9px}}',
+    '@media(max-width:520px){section > ul > li, section > ol > li,',
+    '.agree li, .col li, .side li{padding-left:26px}}',
     '@media print{li > .nv-ic{opacity:1}}'
   ].join('');
   var st = document.createElement('style');
