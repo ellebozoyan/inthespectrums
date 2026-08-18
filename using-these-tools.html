@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Using these tools — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#435A6F; --book-tint:#E5EAEE; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the equation */
+.eqn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.eqn h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.eqn .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.parts{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:18px}
+@media(max-width:700px){.parts{grid-template-columns:1fr;gap:6px}.op{text-align:center;padding:2px 0}}
+.pt{background:rgba(255,255,255,.06);border-top:3px solid var(--book);padding:15px 16px}
+.pt.res{border-top-color:var(--rust);background:rgba(156,74,33,.13)}
+.pt b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#EFEBE3;margin-bottom:6px}
+.pt span{font-size:.86rem;color:#B9C4B4;line-height:1.45;display:block}
+.op{font-size:1.5rem;color:#C6A98F;text-align:center}
+.eqn .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:20px 0 0;max-width:62ch}
+.eqn .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .eqn{background:#fff;color:#000;border:1px solid #000}.eqn .big,.pt b,.eqn .cap strong{color:#000}}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Using these tools:<br><em>saving, printing, backing up</em></h1>
+  <p class="lede">The trackers on this site are single web pages that run entirely on your own device. That makes them private and durable — and it means a few practical things are worth knowing, because nobody is holding a copy for you.</p>
+</header>
+
+<div class="warn">
+  <h3>We cannot offer technical support</h3>
+  <p>This site is written and maintained by one person, for free, and there is no help desk behind it. These instructions are offered in good faith and were accurate when written; devices and operating systems change constantly, and yours may look different.</p>
+  <p>If something doesn't work on your device, the honest advice is to search for how to do it on your specific phone or computer — that will get you a better answer than we can. And you are welcome to take any of these tools, change them, or host them yourself.</p>
+  <p>Some people will find these useful as they are. Others will use them mainly as a list of <em>what</em> is worth tracking, then build something of their own in a notebook, a spreadsheet, or an app they already like. Both are good outcomes.</p>
+</div>
+
+<section>
+  <h2 class="sec">How they <em>actually work</em></h2>
+  <ul>
+    <li><strong>Nothing you type ever leaves your device.</strong> There is no account, no server, and no way for us or anyone else to see what you write.</li>
+    <li><strong>The trackers remember; the template builders don't.</strong> Trackers save to this browser so your entries are there tomorrow. The document builders clear when you close them, by design.</li>
+    <li><strong>The data lives in one browser on one device.</strong> Not in your account, not in the cloud. Safari on your phone and Chrome on your laptop are two separate, unconnected copies.</li>
+    <li><strong>Clearing your browsing data deletes it.</strong> So does a private or incognito window, which can't save anything at all.</li>
+    <li><strong>The backup file is the only insurance.</strong> Download one every few weeks and keep it somewhere real.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Adding it to your <em>home screen</em></h2>
+  <p class="secnote">Worth doing. It opens like an app, full screen, one tap — which is the difference between logging something in twenty seconds and not logging it at all.</p>
+
+  <div class="domains">
+    <div class="dom"><h3>iPhone and iPad</h3>
+      <p>Open the tracker in <strong>Safari</strong> — this doesn't work from Chrome on iOS.</p>
+      <ul>
+        <li>Tap the <strong>Share</strong> button (the square with the arrow)</li>
+        <li>Scroll down and tap <strong>Add to Home Screen</strong></li>
+        <li>Name it something short, then tap <strong>Add</strong></li>
+      </ul>
+      <p class="look"><b>Worth knowing</b>The saved data belongs to Safari. If you later open the same page in another browser, it will look empty — that's expected, not lost.</p></div>
+
+    <div class="dom"><h3>Android</h3>
+      <p>Open the tracker in <strong>Chrome</strong>.</p>
+      <ul>
+        <li>Tap the <strong>three dots</strong> menu, top right</li>
+        <li>Tap <strong>Add to Home screen</strong> or <strong>Install app</strong></li>
+        <li>Confirm the name and tap <strong>Add</strong></li>
+      </ul>
+      <p class="look"><b>Worth knowing</b>Samsung Internet and other browsers have the same feature in a similar place, but each keeps its own separate copy of your data.</p></div>
+
+    <div class="dom"><h3>Mac</h3>
+      <p>Bookmark it, or make it a dock app.</p>
+      <ul>
+        <li><strong>Safari:</strong> File → Add to Dock, in recent versions</li>
+        <li><strong>Chrome:</strong> three dots → Cast, Save and Share → Create Shortcut</li>
+        <li>Otherwise just bookmark it and pin the tab</li>
+      </ul>
+      <p class="look"><b>Worth knowing</b>Whichever browser you use, keep using that one. Each holds its own separate data.</p></div>
+
+    <div class="dom"><h3>Windows</h3>
+      <p>Chrome and Edge both install web pages as apps.</p>
+      <ul>
+        <li><strong>Chrome:</strong> three dots → Cast, Save and Share → Install page as app</li>
+        <li><strong>Edge:</strong> three dots → Apps → Install this site as an app</li>
+        <li>Otherwise bookmark it and pin the tab</li>
+      </ul>
+      <p class="look"><b>Worth knowing</b>An installed app and the same page in a tab share the same stored data, as long as it's the same browser.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Saving a summary <em>as a PDF</em></h2>
+  <p class="secnote">Every tool has a print button. On every modern device, "print" also means "save as PDF" — which is usually what you actually want, so you can email it or keep it.</p>
+  <div class="domains">
+    <div class="dom"><h3>iPhone and iPad</h3>
+      <p>Tap the print button on the page, then in the print preview, pinch outward on the page image or tap the share icon and choose <strong>Save to Files</strong>.</p>
+      <p class="look"><b>Tip</b>You can also share it straight to Mail or Messages from that screen.</p></div>
+    <div class="dom"><h3>Android</h3>
+      <p>Tap print, then in the printer dropdown at the top choose <strong>Save as PDF</strong>, and tap the download button.</p>
+      <p class="look"><b>Tip</b>It usually lands in your Downloads folder or Google Drive, depending on what you pick.</p></div>
+    <div class="dom"><h3>Mac</h3>
+      <p>Press <strong>Cmd + P</strong> or use the print button, then in the print dialog use the <strong>PDF</strong> dropdown at the bottom left and choose <strong>Save as PDF</strong>.</p>
+      <p class="look"><b>Tip</b>Turn off headers and footers in the print options for a cleaner page.</p></div>
+    <div class="dom"><h3>Windows</h3>
+      <p>Press <strong>Ctrl + P</strong> or use the print button, then choose <strong>Microsoft Print to PDF</strong> or <strong>Save as PDF</strong> as the printer.</p>
+      <p class="look"><b>Tip</b>In Chrome, More settings → uncheck Headers and footers.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Backing up, and moving to <em>another device</em></h2>
+  <p class="secnote">There is no sync, because there is no server. Moving your data means moving a file — which is more work, and also why nobody else can ever see it.</p>
+
+  <h3 class="sub">Backing up</h3>
+  <ul>
+    <li>Open any tracker, go to the export or setup tab, and choose <strong>Download a backup file</strong>.</li>
+    <li>One file covers every tool on this site and every person you've added.</li>
+    <li>Put it somewhere that isn't the device it came from — cloud storage, email it to yourself, a USB drive.</li>
+    <li>Do it monthly, and before any phone upgrade, browser change, or "clear my browsing data."</li>
+  </ul>
+
+  <h3 class="sub">Restoring, or moving to a new device</h3>
+  <ul>
+    <li>Open the tracker on the new device or browser.</li>
+    <li>Choose <strong>Restore from a backup</strong> and select the file.</li>
+    <li>It replaces whatever is currently saved there, so restore onto an empty one where you can.</li>
+  </ul>
+
+  <div class="bnote">
+    <h3>If two people are both logging</h3>
+    <p>There is no merge. If you and a partner both log on separate phones, you will end up with two separate records, and restoring one over the other will overwrite it.</p>
+    <p>The practical options are: pick one device as the real one and have the other person tell you what to add; use a shared tablet that lives in the kitchen; or accept two records and combine them by hand when you print. Not elegant, and it's the honest cost of nothing being stored on a server.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">If something <em>goes wrong</em></h2>
+  <ul>
+    <li><strong>Everything disappeared.</strong> Most often you've opened it in a different browser, or in a private window, or browsing data was cleared. Check the other browser first, then restore from your backup.</li>
+    <li><strong>It says it can't save.</strong> You're probably in a private or incognito window. Open a normal one.</li>
+    <li><strong>The print looks wrong.</strong> Turn off headers and footers in the print settings, and try landscape for wide tables.</li>
+    <li><strong>The page looks broken.</strong> Refresh. If it persists, the site may have updated while your browser cached an old version — a hard refresh usually fixes it.</li>
+    <li><strong>Nothing on this list helped.</strong> Search for your exact device and the thing you're trying to do. We genuinely can't troubleshoot individual devices, and pretending otherwise would waste your time.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">The tools</h2>
+  <div class="lib">
+    <a class="libcard" href="symptom-tracker.html"><h3>The symptom tracker</h3>
+      <p>Log what was different, rate capacity, build a precursor map, print a summary for an appointment.</p>
+      <span class="go">Open it</span></a>
+    <a class="libcard" href="goals-tracker.html"><h3>Goals and generalization</h3>
+      <p>Every provider's goals in one place, and which ones should be practiced elsewhere.</p>
+      <span class="go">Open it</span></a>
+    <a class="libcard" href="share-builder.html"><h3>The share builder</h3>
+      <p>Assemble a packet for one specific person, ticking exactly what goes in.</p>
+      <span class="go">Open it</span></a>
+    <a class="libcard" href="template-builders.html"><h3>Template builders</h3>
+      <p>Four documents that build themselves as you type. These don't save — print or copy before closing.</p>
+      <span class="go">Open them</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>If you take one thing: <strong>download a backup file today</strong>, and put it somewhere that isn't your phone. It takes ten seconds and it is the only thing standing between you and losing months of records to a cracked screen.</p>
+  <p>And if these tools aren't right for you, take the categories and build your own. The value was never the software.</p>
+</div>
+
+<footer>
+  <p><strong>No technical support is available.</strong> These instructions are offered in good faith and may be out of date for your device. Everything here is free to take, change, and host yourself.</p>
+  <p>Nothing on this site is medical, legal, financial or educational advice.</p>
+</footer>
+
+</div>
+<script src="site-nav.js"></script>
+</body>
+</html>

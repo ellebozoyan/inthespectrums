@@ -216,6 +216,19 @@ footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sa
 .pgs b{display:block;font-size:1rem;font-weight:400;margin-bottom:4px}
 .pgs p{font-size:.92rem;margin:0;color:var(--ink-soft)}
 .pgs .say{font-style:italic;color:#22303C;display:block;margin-top:6px}
+
+.trio{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--rust);
+  border-radius:2px;padding:18px 22px;margin:0 0 30px}
+.trio b{font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.trio ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px}
+.trio li{font-size:.95rem;line-height:1.45;padding:10px 13px;background:var(--ground);border-radius:2px}
+.trio li.now{background:var(--rust-tint);font-weight:600}
+.trio li span{font-family:var(--sans);font-size:9px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-soft);display:block;margin-bottom:4px;font-weight:700}
+.trio li.now span{color:var(--rust)}
+.trio a{text-decoration:none;border-bottom:1px solid rgba(156,74,33,.35)}
+.trio a:hover{border-bottom-color:var(--rust)}
 </style>
 </head>
 <body>
@@ -227,9 +240,13 @@ footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sa
   <p class="lede">One of the most contested topics in this field, and one where families are handed strong opinions from every direction while making a decision under time pressure. Here is the landscape, the questions that actually predict how it will go, and how to build a team that works together.</p>
 </header>
 
-<div class="profnote">
-  <b>Part of a three-page set</b>
-  <p>The companion pages are <a href="behavior.html">behavior is communication</a> and <a href="de-escalation.html">in the moment</a>.</p>
+<div class="trio">
+  <b>Behavior is covered across three pages</b>
+  <ol>
+      <li><span>Page 1 — Why it is happening</span><a href="behavior.html">Behavior is communication</a></li>
+      <li><span>Page 2 — What to do</span><a href="de-escalation.html">In the moment</a></li>
+      <li class="now"><span>Page 3 — Who to work with</span>Choosing behavior support</li>
+  </ol>
 </div>
 
 <section>
@@ -256,6 +273,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sa
     <h3>What that partnership actually requires</h3>
     <p><strong>Direction flows from the specialist.</strong> The SLP, OT, PT, or TVI says which skills have been established and are ready to be generalized — and specifies them properly: what the skill is, when to use it, why it matters, with whom, where, and how. A behavioral provider inventing targets independently of the disciplines that own those domains is the root of a great many problems.</p>
     <p><strong>Support inside sessions and transitions</strong> where an extra pair of hands makes a specialist session possible, rather than replacing it.</p>
+    <p>The free <a href="goals-tracker.html">goals and generalization tracker</a> is built for exactly this — every provider’s goals on one page, and a sheet naming which ones travel and how.</p>
     <p><strong>A written loop that runs both ways</strong> — a way to impart what was taught, monitor how it's holding up in real settings, coach the adults who are there when the specialist isn't, and report back what's working and what isn't. Standing check-ins, shared notes, and deliberate overlap where two providers are in the room together.</p>
     <p>Where that structure is missing, generalization doesn't happen and the two halves of a child's week can end up teaching opposite things. Ask directly how the coordination works, who leads on each domain, and how often the team meets. A provider who can't answer that has told you something important.</p>
   </div>

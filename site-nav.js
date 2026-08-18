@@ -14,16 +14,16 @@
       ['what-to-do-first.html',        'What to do first',        'The first 90 days, and the scripts that start legal clocks'],
       ['care-team-map.html',           'The care team map',       'Forty-five specialties — who does what, and why you\u2019d call them'],
       ['conditions-library.html',      'The conditions library',  'Thirty-three conditions, how widely each varies, what helps'],
-      ['whole-picture.html',           'The whole picture',       'When one diagnosis isn\u2019t the whole story \u2014 and how to see the rest']
+      ['whole-picture.html',           'The whole picture',       'When one diagnosis isn\u2019t the whole story \u2014 and how to see the rest'],
+      ['symptom-tracker.html',         'The symptom tracker',     'Log what changed, spot the pattern, print a summary for the appointment'],
+      ['goals-tracker.html',           'Goals and generalization','Every provider\u2019s goals in one place, and which ones should travel'],
+      ['share-builder.html',           'The share builder',       'Assemble a packet for one person \u2014 you tick exactly what goes in'],
+      ['using-these-tools.html',       'Using these tools',       'Saving to your home screen, printing to PDF, and backing up']
     ]},
     { label: 'School and services', items: [
       ['inside-the-iep.html',          'Inside the IEP',          'Reading a goal, the words that matter, the section you write'],
       ['accommodations-finder.html',   'Accommodations finder',   'Search by the difficulty you see, get wording you can request'],
       ['programs-and-entitlements.html','Programs and entitlements','What exists, when each door opens, the ages that matter']
-    ]},
-    { label: 'Money and paperwork', items: [
-      ['paying-for-therapy.html',      'Paying for it',           'In-network vs out, the annotated superbill, appeals'],
-      ['template-builders.html',       'Template builders',       'Four documents that build themselves as you type']
     ]},
     { label: 'Safety and health', items: [
       ['safety.html',                  'Safety',                  'Water, wandering, responders, body autonomy, equipment'],
@@ -39,21 +39,28 @@
       ['floortime.html',               'Floortime and child-led', 'Circles of communication, and how they grow up'],
       ['music.html',                   'Music',                   'The thing that gets in everywhere']
     ]},
+    { label: 'Behavior', items: [
+      ['behavior.html',                'Behavior is communication','What a behavior is saying, and what it costs on the inside'],
+      ['de-escalation.html',           'In the moment',           'Precursors, de-escalation, calming and processing'],
+      ['behavior-support.html',        'Choosing behavior support','The ABA conversation, and building one team']
+    ]},
     { label: 'Learning, attention and mood', items: [
       ['learning-and-literacy.html',   'Learning and literacy',   'Dyslexia, dysgraphia, dyscalculia \u2014 and what reading instruction should look like'],
       ['adhd-executive-function.html', 'ADHD and executive function','The gap between knowing and doing, and how to close it'],
       ['anxiety-and-ocd.html',         'Anxiety, OCD and school refusal','The accommodation loop, and the treatment that works']
     ]},
+    { label: 'Money and paperwork', items: [
+      ['paying-for-therapy.html',      'Paying for it',           'In-network vs out, the annotated superbill, appeals'],
+      ['template-builders.html',       'Template builders',       'Four documents that build themselves as you type']
+    ]},
     { label: 'Community and the child', items: [
-      ['behavior.html',                'Behavior is communication','What a behavior is saying, and what it costs on the inside'],
-      ['de-escalation.html',           'In the moment',           'Precursors, de-escalation, calming and processing'],
-      ['behavior-support.html',        'Choosing behavior support','The ABA conversation, and building one team'],
       ['adaptive-community.html',      'Adaptive sports and community','Programs, days out, parking and travel'],
       ['their-own-voice.html',         'Their own voice',         'Talking with a child about their own life'],
       ['maplewood-stories.html',       'The Maplewood stories',   'Fifty-two picture books about ten friends']
     ]},
     { label: 'About', items: [
-      ['about.html',                   'About and contributors',  'Who writes this, and how to tell us what\u2019s wrong']
+      ['about.html',                   'About and contributors',  'Who writes this, and how to tell us what\u2019s wrong'],
+      ['terms-and-privacy.html',       'Terms, privacy and disclaimers','What this site is, what it isn\u2019t, and what it collects (nothing)']
     ]}
   ];
 
@@ -184,13 +191,19 @@
   /* ---------------------------------------------------------------
      3. HEADER
      --------------------------------------------------------------- */
+  /* ---- TABS ACROSS THE TOP ----------------------------------------
+     Edit this list to change the header tabs. Each line is:
+        ['filename.html', 'Label shown']
+     Keep it to about six or seven — they hide below 840px wide,
+     where the "All pages" button takes over.
+     ------------------------------------------------------------------ */
   var quick = [
     ['what-to-do-first.html','Start here'],
     ['care-team-map.html','Care team'],
     ['conditions-library.html','Conditions'],
     ['inside-the-iep.html','School'],
-    ['safety.html','Safety'],
-    ['about.html','About']
+    ['behavior.html','Behavior'],
+    ['safety.html','Safety']
   ];
   var qHtml = quick.map(function (q) {
     return '<a href="' + q[0] + '"' + (q[0] === here ? ' aria-current="page"' : '') + '>' + q[1] + '</a>';
@@ -322,10 +335,11 @@
   foot.innerHTML =
     '<div class="nv-fin">' +
       '<p class="nv-fbrand">In The <em>Spectrums</em></p>' +
-      '<p class="nv-ftag">A free field guide for anyone raising, teaching, or caring for a child ' +
-        'who needs more than the standard version of things.</p>' +
+      '<p class="nv-ftag">A free field guide for anyone raising, teaching, or caring for children \u2014 ' +
+        'written most carefully for the ones who need more than the standard version of things.</p>' +
       '<div class="nv-fgrid">' + cols + '</div>' +
       '<p class="nv-fend">Free \u00b7 No login \u00b7 No ads \u00b7 Nothing sold \u00b7 Take it and adapt it.<br>' +
+        '<a href="terms-and-privacy.html" style="color:#C6A98F">Terms, privacy and disclaimers</a><br>' +
         'Nothing on this site is medical, legal, financial, or educational advice. ' +
         'Verify anything that matters with the professionals who have met your child.</p>' +
     '</div>';
@@ -784,16 +798,17 @@
 
   /* rebuild the map (same data as the nav, kept local so order is safe) */
   var MAP = [
-    ['Start here', ['what-to-do-first.html','care-team-map.html','conditions-library.html','whole-picture.html']],
+    ['Start here', ['what-to-do-first.html','care-team-map.html','conditions-library.html','whole-picture.html','symptom-tracker.html','goals-tracker.html','share-builder.html','using-these-tools.html']],
     ['School and services', ['inside-the-iep.html','accommodations-finder.html','programs-and-entitlements.html']],
-    ['Money and paperwork', ['paying-for-therapy.html','template-builders.html']],
     ['Safety and health', ['safety.html','injuries-and-illness.html']],
     ['Therapies', ['occupational-therapy.html','physical-therapy.html','speech-language-aac.html',
                    'feeding-therapy.html','aquatic-therapy.html','myofunctional-therapy.html',
                    'floortime.html','music.html']],
     ['Learning, attention and mood', ['learning-and-literacy.html','adhd-executive-function.html','anxiety-and-ocd.html']],
-    ['Community and the child', ['behavior.html','de-escalation.html','behavior-support.html','adaptive-community.html','their-own-voice.html','maplewood-stories.html']],
-    ['About', ['about.html']]
+    ['Behavior', ['behavior.html','de-escalation.html','behavior-support.html']],
+    ['Money and paperwork', ['paying-for-therapy.html','template-builders.html']],
+    ['Community and the child', ['adaptive-community.html','their-own-voice.html','maplewood-stories.html']],
+    ['About', ['about.html','terms-and-privacy.html']]
   ];
 
   var group = null;
@@ -1153,6 +1168,36 @@
   "Order matters. Hearing, vision, sleep, pain and constipation first: common, treatable, and they imitate everything.",
   "Four diagnoses do not mean four plans. Someone has to hold the whole picture and reconcile the conflicts.",
   "Don\u2019t judge the moment. What you saw was a stacking that finally went past capacity, not a response to the last thing."],
+
+'symptom-tracker.html': ["Log only what was different today. Comprehensive daily checklists get abandoned; this one takes twenty seconds.",
+  "Rate how full the bottle was. Over time that number explains more than any single symptom.",
+  "Tap the early signs you saw first \u2014 the tracker builds your precursor map, which is what a new teacher needs.",
+  "Record what helped. Most trackers only capture what went wrong, which is half the picture.",
+  "Print the summary the day before an appointment. Download a backup every few weeks \u2014 it lives only in this browser."],
+
+'goals-tracker.html': ["Most children with several providers have several sets of goals that nobody else has read. This puts them in one place.",
+  "The generalization sheet is the part that changes outcomes \u2014 which goals travel, and exactly how.",
+  "Three generalization goals per provider is the ceiling. More than that and none of them get done properly.",
+  "Be specific enough that an untrained adult could carry it out: what, when, where, with whom, how to prompt, how to fade.",
+  "Print it or export it and hand it over. Nothing is transmitted \u2014 you choose what goes in."],
+
+'share-builder.html': ["A new aide doesn\u2019t need medical history. A gastroenterologist doesn\u2019t need handwriting goals.",
+  "Pick who it\u2019s for and the sections tick themselves \u2014 then adjust anything.",
+  "Nothing is ever transmitted. You print it or download it and hand it over.",
+  "This is section-by-section control, which is finer-grained than most sharing systems give you.",
+  "Anything left out was left out on purpose \u2014 and that is your right."],
+
+'using-these-tools.html': ["Add a tracker to your home screen and it opens like an app. That\u2019s the difference between logging and not.",
+  "Everything lives in one browser on one device. Safari on your phone and Chrome on your laptop are separate copies.",
+  "Download a backup file monthly, and before any phone upgrade or clearing of browsing data.",
+  "Print means save as PDF on every modern device \u2014 instructions here for Mac, Windows, iPhone and Android.",
+  "No technical support is available. Take these tools, change them, or just take the categories and build your own."],
+
+'terms-and-privacy.html': ["Free, collects nothing about you, not professional advice of any kind, and cannot know your child.",
+  "No accounts, no analytics, no cookies, no advertising. Tools store data in your browser and nowhere else.",
+  "Content is offered under a Creative Commons licence \u2014 copy it, adapt it, put your own name on it.",
+  "Practitioner listings involve no payment, no vetting, and no endorsement.",
+  "If any part of the site is hard for you to use, tell us and we will provide it another way."],
 
 'maplewood-stories.html': ["Fifty-two picture books about ten friends who are not alike, figuring it out together.",
   "No child in them is labeled, and none of them is the lesson.",

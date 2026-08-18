@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terms, privacy and disclaimers — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#435A6F; --book-tint:#E5EAEE; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the equation */
+.eqn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.eqn h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.eqn .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.parts{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:18px}
+@media(max-width:700px){.parts{grid-template-columns:1fr;gap:6px}.op{text-align:center;padding:2px 0}}
+.pt{background:rgba(255,255,255,.06);border-top:3px solid var(--book);padding:15px 16px}
+.pt.res{border-top-color:var(--rust);background:rgba(156,74,33,.13)}
+.pt b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#EFEBE3;margin-bottom:6px}
+.pt span{font-size:.86rem;color:#B9C4B4;line-height:1.45;display:block}
+.op{font-size:1.5rem;color:#C6A98F;text-align:center}
+.eqn .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:20px 0 0;max-width:62ch}
+.eqn .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .eqn{background:#fff;color:#000;border:1px solid #000}.eqn .big,.pt b,.eqn .cap strong{color:#000}}
+
+.legal h3.sub{margin-top:26px}
+.legal p,.legal li{font-size:.98rem}
+.tocbox{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:18px 22px;margin:0 0 30px}
+.tocbox h4{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:0 0 11px}
+.tocbox ol{margin:0;padding-left:19px;columns:2;column-gap:26px}
+@media(max-width:620px){.tocbox ol{columns:1}}
+.tocbox li{margin-bottom:6px;font-size:.94rem}
+.rev{font-family:var(--sans);font-size:11.5px;color:var(--ink-soft);letter-spacing:.03em;
+  border-top:1px solid var(--line);padding-top:14px;margin-top:30px}
+.draft{background:#FFF6E0;border:1px dashed #B08A2A;border-left:4px solid #B08A2A;padding:18px 22px;margin:0 0 28px}
+.draft b{font-family:var(--sans);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:#8A6A1F;font-weight:700;display:block;margin-bottom:9px}
+.draft p{margin:0 0 10px;font-size:.95rem}.draft p:last-child{margin:0}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Terms, privacy <em>and disclaimers</em></h1>
+  <p class="lede">The legal parts, written to be read rather than skipped. In short: this site is free, it collects nothing about you, it is not professional advice of any kind, and it cannot know your child. Everything below is the longer version of those four things.</p>
+</header>
+
+<div class="draft">
+  <b>Note to the site owner — remove before publishing</b>
+  <p>These are drafts prepared to be reviewed by a licensed attorney in your state, not finished legal documents. They are written to cover the situations this site actually creates, so that a lawyer's time is spent reviewing rather than drafting.</p>
+  <p>Fill in every bracketed placeholder. Confirm the entity name and contact address. Ask specifically about: the entity structure, media liability insurance, whether your existing professional policy excludes publishing, accessibility obligations, and whether the trackers raise any software questions.</p>
+</div>
+
+<div class="tocbox">
+  <h4>On this page</h4>
+  <ol>
+    <li><a href="#disclaimer">Disclaimers</a></li>
+    <li><a href="#terms">Terms of use</a></li>
+    <li><a href="#privacy">Privacy</a></li>
+    <li><a href="#license">Copyright and license</a></li>
+    <li><a href="#listings">Practitioner listings</a></li>
+    <li><a href="#accessibility">Accessibility</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</div>
+
+<section class="legal" id="disclaimer">
+  <h2 class="sec">1. <em>Disclaimers</em></h2>
+
+  <h3 class="sub">Not medical advice</h3>
+  <p>Nothing on this site is medical advice, and nothing here creates a clinician–patient relationship. The content is general information, written for a general audience, and it cannot account for any individual person's history, medications, diagnoses, or circumstances.</p>
+  <p>Always seek the advice of a physician or other qualified health provider with any questions about a medical condition. <strong>Never disregard professional medical advice, or delay seeking it, because of something you read here.</strong> If you believe someone is having a medical emergency, call your local emergency number immediately.</p>
+
+  <h3 class="sub">Not legal, educational, or financial advice</h3>
+  <p>Descriptions of special education law, entitlements, insurance, benefits, and program eligibility are general summaries. They are not legal advice, they do not create an attorney–client relationship, and they may be incomplete or out of date. Law, regulation, and program rules vary by state and change frequently.</p>
+  <p>Verify anything that matters against your own state's current rules, your own plan documents, and where the stakes are high, a qualified professional.</p>
+
+  <h3 class="sub">No warranty of accuracy or currency</h3>
+  <p>This site is provided on an "as is" and "as available" basis. Reasonable care is taken, and the site is written and reviewed in good faith, but no warranty is made — express or implied — that any content is accurate, complete, current, or fit for any particular purpose.</p>
+  <p>Program names, billing and procedure codes, statutory timelines, clinical guidance, and available services all change. Content may be out of date at the moment you read it.</p>
+
+  <h3 class="sub">Where the evidence is contested</h3>
+  <p>Several topics covered here are genuinely disputed among qualified professionals. Where that is the case, this site describes the disagreement and where each side stands rather than choosing for you. That is a deliberate editorial choice, not a recommendation, and it should not be read as endorsement of any position described.</p>
+
+  <h3 class="sub">Limitation of liability</h3>
+  <p>To the fullest extent permitted by law, [ENTITY NAME], its owner, contributors, and reviewers are not liable for any direct, indirect, incidental, consequential, or special damages arising from your use of this site, from reliance on any content, from the use or failure of any tool, or from the loss of any data you enter into a tool.</p>
+  <p>You use this site and everything on it at your own discretion and risk, and you are solely responsible for decisions you make. Some jurisdictions do not allow certain limitations, so parts of this may not apply to you.</p>
+
+  <h3 class="sub">External links</h3>
+  <p>Links to other organizations, resources, or research are provided for convenience. They are not endorsements, we do not control that content, and we are not responsible for it.</p>
+</section>
+
+<section class="legal" id="terms">
+  <h2 class="sec">2. <em>Terms of use</em></h2>
+
+  <h3 class="sub">Agreement</h3>
+  <p>By using this site you agree to these terms. If you do not agree, please do not use it. These terms may be updated; the revision date at the foot of this page tells you when they last changed, and continued use after a change means you accept it.</p>
+
+  <h3 class="sub">Who this is for</h3>
+  <p>This site is intended for adults — parents, caregivers, educators, therapists, and clinicians. It is not directed at children and does not knowingly collect information from anyone.</p>
+
+  <h3 class="sub">The interactive tools</h3>
+  <p>The trackers, builders, and finders on this site run entirely within your own web browser. They are provided as-is, with no guarantee of availability, accuracy, or preservation of anything you enter.</p>
+  <ul>
+    <li><strong>You are responsible for your own records.</strong> Data is stored only in the browser on the device you used. It can be lost by clearing browsing data, changing browsers, losing or replacing a device, or a browser update.</li>
+    <li><strong>Download backups.</strong> The backup file is the only copy that will exist. We cannot recover anything for you, because we never had it.</li>
+    <li><strong>These are record-keeping aids, not medical devices.</strong> They do not diagnose, treat, monitor, or make recommendations about any condition. Correlations shown in a tracker are descriptive only and do not establish that anything caused anything else.</li>
+    <li><strong>No technical support is offered.</strong> Guidance in <a href="using-these-tools.html">using these tools</a> is provided in good faith and may not match your device.</li>
+  </ul>
+
+  <h3 class="sub">Sharing what you create</h3>
+  <p>Anything you print, export, or send from this site is yours, and sharing it is your decision and your responsibility. Consider whether the person receiving it needs the information, and whether the person it concerns has been asked. Once shared, you cannot control what happens to it.</p>
+
+  <h3 class="sub">Acceptable use</h3>
+  <p>Please do not use this site to break the law, to attempt to interfere with it or with anyone else's use of it, or to present its content as coming from a licensed professional or as a substitute for one.</p>
+
+  <h3 class="sub">Governing law</h3>
+  <p>These terms are governed by the laws of the Commonwealth of Massachusetts, without regard to conflict-of-law principles. [CONFIRM WITH COUNSEL — including whether to add a venue clause or a dispute-resolution provision.]</p>
+</section>
+
+<section class="legal" id="privacy">
+  <h2 class="sec">3. <em>Privacy</em></h2>
+
+  <div class="note">
+    <h3>The short version</h3>
+    <p>We do not collect, store, transmit, sell, or share any information about you. There are no accounts, no sign-ups, no tracking pixels, no advertising, and no analytics. Everything you type into a tool on this site stays on your own device.</p>
+  </div>
+
+  <h3 class="sub">What we collect: nothing</h3>
+  <p>This site has no accounts and no forms that submit anywhere. We do not use cookies for tracking, we do not run advertising, and we do not use third-party analytics. We do not build profiles, and we have no ability to identify you.</p>
+
+  <h3 class="sub">What the tools store, and where</h3>
+  <p>The interactive tools save what you enter using your browser's local storage — a feature of your own browser, on your own device. That information is never transmitted to us or to anyone else. We cannot see it, cannot retrieve it, and cannot delete it for you.</p>
+  <p>To delete it yourself, use the delete or reset option inside the tool, or clear your browser's site data for this site.</p>
+
+  <h3 class="sub">Hosting</h3>
+  <p>This site is hosted by [HOSTING PROVIDER], which may automatically log standard technical information such as IP addresses and browser type as part of delivering web pages. We do not access, analyze, or receive reports from those logs. [CONFIRM: check your host's current data practices and link to their privacy policy.]</p>
+
+  <h3 class="sub">Children</h3>
+  <p>This site is not directed at children under 13 and does not knowingly collect information from anyone of any age. Because we collect nothing, there is nothing about a child to request, correct, or delete.</p>
+
+  <h3 class="sub">Your rights</h3>
+  <p>Privacy laws including the GDPR and various US state laws give people rights to access, correct, and delete personal information held about them. We hold none, so there is nothing to request. If you believe otherwise, contact us and we will look into it.</p>
+
+  <h3 class="sub">If this ever changes</h3>
+  <p>If a mailing list, analytics, comments, or any other data collection is ever added, this policy will be updated before it launches and the change will be noted here. [MAINTAIN THIS COMMITMENT — it is easy to break by accident when adding a tool or an embed.]</p>
+</section>
+
+<section class="legal" id="license">
+  <h2 class="sec">4. Copyright <em>and license</em></h2>
+  <p>Original content on this site is © [YEAR] [ENTITY OR NAME]. It is offered freely, and the license below makes that legally explicit rather than just an intention.</p>
+
+  <h3 class="sub">What you may do</h3>
+  <p>Written content and templates on this site are made available under a <strong>Creative Commons Attribution–NonCommercial 4.0 International licence (CC BY-NC 4.0)</strong>. You may copy, adapt, translate, print, and redistribute for non-commercial purposes, provided you credit In The Spectrums and link back where practical.</p>
+  <p>Families, schools, clinics, and nonprofit organizations are explicitly welcome to print, adapt, and hand out anything here. Put your own name on a template you have modified — that was always the point.</p>
+  <p>[CONFIRM WITH COUNSEL: whether NonCommercial is the right restriction, or whether a more permissive licence better serves the mission. Also confirm this doesn't conflict with any Maplewood or other commercial work.]</p>
+
+  <h3 class="sub">What is not covered</h3>
+  <ul>
+    <li>The In The Spectrums name and any logo or wordmark.</li>
+    <li>The Maplewood Project books, characters, illustrations, and related materials, which are separately owned and not covered by this licence.</li>
+    <li>Any third-party material quoted or referenced, which remains the property of its owner.</li>
+  </ul>
+
+  <h3 class="sub">If we have got something wrong</h3>
+  <p>If you believe material here infringes your copyright, or that something is factually incorrect, contact us and we will investigate and correct or remove it promptly. Corrections are welcome and are treated as a contribution, not a complaint.</p>
+</section>
+
+<section class="legal" id="listings">
+  <h2 class="sec">5. Practitioner <em>listings</em></h2>
+  <p>Where practitioners are named on this site, the following applies without exception.</p>
+  <ul>
+    <li><strong>No payment is involved.</strong> Nobody has paid or been paid to appear here, and no commission, referral fee, or other consideration is received.</li>
+    <li><strong>These are not endorsements.</strong> A listing means their work informed something written here, or that they agreed to be listed. It is not a recommendation for your situation.</li>
+    <li><strong>No verification has been performed.</strong> We do not verify licences, credentials, insurance, training, or standing with any board. Check those yourself before engaging anyone.</li>
+    <li><strong>No responsibility is accepted</strong> for any care, advice, or service provided by anyone listed here. Your relationship with them is entirely between you and them.</li>
+    <li><strong>Everyone listed has agreed in writing</strong> to appear, and may ask to be removed at any time.</li>
+  </ul>
+</section>
+
+<section class="legal" id="accessibility">
+  <h2 class="sec">6. <em>Accessibility</em></h2>
+  <p>This site is built with accessibility as a design goal: semantic structure, keyboard navigation, high contrast, generous type, print stylesheets on every page, and content written to be readable rather than impressive.</p>
+  <p>No formal audit against WCAG has been completed, and there will be gaps. Plain-language versions of the core pages are planned and do not yet exist.</p>
+  <p><strong>If any part of this site is difficult for you to use, please tell us.</strong> We will fix what we can, and where we cannot, we will provide the content another way — a plain document, a printed copy, or however is useful to you. Accessibility feedback is treated as a priority.</p>
+</section>
+
+<section class="legal" id="contact">
+  <h2 class="sec">7. <em>Contact</em></h2>
+  <p>For corrections, accessibility issues, copyright concerns, removal requests, or anything else about this site: [CONTACT EMAIL].</p>
+  <p>[CONFIRM WITH COUNSEL: whether a physical mailing address is required for your entity type and jurisdiction, and whether a DMCA designated agent registration is worthwhile.]</p>
+  <p>We cannot answer clinical questions, cannot advise on an individual child, and cannot provide technical support. Corrections are the most valuable thing anyone sends.</p>
+
+  <p class="rev">Last revised: [DATE] · Reviewed by: [ATTORNEY / DATE] · These terms apply to inthespectrums.com and its subdomains.</p>
+</section>
+
+<div class="closenote">
+  <b>Why this page exists</b>
+  <p>Not because a free resource site expects to be sued, but because being clear about what something is — and is not — is part of being trustworthy. You should know that nothing here is watching you, that nobody paid to be recommended, and that this cannot replace someone who has met your child.</p>
+  <p>If any of it is unclear, that is a fault worth telling us about.</p>
+</div>
+
+<footer>
+  <p><strong>Nothing on this site is medical, legal, financial, or educational advice.</strong> Verify anything that matters with the professionals who have actually met your child, and with your own state's current rules.</p>
+  <p>Free · No login · No ads · No sponsors · Nothing sold · Nothing collected.</p>
+</footer>
+
+</div>
+<script src="site-nav.js"></script>
+</body>
+</html>
