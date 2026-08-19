@@ -475,13 +475,16 @@ function renderDoc(){
     new Date().toLocaleDateString(undefined,{month:"long",day:"numeric",year:"numeric"})+
     (n>=9999?"":" \u00b7 last "+n+" days")+'</p>';
 
-  if(picked.cover&&$("covernote").value)h+='<p>'+nl($("covernote").value)+'</p>';
+  var info=[];
   if(picked.about){
-    h+='<h2>Who this is about</h2><p>'+esc(p.name||"\u2014")+(p.dob?", "+esc(p.dob):"")+'.';
-    if(p.dx)h+=' '+esc(p.dx);
-    h+='</p>';
+    if(p.name)info.push(["Name",esc(p.name)]);
+    if(p.dob)info.push(["Age or date of birth",esc(p.dob)]);
+    if(p.dx)info.push(["Diagnoses or open questions",esc(p.dx)]);
   }
-  if(picked.emerg&&p.emerg)h+='<h2>Emergency information</h2><p>'+nl(p.emerg)+'</p>';
+  if(picked.cover&&$("covernote").value)info.push(["A note first",nl($("covernote").value)]);
+  if(info.length)h+='<div class="info"><dl>'+info.map(function(r){
+   return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>';}).join('')+'</dl></div>';
+  if(picked.emerg&&p.emerg)h+='<h2 class="alert">Emergency information</h2><p><b>'+nl(p.emerg)+'</b></p>';
 
   if(picked.helps){
     var hp=tally("help",ds);
@@ -547,7 +550,7 @@ function renderDoc(){
 
   if(picked.meds){
     var md=MD(), act=md.items.filter(function(x){return x.status!=="stopped";});
-    if(md.allergies)h+='<h2>Allergies and reactions</h2><p><b>'+nl(md.allergies)+'</b></p>';
+    if(md.allergies)h+='<h2 class="alert">Allergies and reactions</h2><p><b>'+nl(md.allergies)+'</b></p>';
     if(act.length){
       h+='<h2>Medication and supplements</h2><table><tr><th>Name</th><th>Dose</th><th>When</th><th>For</th></tr>';
       act.forEach(function(x){h+='<tr><td>'+esc(x.name)+'</td><td>'+esc(x.dose||"\u2014")+'</td><td>'+
@@ -566,7 +569,7 @@ function renderDoc(){
   }
   if(picked.food){
     var fd=FD();
-    if(fd.allerg)h+='<h2>Food allergies and must-avoids</h2><p><b>'+nl(fd.allerg)+'</b></p>';
+    if(fd.allerg)h+='<h2 class="alert">Food allergies and must-avoids</h2><p><b>'+nl(fd.allerg)+'</b></p>';
     if(fd.rules)h+='<h2>How mealtimes work</h2><p>'+nl(fd.rules)+'</p>';
     var acc=fd.items.filter(function(x){return x.status==="safe"||x.status==="sometimes";});
     if(acc.length){h+='<h2>Foods that are accepted</h2><ul>';

@@ -763,9 +763,14 @@ function renderDoc(){
   var h='<h1>'+esc(p.name||"Symptom summary")+'</h1><p class="sub">'+
     (n>=9999?"Full record":"Last "+n+" days")+
     (ds.length?" · "+shortd(ds[ds.length-1])+" to "+shortd(ds[0]):"")+'</p>';
-  if(p.dob||p.dx)h+='<p>'+(p.dob?esc(p.dob)+". ":"")+(p.dx?esc(p.dx):"")+'</p>';
-  h+='<p>Kept by a parent at home, exception-based: entries were made on days when something stood out. '+
-     'There are <b>'+ds.length+'</b> days with entries in this range.</p>';
+  var info=[];
+  if(p.name)info.push(["Name",esc(p.name)]);
+  if(p.dob)info.push(["Age or date of birth",esc(p.dob)]);
+  if(p.dx)info.push(["Diagnoses or open questions",esc(p.dx)]);
+  info.push(["How this was kept","Exception-based \u2014 entries were made on days when something stood out. "+
+   ds.length+" days have entries in this range."]);
+  h+='<div class="info"><dl>'+info.map(function(r){
+   return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>';}).join('')+'</dl></div>';
 
   var counts={};
   es.forEach(function(e){var k=e.cat+"||"+e.sym;

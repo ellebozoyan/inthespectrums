@@ -258,11 +258,23 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
           <div class="fld" style="flex:2 1 200px"><label for="mname">Name</label>
             <input type="text" id="mname" placeholder="e.g. Melatonin, or the brand you actually use"></div>
           <div class="fld" style="flex:1 1 130px"><label for="mdose">Dose</label>
-            <input type="text" id="mdose" placeholder="e.g. 3 mg"></div>
+            <input type="text" id="mdose" placeholder="e.g. 3 mg, or 5 mL"></div>
+          <div class="fld" style="flex:1 1 150px"><label for="mbrand">Brand or maker <span class="hint">Matters most for supplements.</span></label>
+            <input type="text" id="mbrand" list="brandlist" placeholder="e.g. the maker on the bottle">
+            <datalist id="brandlist"></datalist></div>
         </div>
         <div class="row">
           <div class="fld"><label for="mform">Form</label>
             <select id="mform"><option>Tablet</option><option>Capsule</option><option>Liquid</option><option>Chewable</option><option>Powder</option><option>Patch</option><option>Cream or ointment</option><option>Inhaler</option><option>Injection</option><option>Via tube</option><option>Other</option></select></div>
+          <div class="fld"><label for="mroute">Route <span class="hint">How it actually goes in.</span></label>
+            <select id="mroute"><option>By mouth</option><option>Oral syringe</option><option>Chewed</option>
+              <option>Dissolved in liquid</option><option>Via G-tube</option><option>Via J-tube</option>
+              <option>On the skin</option><option>Inhaled</option><option>In the eye</option><option>In the ear</option>
+              <option>Rectal</option><option>Injection</option><option>Other</option></select></div>
+          <div class="fld"><label for="mfreq">How often</label>
+            <select id="mfreq"><option>Once daily</option><option>Twice daily</option><option>Three times daily</option>
+              <option>Four times daily</option><option>Every other day</option><option>Weekly</option>
+              <option>As needed</option><option>Other</option></select></div>
           <div class="fld"><label for="mkind">Type</label>
             <select id="mkind"><option value="rx">Prescription</option><option value="otc">Over the counter</option><option value="supp">Supplement</option></select></div>
           <div class="fld"><label for="mstatus">Status</label>
@@ -271,7 +283,11 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
         <div class="fld"><label>When is it given?<span class="hint">Tick every time it applies. Leave blank for as-needed.</span></label>
           <div class="chips" id="whenchips"></div></div>
         <div class="row">
-          <div class="fld"><label for="mwhat">What it's for <span class="hint">Optional, and useful to whoever reads this.</span></label>
+          <div class="fld"><label for="mtiming">Timing, precisely <span class="hint">The detail a time-of-day block cannot hold.</span></label>
+          <input type="text" id="mtiming" placeholder="e.g. empty stomach, 30 minutes before any other medication or food"></div>
+        <div class="fld"><label>Special handling</label>
+          <div class="chips" id="handlechips"></div></div>
+        <div class="fld"><label for="mwhat">What it's for <span class="hint">Optional, and useful to whoever reads this.</span></label>
             <input type="text" id="mwhat" placeholder="e.g. sleep onset"></div>
           <div class="fld"><label for="mwho">Prescribed by</label>
             <input type="text" id="mwho" placeholder="e.g. Dr Patel, neurology"></div>
@@ -286,6 +302,8 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
         <h2>Allergies and reactions</h2>
         <p class="fnote">Prints at the top of the list, in red. This is the line people read first.</p>
         <div class="fld"><textarea id="allergies" placeholder="e.g. Amoxicillin — rash and swelling, 2023. Ashwagandha — heart racing, stopped."></textarea></div>
+        <div class="fld"><label for="delivery">How everything is delivered <span class="hint">The paragraph a hospital or a new nurse reads first. Applies to all of it.</span></label>
+          <textarea id="delivery" style="min-height:88px" placeholder="e.g. Everything goes in by oral syringe — cannot swallow pills. Capsules are opened and the contents mixed into the syringe with a nutrition drink or juice. Softgels are pierced. Tablets crushed as needed and mixed the same way. Three items are compounded at the local pharmacy."></textarea></div>
         <div class="fld"><label for="pharm">Pharmacy and prescriber notes</label>
           <textarea id="pharm" placeholder="e.g. Compounding pharmacy on Main St. Neurology handles all seizure medication changes."></textarea></div>
         <div class="btns"><button class="act" id="saveextra" type="button">Save</button></div>
@@ -389,13 +407,14 @@ var SLOTS=["On waking","Breakfast","Mid-morning","Lunch","After school","Dinner"
 function blankPerson(nm){return {name:nm||"",dob:"",dx:"",emerg:"",weight:"",
   tracker:{entries:[],days:{},custom:{},pre:[],help:[]},
   goals:{items:[],settings:DEFSET.slice(),instructions:""},
-  meds:{items:[],allergies:"",pharm:"",changes:[]}};}
+  meds:{items:[],allergies:"",pharm:"",delivery:"",changes:[]}};}
 function fix(d){
   Object.keys(d.people).forEach(function(k){var p=d.people[k];
     if(!p.tracker)p.tracker={entries:[],days:{},custom:{},pre:[],help:[]};
     if(!p.goals)p.goals={items:[],settings:DEFSET.slice(),instructions:""};
     if(!p.meds)p.meds={items:[],allergies:"",pharm:"",changes:[]};
     if(!p.meds.items)p.meds.items=[];if(!p.meds.changes)p.meds.changes=[];
+    if(p.meds.delivery==null)p.meds.delivery="";
     if(p.weight==null)p.weight="";});
   if(!d.people[d.current])d.current=Object.keys(d.people)[0];
   return d;}
@@ -413,6 +432,7 @@ function pad(n){return String(n).padStart(2,"0");}
 function today(){var d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
 function shortd(x){var a=x.split("-").map(Number);return new Date(a[0],a[1]-1,a[2]).toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});}
 var KINDW={rx:"Prescription",otc:"Over the counter",supp:"Supplement"};
+var HANDLE=["Do not crush","Compounded","Keep refrigerated","Protect from light","Shake well","With food","On an empty stomach","Separate from other medication","Taper — do not stop suddenly","Controlled substance"];
 var STATW={current:"Current",prn:"As needed",stopped:"Stopped"};
 
 var TABS=[{k:"list",n:"The list",note:"Everything taken, with the practical detail nobody else writes down."},
@@ -435,7 +455,13 @@ TABS.forEach(function(t){var b=document.createElement("button");
  $("tabs").appendChild(b);});
 $("tabnote").textContent=TABS[0].note;
 
-var picked=[];
+var picked=[],handling=[];
+function renderHandle(){var box=$("handlechips");box.innerHTML="";
+ HANDLE.forEach(function(hh){var b=document.createElement("button");
+  b.type="button";b.className="chip"+(handling.indexOf(hh)>=0?" on":"");b.textContent=hh;
+  b.addEventListener("click",function(){var i=handling.indexOf(hh);
+   if(i>=0)handling.splice(i,1);else handling.push(hh);renderHandle();});
+  box.appendChild(b);});}
 function renderWhen(){var box=$("whenchips");box.innerHTML="";
  SLOTS.forEach(function(sl){var b=document.createElement("button");
   b.type="button";b.className="chip"+(picked.indexOf(sl)>=0?" on":"");b.textContent=sl;
@@ -444,23 +470,27 @@ function renderWhen(){var box=$("whenchips");box.innerHTML="";
   box.appendChild(b);});}
 $("addmed").addEventListener("click",function(){
  var n=$("mname").value.trim();if(!n){alert("Give it a name first.");return;}
- M().items.push({id:uid(),name:n,dose:$("mdose").value.trim(),form:$("mform").value,
+ M().items.push({id:uid(),name:n,dose:$("mdose").value.trim(),brand:$("mbrand").value.trim(),
+  form:$("mform").value,route:$("mroute").value,freq:$("mfreq").value,
   kind:$("mkind").value,status:$("mstatus").value,when:picked.slice(),
+  timing:$("mtiming").value.trim(),handling:handling.slice(),
   what:$("mwhat").value.trim(),who:$("mwho").value.trim(),how:$("mhow").value.trim()});
- ["mname","mdose","mwhat","mhow"].forEach(function(id){$(id).value="";});
- picked=[];renderWhen();save();renderList();});
+ ["mname","mdose","mbrand","mtiming","mwhat","mhow"].forEach(function(id){$(id).value="";});
+ picked=[];handling=[];renderWhen();renderHandle();save();renderList();});
 $("clearmed").addEventListener("click",function(){
- ["mname","mdose","mwhat","mwho","mhow"].forEach(function(id){$(id).value="";});
- picked=[];renderWhen();});
+ ["mname","mdose","mbrand","mtiming","mwhat","mwho","mhow"].forEach(function(id){$(id).value="";});
+ picked=[];handling=[];renderWhen();renderHandle();});
 $("filt").addEventListener("change",renderList);
 ["allergies","pharm"].forEach(function(id){
  $(id).addEventListener("input",function(){M()[id==="allergies"?"allergies":"pharm"]=$(id).value;save();});});
 $("saveextra").addEventListener("click",function(){
- M().allergies=$("allergies").value;M().pharm=$("pharm").value;save();
+ M().allergies=$("allergies").value;M().pharm=$("pharm").value;M().delivery=$("delivery").value;save();
  $("saveextra").textContent="Saved";setTimeout(function(){$("saveextra").textContent="Save";},1400);});
 
 function renderList(){
  var f=$("filt").value,box=$("medlist");
+ var brands={};M().items.forEach(function(m){if(m.brand)brands[m.brand]=1;});
+ $("brandlist").innerHTML=Object.keys(brands).sort().map(function(b){return '<option value="'+esc(b)+'">';}).join("");
  var items=M().items.filter(function(m){
   if(f==="all")return true;
   if(f==="stopped")return m.status==="stopped";
@@ -472,9 +502,12 @@ function renderList(){
  items.forEach(function(m){
   var w=document.createElement("div");
   w.className="med"+(m.kind==="supp"?" supp":"")+(m.status==="stopped"?" stopped":"");
-  var h='<div class="mh"><span class="mn">'+esc(m.name)+'</span><span class="md">'+esc(m.dose||"")+'</span></div>'+
-   '<div class="mt">'+esc(m.form)+' \u00b7 '+KINDW[m.kind]+' \u00b7 '+STATW[m.status]+
+  var h='<div class="mh"><span class="mn">'+esc(m.name)+(m.brand?' <span style="font-size:.86rem;color:var(--ink-soft)">'+esc(m.brand)+'</span>':'')+
+   '</span><span class="md">'+esc(m.dose||"")+'</span></div>'+
+   '<div class="mt">'+esc(m.route||m.form)+' \u00b7 '+esc(m.freq||"")+' \u00b7 '+KINDW[m.kind]+' \u00b7 '+STATW[m.status]+
    (m.when&&m.when.length?' \u00b7 '+esc(m.when.join(", ")):'')+'</div>';
+  if(m.timing)h+='<div class="mx"><b>Timing</b>'+esc(m.timing)+'</div>';
+  if(m.handling&&m.handling.length)h+='<div class="mx" style="color:#8A2B20"><b>Handling</b>'+esc(m.handling.join(" \u00b7 "))+'</div>';
   if(m.what)h+='<div class="mx"><b>For</b>'+esc(m.what)+'</div>';
   if(m.how)h+='<div class="mx"><b>How it gets taken</b>'+nl(m.how)+'</div>';
   if(m.who)h+='<div class="mx"><b>Prescribed by</b>'+esc(m.who)+'</div>';
@@ -526,16 +559,34 @@ $("pview").addEventListener("change",renderDoc);
 $("printbtn").addEventListener("click",function(){window.print();});
 function renderDoc(){
  var v=$("pview").value,p=PERSON(),m=M();
- var h='<h1>'+esc(p.name||"Medication list")+'</h1><p class="sub">'+
-  (p.dob?esc(p.dob)+" \u00b7 ":"")+(p.weight?esc(p.weight)+" \u00b7 ":"")+
-  "Updated "+new Date().toLocaleDateString(undefined,{month:"long",day:"numeric",year:"numeric"})+'</p>';
- if(m.allergies)h+='<h2 style="color:#8A2B20">Allergies and reactions</h2><p><b>'+nl(m.allergies)+'</b></p>';
+ var h='<h1>'+esc(p.name||"Medication and supplement list")+'</h1><p class="sub">Updated '+
+  new Date().toLocaleDateString(undefined,{month:"long",day:"numeric",year:"numeric"})+'</p>';
+ var info=[];
+ if(p.name)info.push(["Name",esc(p.name)]);
+ if(p.dob)info.push(["Age or date of birth",esc(p.dob)]);
+ if(p.weight)info.push(["Weight",esc(p.weight)]);
+ if(m.delivery&&v!=="wallet")info.push(["Delivery route",nl(m.delivery)]);
+ if(info.length)h+='<div class="info"><dl>'+info.map(function(r){
+  return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>';}).join('')+'</dl></div>';
+ if(m.allergies)h+='<h2 class="alert">Allergies and reactions</h2><p><b>'+nl(m.allergies)+'</b></p>';
+
  var act=m.items.filter(function(x){return x.status==="current";});
  var prn=m.items.filter(function(x){return x.status==="prn";});
+ function tbl(list,title){
+  if(!list.length)return "";
+  var t='<h2>'+title+'</h2><table><tr><th>Name</th><th>Dose</th><th>Route</th><th>How often</th><th>Timing</th></tr>';
+  list.forEach(function(x){
+   t+='<tr><td>'+esc(x.name)+(x.brand?'<br><i>'+esc(x.brand)+'</i>':'')+'</td>'+
+      '<td>'+esc(x.dose||"\u2014")+'</td>'+
+      '<td>'+esc(x.route||x.form||"\u2014")+'</td>'+
+      '<td>'+esc(x.freq||(x.status==="prn"?"As needed":"\u2014"))+'</td>'+
+      '<td>'+esc(x.timing||(x.when||[]).join(", ")||"\u2014")+'</td></tr>';});
+  return t+'</table>';}
+
  if(v==="wallet"){
   h+='<h2>Currently taking</h2><ul>';
   act.forEach(function(x){h+='<li>'+esc(x.name)+(x.dose?' '+esc(x.dose):'')+
-   ((x.when||[]).length?' \u2014 '+esc(x.when.join(", ")):'')+'</li>';});
+   (x.freq?' \u2014 '+esc(x.freq):'')+'</li>';});
   h+='</ul>';
   if(prn.length){h+='<h2>As needed</h2><ul>';
    prn.forEach(function(x){h+='<li>'+esc(x.name)+(x.dose?' '+esc(x.dose):'')+(x.what?' \u2014 for '+esc(x.what):'')+'</li>';});
@@ -546,22 +597,28 @@ function renderDoc(){
    if(!l.length)return;
    h+='<h2>'+esc(sl)+'</h2><ul>';
    l.forEach(function(x){h+='<li>'+esc(x.name)+(x.dose?' \u2014 '+esc(x.dose):'')+
+    (x.route?' \u2014 '+esc(x.route):'')+
+    (x.timing?'<br><i>'+esc(x.timing)+'</i>':'')+
     (x.how?'<br><i>'+esc(x.how)+'</i>':'')+'</li>';});
    h+='</ul>';});
   if(prn.length){h+='<h2>As needed</h2><ul>';
    prn.forEach(function(x){h+='<li>'+esc(x.name)+(x.dose?' '+esc(x.dose):'')+(x.what?' \u2014 '+esc(x.what):'')+
     (x.how?'<br><i>'+esc(x.how)+'</i>':'')+'</li>';});h+='</ul>';}
  } else {
-  h+='<h2>Currently taking</h2><table><tr><th>Name</th><th>Dose</th><th>Form</th><th>When</th><th>For</th></tr>';
-  act.forEach(function(x){h+='<tr><td>'+esc(x.name)+'</td><td>'+esc(x.dose||"\u2014")+'</td><td>'+esc(x.form)+
-   '</td><td>'+esc((x.when||[]).join(", ")||"\u2014")+'</td><td>'+esc(x.what||"\u2014")+'</td></tr>';});
-  h+='</table>';
-  if(prn.length){h+='<h2>As needed</h2><table><tr><th>Name</th><th>Dose</th><th>Given when</th></tr>';
-   prn.forEach(function(x){h+='<tr><td>'+esc(x.name)+'</td><td>'+esc(x.dose||"\u2014")+'</td><td>'+esc(x.what||"\u2014")+'</td></tr>';});
-   h+='</table>';}
+  /* Prescriptions and supplements read better apart, as most families keep them. */
+  h+=tbl(act.filter(function(x){return x.kind==="rx";}),"Prescription medications");
+  h+=tbl(act.filter(function(x){return x.kind==="otc";}),"Over the counter");
+  h+=tbl(act.filter(function(x){return x.kind==="supp";}),"Supplements and herbals, currently active");
+  if(prn.length)h+=tbl(prn,"As needed");
+
+  var handled=m.items.filter(function(x){return x.status!=="stopped"&&x.handling&&x.handling.length;});
+  if(handled.length){h+='<h2>Special handling</h2><ul>';
+   handled.forEach(function(x){h+='<li><b>'+esc(x.name)+'</b> \u2014 '+esc(x.handling.join(", "))+'</li>';});h+='</ul>';}
+
   var withHow=m.items.filter(function(x){return x.status!=="stopped"&&x.how;});
   if(withHow.length){h+='<h2>How each one actually gets taken</h2><ul>';
    withHow.forEach(function(x){h+='<li><b>'+esc(x.name)+'</b> \u2014 '+nl(x.how)+'</li>';});h+='</ul>';}
+
   var ch=m.changes.slice().sort(function(a,b){return a.date<b.date?-1:1;}).slice(-12);
   if(ch.length){h+='<h2>Recent changes</h2><ul>';
    ch.forEach(function(x){h+='<li><b>'+shortd(x.date)+'</b> \u2014 '+esc(x.text)+(x.why?' ('+esc(x.why)+')':'')+'</li>';});h+='</ul>';}
@@ -571,9 +628,9 @@ function renderDoc(){
  $("doc").innerHTML=h;}
 
 $("csvbtn").addEventListener("click",function(){
- var rows=[["Person","Name","Dose","Form","Type","Status","When","For","Prescribed by","How it gets taken"]];
- M().items.forEach(function(x){rows.push([PERSON().name,x.name,x.dose,x.form,KINDW[x.kind],STATW[x.status],
-  (x.when||[]).join("; "),x.what,x.who,x.how]);});
+ var rows=[["Person","Name","Brand","Dose","Route","How often","Form","Type","Status","When","Timing","Handling","For","Prescribed by","How it gets taken"]];
+ M().items.forEach(function(x){rows.push([PERSON().name,x.name,x.brand||"",x.dose,x.route||"",x.freq||"",x.form,KINDW[x.kind],STATW[x.status],
+  (x.when||[]).join("; "),x.timing||"",(x.handling||[]).join("; "),x.what,x.who,x.how]);});
  rows.push([]);rows.push(["Changes"]);
  M().changes.forEach(function(x){rows.push([PERSON().name,x.date,x.text,x.why]);});
  var csv=rows.map(function(r){return r.map(function(v){return '"'+String(v==null?"":v).replace(/"/g,'""')+'"';}).join(",");}).join("\r\n");
@@ -603,7 +660,8 @@ $("savesetup").addEventListener("click",function(){var p=PERSON();
  setTimeout(function(){$("savesetup").textContent="Save";},1400);});
 
 function boot(){$("allergies").value=M().allergies||"";$("pharm").value=M().pharm||"";
- renderWhen();renderList();renderSetup();}
+ $("delivery").value=M().delivery||"";
+ renderWhen();renderHandle();renderList();renderSetup();}
 boot();
 </script>
 

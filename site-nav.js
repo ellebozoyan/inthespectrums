@@ -96,6 +96,7 @@
     'body{padding-top:0}',
 
     /* header */
+    '.nv-menu{justify-content:center}',
     '.nv-bar{position:sticky;top:0;z-index:900;background:rgba(252,252,250,.97);',
     'backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid var(--nv-line)}',
     '.nv-in{max-width:1040px;margin:0 auto;padding:0 22px;min-height:56px;display:flex;',
@@ -236,21 +237,13 @@
      --------------------------------------------------------------- */
   /* Short labels for the header strip. The long label stays in the drawer and
      the breadcrumb; these only have to survive being read sideways at speed. */
-  var BARLABEL = {
-    'Start here':                    'Start here',
-    'School and services':           'School',
-    'Money, paperwork and tracking': 'Money & paperwork',
-    'Safety and health':             'Safety',
-    'Therapies':                     'Therapies',
-    'Learning, attention and mood':  'Learning & mood',
-    'Behavior':                      'Behavior',
-    'The child':                     'The child',
-    'About':                         'About'
-  };
+  /* The bar shows each section's full name. Shortening them dropped words that
+     were doing real work — services, tracking, attention, health — so the bar
+     wraps to a second row instead, centred. */
 
   var qHtml = GROUPS.map(function (g, i) {
     var isHere = g.items.some(function (it) { return it[0] === here; });
-    var label = esc(BARLABEL[g.label] || g.label);
+    var label = esc(g.label);
 
     /* A section with one page is a link, not a menu. Nothing to choose between. */
     if (g.items.length === 1) {
@@ -1038,9 +1031,21 @@
     /* contents box additions */
     '.nv-toc .meta{font-family:var(--nv-sans);font-size:11px;letter-spacing:.05em;color:var(--nv-soft);',
     'margin:9px 0 0;display:flex;gap:14px;flex-wrap:wrap;align-items:center}',
-    '.nv-outline{font-family:var(--nv-sans);font-size:11px;letter-spacing:.05em;background:none;',
-    'border:1px solid var(--nv-line);border-radius:2px;padding:5px 10px;cursor:pointer;color:var(--nv-forest);',
-    'font-weight:700;text-transform:uppercase}',
+    /* Both reading modes stay visible; the inactive one fades but is still
+       readable, so it is obvious what the other option does. */
+    '.nv-outline{font-family:var(--nv-sans);background:none;border:1px solid var(--nv-line);',
+    'border-radius:2px;padding:8px 13px;cursor:pointer;display:inline-flex;align-items:center;',
+    'gap:10px;text-align:left;line-height:1.25;flex-wrap:wrap}',
+    '.nv-outline b{font-size:11.5px;letter-spacing:.05em;font-weight:700;color:var(--nv-forest);',
+    'text-transform:uppercase}',
+    '.nv-outline span{font-family:var(--nv-serif);font-size:11.5px;color:var(--nv-soft);',
+    'font-style:italic;text-transform:none;letter-spacing:0}',
+    '.nv-outline i{display:block;width:1px;height:22px;background:var(--nv-line);margin:0 4px}',
+    '.nv-outline b.alt,.nv-outline span.alt{opacity:.4}',
+    '.nv-outline.nv-showing b,.nv-outline.nv-showing span{opacity:.4}',
+    '.nv-outline.nv-showing b.alt,.nv-outline.nv-showing span.alt{opacity:1}',
+    '@media(max-width:600px){.nv-outline i{display:none}.nv-outline{gap:4px}',
+    '.nv-outline span{width:100%}}',
     '.nv-outline:hover{border-color:var(--nv-rust);color:var(--nv-rust)}',
     '.nv-outline:focus-visible{outline:2px solid var(--nv-rust);outline-offset:2px}',
     '.nv-toc a.on{color:var(--nv-rust);font-weight:600}',
@@ -1075,7 +1080,8 @@
     var btn = document.createElement('button');
     btn.className = 'nv-outline';
     btn.type = 'button';
-    btn.textContent = 'Skim it';
+    btn.innerHTML = '<b>Skim it</b><span>section titles and a one-line summary</span>' +
+      '<i></i><b class="alt">Show everything</b><span class="alt">the full page</span>';
     btn.setAttribute('aria-pressed', 'false');
     meta.appendChild(btn);
     toc.querySelector('div').appendChild(meta);
@@ -1133,7 +1139,7 @@
         var sec = h.closest('section');
         if (sec) sec.classList.toggle('nv-shut', collapsed);
       });
-      btn.textContent = collapsed ? 'Show everything' : 'Skim it';
+      btn.classList.toggle('nv-showing', collapsed);
       btn.setAttribute('aria-pressed', String(collapsed));
       if (collapsed) window.scrollTo({ top: toc.offsetTop - 70, behavior: 'smooth' });
     });
@@ -2281,4 +2287,94 @@
   if (!document.querySelector('.nv-searchbtn')) {
     document.addEventListener('DOMContentLoaded', addButton);
   }
+})();
+
+/* ===================================================================
+   18. PRINTED DOCUMENTS — one house style for everything the tools
+   produce: medication lists, goals, food lists, share packets, logs.
+
+   Injected from here rather than from each tool, so the eight or nine
+   printable outputs cannot drift apart. These rules load after each
+   page's own stylesheet, so they win without needing !important.
+   =================================================================== */
+(function () {
+  'use strict';
+  var ink = '#1B3049', rule = '#C9D2DC', soft = '#5A6B7C';
+  var css = [
+    /* the page itself */
+    '.doc{background:#fff;border:1px solid #DDE3E9;border-radius:2px;',
+    'padding:44px 46px 38px;font-family:Georgia,"Times New Roman",serif;',
+    'font-size:14.5px;line-height:1.58;color:#20303F;max-width:none}',
+
+    /* title block */
+    '.doc h1{font-family:var(--nv-sans);font-size:1.42rem;font-weight:700;letter-spacing:-.01em;',
+    'text-align:center;color:' + ink + ';margin:0 0 6px;line-height:1.25}',
+    '.doc .sub{text-align:center;font-family:var(--nv-sans);font-size:10.5px;letter-spacing:.16em;',
+    'text-transform:uppercase;color:' + soft + ';margin:0 0 26px;padding-bottom:0;border:none;font-weight:600}',
+
+    /* section headings: coloured, with a rule the width of the page */
+    '.doc h2{font-family:var(--nv-sans);font-size:13.5px;font-weight:700;letter-spacing:.02em;',
+    'text-transform:none;color:' + ink + ';margin:30px 0 12px;padding-bottom:7px;',
+    'border-bottom:2px solid ' + rule + '}',
+    '.doc h2:first-of-type{margin-top:22px}',
+
+    /* body */
+    '.doc p{margin:0 0 12px}',
+    '.doc ul,.doc ol{margin:0 0 14px;padding-left:22px}',
+    '.doc li{margin-bottom:7px;padding-left:2px}',
+    '.doc li::marker{color:' + soft + '}',
+    '.doc b,.doc strong{color:' + ink + '}',
+    '.doc i,.doc em{color:' + soft + '}',
+
+    /* tables: solid header, zebra rows, room to breathe */
+    '.doc table{width:100%;border-collapse:collapse;font-size:12.5px;margin:0 0 18px;',
+    'font-family:var(--nv-sans)}',
+    '.doc table tr:first-child th,.doc thead th{background:' + ink + ';color:#fff;',
+    'font-size:10px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;',
+    'padding:9px 11px;text-align:left;border:none}',
+    '.doc td{padding:9px 11px;border:none;border-bottom:1px solid #E6EBF0;vertical-align:top;',
+    'line-height:1.42}',
+    '.doc tbody tr:nth-child(even) td,.doc table tr:nth-child(odd) td{background:#F5F8FA}',
+    '.doc td i{font-size:11.5px;color:' + soft + '}',
+    '.doc td b{font-weight:700}',
+
+    /* the closing note */
+    '.doc .foot{border-top:1px solid ' + rule + ';margin-top:30px;padding-top:13px;',
+    'font-size:11px;line-height:1.55;color:' + soft + ';font-family:var(--nv-sans)}',
+
+    /* label-and-value block under the title */
+    '.doc .info{margin:0 0 22px;padding:14px 18px;background:#F5F8FA;border-left:3px solid ' + ink + '}',
+    '.doc .info dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:5px 16px}',
+    '.doc .info dt{font-family:var(--nv-sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;',
+    'color:' + soft + ';font-weight:700;padding-top:2px}',
+    '.doc .info dd{margin:0;font-size:13.5px}',
+    '@media(max-width:520px){.doc .info dl{grid-template-columns:1fr;gap:2px 0}',
+    '.doc .info dt{margin-top:7px}}',
+
+    /* a red band for anything that must be read first */
+    '.doc h2.alert{color:#8A2B20;border-bottom-color:#E3C4BE}',
+
+    '@media(max-width:640px){.doc{padding:26px 20px}.doc table{font-size:11.5px}',
+    '.doc td,.doc table tr:first-child th{padding:7px 8px}}',
+
+    /* printing */
+    '@media print{',
+    '@page{margin:16mm 14mm}',
+    '.doc{border:none;padding:0;font-size:10.5pt;line-height:1.45}',
+    '.doc h1{font-size:16pt}',
+    '.doc h2{font-size:11pt;margin:18pt 0 7pt;page-break-after:avoid;break-after:avoid}',
+    '.doc table{page-break-inside:auto;font-size:9pt}',
+    '.doc tr{page-break-inside:avoid;break-inside:avoid}',
+    '.doc thead{display:table-header-group}',
+    '.doc table tr:first-child th,.doc thead th{background:' + ink + ' !important;color:#fff !important;',
+    '-webkit-print-color-adjust:exact;print-color-adjust:exact}',
+    '.doc tbody tr:nth-child(even) td,.doc table tr:nth-child(odd) td{background:#F2F5F8 !important;',
+    '-webkit-print-color-adjust:exact;print-color-adjust:exact}',
+    '.doc li,.doc p{orphans:2;widows:2}',
+    '.doc .foot{page-break-inside:avoid}',
+    '}'
+  ].join('');
+  var st = document.createElement('style');
+  st.textContent = css;
+  document.head.appendChild(st);
 })();

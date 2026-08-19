@@ -377,6 +377,11 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
           <input type="file" id="rphoto" accept="image/*">
           <div class="photorow" id="rpreview"></div>
           <p class="photonote">Photos are shrunk right down and kept on this device only. Around thirty will fit comfortably.</p></div>
+        <div class="fld"><label for="ralert">Remind me <span class="hint">Goes into the calendar file, so the reminder happens on whichever devices subscribe to it.</span></label>
+          <select id="ralert"><option value="">No reminder</option><option value="0">At the time</option>
+            <option value="5">5 minutes before</option><option value="10">10 minutes before</option>
+            <option value="15">15 minutes before</option><option value="30">30 minutes before</option>
+            <option value="60">An hour before</option></select></div>
         <div class="fld"><label><input type="checkbox" id="rshare" style="width:auto;margin-right:8px"> Show this in the simple view</label></div>
         <div class="btns"><button class="act" id="addrep" type="button">Add</button></div>
       </div>
@@ -399,6 +404,11 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
         <div class="fld"><label for="aphoto">A photo <span class="hint">The clinician’s face, the building, the waiting room.</span></label>
           <input type="file" id="aphoto" accept="image/*">
           <div class="photorow" id="apreview"></div></div>
+        <div class="fld"><label for="aalert">Remind me</label>
+          <select id="aalert"><option value="">No reminder</option><option value="0">At the time</option>
+            <option value="15">15 minutes before</option><option value="30">30 minutes before</option>
+            <option value="60">An hour before</option><option value="120">Two hours before</option>
+            <option value="1440">The day before</option></select></div>
         <div class="fld"><label><input type="checkbox" id="ashare" style="width:auto;margin-right:8px"> Show this in the simple view</label></div>
         <div class="btns"><button class="act" id="addappt" type="button">Add</button></div>
       </div>
@@ -424,11 +434,15 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
     <h2>Put it on everyone's phones</h2>
     <p class="fnote">Download a calendar file and import it into Apple Calendar or Google Calendar. From there it syncs to every device and can be shared with whoever you choose.</p>
     <div class="row">
+      <div class="fld" style="max-width:280px"><label for="icswho">Whose calendar</label>
+        <select id="icswho"></select></div>
       <div class="fld" style="max-width:270px"><label for="icswhat">Include</label>
         <select id="icswhat"><option value="all">Everything</option>
           <option value="appts">Appointments only</option>
-          <option value="shared">Only what is marked shareable</option>
-          <option value="meds">Medication times only</option></select></div>
+          <option value="routines">Routines and therapy only</option>
+          <option value="meds">Medication times only</option>
+          <option value="meals">Meals only</option>
+          <option value="shared">Only what is marked shareable</option></select></div>
       <div class="fld" style="max-width:190px"><label for="icsweeks">Repeat for</label>
         <select id="icsweeks"><option value="8">8 weeks</option><option value="26" selected>6 months</option><option value="52">A year</option></select></div>
     </div>
@@ -454,6 +468,28 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
     <p class="fnote">Re-download and re-import when things change. Deleting the old imported calendar first avoids duplicates.</p>
   </div>
 
+  <div class="card noprint">
+    <h2>Give each adult only what they need</h2>
+    <p class="fnote">The reason to export several small calendars rather than one large one.</p>
+    <p>If somebody's phone buzzes for every dose of medication they are not there to give, they will silence the whole calendar within a week — and then miss the appointment that actually needed them. <strong>The fix is not fewer reminders overall. It is different reminders for different people.</strong></p>
+    <p>So export more than once, changing the <em>Include</em> setting each time, and import each file as its own named calendar. Everyone then subscribes only to the ones that concern them, and can mute or unsubscribe from the rest without losing anything else.</p>
+    <div class="domains" style="margin-top:14px">
+      <div class="dom"><h3>A parent at work</h3>
+        <p>Appointments only, reminded the day before and again an hour ahead. No medication, no meals, no routines.</p>
+        <p class="look"><b>Export</b>Appointments only</p></div>
+      <div class="dom"><h3>Whoever is on duty at home</h3>
+        <p>Everything, with medication reminded at the time and routines a few minutes ahead.</p>
+        <p class="look"><b>Export</b>Everything</p></div>
+      <div class="dom"><h3>A school, aide or respite worker</h3>
+        <p>Only what is marked shareable, so nothing private travels with it.</p>
+        <p class="look"><b>Export</b>Only what is marked shareable</p></div>
+      <div class="dom"><h3>The person themselves</h3>
+        <p>Their own meals and routines on their own device, without appointment reasons or medication detail.</p>
+        <p class="look"><b>Export</b>Meals only, or shareable only</p></div>
+    </div>
+    <p class="fnote" style="margin-top:12px">Reminders travel inside the file, so each calendar carries its own. Somebody who has muted the medication calendar still gets appointment alerts — which is the whole point.</p>
+  </div>
+
   <div class="doc" id="doc"></div>
 </section>
 
@@ -462,6 +498,11 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
     <h2>Colours and what each person shows</h2>
     <p class="fnote">Give everyone a colour, and decide what of theirs appears on a shared screen. Medication and meals come from the other tools automatically — but only if the person is happy for them to be visible here.</p>
     <div id="peoplesettings"></div>
+    <div class="fld" style="max-width:290px;margin-top:16px"><label for="medalert">Reminder for medication times</label>
+      <select id="medalert"><option value="">No reminder</option><option value="0">At the time</option>
+        <option value="5">5 minutes before</option><option value="10">10 minutes before</option>
+        <option value="15">15 minutes before</option></select></div>
+    <p class="fnote">Applies to every medication drawn from the medication list.</p>
   </div>
   <div class="snote">
     <p><strong>Ask before you show it.</strong> A person not wanting their medication on the kitchen wall is a completely reasonable position, and honouring it costs you nothing. If they are old enough to have a view, the setting below belongs to them rather than to you.</p>
@@ -533,6 +574,7 @@ function fix(d){Object.keys(d.people).forEach(function(k){var p=d.people[k];
  if(!p.cal.repeats)p.cal.repeats=[];if(!p.cal.appts)p.cal.appts=[];
  if(!p.cal.ticks)p.cal.ticks={};
  if(!p.show)p.show={meds:true,meals:true,appts:true,routines:true};
+ if(p.medAlert==null)p.medAlert="";
  if(!p.plan)p.plan={weeks:{},goal:1};});
  var PAL=["#9C4A21","#2E5F4E","#46508C","#6B4A78","#A8641C","#1D6A82","#8A2B20","#4A5C2E"];
  Object.keys(d.people).forEach(function(k,i){if(!d.people[k].color)d.people[k].color=PAL[i%PAL.length];});
@@ -574,7 +616,7 @@ TABS.forEach(function(t){var b=document.createElement("button");
   $("tabnote").textContent=t.note;
   if(t.k==="today")drawWall();
   if(t.k==="build"){renderReps();renderAppts();}
-  if(t.k==="share")renderWeek();
+  if(t.k==="share"){fillIcsWho();renderWeek();}
   if(t.k==="people")renderPeople();
   if(t.k==="setup")renderSetup();
   window.scrollTo(0,0);});
@@ -594,7 +636,7 @@ $("addrep").addEventListener("click",function(){
  if(!pickedDays.length){alert("Pick at least one day.");return;}
  C().repeats.push({id:uid(),name:n,time:$("rtime").value,days:pickedDays.slice(),
   kind:$("rkind").value,who:$("rwho").value.trim(),note:$("rnote").value.trim(),
-  photo:pendingR,share:$("rshare").checked});
+  photo:pendingR,alert:$("ralert").value,share:$("rshare").checked});
  ["rname","rwho","rnote"].forEach(function(id){$(id).value="";});
  pendingR=null;$("rpreview").innerHTML="";if($("rphoto"))$("rphoto").value="";
  $("rshare").checked=false;save();renderReps();drawWall();});
@@ -604,7 +646,7 @@ $("addappt").addEventListener("click",function(){
  var n=$("aname").value.trim();if(!n){alert("Name it first.");return;}
  C().appts.push({id:uid(),name:n,date:$("adate").value,time:$("atime").value,
   where:$("awhere").value.trim(),who:$("awho").value.trim(),note:$("anote").value.trim(),
-  photo:pendingA,share:$("ashare").checked});
+  photo:pendingA,alert:$("aalert").value,share:$("ashare").checked});
  ["aname","awhere","awho","anote"].forEach(function(id){$(id).value="";});
  pendingA=null;$("apreview").innerHTML="";if($("aphoto"))$("aphoto").value="";
  $("ashare").checked=false;save();renderAppts();drawWall();});
@@ -770,7 +812,17 @@ function renderWhoBar(){
   box.appendChild(b2);}}
 
 var PALETTE=["#9C4A21","#2E5F4E","#46508C","#6B4A78","#A8641C","#1D6A82","#8A2B20","#4A5C2E"];
+function fillIcsWho(){
+ var sel=$("icswho");if(!sel)return;
+ sel.innerHTML=Object.keys(DB.people).map(function(k){
+  return '<option value="'+k+'">'+esc(nameOf(k))+'</option>';}).join("")+
+  '<option value="__all">Everyone together</option>';
+ sel.value=DB.current;}
+
 function renderPeople(){
+ var ma=$("medalert");
+ if(ma){ma.value=PERSON().medAlert==null?"":PERSON().medAlert;
+  ma.onchange=function(){PERSON().medAlert=ma.value;save();};}
  var box=$("peoplesettings");box.innerHTML="";
  Object.keys(DB.people).forEach(function(k){
   var P=DB.people[k];P.show=P.show||{meds:true,meals:true,appts:true,routines:true};
@@ -880,33 +932,67 @@ function icsTime(dateStr,t){var a=dateStr.split("-");var b=(t||"09:00").split(":
 function icsEsc(s){return String(s||"").replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\n/g,"\\n");}
 $("icsbtn").addEventListener("click",function(){
  var what=$("icswhat").value,weeks=Number($("icsweeks").value);
- var nm=PERSON().name||"Family";
+ var whoKey=$("icswho").value;
+ var keys=(whoKey==="__all")?Object.keys(DB.people):[whoKey];
+ var label=(whoKey==="__all")?"Family":nameOf(whoKey);
+ var kindLabel={all:"schedule",appts:"appointments",routines:"routines",
+  meds:"medication",meals:"meals",shared:"shared"}[what]||"schedule";
  var out=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//In The Spectrums//Family Calendar//EN",
-  "CALSCALE:GREGORIAN","X-WR-CALNAME:"+icsEsc(nm+" \u2014 schedule")];
+  "CALSCALE:GREGORIAN","X-WR-CALNAME:"+icsEsc(label+" \u2014 "+kindLabel)];
  var until=new Date();until.setDate(until.getDate()+weeks*7);
  var untilS=until.getFullYear()+pad(until.getMonth()+1)+pad(until.getDate())+"T235900Z";
- var start=today();
- function ev(uidv,dt,tm,title,desc,rrule){
+ var start=today(),n=0;
+
+ function ev(uidv,dt,tm,title,desc,rrule,alert){
   out.push("BEGIN:VEVENT","UID:"+uidv+"@inthespectrums","DTSTAMP:"+icsTime(today(),"09:00")+"Z",
    "DTSTART:"+icsTime(dt,tm),"DURATION:PT30M","SUMMARY:"+icsEsc(title));
   if(desc)out.push("DESCRIPTION:"+icsEsc(desc));
   if(rrule)out.push("RRULE:"+rrule);
-  out.push("END:VEVENT");}
- if(what==="all"||what==="shared"){
-  C().repeats.forEach(function(r){
-   if(what==="shared"&&!r.share)return;
-   var byday=r.days.map(function(d){return ["SU","MO","TU","WE","TH","FR","SA"][d];}).join(",");
-   ev(r.id,start,r.time||"09:00",r.name,r.note,"FREQ=WEEKLY;BYDAY="+byday+";UNTIL="+untilS);});}
- if(what==="all"||what==="appts"||what==="shared"){
-  C().appts.forEach(function(a){
-   if(what==="shared"&&!a.share)return;
-   ev(a.id,a.date,a.time||"09:00",a.name,[a.where,a.who,a.note].filter(Boolean).join(" \u2014 "));});}
- if(what==="all"||what==="meds"){
-  medItems().forEach(function(m,i){
-   ev("med"+i,start,m.time,m.name,m.note,"FREQ=DAILY;UNTIL="+untilS);});}
+  if(alert!==""&&alert!=null&&alert!==undefined){
+   var mins=Number(alert)||0;
+   out.push("BEGIN:VALARM","ACTION:DISPLAY","DESCRIPTION:"+icsEsc(title),
+    "TRIGGER:"+(mins?"-PT"+mins+"M":"PT0M"),"END:VALARM");}
+  out.push("END:VEVENT");n++;}
+
+ keys.forEach(function(k){
+  var P=DB.people[k],cal=P.cal||{repeats:[],appts:[]};
+  var tag=(keys.length>1?nameOf(k)+": ":"");
+  if(what==="all"||what==="routines"||what==="shared"){
+   (cal.repeats||[]).forEach(function(r){
+    if(what==="shared"&&!r.share)return;
+    var byday=(r.days||[]).map(function(d){return ["SU","MO","TU","WE","TH","FR","SA"][d];}).join(",");
+    if(!byday)return;
+    ev(r.id+k,start,r.time||"09:00",tag+r.name,r.note,
+     "FREQ=WEEKLY;BYDAY="+byday+";UNTIL="+untilS,r.alert);});}
+  if(what==="all"||what==="appts"||what==="shared"){
+   (cal.appts||[]).forEach(function(a){
+    if(what==="shared"&&!a.share)return;
+    ev(a.id+k,a.date,a.time||"09:00",tag+a.name,
+     [a.where,a.who,a.note].filter(Boolean).join(" \u2014 "),null,a.alert);});}
+  if(what==="all"||what==="meds"){
+   var ma=(P.medAlert==null?"":P.medAlert);
+   ((P.meds&&P.meds.items)||[]).forEach(function(m,i){
+    if(m.status!=="current")return;
+    (m.when||[]).forEach(function(sl,j){
+     ev("med"+k+i+j,start,SLOTHR[sl]||"12:00",
+      tag+m.name+(m.dose?" \u2014 "+m.dose:""),m.how||"",
+      "FREQ=DAILY;UNTIL="+untilS,ma);});});}
+  if(what==="all"||what==="meals"){
+   var wkStart=weekStartOf(start);
+   var wkData=((P.plan&&P.plan.weeks)||{})[wkStart]||{};
+   Object.keys(wkData).forEach(function(slot){
+    var bits=slot.split("|"),di=Number(bits[0]),meal=bits[1];
+    var items=wkData[slot]||[];if(!items.length)return;
+    var byday=["SU","MO","TU","WE","TH","FR","SA"][di];
+    ev("meal"+k+slot.replace(/\W/g,""),start,MEALTIME[meal]||"12:00",
+     tag+meal+": "+items.map(function(x){return x.name;}).join(", "),"",
+     "FREQ=WEEKLY;BYDAY="+byday+";UNTIL="+untilS,"");});}
+ });
+
  out.push("END:VCALENDAR");
+ if(!n){alert("Nothing to export with those settings.");return;}
  dl(new Blob([out.join("\r\n")],{type:"text/calendar;charset=utf-8"}),
-  nm.replace(/\W+/g,"-")+"-schedule.ics");});
+  (label+"-"+kindLabel).replace(/\W+/g,"-").toLowerCase()+".ics");});
 
 $("printweek").addEventListener("click",function(){window.print();});
 function renderWeek(){

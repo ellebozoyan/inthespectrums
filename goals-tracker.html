@@ -605,6 +605,11 @@ function renderDoc(){
   var items=G().items.filter(function(g){return !only||g.prov===only;});
   var h='<h1>'+esc(P().name||"Goals and generalization")+'</h1><p class="sub">'+
     (P().dob?esc(P().dob)+" \u00b7 ":"")+new Date().toLocaleDateString(undefined,{month:"long",day:"numeric",year:"numeric"})+'</p>';
+  var info=[];
+  if(P().name)info.push(["Name",esc(P().name)]);
+  if(P().dob)info.push(["Age or date of birth",esc(P().dob)]);
+  if(info.length)h+='<div class="info"><dl>'+info.map(function(r){
+   return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>';}).join('')+'</dl></div>';
   if(what!=="genonly"&&G().instructions)h+='<h2>For providers</h2><p>'+nl(G().instructions)+'</p>';
 
   var gen=items.filter(function(g){return g.gen&&(g.gen.settings||[]).length;});

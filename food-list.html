@@ -488,10 +488,15 @@ $("pview").addEventListener("change",renderDoc);
 $("printbtn").addEventListener("click",function(){window.print();});
 function renderDoc(){
  var v=$("pview").value,p=PERSON(),f=F();
- var h='<h1>'+esc(p.name||"Food list")+'</h1><p class="sub">'+(p.dob?esc(p.dob)+" \u00b7 ":"")+
-  "Updated "+new Date().toLocaleDateString(undefined,{month:"long",day:"numeric",year:"numeric"})+'</p>';
- if(f.allerg)h+='<h2 style="color:#8A2B20">Allergies and must-avoids</h2><p><b>'+nl(f.allerg)+'</b></p>';
- if(f.rules&&v!=="quick")h+='<h2>How mealtimes work</h2><p>'+nl(f.rules)+'</p>';
+ var h='<h1>'+esc(p.name||"Food list")+'</h1><p class="sub">Updated '+
+  new Date().toLocaleDateString(undefined,{month:"long",day:"numeric",year:"numeric"})+'</p>';
+ var info=[];
+ if(p.name)info.push(["Name",esc(p.name)]);
+ if(p.dob)info.push(["Age or date of birth",esc(p.dob)]);
+ if(f.rules&&v!=="quick")info.push(["How mealtimes work",nl(f.rules)]);
+ if(info.length)h+='<div class="info"><dl>'+info.map(function(r){
+  return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>';}).join('')+'</dl></div>';
+ if(f.allerg)h+='<h2 class="alert">Allergies and must-avoids</h2><p><b>'+nl(f.allerg)+'</b></p>';
  function block(st,title){
   var l=f.items.filter(function(x){return x.status===st;});
   if(!l.length)return '';
