@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finding and vetting providers — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#4A4E7A; --book-tint:#EDEFEA; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the equation */
+.eqn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.eqn h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.eqn .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.parts{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:18px}
+@media(max-width:700px){.parts{grid-template-columns:1fr;gap:6px}.op{text-align:center;padding:2px 0}}
+.pt{background:rgba(255,255,255,.06);border-top:3px solid var(--book);padding:15px 16px}
+.pt.res{border-top-color:var(--rust);background:rgba(156,74,33,.13)}
+.pt b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#EFEBE3;margin-bottom:6px}
+.pt span{font-size:.86rem;color:#B9C4B4;line-height:1.45;display:block}
+.op{font-size:1.5rem;color:#C6A98F;text-align:center}
+.eqn .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:20px 0 0;max-width:62ch}
+.eqn .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .eqn{background:#fff;color:#000;border:1px solid #000}.eqn .big,.pt b,.eqn .cap strong{color:#000}}
+
+.cliff{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin:0 0 18px}
+@media(max-width:640px){.cliff{grid-template-columns:1fr}}
+.cliff .side{padding:18px 20px}
+.cliff .l{background:rgba(255,255,255,.07);border-top:3px solid #7FA57A}
+.cliff .r{background:rgba(156,74,33,.16);border-top:3px solid #C6704A}
+.cliff .gap{display:flex;align-items:center;justify-content:center;padding:0 14px;
+  font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C6A98F}
+@media(max-width:640px){.cliff .gap{padding:10px 0}}
+.cliff b{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px}
+.cliff .l b{color:#7FA57A}.cliff .r b{color:#E8C3BC}
+.cliff ul{margin:0;padding-left:17px;font-size:.9rem;line-height:1.5}
+.cliff li{margin-bottom:6px;color:#B9C4B4}
+.ladder{margin:0 0 16px}
+.rung{background:var(--card);border-left:4px solid var(--line);padding:15px 19px;margin-bottom:8px}
+.rung.least{border-left-color:#2E4E3F}
+.rung.mid{border-left-color:#A8641C}
+.rung.most{border-left-color:#8A2B20}
+.rung b{display:block;font-size:1.03rem;font-weight:400;margin-bottom:5px}
+.rung .tag{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;float:right;margin-left:12px}
+.rung.least .tag{color:#2E4E3F}.rung.mid .tag{color:#A8641C}.rung.most .tag{color:#8A2B20}
+.rung p{font-size:.93rem;margin:0;color:var(--ink-soft)}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Finding and vetting providers:<br><em>before someone lives there</em></h1>
+  <p class="lede">In childhood, a great many people watched — teachers, therapists, a school nurse, other parents at pickup. In adulthood that shrinks to whoever is paid to be there. Choosing well, and then keeping watch, becomes one of the most consequential things a family does.</p>
+</header>
+
+<div class="warn">
+  <h3>Why this page is direct</h3>
+  <p>Adults with disabilities experience abuse and neglect at several times the rate of other adults, and residential and day settings are where much of it happens. Most providers are decent and many are excellent. But choosing one is not like choosing a restaurant, and the usual signals — a nice building, a warm tour, a confident director — are close to worthless.</p>
+</div>
+
+<section>
+  <h2 class="sec">Finding them <em>at all</em></h2>
+  <ul>
+    <li><strong>Your state developmental disability agency</strong> holds the list of funded providers. Ask for the full list, not the two they suggest.</li>
+    <li><strong>Other families.</strong> Parent groups, both local and online, will tell you things no directory will. Ask specifically: <em>who would you not use, and why?</em></li>
+    <li><strong>The state's protection and advocacy organization</strong> — every state has one, it is independent, and it knows which providers generate complaints.</li>
+    <li><strong>Your area agency or care coordinator</strong>, if one is assigned.</li>
+    <li><strong>Licensing and survey reports.</strong> Many states publish inspection results for licensed settings. Ask where they are; if a provider is reluctant to point you there, note that.</li>
+    <li><strong>Visit programs years early.</strong> Not to choose — to learn what exists and what good looks like. You cannot judge a program without having seen several.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">What to ask, <em>and what the answers mean</em></h2>
+  <div class="domains">
+    <div class="dom"><h3>Staffing</h3>
+      <ul>
+        <li>What is your annual staff turnover?</li>
+        <li>How long has the person running this house been here?</li>
+        <li>What do you pay direct support staff?</li>
+        <li>How often do you use agency or unfamiliar staff?</li>
+        <li>What is the ratio overnight?</li>
+      </ul>
+      <p class="look"><b>What matters</b>Turnover is the single best predictor of quality. High pay and long tenure beat a beautiful building every time. A provider who won't tell you their turnover has told you their turnover.</p></div>
+
+    <div class="dom"><h3>Training and approach</h3>
+      <ul>
+        <li>What training does a new staff member get, and over how long?</li>
+        <li>What is your approach when someone is distressed?</li>
+        <li>What is your policy on restraint, and when did you last use it?</li>
+        <li>How do you support someone who communicates without speech?</li>
+        <li>Who writes the support plan, and does the person take part?</li>
+      </ul>
+      <p class="look"><b>Listen for</b>Whether they talk about people or about behaviors. The vocabulary tells you a great deal.</p></div>
+
+    <div class="dom"><h3>Rights and daily life</h3>
+      <ul>
+        <li>Can residents lock their own doors?</li>
+        <li>Who decides what they eat, when they sleep, and what they do at the weekend?</li>
+        <li>How do people get out into the community, and how often?</li>
+        <li>Can they have visitors and relationships?</li>
+        <li>What happens to their money, and who controls it?</li>
+      </ul>
+      <p class="look"><b>The test</b>Ask what a resident did yesterday evening. A vague answer usually means the answer is nothing.</p></div>
+
+    <div class="dom"><h3>Health and safety</h3>
+      <ul>
+        <li>Who administers medication, and what training do they have?</li>
+        <li>How are appointments arranged and attended?</li>
+        <li>What happens at 2am if someone is unwell?</li>
+        <li>How do you report an injury, and who tells the family?</li>
+        <li>How do you screen and check staff before hiring?</li>
+      </ul>
+      <p class="look"><b>Ask for the incident policy in writing</b>A provider who cannot produce one on request does not have a working one.</p></div>
+
+    <div class="dom"><h3>Communication with you</h3>
+      <ul>
+        <li>How will I know how they are, and how often?</li>
+        <li>Can I visit unannounced?</li>
+        <li>Who do I call when something is wrong, and who above them?</li>
+        <li>What do you tell families when something goes wrong?</li>
+      </ul>
+      <p class="look"><b>The answer that matters</b>Any hesitation about unannounced visits is disqualifying. There is no legitimate reason for it.</p></div>
+
+    <div class="dom"><h3>When it isn't working</h3>
+      <ul>
+        <li>What happens if this placement doesn't suit them?</li>
+        <li>Have you ever asked someone to leave, and why?</li>
+        <li>What notice would we get?</li>
+        <li>How do you handle a disagreement with a family?</li>
+      </ul>
+      <p class="look"><b>Worth knowing early</b>Providers can and do end placements. Understanding the circumstances beforehand is better than discovering them in a crisis.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">How to <em>visit</em></h2>
+  <ul>
+    <li><strong>Go more than once, at different times.</strong> A Tuesday morning tour tells you almost nothing. Go on a weekend evening, when staffing is thinnest and the day is unstructured.</li>
+    <li><strong>Ask to visit unannounced,</strong> and then do it.</li>
+    <li><strong>Watch how staff speak to residents</strong> when they think you are looking at something else. Tone, whether people are addressed directly, whether anyone is talked about in front of them.</li>
+    <li><strong>Look at what people are actually doing.</strong> A room of people in front of a television at 11am is the answer to several of your questions at once.</li>
+    <li><strong>Notice the building's smell, temperature and noise,</strong> and whether anyone seems to have anything of their own in their space.</li>
+    <li><strong>Talk to families of current residents</strong> whom you found yourself, not the ones the provider offered.</li>
+    <li><strong>Bring the person themselves,</strong> more than once, and pay very close attention to their response. It is their home being chosen.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Once they are <em>there</em></h2>
+  <p class="secnote">Choosing well is half of it. The other half is that families remain the only continuous, unpaid, unmoveable presence in the person's life — and that is a role, not a feeling.</p>
+  <ul>
+    <li><strong>Visit unpredictably.</strong> Not to catch anyone out, but because a setting that is only ever seen on schedule is only ever performing.</li>
+    <li><strong>Learn the staff's names,</strong> and be someone they are glad to see. Good relationships with direct support workers protect your person more than any complaint ever will.</li>
+    <li><strong>Watch for change</strong> — weight, sleep, mood, withdrawal, new fear of a person or a room, reluctance to return after a visit home. New behavior is a symptom.</li>
+    <li><strong>Keep communication access alive.</strong> A person who can recount what happened when you weren't there is dramatically safer. See <a href="speech-language-aac.html">speech, language and AAC</a>.</li>
+    <li><strong>Read the incident reports,</strong> ask for the ones you weren't sent, and keep your own dated record.</li>
+    <li><strong>Attend every plan meeting,</strong> and put concerns in writing afterward so a record exists.</li>
+    <li><strong>Know how to report.</strong> Every state has adult protective services and an independent protection and advocacy organization. Find both numbers now and keep them somewhere findable — not when you need them.</li>
+    <li><strong>Trust the person.</strong> If they tell you something is wrong, act on it, and keep acting on it regardless of what an investigation concludes.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="adult-life.html"><h3>After school ends</h3>
+      <p>The wider picture: decision-making, money, and what to do at each age.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="adult-housing.html"><h3>Housing for an adult</h3>
+      <p>Vouchers, waiting lists, and family-owned arrangements.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="adult-benefits.html"><h3>Benefits and working</h3>
+      <p>What funds all of this, and how not to lose it.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="safety.html"><h3>Safety</h3>
+      <p>Body autonomy, abuse prevention, and the vocabulary that lets someone report.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="speech-language-aac.html"><h3>Speech, language and AAC</h3>
+      <p>Recounting — being able to tell someone what happened when they weren't there.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="share-builder.html"><h3>The share builder</h3>
+      <p>Assemble exactly what a new provider needs to know, and nothing more.</p>
+      <span class="go">Open it</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>Find two phone numbers today and put them where you would find them at midnight: your state's <strong>adult protective services</strong>, and your state's <strong>protection and advocacy organization</strong>. You will probably never call either. The families who need them need them suddenly.</p>
+  <p>And one question, asked of any provider you are considering: <em>can I visit unannounced?</em> The answer, and how quickly it comes, tells you most of what a tour will not.</p>
+</div>
+
+<footer>
+  <p><strong>This is a map, not an endorsement of any provider or approach.</strong> Licensing, oversight, and reporting processes vary by state. Where you believe someone is at risk, contact adult protective services or emergency services rather than working through this page.</p>
+</footer>
+
+</div>
+<script src="site-nav.js"></script>
+</body>
+</html>

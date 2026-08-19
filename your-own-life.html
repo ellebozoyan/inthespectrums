@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your own life — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#8A5A2A; --book-tint:#EDEFEA; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the equation */
+.eqn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.eqn h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.eqn .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.parts{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:18px}
+@media(max-width:700px){.parts{grid-template-columns:1fr;gap:6px}.op{text-align:center;padding:2px 0}}
+.pt{background:rgba(255,255,255,.06);border-top:3px solid var(--book);padding:15px 16px}
+.pt.res{border-top-color:var(--rust);background:rgba(156,74,33,.13)}
+.pt b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#EFEBE3;margin-bottom:6px}
+.pt span{font-size:.86rem;color:#B9C4B4;line-height:1.45;display:block}
+.op{font-size:1.5rem;color:#C6A98F;text-align:center}
+.eqn .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:20px 0 0;max-width:62ch}
+.eqn .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .eqn{background:#fff;color:#000;border:1px solid #000}.eqn .big,.pt b,.eqn .cap strong{color:#000}}
+
+.cliff{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin:0 0 18px}
+@media(max-width:640px){.cliff{grid-template-columns:1fr}}
+.cliff .side{padding:18px 20px}
+.cliff .l{background:rgba(255,255,255,.07);border-top:3px solid #7FA57A}
+.cliff .r{background:rgba(156,74,33,.16);border-top:3px solid #C6704A}
+.cliff .gap{display:flex;align-items:center;justify-content:center;padding:0 14px;
+  font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C6A98F}
+@media(max-width:640px){.cliff .gap{padding:10px 0}}
+.cliff b{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px}
+.cliff .l b{color:#7FA57A}.cliff .r b{color:#E8C3BC}
+.cliff ul{margin:0;padding-left:17px;font-size:.9rem;line-height:1.5}
+.cliff li{margin-bottom:6px;color:#B9C4B4}
+.ladder{margin:0 0 16px}
+.rung{background:var(--card);border-left:4px solid var(--line);padding:15px 19px;margin-bottom:8px}
+.rung.least{border-left-color:#2E4E3F}
+.rung.mid{border-left-color:#A8641C}
+.rung.most{border-left-color:#8A2B20}
+.rung b{display:block;font-size:1.03rem;font-weight:400;margin-bottom:5px}
+.rung .tag{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;float:right;margin-left:12px}
+.rung.least .tag{color:#2E4E3F}.rung.mid .tag{color:#A8641C}.rung.most .tag{color:#8A2B20}
+.rung p{font-size:.93rem;margin:0;color:var(--ink-soft)}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Your own life:<br><em>written for you, not about you</em></h1>
+  <p class="lede">Nearly everything else on this site is written to parents and professionals. This page is written to you — the person everyone else has been talking about. It is about what you are allowed to decide, what you are entitled to, and what to do when someone is not listening.</p>
+</header>
+
+<div class="bnote">
+  <h3>A note about how this is written</h3>
+  <p>This page uses plain language and short sections. That is not because anyone assumes you can't read something harder — it is because this stuff is genuinely complicated and everyone deserves it explained clearly.</p>
+  <p>Read the parts that apply to you. Skip the rest. Come back to it. There is no order you are supposed to do this in.</p>
+</div>
+
+<section>
+  <h2 class="sec">Things that are <em>true about you</em></h2>
+  <ul>
+    <li><strong>You are the person who knows most about your life.</strong> Other people know things about services and paperwork. You know what it is like to be you, and that is not a smaller kind of knowing.</li>
+    <li><strong>You are allowed to disagree.</strong> With your parents, your doctors, your support staff, and your plan. Disagreeing is not being difficult.</li>
+    <li><strong>You are allowed to change your mind,</strong> including about something you already agreed to.</li>
+    <li><strong>You can ask for things to be explained again,</strong> as many times as you need, in a different way. If someone will not do that, the problem is them.</li>
+    <li><strong>You do not have to be grateful</strong> for support you are entitled to. Being polite is a choice. Being grateful is not a requirement.</li>
+    <li><strong>Nobody should talk about you as though you are not there.</strong> If it happens, you can say so — and someone else in the room should say so too.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Decisions: <em>who makes them</em></h2>
+  <p class="secnote">When you turn eighteen, the law says you make your own decisions, unless a court has changed that.</p>
+
+  <h3 class="sub">If nothing was changed by a court</h3>
+  <p>You decide. Where you live, what you do in the day, what you eat, who you see, whether you agree to medical treatment. Your family may have strong opinions. Opinions are not decisions.</p>
+  <p>You can also choose to get help deciding. That is called <strong>supported decision-making</strong> — you pick people you trust to help you understand things and think them through, and you still make the choice. In many places you can write this down as a formal agreement so professionals take it seriously.</p>
+
+  <h3 class="sub">If you have a guardian</h3>
+  <p>A court decided someone else makes some or all of your decisions. Things worth knowing:</p>
+  <ul>
+    <li>It may only cover certain things, like medical or money. Ask what yours covers — you are allowed to know, and you are allowed to have a copy.</li>
+    <li><strong>It can be changed or ended.</strong> This is not permanent and not automatic. People do get guardianship reduced or removed.</li>
+    <li>You can ask a court to review it. Your state's protection and advocacy organization gives free legal help and can tell you how.</li>
+    <li>A guardian is supposed to act in your interests and to listen to what you want. If yours is not, that is something you can report.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Money that <em>belongs to you</em></h2>
+  <ul>
+    <li><strong>Your benefits are yours.</strong> If someone else receives them for you — a representative payee — they must spend that money on you, keep records, and let you have some of it to spend yourself. If that is not happening, you can report it and you can ask to change payee.</li>
+    <li><strong>An ABLE account is one you control.</strong> You can have your own savings, up to a limit, without losing benefits. You can use it for housing, transport, education, technology and more. Ask about opening one in your name.</li>
+    <li><strong>You can work.</strong> Almost nobody loses everything by working. There are rules designed to protect you while you earn — see <a href="adult-benefits.html">benefits and working</a>, or ask for a free benefits counselor.</li>
+    <li><strong>You are allowed to know what you have,</strong> what comes in, and what it is spent on. Ask, and keep asking.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Where you <em>live</em></h2>
+  <ul>
+    <li><strong>You should have a say.</strong> Visit places. Say what you liked and did not like. If somewhere feels wrong to you, that is real information and it should count.</li>
+    <li><strong>You can ask for your own space</strong> — a door that locks, your own things, privacy for visitors.</li>
+    <li><strong>You can change your mind</strong> after moving. Somewhere not working out is not a failure, and it happens to people all the time.</li>
+    <li><strong>Housing takes years to arrange,</strong> so ask now about getting on lists even if you are not ready. See <a href="adult-housing.html">housing for an adult</a>.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Your <em>body</em>, and your privacy</h2>
+  <ul>
+    <li><strong>Your body is yours.</strong> You can say no to being touched, including by staff, family, and medical people. You can ask why before anyone touches you.</li>
+    <li><strong>You can ask for a different person</strong> to help with personal care, or ask for someone of a particular gender.</li>
+    <li><strong>You can ask people to leave the room</strong> during a medical appointment, including your parents.</li>
+    <li><strong>You are allowed relationships,</strong> including romantic ones. You are allowed to be told about sex and about staying safe, in a way you can understand.</li>
+    <li><strong>Nobody should read your messages, go through your things, or track you</strong> without you agreeing. If there is a safety reason, it should be explained and agreed, not just done.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">If something is <em>wrong</em></h2>
+  <p class="secnote">This is the most important section on the page.</p>
+  <ul>
+    <li><strong>If someone hurts you, frightens you, takes your things or your money, or touches you when you said no — tell someone.</strong> That is not being difficult and it is not your fault.</li>
+    <li><strong>Keep telling until someone does something.</strong> If the first person does not listen, tell someone else. Tell a family member, a different staff member, a doctor, a teacher, anyone you trust.</li>
+    <li><strong>You can call adult protective services</strong> in your state yourself. You do not need permission and you do not need anyone's help to do it.</li>
+    <li><strong>Your state has a protection and advocacy organization.</strong> It is free, independent of any service provider, and exists to help people with disabilities with exactly this. Ask someone to help you find the number, or search for it with your state's name.</li>
+    <li><strong>If you are in danger right now,</strong> call emergency services.</li>
+    <li><strong>Write things down if you can</strong> — what happened, when, and who was there. Or record a voice note. It helps.</li>
+  </ul>
+  <div class="warn">
+    <h3>One thing to hold onto</h3>
+    <p>People sometimes tell someone once, are not believed, and never tell again. If that has happened to you, it was not because you were wrong to tell. It was because that person failed.</p>
+    <p>Try someone else. You are allowed to keep going until somebody listens.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Speaking up <em>for yourself</em></h2>
+  <ul>
+    <li><strong>Go to your own meetings.</strong> Meetings about you should include you. If they are held without you, ask why.</li>
+    <li><strong>Say what you want first,</strong> before anyone else speaks. Write it down beforehand if that is easier, or ask someone to read it out.</li>
+    <li><strong>"I need time to think about that" is a complete answer.</strong> You never have to decide in the room.</li>
+    <li><strong>Bring someone</strong> who is on your side. That is allowed, in nearly every meeting.</li>
+    <li><strong>Ask people to slow down or explain differently.</strong> Professionals use jargon out of habit; it is not a test.</li>
+    <li><strong>Find other people like you.</strong> Self-advocacy groups exist in most states, run by people with disabilities. They are often the best source of advice there is, and the least lonely.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="adult-benefits.html"><h3>Benefits and working</h3>
+      <p>What you might get, and why working almost never means losing everything.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="adult-housing.html"><h3>Housing for an adult</h3>
+      <p>Getting on lists, and what your rights are as a tenant.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="adult-life.html"><h3>After school ends</h3>
+      <p>Written for families, and useful if you want to know what they are being told.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="adaptive-community.html"><h3>Sports, classes and community</h3>
+      <p>Things to do, teams to join, and days out — including free companion admission.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="safety.html"><h3>Safety</h3>
+      <p>Your body, your privacy, and how to tell someone when something is wrong.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="their-own-voice.html"><h3>Their own voice</h3>
+      <p>Written for parents about handing over decisions. Worth reading if yours haven't.</p>
+      <span class="go">Read the page</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>Find one self-advocacy group in your state, run by people with disabilities, and go once. Not for services or advice — just to be in a room where nobody is explaining you to anybody.</p>
+  <p>Most people who do this say the same thing afterward: they did not know how much of what they had been told about themselves was optional.</p>
+</div>
+
+<footer>
+  <p><strong>Nothing here is legal or medical advice.</strong> Rules about decision-making, benefits and services are different in every state. Your state's protection and advocacy organization gives free, independent advice and is a good place to start.</p>
+  <p>If you are in danger, call emergency services.</p>
+</footer>
+
+</div>
+<script src="site-nav.js"></script>
+</body>
+</html>

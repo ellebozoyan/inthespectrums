@@ -19,8 +19,14 @@
     { label: 'School and services', items: [
       ['inside-the-iep.html',          'Inside the IEP',          'Reading a goal, the words that matter, the section you write'],
       ['accommodations-finder.html',   'Accommodations finder',   'Search by the difficulty you see, get wording you can request'],
-      ['programs-and-entitlements.html','Programs and entitlements','What exists, when each door opens, the ages that matter'],
-      ['adult-life.html',              'After school ends',       'The cliff, decision-making, trusts and wills, housing and work']
+      ['programs-and-entitlements.html','Programs and entitlements','What exists, when each door opens, the ages that matter']
+    ]},
+    { label: 'Adult life', items: [
+      ['adult-life.html',              'After school ends',       'The cliff, decision-making, trusts and wills, and what to do when'],
+      ['adult-benefits.html',          'Benefits and working',    'SSI, SSDI, Medicaid, and why working rarely costs you'],
+      ['adult-housing.html',           'Housing for an adult',    'Vouchers, waiting lists, and buying a place for someone'],
+      ['adult-providers.html',         'Finding and vetting providers','What to ask before someone lives there, and how to keep watch'],
+      ['your-own-life.html',           'Your own life',           'Written for the adult rather than the parent']
     ]},
     { label: 'Money, paperwork and tracking', items: [
       ['paying-for-therapy.html',      'Paying for it',           'In-network vs out, the annotated superbill, appeals'],
@@ -914,7 +920,8 @@
   /* rebuild the map (same data as the nav, kept local so order is safe) */
   var MAP = [
     ['Start here', ['what-to-do-first.html','care-team-map.html','conditions-library.html','whole-picture.html']],
-    ['School and services', ['inside-the-iep.html','accommodations-finder.html','programs-and-entitlements.html','adult-life.html']],
+    ['School and services', ['inside-the-iep.html','accommodations-finder.html','programs-and-entitlements.html']],
+    ['Adult life', ['adult-life.html','adult-benefits.html','adult-housing.html','adult-providers.html','your-own-life.html']],
     ['Money, paperwork and tracking', ['paying-for-therapy.html','template-builders.html','symptom-tracker.html','goals-tracker.html','share-builder.html','using-these-tools.html']],
     ['Safety and health', ['safety.html','injuries-and-illness.html']],
     ['Therapies', ['occupational-therapy.html','physical-therapy.html','speech-language-aac.html',
@@ -1320,6 +1327,30 @@
   "Start decision-making at the least restrictive option. Guardianship removes civil rights and is hard to undo.",
   "Write the letter of intent. A trust says where the money goes; that says who the person is."],
 
+'adult-benefits.html': ["Working almost never leaves someone worse off. That belief costs people jobs, money and ordinary life.",
+  "Medicaid can continue after the cash payment stops \u2014 this is the protection people most need to know exists.",
+  "An adult disabled before 22 may claim on a parent\u2019s Social Security record. Many families never learn this.",
+  "Book a free benefits counselor before any change in work or income. Every state has one.",
+  "Benefits are lost through paperwork more often than through circumstances. Open every letter the day it arrives."],
+
+'adult-housing.html': ["Get on housing waiting lists years early. Your position depends entirely on the date you applied.",
+  "Free housing reduces SSI. A generous arrangement can quietly cost the person money \u2014 structure it first.",
+  "Housing lists and disability-service lists are different queues. Get on both.",
+  "If family buys a place, ask the special needs attorney before the realtor. Who owns it changes everything.",
+  "Fair housing law gives you the right to reasonable accommodation and modification. Put requests in writing."],
+
+'adult-providers.html': ["Staff turnover is the single best predictor of quality. Ask for the number.",
+  "Any hesitation about unannounced visits is disqualifying. There is no legitimate reason for it.",
+  "Visit more than once, at different times \u2014 including a weekend evening when staffing is thinnest.",
+  "Find your state\u2019s adult protective services and protection and advocacy numbers now, not when you need them.",
+  "A person who can recount what happened when you weren\u2019t there is dramatically safer."],
+
+'your-own-life.html': ["This page is written to you, not about you.",
+  "You are allowed to disagree, to change your mind, and to ask for things to be explained again.",
+  "Guardianship can be changed or ended. It is not permanent and not automatic.",
+  "If someone hurts you or takes your things, keep telling until somebody listens. The first person failing is not your fault.",
+  "Find a self-advocacy group run by people with disabilities. Most people say it changes what they thought was possible."],
+
 'maplewood-stories.html': ["Fifty-two picture books about ten friends who are not alike, figuring it out together.",
   "No child in them is labeled, and none of them is the lesson.",
   "Social and emotional learning, executive function, and safety awareness are the plots, not the moral.",
@@ -1378,6 +1409,19 @@
   'use strict';
 
   var MARKS = {
+
+  'adult-benefits.html':
+    '<rect width="74" height="74" fill="#E7EDE5"/><circle cx="37" cy="37" r="19" fill="none" stroke="#16283C" stroke-width="2"/><path d="M37 24v26M30 30h11a4.5 4.5 0 0 1 0 9h-7a4.5 4.5 0 0 0 0 9h11" fill="none" stroke="#2E5F4E" stroke-width="2.4" stroke-linecap="round"/>',
+
+  'adult-housing.html':
+    '<rect width="74" height="74" fill="#EFE0D5"/><path d="M12 36 28 22l16 14v22H12z" fill="none" stroke="#16283C" stroke-width="2"/><rect x="20" y="44" width="8" height="14" fill="#7A5230"/><path d="M46 44l10-8 10 8v14H46z" fill="none" stroke="#16283C" stroke-width="1.8"/><rect x="53" y="50" width="6" height="8" fill="#9C4A21"/>',
+
+  'adult-providers.html':
+    '<rect width="74" height="74" fill="#16283C"/><circle cx="28" cy="27" r="12" fill="none" stroke="#C6A98F" stroke-width="2.5"/><path d="M37 36l12 12" stroke="#9C4A21" stroke-width="3.5" stroke-linecap="round"/><circle cx="28" cy="24" r="3.6" fill="#C6A98F"/><path d="M22 33a6 6 0 0 1 12 0" fill="#C6A98F"/>',
+
+  'your-own-life.html':
+    '<rect width="74" height="74" fill="#FBF7F0"/><circle cx="37" cy="26" r="8" fill="none" stroke="#16283C" stroke-width="2"/><path d="M22 58v-4a15 15 0 0 1 30 0v4" fill="none" stroke="#16283C" stroke-width="2"/><path d="M37 8v6M52 14l-3 5M22 14l3 5" stroke="#8A5A2A" stroke-width="2" stroke-linecap="round"/>',
+
 
   'adult-life.html':
     '<rect width="74" height="74" fill="#E9EDDF"/><path d="M10 50h22V26" fill="none" stroke="#16283C" stroke-width="2"/><path d="M42 50h22V38" fill="none" stroke="#9C4A21" stroke-width="2"/><path d="M32 38h10" stroke="#8A2B20" stroke-width="1.6" stroke-dasharray="2.5 3"/><circle cx="21" cy="20" r="4" fill="#4A5C2E"/><circle cx="53" cy="32" r="4" fill="#9C4A21"/>',

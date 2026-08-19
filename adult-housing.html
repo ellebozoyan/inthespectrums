@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Housing for an adult — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#7A5230; --book-tint:#EDEFEA; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the equation */
+.eqn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.eqn h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.eqn .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.parts{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:18px}
+@media(max-width:700px){.parts{grid-template-columns:1fr;gap:6px}.op{text-align:center;padding:2px 0}}
+.pt{background:rgba(255,255,255,.06);border-top:3px solid var(--book);padding:15px 16px}
+.pt.res{border-top-color:var(--rust);background:rgba(156,74,33,.13)}
+.pt b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#EFEBE3;margin-bottom:6px}
+.pt span{font-size:.86rem;color:#B9C4B4;line-height:1.45;display:block}
+.op{font-size:1.5rem;color:#C6A98F;text-align:center}
+.eqn .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:20px 0 0;max-width:62ch}
+.eqn .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .eqn{background:#fff;color:#000;border:1px solid #000}.eqn .big,.pt b,.eqn .cap strong{color:#000}}
+
+.cliff{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin:0 0 18px}
+@media(max-width:640px){.cliff{grid-template-columns:1fr}}
+.cliff .side{padding:18px 20px}
+.cliff .l{background:rgba(255,255,255,.07);border-top:3px solid #7FA57A}
+.cliff .r{background:rgba(156,74,33,.16);border-top:3px solid #C6704A}
+.cliff .gap{display:flex;align-items:center;justify-content:center;padding:0 14px;
+  font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C6A98F}
+@media(max-width:640px){.cliff .gap{padding:10px 0}}
+.cliff b{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px}
+.cliff .l b{color:#7FA57A}.cliff .r b{color:#E8C3BC}
+.cliff ul{margin:0;padding-left:17px;font-size:.9rem;line-height:1.5}
+.cliff li{margin-bottom:6px;color:#B9C4B4}
+.ladder{margin:0 0 16px}
+.rung{background:var(--card);border-left:4px solid var(--line);padding:15px 19px;margin-bottom:8px}
+.rung.least{border-left-color:#2E4E3F}
+.rung.mid{border-left-color:#A8641C}
+.rung.most{border-left-color:#8A2B20}
+.rung b{display:block;font-size:1.03rem;font-weight:400;margin-bottom:5px}
+.rung .tag{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;float:right;margin-left:12px}
+.rung.least .tag{color:#2E4E3F}.rung.mid .tag{color:#A8641C}.rung.most .tag{color:#8A2B20}
+.rung p{font-size:.93rem;margin:0;color:var(--ink-soft)}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Housing for an adult:<br><em>vouchers, waiting lists, and buying a place</em></h1>
+  <p class="lede">Where someone lives determines almost everything else about their life, and it is the hardest thing to arrange. Subsidized housing has waiting lists measured in years. Family-owned solutions are possible and carry rules that can quietly cost someone their benefits. Both are worth understanding long before anyone needs to move.</p>
+</header>
+
+<div class="warn">
+  <h3>Two rules that catch nearly everyone</h3>
+  <p><strong>Get on waiting lists years early.</strong> Housing lists in many areas are five to ten years, and some open only occasionally for a few days. Your position depends entirely on when you applied. Apply to several, in several towns, whether or not you want to move yet — you can decline an offer.</p>
+  <p><strong>Free housing reduces SSI.</strong> If someone else pays for a person's shelter or food, Social Security counts it as income and reduces the payment, potentially by around a third. A generous arrangement — letting an adult live rent-free in a family property — can cost them money and complicate their Medicaid. Structure it properly before you do it, not after.</p>
+</div>
+
+<section>
+  <h2 class="sec">Subsidized housing, <em>in plain terms</em></h2>
+  <div class="domains">
+    <div class="dom"><h3>Housing Choice Vouchers</h3>
+      <p>Often still called Section 8. The tenant finds a private rental; the voucher pays a portion directly to the landlord, and the tenant pays roughly a third of their income.</p>
+      <ul>
+        <li>Administered by local public housing authorities, each with its own list</li>
+        <li>Apply to every authority you can reach, not just your own town</li>
+        <li>Portable in many cases, so a voucher issued in one place can move</li>
+        <li>Lists often closed, and open by lottery for short windows — set alerts</li>
+      </ul>
+      <p class="look"><b>Most valuable thing here</b>Because it follows the person rather than the building, it gives real choice about where to live.</p></div>
+
+    <div class="dom"><h3>Vouchers set aside for disability</h3>
+      <p>Several categories exist specifically for non-elderly people with disabilities, sometimes with shorter lists than the general pool.</p>
+      <ul>
+        <li>Ask each housing authority directly what disability-specific vouchers they administer</li>
+        <li>Some are tied to leaving or avoiding an institution</li>
+        <li>Some are linked to state agency referral rather than open application</li>
+      </ul>
+      <p class="look"><b>Ask explicitly</b>These are rarely advertised. Phone and ask what exists rather than relying on the website.</p></div>
+
+    <div class="dom"><h3>Project-based and supportive housing</h3>
+      <p>The subsidy is attached to a specific building rather than to the person. Some developments are built specifically for people with disabilities, sometimes with support services attached.</p>
+      <ul>
+        <li>Often shorter waits than general vouchers</li>
+        <li>You must stay in that unit to keep the subsidy</li>
+        <li>Federal programs fund supportive housing specifically for people with disabilities</li>
+      </ul>
+      <p class="look"><b>Trade-off</b>Faster and more supported, but less freedom to move.</p></div>
+
+    <div class="dom"><h3>Public housing and tax-credit properties</h3>
+      <p>Public housing is owned by the authority; tax-credit properties are privately owned with income-restricted rents.</p>
+      <ul>
+        <li>Tax-credit buildings have their own applications and their own lists</li>
+        <li>Rents are set by income band rather than by a voucher</li>
+        <li>Some units are designed accessible and reserved as such</li>
+      </ul>
+      <p class="look"><b>Search term</b>Ask about income-restricted or affordable units, not just Section 8.</p></div>
+
+    <div class="dom"><h3>Waiver-funded residential settings</h3>
+      <p>Group homes, shared living and supported living funded through Medicaid rather than housing programs. Housing and support arrive together.</p>
+      <ul>
+        <li>Accessed through the state disability agency, not a housing authority</li>
+        <li>Its own waiting list, entirely separate from housing lists</li>
+        <li>Get on both — they are different queues for different things</li>
+      </ul>
+      <p class="look"><b>Common mistake</b>Assuming the disability agency list covers housing. It usually doesn't.</p></div>
+
+    <div class="dom"><h3>Your rights as a tenant</h3>
+      <p>Fair housing law protects people with disabilities in nearly all private and public housing.</p>
+      <ul>
+        <li><strong>Reasonable accommodation</strong> — a change in rules or policy, such as allowing an assistance animal in a no-pets building, or accepting a co-signer</li>
+        <li><strong>Reasonable modification</strong> — a physical change such as a ramp or grab bars</li>
+        <li>Refusing to rent because of disability is unlawful</li>
+        <li>Complaints go to HUD or your state fair housing agency, and there are deadlines</li>
+      </ul>
+      <p class="look"><b>Put requests in writing</b>Dated, specific, and with a doctor's letter where the need isn't obvious.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Buying or providing a home <em>yourself</em></h2>
+  <p class="secnote">Many families consider buying a condo, a small house, or a two-family and having the adult live there. It can work extremely well. It also has rules that determine whether it helps or harms.</p>
+
+  <div class="warn">
+    <h3>The in-kind support rule, which is the whole problem</h3>
+    <p>Social Security counts free or below-cost housing and food as income. If a family provides shelter at no charge, SSI is typically reduced — historically by up to about a third of the payment — and the arrangement has to be reported.</p>
+    <p>So the generous version, where a parent simply buys a flat and lets their adult child live there for nothing, is often the version that costs the person money and complicates their eligibility. <strong>The fix is structure, not generosity.</strong></p>
+  </div>
+
+  <h3 class="sub">Ways families make it work</h3>
+  <ul>
+    <li><strong>The person pays a fair rent</strong> from their own income, under a genuine written lease. If they are paying their share of shelter costs, there is no in-kind support to count. This is the cleanest arrangement and the one most attorneys start from.</li>
+    <li><strong>A trust owns the property</strong> and the person lives there. This can work well, but how the trust pays for shelter matters enormously to the SSI calculation — trust distributions for housing can themselves be counted. Structure it with a special needs attorney, before purchase.</li>
+    <li><strong>An ABLE account pays housing costs.</strong> Housing is a qualified expense, though the timing of withdrawals matters. This is one of the more flexible tools available and it is under-used.</li>
+    <li><strong>A shared arrangement</strong> — the person rents a room in a family-owned property alongside other tenants, at market rate for the room.</li>
+    <li><strong>A homeownership voucher</strong> — some housing authorities allow a voucher to be used toward mortgage costs rather than rent, for buyers who meet the criteria. Rare, and worth asking about.</li>
+    <li><strong>Buying with siblings or other families</strong>, sometimes through a nonprofit, to create a small shared setting. Several parent-founded models exist and are worth researching in your region.</li>
+  </ul>
+
+  <div class="bnote">
+    <h3>Before you buy anything</h3>
+    <p><strong>Ask the special needs attorney first, not the realtor.</strong> Who should own it — you, a trust, the person, a company? What rent must be charged, and to whom? How does this interact with SSI, Medicaid, and any waiver? What happens to the property when you die, and does that create a Medicaid problem?</p>
+    <p>Also worth asking: can a voucher be used to rent from a relative? The general rule is no, with a possible exception as a disability accommodation — so do not assume a family-owned unit can be voucher-funded without checking with that specific housing authority.</p>
+    <p>An hour of advice before purchase is dramatically cheaper than restructuring afterward, and restructuring can itself trigger benefit problems.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Making a place <em>actually work</em></h2>
+  <ul>
+    <li><strong>Housing and support are two separate things.</strong> A flat with no support hours is not a plan. Line up both, and confirm the support is funded before anyone signs a lease.</li>
+    <li><strong>Think about who is nearby.</strong> Isolation is the most common failure of independent living. Proximity to family, transport, and something to walk to matters more than the unit itself.</li>
+    <li><strong>Check the practical geography</strong> — bus route, shop, pharmacy, the program they attend, and how they get to all of it without a car.</li>
+    <li><strong>Plan for nights and emergencies.</strong> Who comes at 2am? What happens if a support worker doesn't turn up? Write it down before it is tested.</li>
+    <li><strong>Ask about safety modifications early</strong> — stove shut-offs, water temperature limits, door alarms, and monitoring the person agrees to. Consent matters here; see <a href="safety.html">safety</a>.</li>
+    <li><strong>Expect a transition period.</strong> Moving is destabilizing for anyone, and more so for someone who relies on routine. Plan extra support for the first months rather than treating early difficulty as evidence it isn't working.</li>
+    <li><strong>Keep the door open both ways.</strong> Moving home for a while is not a failure, and arrangements that allow it tend to last longer than arrangements that treat it as defeat.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="adult-life.html"><h3>After school ends</h3>
+      <p>The cliff, decision-making, trusts and wills, and what to do at each age.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="adult-benefits.html"><h3>Benefits and working</h3>
+      <p>SSI, SSDI, Medicaid, and why working almost never leaves someone worse off.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="adult-providers.html"><h3>Finding and vetting providers</h3>
+      <p>How to judge a residential provider before your person lives there.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="your-own-life.html"><h3>Your own life</h3>
+      <p>For the adult: where you live is your decision, and here is how that works.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="safety.html"><h3>Safety</h3>
+      <p>Home safety, assistance animals, emergency planning, and body autonomy.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="adaptive-community.html"><h3>Adaptive sports and community</h3>
+      <p>Proximity to things to do is part of choosing where to live.</p>
+      <span class="go">Read the page</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>This week: find your local housing authority's website and see whether their list is open. If it is, apply today — it costs nothing and you can decline whatever you are offered. If it is closed, find out how you will be told when it opens, and set a reminder to check every few months.</p>
+  <p>People who applied years before they needed anything are the ones with choices. That is almost the whole of it.</p>
+</div>
+
+<footer>
+  <p><strong>Nothing here is legal, financial, or housing advice.</strong> Housing programs, benefit rules, and their interaction vary by state and by individual housing authority, and change frequently. Consult a special needs planning attorney before buying property or structuring any housing arrangement for someone receiving benefits.</p>
+</footer>
+
+</div>
+<script src="site-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benefits and working — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#2E5F4E; --book-tint:#EDEFEA; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the equation */
+.eqn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.eqn h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.eqn .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.parts{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:18px}
+@media(max-width:700px){.parts{grid-template-columns:1fr;gap:6px}.op{text-align:center;padding:2px 0}}
+.pt{background:rgba(255,255,255,.06);border-top:3px solid var(--book);padding:15px 16px}
+.pt.res{border-top-color:var(--rust);background:rgba(156,74,33,.13)}
+.pt b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#EFEBE3;margin-bottom:6px}
+.pt span{font-size:.86rem;color:#B9C4B4;line-height:1.45;display:block}
+.op{font-size:1.5rem;color:#C6A98F;text-align:center}
+.eqn .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:20px 0 0;max-width:62ch}
+.eqn .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .eqn{background:#fff;color:#000;border:1px solid #000}.eqn .big,.pt b,.eqn .cap strong{color:#000}}
+
+.cliff{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin:0 0 18px}
+@media(max-width:640px){.cliff{grid-template-columns:1fr}}
+.cliff .side{padding:18px 20px}
+.cliff .l{background:rgba(255,255,255,.07);border-top:3px solid #7FA57A}
+.cliff .r{background:rgba(156,74,33,.16);border-top:3px solid #C6704A}
+.cliff .gap{display:flex;align-items:center;justify-content:center;padding:0 14px;
+  font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C6A98F}
+@media(max-width:640px){.cliff .gap{padding:10px 0}}
+.cliff b{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px}
+.cliff .l b{color:#7FA57A}.cliff .r b{color:#E8C3BC}
+.cliff ul{margin:0;padding-left:17px;font-size:.9rem;line-height:1.5}
+.cliff li{margin-bottom:6px;color:#B9C4B4}
+.ladder{margin:0 0 16px}
+.rung{background:var(--card);border-left:4px solid var(--line);padding:15px 19px;margin-bottom:8px}
+.rung.least{border-left-color:#2E4E3F}
+.rung.mid{border-left-color:#A8641C}
+.rung.most{border-left-color:#8A2B20}
+.rung b{display:block;font-size:1.03rem;font-weight:400;margin-bottom:5px}
+.rung .tag{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;float:right;margin-left:12px}
+.rung.least .tag{color:#2E4E3F}.rung.mid .tag{color:#A8641C}.rung.most .tag{color:#8A2B20}
+.rung p{font-size:.93rem;margin:0;color:var(--ink-soft)}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Benefits and working:<br><em>the rules almost nobody explains</em></h1>
+  <p class="lede">Two things keep adults with disabilities poorer than they need to be. One is that the benefit system is genuinely complicated. The other is a widely held belief that working means losing everything — which is not true, has not been true for decades, and costs people jobs, money, and a great deal of ordinary life.</p>
+</header>
+
+<div class="warn">
+  <h3>Get a benefits counselor before you change anything</h3>
+  <p>Every state has free, federally funded benefits counseling for people receiving disability benefits — often called work incentives planning. It is free, it is independent, and using it before a change in work or income is the single best protection against an expensive mistake.</p>
+  <p>Thresholds, dollar amounts, and program rules change annually. Nothing on this page should be relied on as a current figure. Verify every number against the Social Security Administration and your state agency.</p>
+</div>
+
+<section>
+  <h2 class="sec">The two Social Security programs, <em>which get confused constantly</em></h2>
+  <div class="domains">
+    <div class="dom"><h3>SSI — Supplemental Security Income</h3>
+      <p>A needs-based payment for people with disabilities who have very little income and few assets. It is not based on work history.</p>
+      <ul>
+        <li>Strict resource limit — historically $2,000 for an individual</li>
+        <li>Reassessed at eighteen on the person's own income, not the household's, so many people denied as children qualify then</li>
+        <li>In most states it brings Medicaid with it, often automatically</li>
+        <li>Reduced if someone else pays for the person's food or shelter</li>
+      </ul>
+      <p class="look"><b>Apply</b>In the month they turn eighteen, even if previously denied.</p></div>
+
+    <div class="dom"><h3>SSDI — and the childhood disability benefit</h3>
+      <p>Based on work credits — either the person's own, or, importantly, <strong>a parent's</strong>.</p>
+      <ul>
+        <li>An adult whose disability began before 22 may claim on a parent's record once that parent retires, becomes disabled, or dies</li>
+        <li>Often called the disabled adult child or childhood disability benefit</li>
+        <li>Usually pays more than SSI, and has no resource limit</li>
+        <li>Brings Medicare after a waiting period, rather than Medicaid</li>
+      </ul>
+      <p class="look"><b>Easy to miss</b>Many families never learn this exists until a parent retires. Ask about it well before that.</p></div>
+
+    <div class="dom"><h3>Medicaid</h3>
+      <p>The health coverage that pays for nearly all long-term support — personal care, day programs, residential services, and waiver-funded supports.</p>
+      <ul>
+        <li>Usually the thing that actually matters, more than the cash payment</li>
+        <li>Attached to SSI in most states</li>
+        <li>Several pathways exist for working people with disabilities that allow higher income and assets</li>
+      </ul>
+      <p class="look"><b>Protect this above all</b>Losing Medicaid is far more damaging than losing a monthly payment, and harder to get back.</p></div>
+
+    <div class="dom"><h3>Medicare</h3>
+      <p>Arrives with SSDI after a waiting period. Covers medical care but very little long-term support.</p>
+      <ul>
+        <li>Many people end up with both Medicare and Medicaid, which is normal and usually best</li>
+        <li>Medicare does not pay for day programs, residential support, or personal care</li>
+      </ul>
+      <p class="look"><b>Worth knowing</b>Gaining Medicare does not mean you should drop Medicaid.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Working <em>does not end benefits</em></h2>
+  <p class="secnote">The fear is understandable and it is largely misplaced. An entire framework exists specifically to let people work without falling off a cliff — and most families have never had it explained.</p>
+
+  <ul>
+    <li><strong>Earnings reduce SSI gradually, not abruptly.</strong> A portion of what someone earns is disregarded entirely, and above that the payment reduces by roughly half of additional earnings rather than dollar for dollar. Working almost always leaves someone better off overall.</li>
+    <li><strong>Medicaid can continue after the cash payment stops.</strong> A long-standing provision lets people who lose SSI purely because of earnings keep Medicaid, up to a fairly high income threshold that varies by state. This is the protection people most need to know exists.</li>
+    <li><strong>Medicaid buy-in programs</strong> in many states let working people with disabilities keep coverage at much higher incomes and asset levels, sometimes for a modest premium.</li>
+    <li><strong>Trial work periods</strong> under SSDI let someone test working for a number of months without losing benefits, with a safety net for a period afterward.</li>
+    <li><strong>Impairment-related work expenses</strong> — things you must buy in order to work — can be deducted from countable earnings.</li>
+    <li><strong>A PASS plan</strong> lets someone set aside income and resources toward a specific work goal without those funds counting against them.</li>
+    <li><strong>Ticket to Work</strong> connects people to employment services and protects against benefit reviews while making progress.</li>
+    <li><strong>An ABLE account</strong> gives somewhere for earnings to go without breaching the resource limit.</li>
+  </ul>
+
+  <div class="bnote">
+    <h3>The sentence worth repeating to anyone who will listen</h3>
+    <p><strong>Almost nobody is financially worse off for working.</strong> The system is designed so that earning more leaves you with more, and the protections above exist precisely to prevent the cliff people fear.</p>
+    <p>Where working genuinely does create a problem, it is nearly always about crossing a specific threshold — and a benefits counselor can tell you exactly where that line is before you get near it. That is a very different situation from not trying at all.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Other things worth <em>claiming</em></h2>
+  <ul>
+    <li><strong>SNAP</strong> — food assistance, with more generous rules for households including a person with a disability.</li>
+    <li><strong>Energy and utility assistance</strong>, and medical baseline programs that lower utility rates where equipment requires power.</li>
+    <li><strong>Reduced-fare and paratransit</strong> — apply early, since eligibility often requires an assessment.</li>
+    <li><strong>Property tax exemptions or abatements</strong> for people with disabilities, which many states and towns offer and few people claim.</li>
+    <li><strong>The federal recreation access pass</strong> — free, lifetime, one application.</li>
+    <li><strong>State supplements to SSI</strong>, which exist in many states and are paid automatically in some and by application in others.</li>
+    <li><strong>Tax credits</strong> — the earned income credit, credits for dependent care, and in some states a credit for supporting an adult dependent. Worth an accountant's hour.</li>
+    <li><strong>Vocational rehabilitation</strong> — not a benefit exactly, but a funded state service covering assessment, training, equipment, and job support.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Staying <em>eligible</em></h2>
+  <p class="secnote">Benefits are lost far more often through paperwork than through any change in circumstances.</p>
+  <ul>
+    <li><strong>Report changes promptly</strong> — income, address, living arrangements, marriage, and resources. Late reporting produces overpayments, and overpayments get clawed back.</li>
+    <li><strong>Open every letter the day it arrives.</strong> Deadlines in benefit correspondence are short and missing one can suspend payments.</li>
+    <li><strong>Continuing disability reviews</strong> happen periodically. Keep medical records current so a review is a formality rather than a crisis.</li>
+    <li><strong>Watch the resource limit constantly</strong> — a bank balance that drifts above it for a single month can cause problems. Move surplus into an ABLE account.</li>
+    <li><strong>Appeal denials.</strong> A large share of initial disability denials are overturned on appeal, and the deadlines are strict. Legal help is often free or contingency-based.</li>
+    <li><strong>If a marriage is being considered</strong>, get advice first. Marriage can affect SSI and some benefits significantly, and this is a real and painful constraint that people deserve to understand in advance rather than discover.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="adult-life.html"><h3>After school ends</h3>
+      <p>The cliff, decision-making at eighteen, trusts and wills, and the timeline of what to do when.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="adult-housing.html"><h3>Housing for an adult</h3>
+      <p>Subsidized housing, vouchers, and the rules around family buying or renting a home to the person.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="adult-providers.html"><h3>Finding and vetting providers</h3>
+      <p>How to find adult services, what to ask, and how to tell whether the care is any good.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="your-own-life.html"><h3>Your own life</h3>
+      <p>Written for the adult rather than the parent — rights, money, work, and deciding things for yourself.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="programs-and-entitlements.html"><h3>Programs and entitlements</h3>
+      <p>The school-years framework and how eligibility works before adulthood.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="paying-for-therapy.html"><h3>Paying for it</h3>
+      <p>Insurance mechanics, superbills, appeals, and single case agreements.</p>
+      <span class="go">Read the page</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>Search for your state's <strong>work incentives planning and assistance</strong> program and book a free appointment, even if nobody is working or planning to. An hour with a benefits counselor is the cheapest insurance available in this whole area, and most families never learn the service exists.</p>
+  <p>And if someone has been told they can't work without losing everything — that is almost certainly wrong, and it may have cost them years.</p>
+</div>
+
+<footer>
+  <p><strong>Nothing here is legal, financial, or benefits advice.</strong> Amounts, thresholds and rules change annually and vary by state. Verify everything against the Social Security Administration and your state agency, and use a free benefits counselor before making any change.</p>
+</footer>
+
+</div>
+<script src="site-nav.js"></script>
+</body>
+</html>
