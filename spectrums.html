@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What we mean by spectrums — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --voice:#7A4A78; --voice-tint:#EFE6EE;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 54px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2rem);font-weight:400;margin:0 0 8px;line-height:1.2}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:.99rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: spoken lines */
+.say{background:var(--voice-tint);border-left:4px solid var(--voice);padding:18px 22px;margin:0 0 12px}
+.saywho{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--voice);font-weight:700;margin:0 0 9px}
+.say p{font-size:1.06rem;line-height:1.5;font-style:italic;margin:0 0 10px;color:#3B2A3A}
+.say p:last-child{margin:0}
+.say .after{font-style:normal;font-size:.9rem;color:var(--ink-soft);border-top:1px solid #DCCEDA;
+  padding-top:10px;margin-top:12px}
+
+.q{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px;margin-bottom:12px}
+.q h3{font-size:1.06rem;font-weight:400;margin:0 0 10px;color:var(--voice)}
+.q p{font-size:.95rem;margin:0 0 10px}
+.q p:last-child{margin:0}
+.q .avoid{color:var(--ink-soft);font-size:.9rem}
+.q .avoid b{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin-right:6px}
+
+/* ladder */
+.ladder{border-left:2px solid var(--line);padding-left:26px;margin-left:6px}
+.rung{position:relative;padding-bottom:24px}
+.rung::before{content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;
+  background:var(--voice);border:3px solid var(--ground)}
+.rung .age{font-family:var(--sans);font-size:11.5px;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--voice);margin:0 0 5px}
+.rung h3{font-size:1.04rem;font-weight:400;margin:0 0 6px}
+.rung p{font-size:.94rem;margin:0 0 6px}
+.rung ul{font-size:.93rem;padding-left:18px;margin:0}
+.rung li{margin-bottom:5px}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.card{background:var(--card);border-left:3px solid var(--forest);padding:17px 19px}
+.card h3{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:0 0 9px}
+.card p{font-size:.93rem;margin:0 0 9px}
+.card p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 70px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+@media print{body{background:#fff;font-size:10.5pt}.say,.q,.rung,.card{break-inside:avoid}}
+
+/* options */
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:12px;margin:0 0 16px}
+.opt{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:18px 20px}
+.opt h4{font-size:1.03rem;font-weight:400;margin:0 0 9px;color:var(--voice)}
+.opt .ex{font-family:var(--serif);font-style:italic;font-size:.94rem;color:#3B2A3A;
+  background:var(--voice-tint);padding:11px 13px;border-radius:2px;margin:0 0 11px;line-height:1.5}
+.opt dl{margin:0;font-size:.91rem}
+.opt dt{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;color:var(--forest);margin-top:9px}
+.opt dt.cost{color:var(--rust)}
+.opt dd{margin:3px 0 0;color:var(--ink-soft);line-height:1.5}
+.agree{background:var(--card);border-left:4px solid var(--forest);padding:20px 22px;margin:0 0 14px}
+.agree ul{margin:0;padding-left:19px}
+.agree li{margin-bottom:9px;font-size:.96rem}
+.agree li:last-child{margin-bottom:0}
+
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+
+.big-open{font-size:clamp(1.2rem,2.6vw,1.5rem);line-height:1.45;max-width:36ch;color:var(--ink);
+  margin:0 0 26px;font-weight:400}
+.big-open em{font-style:italic;color:var(--forest)}
+.turn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 30px 26px;margin:34px 0}
+.turn p{margin:0 0 15px;font-size:1.04rem;line-height:1.6;color:#CBD3C7;max-width:58ch}
+.turn p:last-child{margin:0}
+.turn strong{color:#EFEBE3}
+.turn em{color:#C6A98F;font-style:italic}
+.pull{font-family:var(--serif);font-size:clamp(1.15rem,2.4vw,1.42rem);line-height:1.4;
+  color:var(--forest);border-left:3px solid var(--rust);padding:4px 0 4px 22px;margin:30px 0;max-width:44ch}
+.axes{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:2px;margin:0 0 8px}
+.ax{background:var(--card);border-top:3px solid var(--line);padding:13px 15px;font-size:.95rem;line-height:1.45}
+.ax b{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);margin-bottom:5px}
+
+.lift{font-family:var(--serif);font-size:clamp(1.08rem,2.2vw,1.3rem);line-height:1.5;
+  color:var(--forest);font-style:italic;text-align:center;max-width:46ch;
+  margin:34px auto;padding:22px 26px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.lift strong{font-style:normal;font-weight:400;color:var(--rust)}
+.lift.warm{background:#F6F1E8;border:none;border-radius:2px;color:#5A4A2E}
+.lift.warm strong{color:#8A5A2A}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>What we mean by <em>spectrums</em></h1>
+  <p class="big-open">The name is plural, and the preposition is deliberate.</p>
+</header>
+
+<section>
+  <p><em>On</em> the spectrum is a phrase a great many people use with real warmth, and it has helped families find each other. It does, though, describe a line — one dimension, with people placed somewhere along it — and over time it has narrowed to mean one condition, and can land as a measurement.</p>
+
+  <p>We wanted a name that opened outward instead.</p>
+
+  <p><strong>A life is far more than a single spectrum.</strong> There are dozens of them, and every one of us is somewhere in all of them at once — shifting, most days, more than we notice.</p>
+
+  <div class="axes">
+    <div class="ax"><b>Sensing</b>How sound, light, texture and smell arrive, and how much of it you can take.</div>
+    <div class="ax"><b>Moving</b>How your body goes where you send it, what that costs you, and how much moves inside even when very little moves outside.</div>
+    <div class="ax"><b>Breathing and sleeping</b>How well the two jobs that underwrite everything else are going.</div>
+    <div class="ax"><b>Eating</b>What your body will accept, and what it does with it.</div>
+    <div class="ax"><b>Interoception</b>How clearly you know what is happening inside you.</div>
+    <div class="ax"><b>Communicating</b>How much of what you mean makes it out, and arrives intact.</div>
+    <div class="ax"><b>Feeling</b>How fast it comes, how big it gets, how long it stays.</div>
+    <div class="ax"><b>Attention</b>What pulls it, what holds it, and whether you can aim it on purpose.</div>
+    <div class="ax"><b>Joy</b>What brings it, how much you can hold, and what it takes to reach.</div>
+    <div class="ax"><b>Dreaming</b>What you long for, what lights you up, and what feels possible — today, and further out.</div>
+    <div class="ax"><b>Doing</b>Turning some of that into a real thing: a skill, a job, a friendship, a Saturday you chose.</div>
+    <div class="ax"><b>Belonging</b>Being wanted somewhere, by someone, for who you actually are — and wanting to be there, seeing and accepting them fully back.</div>
+  </div>
+  <p class="secnote">And more than these. Nobody has yet made the complete list.</p>
+
+  <p><strong>Nobody sits in the middle of all of them.</strong> Not one person who has ever lived. You are unusual in several of these right now — and most of the time you have built your days around it without ever naming it as a difficulty. The seat you always choose. The noise you avoid. The way you need instructions written down. Ordinary adjustments, made without calling them adjustments.</p>
+
+  <p class="lift">Which means every one of us is somewhere unusual. <strong>Difference is not the exception here — it is the material we are all made of.</strong></p>
+
+  <p>That is what <em>in the spectrums</em> means. Not placed on a line and measured. Living inside a space with many dimensions, moving around it all day, as everyone does.</p>
+
+  <p class="pull">We are not points on a line. We are surfing the waves of a life — carrying real burdens, holding real gifts, and moving all the time, inside and out.</p>
+
+  <p>And the spectrums do not stay still or stay separate. They bend and tangle as we move among family, school, work and community. A person is different at home than at school. A day that would have been fine on Tuesday is not fine on Thursday. Two people in a room might change what each of them can do.</p>
+  <p>None of that is instability, and none of it is anyone failing. It is what being alive among other people looks like — and it means the conditions around a person are always at least partly changeable, which is where nearly all of our influence lives.</p>
+</section>
+
+<section>
+  <h2 class="sec">This is not a way of saying <em>we are all the same</em></h2>
+  <p>Being in the spectrums is universal. What differs — enormously, and consequentially — is <strong>what a particular position needs, has recognized, asks for, and actually gets.</strong> Some people need a little, occasionally, and can arrange it themselves. Some need a great deal, constantly, from many people, for their whole lives.</p>
+  <p>Those are genuinely different situations, and naming the difference honestly is not a judgment — it is how you work out what is actually needed, and go and find the care, the supports and the people who can provide it.</p>
+
+  <p>What they share is the shape of the thing. Somebody uses a wheelchair. Somebody else uses a chair, and a familiar route to work, and a friend who knows to text before calling. Everyone is being held up by something. We only call some of it equipment.</p>
+
+  <p>Which means nothing on this site belongs to a separate world. It is more of what everyone already leans on, or a different shape of it, built to reach further — so that it gets all the way to the person it is for.</p>
+
+  <div class="note">
+    <h3>And the gap is not fixed</h3>
+    <p>The distance between what a person needs and what the world offers has been closing, unevenly, for a long time — because people closed it. Curb cuts, captions, communication devices, inclusive classrooms, and the plain expectation that a person belongs in the room all had to be argued for, usually by families and by disabled people themselves, usually against resistance.</p>
+    <p>That work is unfinished, and some of what remains is genuinely hard. But it is something people build, not something that simply happens to us — which means it moves when we move it. And a great deal of what you do for one person quietly widens the door for everyone who comes after them.</p>
+  </div>
+</section>
+
+<section>
+  <p class="lift">You are not late. Whatever has already happened, the next thing you do still counts — <strong>and it counts more than you can see from here.</strong></p>
+
+<h2 class="sec">What we are actually <em>doing here</em></h2>
+  <p class="secnote">For in the spectrums, the aim is not to arrive anywhere. It is to keep going, and to get better at it.</p>
+
+  <ul>
+    <li><strong>Becoming more aware of ourselves</strong> — what we need, what is too much, what helps, and how to say so.</li>
+    <li><strong>Connecting with other people, and contributing something to them.</strong> Not being managed by them. Being with them.</li>
+    <li><strong>Being nurtured, and being challenged.</strong> Both. Either one alone stops working quickly.</li>
+    <li><strong>Growing, and failing.</strong> Failing is not the interruption of the process — it is most of the process, for every single one of us. The people who get somewhere are simply the ones who were allowed to keep going afterward.</li>
+    <li><strong>Having compassion while we get back up</strong> — for the person, and for ourselves, which is usually the harder one.</li>
+    <li><strong>Finding the one thing we learned,</strong> naming it out loud, and beginning again.</li>
+  </ul>
+
+  <p>That last sequence is the whole method, and it is the same whether you are three or forty-three. It is what the Maplewood books are about. It is what the strategies on this site are for. And it applies to the adults at least as much as to the children — because a family learning this together does considerably better than a family where only the child is expected to.</p>
+</section>
+
+<section>
+  <h2 class="sec">What progress <em>actually looks like</em></h2>
+  <p class="secnote">The honest version, because the hopeful version has been unhelpful to a great many families.</p>
+
+  <div class="lift warm">We know this is a lot. We know you are tired, and that you have already done more than anyone outside your house will ever see. <strong>That is exactly why this exists</strong> — so that some of it is already worked out by the time you get here, and you can spend what you have left on your person instead of on the search.</div>
+
+  <div class="turn">
+    <p>You will do a great deal and see nothing. Then something will go backward. Then a small thing will change, and you will not be sure whether it counts, and you will not be able to say which of the eleven things you are doing caused it.</p>
+    <p>Then more nothing. Then backward again.</p>
+    <p>And then, some ordinary Tuesday, you will look up and notice that a whole side of it has come together — a thing that was impossible last year has quietly become just another part of the day — and <strong>you will not be able to point to the turn that did it.</strong></p>
+    <p><em>That is not a failure of your attention. That is what this kind of change looks like from the inside.</em></p>
+    <p>Which is the argument for continuing on the days you can see no reason to. Not because effort guarantees an outcome — it does not, and anyone promising otherwise is selling something. But because the turning is the part that belongs to you — and this kind of picture almost never comes together while you are standing over it, watching.</p>
+  </div>
+
+  <p><strong>Two things follow from this that matter more than they sound.</strong></p>
+
+  <p><strong>Early is worth more than perfect.</strong> Putting supports in place before you can prove they are working is a bet made without evidence, and it is the bet with the best odds — because the windows are real, and because a support that turns out to be unnecessary costs far less than one that arrives four years late.</p>
+
+  <p><strong>And you cannot do everything.</strong> Families are handed a list that no person could complete, and then feel they are failing at all of it simultaneously. A small number of things done consistently beats everything done once. Choosing what not to do this year is not giving up — it is the only way anything gets done properly.</p>
+
+  <div class="bnote">
+    <h3>What is actually within your control</h3>
+    <p>Less than you were promised, and considerably more than it feels like at three in the morning.</p>
+    <p>You cannot make a body develop faster, undo a diagnosis, or make a system move at the speed it should. You can decide what gets asked for and in what order. You can put things in writing. You can change how the adults around a person speak to them. You can keep a record. You can get on a list four years early. You can find the person who will actually help, and stop spending time on the one who will not. You can notice the early signs, and act in the window where acting still works.</p>
+    <p>None of that is small. Most of it is free. And nearly all of the difference between a good outcome and a poor one, in the parts anyone can influence, sits inside that list.</p>
+  </div>
+</section>
+
+<section>
+  <p class="lift">You will not do all of it. <strong>Nobody does all of it.</strong> Do the next reachable thing, and let that be enough for today — because done steadily, it turns out to be a great deal.</p>
+
+<h2 class="sec">Why any of this <em>matters</em></h2>
+  <p>A life is a gift, and it is happening now — not once someone is easier to include, not once the hard parts are solved. Every person's life is already the real one, already underway, already worth being fully inside.</p>
+  <p>So everyone should get to be in it. Safely. Understood by the people nearby. Able to refuse, able to say what happened, able to be known. Holding whatever tools make those things possible, without having to earn them first.</p>
+  <p class="pull">That is the whole of what this is for. The rest of the site is just the detail.</p>
+</section>
+
+<section>
+  <h2 class="sec">Where to go from here</h2>
+  <div class="lib">
+    <a class="libcard" href="what-to-do-first.html"><h3>What to do first</h3>
+      <p>If you are near the beginning, start here. The waits run in parallel or one at a time, and that difference is about two years.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="index.html"><h3>Start where you actually are</h3>
+      <p>Not with a diagnosis. With the sentence that has been going round your head this week.</p>
+      <span class="go">Back to the home page</span></a>
+    <a class="libcard" href="maplewood-stories.html"><h3>The Maplewood stories</h3>
+      <p>Ten friends who are not alike, working out the same things. This page, written for a lap and a sofa.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="their-own-voice.html"><h3>Their own voice</h3>
+      <p>Talking with a child about their own life, and handing the decisions over across childhood.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="behavior.html"><h3>Behavior is communication</h3>
+      <p>Zooming out before responding, and what a hard moment costs a person on the inside.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="about.html"><h3>About this site</h3>
+      <p>Who writes it, how it is written, and how to tell us what is wrong.</p>
+      <span class="go">Read the page</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>Pick one thing. Not the list — one thing, the one that is within reach this week. Do it, and then do it again next week.</p>
+  <p>The cube does not resolve while you are watching it. It resolves because you kept turning it.</p>
+</div>
+
+<footer>
+  <p><strong>Nothing on this site is medical, legal, financial, or educational advice.</strong> Verify anything that matters with the professionals who have actually met your child, and with your own state's current rules.</p>
+  <p>Free · No login · No ads · Nothing sold · Take it and adapt it.</p>
+</footer>
+
+</div>
+<script src="site-nav.js"></script>
+</body>
+</html>

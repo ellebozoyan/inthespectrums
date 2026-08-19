@@ -11,6 +11,7 @@
      --------------------------------------------------------------- */
   var GROUPS = [
     { label: 'Start here', items: [
+      ['spectrums.html',               'What we mean by spectrums','The name is plural \u2014 and what progress actually looks like'],
       ['what-to-do-first.html',        'What to do first',        'The first 90 days, and the scripts that start legal clocks'],
       ['care-team-map.html',           'The care team map',       'Forty-five specialties — who does what, and why you\u2019d call them'],
       ['conditions-library.html',      'The conditions library',  'Thirty-three conditions, how widely each varies, what helps'],
@@ -919,7 +920,7 @@
 
   /* rebuild the map (same data as the nav, kept local so order is safe) */
   var MAP = [
-    ['Start here', ['what-to-do-first.html','care-team-map.html','conditions-library.html','whole-picture.html']],
+    ['Start here', ['spectrums.html','what-to-do-first.html','care-team-map.html','conditions-library.html','whole-picture.html']],
     ['School and services', ['inside-the-iep.html','accommodations-finder.html','programs-and-entitlements.html']],
     ['Adult life', ['adult-life.html','adult-benefits.html','adult-housing.html','adult-providers.html','your-own-life.html']],
     ['Money, paperwork and tracking', ['paying-for-therapy.html','template-builders.html','symptom-tracker.html','goals-tracker.html','share-builder.html','using-these-tools.html']],
@@ -1038,9 +1039,10 @@
     'font-size:.62em;color:var(--nv-rust);opacity:.45;font-weight:400}',
     'h2.sec:hover::after{opacity:1}',
     'section.nv-shut h2.sec::after{content:"+"}',
-    'section.nv-shut > *:not(h2.sec){display:none}',
+    'section.nv-shut > *:not(h2.sec):not(.secnote):not(.nv-gist){display:none}','section.nv-shut .secnote, section.nv-shut .nv-gist{display:block;margin:6px 0 0;'+'font-size:.95rem;color:var(--nv-soft);max-width:70ch;line-height:1.5}','section.nv-shut .nv-gist{font-style:italic}',
     'section.nv-shut{margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--nv-line)}',
     'section.nv-shut h2.sec{font-size:1.15rem;margin:0}',
+    'section.nv-shut{padding-bottom:14px}',
     '@media print{h2.sec{cursor:auto}h2.sec::after{display:none}',
     'section.nv-shut > *{display:block !important}.nv-prog{display:none}}'
   ].join('');
@@ -1062,19 +1064,65 @@
     var btn = document.createElement('button');
     btn.className = 'nv-outline';
     btn.type = 'button';
-    btn.textContent = 'Outline view';
+    btn.textContent = 'Skim it';
     btn.setAttribute('aria-pressed', 'false');
     meta.appendChild(btn);
     toc.querySelector('div').appendChild(meta);
 
+    /* Sections written without a standfirst get one generated from their
+       opening sentence, so the collapsed view still says what each is about.
+       Done once, lazily, and never shown while the section is open. */
+    var gistsMade = false;
+    function makeGists() {
+      if (gistsMade) return;
+      gistsMade = true;
+      heads.forEach(function (h) {
+        var sec = h.closest('section');
+        if (!sec || sec.querySelector('.secnote') || sec.querySelector('.nv-gist')) return;
+        var p = null, kids = sec.children;
+        for (var i = 0; i < kids.length; i++) {
+          if (kids[i].tagName === 'P' && kids[i].textContent.trim().length > 40) { p = kids[i]; break; }
+        }
+        if (!p) {
+          var inner = sec.querySelector('p');
+          if (inner && inner.textContent.trim().length > 40) p = inner;
+        }
+        var t = '';
+        if (p) {
+          t = p.textContent.replace(/\s+/g, ' ').trim();
+          var cut = t.search(/[.!?](\s|$)/);
+          if (cut > 0 && cut < 240) t = t.slice(0, cut + 1);
+          else if (t.length > 200) t = t.slice(0, 200).replace(/\s+\S*$/, '') + '\u2026';
+        } else {
+          /* A section built only from cards has no prose to borrow. Listing
+             what it covers is more use than a sentence would have been. */
+          var titles = [];
+          sec.querySelectorAll('h3, h4, .age, b, li > strong').forEach(function (el) {
+            var v = el.textContent.replace(/\s+/g, ' ').trim();
+            v = v.replace(/[.,:;\u2014-]\s*$/, '');
+            if (v && v.length > 2 && v.length < 60 && titles.indexOf(v) < 0) titles.push(v);
+          });
+          if (!titles.length) return;
+          t = 'Covers: ' + titles.slice(0, 8).join(' \u00b7 ') + (titles.length > 8 ? ' \u00b7 \u2026' : '');
+        }
+        if (!t) return;
+        var g = document.createElement('p');
+        g.className = 'nv-gist';
+        g.textContent = t;
+        h.parentNode.insertBefore(g, h.nextSibling);
+      });
+    }
+
+    window.ITS_MAKE_GISTS = makeGists;
     var collapsed = false;
     btn.addEventListener('click', function () {
       collapsed = !collapsed;
+      if (collapsed) makeGists();
       heads.forEach(function (h) {
         var sec = h.closest('section');
         if (sec) sec.classList.toggle('nv-shut', collapsed);
       });
-      btn.textContent = collapsed ? 'Show everything' : 'Outline view';
+      btn.textContent = collapsed ? 'Show everything' : 'Skim it';
       btn.setAttribute('aria-pressed', String(collapsed));
       if (collapsed) window.scrollTo({ top: toc.offsetTop - 70, behavior: 'smooth' });
     });
@@ -1086,7 +1134,11 @@
     h.setAttribute('tabindex', '0');
     function toggle() {
       var sec = h.closest('section');
-      if (sec) sec.classList.toggle('nv-shut');
+      if (!sec) return;
+      if (!sec.classList.contains('nv-shut') && typeof window.ITS_MAKE_GISTS === 'function') {
+        window.ITS_MAKE_GISTS();
+      }
+      sec.classList.toggle('nv-shut');
     }
     h.addEventListener('click', function (e) {
       if (e.target.tagName === 'A') return;
@@ -1351,6 +1403,12 @@
   "If someone hurts you or takes your things, keep telling until somebody listens. The first person failing is not your fault.",
   "Find a self-advocacy group run by people with disabilities. Most people say it changes what they thought was possible."],
 
+'spectrums.html': ["The name is plural. On the spectrum is a line; in the spectrums is a space you move around inside.",
+  "There is no single spectrum \u2014 sensing, moving, sleeping, eating, communicating, feeling, joy. Nobody sits in the middle of all of them.",
+  "What differs is how much support a position asks for, and how much of the gap has been closed so far.",
+  "Progress is not linear. You turn the cube for months, see nothing, and then one day a whole side has come together.",
+  "You cannot do everything. A few things done consistently beats the whole list done once."],
+
 'maplewood-stories.html': ["Fifty-two picture books about ten friends who are not alike, figuring it out together.",
   "No child in them is labeled, and none of them is the lesson.",
   "Social and emotional learning, executive function, and safety awareness are the plots, not the moral.",
@@ -1409,6 +1467,10 @@
   'use strict';
 
   var MARKS = {
+
+  'spectrums.html':
+    '<rect width="74" height="74" fill="#16283C"/><path d="M4 26c9-9 15 9 22 0s13 9 22 0 13 9 22 0" fill="none" stroke="#9C4A21" stroke-width="2.6"/><path d="M4 38c9-9 15 9 22 0s13 9 22 0 13 9 22 0" fill="none" stroke="#C6A98F" stroke-width="2.6" opacity=".8"/><path d="M4 50c9-9 15 9 22 0s13 9 22 0 13 9 22 0" fill="none" stroke="#7FA57A" stroke-width="2.6" opacity=".65"/>',
+
 
   'adult-benefits.html':
     '<rect width="74" height="74" fill="#E7EDE5"/><circle cx="37" cy="37" r="19" fill="none" stroke="#16283C" stroke-width="2"/><path d="M37 24v26M30 30h11a4.5 4.5 0 0 1 0 9h-7a4.5 4.5 0 0 0 0 9h11" fill="none" stroke="#2E5F4E" stroke-width="2.4" stroke-linecap="round"/>',
@@ -1573,4 +1635,309 @@
   } else {
     paint(document);
   }
+})();
+
+/* ===================================================================
+   15. LIFT — the inspirational callout. Use anywhere on any page:
+       <p class="lift">Text here, with <strong>an emphasis</strong>.</p>
+       <div class="lift warm">A warmer, boxed version.</div>
+   =================================================================== */
+(function () {
+  'use strict';
+  var css = [
+    '.lift{font-family:var(--nv-serif);font-size:clamp(1.08rem,2.2vw,1.3rem);line-height:1.5;',
+    'color:var(--nv-forest);font-style:italic;text-align:center;max-width:46ch;',
+    'margin:34px auto;padding:22px 26px;border-top:1px solid var(--nv-line);',
+    'border-bottom:1px solid var(--nv-line)}',
+    '.lift strong{font-style:normal;font-weight:400;color:var(--nv-rust)}',
+    '.lift.warm{background:#F6F1E8;border:none;border-radius:2px;color:#5A4A2E;text-align:left;max-width:66ch}',
+    '.lift.warm strong{color:#8A5A2A}',
+    '@media(max-width:520px){.lift{padding:18px 4px;font-size:1.05rem}',
+    '.lift.warm{padding:18px 20px}}',
+    '@media print{.lift{border-color:#999;color:#000}}'
+  ].join('');
+  var st = document.createElement('style');
+  st.textContent = css;
+  document.head.appendChild(st);
+})();
+
+/* ===================================================================
+   16. LIFTS — the short affirming lines placed through the site,
+   especially in the hardest sections.
+
+   Edit anything here and it changes on the page. Each entry is:
+       'page.html': [ ['heading fragment', 'the line'], ... ]
+   The line is added at the END of the section whose h2 contains that
+   fragment, so it lands as a breath after the difficult part rather
+   than as a preface to it.
+
+   Use <b>…</b> for the emphasised phrase. Add 'warm|' to the start of
+   a line to get the softer boxed version instead.
+   =================================================================== */
+(function () {
+  'use strict';
+
+  var LIFTS = {
+
+  'safety.html': [
+    ['Water',
+     'Reading this page is itself a safety measure. <b>You are already doing the thing that protects people</b> \u2014 learning what to look for before it is needed.'],
+    ['Body autonomy',
+     'warm|Teaching someone that their <b>no</b> counts is not a small lesson tucked into a difficult page. It may be the single most protective thing anyone ever gives them \u2014 and every ordinary day you honour a refusal, you are teaching it.'],
+    ['Teaching safety, honestly',
+     'None of this has to be finished. <b>Layers can be added one at a time</b>, and the one you add this month is genuinely worth having on its own.']
+  ],
+
+  'injuries-and-illness.html': [
+    ['Where to go, right now',
+     'You do not need to know everything to keep someone safe. <b>Knowing when to ask is the skill</b> \u2014 and it is one you already have.'],
+    ['When the patient can',
+     'warm|You are not being difficult when you push for someone to be examined properly. You are doing the one job that nobody else in that building can do: <b>you are the person who knows what they are like when they are well.</b>'],
+    ['The parts nobody warns you about',
+     'Hard hours pass. <b>They are survivable, and they end</b> \u2014 and the version of you who has already been through one will be steadier next time.']
+  ],
+
+  'behavior.html': [
+    ['What the behavior might be saying',
+     'The fact that you are looking for the meaning at all changes everything. <b>Most people stop at the behavior.</b>'],
+    ['What it costs them, on the inside',
+     'warm|If you have responded in ways you regret, so has every person who has ever loved someone through something hard. <b>What repairs it is coming back</b> \u2014 and you can do that today, in about a minute, with no plan at all.'],
+    ['Be the thing you',
+     'You do not have to be calm to be kind. <b>You only have to be a little calmer than the moment</b>, and that is usually within reach.']
+  ],
+
+  'de-escalation.html': [
+    ['Precursor behavior',
+     'Every early sign you learn to see is a hard moment that does not have to happen. <b>You are building something with real value</b>, one noticing at a time.'],
+    ['Dysregulation is a communication breakdown',
+     'warm|Nobody de-escalates well every time. Not therapists, not the people who write the books. <b>The aim is a slightly better average</b>, not a perfect record \u2014 and a slightly better average changes a childhood.'],
+    ['The calming and processing plan',
+     'A hard moment worked through together is not a bad day with a repair stuck on the end. <b>It is one of the most useful things that will happen all week.</b>']
+  ],
+
+  'behavior-support.html': [
+    ['The ABA conversation',
+     'warm|There is no answer here that makes you a good or bad parent. <b>You are allowed to weigh it, choose, and change your mind</b> \u2014 and choosing carefully is what good looks like, whichever way you land.'],
+    ['Evaluating any behavior support',
+     'You know more than you think about whether something is working. <b>Watch your person, not the chart.</b>']
+  ],
+
+  'anxiety-and-ocd.html': [
+    ['What anxiety looks like in a child',
+     'Every accommodation you made was an act of love by someone with no reason to know otherwise. <b>Knowing differently now is the whole opportunity.</b>'],
+    ['The treatment that works',
+     'warm|Anxiety is among the most treatable things on this entire site. That is worth sitting with for a moment, especially if it has been running your household for years. <b>This one really does get better.</b>'],
+    ['School refusal',
+     'Small steps count as steps. <b>Ten minutes in the building is not a failed day</b> \u2014 it is the day the direction changed.']
+  ],
+
+  'adhd-executive-function.html': [
+    ['What is actually hard',
+     'None of this is a character problem, and it never was. <b>Difficulty doing is not the same as failing to care</b> \u2014 usually the caring is the loudest part.'],
+    ['Strategies that actually work at home',
+     'warm|You do not need all of these. <b>Pick one, put it somewhere visible, and let it be the only new thing this month.</b> Systems that survive are the ones that were not competing with four others.'],
+    ['Living with it well',
+     'The child who hears what they are good at, often and out loud, becomes an adult who knows it. <b>That part is entirely in your gift.</b>']
+  ],
+
+  'learning-and-literacy.html': [
+    ['Structured literacy',
+     'Reading difficulty is one of the most fixable things in this whole field. <b>The right instruction genuinely works</b>, and knowing to ask for it is most of the battle.'],
+    ['The specific difficulties',
+     'warm|A child struggling to read is not a child who is not trying. They are usually trying harder than anyone in the room. <b>What changes it is method, not effort</b> \u2014 and method is something adults control.'],
+    ['At each stage',
+     'It is not too late. <b>Older readers make real gains with the right teaching</b> \u2014 later than ideal is not the same as too late.']
+  ],
+
+  'whole-picture.html': [
+    ['Co-occurrence is the rule',
+     'A longer list is not a heavier burden. <b>Every accurate name on it is a door</b> \u2014 and a piece of your person someone finally sees properly.'],
+    ['Dominoes and Mentos',
+     'warm|If you have been blaming yourself for reacting to the visible thing, stop. <b>Everyone reacts to the visible thing</b> \u2014 it is the only part anyone can see. Learning to look further back is a skill, not a correction.'],
+    ['Navigating it over the years',
+     'The picture gets clearer. <b>Not all at once, and not completely</b> \u2014 but families almost always understand more at year five than they did at year one.']
+  ],
+
+  'feeding-therapy.html': [
+    ['ARFID',
+     'warm|Nobody has ever fixed this by trying harder at dinner. <b>If mealtimes have been a battle, that was the situation and not your parenting</b> \u2014 and taking the pressure out is a real intervention, not giving up.'],
+    ['Declarative language, at the table',
+     'Progress here is measured in months and it is real. <b>A calmer table is worth having on its own</b>, before a single new food arrives.']
+  ],
+
+  'speech-language-aac.html': [
+    ['AAC, properly',
+     'warm|There is no moment at which it is too late to give someone a way to be understood. <b>People gain communication at four, at fourteen, and at forty.</b> Every month of access counts, starting whenever it starts.'],
+    ['Teaching someone to recount',
+     'Every ordinary story someone tells you \u2014 the swimming lesson, the thing the dog did \u2014 is a brick in something that will protect them. <b>The small talk is the work.</b>']
+  ],
+
+  'their-own-voice.html': [
+    ['One word, four very different children',
+     'You do not have to get this conversation right the first time. <b>It is not one conversation</b> \u2014 it is a hundred small ones, and you can always come back and say it better.'],
+    ['Growing self-advocacy',
+     'warm|Every time you ask instead of assume, you are handing someone a piece of their own life. <b>That transfer is the entire project</b>, and it is made of very ordinary moments.']
+  ],
+
+  'what-to-do-first.html': [
+    ['',
+     'warm|If you have only just started, you are not behind \u2014 you are at the beginning, which is where everyone starts. <b>Do one thing from this page this week.</b> That is enough, and it is more than most people manage in the first month.']
+  ],
+
+  'inside-the-iep.html': [
+    ['The meeting itself',
+     'You are allowed to be the least expert person in the room and still be the most important one. <b>Nobody there knows your child.</b>']
+  ],
+
+  'paying-for-therapy.html': [
+    ['When a claim is denied',
+     'warm|A denial is very often a clerical event rather than a decision. <b>Many are overturned simply because somebody appealed</b> \u2014 and that somebody can be you, on an ordinary afternoon, with a phone.']
+  ],
+
+  'programs-and-entitlements.html': [
+    ['The ages when something changes',
+     'Nobody knows all of this, including the professionals. <b>Asking what else exists is a legitimate question</b>, and it is how most families find the thing they were entitled to all along.']
+  ],
+
+  'adult-life.html': [
+    ['What changes at eighteen',
+     'warm|This page is long because it was allowed to become complicated, not because you are slow to understand it. <b>Take one section at a time</b>, over months if you need to. There is no exam.'],
+    ['When you are no longer here',
+     'Planning for this is not morbid and it is not giving up. <b>It is one of the most loving pieces of work a person can do</b> \u2014 and doing it tends to make the present easier, not heavier.']
+  ],
+
+  'adult-benefits.html': [
+    ['Working does not end benefits',
+     'If someone has been told they cannot work without losing everything, that is almost certainly wrong. <b>A whole life may be waiting on the other side of that one correction.</b>']
+  ],
+
+  'adult-housing.html': [
+    ['Subsidized housing, in plain terms',
+     'warm|Applying to a list costs nothing and commits you to nothing. <b>You can decline anything you are offered.</b> The only irreversible choice here is not applying.']
+  ],
+
+  'adult-providers.html': [
+    ['Once they are there',
+     'You remain the one person who is not paid to be there and never leaves. <b>That is not a burden \u2014 it is the safeguard nothing else replaces.</b>']
+  ],
+
+  'your-own-life.html': [
+    ['Things that are true about you',
+     'You are allowed to want things. <b>Not just what is safe, or what is available \u2014 what you actually want.</b>'],
+    ['If something is wrong',
+     'warm|If you have told someone before and nothing happened, that was not you failing. <b>Try again, with someone else.</b> There are people whose whole job is to listen to exactly this, and they are waiting to hear from you.'],
+    ['Speaking up for yourself',
+     'You have been practising this your whole life, whether anyone called it that. <b>You already know how to be the person who says what they need.</b>']
+  ],
+
+  'adaptive-community.html': [
+    ['What community offers that therapy cannot',
+     'warm|An hour where nobody is measuring your person is not time off from the work. <b>For a lot of people it turns out to be the part that mattered most.</b>']
+  ],
+
+  'conditions-library.html': [
+    ['',
+     'A label is a key, not a description. <b>It opens doors \u2014 it does not tell you who anyone is.</b>']
+  ],
+
+  'care-team-map.html': [
+    ['',
+     'warm|Nobody needs all of these, and no family assembles a team overnight. <b>Two or three good people is a functioning team</b>, and it usually starts with one.']
+  ],
+
+  'accommodations-finder.html': [
+    ['',
+     'Asking for an adjustment is not asking for a favour. <b>It is asking for the version of the day that your person can actually take part in.</b>']
+  ],
+
+  'template-builders.html': [
+    ['',
+     'warm|You have explained your person from scratch more times than anyone should have to. <b>This is the last time you write it out</b> \u2014 after this, you hand it over.']
+  ],
+
+  'physical-therapy.html': [
+    ['Three things worth knowing',
+     'Every extra place a person can get to is a piece of a life. <b>Distance is not the point \u2014 what is at the other end of it is.</b>']
+  ],
+
+  'occupational-therapy.html': [
+    ['What OT targets',
+     'The goal was never to be good at the exercise. <b>It was an easier Tuesday morning</b>, and that is a completely legitimate thing to want.']
+  ],
+
+  'floortime.html': [
+    ['Why child-led matters',
+     'warm|You do not need training to start this afternoon. <b>Get on the floor, join whatever is already happening, and follow.</b> That is not a simplified version of the method \u2014 it is the method.']
+  ],
+
+  'music.html': [
+    ['What music makes possible',
+     'You do not have to be musical. <b>A person who loves you, singing badly, is doing the thing that works.</b>']
+  ],
+
+  'aquatic-therapy.html': [
+    ['What aquatic therapy targets',
+     'Watching someone do in water what they cannot do on land is worth the drive on its own. <b>That is their body, showing you what it knows.</b>']
+  ],
+
+  'myofunctional-therapy.html': [
+    ['What it actually is',
+     'Breathing and sleeping sit underneath everything else. <b>Getting those right can quietly improve things nobody connected to them.</b>']
+  ],
+
+  'maplewood-stories.html': [
+    ['Why these books exist',
+     'warm|A child who sees themselves in a story stops believing they are the only one. <b>That is not a small thing to hand somebody</b> \u2014 for many people it is the thing they remember about being read to.']
+  ],
+
+  'symptom-tracker.html': [
+    ['',
+     'warm|Log what you can, on the days you can. <b>A patchy record beats the memory of an exhausted person at an appointment</b>, and nobody has ever kept one of these perfectly.']
+  ],
+
+  'goals-tracker.html': [
+    ['',
+     'You are the only person who sees every plan. <b>That view is worth more than any individual expert opinion in it.</b>']
+  ],
+
+  'share-builder.html': [
+    ['',
+     'What you choose not to share is as much a decision as what you do. <b>Both belong to you.</b>']
+  ],
+
+  'about.html': [
+    ['Tell us what',
+     'warm|If something here is wrong, or missing, or lands badly \u2014 please say so. <b>Corrections are the most valuable thing anyone sends</b>, and this gets better every time somebody bothers.']
+  ]
+
+  };
+
+  var file = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+  var list = LIFTS[file];
+  if (!list || !list.length) return;
+
+  function place(frag, text) {
+    var warm = false;
+    if (text.indexOf('warm|') === 0) { warm = true; text = text.slice(5); }
+    var el = document.createElement('p');
+    el.className = 'lift' + (warm ? ' warm' : '');
+    el.innerHTML = text;
+
+    if (!frag) {
+      /* No anchor given: put it after the page intro. */
+      var mast = document.querySelector('header.masthead, .masthead');
+      if (mast && mast.parentNode) mast.parentNode.insertBefore(el, mast.nextSibling);
+      return true;
+    }
+    var heads = document.querySelectorAll('h2.sec');
+    for (var i = 0; i < heads.length; i++) {
+      if (heads[i].textContent.indexOf(frag) > -1) {
+        var sec = heads[i].closest('section');
+        if (sec) { sec.appendChild(el); return true; }
+      }
+    }
+    return false;
+  }
+
+  list.forEach(function (row) { place(row[0], row[1]); });
 })();
