@@ -2378,3 +2378,211 @@
   st.textContent = css;
   document.head.appendChild(st);
 })();
+
+/* ===================================================================
+   19. LANGUAGE — reading this site in another language.
+
+   Two routes, deliberately in this order:
+
+   1. The browser's own translation. Better quality than it used to be,
+      already installed, and it adds no third party to this site.
+   2. An opt-in translator covering about a hundred languages. It loads
+      a Google script, so it stays OFF until somebody chooses a language
+      — anyone who never touches it is unaffected, and the site's
+      "nothing is sent anywhere" promise holds for them.
+   =================================================================== */
+(function () {
+  'use strict';
+
+  var LANGS = [
+    ['af','Afrikaans'],['sq','Shqip \u2014 Albanian'],['am','\u12A0\u121B\u122D\u129B \u2014 Amharic'],
+    ['ar','\u0627\u0644\u0639\u0631\u0628\u064A\u0629 \u2014 Arabic'],['hy','\u0540\u0561\u0575\u0565\u0580\u0565\u0576 \u2014 Armenian'],
+    ['az','Az\u0259rbaycan'],['eu','Euskara \u2014 Basque'],['be','\u0411\u0435\u043B\u0430\u0440\u0443\u0441\u043A\u0430\u044F'],
+    ['bn','\u09AC\u09BE\u0982\u09B2\u09BE \u2014 Bengali'],['bs','Bosanski'],['bg','\u0411\u044A\u043B\u0433\u0430\u0440\u0441\u043A\u0438'],
+    ['my','\u1017\u1019\u102C \u2014 Burmese'],['ca','Catal\u00E0'],['ceb','Cebuano'],
+    ['ny','Chiche\u0175a'],['zh-CN','\u4E2D\u6587 (\u7B80\u4F53) \u2014 Chinese, Simplified'],
+    ['zh-TW','\u4E2D\u6587 (\u7E41\u9AD4) \u2014 Chinese, Traditional'],['co','Corsu'],['hr','Hrvatski'],
+    ['cs','\u010Ce\u0161tina'],['da','Dansk'],['nl','Nederlands'],['eo','Esperanto'],
+    ['et','Eesti'],['tl','Filipino'],['fi','Suomi'],['fr','Fran\u00E7ais'],['fy','Frysk'],
+    ['gl','Galego'],['ka','\u10E5\u10D0\u10E0\u10D7\u10E3\u10DA\u10D8 \u2014 Georgian'],['de','Deutsch'],
+    ['el','\u0395\u03BB\u03BB\u03B7\u03BD\u03B9\u03BA\u03AC \u2014 Greek'],['gu','\u0A97\u0AC1\u0A9C\u0AB0\u0ABE\u0AA4\u0AC0 \u2014 Gujarati'],
+    ['ht','Krey\u00F2l Ayisyen'],['ha','Hausa'],['haw','\u02BB\u014Clelo Hawai\u02BBi'],
+    ['iw','\u05E2\u05D1\u05E8\u05D9\u05EA \u2014 Hebrew'],['hi','\u0939\u093F\u0928\u094D\u0926\u0940 \u2014 Hindi'],
+    ['hmn','Hmoob'],['hu','Magyar'],['is','\u00CDslenska'],['ig','Igbo'],['id','Bahasa Indonesia'],
+    ['ga','Gaeilge'],['it','Italiano'],['ja','\u65E5\u672C\u8A9E \u2014 Japanese'],['jw','Basa Jawa'],
+    ['kn','\u0C95\u0CA8\u0CCD\u0CA8\u0CA1 \u2014 Kannada'],['kk','\u049A\u0430\u0437\u0430\u049B'],
+    ['km','\u1781\u17D2\u1798\u17C2\u179A \u2014 Khmer'],['rw','Kinyarwanda'],['ko','\ud55c\uad6d\uc5b4 \u2014 Korean'],
+    ['ku','Kurd\u00EE'],['ky','\u041A\u044B\u0440\u0433\u044B\u0437\u0447\u0430'],['lo','\u0EA5\u0EB2\u0EA7 \u2014 Lao'],
+    ['la','Latina'],['lv','Latvie\u0161u'],['lt','Lietuvi\u0173'],['lb','L\u00EBtzebuergesch'],
+    ['mk','\u041C\u0430\u043A\u0435\u0434\u043E\u043D\u0441\u043A\u0438'],['mg','Malagasy'],['ms','Bahasa Melayu'],
+    ['ml','\u0D2E\u0D32\u0D2F\u0D3E\u0D33\u0D02 \u2014 Malayalam'],['mt','Malti'],['mi','Te Reo M\u0101ori'],
+    ['mr','\u092E\u0930\u093E\u0920\u0940 \u2014 Marathi'],['mn','\u041C\u043E\u043D\u0433\u043E\u043B'],
+    ['ne','\u0928\u0947\u092A\u093E\u0932\u0940 \u2014 Nepali'],['no','Norsk'],['or','\u0B13\u0B21\u0B3C\u0B3F\u0B06 \u2014 Odia'],
+    ['ps','\u067E\u069A\u062A\u0648 \u2014 Pashto'],['fa','\u0641\u0627\u0631\u0633\u06CC \u2014 Persian'],
+    ['pl','Polski'],['pt','Portugu\u00EAs'],['pa','\u0A2A\u0A70\u0A1C\u0A3E\u0A2C\u0A40 \u2014 Punjabi'],
+    ['ro','Rom\u00E2n\u0103'],['ru','\u0420\u0443\u0441\u0441\u043A\u0438\u0439 \u2014 Russian'],['sm','Gagana Samoa'],
+    ['gd','G\u00E0idhlig'],['sr','\u0421\u0440\u043F\u0441\u043A\u0438'],['st','Sesotho'],['sn','Shona'],
+    ['sd','\u0633\u0646\u068C\u064A \u2014 Sindhi'],['si','\u0DC3\u0DD2\u0D82\u0DC4\u0DBD \u2014 Sinhala'],
+    ['sk','Sloven\u010Dina'],['sl','Sloven\u0161\u010Dina'],['so','Soomaali'],
+    ['es','Espa\u00F1ol \u2014 Spanish'],['su','Basa Sunda'],['sw','Kiswahili'],['sv','Svenska'],
+    ['tg','\u0422\u043E\u04B7\u0438\u043A\u04E3'],['ta','\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD \u2014 Tamil'],
+    ['tt','\u0422\u0430\u0442\u0430\u0440\u0447\u0430'],['te','\u0C24\u0C46\u0C32\u0C41\u0C17\u0C41 \u2014 Telugu'],
+    ['th','\u0E44\u0E17\u0E22 \u2014 Thai'],['tr','T\u00FCrk\u00E7e'],['tk','T\u00FCrkmen'],
+    ['uk','\u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430 \u2014 Ukrainian'],
+    ['ur','\u0627\u0631\u062F\u0648 \u2014 Urdu'],['ug','\u0626\u06C7\u064A\u063A\u06C7\u0631\u0686\u06D5'],
+    ['uz','O\u02BBzbek'],['vi','Ti\u1EBFng Vi\u1EC7t \u2014 Vietnamese'],['cy','Cymraeg'],
+    ['xh','isiXhosa'],['yi','\u05D9\u05D9\u05D3\u05D9\u05E9 \u2014 Yiddish'],['yo','Yor\u00F9b\u00E1'],['zu','isiZulu']
+  ];
+  var RTL = { ar:1, iw:1, fa:1, ur:1, ps:1, sd:1, ug:1, yi:1, ku:1 };
+
+  var css = [
+    '.nv-langbtn{font-family:var(--nv-sans);font-size:12.5px;padding:8px 14px;border:1px solid var(--nv-line);',
+    'background:none;color:var(--nv-soft);border-radius:2px;cursor:pointer;letter-spacing:.03em;margin-left:8px}',
+    '.nv-langbtn:hover{border-color:var(--nv-rust);color:var(--nv-rust)}',
+    '.nv-lang{position:fixed;inset:0;background:rgba(22,40,60,.62);z-index:985;display:none;',
+    'align-items:flex-start;justify-content:center;padding:6vh 18px 18px}',
+    '.nv-lang.on{display:flex}',
+    '.nv-langbox{background:var(--nv-ground);border-radius:3px;width:100%;max-width:620px;',
+    'max-height:84vh;overflow-y:auto;padding:26px 28px 22px}',
+    '.nv-langbox h3{font-family:var(--nv-serif);font-size:1.3rem;font-weight:400;margin:0 0 6px}',
+    '.nv-langbox h4{font-family:var(--nv-sans);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;',
+    'color:var(--nv-forest);font-weight:700;margin:24px 0 9px}',
+    '.nv-langbox p{font-size:.95rem;line-height:1.55;margin:0 0 11px;color:var(--nv-ink)}',
+    '.nv-langbox .small{font-size:.88rem;color:var(--nv-soft)}',
+    '.nv-langbox select{width:100%;font-family:var(--nv-serif);font-size:1rem;padding:11px 12px;',
+    'border:1px solid var(--nv-line);border-radius:2px;background:#fff;color:var(--nv-ink)}',
+    '.nv-langbox .warnbox{background:#F6E9E4;border-left:4px solid #8A2B20;padding:14px 16px;',
+    'margin:0 0 16px;font-size:.92rem;line-height:1.5}',
+    '.nv-langbox .warnbox b{color:#8A2B20}',
+    '.nv-langbox .howto{background:var(--nv-card);border:1px solid var(--nv-line);border-radius:2px;',
+    'padding:14px 16px;margin:0 0 10px;font-size:.92rem;line-height:1.5}',
+    '.nv-langbox .howto b{font-family:var(--nv-sans);font-size:11px;letter-spacing:.05em;display:block;',
+    'margin-bottom:4px;color:var(--nv-ink)}',
+    '.nv-langbox .acts{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;padding-top:14px;',
+    'border-top:1px solid var(--nv-line)}',
+    '.nv-langbox button.go{font-family:var(--nv-sans);font-size:12.5px;padding:10px 16px;border-radius:2px;',
+    'cursor:pointer;border:1px solid var(--nv-forest);background:var(--nv-forest);color:#fff}',
+    '.nv-langbox button.ghost{background:none;color:var(--nv-forest)}',
+    '#google_translate_element{margin-top:10px}',
+    '.goog-te-banner-frame,.skiptranslate iframe{display:none!important}',
+    'body{top:0!important}',
+    '@media print{.nv-langbtn{display:none}}'
+  ].join('');
+  var st = document.createElement('style');
+  st.textContent = css;
+  document.head.appendChild(st);
+
+  var box, sel;
+  function build() {
+    box = document.createElement('div');
+    box.className = 'nv-lang';
+    box.innerHTML =
+      '<div class="nv-langbox">' +
+        '<h3>Read this in another language</h3>' +
+        '<p class="small">Two ways. The first is better and adds nothing to this site.</p>' +
+
+        '<h4>1 \u00b7 Your own browser can do it</h4>' +
+        '<p>Modern browsers translate any page, usually more accurately than a plug-in, and without ' +
+        'involving anybody else. Nothing about you is shared with this site or with us.</p>' +
+        '<div class="howto"><b>Chrome, Edge</b>Right-click anywhere on the page and choose ' +
+        '<i>Translate to\u2026</i>. On a phone, use the three-dot menu and choose <i>Translate</i>.</div>' +
+        '<div class="howto"><b>Safari on iPhone, iPad or Mac</b>Tap or click the <i>aA</i> or page icon ' +
+        'in the address bar and choose <i>Translate to\u2026</i>.</div>' +
+        '<div class="howto"><b>Firefox</b>Look for the translate icon in the address bar, or use the ' +
+        'menu and choose <i>Translate page</i>.</div>' +
+
+        '<h4>2 \u00b7 Or translate it here</h4>' +
+        '<div class="warnbox"><b>Please read this first.</b> This option loads a translation service ' +
+        'run by Google. Choosing a language means Google will know you visited this page. Nothing else ' +
+        'on this site does that, and nothing you type into any tool is ever sent \u2014 but this one ' +
+        'brings in an outside company, so it stays switched off until you choose.</div>' +
+        '<select><option value="">Choose a language\u2026</option>' +
+        LANGS.map(function (l) { return '<option value="' + l[0] + '">' + l[1] + '</option>'; }).join('') +
+        '</select>' +
+        '<div id="google_translate_element"></div>' +
+        '<p class="small" style="margin-top:14px"><b>Machine translation makes mistakes.</b> ' +
+        'This site covers medical, legal and educational matters where a wrong word changes the meaning. ' +
+        'Treat a translated page as a rough guide, and check anything important with a person who speaks ' +
+        'your language \u2014 many clinics and school districts must provide an interpreter free of charge, ' +
+        'and you are entitled to ask for one.</p>' +
+
+        '<div class="acts">' +
+          '<button class="go">Close</button>' +
+          '<button class="ghost" data-reset>Back to English</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(box);
+    sel = box.querySelector('select');
+    box.querySelector('button.go').addEventListener('click', close);
+    box.querySelector('[data-reset]').addEventListener('click', reset);
+    box.addEventListener('click', function (e) { if (e.target === box) close(); });
+    sel.addEventListener('change', function () { if (sel.value) go(sel.value); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && box.classList.contains('on')) close();
+    });
+  }
+
+  /* The Google script is fetched only at this point, never on load. */
+  var loaded = false;
+  function go(code) {
+    try { localStorage.setItem('its_lang', code); } catch (e) {}
+    document.documentElement.setAttribute('dir', RTL[code] ? 'rtl' : 'ltr');
+    if (loaded) { apply(code); return; }
+    loaded = true;
+    window.googleTranslateElementInit = function () {
+      try {
+        new window.google.translate.TranslateElement(
+          { pageLanguage: 'en', autoDisplay: false }, 'google_translate_element');
+        setTimeout(function () { apply(code); }, 400);
+      } catch (e) { fallback(); }
+    };
+    var s = document.createElement('script');
+    s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    s.onerror = fallback;
+    document.body.appendChild(s);
+  }
+  function apply(code) {
+    var combo = document.querySelector('.goog-te-combo');
+    if (!combo) { fallback(); return; }
+    combo.value = code;
+    combo.dispatchEvent(new Event('change'));
+    setTimeout(close, 600);
+  }
+  function fallback() {
+    var w = box.querySelector('.warnbox');
+    if (w) w.innerHTML = '<b>That did not load.</b> The translation service could not be reached \u2014 ' +
+      'it may be blocked on this network or in this country. Your browser\u2019s own translation, ' +
+      'described above, does not depend on it and will still work.';
+  }
+  function reset() {
+    try { localStorage.removeItem('its_lang'); } catch (e) {}
+    document.documentElement.setAttribute('dir', 'ltr');
+    location.reload();
+  }
+
+  function open() { if (!box) build(); box.classList.add('on'); }
+  function close() { if (box) box.classList.remove('on'); }
+  window.ITS_OPEN_LANG = open;
+
+  /* Re-apply a chosen language on later pages, without asking again. */
+  try {
+    var saved = localStorage.getItem('its_lang');
+    if (saved) { build(); go(saved); close(); }
+  } catch (e) {}
+
+  function addButton() {
+    var host = document.querySelector('.nv-bar .nv-in') || document.querySelector('.nv-bar');
+    if (!host || host.querySelector('.nv-langbtn')) return;
+    var b = document.createElement('button');
+    b.className = 'nv-langbtn';
+    b.type = 'button';
+    b.setAttribute('translate', 'no');
+    b.textContent = 'Language';
+    b.addEventListener('click', open);
+    host.appendChild(b);
+  }
+  addButton();
+  if (!document.querySelector('.nv-langbtn')) {
+    document.addEventListener('DOMContentLoaded', addButton);
+  }
+})();
