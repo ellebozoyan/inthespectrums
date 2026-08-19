@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The people doing the caring — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#6B4A78; --book-tint:#EFE6F1; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the equation */
+.eqn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.eqn h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.eqn .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.parts{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:18px}
+@media(max-width:700px){.parts{grid-template-columns:1fr;gap:6px}.op{text-align:center;padding:2px 0}}
+.pt{background:rgba(255,255,255,.06);border-top:3px solid var(--book);padding:15px 16px}
+.pt.res{border-top-color:var(--rust);background:rgba(156,74,33,.13)}
+.pt b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#EFEBE3;margin-bottom:6px}
+.pt span{font-size:.86rem;color:#B9C4B4;line-height:1.45;display:block}
+.op{font-size:1.5rem;color:#C6A98F;text-align:center}
+.eqn .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:20px 0 0;max-width:62ch}
+.eqn .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .eqn{background:#fff;color:#000;border:1px solid #000}.eqn .big,.pt b,.eqn .cap strong{color:#000}}
+
+.cliff{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin:0 0 18px}
+@media(max-width:640px){.cliff{grid-template-columns:1fr}}
+.cliff .side{padding:18px 20px}
+.cliff .l{background:rgba(255,255,255,.07);border-top:3px solid #7FA57A}
+.cliff .r{background:rgba(156,74,33,.16);border-top:3px solid #C6704A}
+.cliff .gap{display:flex;align-items:center;justify-content:center;padding:0 14px;
+  font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C6A98F}
+@media(max-width:640px){.cliff .gap{padding:10px 0}}
+.cliff b{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px}
+.cliff .l b{color:#7FA57A}.cliff .r b{color:#E8C3BC}
+.cliff ul{margin:0;padding-left:17px;font-size:.9rem;line-height:1.5}
+.cliff li{margin-bottom:6px;color:#B9C4B4}
+.ladder{margin:0 0 16px}
+.rung{background:var(--card);border-left:4px solid var(--line);padding:15px 19px;margin-bottom:8px}
+.rung.least{border-left-color:#2E4E3F}
+.rung.mid{border-left-color:#A8641C}
+.rung.most{border-left-color:#8A2B20}
+.rung b{display:block;font-size:1.03rem;font-weight:400;margin-bottom:5px}
+.rung .tag{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;float:right;margin-left:12px}
+.rung.least .tag{color:#2E4E3F}.rung.mid .tag{color:#A8641C}.rung.most .tag{color:#8A2B20}
+.rung p{font-size:.93rem;margin:0;color:var(--ink-soft)}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>The people doing the caring:<br><em>you are also a person</em></h1>
+  <p class="lede">This is the page that gets written last on most sites, and read least. It is here because the single largest risk to a well-supported child is a caregiver who runs out — and because you deserve a decent life in your own right, not merely as infrastructure for someone else's.</p>
+</header>
+
+<div class="warn">
+  <h3>Not a page about bubble baths</h3>
+  <p>If you are exhausted, burnt out, worn down, or simply have no help — this page is for that. Advice to "practise self-care" lands badly when you have no time, no money, and nobody to leave your child with. It is often heard, correctly, as being told the problem is your attitude.</p>
+  <p>So this page is mostly about <strong>reducing the load</strong> and <strong>getting actual help</strong>, which are the things that work. The soft stuff is here too, but second.</p>
+</div>
+
+<section>
+  <h2 class="sec">What actually <em>reduces the load</em></h2>
+  <p class="secnote">In rough order of how much difference each tends to make.</p>
+  <ul>
+    <li><strong>Respite care.</strong> Funded respite exists in most places through disability services, waivers, or nonprofits, and is chronically under-claimed because nobody tells families about it. Ask your care coordinator, your state agency, and your local parent center — separately, because they will each know about different things.</li>
+    <li><strong>Sleep.</strong> If a child's sleep is broken, that is a treatable medical question and not a fact of life. Sleep-disordered breathing, restless legs, iron deficiency and medication timing all cause it, and fixing it changes everything for both of you. Push for a real workup.</li>
+    <li><strong>A second trained adult.</strong> Not a babysitter who lasts one evening — one person who learns your child properly and comes back. Paying above the going rate for the right person is the best money most families spend.</li>
+    <li><strong>Reducing what you personally carry.</strong> Every form, phone call, appointment and refill you can move onto someone else's desk is capacity returned. Ask providers what they can do rather than what you should do.</li>
+    <li><strong>Saying no to something.</strong> One therapy, one commitment, one obligation. A family doing four things properly does better than one doing seven badly, and choosing which to drop is a legitimate clinical decision — take it to the team rather than making it alone at midnight.</li>
+    <li><strong>Money.</strong> Benefits, tax credits, funded programs and reimbursements are all load-reducing, and they go unclaimed constantly. See <a href="paying-for-therapy.html">paying for it</a> and <a href="programs-and-entitlements.html">programs and entitlements</a>.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">The grief that <em>keeps arriving</em></h2>
+  <p class="secnote">Not one event you get over. Something that returns, on ordinary days, often when things are going well.</p>
+  <p>It shows up at other people's milestones, at the birthday party you were not invited to, at a form asking what grade they are in, and at the moment you realize the thing you assumed would come later is not coming.</p>
+  <p><strong>It is not a failure of acceptance, and it is not a rejection of your child.</strong> You can love someone entirely, be proud of exactly who they are, and still grieve a life you had imagined. Those coexist in nearly every parent who has been at this a while, and the ones who say otherwise are usually earlier in it than you are.</p>
+  <p>What helps: naming it as grief rather than as being ungrateful. Letting it come rather than arguing with it. Talking to someone who has felt the same thing and will not tell you to count your blessings.</p>
+
+  <div class="bnote">
+    <h3>The resentment nobody admits to</h3>
+    <p>Most long-term caregivers, at some point, resent the person they are caring for. Not always, not mostly — but sometimes, in a bad week, and then feel monstrous about it.</p>
+    <p>It is extraordinarily common and it means nothing about how much you love them. It means you are a person doing a very hard job with no days off. Saying it out loud to one safe person takes most of the weight out of it.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Your own <em>health</em></h2>
+  <p class="secnote">Caregivers have measurably worse health outcomes than other adults, and the reasons are mostly practical rather than mysterious.</p>
+  <ul>
+    <li><strong>Book your own appointments.</strong> Caregivers defer their own care for years — the smear test, the mole, the dental work, the thing that has been aching. Book one this month.</li>
+    <li><strong>Tell a doctor you are a caregiver.</strong> It changes what they ask about, and it is a recognized risk factor for depression, anxiety, and physical illness.</li>
+    <li><strong>Watch the coping that turns on you</strong> — drinking that has crept up, not eating, eating instead of sleeping, scrolling until 2am. All extremely normal, all worth naming before they settle in.</li>
+    <li><strong>Know the burnout signs:</strong> feeling nothing where you used to feel something, dreading a person you love, snapping constantly, being unable to enjoy a good moment, and thinking everyone would be better off without you.</li>
+    <li><strong>That last one is a reason to get help today.</strong> Not a character flaw and not something to sit with. Tell your doctor, or a crisis line, or one person who will make you an appointment.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Other <em>people</em></h2>
+  <div class="domains">
+    <div class="dom"><h3>Your partner, if you have one</h3>
+      <p>The most common pattern is not conflict, it is drift: two people running a logistics operation who have not had an unrelated conversation in months.</p>
+      <ul>
+        <li>Divide by ownership, not by task — one person owns medical, one owns school</li>
+        <li>Protect something that is not about the children, even briefly</li>
+        <li>Say the unsaid thing before it calcifies</li>
+        <li>Couples counselling is a reasonable, unremarkable thing to do</li>
+      </ul>
+      <p class="look"><b>Worth knowing</b>Parents of disabled children are not doomed to separate, whatever you have read. What predicts trouble is unshared load and unspoken resentment, both of which are addressable.</p></div>
+
+    <div class="dom"><h3>Siblings</h3>
+      <p>They are watching everything, and they usually decide early not to add to your burden.</p>
+      <ul>
+        <li>Time alone with you, predictably, however short</li>
+        <li>Permission to have hard feelings without managing yours</li>
+        <li>Honest, age-appropriate information — they invent worse</li>
+        <li>Sibling support groups exist and are often transformative</li>
+        <li>Ask what they want their future role to be, and mean it</li>
+      </ul>
+      <p class="look"><b>The trap</b>The child who is no trouble is often the one carrying the most and asking for the least.</p></div>
+
+    <div class="dom"><h3>Grandparents and family</h3>
+      <p>Sometimes the greatest support available. Sometimes another thing to manage.</p>
+      <ul>
+        <li>Give them one concrete job rather than general willingness</li>
+        <li>Share the one-pager rather than explaining repeatedly</li>
+        <li>Denial and unsolicited advice usually come from their own grief</li>
+        <li>You are allowed to limit contact with people who are unkind about your child</li>
+      </ul>
+      <p class="look"><b>Useful sentence</b>"You do not have to understand it. I need you to be on our side about it."</p></div>
+
+    <div class="dom"><h3>Friends who drifted</h3>
+      <p>Many will. Some because they did not know what to say, some because you stopped being available, some because it frightened them.</p>
+      <ul>
+        <li>Being specific helps: "come and sit in my kitchen on Thursday"</li>
+        <li>Some friendships come back later</li>
+        <li>New friendships tend to come from this world rather than the old one</li>
+      </ul>
+      <p class="look"><b>Worth saying</b>Losing friends over this is not evidence of anything about you.</p></div>
+
+    <div class="dom"><h3>Single and solo caregivers</h3>
+      <p>Everything above is harder alone, and most advice quietly assumes two adults.</p>
+      <ul>
+        <li>Build a bench: several people with one small job each</li>
+        <li>Ask agencies directly about single-caregiver respite priority</li>
+        <li>Write the emergency plan for if you are ill — this matters most for you</li>
+        <li>Online groups do real work when leaving the house is impossible</li>
+      </ul>
+      <p class="look"><b>Do this one</b>Name who takes over if you are hospitalized, and tell them.</p></div>
+
+    <div class="dom"><h3>Other parents like you</h3>
+      <p>Reliably the most valuable support there is, and the one people delay longest.</p>
+      <ul>
+        <li>They know things no professional does</li>
+        <li>They will tell you which provider is worth the wait</li>
+        <li>They are unshockable, which is restful</li>
+        <li>Condition-specific and local groups both have their uses</li>
+      </ul>
+      <p class="look"><b>Where to look</b>Your state parent training and information center, hospital family resource centers, condition-specific charities, and local social media groups.</p></div>
+  </div>
+
+  <div class="note">
+    <h3>Choosing a group that helps rather than harms</h3>
+    <p><strong>Leave a group that</strong> insists on relentless positivity, treats grief as betrayal, pushes unproven or expensive treatments, is organized around curing your child, competes over severity, or leaves you more frightened every time you read it.</p>
+    <p><strong>Stay in one that</strong> lets people say hard things, contains parents further along than you, tolerates disagreement, and includes disabled adults — that last one changes the conversation more than anything else.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Approaches built around <em>the relationship</em></h2>
+  <p class="secnote">Several parent-led models put the relationship rather than skill acquisition at the center. Worth knowing about, with honest notes on evidence.</p>
+
+  <ul>
+    <li><strong>RDI — Relationship Development Intervention.</strong> A parent-delivered program focused on what it calls dynamic intelligence: flexible thinking, joint attention, reading another person, coping with change. Parents are coached by a consultant, often using video review of their own interactions, and the emphasis is on slowing down, using fewer words, and creating moments where the child has to reference you.
+      <br><em>Evidence:</em> the underlying ideas — declarative language, guided participation, following the child's lead — are well supported and appear throughout this site. The branded program itself has a thin research base, mostly small uncontrolled studies. It is also privately paid and can be expensive. Many families take the principles and use them without the program.</li>
+    <li><strong>DIR / Floortime.</strong> Developmental, relationship-based, child-led. Reasonable and growing evidence, particularly for social communication. See <a href="floortime.html">the Floortime page</a>.</li>
+    <li><strong>The More Than Words and Hanen programs.</strong> Parent coaching in responsive communication, usually run by a speech therapist. Practical, time-limited, and generally well regarded.</li>
+    <li><strong>PCIT — Parent-Child Interaction Therapy.</strong> Strong evidence for behavior and the parent-child relationship in younger children, with adaptations for developmental disability.</li>
+    <li><strong>Declarative language.</strong> Not a program at all, free, and arguably the highest-return thing on this list. See <a href="behavior.html">behavior is communication</a>.</li>
+  </ul>
+
+  <div class="bnote">
+    <h3>What these share, and why it matters for you</h3>
+    <p>All of them shift the work from doing therapy <em>to</em> a child toward changing how the adults around them behave. That is less exhausting than it sounds, because it happens inside the day you are already having rather than in extra appointments.</p>
+    <p>It also means the most powerful intervention available to most families is free, portable, and already in your possession: <strong>your own way of being with them.</strong></p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The small things that <em>actually help</em></h2>
+  <p class="secnote">Last, because the practical things come first — but not unimportant.</p>
+  <ul>
+    <li><strong>One thing that is yours.</strong> Not improving, not productive, not about anybody else. Twenty minutes counts.</li>
+    <li><strong>Outside, daily, briefly.</strong> The most reliable mood intervention there is, and it is free.</li>
+    <li><strong>Lower the standard deliberately.</strong> Cereal for dinner is a legitimate parenting decision on a Wednesday in February.</li>
+    <li><strong>Accept help badly offered.</strong> If someone offers, say yes and give them a task, even if their way is not your way.</li>
+    <li><strong>Notice the good day when it happens.</strong> Say it out loud. Hard weeks erase them otherwise.</li>
+    <li><strong>Therapy for you</strong>, with someone who understands caregiving, is not an indulgence. It is maintenance on the person everything else depends on.</li>
+    <li><strong>Write down what you have already survived.</strong> On the bad days you will not believe it, and the list is longer than you think.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="whole-picture.html"><h3>The whole picture</h3>
+      <p>Why a plan can be failing for reasons that are nobody's fault, and how to see them.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="de-escalation.html"><h3>In the moment</h3>
+      <p>What to do when it is hard, and how to recover afterward — for both of you.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="adult-life.html"><h3>After school ends</h3>
+      <p>Planning for the long term, including what happens when you no longer can.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="programs-and-entitlements.html"><h3>Programs and entitlements</h3>
+      <p>Respite, funding and support you may be entitled to and never been told about.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="share-builder.html"><h3>The share builder</h3>
+      <p>Hand someone what they need to help, without explaining it all again.</p>
+      <span class="go">Open it</span></a>
+    <a class="libcard" href="adaptive-community.html"><h3>Sports, classes and community</h3>
+      <p>Where other families are, and an hour where nobody is assessing anyone.</p>
+      <span class="go">Read the page</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>Do one thing this week that is only about you keeping going. Book the appointment you have deferred. Ask one agency about respite. Message one parent who would understand.</p>
+  <p>Not because you have earned a break, and not as a reward for coping. Because you are a person with one life, and it is happening now — the same as theirs.</p>
+</div>
+
+<footer>
+  <p><strong>Nothing here is medical or psychological advice.</strong> If you are struggling with your mental health, tell a doctor. If you are having thoughts of harming yourself, contact a crisis line or emergency services today — that is what they are there for, and using them is not an overreaction.</p>
+</footer>
+
+</div>
+<script src="search-index.js"></script>
+<script src="site-nav.js"></script>
+</body>
+</html>

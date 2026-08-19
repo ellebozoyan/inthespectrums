@@ -22,6 +22,9 @@
       ['accommodations-finder.html',   'Accommodations finder',   'Search by the difficulty you see, get wording you can request'],
       ['programs-and-entitlements.html','Programs and entitlements','What exists, when each door opens, the ages that matter']
     ]},
+    { label: 'The people caring', items: [
+      ['caregivers.html',              'The people doing the caring','Support, respite, relationships, and staying a person yourself']
+    ]},
     { label: 'Adult life', items: [
       ['adult-life.html',              'After school ends',       'The cliff, decision-making, trusts and wills, and what to do when'],
       ['adult-benefits.html',          'Benefits and working',    'SSI, SSDI, Medicaid, and why working rarely costs you'],
@@ -35,8 +38,13 @@
       ['symptom-tracker.html',         'The symptom tracker',     'Log what changed today, print a summary before the appointment'],
       ['goals-tracker.html',           'Goals and generalization','Every provider\u2019s goals in one place, and which ones should travel'],
       ['share-builder.html',           'The share builder',       'Assemble a packet for one person \u2014 you tick exactly what goes in'],
+      ['family-calendar.html',         'The family calendar',     'One day on one screen \u2014 and onto everyone\u2019s phones'],
       ['medication-list.html',         'The medication list',     'Current, printable, and always in a pocket'],
       ['food-list.html',               'The food list',           'What is accepted, and exactly how it has to be'],
+      ['meal-planner.html',            'The meal planner',        'Plan a week \u2014 and decide for yourself how much is new'],
+      ['choice-planner.html',          'The choice planner',      'The same words every time \u2014 logical consequences, not rewards'],
+      ['household-board.html',         'The household board',     'Contributions, paid jobs, and saving for something you chose'],
+      ['practice-mirror.html',         'The practice mirror',     'The therapist\u2019s clip, played see-through over the live camera'],
       ['using-these-tools.html',       'Using these tools',       'Saving to your home screen, printing to PDF, and backing up']
     ]},
     { label: 'Safety and health', items: [
@@ -924,8 +932,9 @@
   var MAP = [
     ['Start here', ['spectrums.html','what-to-do-first.html','care-team-map.html','conditions-library.html','whole-picture.html']],
     ['School and services', ['inside-the-iep.html','accommodations-finder.html','programs-and-entitlements.html']],
+    ['The people caring', ['caregivers.html']],
     ['Adult life', ['adult-life.html','adult-benefits.html','adult-housing.html','adult-providers.html','your-own-life.html']],
-    ['Money, paperwork and tracking', ['paying-for-therapy.html','template-builders.html','symptom-tracker.html','goals-tracker.html','medication-list.html','food-list.html','share-builder.html','using-these-tools.html']],
+    ['Money, paperwork and tracking', ['paying-for-therapy.html','template-builders.html','symptom-tracker.html','goals-tracker.html','family-calendar.html','medication-list.html','food-list.html','meal-planner.html','choice-planner.html','household-board.html','practice-mirror.html','share-builder.html','using-these-tools.html']],
     ['Safety and health', ['safety.html','injuries-and-illness.html']],
     ['Therapies', ['occupational-therapy.html','physical-therapy.html','speech-language-aac.html',
                    'feeding-therapy.html','aquatic-therapy.html','myofunctional-therapy.html',
@@ -1423,6 +1432,42 @@
   "A list that keeps shrinking is a clinical finding. The dated record is what shows it.",
   "Print it for a hospital admission, a new school, or a week at a grandparent\u2019s."],
 
+'family-calendar.html': ["One day on one screen \u2014 routine, medication, meals and appointments, built for a tablet on the wall.",
+  "Three views: everything, a caregiver version, and a simple one showing only what you choose to share.",
+  "Medication already on your medication list appears automatically. You never enter it twice.",
+  "It cannot sync on its own, because there is no server. It exports a calendar file instead.",
+  "Import that into Apple or Google Calendar \u2014 which already sync everywhere and already let you share."],
+
+'meal-planner.html': ["Plan a week of meals from foods that already work \u2014 built so the person eating can do it themselves.",
+  "You choose how many new things go in. Zero is a real answer, and some weeks that is the sensible one.",
+  "Target foods you set appear as options, marked, so trying something is always a choice rather than a surprise.",
+  "It builds a shopping list and a printable week from whatever you picked.",
+  "A plan is not a promise. Anything can come off it on the day, and planning to try still counted."],
+
+'choice-planner.html': ["Work out what you will say before you are in the moment, so every adult says the same sentence.",
+  "Three different mechanisms: a logical consequence, first-this-then-that, and letting the world do it.",
+  "Ask first whether they can actually do it right now. If not, \u201cyou\u2019re choosing\u201d is not true.",
+  "The door reopens. \u201cWe can try again tomorrow\u201d is what makes it a boundary rather than a punishment.",
+  "Wrong tool for a dysregulated moment or for demand avoidance \u2014 use it for the calm, ordinary version."],
+
+'household-board.html': ["Two lists kept apart: contributions everyone makes because they live here, and optional jobs that pay.",
+  "Adults are on the board too. A board where only children have tasks is a compliance chart.",
+  "No points, stars, levels or streaks. Nothing is ever taken away.",
+  "What motivates instead: a goal the person chose, jobs they picked, and ticking things off.",
+  "If something never gets done, ask whether they can actually do it before treating it as motivation."],
+
+'practice-mirror.html': ["The therapist films the movement; that clip plays see-through over the live camera at home.",
+  "There is no motion tracking and no accuracy score. It is a mirror with a target laid over it.",
+  "Nothing is uploaded. Save the clip yourself and send it however you already send things.",
+  "Compare target and attempt side by side, in slow motion, mirrored either way.",
+  "The practice log is often more useful in session than any single video."],
+
+'caregivers.html': ["Not a page about bubble baths. Mostly about reducing the load and getting actual help.",
+  "Respite exists in most places and is chronically under-claimed. Ask three agencies separately.",
+  "The grief keeps arriving, and it is not a failure of acceptance. Most people feel resentment sometimes too.",
+  "Book your own appointment. Caregivers defer their own care for years.",
+  "Leave a group that demands relentless positivity. Stay in one that includes disabled adults."],
+
 'maplewood-stories.html': ["Fifty-two picture books about ten friends who are not alike, figuring it out together.",
   "No child in them is labeled, and none of them is the lesson.",
   "Social and emotional learning, executive function, and safety awareness are the plots, not the moral.",
@@ -1481,6 +1526,29 @@
   'use strict';
 
   var MARKS = {
+
+  'caregivers.html':
+    '<rect width="74" height="74" fill="#EFE6F1"/><circle cx="27" cy="26" r="8" fill="none" stroke="#16283C" stroke-width="2"/><path d="M13 52v-3a14 14 0 0 1 28 0v3" fill="none" stroke="#16283C" stroke-width="2"/><path d="M52 30c0-4 6-6 8-2 2-4 8-2 8 2 0 6-8 11-8 11s-8-5-8-11z" fill="#6B4A78"/>',
+
+
+  'practice-mirror.html':
+    '<rect width="74" height="74" fill="#16283C"/><rect x="10" y="16" width="54" height="42" rx="3" fill="none" stroke="#C6A98F" stroke-width="1.8"/><circle cx="30" cy="31" r="5" fill="#9C4A21"/><path d="M22 50c0-6 4-10 8-10s8 4 8 10" fill="#9C4A21"/><circle cx="45" cy="31" r="5" fill="#FBF7F0" opacity=".42"/><path d="M37 50c0-6 4-10 8-10s8 4 8 10" fill="#FBF7F0" opacity=".42"/>',
+
+
+  'choice-planner.html':
+    '<rect width="74" height="74" fill="#E7EDE5"/><path d="M37 14v16" stroke="#16283C" stroke-width="2"/><path d="M37 30 20 52M37 30l17 22" stroke="#16283C" stroke-width="2" fill="none"/><circle cx="37" cy="12" r="4" fill="#16283C"/><circle cx="20" cy="55" r="6" fill="#2E4E3F"/><circle cx="54" cy="55" r="6" fill="#9C4A21"/>',
+
+  'household-board.html':
+    '<rect width="74" height="74" fill="#FBF7F0"/><rect x="12" y="14" width="50" height="46" rx="2" fill="#FFF" stroke="#16283C" stroke-width="1.6"/><rect x="18" y="22" width="7" height="7" rx="1.5" fill="#4B7A5A"/><rect x="30" y="24" width="26" height="3" fill="#16283C" opacity=".35"/><rect x="18" y="34" width="7" height="7" rx="1.5" fill="#4B7A5A"/><rect x="30" y="36" width="20" height="3" fill="#16283C" opacity=".35"/><rect x="18" y="46" width="7" height="7" rx="1.5" fill="none" stroke="#A8641C" stroke-width="1.6"/><rect x="30" y="48" width="16" height="3" fill="#A8641C"/>',
+
+
+  'meal-planner.html':
+    '<rect width="74" height="74" fill="#E7EDE5"/><rect x="11" y="16" width="52" height="42" rx="2" fill="#FFF" stroke="#16283C" stroke-width="1.6"/><path d="M11 27h52M28 27v31M45 27v31" stroke="#16283C" stroke-width="1.2" opacity=".45"/><rect x="15" y="31" width="9" height="5" rx="1" fill="#4B7A5A"/><rect x="32" y="31" width="9" height="5" rx="1" fill="#4B7A5A"/><rect x="49" y="31" width="9" height="5" rx="1" fill="#6B4A78"/><rect x="15" y="41" width="9" height="5" rx="1" fill="#4B7A5A"/><rect x="32" y="41" width="9" height="5" rx="1" fill="#6B4A78"/><rect x="49" y="41" width="9" height="5" rx="1" fill="#4B7A5A"/>',
+
+
+  'family-calendar.html':
+    '<rect width="74" height="74" fill="#16283C"/><rect x="13" y="17" width="48" height="42" rx="3" fill="#FBF7F0"/><rect x="13" y="17" width="48" height="10" rx="3" fill="#9C4A21"/><rect x="20" y="33" width="9" height="7" rx="1.5" fill="#2E4E3F"/><rect x="33" y="33" width="9" height="7" rx="1.5" fill="#16283C" opacity=".2"/><rect x="46" y="33" width="9" height="7" rx="1.5" fill="#16283C" opacity=".2"/><rect x="20" y="45" width="9" height="7" rx="1.5" fill="#16283C" opacity=".2"/><rect x="33" y="45" width="9" height="7" rx="1.5" fill="#C6A98F"/><rect x="46" y="45" width="9" height="7" rx="1.5" fill="#16283C" opacity=".2"/>',
+
 
   'medication-list.html':
     '<rect width="74" height="74" fill="#E7EDE5"/><rect x="18" y="14" width="38" height="48" rx="3" fill="#FFF" stroke="#16283C" stroke-width="1.8"/><rect x="25" y="24" width="24" height="2.5" fill="#8A2B20"/><rect x="25" y="33" width="24" height="2.5" fill="#16283C" opacity=".35"/><rect x="25" y="42" width="18" height="2.5" fill="#16283C" opacity=".35"/><circle cx="47" cy="52" r="5" fill="#2E4E3F"/><path d="M44.5 52h5M47 49.5v5" stroke="#FFF" stroke-width="1.6"/>',
@@ -1927,6 +1995,36 @@
   ],
 
 
+'family-calendar.html': [
+    ['',
+     'warm|A person who can see what is coming is a person who has to brace less. <b>Half of what looks like resistance is a response to being surprised</b> \u2014 and a screen on the wall quietly removes a great deal of it.']
+  ],
+
+'meal-planner.html': [
+    ['',
+     'warm|Choosing what you eat is one of the most ordinary kinds of control there is, and a great many people never get offered it. <b>Whatever ends up on the plate, the choosing already mattered.</b>']
+  ],
+
+'choice-planner.html': [
+    ['',
+     'warm|Getting the words right when you are calm is a completely different job from finding them when you are not. <b>Writing it down once is doing your future self a real kindness.</b>']
+  ],
+
+  'household-board.html': [
+    ['',
+     'warm|Being needed is not the same as being managed. <b>A person who contributes to a household belongs in it differently</b> \u2014 and that is worth more than any chart could measure.']
+  ],
+
+'practice-mirror.html': [
+    ['',
+     'warm|Copying a movement you can only remember is hard. <b>Copying one you can see yourself standing inside is a different task altogether</b> \u2014 and it takes the words out of it, which for a lot of people is the whole difficulty.']
+  ],
+
+'caregivers.html': [
+    ['',
+     'warm|You have kept somebody going through things most people never see. <b>That is not nothing, and it is not owed to anyone</b> \u2014 you chose it, every ordinary day, and you are allowed to need something back.']
+  ],
+
   'medication-list.html': [
     ['',
      'warm|You have kept this list in your head for years, and recited it in rooms where you were frightened. <b>This is the last time you have to remember it.</b>']
@@ -1972,4 +2070,215 @@
   }
 
   list.forEach(function (row) { place(row[0], row[1]); });
+})();
+
+/* ===================================================================
+   17. SEARCH — plain-language search across the whole site.
+
+   Families do not search in clinical words. Somebody types "arms flap,
+   not eating and aggression"; the pages say stimming, ARFID and
+   dysregulation. A synonym layer bridges the two before matching, and
+   results point at the section rather than just the page.
+
+   The index lives in search-index.js, regenerated by build-search.py.
+   =================================================================== */
+(function () {
+  'use strict';
+
+  var css = [
+    '.nv-searchbtn{font-family:var(--nv-sans);font-size:12.5px;padding:8px 14px;border:1px solid var(--nv-line);',
+    'background:none;color:var(--nv-soft);border-radius:2px;cursor:pointer;letter-spacing:.03em;margin-left:10px}',
+    '.nv-searchbtn:hover{border-color:var(--nv-rust);color:var(--nv-rust)}',
+    '.nv-sr{position:fixed;inset:0;background:rgba(22,40,60,.62);z-index:980;display:none;',
+    'align-items:flex-start;justify-content:center;padding:6vh 18px 18px}',
+    '.nv-sr.on{display:flex}',
+    '.nv-srbox{background:var(--nv-ground);border-radius:3px;width:100%;max-width:620px;',
+    'max-height:84vh;display:flex;flex-direction:column;overflow:hidden}',
+    '.nv-srtop{padding:20px 22px 14px;border-bottom:1px solid var(--nv-line)}',
+    '.nv-srtop input{width:100%;font-family:var(--nv-serif);font-size:1.06rem;padding:12px 14px;',
+    'border:1px solid var(--nv-line);border-radius:2px;background:#fff;color:var(--nv-ink)}',
+    '.nv-srtop input:focus{outline:2px solid var(--nv-rust);outline-offset:1px;border-color:transparent}',
+    '.nv-srhint{font-family:var(--nv-serif);font-size:.88rem;color:var(--nv-soft);margin:9px 0 0;line-height:1.45}',
+    '.nv-srlist{overflow-y:auto;padding:8px 12px 16px}',
+    '.nv-srhit{display:block;text-decoration:none;color:var(--nv-ink);padding:12px 14px;border-radius:2px;',
+    'border-bottom:1px solid var(--nv-line)}',
+    '.nv-srhit:hover,.nv-srhit:focus-visible{background:#fff;outline:none}',
+    '.nv-srhit .pg{font-family:var(--nv-sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;',
+    'color:var(--nv-rust);font-weight:700;display:block;margin-bottom:4px}',
+    '.nv-srhit .hd{font-size:1.02rem;line-height:1.3;margin-bottom:4px}',
+    '.nv-srhit .sn{font-size:.88rem;color:var(--nv-soft);line-height:1.45}',
+    '.nv-srhit mark{background:#F3E3CE;color:inherit;padding:0 2px;border-radius:2px}',
+    '.nv-srnone{padding:22px 16px;color:var(--nv-soft);font-size:.95rem;line-height:1.55}',
+    '.nv-srclose{position:absolute;top:14px;right:18px;background:none;border:none;color:#EFEBE3;',
+    'font-size:26px;cursor:pointer;line-height:1;z-index:2}',
+    '@media(max-width:520px){.nv-searchbtn{padding:8px 11px}}'
+  ].join('');
+  var st = document.createElement('style');
+  st.textContent = css;
+  document.head.appendChild(st);
+
+  function norm(s) {
+    return String(s || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+
+  /* Words too common to mean anything. Without this, "burnt out" scores every
+     page containing "out", and "not eating" scores every page containing "not". */
+  var STOP = {};
+  ('the and for with not out but you your our are was were has have had will can could would should ' +
+   'this that these those they them their there here what when where which who how why all any some ' +
+   'more most other much many one two into from about over under only just very too also does did ' +
+   'been being than then him her his hers she its itself get got make made take taken good bad new').split(' ')
+   .forEach(function (w) { STOP[w] = 1; });
+
+  /* Expand what was typed into the words the site actually uses. */
+  function expand(q) {
+    var syn = window.ITS_SYNONYMS || {};
+    var raw = norm(q);
+    var extra = [];
+    Object.keys(syn).forEach(function (k) {
+      if (raw.indexOf(k) > -1) extra.push(norm(syn[k]));
+    });
+    var words = raw.split(' ').filter(function (w) { return w.length > 2 && !STOP[w]; });
+    words.forEach(function (w) {
+      if (syn[w]) extra.push(norm(syn[w]));
+    });
+    var all = words.concat(extra.join(' ').split(' '));
+    var seen = {}, out = [];
+    all.forEach(function (w) {
+      if (w.length > 2 && !seen[w] && !STOP[w]) { seen[w] = 1; out.push(w); }
+    });
+    return { typed: words, all: out };
+  }
+
+  function score(entry, terms) {
+    var hay = norm(entry.x + ' ' + entry.t + ' ' + entry.h + ' ' + (entry.k || ''));
+    var s = 0, hitTyped = 0;
+    terms.all.forEach(function (w) {
+      if (hay.indexOf(w) < 0) return;
+      s += 2;
+      if (norm(entry.h).indexOf(w) > -1) s += 3;
+      if (norm(entry.t).indexOf(w) > -1) s += 2;
+    });
+    terms.typed.forEach(function (w) {
+      if (hay.indexOf(w) > -1) { s += 6; hitTyped++; }
+      if (norm(entry.h).indexOf(w) > -1) s += 6;
+    });
+    /* reward covering more of what they actually typed */
+    if (terms.typed.length > 1) s += hitTyped * 2;
+    return s;
+  }
+
+  function snippet(entry, terms) {
+    var text = entry.x, low = norm(text), at = -1, hit = '';
+    for (var i = 0; i < terms.all.length; i++) {
+      var p = low.indexOf(terms.all[i]);
+      if (p > -1 && (at < 0 || p < at)) { at = p; hit = terms.all[i]; }
+    }
+    var start = Math.max(0, at - 60), end = Math.min(text.length, start + 190);
+    var out = (start > 0 ? '\u2026' : '') + text.slice(start, end).trim() + (end < text.length ? '\u2026' : '');
+    if (hit) {
+      try {
+        out = out.replace(new RegExp('(' + hit.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'ig'), '<mark>$1</mark>');
+      } catch (e) {}
+    }
+    return out;
+  }
+
+  function run(q) {
+    var idx = window.ITS_SEARCH || [];
+    if (!idx.length) return null;
+    var terms = expand(q);
+    if (!terms.all.length) return [];
+    var scored = [];
+    idx.forEach(function (e) {
+      var s = score(e, terms);
+      if (s > 0) scored.push({ e: e, s: s });
+    });
+    scored.sort(function (a, b) { return b.s - a.s; });
+    /* at most two hits per page, so one page cannot fill the list */
+    var perPage = {}, out = [];
+    scored.forEach(function (r) {
+      perPage[r.e.p] = (perPage[r.e.p] || 0) + 1;
+      if (perPage[r.e.p] <= 2 && out.length < 18) out.push(r);
+    });
+    return out.map(function (r) { return { e: r.e, terms: terms }; });
+  }
+
+  var overlay, input, list, hint;
+  function build() {
+    overlay = document.createElement('div');
+    overlay.className = 'nv-sr';
+    overlay.innerHTML =
+      '<button class="nv-srclose" aria-label="Close search">\u00d7</button>' +
+      '<div class="nv-srbox">' +
+        '<div class="nv-srtop">' +
+          '<input type="search" placeholder="Describe it in your own words\u2026" aria-label="Search the site">' +
+          '<p class="nv-srhint">Everyday words are fine \u2014 <em>arms flap, not eating, aggression</em>. ' +
+          'You do not need the medical terms.</p>' +
+        '</div>' +
+        '<div class="nv-srlist"></div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    input = overlay.querySelector('input');
+    list = overlay.querySelector('.nv-srlist');
+    hint = overlay.querySelector('.nv-srhint');
+    overlay.querySelector('.nv-srclose').addEventListener('click', close);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+    input.addEventListener('input', function () { render(input.value); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay.classList.contains('on')) close();
+      if ((e.key === '/' || (e.key === 'k' && (e.metaKey || e.ctrlKey))) &&
+          !/input|textarea|select/i.test((e.target.tagName || ''))) {
+        e.preventDefault(); open();
+      }
+    });
+  }
+
+  function render(q) {
+    if (!q || q.trim().length < 2) { list.innerHTML = ''; return; }
+    var hits = run(q);
+    if (hits === null) {
+      list.innerHTML = '<p class="nv-srnone">The search index has not loaded. ' +
+        'Make sure <b>search-index.js</b> is uploaded alongside the pages.</p>';
+      return;
+    }
+    if (!hits.length) {
+      list.innerHTML = '<p class="nv-srnone">Nothing matched that. Try fewer words, or a different one \u2014 ' +
+        'and if the site genuinely has nothing on it, that is worth telling us about on the ' +
+        '<a href="about.html">about page</a>.</p>';
+      return;
+    }
+    list.innerHTML = hits.map(function (h) {
+      var e = h.e;
+      var href = e.p + (e.a ? '#' + e.a : '');
+      return '<a class="nv-srhit" href="' + href + '">' +
+        '<span class="pg">' + e.t + '</span>' +
+        (e.h ? '<span class="hd">' + e.h + '</span>' : '') +
+        '<span class="sn">' + snippet(e, h.terms) + '</span></a>';
+    }).join('');
+  }
+
+  function open() {
+    if (!overlay) build();
+    overlay.classList.add('on');
+    setTimeout(function () { input.focus(); }, 40);
+  }
+  function close() { if (overlay) overlay.classList.remove('on'); }
+  window.ITS_OPEN_SEARCH = open;
+
+  /* button in the header */
+  function addButton() {
+    var host = document.querySelector('.nv-bar .nv-in') || document.querySelector('.nv-bar');
+    if (!host) return;
+    var b = document.createElement('button');
+    b.className = 'nv-searchbtn';
+    b.type = 'button';
+    b.textContent = 'Search';
+    b.addEventListener('click', open);
+    host.appendChild(b);
+  }
+  addButton();
+  if (!document.querySelector('.nv-searchbtn')) {
+    document.addEventListener('DOMContentLoaded', addButton);
+  }
 })();

@@ -21,10 +21,11 @@ a{color:inherit}
   color:var(--rust);font-weight:700;margin:0 0 18px}
 
 /* hero */
-.hero{padding:64px 0 34px;max-width:40ch}
+.hero{padding:64px 0 34px}
+.hero h1{max-width:22ch}   /* a display measure, so the headline breaks well */
 h1{font-size:clamp(2.2rem,5.6vw,3.5rem);line-height:1.08;margin:0 0 22px;font-weight:400;letter-spacing:-.015em}
 h1 em{font-style:italic;color:var(--forest)}
-.hero .thesis{font-size:1.13rem;line-height:1.55;color:var(--ink-soft);margin:0 0 22px;max-width:52ch}
+.hero .thesis{font-size:1.13rem;line-height:1.55;color:var(--ink-soft);margin:0 0 22px;max-width:62ch}
 .badges{display:flex;gap:9px;flex-wrap:wrap;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em}
 .badge{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:7px 12px;color:var(--ink-soft)}
 
@@ -184,9 +185,29 @@ footer{border-top:1px solid var(--line);padding:28px 0 80px;font-family:var(--sa
       <p class="said">"We're going into hospital and I'm frightened."</p>
       <span class="go">When something happens</span></a>
 
+    <a class="sit" href="family-calendar.html">
+      <p class="said">"Nobody in this house knows what's happening today."</p>
+      <span class="go">The family calendar</span></a>
+
     <a class="sit" href="medication-list.html">
       <p class="said">"They asked what he takes and I couldn't remember the dose."</p>
       <span class="go">The medication list</span></a>
+
+    <a class="sit" href="choice-planner.html">
+      <p class="said">"I say something different every time and none of it sticks."</p>
+      <span class="go">The choice planner</span></a>
+
+    <a class="sit" href="practice-mirror.html">
+      <p class="said">"We forget the exercises the minute we leave the appointment."</p>
+      <span class="go">The practice mirror</span></a>
+
+    <a class="sit" href="household-board.html">
+      <p class="said">"Chores are a battle and sticker charts stopped working."</p>
+      <span class="go">The household board</span></a>
+
+    <a class="sit" href="meal-planner.html">
+      <p class="said">"I want him to have a say in something, and food is a battle."</p>
+      <span class="go">The meal planner</span></a>
 
     <a class="sit" href="food-list.html">
       <p class="said">"She eats six things and nobody else can get it right."</p>
@@ -296,6 +317,10 @@ footer{border-top:1px solid var(--line);padding:28px 0 80px;font-family:var(--sa
       <p class="said">"We need a will, and I'm frightened of getting it wrong."</p>
       <span class="go">After school ends</span></a>
 
+    <a class="sit" href="caregivers.html">
+      <p class="said">"I am completely done in and there is nobody to take over."</p>
+      <span class="go">The people doing the caring</span></a>
+
     <a class="sit" href="whole-picture.html">
       <p class="said">"We have a diagnosis and it still doesn't explain everything."</p>
       <span class="go">The whole picture</span></a>
@@ -348,7 +373,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 80px;font-family:var(--sa
 
 <section>
   <h2 class="sec">Everything <em>on the site</em></h2>
-  <p class="secnote">Forty-three pages, written to be read cold and out of order. Each one stands alone — read the one you need and ignore the rest until you don't.</p>
+  <p class="secnote">Forty-nine pages, written to be read cold and out of order. Each one stands alone — read the one you need and ignore the rest until you don't.</p>
 
   <p class="grouplabel">When you're just beginning</p>
   <div class="pages">
@@ -380,6 +405,14 @@ footer{border-top:1px solid var(--line);padding:28px 0 80px;font-family:var(--sa
       <p>What exists in every state, when each door opens, and the ages that matter. Special education is an entitlement; adult services generally are not.</p></div></a>
   </div>
 
+
+  <p class="grouplabel">The people caring</p>
+  <div class="pages">
+    <a class="pg" href="caregivers.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>The people doing the caring</h3>
+      <p>Reducing the load, respite, the grief that keeps arriving, partners and siblings, choosing a support group, and relationship-based approaches including RDI.</p></div></a>
+  </div>
+
   <p class="grouplabel">Adult life</p>
   <div class="pages">
     <a class="pg" href="adult-life.html"><div class="txt"><span class="kind">Guide</span>
@@ -407,13 +440,39 @@ footer{border-top:1px solid var(--line);padding:28px 0 80px;font-family:var(--sa
     <a class="pg" href="template-builders.html"><div class="txt"><span class="kind">Interactive</span>
       <h3>Template builders</h3>
       <p>Four documents that build themselves as you type: the child one-pager, parent concerns, an emergency responder profile, and a hospital bedside card.</p></div></a>
-  </div>
-
-  <p class="grouplabel">Learning, attention and mood</p>
-  <div class="pages">
-    <a class="pg" href="learning-and-literacy.html"><div class="txt"><span class="kind">Guide</span><h3>Learning and literacy</h3><p>What reading is actually made of, structured literacy, dyslexia, dysgraphia and dyscalculia — and how to tell what your school is really doing.</p></div></a>
-    <a class="pg" href="adhd-executive-function.html"><div class="txt"><span class="kind">Guide</span><h3>ADHD and executive function</h3><p>The gap between knowing and doing, externalizing everything, medication honestly, and where low-demand approaches mislead.</p></div></a>
-    <a class="pg" href="anxiety-and-ocd.html"><div class="txt"><span class="kind">Guide</span><h3>Anxiety, OCD and school refusal</h3><p>The accommodation loop, exposure-based treatment, what to say instead of reassurance, and telling anxiety from demand avoidance.</p></div></a>
+    <a class="pg" href="symptom-tracker.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The symptom tracker</h3>
+      <p>Write down what was different today, in twenty seconds — then print a summary the day before an appointment. Nothing leaves your device, and it works offline.</p></div></a>
+    <a class="pg" href="goals-tracker.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>Goals and generalization</h3>
+      <p>Every provider’s goals on one page, and the part that changes outcomes — which goals should be practiced elsewhere, and exactly how.</p></div></a>
+    <a class="pg" href="share-builder.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The share builder</h3>
+      <p>Assemble a packet for one specific person — a new aide, a doctor, a babysitter, an IEP team — ticking exactly what goes in and what stays home.</p></div></a>
+    <a class="pg" href="family-calendar.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The family calendar</h3>
+      <p>One day on one screen for a tablet on the wall — routine, medication, meals and appointments — with a simple view for the person themselves, and a calendar file for everyone’s phones.</p></div></a>
+    <a class="pg" href="medication-list.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The medication list</h3>
+      <p>Everything taken and how it actually gets taken — printed three ways, including a short version for the bag and a dated record of dose changes.</p></div></a>
+    <a class="pg" href="food-list.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The food list</h3>
+      <p>Accepted foods and exactly how each has to be — brand, plate, temperature. For hospital, school, respite, and anyone else who has to get it right.</p></div></a>
+    <a class="pg" href="meal-planner.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The meal planner</h3>
+      <p>Plan a week from foods that already work, built so the person eating can do it themselves — and they decide how many new things go in, including none.</p></div></a>
+    <a class="pg" href="choice-planner.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The choice planner</h3>
+      <p>Work out what you will say before you are in the moment — logical consequences rather than rewards, with the capacity question asked first.</p></div></a>
+    <a class="pg" href="household-board.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The household board</h3>
+      <p>Contributions everyone makes because they live here, optional jobs that pay, and whatever the person is saving toward. No stars.</p></div></a>
+    <a class="pg" href="practice-mirror.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The practice mirror</h3>
+      <p>The therapist films the movement; at home it plays see-through over the live camera so the person can line up inside it. Record, compare in slow motion, send it back.</p></div></a>
+    <a class="pg" href="using-these-tools.html"><div class="txt"><span class="kind">Reference</span>
+      <h3>Using these tools</h3>
+      <p>Saving a tracker to your home screen, printing to PDF, backing up, and what to do when something goes wrong. Mac, Windows, iPhone and Android.</p></div></a>
   </div>
 
   <p class="grouplabel">Safety and health</p>
@@ -424,65 +483,58 @@ footer{border-top:1px solid var(--line);padding:28px 0 80px;font-family:var(--sa
     <a class="pg" href="injuries-and-illness.html"><div class="txt"><span class="kind">Guide</span>
       <h3>When something happens</h3>
       <p>Where to go right now, the common injuries, a serious diagnosis, hospital navigation, and getting good care for a child who can't say where it hurts.</p></div></a>
-    <a class="pg" href="symptom-tracker.html"><div class="txt"><span class="kind">Interactive</span>
-      <h3>The symptom tracker</h3>
-      <p>Write down what was different today, in twenty seconds — then print a summary the day before an appointment. Nothing leaves your device, and it works offline.</p></div></a>
-    <a class="pg" href="goals-tracker.html"><div class="txt"><span class="kind">Interactive</span>
-      <h3>Goals and generalization</h3>
-      <p>Every provider’s goals on one page, and the part that changes outcomes — which goals should be practiced elsewhere, and exactly how.</p></div></a>
-    <a class="pg" href="medication-list.html"><div class="txt"><span class="kind">Interactive</span>
-      <h3>The medication list</h3>
-      <p>Everything taken and how it actually gets taken — printed three ways, including a short version for the bag and a dated record of dose changes.</p></div></a>
-    <a class="pg" href="food-list.html"><div class="txt"><span class="kind">Interactive</span>
-      <h3>The food list</h3>
-      <p>Accepted foods and exactly how each has to be — brand, plate, temperature. For hospital, school, respite, and anyone else who has to get it right.</p></div></a>
-    <a class="pg" href="share-builder.html"><div class="txt"><span class="kind">Interactive</span>
-      <h3>The share builder</h3>
-      <p>Assemble a packet for one specific person — a new aide, a doctor, a babysitter, an IEP team — ticking exactly what goes in and what stays home.</p></div></a>
-    <a class="pg" href="using-these-tools.html"><div class="txt"><span class="kind">Reference</span>
-      <h3>Using these tools</h3>
-      <p>Saving a tracker to your home screen, printing to PDF, backing up, and what to do when something goes wrong. Mac, Windows, iPhone and Android.</p></div></a>
-    <a class="pg" href="adaptive-community.html"><div class="txt"><span class="kind">Guide</span>
-      <h3>Adaptive sports, classes and community</h3>
-      <p>Why so few children get there and what closes the gap, the full landscape of programs, adaptive versus inclusive, and how to make a first season actually work.</p></div></a>
-    <a class="pg" href="music.html"><div class="txt"><span class="kind">Guide</span>
-      <h3>Music</h3>
-      <p>What a single song recruits, the four different things people mean by "try music," nine areas it opens up, and how it grows with a child into something that lasts a lifetime.</p></div></a>
-    <a class="pg" href="floortime.html"><div class="txt"><span class="kind">Guide</span>
-      <h3>Floortime and child-led therapy</h3>
-      <p>Circles of communication, the developmental capacities underneath the play, why following the child's lead works — and what it turns into at eight, thirteen, and seventeen.</p></div></a>
-    <a class="pg" href="feeding-therapy.html"><div class="txt"><span class="kind">Guide</span>
-      <h3>Feeding therapy</h3>
-      <p>The ladder of steps before a bite, ARFID, demand avoidance at the table, and declarative language — the technique that costs nothing and changes mealtimes fastest.</p></div></a>
-    <a class="pg" href="speech-language-aac.html"><div class="txt"><span class="kind">Guide</span>
-      <h3>Speech, language and AAC</h3>
-      <p>Nine areas of speech-language therapy, a full section on doing AAC properly, evidence sorted three ways, and the gateway to our library of play schemas, social stories, and tablet vocabularies.</p></div></a>
-    <a class="pg" href="aquatic-therapy.html"><div class="txt"><span class="kind">Guide</span>
-      <h3>Aquatic therapy</h3>
-      <p>Six properties of water that change what a body can do, what it targets, precautions families are rarely warned about, and the survival skills that outrank everything else.</p></div></a>
-    <a class="pg" href="physical-therapy.html"><div class="txt"><span class="kind">Guide</span>
-      <h3>Physical therapy</h3>
-      <p>Nine domains, the three things families are told too late, approaches sorted by evidence, and how to recognize strong PT. Not normal movement — more life.</p></div></a>
+  </div>
+
+  <p class="grouplabel">Therapies</p>
+  <div class="pages">
     <a class="pg" href="occupational-therapy.html"><div class="txt"><span class="kind">Guide</span>
       <h3>Occupational therapy</h3>
       <p>Nine domains, what an evaluation covers, approaches sorted by how well they're supported, and how to recognize strong OT. The whole day is the treatment.</p></div></a>
+    <a class="pg" href="physical-therapy.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Physical therapy</h3>
+      <p>Nine domains, the three things families are told too late, approaches sorted by evidence, and how to recognize strong PT. Not normal movement — more life.</p></div></a>
+    <a class="pg" href="speech-language-aac.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Speech, language and AAC</h3>
+      <p>Nine areas of speech-language therapy, a full section on doing AAC properly, evidence sorted three ways, and the gateway to our library of play schemas, social stories, and tablet vocabularies.</p></div></a>
+    <a class="pg" href="feeding-therapy.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Feeding therapy</h3>
+      <p>The ladder of steps before a bite, ARFID, demand avoidance at the table, and declarative language — the technique that costs nothing and changes mealtimes fastest.</p></div></a>
+    <a class="pg" href="aquatic-therapy.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Aquatic therapy</h3>
+      <p>Six properties of water that change what a body can do, what it targets, precautions families are rarely warned about, and the survival skills that outrank everything else.</p></div></a>
     <a class="pg" href="myofunctional-therapy.html"><div class="txt"><span class="kind">Guide</span>
       <h3>Myofunctional therapy</h3>
       <p>Breathing, sleeping, eating, drinking, speaking — five jobs sharing one set of muscles, and an under-known therapy that works on all of them.</p></div></a>
+    <a class="pg" href="floortime.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Floortime and child-led therapy</h3>
+      <p>Circles of communication, the developmental capacities underneath the play, why following the child's lead works — and what it turns into at eight, thirteen, and seventeen.</p></div></a>
+    <a class="pg" href="music.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Music</h3>
+      <p>What a single song recruits, the four different things people mean by "try music," nine areas it opens up, and how it grows with a child into something that lasts a lifetime.</p></div></a>
   </div>
 
-    <p class="grouplabel">Behavior</p>
+  <p class="grouplabel">Learning, attention and mood</p>
+  <div class="pages">
+    <a class="pg" href="learning-and-literacy.html"><div class="txt"><span class="kind">Guide</span><h3>Learning and literacy</h3><p>What reading is actually made of, structured literacy, dyslexia, dysgraphia and dyscalculia — and how to tell what your school is really doing.</p></div></a>
+    <a class="pg" href="adhd-executive-function.html"><div class="txt"><span class="kind">Guide</span><h3>ADHD and executive function</h3><p>The gap between knowing and doing, externalizing everything, medication honestly, and where low-demand approaches mislead.</p></div></a>
+    <a class="pg" href="anxiety-and-ocd.html"><div class="txt"><span class="kind">Guide</span><h3>Anxiety, OCD and school refusal</h3><p>The accommodation loop, exposure-based treatment, what to say instead of reassurance, and telling anxiety from demand avoidance.</p></div></a>
+  </div>
+
+  <p class="grouplabel">Behavior</p>
   <div class="pages">
     <a class="pg" href="behavior.html"><div class="txt"><span class="kind">Guide</span><h3>Behavior is communication</h3><p>Zooming out to find what a behavior is saying, communication access, and what a hard moment costs a person on the inside.</p></div></a>
     <a class="pg" href="de-escalation.html"><div class="txt"><span class="kind">Guide</span><h3>In the moment</h3><p>Precursor behavior, what to say in the window before escalation, de-escalation, and the calming and processing plan.</p></div></a>
     <a class="pg" href="behavior-support.html"><div class="txt"><span class="kind">Guide</span><h3>Choosing behavior support</h3><p>An even-handed map of the ABA conversation, how to evaluate any provider, and building one team with one language.</p></div></a>
   </div>
 
-<p class="grouplabel">The child at the center</p>
+  <p class="grouplabel">The child at the center</p>
   <div class="pages">
-                <a class="pg" href="their-own-voice.html"><div class="txt"><span class="kind">Guide</span>
+    <a class="pg" href="their-own-voice.html"><div class="txt"><span class="kind">Guide</span>
       <h3>Their own voice</h3>
       <p>Talking with a child about their own life, communication access from day one, and handing over ownership of their story across childhood. Options, not instructions.</p></div></a>
+    <a class="pg" href="adaptive-community.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Adaptive sports, classes and community</h3>
+      <p>Why so few children get there and what closes the gap, the full landscape of programs, adaptive versus inclusive, and how to make a first season actually work.</p></div></a>
     <a class="pg" href="maplewood-stories.html"><div class="txt"><span class="kind">Stories</span>
       <h3>The Maplewood stories</h3>
       <p>Fifty-two picture books about ten friends who are not alike. Nobody is the exception, so nobody has to be the lesson.</p></div></a>
@@ -497,6 +549,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 80px;font-family:var(--sa
       <h3>Terms, privacy and disclaimers</h3>
       <p>What this site is and isn’t, what it collects (nothing), the licence to take and adapt anything here, and how practitioner listings work.</p></div></a>
   </div>
+
 </section>
 
 <p class="pull">Written for the version of you who is reading this at eleven at night.</p>
@@ -556,6 +609,7 @@ footer{border-top:1px solid var(--line);padding:28px 0 80px;font-family:var(--sa
 
 </div>
 
+<script src="search-index.js"></script>
 <script src="site-nav.js"></script>
 </body>
 </html>

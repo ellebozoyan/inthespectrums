@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The family calendar — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --paper:#FFFDF8; --slate:#435A6F; --slate-tint:#E5EAEE; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --s1:#CFE0D3; --s2:#A8C6AE; --s3:#E4C79A; --s4:#D19A6A; --s5:#B4593A;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 22px;font-size:1.04rem}
+header.masthead{padding:50px 0 12px}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:18px 20px;margin:0 0 26px;
+  font-size:.95rem;max-width:74ch}
+.note strong{color:var(--rust)}
+.note p{margin:0 0 9px}.note p:last-child{margin:0}
+.snote{background:var(--slate-tint);border-left:4px solid var(--slate);padding:18px 20px;margin:0 0 18px;font-size:.95rem}
+.snote p{margin:0 0 9px}.snote p:last-child{margin:0}
+.snote strong{color:var(--slate)}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}
+.tab{font-family:var(--sans);font-size:13px;padding:10px 16px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink-soft);border-radius:2px;cursor:pointer;letter-spacing:.02em}
+.tab:hover{border-color:var(--rust);color:var(--rust)}
+.tab.on{background:var(--forest);border-color:var(--forest);color:#fff}
+.tab:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+.tabnote{font-size:.93rem;color:var(--ink-soft);margin:0 0 24px;max-width:66ch;font-style:italic}
+
+main{padding-bottom:70px}
+.panel{display:none}.panel.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:22px;margin-bottom:18px}
+.card h2{font-size:1.25rem;font-weight:400;margin:0 0 4px}
+.card .fnote{font-size:.92rem;color:var(--ink-soft);margin:0 0 18px;max-width:66ch}
+.cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px;align-items:start}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+
+label,.lbl{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.06em;
+  color:var(--forest);font-weight:700;text-transform:uppercase;margin-bottom:6px}
+.hint{display:block;font-family:var(--serif);font-size:.86rem;color:var(--ink-soft);
+  text-transform:none;letter-spacing:0;font-weight:400;margin-top:3px}
+input[type=text],input[type=date],input[type=number],textarea,select{
+  width:100%;font-family:var(--serif);font-size:15px;padding:9px 11px;
+  border:1px solid var(--line);border-radius:2px;background:#fff;color:var(--ink);line-height:1.5}
+textarea{min-height:64px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--rust);outline-offset:1px;border-color:transparent}
+.fld{margin-bottom:15px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>.fld{flex:1 1 150px;margin-bottom:15px}
+
+button.act{font-family:var(--sans);font-size:13px;padding:11px 18px;border-radius:2px;cursor:pointer;
+  border:1px solid var(--forest);background:var(--forest);color:#fff;letter-spacing:.03em}
+button.act.ghost{background:none;color:var(--forest)}
+button.act.warn{border-color:var(--rust);color:var(--rust);background:none}
+button.act:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+button.act:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+.btns{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.chip{font-family:var(--sans);font-size:12.5px;padding:8px 13px;border:1px solid var(--line);
+  background:#fff;color:var(--ink-soft);border-radius:2px;cursor:pointer;text-align:left}
+.chip:hover{border-color:var(--rust);color:var(--rust)}
+.chip.on{background:var(--forest);border-color:var(--forest);color:#fff}
+.chip.good{border-color:#8FAE96}
+.chip.good.on{background:#4B7A5A;border-color:#4B7A5A}
+.chip.pre.on{background:var(--slate);border-color:var(--slate)}
+.chip.help.on{background:#4B7A5A;border-color:#4B7A5A}
+.chip .ct{font-size:10.5px;opacity:.75;margin-left:5px}
+
+.symgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:7px;margin-bottom:6px}
+.symgrid .chip{width:100%}
+
+.cap{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px}
+.cap button{flex:1 1 108px;font-family:var(--sans);font-size:12px;padding:11px 8px;border:1px solid var(--line);
+  background:#fff;cursor:pointer;border-radius:2px;color:var(--ink-soft);line-height:1.3;text-align:center}
+.cap button:hover{border-color:var(--ink)}
+.cap button b{display:block;font-size:15px;margin-bottom:3px;color:var(--ink)}
+.cap button.on{border-color:var(--ink);color:var(--ink);font-weight:600}
+.cap button[data-c="1"].on{background:var(--s1)}
+.cap button[data-c="2"].on{background:var(--s2)}
+.cap button[data-c="3"].on{background:var(--s3)}
+.cap button[data-c="4"].on{background:var(--s4)}
+.cap button[data-c="5"].on{background:var(--s5);color:#fff}
+.cap button[data-c="5"].on b{color:#fff}
+
+.entry{border:1px solid var(--line);border-left:3px solid var(--forest);background:#fff;
+  padding:13px 15px;margin-bottom:10px;border-radius:2px}
+.entry.pos{border-left-color:#4B7A5A}
+.entry .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.entry .nm{font-size:1.02rem}
+.entry .cat{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft)}
+.sev{display:flex;gap:5px;margin:9px 0 0;flex-wrap:wrap}
+.sev button{font-family:var(--sans);font-size:12px;padding:6px 11px;border:1px solid var(--line);
+  background:#fff;cursor:pointer;border-radius:2px;color:var(--ink-soft)}
+.sev button:hover{border-color:var(--ink)}
+.sev button.on{color:#16283C;font-weight:700;border-color:var(--ink)}
+.sev button[data-s="1"].on{background:var(--s1)}
+.sev button[data-s="2"].on{background:var(--s2)}
+.sev button[data-s="3"].on{background:var(--s3)}
+.sev button[data-s="4"].on{background:var(--s4)}
+.sev button[data-s="5"].on{background:var(--s5);color:#fff}
+.mini{font-family:var(--sans);font-size:11.5px;color:var(--ink-soft);background:none;border:none;
+  cursor:pointer;padding:4px 0;text-decoration:underline}
+.mini:hover{color:var(--rust)}
+
+.day{margin-bottom:26px}
+.day h3{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:0 0 4px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.day .ctx{font-size:.9rem;color:var(--ink-soft);margin:0 0 10px;font-style:italic}
+.logline{display:flex;gap:10px;align-items:baseline;padding:5px 0;border-bottom:1px dotted var(--line);
+  font-size:.96rem;flex-wrap:wrap}
+.dot{display:inline-block;width:11px;height:11px;border-radius:50%;flex:none;position:relative;top:1px}
+.logline .sm{font-family:var(--sans);font-size:11px;color:var(--ink-soft)}
+.flag{display:inline-block;font-family:var(--sans);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+  background:var(--alarm-tint);color:var(--alarm);padding:2px 7px;border-radius:2px;font-weight:700}
+
+.trend{margin-bottom:15px;padding-bottom:13px;border-bottom:1px solid var(--line)}
+.trend .th{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:5px}
+.trend .tn{font-size:1rem}
+.trend .tc{font-family:var(--sans);font-size:11px;color:var(--ink-soft)}
+.bars{display:flex;gap:2px;align-items:flex-end;height:34px}
+.bars i{flex:1;min-width:2px;background:var(--line);border-radius:1px 1px 0 0;display:block}
+.axis{display:flex;justify-content:space-between;font-family:var(--sans);font-size:10px;
+  color:var(--ink-soft);margin-top:3px}
+.tally{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}
+.tally span{font-family:var(--sans);font-size:12px;background:var(--slate-tint);color:var(--slate);
+  padding:6px 11px;border-radius:2px}
+.tally span b{color:var(--ink)}
+.tally.gd span{background:#E6EDE4;color:#2E4E3F}
+
+.doc{background:var(--paper);border:1px solid #CBC6B8;border-radius:2px;padding:32px 30px;
+  font-family:var(--serif);font-size:14.5px;line-height:1.62;color:#22221E}
+.doc h1{font-size:1.3rem;font-weight:400;margin:0 0 4px;letter-spacing:0;text-align:center}
+.doc .sub{text-align:center;font-family:var(--sans);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:#7A7568;margin:0 0 18px;padding-bottom:14px;border-bottom:2px solid #22221E}
+.doc h2{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:#8A5A2A;font-weight:700;margin:20px 0 7px}
+.doc p{margin:0 0 10px}
+.doc ul{margin:0 0 11px;padding-left:19px}.doc li{margin-bottom:6px}
+.doc table{width:100%;border-collapse:collapse;font-size:13px;margin:0 0 12px}
+.doc th{text-align:left;font-family:var(--sans);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:#7A7568;border-bottom:1px solid #C3BDAE;padding:5px 6px 5px 0}
+.doc td{padding:5px 6px 5px 0;border-bottom:1px dotted #D8D2C4;vertical-align:top}
+.doc .foot{border-top:1px dashed #C3BDAE;margin-top:20px;padding-top:11px;font-size:12px;color:#7A7568}
+
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.empty{color:var(--ink-soft);font-style:italic;padding:14px 0}
+footer{border-top:1px solid var(--line);padding:24px 0 60px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+footer p{max-width:78ch}
+@media print{
+  body{background:#fff}
+  .masthead,.tabs,.tabnote,.note,.snote,.profnote,footer,.btns,.card.noprint{display:none!important}
+  .doc{border:none;padding:0;background:#fff;font-size:11pt}
+}
+
+.prov{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--forest);
+  border-radius:2px;padding:16px 19px;margin-bottom:12px}
+.prov .ph{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:9px}
+.prov .pn{font-size:1.08rem}
+.prov .pd{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.goal{border-top:1px solid var(--line);padding:11px 0 9px;font-size:.96rem;line-height:1.45}
+.goal:last-of-type{padding-bottom:0}
+.goal .gt{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap}
+.goal .code{font-family:var(--sans);font-size:10.5px;letter-spacing:.06em;color:var(--rust);font-weight:700;flex:none}
+.goal .st{font-family:var(--sans);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  padding:2px 7px;border-radius:2px;flex:none}
+.st.current{background:#E6EDE4;color:#2E4E3F}
+.st.next{background:var(--slate-tint);color:var(--slate)}
+.st.mastered{background:#EFE0D5;color:#9C4A21}
+.st.paused{background:#EEEEEA;color:#6A6A62}
+.goal .gg{font-size:.89rem;color:var(--ink-soft);margin-top:5px}
+.gen{background:#F4F7F3;border:1px solid #CBDCC6;border-left:3px solid var(--forest);
+  padding:11px 14px;margin-top:7px;border-radius:2px;font-size:.9rem}
+.gen b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--forest);display:block;margin-bottom:5px}
+.gen dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 11px}
+.gen dt{font-family:var(--sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+.gen dd{margin:0}
+.setrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.setrow span{font-family:var(--sans);font-size:11px;background:var(--forest);color:#fff;padding:3px 9px;border-radius:2px}
+.warnbox{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:13px 16px;margin:0 0 14px;font-size:.93rem}
+.warnbox b{color:var(--alarm)}
+table.gm{width:100%;border-collapse:collapse;font-size:.92rem;margin:0 0 14px}
+table.gm th{text-align:left;font-family:var(--sans);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-soft);border-bottom:1px solid var(--line);padding:6px 8px 6px 0;vertical-align:bottom}
+table.gm td{padding:8px 8px 8px 0;border-bottom:1px dotted var(--line);vertical-align:top}
+table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
+
+/* wall display */
+.wall{background:var(--ink);color:#EFEBE3;border-radius:3px;padding:26px 28px;margin:0 0 18px;min-height:340px}
+.wall .wtop{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;
+  border-bottom:1px solid rgba(255,255,255,.18);padding-bottom:14px;margin-bottom:18px}
+.wall .wday{font-family:var(--serif);font-size:clamp(1.3rem,3.4vw,2rem);font-weight:400}
+.wall .wname{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#C6A98F}
+.wrow{display:grid;grid-template-columns:104px minmax(0,1fr);gap:16px;align-items:start;
+  padding:13px 0;border-bottom:1px solid rgba(255,255,255,.09)}
+.wrow:last-child{border-bottom:none}
+.wrow.now{background:rgba(156,74,33,.22);margin:0 -14px;padding-left:14px;padding-right:14px;border-radius:2px}
+.wrow.done{opacity:.4}
+.wrow .wt{font-family:var(--sans);font-size:14px;letter-spacing:.04em;color:#C6A98F;padding-top:2px}
+.wrow.now .wt{color:#F0C9A8}
+.wrow .wx{font-size:1.12rem;line-height:1.35}
+.wrow .wsub{font-size:.92rem;color:#9FAE9C;margin-top:4px;line-height:1.4}
+.wrow .tag{display:inline-block;font-family:var(--sans);font-size:9px;letter-spacing:.13em;
+  text-transform:uppercase;background:rgba(255,255,255,.13);padding:2px 8px;border-radius:2px;margin-left:9px;
+  vertical-align:2px;color:#C6A98F}
+.wall.kid .wrow{grid-template-columns:118px minmax(0,1fr);padding:18px 0}
+.wall.kid .wt{font-size:19px}
+.wall.kid .wx{font-size:1.5rem;line-height:1.3}
+.wall.kid .wsub,.wall.kid .tag{display:none}
+.wall .wempty{color:#9FAE9C;font-style:italic;padding:26px 0}
+.evrow{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--forest);
+  border-radius:2px;padding:13px 16px;margin-bottom:9px}
+.evrow.appt{border-left-color:#8A2B20}
+.evrow.med{border-left-color:#2E5F4E}
+.evrow.meal{border-left-color:#A8641C}
+.evrow .eh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.evrow .en{font-size:1.02rem}
+.evrow .et{font-family:var(--sans);font-size:11px;color:var(--rust);font-weight:700}
+.evrow .ed{font-size:.9rem;color:var(--ink-soft);margin-top:5px}
+.daypick{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px}
+.daypick button{font-family:var(--sans);font-size:12px;padding:8px 13px;border:1px solid var(--line);
+  background:#fff;border-radius:2px;cursor:pointer;color:var(--ink-soft);min-width:52px}
+.daypick button.on{background:var(--forest);border-color:var(--forest);color:#fff}
+
+/* week grid for a wall screen */
+.wgrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px}
+@media(max-width:820px){.wgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.wgrid{grid-template-columns:1fr}}
+.wcol{background:rgba(255,255,255,.045);border-top:3px solid rgba(255,255,255,.16);padding:11px 10px;min-height:150px}
+.wcol.istoday{border-top-color:#9C4A21;background:rgba(156,74,33,.14)}
+.wcol h4{font-family:var(--sans);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 2px;font-weight:700}
+.wcol .wd{font-family:var(--sans);font-size:9.5px;color:#7E8C7C;margin:0 0 9px}
+.wcol .wi{font-size:.9rem;line-height:1.3;padding:5px 0;border-top:1px solid rgba(255,255,255,.08);
+  display:flex;gap:7px;align-items:flex-start}
+.wcol .wi:first-of-type{border-top:none}
+.wcol .wi em{font-style:normal;color:#C6A98F;font-family:var(--sans);font-size:10px;flex:none;padding-top:2px}
+.wcol .none{color:#6F7D6D;font-style:italic;font-size:.85rem}
+.tickbox{flex:none;width:19px;height:19px;border:1.6px solid rgba(255,255,255,.4);border-radius:3px;
+  background:none;cursor:pointer;padding:0;margin-top:1px;position:relative}
+.tickbox:hover{border-color:#C6A98F}
+.tickbox.on{background:#4B7A5A;border-color:#4B7A5A}
+.tickbox.on::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.wrow.ticked .wx{text-decoration:line-through;opacity:.55}
+.wall.kid .tickbox{width:30px;height:30px;border-width:2px}
+.wall.kid .tickbox.on::after{left:9px;top:3px;width:8px;height:15px;border-width:0 3px 3px 0}
+.tickhint{font-family:var(--sans);font-size:11px;color:#7E8C7C;margin:14px 0 0;letter-spacing:.02em}
+
+.pdot{display:inline-block;width:10px;height:10px;border-radius:50%;flex:none;margin-top:5px}
+.wrow .pdot{margin-top:8px}
+.wcol .pdot{width:7px;height:7px;margin-top:6px}
+.whobar{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 14px}
+.whobar button{font-family:var(--sans);font-size:12.5px;padding:8px 13px;border:1px solid var(--line);
+  background:#fff;border-radius:2px;cursor:pointer;color:var(--ink-soft);display:flex;align-items:center;gap:7px}
+.whobar button.on{background:var(--forest);border-color:var(--forest);color:#fff}
+.whobar button i{width:10px;height:10px;border-radius:50%;display:block}
+.mgrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px}
+.mcell{background:rgba(255,255,255,.045);min-height:82px;padding:7px 7px 5px;border-top:2px solid rgba(255,255,255,.12)}
+.mcell.out{opacity:.32}
+.mcell.istoday{border-top-color:#9C4A21;background:rgba(156,74,33,.14)}
+.mcell b{font-family:var(--sans);font-size:11px;color:#C6A98F;display:block;margin-bottom:5px}
+.mcell .mi{font-size:.78rem;line-height:1.25;color:#CBD3C7;margin-bottom:3px;display:flex;gap:5px;align-items:flex-start}
+.mcell .more{font-size:.72rem;color:#7E8C7C;font-family:var(--sans)}
+.mhead{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px;margin-bottom:3px}
+.mhead span{font-family:var(--sans);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:#7E8C7C;text-align:center;padding-bottom:4px}
+.psetting{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--forest);
+  border-radius:2px;padding:16px 19px;margin-bottom:11px}
+.psetting .ph{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:11px}
+.psetting .pn{font-size:1.05rem;display:flex;align-items:center;gap:9px}
+.swatches{display:flex;gap:5px;flex-wrap:wrap}
+.swatches button{width:26px;height:26px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0}
+.swatches button.on{border-color:var(--ink);transform:scale(1.12)}
+.shows{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:6px}
+.shows label{display:flex;gap:8px;align-items:flex-start;background:var(--ground);border:1px solid var(--line);
+  border-radius:2px;padding:9px 11px;cursor:pointer;font-family:var(--serif);font-size:.92rem;
+  text-transform:none;letter-spacing:0;color:var(--ink);font-weight:400;margin:0}
+.shows label.on{background:#E9EFE7;border-color:var(--forest)}
+.shows input{width:auto;flex:none;margin-top:3px}
+
+.wrow .thumb,.wcol .thumb{border-radius:3px;object-fit:cover;flex:none}
+.wrow .thumb{width:46px;height:46px}
+.wall.kid .wrow .thumb{width:74px;height:74px}
+.wcol .thumb{width:26px;height:26px}
+.photorow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.photorow img{width:54px;height:54px;object-fit:cover;border-radius:3px;border:1px solid var(--line)}
+.photonote{font-size:.86rem;color:var(--ink-soft);margin-top:5px}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>The family calendar:<br><em>one day, on one screen</em></h1>
+  <p class="lede">The routine, the medication, the meals and the appointments in one place — with a big, plain view you can leave open on a tablet on the kitchen wall, and a simpler version for the person themselves that shows only what you choose to share.</p>
+</header>
+
+<div class="note">
+  <h3>How the syncing works, honestly</h3>
+  <p>This tool does not have a server, which is why nobody can see your family's schedule. That also means it cannot sync between phones on its own.</p>
+  <p><strong>So it hands the job to the calendars you already have.</strong> Build the schedule here, download a calendar file, and import it into Apple Calendar or Google Calendar. Those already sync across every device you own — and they already let you share a calendar with a partner, a grandparent, a school or a therapist, with different people seeing different calendars.</p>
+  <p>That path is free, works on iPhone and Android, and needs no new account. <a href="using-these-tools.html">Using these tools</a> covers how to leave this page open full-screen on a wall tablet.</p>
+</div>
+
+<div class="tabs" id="tabs"></div>
+<p class="tabnote" id="tabnote"></p>
+
+<main>
+
+<section class="panel on" id="p-today">
+  <div class="row" style="margin-bottom:14px">
+    <div class="fld" style="max-width:190px"><label for="span">Show</label>
+      <select id="span"><option value="day">One day</option><option value="week">The whole week</option><option value="month">The month</option></select></div>
+    <div class="fld" style="max-width:200px"><label for="viewday">Day</label>
+      <input type="date" id="viewday"></div>
+    <div class="fld" style="max-width:230px"><label for="mode">Display</label>
+      <select id="mode"><option value="full">Everything (for adults)</option>
+        <option value="carer">For a caregiver or school</option>
+        <option value="kid">Simple — for the person themselves</option></select></div>
+  </div>
+  <div class="whobar" id="whobar"></div>
+  <div class="wall" id="wall"></div>
+  <p class="fnote" id="modenote"></p>
+  <div class="btns" style="border-top:none;padding-top:0">
+    <button class="act ghost" id="printday" type="button">Print this day</button>
+    <button class="act ghost" id="fullscreen" type="button">Full screen</button>
+  </div>
+</section>
+
+<section class="panel" id="p-build">
+  <div class="cols">
+    <div>
+      <div class="card">
+        <h2>Add something that repeats</h2>
+        <p class="fnote">Routines, meals, therapy sessions, the bus, bedtime. Medication already on <a href="medication-list.html">the medication list</a> appears automatically — you do not need to add it twice.</p>
+        <div class="row">
+          <div class="fld" style="flex:2 1 200px"><label for="rname">What</label>
+            <input type="text" id="rname" placeholder="e.g. Speech therapy, or Breakfast"></div>
+          <div class="fld" style="max-width:130px"><label for="rtime">Time</label>
+            <input type="time" id="rtime"></div>
+        </div>
+        <div class="fld"><label>Which days</label><div class="daypick" id="daypick"></div></div>
+        <div class="row">
+          <div class="fld"><label for="rkind">Kind</label>
+            <select id="rkind"><option value="routine">Routine</option><option value="meal">Meal or snack</option>
+              <option value="therapy">Therapy or session</option><option value="school">School or program</option>
+              <option value="travel">Travel</option></select></div>
+          <div class="fld"><label for="rwho">Who does it <span class="hint">Optional.</span></label>
+            <input type="text" id="rwho" placeholder="e.g. Dad, or the aide"></div>
+        </div>
+        <div class="fld"><label for="rnote">Detail <span class="hint">Shown to adults and caregivers, hidden in the simple view.</span></label>
+          <textarea id="rnote" placeholder="e.g. Leave by 8:05 at the latest. Snack in the bag or it will not go well."></textarea></div>
+        <div class="fld"><label for="rphoto">A photo <span class="hint">Optional, and worth it. A real picture of the person, the place or the car is far easier to recognise than words.</span></label>
+          <input type="file" id="rphoto" accept="image/*">
+          <div class="photorow" id="rpreview"></div>
+          <p class="photonote">Photos are shrunk right down and kept on this device only. Around thirty will fit comfortably.</p></div>
+        <div class="fld"><label><input type="checkbox" id="rshare" style="width:auto;margin-right:8px"> Show this in the simple view</label></div>
+        <div class="btns"><button class="act" id="addrep" type="button">Add</button></div>
+      </div>
+
+      <div class="card">
+        <h2>Add a one-off</h2>
+        <p class="fnote">Appointments, visits, days out, school events.</p>
+        <div class="row">
+          <div class="fld" style="flex:2 1 190px"><label for="aname">What</label>
+            <input type="text" id="aname" placeholder="e.g. Neurology — Dr Patel"></div>
+          <div class="fld" style="max-width:165px"><label for="adate">Date</label><input type="date" id="adate"></div>
+          <div class="fld" style="max-width:120px"><label for="atime">Time</label><input type="time" id="atime"></div>
+        </div>
+        <div class="row">
+          <div class="fld"><label for="awhere">Where</label><input type="text" id="awhere" placeholder="e.g. Children's, 4th floor"></div>
+          <div class="fld"><label for="awho">Who takes them</label><input type="text" id="awho"></div>
+        </div>
+        <div class="fld"><label for="anote">What to bring, and what to ask</label>
+          <textarea id="anote" placeholder="e.g. Bring the medication list and the symptom summary. Ask about the sleep study referral."></textarea></div>
+        <div class="fld"><label for="aphoto">A photo <span class="hint">The clinician’s face, the building, the waiting room.</span></label>
+          <input type="file" id="aphoto" accept="image/*">
+          <div class="photorow" id="apreview"></div></div>
+        <div class="fld"><label><input type="checkbox" id="ashare" style="width:auto;margin-right:8px"> Show this in the simple view</label></div>
+        <div class="btns"><button class="act" id="addappt" type="button">Add</button></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h2>The weekly pattern</h2>
+        <p class="fnote" id="repcount"></p>
+        <div id="replist"></div>
+      </div>
+      <div class="card">
+        <h2>Coming up</h2>
+        <p class="fnote">One-off events, soonest first.</p>
+        <div id="apptlist"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p-share">
+  <div class="card noprint">
+    <h2>Put it on everyone's phones</h2>
+    <p class="fnote">Download a calendar file and import it into Apple Calendar or Google Calendar. From there it syncs to every device and can be shared with whoever you choose.</p>
+    <div class="row">
+      <div class="fld" style="max-width:270px"><label for="icswhat">Include</label>
+        <select id="icswhat"><option value="all">Everything</option>
+          <option value="appts">Appointments only</option>
+          <option value="shared">Only what is marked shareable</option>
+          <option value="meds">Medication times only</option></select></div>
+      <div class="fld" style="max-width:190px"><label for="icsweeks">Repeat for</label>
+        <select id="icsweeks"><option value="8">8 weeks</option><option value="26" selected>6 months</option><option value="52">A year</option></select></div>
+    </div>
+    <div class="btns" style="margin-top:0;border-top:none;padding-top:0">
+      <button class="act" id="icsbtn" type="button">Download calendar file (.ics)</button>
+      <button class="act ghost" id="printweek" type="button">Print the week</button>
+      <button class="act ghost" id="backupbtn" type="button">Download a backup file</button>
+      <button class="act ghost" id="restorebtn" type="button">Restore from a backup</button>
+      <input type="file" id="restorefile" accept="application/json" style="display:none">
+    </div>
+  </div>
+
+  <div class="card noprint">
+    <h2>How to import it</h2>
+    <div class="row">
+      <div class="fld" style="flex:1 1 260px">
+        <p class="fnote"><strong>iPhone or Mac</strong><br>Open the downloaded file and choose which calendar to add it to. Make a calendar called something like "Ellie's day" first, so it can be shared and turned off separately. In Calendar on a Mac, right-click that calendar and choose Share Calendar to add a partner or a caregiver.</p>
+      </div>
+      <div class="fld" style="flex:1 1 260px">
+        <p class="fnote"><strong>Android or Google</strong><br>On a computer, open Google Calendar, then Settings → Import and export → Import, and pick the file and the calendar. Share it from Settings for that calendar → Share with specific people, and choose whether they can see details or only free/busy.</p>
+      </div>
+    </div>
+    <p class="fnote">Re-download and re-import when things change. Deleting the old imported calendar first avoids duplicates.</p>
+  </div>
+
+  <div class="doc" id="doc"></div>
+</section>
+
+<section class="panel" id="p-people">
+  <div class="card">
+    <h2>Colours and what each person shows</h2>
+    <p class="fnote">Give everyone a colour, and decide what of theirs appears on a shared screen. Medication and meals come from the other tools automatically — but only if the person is happy for them to be visible here.</p>
+    <div id="peoplesettings"></div>
+  </div>
+  <div class="snote">
+    <p><strong>Ask before you show it.</strong> A person not wanting their medication on the kitchen wall is a completely reasonable position, and honouring it costs you nothing. If they are old enough to have a view, the setting below belongs to them rather than to you.</p>
+  </div>
+</section>
+
+<section class="panel" id="p-setup">
+  <div class="card">
+    <h2>Who this is for</h2>
+    <p class="fnote">Shared with the other tools on this site.</p>
+    <div class="chips" id="peoplechips"></div>
+    <div class="row">
+      <div class="fld"><label for="childname">Name or initials</label><input type="text" id="childname"></div>
+      <div class="fld"><label for="childdob">Age or date of birth</label><input type="text" id="childdob"></div>
+    </div>
+    <div class="btns"><button class="act" id="savesetup" type="button">Save</button></div>
+  </div>
+  <div class="card">
+    <h2>What the simple view shows</h2>
+    <p class="fnote">The view meant for the person themselves, on a wall tablet or their own device.</p>
+    <ul>
+      <li>Only items you ticked as shareable, plus meals</li>
+      <li>Larger type, no notes, no medication detail unless you tick it</li>
+      <li>What is happening now is highlighted, and what has passed is dimmed</li>
+      <li>No diagnoses, no appointment reasons, no adult notes — ever</li>
+    </ul>
+    <p class="fnote">If a person is old enough to want more detail, give it to them. This is a starting point, not a rule — see <a href="their-own-voice.html">their own voice</a>.</p>
+  </div>
+</section>
+
+</main>
+
+<div class="snote">
+  <p><strong>A visible schedule does more than organize a day.</strong> Knowing what is coming is one of the most reliable ways to reduce the anxiety that drives hard moments — most of what looks like resistance is a response to being surprised. See <a href="de-escalation.html">in the moment</a> on previewing and transitions.</p>
+</div>
+
+<div class="profnote"><b>Reading this as a professional</b>
+<p>If a family shares this with you, the simple view is deliberately filtered — what a person sees about their own day is a decision their family has made, and it will change as they get older.</p>
+<p>The weekly pattern is often more informative than any account of a typical day. Look at the density, the transitions, and how much of the week is already spoken for before anything you add.</p></div>
+
+<footer>
+  <p><strong>Nothing here is medical advice.</strong> Medication times shown are drawn from the family's own list and are not a prescription. Verify against the label and the prescriber.</p>
+  <p>Take this page, change it, host it yourself. One file, works offline.</p>
+</footer>
+
+</div>
+
+<script>
+var whose=null;
+var SKEY="its_family_v1";
+var DEFSET=["Home / family","Home / providers","School"];
+var DAYS=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+var MEALTIME={Breakfast:"07:45",Lunch:"12:15",Dinner:"17:45",Snack:"15:00"};
+var SLOTHR={"On waking":"07:00","Breakfast":"07:30","Mid-morning":"10:30","Lunch":"12:30",
+ "After school":"15:30","Dinner":"17:30","Bedtime":"19:30","Overnight":"23:00"};
+function blankPerson(nm){return {name:nm||"",dob:"",dx:"",emerg:"",weight:"",
+  tracker:{entries:[],days:{},custom:{},pre:[],help:[]},
+  goals:{items:[],settings:DEFSET.slice(),instructions:""},
+  meds:{items:[],allergies:"",pharm:"",changes:[]},
+  food:{items:[],rules:"",allerg:"",supp:"",history:[]},
+  cal:{repeats:[],appts:[],ticks:{}},
+  color:"",show:{meds:true,meals:true,appts:true,routines:true}};}
+function fix(d){Object.keys(d.people).forEach(function(k){var p=d.people[k];
+ if(!p.tracker)p.tracker={entries:[],days:{},custom:{},pre:[],help:[]};
+ if(!p.goals)p.goals={items:[],settings:DEFSET.slice(),instructions:""};
+ if(!p.meds)p.meds={items:[],allergies:"",pharm:"",changes:[]};
+ if(!p.food)p.food={items:[],rules:"",allerg:"",supp:"",history:[]};
+ if(!p.cal)p.cal={repeats:[],appts:[]};
+ if(!p.cal.repeats)p.cal.repeats=[];if(!p.cal.appts)p.cal.appts=[];
+ if(!p.cal.ticks)p.cal.ticks={};
+ if(!p.show)p.show={meds:true,meals:true,appts:true,routines:true};
+ if(!p.plan)p.plan={weeks:{},goal:1};});
+ var PAL=["#9C4A21","#2E5F4E","#46508C","#6B4A78","#A8641C","#1D6A82","#8A2B20","#4A5C2E"];
+ Object.keys(d.people).forEach(function(k,i){if(!d.people[k].color)d.people[k].color=PAL[i%PAL.length];});
+ if(!d.people[d.current])d.current=Object.keys(d.people)[0];return d;}
+function load(){try{var r=localStorage.getItem(SKEY);if(r){var d=JSON.parse(r);if(d&&d.people)return fix(d);}}catch(e){}
+ return {people:{"Person 1":blankPerson("")},current:"Person 1"};}
+var DB=load();
+function save(){try{localStorage.setItem(SKEY,JSON.stringify(DB));}catch(e){alert("This browser wouldn't let it save.");}}
+function PERSON(){return DB.people[DB.current];}
+function C(){return PERSON().cal;}
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?"":s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function nl(s){return esc(s).replace(/\n/g,'<br>');}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+function pad(n){return String(n).padStart(2,"0");}
+function today(){var d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
+function dOf(x){var a=x.split("-").map(Number);return new Date(a[0],a[1]-1,a[2]);}
+function iso(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
+function addDays(x,n){var d=dOf(x);d.setDate(d.getDate()+n);return iso(d);}
+function weekStartOf(x){var d=dOf(x);d.setDate(d.getDate()-d.getDay());return iso(d);}
+function shortd(x){return dOf(x).toLocaleDateString(undefined,{month:"short",day:"numeric"});}
+function prettyDay(x){return dOf(x).toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"});}
+function hhmm(t){if(!t)return "";var a=t.split(":").map(Number);
+ var h=a[0],m=a[1],ap=h>=12?"pm":"am";h=h%12;if(!h)h=12;
+ return h+(m?":"+pad(m):"")+ap;}
+var KINDW={routine:"Routine",meal:"Meal",therapy:"Therapy",school:"School",travel:"Travel"};
+
+var TABS=[{k:"today",n:"The day",note:"One day on one screen. Leave this open on a tablet."},
+ {k:"build",n:"Build the schedule",note:"What repeats each week, and what is coming up once."},
+ {k:"people",n:"People & privacy",note:"Colours, and what each person is happy to show on a shared screen."},
+ {k:"share",n:"Sync & print",note:"Download a calendar file and import it into the calendar you already use."},
+ {k:"setup",n:"Setup",note:"Shared with the other tools on this site."}];
+var cur="today";
+TABS.forEach(function(t){var b=document.createElement("button");
+ b.className="tab"+(t.k===cur?" on":"");b.type="button";b.textContent=t.n;b.dataset.k=t.k;
+ b.addEventListener("click",function(){
+  var a=document.querySelectorAll(".tab");for(var i=0;i<a.length;i++)a[i].classList.toggle("on",a[i].dataset.k===t.k);
+  var p=document.querySelectorAll(".panel");for(var j=0;j<p.length;j++)p[j].classList.toggle("on",p[j].id==="p-"+t.k);
+  $("tabnote").textContent=t.note;
+  if(t.k==="today")drawWall();
+  if(t.k==="build"){renderReps();renderAppts();}
+  if(t.k==="share")renderWeek();
+  if(t.k==="people")renderPeople();
+  if(t.k==="setup")renderSetup();
+  window.scrollTo(0,0);});
+ $("tabs").appendChild(b);});
+$("tabnote").textContent=TABS[0].note;
+
+var pickedDays=[1,2,3,4,5];
+function renderDayPick(){var box=$("daypick");box.innerHTML="";
+ DAYS.forEach(function(d,i){var b=document.createElement("button");
+  b.type="button";b.className=(pickedDays.indexOf(i)>=0?"on":"");b.textContent=d;
+  b.addEventListener("click",function(){var k=pickedDays.indexOf(i);
+   if(k>=0)pickedDays.splice(k,1);else pickedDays.push(i);renderDayPick();});
+  box.appendChild(b);});}
+
+$("addrep").addEventListener("click",function(){
+ var n=$("rname").value.trim();if(!n){alert("Name it first.");return;}
+ if(!pickedDays.length){alert("Pick at least one day.");return;}
+ C().repeats.push({id:uid(),name:n,time:$("rtime").value,days:pickedDays.slice(),
+  kind:$("rkind").value,who:$("rwho").value.trim(),note:$("rnote").value.trim(),
+  photo:pendingR,share:$("rshare").checked});
+ ["rname","rwho","rnote"].forEach(function(id){$(id).value="";});
+ pendingR=null;$("rpreview").innerHTML="";if($("rphoto"))$("rphoto").value="";
+ $("rshare").checked=false;save();renderReps();drawWall();});
+
+$("adate").value=today();
+$("addappt").addEventListener("click",function(){
+ var n=$("aname").value.trim();if(!n){alert("Name it first.");return;}
+ C().appts.push({id:uid(),name:n,date:$("adate").value,time:$("atime").value,
+  where:$("awhere").value.trim(),who:$("awho").value.trim(),note:$("anote").value.trim(),
+  photo:pendingA,share:$("ashare").checked});
+ ["aname","awhere","awho","anote"].forEach(function(id){$(id).value="";});
+ pendingA=null;$("apreview").innerHTML="";if($("aphoto"))$("aphoto").value="";
+ $("ashare").checked=false;save();renderAppts();drawWall();});
+
+function medItems(){
+ var out=[];
+ (PERSON().meds.items||[]).forEach(function(m){
+  if(m.status!=="current")return;
+  (m.when||[]).forEach(function(sl){
+   out.push({key:'m'+m.id+sl,time:SLOTHR[sl]||"12:00",name:m.name+(m.dose?" — "+m.dose:""),
+    kind:"med",note:m.how||"",slot:sl,share:false});});});
+ return out;}
+
+function personItems(key,dateStr,forShared){
+ var P=DB.people[key],out=[],wd=dOf(dateStr).getDay();
+ var sh=P.show||{meds:true,meals:true,appts:true,routines:true};
+ var cal=P.cal||{repeats:[],appts:[]};
+ if(!forShared||sh.routines!==false){
+  (cal.repeats||[]).forEach(function(r){
+   if((r.days||[]).indexOf(wd)<0)return;
+   out.push({key:'r'+r.id,who_:key,time:r.time||"",name:r.name,kind:r.kind,
+    note:r.note,who:r.who,photo:r.photo,share:r.share});});}
+ if(!forShared||sh.appts!==false){
+  (cal.appts||[]).forEach(function(a){
+   if(a.date!==dateStr)return;
+   out.push({key:'a'+a.id,who_:key,time:a.time||"",name:a.name,kind:"appt",
+    note:[a.where,a.note].filter(Boolean).join(" \u2014 "),who:a.who,photo:a.photo,share:a.share});});}
+ if(!forShared||sh.meds!==false){
+  ((P.meds&&P.meds.items)||[]).forEach(function(m){
+   if(m.status!=="current")return;
+   (m.when||[]).forEach(function(sl){
+    out.push({key:'m'+m.id+sl,who_:key,time:SLOTHR[sl]||"12:00",
+     name:m.name+(m.dose?" \u2014 "+m.dose:""),kind:"med",note:m.how||"",share:false});});});}
+ if(!forShared||sh.meals!==false){
+  var wkStart=weekStartOf(dateStr),di=dOf(dateStr).getDay();
+  var wkData=((P.plan&&P.plan.weeks)||{})[wkStart]||{};
+  ["Breakfast","Lunch","Dinner","Snack"].forEach(function(m){
+   var slot=wkData[di+"|"+m]||[];
+   if(!slot.length)return;
+   out.push({key:'p'+dateStr+m,who_:key,time:MEALTIME[m],
+    name:m+": "+slot.map(function(x){return x.name;}).join(", "),
+    kind:"meal",note:"",share:true});});}
+ return out;}
+
+function activeKeys(){
+ if(whose==="__all")return Object.keys(DB.people);
+ return [whose];}
+
+function itemsFor(dateStr){
+ var shared=(whose==="__all"),out=[];
+ activeKeys().forEach(function(k){
+  personItems(k,dateStr,shared).forEach(function(x){out.push(x);});});
+ out.sort(function(a,b){return (a.time||"99:99")<(b.time||"99:99")?-1:1;});
+ return out;}
+
+function colorOf(k){return (DB.people[k]&&DB.people[k].color)||"#9C4A21";}
+function nameOf(k){return (DB.people[k]&&DB.people[k].name)||k;}
+
+$("viewday").value=today();
+["viewday","mode","span"].forEach(function(id){$(id).addEventListener("change",drawWall);});
+function drawWall(){var v=$("span").value;
+ if(v==="week")renderWeekWall();
+ else if(v==="month")renderMonthWall();
+ else renderWall();}
+function isTicked(ds,key){var t=C().ticks[ds];return !!(t&&t[key]);}
+function toggleTick(ds,key){
+ var t=C().ticks[ds]=C().ticks[ds]||{};
+ if(t[key])delete t[key];else t[key]=1;
+ if(!Object.keys(t).length)delete C().ticks[ds];
+ /* keep only the last 60 days of ticks so this cannot grow forever */
+ var cut=addDays(today(),-60);
+ Object.keys(C().ticks).forEach(function(k){if(k<cut)delete C().ticks[k];});
+ save();}
+
+
+/* Photos are shrunk hard before storing — browser storage is small, and a
+   recognisable thumbnail is all a wall screen needs. */
+var pendingR=null,pendingA=null;
+function shrink(file,cb){
+ var fr=new FileReader();
+ fr.onload=function(){
+  var img=new Image();
+  img.onload=function(){
+   var max=180,w=img.width,h=img.height;
+   if(w>h){if(w>max){h=Math.round(h*max/w);w=max;}}
+   else{if(h>max){w=Math.round(w*max/h);h=max;}}
+   var c=document.createElement("canvas");c.width=w;c.height=h;
+   c.getContext("2d").drawImage(img,0,0,w,h);
+   try{cb(c.toDataURL("image/jpeg",0.62));}catch(e){cb(null);}};
+  img.onerror=function(){cb(null);};
+  img.src=fr.result;};
+ fr.onerror=function(){cb(null);};
+ fr.readAsDataURL(file);}
+function wirePhoto(inputId,previewId,setter){
+ var el=$(inputId);if(!el)return;
+ el.addEventListener("change",function(){
+  var f=el.files&&el.files[0];if(!f)return;
+  shrink(f,function(data){
+   if(!data){alert("That image could not be read.");return;}
+   setter(data);
+   $(previewId).innerHTML='<img src="'+data+'" alt=""><button class="mini" type="button">Remove</button>';
+   $(previewId).querySelector('button').addEventListener('click',function(){
+    setter(null);$(previewId).innerHTML="";el.value="";});});});}
+
+function renderWeekWall(){
+ var start=weekStartOf($("viewday").value||today()),mode=$("mode").value;
+ var w=$("wall");w.className="wall"+(mode==="kid"?" kid":"");
+ var h='<div class="wtop"><span class="wday">Week of '+esc(shortd(start))+'</span>'+
+  '<span class="wname">'+esc(PERSON().name||"")+'</span></div><div class="wgrid">';
+ for(var i=0;i<7;i++){
+  var ds=addDays(start,i);
+  var all=itemsFor(ds).filter(function(x){
+   if(mode==="kid")return x.share||x.kind==="meal";return true;});
+  h+='<div class="wcol'+(ds===today()?" istoday":"")+'"><h4>'+DAYS[dOf(ds).getDay()].slice(0,3)+
+     '</h4><p class="wd">'+esc(shortd(ds))+'</p>';
+  if(!all.length)h+='<p class="none">—</p>';
+  all.forEach(function(x){
+   h+='<div class="wi">'+(whose==="__all"?'<span class="pdot" style="background:'+colorOf(x.who_)+'"></span>':'')+
+      (x.photo?'<img class="thumb" src="'+x.photo+'" alt="">':'')+
+      '<em>'+esc(hhmm(x.time)||"")+'</em><span'+
+      (isTicked(ds,x.key)?' style="text-decoration:line-through;opacity:.5"':'')+'>'+
+      esc(x.name)+'</span></div>';});
+  h+='</div>';}
+ h+='</div>';
+ w.innerHTML=h;setNote(mode);}
+
+function renderMonthWall(){
+ var base=dOf($("viewday").value||today());
+ var first=new Date(base.getFullYear(),base.getMonth(),1);
+ var gridStart=new Date(first);gridStart.setDate(1-first.getDay());
+ var w=$("wall");w.className="wall";
+ var h='<div class="wtop"><span class="wday">'+
+  base.toLocaleDateString(undefined,{month:"long",year:"numeric"})+'</span>'+
+  '<span class="wname">'+esc(whose==="__all"?"Everyone":nameOf(whose))+'</span></div>';
+ h+='<div class="mhead">'+["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
+   .map(function(d){return '<span>'+d+'</span>';}).join('')+'</div><div class="mgrid">';
+ for(var i=0;i<42;i++){
+  var d=new Date(gridStart);d.setDate(gridStart.getDate()+i);
+  var ds=iso(d),out=(d.getMonth()!==base.getMonth());
+  var list=itemsFor(ds);
+  h+='<div class="mcell'+(out?" out":"")+(ds===today()?" istoday":"")+'"><b>'+d.getDate()+'</b>';
+  list.slice(0,3).forEach(function(x){
+   h+='<div class="mi">'+(whose==="__all"?'<span class="pdot" style="background:'+colorOf(x.who_)+'"></span>':'')+
+      '<span>'+esc(x.name.length>26?x.name.slice(0,25)+"\u2026":x.name)+'</span></div>';});
+  if(list.length>3)h+='<div class="more">+'+(list.length-3)+' more</div>';
+  h+='</div>';}
+ h+='</div>';
+ w.innerHTML=h;setNote($("mode").value);}
+
+function renderWhoBar(){
+ var box=$("whobar");box.innerHTML="";
+ var keys=Object.keys(DB.people);
+ keys.forEach(function(k){
+  var b=document.createElement("button");b.type="button";
+  b.className=(whose===k?"on":"");
+  b.innerHTML='<i style="background:'+colorOf(k)+'"></i>'+esc(nameOf(k));
+  b.addEventListener("click",function(){whose=k;DB.current=k;save();renderWhoBar();drawWall();});
+  box.appendChild(b);});
+ if(keys.length>1){
+  var b2=document.createElement("button");b2.type="button";
+  b2.className=(whose==="__all"?"on":"");b2.textContent="Everyone";
+  b2.addEventListener("click",function(){whose="__all";renderWhoBar();drawWall();});
+  box.appendChild(b2);}}
+
+var PALETTE=["#9C4A21","#2E5F4E","#46508C","#6B4A78","#A8641C","#1D6A82","#8A2B20","#4A5C2E"];
+function renderPeople(){
+ var box=$("peoplesettings");box.innerHTML="";
+ Object.keys(DB.people).forEach(function(k){
+  var P=DB.people[k];P.show=P.show||{meds:true,meals:true,appts:true,routines:true};
+  var w=document.createElement("div");w.className="psetting";
+  var h='<div class="ph"><span class="pn"><span class="pdot" style="margin:0;width:14px;height:14px;background:'+
+   colorOf(k)+'"></span>'+esc(nameOf(k))+'</span><span class="swatches">';
+  PALETTE.forEach(function(c){h+='<button data-c="'+c+'" class="'+(P.color===c?"on":"")+'" style="background:'+c+'" aria-label="'+c+'"></button>';});
+  h+='</span></div><div class="shows">';
+  [["routines","Routines and therapy"],["appts","Appointments"],["meals","Meals from the planner"],["meds","Medication times"]]
+   .forEach(function(pair){
+    h+='<label class="'+(P.show[pair[0]]!==false?"on":"")+'"><input type="checkbox" data-s="'+pair[0]+
+      '"'+(P.show[pair[0]]!==false?" checked":"")+'><span>'+pair[1]+'</span></label>';});
+  h+='</div><p class="fnote" style="margin:11px 0 0">Unticking hides it only from the <b>Everyone</b> view. '+
+     esc(nameOf(k))+'\u2019s own view still shows everything.</p>';
+  w.innerHTML=h;
+  w.querySelectorAll('[data-c]').forEach(function(b){b.addEventListener('click',function(){
+   P.color=b.dataset.c;save();renderPeople();renderWhoBar();drawWall();});});
+  w.querySelectorAll('[data-s]').forEach(function(b){b.addEventListener('change',function(){
+   P.show[b.dataset.s]=b.checked;save();renderPeople();drawWall();});});
+  box.appendChild(w);});}
+
+function renderWall(){
+ var ds=$("viewday").value||today(),mode=$("mode").value;
+ var all=itemsFor(ds);
+ var list=all.filter(function(x){
+  if(mode==="full")return true;
+  if(mode==="carer")return true;
+  return x.share||x.kind==="meal";});
+ var now=new Date(),isToday=(ds===today());
+ var nowMin=now.getHours()*60+now.getMinutes();
+ var w=$("wall");w.className="wall"+(mode==="kid"?" kid":"");
+ var h='<div class="wtop"><span class="wday">'+esc(prettyDay(ds))+'</span>'+
+  '<span class="wname">'+esc(PERSON().name||"")+'</span></div>';
+ if(!list.length){h+='<p class="wempty">Nothing scheduled for this day.</p>';w.innerHTML=h;setNote(mode);return;}
+ var nextIdx=-1;
+ if(isToday){for(var i=0;i<list.length;i++){var t=list[i].time;
+  if(!t)continue;var a=t.split(":").map(Number);
+  if(a[0]*60+a[1]>=nowMin){nextIdx=i;break;}}}
+ list.forEach(function(x,i){
+  var past=false;
+  if(isToday&&x.time){var a=x.time.split(":").map(Number);past=(a[0]*60+a[1])<nowMin;}
+  var tick=isTicked(ds,x.key);
+  var cls="wrow"+(i===nextIdx&&!tick?" now":"")+(past&&!tick?" done":"")+(tick?" ticked":"");
+  h+='<div class="'+cls+'"><div class="wt">'+esc(hhmm(x.time)||"\u2014")+'</div><div style="display:flex;gap:11px;align-items:flex-start">'+
+   '<button class="tickbox'+(tick?" on":"")+'" data-tick="'+esc(x.key)+'" aria-label="Mark done"></button>'+
+   (whose==="__all"?'<span class="pdot" style="background:'+colorOf(x.who_)+'" title="'+esc(nameOf(x.who_))+'"></span>':'')+
+   (x.photo?'<img class="thumb" src="'+x.photo+'" alt="">':'')+'<div>'+
+   '<div class="wx">'+esc(x.name)+
+   (whose==="__all"&&mode!=="kid"?'<span class="tag" style="background:'+colorOf(x.who_)+'33;color:'+colorOf(x.who_)+'">'+esc(nameOf(x.who_))+'</span>':'')+
+   (mode!=="kid"&&x.kind?'<span class="tag">'+esc(x.kind==="med"?"medication":(KINDW[x.kind]||x.kind))+'</span>':'')+
+   '</div>';
+  if(mode!=="kid"){
+   var sub=[];if(x.who)sub.push(esc(x.who));if(x.note&&mode==="full")sub.push(nl(x.note));
+   else if(x.note&&mode==="carer"&&x.kind!=="appt")sub.push(nl(x.note));
+   else if(x.note&&mode==="carer")sub.push(nl(x.note));
+   if(sub.length)h+='<div class="wsub">'+sub.join(" \u00b7 ")+'</div>';}
+  h+='</div></div></div>';});
+ h+='<p class="tickhint">Tap a box to tick something off. Ticks clear on their own each day.</p>';
+ w.innerHTML=h;
+ w.querySelectorAll('[data-tick]').forEach(function(b){
+  b.addEventListener('click',function(){toggleTick(ds,b.dataset.tick);renderWall();});});
+ setNote(mode);}
+function setNote(mode){
+ $("modenote").textContent = mode==="kid"
+  ? "Showing only what you marked shareable, plus meals. No notes, no medication detail, no appointment reasons."
+  : mode==="carer" ? "Everything, with the practical notes. Suitable for a caregiver, an aide, or a respite worker."
+  : "Everything, including your own notes.";}
+$("fullscreen").addEventListener("click",function(){
+ var el=$("wall");
+ if(el.requestFullscreen)el.requestFullscreen();
+ else alert("Your browser did not allow full screen. Try hiding the browser bars instead.");});
+$("printday").addEventListener("click",function(){window.print();});
+
+function renderReps(){
+ var box=$("replist"),r=C().repeats;
+ $("repcount").textContent=r.length?r.length+" repeating items.":"Nothing repeating yet.";
+ if(!r.length){box.innerHTML='<p class="empty">Nothing yet.</p>';return;}
+ var sorted=r.slice().sort(function(a,b){return (a.time||"99")<(b.time||"99")?-1:1;});
+ box.innerHTML=sorted.map(function(x){
+  return '<div class="evrow '+(x.kind==="meal"?"meal":"")+'"><div class="eh"><span class="en">'+esc(x.name)+
+   '</span><span class="et">'+esc(hhmm(x.time)||"any time")+'</span></div>'+
+   '<div class="ed">'+esc(x.days.map(function(d){return DAYS[d];}).join(" ")) +
+   ' \u00b7 '+esc(KINDW[x.kind]||x.kind)+(x.who?' \u00b7 '+esc(x.who):'')+
+   (x.share?' \u00b7 shown to them':'')+'</div>'+
+   (x.note?'<div class="ed">'+nl(x.note)+'</div>':'')+
+   '<button class="mini" data-id="'+x.id+'">Remove</button></div>';}).join('');
+ box.querySelectorAll('[data-id]').forEach(function(b){b.addEventListener('click',function(){
+  C().repeats=C().repeats.filter(function(x){return x.id!==b.dataset.id;});save();renderReps();drawWall();});});}
+
+function renderAppts(){
+ var box=$("apptlist");
+ var a=C().appts.slice().filter(function(x){return x.date>=today();})
+  .sort(function(p,q){return p.date<q.date?-1:1;});
+ if(!a.length){box.innerHTML='<p class="empty">Nothing coming up.</p>';return;}
+ box.innerHTML=a.map(function(x){
+  return '<div class="evrow appt"><div class="eh"><span class="en">'+esc(x.name)+
+   '</span><span class="et">'+esc(prettyDay(x.date))+(x.time?' \u00b7 '+esc(hhmm(x.time)):'')+'</span></div>'+
+   (x.where||x.who?'<div class="ed">'+esc([x.where,x.who].filter(Boolean).join(" \u00b7 "))+'</div>':'')+
+   (x.note?'<div class="ed">'+nl(x.note)+'</div>':'')+
+   '<button class="mini" data-id="'+x.id+'">Remove</button></div>';}).join('');
+ box.querySelectorAll('[data-id]').forEach(function(b){b.addEventListener('click',function(){
+  C().appts=C().appts.filter(function(x){return x.id!==b.dataset.id;});save();renderAppts();drawWall();});});}
+
+/* ---------- ics ---------- */
+function icsTime(dateStr,t){var a=dateStr.split("-");var b=(t||"09:00").split(":");
+ return a[0]+a[1]+a[2]+"T"+pad(b[0])+pad(b[1])+"00";}
+function icsEsc(s){return String(s||"").replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\n/g,"\\n");}
+$("icsbtn").addEventListener("click",function(){
+ var what=$("icswhat").value,weeks=Number($("icsweeks").value);
+ var nm=PERSON().name||"Family";
+ var out=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//In The Spectrums//Family Calendar//EN",
+  "CALSCALE:GREGORIAN","X-WR-CALNAME:"+icsEsc(nm+" \u2014 schedule")];
+ var until=new Date();until.setDate(until.getDate()+weeks*7);
+ var untilS=until.getFullYear()+pad(until.getMonth()+1)+pad(until.getDate())+"T235900Z";
+ var start=today();
+ function ev(uidv,dt,tm,title,desc,rrule){
+  out.push("BEGIN:VEVENT","UID:"+uidv+"@inthespectrums","DTSTAMP:"+icsTime(today(),"09:00")+"Z",
+   "DTSTART:"+icsTime(dt,tm),"DURATION:PT30M","SUMMARY:"+icsEsc(title));
+  if(desc)out.push("DESCRIPTION:"+icsEsc(desc));
+  if(rrule)out.push("RRULE:"+rrule);
+  out.push("END:VEVENT");}
+ if(what==="all"||what==="shared"){
+  C().repeats.forEach(function(r){
+   if(what==="shared"&&!r.share)return;
+   var byday=r.days.map(function(d){return ["SU","MO","TU","WE","TH","FR","SA"][d];}).join(",");
+   ev(r.id,start,r.time||"09:00",r.name,r.note,"FREQ=WEEKLY;BYDAY="+byday+";UNTIL="+untilS);});}
+ if(what==="all"||what==="appts"||what==="shared"){
+  C().appts.forEach(function(a){
+   if(what==="shared"&&!a.share)return;
+   ev(a.id,a.date,a.time||"09:00",a.name,[a.where,a.who,a.note].filter(Boolean).join(" \u2014 "));});}
+ if(what==="all"||what==="meds"){
+  medItems().forEach(function(m,i){
+   ev("med"+i,start,m.time,m.name,m.note,"FREQ=DAILY;UNTIL="+untilS);});}
+ out.push("END:VCALENDAR");
+ dl(new Blob([out.join("\r\n")],{type:"text/calendar;charset=utf-8"}),
+  nm.replace(/\W+/g,"-")+"-schedule.ics");});
+
+$("printweek").addEventListener("click",function(){window.print();});
+function renderWeek(){
+ var h='<h1>'+esc(PERSON().name||"Weekly schedule")+'</h1><p class="sub">The week from '+
+  esc(prettyDay(today()))+'</p>';
+ for(var i=0;i<7;i++){
+  var d=new Date();d.setDate(d.getDate()+i);
+  var ds=d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+  var list=itemsFor(ds);
+  h+='<h2>'+esc(prettyDay(ds))+'</h2>';
+  if(!list.length){h+='<p>Nothing scheduled.</p>';continue;}
+  h+='<table><tr><th>Time</th><th>What</th><th>Detail</th></tr>';
+  list.forEach(function(x){h+='<tr><td>'+esc(hhmm(x.time)||"\u2014")+'</td><td>'+esc(x.name)+
+   '</td><td>'+esc([x.who,x.note].filter(Boolean).join(" \u2014 "))+'</td></tr>';});
+  h+='</table>';}
+ h+='<p class="foot">Kept at home by a family. Medication times are drawn from the family\u2019s own list and are not a prescription. Built with the free tools at In The Spectrums.</p>';
+ $("doc").innerHTML=h;}
+
+$("backupbtn").addEventListener("click",function(){
+ dl(new Blob([JSON.stringify(DB,null,1)],{type:"application/json"}),"in-the-spectrums-backup-"+today()+".json");});
+$("restorebtn").addEventListener("click",function(){$("restorefile").click();});
+$("restorefile").addEventListener("change",function(ev2){
+ var f=ev2.target.files[0];if(!f)return;var r=new FileReader();
+ r.onload=function(){try{var d=JSON.parse(r.result);if(!d||!d.people)throw new Error("bad");
+  if(!confirm("This replaces everything currently saved on this device. Continue?"))return;
+  DB=fix(d);save();boot();alert("Restored.");}catch(e){alert("That doesn't look like a backup file.");}};
+ r.readAsText(f);ev2.target.value="";});
+function dl(b,n){var u=URL.createObjectURL(b),a=document.createElement("a");
+ a.href=u;a.download=n;document.body.appendChild(a);a.click();
+ setTimeout(function(){URL.revokeObjectURL(u);a.remove();},400);}
+
+function renderSetup(){var p=PERSON();
+ $("childname").value=p.name||"";$("childdob").value=p.dob||"";
+ var box=$("peoplechips");box.innerHTML="";
+ Object.keys(DB.people).forEach(function(k){var b=document.createElement("button");
+  b.type="button";b.className="chip"+(k===DB.current?" on":"");b.textContent=DB.people[k].name||k;
+  b.addEventListener("click",function(){DB.current=k;save();boot();});box.appendChild(b);});}
+$("savesetup").addEventListener("click",function(){var p=PERSON();
+ p.name=$("childname").value.trim();p.dob=$("childdob").value.trim();save();renderSetup();
+ $("savesetup").textContent="Saved";setTimeout(function(){$("savesetup").textContent="Save";},1400);});
+
+function boot(){if(!whose)whose=DB.current;save();
+ wirePhoto("rphoto","rpreview",function(v){pendingR=v;});
+ wirePhoto("aphoto","apreview",function(v){pendingA=v;});renderDayPick();renderWhoBar();drawWall();renderReps();renderAppts();renderSetup();}
+boot();
+setInterval(function(){if(cur==="today")drawWall();},60000);
+</script>
+
+<script src="search-index.js"></script>
+<script src="site-nav.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The food list — In The Spectrums</title>
+<title>The choice planner — In The Spectrums</title>
 <style>
 :root{
   --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
@@ -207,136 +207,144 @@ table.gm th{text-align:left;font-family:var(--sans);font-size:9.5px;letter-spaci
 table.gm td{padding:8px 8px 8px 0;border-bottom:1px dotted var(--line);vertical-align:top}
 table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
 
-.food{background:var(--card);border:1px solid var(--line);border-left:3px solid #4B7A5A;
-  border-radius:2px;padding:14px 17px;margin-bottom:9px}
-.food.sometimes{border-left-color:#A8641C}
-.food.target{border-left-color:#6B4A78}
-.food.trying{border-left-color:#46508C}
-.food.lost{border-left-color:#8A2B20;background:#FBF3F1}
-.food .fh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
-.food .fn{font-size:1.05rem}
-.food .fs{font-family:var(--sans);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
-.food.safe .fs{color:#4B7A5A}.food.sometimes .fs{color:#A8641C}
-.food.target .fs{color:#6B4A78}
-.food.trying .fs{color:#46508C}.food.lost .fs{color:#8A2B20}
-.food .fd{font-size:.92rem;color:var(--ink-soft);margin-top:6px;line-height:1.45}
-.food .fd b{color:var(--ink);font-family:var(--sans);font-size:9.5px;letter-spacing:.11em;
+.kinds{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:11px;margin:0 0 20px}
+.kind{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--forest);
+  border-radius:2px;padding:17px 19px}
+.kind.ft{border-top-color:#A8641C}
+.kind.nat{border-top-color:#46508C}
+.kind h3{font-size:1.06rem;font-weight:400;margin:0 0 7px}
+.kind .ex{font-family:var(--serif);font-style:italic;color:var(--forest);font-size:.95rem;
+  border-left:2px solid var(--line);padding-left:12px;margin:10px 0 0}
+.kind p{font-size:.94rem;margin:0 0 8px}
+.scriptcard{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--forest);
+  border-radius:2px;padding:17px 20px;margin-bottom:11px}
+.scriptcard.ft{border-left-color:#A8641C}
+.scriptcard.nat{border-left-color:#46508C}
+.scriptcard .sh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:9px}
+.scriptcard .sn{font-size:1.06rem}
+.scriptcard .sk{font-family:var(--sans);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.scriptcard.log .sk{color:var(--forest)}.scriptcard.ft .sk{color:#A8641C}.scriptcard.nat .sk{color:#46508C}
+.say{background:#F4F7F3;border-left:3px solid var(--forest);padding:12px 15px;margin:9px 0;
+  font-size:1rem;line-height:1.5;font-style:italic}
+.field{font-size:.93rem;color:var(--ink-soft);margin-top:9px;line-height:1.45}
+.field b{color:var(--ink);font-family:var(--sans);font-size:9.5px;letter-spacing:.11em;
   text-transform:uppercase;display:block;margin-bottom:3px}
-.counts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:0 0 18px}
-.cnt{background:var(--card);border-top:3px solid var(--line);padding:14px 15px;text-align:center}
-.cnt b{display:block;font-size:1.7rem;font-weight:400;color:var(--ink);line-height:1.1}
-.cnt span{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-soft)}
-.cnt.safe{border-top-color:#4B7A5A}.cnt.sometimes{border-top-color:#A8641C}
-.cnt.target{border-top-color:#6B4A78}
-.cnt.trying{border-top-color:#46508C}.cnt.lost{border-top-color:#8A2B20}
+.capcheck{background:#FBF3F1;border-left:4px solid var(--alarm);border-radius:2px;padding:17px 20px;margin:0 0 18px}
+.capcheck b{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--alarm);display:block;margin-bottom:8px}
+.capcheck p{margin:0 0 9px;font-size:.96rem}
+.capcheck p:last-child{margin:0}
 </style>
 </head><body>
 <div class="wrap">
 
 <header class="masthead">
   <p class="eyebrow">In The Spectrums · Free family resource</p>
-  <h1>The food list:<br><em>what is accepted, and exactly how</em></h1>
-  <p class="lede">For a person with a very short list of accepted foods, that list is not a preference — it is access to eating at all. This keeps it written down: what works, the brand, the plate, the temperature, the way it is cut. So that a hospital, a school, a grandparent or a new therapist can get it right the first time.</p>
-  <div class="note">
-    <p><strong>This stays on your device.</strong> Nothing sent anywhere, no account. It saves in this browser so it is here tomorrow. <b>Download a backup every few weeks</b> — see <a href="using-these-tools.html">using these tools</a>.</p>
-  </div>
-  <div class="tabs" id="tabs"></div>
-  <p class="tabnote" id="tabnote"></p>
+  <h1>The choice planner:<br><em>the same words, every time</em></h1>
+  <p class="lede">Work out what you will say before you are in the moment, so that you are calm, the wording is consistent, and everyone in the house — including a grandparent or a new carer — says the same sentence. Not a reward system. Closer to how the world actually works.</p>
 </header>
+
+<div class="note">
+  <p><strong>Nothing is sent anywhere.</strong> Scripts save in this browser so they are here tomorrow, and print for the fridge or for whoever is covering. See <a href="using-these-tools.html">using these tools</a>.</p>
+</div>
+
+<div class="tabs" id="tabs"></div>
+<p class="tabnote" id="tabnote"></p>
 
 <main>
 
-<section class="panel on" id="p-list">
-  <div class="counts" id="counts"></div>
-  <div class="cols">
-    <div>
-      <div class="card">
-        <h2>Add a food</h2>
-        <p class="fnote">Target foods appear as options in the <a href="meal-planner.html">meal planner</a>, so trying something new is always a choice rather than a surprise.</p>
-        <p class="fnote"><strong>Target</strong> means a food you are hoping to get to one day — not being worked on yet. <strong>Being explored</strong> means it is actively in play. Keeping those apart matters, because a target list can be long and hopeful while the exploring list stays very short.</p>
-        <p class="fnote">Be specific to the point of feeling silly. The brand matters. The shape matters. Somebody who has never met this person will read it.</p>
-        <div class="row">
-          <div class="fld" style="flex:2 1 200px"><label for="fname">What it is</label>
-            <input type="text" id="fname" placeholder="e.g. Chicken nuggets — Brand X, dinosaur shapes"></div>
-          <div class="fld"><label for="fstatus">Status</label>
-            <select id="fstatus">
-              <option value="safe">Accepted — reliable</option>
-              <option value="sometimes">Sometimes accepted</option>
-              <option value="target">Target — hoping to get there</option>
-              <option value="trying">Being explored right now</option>
-              <option value="lost">Lost — used to eat it</option></select></div>
-        </div>
-        <div class="row">
-          <div class="fld"><label for="fgroup">Kind <span class="hint">Optional. Helps spot gaps.</span></label>
-            <input type="text" id="fgroup" list="grouplist" placeholder="e.g. protein, crunchy, drink">
-            <datalist id="grouplist"></datalist></div>
-          <div class="fld"><label for="fwhen">Usually eaten</label>
-            <input type="text" id="fwhen" placeholder="e.g. lunch and dinner"></div>
-        </div>
-        <div class="fld"><label for="fhow">Exactly how it has to be <span class="hint">Brand, temperature, plate, cut, packaging, what it must not touch.</span></label>
-          <textarea id="fhow" placeholder="e.g. Brand X only — will not eat the supermarket version. Oven, never microwave. Cooled to warm, not hot. On the blue plate, not touching anything else. Cut in half lengthways."></textarea></div>
-        <div class="fld"><label for="fnote">Anything else <span class="hint">What ends it, what it is often paired with, what to avoid saying.</span></label>
-          <textarea id="fnote" placeholder="e.g. Do not comment while he is eating it. Praise has ended this one before."></textarea></div>
-        <div class="btns"><button class="act" id="addfood" type="button">Add</button>
-          <button class="act ghost" id="clearfood" type="button">Clear</button></div>
-      </div>
+<section class="panel on" id="p-about">
+  <h2 class="sec">Three different things, <em>often blurred together</em></h2>
+  <p class="secnote">Knowing which one you are using keeps it honest — and stops the third one turning into a punishment wearing choice language.</p>
 
-      <div class="card">
-        <h2>The general picture</h2>
-        <p class="fnote">Prints at the top. What anyone feeding this person needs to know before they start.</p>
-        <div class="fld"><label for="genrules">How mealtimes work here</label>
-          <textarea id="genrules" placeholder="e.g. Food is put on the table and nothing is asked. He serves himself. No comments about eating, in either direction. Spitting out is always allowed — a bin or a napkin is on the table."></textarea></div>
-        <div class="row">
-          <div class="fld"><label for="allerg">Allergies and must-avoids</label>
-            <textarea id="allerg" placeholder="e.g. No nuts in the house. Dairy causes reflux."></textarea></div>
-          <div class="fld"><label for="supp">Nutrition support</label>
-            <textarea id="supp" placeholder="e.g. Two supplement drinks a day, vanilla, in the metal cup with the lid."></textarea></div>
-        </div>
-        <div class="btns"><button class="act" id="saveinfo" type="button">Save</button></div>
-      </div>
-    </div>
+  <div class="kinds">
+    <div class="kind"><h3>A logical consequence</h3>
+      <p>The thing being misused is the thing that stops. Directly connected, easy to explain, and the version that holds up best when someone is upset.</p>
+      <p class="ex">"Sending it down the stairs isn't using it the right way. You can choose to use it properly and keep going, or you can choose to be all done with it for today — and that's okay, we can try again tomorrow."</p></div>
 
-    <div>
-      <div class="card">
-        <h2>The list</h2>
-        <p class="fnote" id="foodcount"></p>
-        <div class="fld" style="max-width:270px"><label for="ffilt">Show</label>
-          <select id="ffilt"><option value="all">Everything</option><option value="safe">Accepted only</option>
-            <option value="sometimes">Sometimes</option><option value="target">Target</option><option value="trying">Being explored</option>
-            <option value="lost">Lost</option></select></div>
-        <div id="foodlist"></div>
-      </div>
-    </div>
+    <div class="kind ft"><h3>First this, then that</h3>
+      <p>An expectation comes before a preferred thing. The two are not inherently connected, so this one relies on the expectation being fair and stated in advance.</p>
+      <p class="ex">"Cleaning up is what happens after an activity. I'll help — I'm being flexible, and I need you to be flexible too. If you choose not to help, you're choosing not to have the iPad after."</p></div>
+
+    <div class="kind nat"><h3>A natural consequence</h3>
+      <p>Nobody imposes anything; the world simply does what it does. The strongest teacher available, and the one adults most often interrupt.</p>
+      <p class="ex">"If you don't wear the coat you'll be cold" — and then letting them be a bit cold, where it is safe to do so.</p></div>
+  </div>
+
+  <div class="capcheck"><b>Before any of it — the question that matters most</b>
+    <p><strong>Can they actually do this, right now?</strong> Not in principle, not on a good day. In this moment, with the capacity they have left.</p>
+    <p>If the answer is no, then "you're choosing" is not true — they are not choosing, they cannot. Saying it anyway teaches a person that their genuine limits are treated as defiance, and that is the single most damaging thing this approach can do.</p>
+    <p>When capacity is the problem, the move is to lower the demand, help more, or come back to it. That is not letting them off. It is responding to what is actually happening.</p>
+  </div>
+
+  <h3 class="sub">What makes this different from a reward system</h3>
+  <ul>
+    <li><strong>The consequence is connected to the thing</strong>, wherever possible, rather than being an unrelated loss applied as a lesson.</li>
+    <li><strong>It is said in advance, calmly</strong>, before anyone is upset — not announced in the middle of a hard moment.</li>
+    <li><strong>The door reopens.</strong> "We can try again tomorrow" is the part that makes it a boundary rather than a punishment.</li>
+    <li><strong>The tone does not change.</strong> No disappointment, no lecture, no I-told-you-so afterward.</li>
+    <li><strong>It is honoured exactly.</strong> A consequence stated and not followed through teaches that words are negotiable; one that shifts with your mood teaches that the rule is really about you.</li>
+    <li><strong>Nothing already earned is taken away.</strong> Removing something a person already has is a different act, and it is the one that damages trust.</li>
+  </ul>
+
+  <div class="warn">
+    <h3>Where this is the wrong tool</h3>
+    <p>Choice-and-consequence language assumes a person can weigh two options and act on the answer. It does not fit a person who is already dysregulated, and it does not fit demand avoidance — where the demand itself is the trigger, and offering a choice inside a demand is still a demand.</p>
+    <p>In both cases, see <a href="de-escalation.html">in the moment</a> instead. Save this for the calm, ordinary, everyday version.</p>
   </div>
 </section>
 
-<section class="panel" id="p-history">
-  <div class="card">
-    <h2>What changed, and when</h2>
-    <p class="fnote">A food gained or lost, and roughly when. Shrinkage over time is one of the more useful things a clinician can see, and it is very hard to reconstruct from memory.</p>
-    <div class="row">
-      <div class="fld" style="max-width:190px"><label for="hdate">Date</label><input type="date" id="hdate"></div>
-      <div class="fld" style="flex:2 1 240px"><label for="htext">What happened</label>
-        <input type="text" id="htext" placeholder="e.g. Stopped eating the yogurt tubes after the brand changed the packaging"></div>
+<section class="panel" id="p-build">
+  <div class="cols">
+    <div>
+      <div class="card">
+        <h2>Write a script</h2>
+        <p class="fnote">One situation that keeps happening. Write it once, in your own words, while nothing is going wrong.</p>
+        <div class="fld"><label for="sname">The situation</label>
+          <input type="text" id="sname" placeholder="e.g. Using the robot vacuum roughly"></div>
+        <div class="fld"><label for="skind">Which kind is this?</label>
+          <select id="skind">
+            <option value="log">Logical — the thing being misused is the thing that stops</option>
+            <option value="ft">First this, then that</option>
+            <option value="nat">Natural — the world does it, not me</option></select></div>
+        <div class="fld"><label for="scap">Can they do this right now? <span class="hint">Be honest. If the answer is often no, the script is not the fix.</span></label>
+          <select id="scap">
+            <option value="yes">Yes — this is well within what they can do</option>
+            <option value="most">Most of the time, when they are regulated</option>
+            <option value="no">Not reliably — this needs breaking down or more help first</option></select></div>
+        <div class="fld"><label for="ssay">What I say, word for word</label>
+          <textarea id="ssay" style="min-height:96px" placeholder="e.g. Sending it down the stairs isn't using it the right way. You can choose to use it properly and keep going, or you can choose to be all done with it for today."></textarea></div>
+        <div class="fld"><label for="srepair">When it reopens <span class="hint">The part that makes this a boundary rather than a punishment.</span></label>
+          <input type="text" id="srepair" placeholder="e.g. We can try again tomorrow morning."></div>
+        <div class="row">
+          <div class="fld"><label for="swho">Who upholds it <span class="hint">Whoever says it, holds it.</span></label>
+            <input type="text" id="swho" placeholder="e.g. Whoever is with him"></div>
+          <div class="fld"><label for="safter">What I do afterward</label>
+            <input type="text" id="safter" placeholder="e.g. Move on. No lecture, no reminders about it."></div>
+        </div>
+        <div class="fld"><label for="snote">Anything else <span class="hint">What tends to go wrong, and what to avoid saying.</span></label>
+          <textarea id="snote" placeholder="e.g. Do not repeat it more than once. Repeating turns it into an argument."></textarea></div>
+        <div class="btns"><button class="act" id="addscript" type="button">Save this script</button>
+          <button class="act ghost" id="clearscript" type="button">Clear</button></div>
+      </div>
     </div>
-    <div class="btns"><button class="act" id="addhist" type="button">Add</button></div>
-    <div id="histlist" style="margin-top:18px"></div>
+
+    <div>
+      <div class="card">
+        <h2>Your scripts</h2>
+        <p class="fnote" id="scount"></p>
+        <div id="scriptlist"></div>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="panel" id="p-print">
   <div class="card noprint">
-    <h2>Print it</h2>
-    <p class="fnote">Take a copy to a hospital admission, a new school, a respite stay, or a week at a grandparent's.</p>
-    <div class="row">
-      <div class="fld" style="max-width:260px"><label for="pview">Layout</label>
-        <select id="pview"><option value="full">Full list, with all the detail</option>
-          <option value="quick">Short version — just what is accepted</option>
-          <option value="clin">For a clinician — including what was lost</option></select></div>
-    </div>
+    <h2>Print them</h2>
+    <p class="fnote">For the fridge, or to hand to a grandparent, a sitter, or a new carer. Consistency between adults is most of what makes this work.</p>
     <div class="btns" style="margin-top:0;border-top:none;padding-top:0">
       <button class="act" id="printbtn" type="button">Print</button>
-      <button class="act ghost" id="csvbtn" type="button">Download as a spreadsheet</button>
       <button class="act ghost" id="backupbtn" type="button">Download a backup file</button>
       <button class="act ghost" id="restorebtn" type="button">Restore from a backup</button>
       <input type="file" id="restorefile" accept="application/json" style="display:none">
@@ -350,10 +358,7 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
     <h2>Who this is for</h2>
     <p class="fnote">Shared with the other tools on this site.</p>
     <div class="chips" id="peoplechips"></div>
-    <div class="row">
-      <div class="fld"><label for="childname">Name or initials</label><input type="text" id="childname"></div>
-      <div class="fld"><label for="childdob">Age or date of birth</label><input type="text" id="childdob"></div>
-    </div>
+    <div class="fld"><label for="childname">Name or initials</label><input type="text" id="childname"></div>
     <div class="btns"><button class="act" id="savesetup" type="button">Save</button></div>
   </div>
 </section>
@@ -361,16 +366,16 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
 </main>
 
 <div class="snote">
-  <p><strong>Protect the accepted list first.</strong> Everything on the <a href="feeding-therapy.html">feeding therapy page</a> rests on that one idea. Expansion is slow and it is real, but it happens from a stable base — and a list that keeps shrinking is the thing to raise with a clinician, promptly.</p>
+  <p><strong>If you find yourself using these constantly, something else is going on.</strong> A household needing a script for everything usually has a capacity problem, a communication problem, or a demand load that is simply too high — none of which is solved by better wording.</p>
+  <p>The <a href="whole-picture.html">whole picture</a> covers the stacking that puts someone past capacity, and <a href="behavior.html">behavior is communication</a> covers looking underneath before responding.</p>
 </div>
 
 <div class="profnote"><b>Reading this as a professional</b>
-<p>If a family hands you this, the specificity is not rigidity — it is the conditions under which eating happens at all. Brand and preparation detail are access requirements rather than preferences, and substituting is the most common way an admission or a placement stops a person eating.</p>
-<p>The "what changed" record is the part worth reading first. A shrinking list over months is a clinical finding.</p></div>
+<p>Families arrive using choice-and-consequence language with wildly varying degrees of consistency, and the failure is almost always in follow-through or in capacity mismatch rather than in the wording.</p>
+<p>The capacity field is the one worth reading. A script marked "not reliably" is a demand that needs reducing or teaching, not a consequence that needs enforcing.</p></div>
 
 <footer>
-  <p><strong>Nothing here is medical or nutritional advice.</strong> Restricted eating can have medical causes and consequences, and a shrinking list warrants review by a clinician who knows the person.</p>
-  <p>Take this page, change it, host it yourself. One file, works offline.</p>
+  <p><strong>Nothing here is clinical advice.</strong> Where behavior is frequent, escalating, or unsafe, work with someone who knows the person rather than adjusting scripts alone.</p>
 </footer>
 
 </div>
@@ -378,176 +383,132 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
 <script>
 var SKEY="its_family_v1";
 var DEFSET=["Home / family","Home / providers","School"];
-function blankPerson(nm){return {name:nm||"",dob:"",dx:"",emerg:"",weight:"",
+function blankPerson(nm){return {name:nm||"",dob:"",dx:"",emerg:"",weight:"",color:"",
+  show:{meds:true,meals:true,appts:true,routines:true},
   tracker:{entries:[],days:{},custom:{},pre:[],help:[]},
   goals:{items:[],settings:DEFSET.slice(),instructions:""},
   meds:{items:[],allergies:"",pharm:"",changes:[]},
-  food:{items:[],rules:"",allerg:"",supp:"",history:[]}};}
+  food:{items:[],rules:"",allerg:"",supp:"",history:[]},
+  cal:{repeats:[],appts:[],ticks:{}},plan:{weeks:{},goal:1},
+  scripts:[]};}
 function fix(d){Object.keys(d.people).forEach(function(k){var p=d.people[k];
-  if(!p.tracker)p.tracker={entries:[],days:{},custom:{},pre:[],help:[]};
-  if(!p.goals)p.goals={items:[],settings:DEFSET.slice(),instructions:""};
-  if(!p.meds)p.meds={items:[],allergies:"",pharm:"",changes:[]};
-  if(!p.food)p.food={items:[],rules:"",allerg:"",supp:"",history:[]};
-  if(!p.food.items)p.food.items=[];if(!p.food.history)p.food.history=[];});
+ if(!p.tracker)p.tracker={entries:[],days:{},custom:{},pre:[],help:[]};
+ if(!p.goals)p.goals={items:[],settings:DEFSET.slice(),instructions:""};
+ if(!p.meds)p.meds={items:[],allergies:"",pharm:"",changes:[]};
+ if(!p.food)p.food={items:[],rules:"",allerg:"",supp:"",history:[]};
+ if(!p.cal)p.cal={repeats:[],appts:[],ticks:{}};
+ if(!p.plan)p.plan={weeks:{},goal:1};
+ if(!p.scripts)p.scripts=[];});
  if(!d.people[d.current])d.current=Object.keys(d.people)[0];return d;}
 function load(){try{var r=localStorage.getItem(SKEY);if(r){var d=JSON.parse(r);if(d&&d.people)return fix(d);}}catch(e){}
  return {people:{"Person 1":blankPerson("")},current:"Person 1"};}
 var DB=load();
 function save(){try{localStorage.setItem(SKEY,JSON.stringify(DB));}catch(e){alert("This browser wouldn't let it save.");}}
 function PERSON(){return DB.people[DB.current];}
-function F(){return PERSON().food;}
+function S(){return PERSON().scripts;}
 function $(id){return document.getElementById(id);}
 function esc(s){return String(s==null?"":s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function nl(s){return esc(s).replace(/\n/g,'<br>');}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
 function pad(n){return String(n).padStart(2,"0");}
 function today(){var d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
-function shortd(x){var a=x.split("-").map(Number);return new Date(a[0],a[1]-1,a[2]).toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});}
-var SW={safe:"Accepted",sometimes:"Sometimes",target:"Target",trying:"Exploring",lost:"Lost"};
+var KW={log:"Logical",ft:"First, then",nat:"Natural"};
+var CW={yes:"Well within reach",most:"Usually, when regulated",no:"Needs breaking down first"};
 
-var TABS=[{k:"list",n:"The list",note:"Everything accepted, and exactly how it has to be."},
- {k:"history",n:"What changed",note:"Foods gained and lost over time. Shrinkage is worth showing a clinician."},
- {k:"print",n:"Print & export",note:"Three layouts \u2014 for a carer, a hospital, or a clinician."},
+var TABS=[{k:"about",n:"How this works",note:"Three different mechanisms, and the question to ask before any of them."},
+ {k:"build",n:"Your scripts",note:"Write them while nothing is going wrong."},
+ {k:"print",n:"Print",note:"For the fridge, or for whoever is covering."},
  {k:"setup",n:"Setup",note:"Shared with the other tools on this site."}];
-var cur="list";
+var cur="about";
 TABS.forEach(function(t){var b=document.createElement("button");
  b.className="tab"+(t.k===cur?" on":"");b.type="button";b.textContent=t.n;b.dataset.k=t.k;
  b.addEventListener("click",function(){
   var a=document.querySelectorAll(".tab");for(var i=0;i<a.length;i++)a[i].classList.toggle("on",a[i].dataset.k===t.k);
   var p=document.querySelectorAll(".panel");for(var j=0;j<p.length;j++)p[j].classList.toggle("on",p[j].id==="p-"+t.k);
   $("tabnote").textContent=t.note;
-  if(t.k==="history")renderHist();
+  if(t.k==="build")renderScripts();
   if(t.k==="print")renderDoc();
   if(t.k==="setup")renderSetup();
   window.scrollTo(0,0);});
  $("tabs").appendChild(b);});
 $("tabnote").textContent=TABS[0].note;
 
-$("addfood").addEventListener("click",function(){
- var n=$("fname").value.trim();if(!n){alert("Name it first.");return;}
- F().items.push({id:uid(),name:n,status:$("fstatus").value,group:$("fgroup").value.trim(),
-  when:$("fwhen").value.trim(),how:$("fhow").value.trim(),note:$("fnote").value.trim()});
- ["fname","fgroup","fwhen","fhow","fnote"].forEach(function(id){$(id).value="";});
- save();renderList();});
-$("clearfood").addEventListener("click",function(){
- ["fname","fgroup","fwhen","fhow","fnote"].forEach(function(id){$(id).value="";});});
-$("ffilt").addEventListener("change",renderList);
-$("saveinfo").addEventListener("click",function(){
- F().rules=$("genrules").value;F().allerg=$("allerg").value;F().supp=$("supp").value;save();
- $("saveinfo").textContent="Saved";setTimeout(function(){$("saveinfo").textContent="Save";},1400);});
+$("addscript").addEventListener("click",function(){
+ var n=$("sname").value.trim();if(!n){alert("Name the situation first.");return;}
+ if(!$("ssay").value.trim()){alert("Write what you say \u2014 that is the point of it.");return;}
+ S().push({id:uid(),name:n,kind:$("skind").value,cap:$("scap").value,
+  say:$("ssay").value.trim(),repair:$("srepair").value.trim(),
+  who:$("swho").value.trim(),after:$("safter").value.trim(),note:$("snote").value.trim()});
+ ["sname","ssay","srepair","swho","safter","snote"].forEach(function(id){$(id).value="";});
+ save();renderScripts();});
+$("clearscript").addEventListener("click",function(){
+ ["sname","ssay","srepair","swho","safter","snote"].forEach(function(id){$(id).value="";});});
 
-function counts(){var c={safe:0,sometimes:0,target:0,trying:0,lost:0};
- F().items.forEach(function(x){c[x.status]=(c[x.status]||0)+1;});return c;}
-function renderCounts(){var c=counts();
- $("counts").innerHTML=["safe","sometimes","target","trying","lost"].map(function(k){
-  return '<div class="cnt '+k+'"><b>'+c[k]+'</b><span>'+SW[k]+'</span></div>';}).join("");}
-function renderList(){
- renderCounts();
- var f=$("ffilt").value,box=$("foodlist");
- var items=F().items.filter(function(x){return f==="all"||x.status===f;});
- var c=counts();
- $("foodcount").textContent=F().items.length
-  ? c.safe+" reliably accepted, "+F().items.length+" on the list in total."
-  : "Nothing added yet.";
- var groups={};F().items.forEach(function(x){if(x.group)groups[x.group]=1;});
- $("grouplist").innerHTML=Object.keys(groups).sort().map(function(g){return '<option value="'+esc(g)+'">';}).join("");
- if(!items.length){box.innerHTML='<p class="empty">Nothing in this view.</p>';return;}
- var order={safe:0,sometimes:1,target:2,trying:3,lost:4};
- items.sort(function(a,b){return order[a.status]-order[b.status];});
- box.innerHTML="";
- items.forEach(function(x){
-  var w=document.createElement("div");w.className="food "+x.status;
-  var h='<div class="fh"><span class="fn">'+esc(x.name)+'</span><span class="fs">'+SW[x.status]+'</span></div>';
-  var bits=[];if(x.group)bits.push(esc(x.group));if(x.when)bits.push(esc(x.when));
-  if(bits.length)h+='<div class="fd">'+bits.join(' \u00b7 ')+'</div>';
-  if(x.how)h+='<div class="fd"><b>Exactly how</b>'+nl(x.how)+'</div>';
-  if(x.note)h+='<div class="fd"><b>Note</b>'+nl(x.note)+'</div>';
-  h+='<button class="mini" data-cycle>Change status</button> &nbsp; <button class="mini" data-del>Remove</button>';
-  w.innerHTML=h;
-  w.querySelector('[data-cycle]').addEventListener('click',function(){
-   var o=["safe","sometimes","target","trying","lost"];x.status=o[(o.indexOf(x.status)+1)%5];save();renderList();});
-  w.querySelector('[data-del]').addEventListener('click',function(){
-   if(!confirm("Remove "+x.name+"?"))return;
-   F().items=F().items.filter(function(y){return y.id!==x.id;});save();renderList();});
-  box.appendChild(w);});}
-
-$("hdate").value=today();
-$("addhist").addEventListener("click",function(){
- var t=$("htext").value.trim();if(!t)return;
- F().history.push({id:uid(),date:$("hdate").value,text:t});
- $("htext").value="";save();renderHist();});
-function renderHist(){var box=$("histlist");
- var h=F().history.slice().sort(function(a,b){return b.date<a.date?-1:1;});
- if(!h.length){box.innerHTML='<p class="empty">Nothing recorded yet.</p>';return;}
- box.innerHTML=h.map(function(x){return '<div class="food safe"><div class="fh"><span class="fn">'+esc(x.text)+
-  '</span><span class="fs">'+shortd(x.date)+'</span></div><button class="mini" data-id="'+x.id+'">Remove</button></div>';}).join('');
+function renderScripts(){
+ var box=$("scriptlist"),s=S();
+ $("scount").textContent=s.length?s.length+" script"+(s.length===1?"":"s")+" saved.":"Nothing saved yet.";
+ if(!s.length){box.innerHTML='<p class="empty">Nothing yet. Write the one that keeps happening.</p>';return;}
+ box.innerHTML=s.map(function(x){
+  var h='<div class="scriptcard '+x.kind+'"><div class="sh"><span class="sn">'+esc(x.name)+
+   '</span><span class="sk">'+KW[x.kind]+'</span></div>';
+  h+='<div class="say">'+nl(x.say)+'</div>';
+  if(x.repair)h+='<div class="field"><b>When it reopens</b>'+esc(x.repair)+'</div>';
+  if(x.who)h+='<div class="field"><b>Who upholds it</b>'+esc(x.who)+'</div>';
+  if(x.after)h+='<div class="field"><b>Afterward</b>'+esc(x.after)+'</div>';
+  if(x.note)h+='<div class="field"><b>Note</b>'+nl(x.note)+'</div>';
+  h+='<div class="field"><b>Can they do it now</b>'+CW[x.cap]+'</div>';
+  if(x.cap==="no")h+='<div class="field" style="color:#8A2B20"><b>Worth noticing</b>'+
+    'If this is not reliably within reach, a consequence is not the right response. Break the task down, help more, or lower the demand.</div>';
+  h+='<button class="mini" data-id="'+x.id+'">Remove</button></div>';
+  return h;}).join('');
  box.querySelectorAll('[data-id]').forEach(function(b){b.addEventListener('click',function(){
-  F().history=F().history.filter(function(x){return x.id!==b.dataset.id;});save();renderHist();});});}
+  if(!confirm("Remove this script?"))return;
+  PERSON().scripts=S().filter(function(x){return x.id!==b.dataset.id;});save();renderScripts();});});}
 
-$("pview").addEventListener("change",renderDoc);
 $("printbtn").addEventListener("click",function(){window.print();});
 function renderDoc(){
- var v=$("pview").value,p=PERSON(),f=F();
- var h='<h1>'+esc(p.name||"Food list")+'</h1><p class="sub">'+(p.dob?esc(p.dob)+" \u00b7 ":"")+
-  "Updated "+new Date().toLocaleDateString(undefined,{month:"long",day:"numeric",year:"numeric"})+'</p>';
- if(f.allerg)h+='<h2 style="color:#8A2B20">Allergies and must-avoids</h2><p><b>'+nl(f.allerg)+'</b></p>';
- if(f.rules&&v!=="quick")h+='<h2>How mealtimes work</h2><p>'+nl(f.rules)+'</p>';
- function block(st,title){
-  var l=f.items.filter(function(x){return x.status===st;});
-  if(!l.length)return '';
-  var s='<h2>'+title+'</h2><ul>';
-  l.forEach(function(x){s+='<li><b>'+esc(x.name)+'</b>'+(x.when?' \u2014 '+esc(x.when):'');
-   if(v!=="quick"&&x.how)s+='<br>'+nl(x.how);
-   if(v!=="quick"&&x.note)s+='<br><i>'+nl(x.note)+'</i>';
-   s+='</li>';});
-  return s+'</ul>';}
- h+=block("safe","Accepted \u2014 these reliably work");
- h+=block("sometimes","Sometimes accepted");
- if(v!=="quick"){h+=block("target","Foods we are hoping to get to");h+=block("trying","Being explored right now");}
- if(v==="clin"){
-  h+=block("lost","No longer accepted");
-  var hist=f.history.slice().sort(function(a,b){return a.date<b.date?-1:1;});
-  if(hist.length){h+='<h2>What changed, in order</h2><ul>';
-   hist.forEach(function(x){h+='<li><b>'+shortd(x.date)+'</b> \u2014 '+esc(x.text)+'</li>';});h+='</ul>';}
-  var c=counts();
-  h+='<p><b>Summary:</b> '+c.safe+' reliably accepted, '+c.sometimes+' sometimes, '+
-   c.target+' targeted, '+c.trying+' being explored, '+c.lost+' lost.</p>';}
- if(f.supp)h+='<h2>Nutrition support</h2><p>'+nl(f.supp)+'</p>';
- h+='<p class="foot">Kept at home by a family. The specificity here is not fussiness \u2014 it is the conditions under which eating happens. Substituting a brand or a preparation may mean the food is not eaten at all. Built with the free tools at In The Spectrums.</p>';
+ var h='<h1>'+esc(PERSON().name||"Our scripts")+'</h1><p class="sub">The same words, every time</p>';
+ h+='<p>These are the exact sentences we use. Saying them the same way, every time, by every adult, is what makes them work. '+
+    'Each one ends with the door reopening \u2014 that part is not optional.</p>';
+ if(!S().length){h+='<p>Nothing saved yet.</p>';$("doc").innerHTML=h;return;}
+ S().forEach(function(x){
+  h+='<h2>'+esc(x.name)+'</h2>';
+  h+='<p><b>Say:</b> \u201c'+nl(x.say)+'\u201d</p>';
+  var bits=[];
+  if(x.repair)bits.push('<b>It reopens:</b> '+esc(x.repair));
+  if(x.who)bits.push('<b>Who holds it:</b> '+esc(x.who));
+  if(x.after)bits.push('<b>Afterward:</b> '+esc(x.after));
+  if(x.note)bits.push('<b>Note:</b> '+nl(x.note));
+  if(bits.length)h+='<p>'+bits.join('<br>')+'</p>';});
+ h+='<p class="foot">Say it once, calmly, and then hold it. Repeating turns it into an argument. '+
+    'If the person cannot do the thing right now, this is not the right tool \u2014 help instead. '+
+    'Built with the free tools at In The Spectrums.</p>';
  $("doc").innerHTML=h;}
 
-$("csvbtn").addEventListener("click",function(){
- var rows=[["Person","Food","Status","Kind","Usually eaten","Exactly how","Note"]];
- F().items.forEach(function(x){rows.push([PERSON().name,x.name,SW[x.status],x.group,x.when,x.how,x.note]);});
- rows.push([]);rows.push(["What changed"]);
- F().history.forEach(function(x){rows.push([PERSON().name,x.date,x.text]);});
- var csv=rows.map(function(r){return r.map(function(v){return '"'+String(v==null?"":v).replace(/"/g,'""')+'"';}).join(",");}).join("\r\n");
- dl(new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}),(PERSON().name||"food").replace(/\W+/g,"-")+"-food-list.csv");});
 $("backupbtn").addEventListener("click",function(){
  dl(new Blob([JSON.stringify(DB,null,1)],{type:"application/json"}),"in-the-spectrums-backup-"+today()+".json");});
 $("restorebtn").addEventListener("click",function(){$("restorefile").click();});
 $("restorefile").addEventListener("change",function(ev){
- var fl=ev.target.files[0];if(!fl)return;var r=new FileReader();
+ var f=ev.target.files[0];if(!f)return;var r=new FileReader();
  r.onload=function(){try{var d=JSON.parse(r.result);if(!d||!d.people)throw new Error("bad");
   if(!confirm("This replaces everything currently saved on this device. Continue?"))return;
   DB=fix(d);save();boot();alert("Restored.");}catch(e){alert("That doesn't look like a backup file.");}};
- r.readAsText(fl);ev.target.value="";});
+ r.readAsText(f);ev.target.value="";});
 function dl(b,n){var u=URL.createObjectURL(b),a=document.createElement("a");
  a.href=u;a.download=n;document.body.appendChild(a);a.click();
  setTimeout(function(){URL.revokeObjectURL(u);a.remove();},400);}
 
-function renderSetup(){var p=PERSON();
- $("childname").value=p.name||"";$("childdob").value=p.dob||"";
+function renderSetup(){
+ $("childname").value=PERSON().name||"";
  var box=$("peoplechips");box.innerHTML="";
  Object.keys(DB.people).forEach(function(k){var b=document.createElement("button");
   b.type="button";b.className="chip"+(k===DB.current?" on":"");b.textContent=DB.people[k].name||k;
   b.addEventListener("click",function(){DB.current=k;save();boot();});box.appendChild(b);});}
-$("savesetup").addEventListener("click",function(){var p=PERSON();
- p.name=$("childname").value.trim();p.dob=$("childdob").value.trim();save();renderSetup();
+$("savesetup").addEventListener("click",function(){
+ PERSON().name=$("childname").value.trim();save();renderSetup();
  $("savesetup").textContent="Saved";setTimeout(function(){$("savesetup").textContent="Save";},1400);});
 
-function boot(){$("genrules").value=F().rules||"";$("allerg").value=F().allerg||"";$("supp").value=F().supp||"";
- renderList();renderSetup();}
+function boot(){renderScripts();renderSetup();}
 boot();
 </script>
 
