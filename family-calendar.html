@@ -376,7 +376,7 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
         <div class="fld"><label for="rphoto">A photo <span class="hint">Optional, and worth it. A real picture of the person, the place or the car is far easier to recognise than words.</span></label>
           <input type="file" id="rphoto" accept="image/*">
           <div class="photorow" id="rpreview"></div>
-          <p class="photonote">Photos are shrunk right down and kept on this device only. Around thirty will fit comfortably.</p></div>
+          <p class="photonote">Photos are shrunk right down and kept on the device that you are currently using only. Around thirty will fit comfortably.</p></div>
         <div class="fld"><label for="ralert">Remind me <span class="hint">Goes into the calendar file, so the reminder happens on whichever devices subscribe to it.</span></label>
           <select id="ralert"><option value="">No reminder</option><option value="0">At the time</option>
             <option value="5">5 minutes before</option><option value="10">10 minutes before</option>
@@ -452,6 +452,7 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
       <button class="act ghost" id="backupbtn" type="button">Download a backup file</button>
       <button class="act ghost" id="restorebtn" type="button">Restore from a backup</button>
       <input type="file" id="restorefile" accept="application/json" style="display:none">
+    <p class="fnote"><b>This is the only copy.</b> Everything lives in the browser on the device that you are currently using — not in an account and not in the cloud. Clearing your browsing data, changing browser, or losing the device loses it.</p>
     </div>
   </div>
 

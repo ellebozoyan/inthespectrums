@@ -47,6 +47,17 @@ content = {p for p in pages if p != 'index.html'}
 for p in sorted(content - shorts): problems.append(f'{p}: no short version')
 for p in sorted(content - marks):  problems.append(f'{p}: no page mark')
 
+
+# Every interactive tool must carry the full storage warning. Losing months of
+# records because one page said it and another did not is not an acceptable failure.
+TOOLS = ['symptom-tracker.html','goals-tracker.html','medication-list.html','food-list.html',
+         'meal-planner.html','family-calendar.html','share-builder.html','choice-planner.html',
+         'household-board.html','practice-mirror.html','template-builders.html']
+PHRASE = 'device that you are currently using'
+for t in TOOLS:
+    if t in present and PHRASE not in open(t).read():
+        problems.append(f'{t}: missing the full storage warning ("{PHRASE}")')
+
 print(f'{len(pages)} pages checked')
 if problems:
     print(f'\n{len(problems)} PROBLEMS:')
