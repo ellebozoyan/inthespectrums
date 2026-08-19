@@ -35,6 +35,8 @@
       ['symptom-tracker.html',         'The symptom tracker',     'Log what changed today, print a summary before the appointment'],
       ['goals-tracker.html',           'Goals and generalization','Every provider\u2019s goals in one place, and which ones should travel'],
       ['share-builder.html',           'The share builder',       'Assemble a packet for one person \u2014 you tick exactly what goes in'],
+      ['medication-list.html',         'The medication list',     'Current, printable, and always in a pocket'],
+      ['food-list.html',               'The food list',           'What is accepted, and exactly how it has to be'],
       ['using-these-tools.html',       'Using these tools',       'Saving to your home screen, printing to PDF, and backing up']
     ]},
     { label: 'Safety and health', items: [
@@ -923,7 +925,7 @@
     ['Start here', ['spectrums.html','what-to-do-first.html','care-team-map.html','conditions-library.html','whole-picture.html']],
     ['School and services', ['inside-the-iep.html','accommodations-finder.html','programs-and-entitlements.html']],
     ['Adult life', ['adult-life.html','adult-benefits.html','adult-housing.html','adult-providers.html','your-own-life.html']],
-    ['Money, paperwork and tracking', ['paying-for-therapy.html','template-builders.html','symptom-tracker.html','goals-tracker.html','share-builder.html','using-these-tools.html']],
+    ['Money, paperwork and tracking', ['paying-for-therapy.html','template-builders.html','symptom-tracker.html','goals-tracker.html','medication-list.html','food-list.html','share-builder.html','using-these-tools.html']],
     ['Safety and health', ['safety.html','injuries-and-illness.html']],
     ['Therapies', ['occupational-therapy.html','physical-therapy.html','speech-language-aac.html',
                    'feeding-therapy.html','aquatic-therapy.html','myofunctional-therapy.html',
@@ -1409,6 +1411,18 @@
   "Progress is not linear. You turn the cube for months, see nothing, and then one day a whole side has come together.",
   "You cannot do everything. A few things done consistently beats the whole list done once."],
 
+'medication-list.html': ["The single most useful document in an emergency, and the one families most often recite from memory.",
+  "Record how each one actually gets taken \u2014 crushed into what, which cup, what it must not touch.",
+  "Keep the dated record of dose changes. It is nearly impossible to reconstruct later and it is the question that gets asked.",
+  "Three print layouts: full detail, by time of day, and a short version for a wallet or bag.",
+  "Allergies print first, in red. That is the line people read first."],
+
+'food-list.html': ["For someone with a very short list, that list is not a preference \u2014 it is access to eating at all.",
+  "Be specific to the point of feeling silly. The brand matters. The plate matters. A stranger will read this.",
+  "Protect the accepted list first. Expansion happens from a stable base, not from a shrinking one.",
+  "A list that keeps shrinking is a clinical finding. The dated record is what shows it.",
+  "Print it for a hospital admission, a new school, or a week at a grandparent\u2019s."],
+
 'maplewood-stories.html': ["Fifty-two picture books about ten friends who are not alike, figuring it out together.",
   "No child in them is labeled, and none of them is the lesson.",
   "Social and emotional learning, executive function, and safety awareness are the plots, not the moral.",
@@ -1467,6 +1481,13 @@
   'use strict';
 
   var MARKS = {
+
+  'medication-list.html':
+    '<rect width="74" height="74" fill="#E7EDE5"/><rect x="18" y="14" width="38" height="48" rx="3" fill="#FFF" stroke="#16283C" stroke-width="1.8"/><rect x="25" y="24" width="24" height="2.5" fill="#8A2B20"/><rect x="25" y="33" width="24" height="2.5" fill="#16283C" opacity=".35"/><rect x="25" y="42" width="18" height="2.5" fill="#16283C" opacity=".35"/><circle cx="47" cy="52" r="5" fill="#2E4E3F"/><path d="M44.5 52h5M47 49.5v5" stroke="#FFF" stroke-width="1.6"/>',
+
+  'food-list.html':
+    '<rect width="74" height="74" fill="#EFE0D5"/><circle cx="37" cy="38" r="19" fill="#FFF" stroke="#16283C" stroke-width="1.8"/><circle cx="37" cy="38" r="9" fill="none" stroke="#9C4A21" stroke-width="1.8"/><path d="M14 20v14M14 20v-6M11 14v6M17 14v6" stroke="#2E4E3F" stroke-width="1.8" stroke-linecap="round"/><path d="M60 14v20M60 14c-3 0-4 3-4 6s1 5 4 5" stroke="#2E4E3F" stroke-width="1.8" stroke-linecap="round" fill="none"/>',
+
 
   'spectrums.html':
     '<rect width="74" height="74" fill="#16283C"/><path d="M4 26c9-9 15 9 22 0s13 9 22 0 13 9 22 0" fill="none" stroke="#9C4A21" stroke-width="2.6"/><path d="M4 38c9-9 15 9 22 0s13 9 22 0 13 9 22 0" fill="none" stroke="#C6A98F" stroke-width="2.6" opacity=".8"/><path d="M4 50c9-9 15 9 22 0s13 9 22 0 13 9 22 0" fill="none" stroke="#7FA57A" stroke-width="2.6" opacity=".65"/>',
@@ -1903,6 +1924,17 @@
   'share-builder.html': [
     ['',
      'What you choose not to share is as much a decision as what you do. <b>Both belong to you.</b>']
+  ],
+
+
+  'medication-list.html': [
+    ['',
+     'warm|You have kept this list in your head for years, and recited it in rooms where you were frightened. <b>This is the last time you have to remember it.</b>']
+  ],
+
+  'food-list.html': [
+    ['',
+     'warm|Nobody chose this list, and nobody is being fussy. <b>You have worked out what your person can actually eat</b> \u2014 that is real knowledge, and it deserves to be written down and respected.']
   ],
 
   'about.html': [

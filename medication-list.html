@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The medication list — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --paper:#FFFDF8; --slate:#435A6F; --slate-tint:#E5EAEE; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --s1:#CFE0D3; --s2:#A8C6AE; --s3:#E4C79A; --s4:#D19A6A; --s5:#B4593A;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 22px;font-size:1.04rem}
+header.masthead{padding:50px 0 12px}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:18px 20px;margin:0 0 26px;
+  font-size:.95rem;max-width:74ch}
+.note strong{color:var(--rust)}
+.note p{margin:0 0 9px}.note p:last-child{margin:0}
+.snote{background:var(--slate-tint);border-left:4px solid var(--slate);padding:18px 20px;margin:0 0 18px;font-size:.95rem}
+.snote p{margin:0 0 9px}.snote p:last-child{margin:0}
+.snote strong{color:var(--slate)}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}
+.tab{font-family:var(--sans);font-size:13px;padding:10px 16px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink-soft);border-radius:2px;cursor:pointer;letter-spacing:.02em}
+.tab:hover{border-color:var(--rust);color:var(--rust)}
+.tab.on{background:var(--forest);border-color:var(--forest);color:#fff}
+.tab:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+.tabnote{font-size:.93rem;color:var(--ink-soft);margin:0 0 24px;max-width:66ch;font-style:italic}
+
+main{padding-bottom:70px}
+.panel{display:none}.panel.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:22px;margin-bottom:18px}
+.card h2{font-size:1.25rem;font-weight:400;margin:0 0 4px}
+.card .fnote{font-size:.92rem;color:var(--ink-soft);margin:0 0 18px;max-width:66ch}
+.cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px;align-items:start}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+
+label,.lbl{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.06em;
+  color:var(--forest);font-weight:700;text-transform:uppercase;margin-bottom:6px}
+.hint{display:block;font-family:var(--serif);font-size:.86rem;color:var(--ink-soft);
+  text-transform:none;letter-spacing:0;font-weight:400;margin-top:3px}
+input[type=text],input[type=date],input[type=number],textarea,select{
+  width:100%;font-family:var(--serif);font-size:15px;padding:9px 11px;
+  border:1px solid var(--line);border-radius:2px;background:#fff;color:var(--ink);line-height:1.5}
+textarea{min-height:64px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--rust);outline-offset:1px;border-color:transparent}
+.fld{margin-bottom:15px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>.fld{flex:1 1 150px;margin-bottom:15px}
+
+button.act{font-family:var(--sans);font-size:13px;padding:11px 18px;border-radius:2px;cursor:pointer;
+  border:1px solid var(--forest);background:var(--forest);color:#fff;letter-spacing:.03em}
+button.act.ghost{background:none;color:var(--forest)}
+button.act.warn{border-color:var(--rust);color:var(--rust);background:none}
+button.act:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+button.act:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+.btns{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.chip{font-family:var(--sans);font-size:12.5px;padding:8px 13px;border:1px solid var(--line);
+  background:#fff;color:var(--ink-soft);border-radius:2px;cursor:pointer;text-align:left}
+.chip:hover{border-color:var(--rust);color:var(--rust)}
+.chip.on{background:var(--forest);border-color:var(--forest);color:#fff}
+.chip.good{border-color:#8FAE96}
+.chip.good.on{background:#4B7A5A;border-color:#4B7A5A}
+.chip.pre.on{background:var(--slate);border-color:var(--slate)}
+.chip.help.on{background:#4B7A5A;border-color:#4B7A5A}
+.chip .ct{font-size:10.5px;opacity:.75;margin-left:5px}
+
+.symgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:7px;margin-bottom:6px}
+.symgrid .chip{width:100%}
+
+.cap{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px}
+.cap button{flex:1 1 108px;font-family:var(--sans);font-size:12px;padding:11px 8px;border:1px solid var(--line);
+  background:#fff;cursor:pointer;border-radius:2px;color:var(--ink-soft);line-height:1.3;text-align:center}
+.cap button:hover{border-color:var(--ink)}
+.cap button b{display:block;font-size:15px;margin-bottom:3px;color:var(--ink)}
+.cap button.on{border-color:var(--ink);color:var(--ink);font-weight:600}
+.cap button[data-c="1"].on{background:var(--s1)}
+.cap button[data-c="2"].on{background:var(--s2)}
+.cap button[data-c="3"].on{background:var(--s3)}
+.cap button[data-c="4"].on{background:var(--s4)}
+.cap button[data-c="5"].on{background:var(--s5);color:#fff}
+.cap button[data-c="5"].on b{color:#fff}
+
+.entry{border:1px solid var(--line);border-left:3px solid var(--forest);background:#fff;
+  padding:13px 15px;margin-bottom:10px;border-radius:2px}
+.entry.pos{border-left-color:#4B7A5A}
+.entry .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.entry .nm{font-size:1.02rem}
+.entry .cat{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft)}
+.sev{display:flex;gap:5px;margin:9px 0 0;flex-wrap:wrap}
+.sev button{font-family:var(--sans);font-size:12px;padding:6px 11px;border:1px solid var(--line);
+  background:#fff;cursor:pointer;border-radius:2px;color:var(--ink-soft)}
+.sev button:hover{border-color:var(--ink)}
+.sev button.on{color:#16283C;font-weight:700;border-color:var(--ink)}
+.sev button[data-s="1"].on{background:var(--s1)}
+.sev button[data-s="2"].on{background:var(--s2)}
+.sev button[data-s="3"].on{background:var(--s3)}
+.sev button[data-s="4"].on{background:var(--s4)}
+.sev button[data-s="5"].on{background:var(--s5);color:#fff}
+.mini{font-family:var(--sans);font-size:11.5px;color:var(--ink-soft);background:none;border:none;
+  cursor:pointer;padding:4px 0;text-decoration:underline}
+.mini:hover{color:var(--rust)}
+
+.day{margin-bottom:26px}
+.day h3{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:0 0 4px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.day .ctx{font-size:.9rem;color:var(--ink-soft);margin:0 0 10px;font-style:italic}
+.logline{display:flex;gap:10px;align-items:baseline;padding:5px 0;border-bottom:1px dotted var(--line);
+  font-size:.96rem;flex-wrap:wrap}
+.dot{display:inline-block;width:11px;height:11px;border-radius:50%;flex:none;position:relative;top:1px}
+.logline .sm{font-family:var(--sans);font-size:11px;color:var(--ink-soft)}
+.flag{display:inline-block;font-family:var(--sans);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+  background:var(--alarm-tint);color:var(--alarm);padding:2px 7px;border-radius:2px;font-weight:700}
+
+.trend{margin-bottom:15px;padding-bottom:13px;border-bottom:1px solid var(--line)}
+.trend .th{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:5px}
+.trend .tn{font-size:1rem}
+.trend .tc{font-family:var(--sans);font-size:11px;color:var(--ink-soft)}
+.bars{display:flex;gap:2px;align-items:flex-end;height:34px}
+.bars i{flex:1;min-width:2px;background:var(--line);border-radius:1px 1px 0 0;display:block}
+.axis{display:flex;justify-content:space-between;font-family:var(--sans);font-size:10px;
+  color:var(--ink-soft);margin-top:3px}
+.tally{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}
+.tally span{font-family:var(--sans);font-size:12px;background:var(--slate-tint);color:var(--slate);
+  padding:6px 11px;border-radius:2px}
+.tally span b{color:var(--ink)}
+.tally.gd span{background:#E6EDE4;color:#2E4E3F}
+
+.doc{background:var(--paper);border:1px solid #CBC6B8;border-radius:2px;padding:32px 30px;
+  font-family:var(--serif);font-size:14.5px;line-height:1.62;color:#22221E}
+.doc h1{font-size:1.3rem;font-weight:400;margin:0 0 4px;letter-spacing:0;text-align:center}
+.doc .sub{text-align:center;font-family:var(--sans);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:#7A7568;margin:0 0 18px;padding-bottom:14px;border-bottom:2px solid #22221E}
+.doc h2{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:#8A5A2A;font-weight:700;margin:20px 0 7px}
+.doc p{margin:0 0 10px}
+.doc ul{margin:0 0 11px;padding-left:19px}.doc li{margin-bottom:6px}
+.doc table{width:100%;border-collapse:collapse;font-size:13px;margin:0 0 12px}
+.doc th{text-align:left;font-family:var(--sans);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:#7A7568;border-bottom:1px solid #C3BDAE;padding:5px 6px 5px 0}
+.doc td{padding:5px 6px 5px 0;border-bottom:1px dotted #D8D2C4;vertical-align:top}
+.doc .foot{border-top:1px dashed #C3BDAE;margin-top:20px;padding-top:11px;font-size:12px;color:#7A7568}
+
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.empty{color:var(--ink-soft);font-style:italic;padding:14px 0}
+footer{border-top:1px solid var(--line);padding:24px 0 60px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+footer p{max-width:78ch}
+@media print{
+  body{background:#fff}
+  .masthead,.tabs,.tabnote,.note,.snote,.profnote,footer,.btns,.card.noprint{display:none!important}
+  .doc{border:none;padding:0;background:#fff;font-size:11pt}
+}
+
+.prov{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--forest);
+  border-radius:2px;padding:16px 19px;margin-bottom:12px}
+.prov .ph{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:9px}
+.prov .pn{font-size:1.08rem}
+.prov .pd{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.goal{border-top:1px solid var(--line);padding:11px 0 9px;font-size:.96rem;line-height:1.45}
+.goal:last-of-type{padding-bottom:0}
+.goal .gt{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap}
+.goal .code{font-family:var(--sans);font-size:10.5px;letter-spacing:.06em;color:var(--rust);font-weight:700;flex:none}
+.goal .st{font-family:var(--sans);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  padding:2px 7px;border-radius:2px;flex:none}
+.st.current{background:#E6EDE4;color:#2E4E3F}
+.st.next{background:var(--slate-tint);color:var(--slate)}
+.st.mastered{background:#EFE0D5;color:#9C4A21}
+.st.paused{background:#EEEEEA;color:#6A6A62}
+.goal .gg{font-size:.89rem;color:var(--ink-soft);margin-top:5px}
+.gen{background:#F4F7F3;border:1px solid #CBDCC6;border-left:3px solid var(--forest);
+  padding:11px 14px;margin-top:7px;border-radius:2px;font-size:.9rem}
+.gen b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--forest);display:block;margin-bottom:5px}
+.gen dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 11px}
+.gen dt{font-family:var(--sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+.gen dd{margin:0}
+.setrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.setrow span{font-family:var(--sans);font-size:11px;background:var(--forest);color:#fff;padding:3px 9px;border-radius:2px}
+.warnbox{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:13px 16px;margin:0 0 14px;font-size:.93rem}
+.warnbox b{color:var(--alarm)}
+table.gm{width:100%;border-collapse:collapse;font-size:.92rem;margin:0 0 14px}
+table.gm th{text-align:left;font-family:var(--sans);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-soft);border-bottom:1px solid var(--line);padding:6px 8px 6px 0;vertical-align:bottom}
+table.gm td{padding:8px 8px 8px 0;border-bottom:1px dotted var(--line);vertical-align:top}
+table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
+
+.med{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--forest);
+  border-radius:2px;padding:15px 18px;margin-bottom:10px}
+.med.supp{border-left-color:#8A6A1F}
+.med.stopped{border-left-color:var(--line);opacity:.6}
+.med .mh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.med .mn{font-size:1.06rem}
+.med .md{font-family:var(--sans);font-size:11px;letter-spacing:.05em;color:var(--rust);font-weight:700}
+.med .mt{font-family:var(--sans);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-soft);margin-top:4px}
+.med .mx{font-size:.92rem;color:var(--ink-soft);margin-top:7px;line-height:1.45}
+.med .mx b{color:var(--ink);font-family:var(--sans);font-size:9.5px;letter-spacing:.11em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+.slotgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.slot{background:var(--card);border-top:3px solid var(--forest);padding:15px 17px}
+.slot h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:0 0 10px}
+.slot ul{margin:0;padding-left:16px;font-size:.94rem}
+.slot li{margin-bottom:6px}
+.slot .none{font-style:italic;color:var(--ink-soft);font-size:.9rem}
+.alertbox{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:16px 19px;margin:0 0 16px}
+.alertbox b{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--alarm);display:block;margin-bottom:7px}
+.alertbox p{margin:0;font-size:.96rem}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>The medication list:<br><em>current, printable, and always in a pocket</em></h1>
+  <p class="lede">The single most useful document in an emergency, and the one families most often recite from memory at the worst possible moment. Build it once, keep it current, and print a copy for the bag, the school, the respite worker, and the glovebox.</p>
+  <div class="note">
+    <p><strong>This stays on your device.</strong> Nothing is sent anywhere, no account, nobody can see it. It saves in this browser so it is here tomorrow.</p>
+    <p><b>Download a backup file every few weeks.</b> See <a href="using-these-tools.html">using these tools</a>.</p>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <p class="tabnote" id="tabnote"></p>
+</header>
+
+<main>
+
+<section class="panel on" id="p-list">
+  <div class="cols">
+    <div>
+      <div class="card">
+        <h2>Add something</h2>
+        <p class="fnote">Prescriptions, supplements, creams, rescue medication, and anything given only sometimes. If it goes into or onto the person, it belongs here.</p>
+        <div class="row">
+          <div class="fld" style="flex:2 1 200px"><label for="mname">Name</label>
+            <input type="text" id="mname" placeholder="e.g. Melatonin, or the brand you actually use"></div>
+          <div class="fld" style="flex:1 1 130px"><label for="mdose">Dose</label>
+            <input type="text" id="mdose" placeholder="e.g. 3 mg"></div>
+        </div>
+        <div class="row">
+          <div class="fld"><label for="mform">Form</label>
+            <select id="mform"><option>Tablet</option><option>Capsule</option><option>Liquid</option><option>Chewable</option><option>Powder</option><option>Patch</option><option>Cream or ointment</option><option>Inhaler</option><option>Injection</option><option>Via tube</option><option>Other</option></select></div>
+          <div class="fld"><label for="mkind">Type</label>
+            <select id="mkind"><option value="rx">Prescription</option><option value="otc">Over the counter</option><option value="supp">Supplement</option></select></div>
+          <div class="fld"><label for="mstatus">Status</label>
+            <select id="mstatus"><option value="current">Currently taking</option><option value="prn">As needed only</option><option value="stopped">Stopped</option></select></div>
+        </div>
+        <div class="fld"><label>When is it given?<span class="hint">Tick every time it applies. Leave blank for as-needed.</span></label>
+          <div class="chips" id="whenchips"></div></div>
+        <div class="row">
+          <div class="fld"><label for="mwhat">What it's for <span class="hint">Optional, and useful to whoever reads this.</span></label>
+            <input type="text" id="mwhat" placeholder="e.g. sleep onset"></div>
+          <div class="fld"><label for="mwho">Prescribed by</label>
+            <input type="text" id="mwho" placeholder="e.g. Dr Patel, neurology"></div>
+        </div>
+        <div class="fld"><label for="mhow">How it actually gets taken <span class="hint">The part nobody writes down and everybody needs.</span></label>
+          <textarea id="mhow" placeholder="e.g. Crushed into apple sauce, cold, in the blue bowl. Will not take it in yogurt. Gags on the liquid version."></textarea></div>
+        <div class="btns"><button class="act" id="addmed" type="button">Add</button>
+          <button class="act ghost" id="clearmed" type="button">Clear</button></div>
+      </div>
+
+      <div class="card">
+        <h2>Allergies and reactions</h2>
+        <p class="fnote">Prints at the top of the list, in red. This is the line people read first.</p>
+        <div class="fld"><textarea id="allergies" placeholder="e.g. Amoxicillin — rash and swelling, 2023. Ashwagandha — heart racing, stopped."></textarea></div>
+        <div class="fld"><label for="pharm">Pharmacy and prescriber notes</label>
+          <textarea id="pharm" placeholder="e.g. Compounding pharmacy on Main St. Neurology handles all seizure medication changes."></textarea></div>
+        <div class="btns"><button class="act" id="saveextra" type="button">Save</button></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h2>Everything on the list</h2>
+        <p class="fnote" id="medcount"></p>
+        <div class="fld" style="max-width:260px"><label for="filt">Show</label>
+          <select id="filt"><option value="active">Current and as-needed</option><option value="all">Everything, including stopped</option><option value="stopped">Stopped only</option></select></div>
+        <div id="medlist"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p-day">
+  <div class="card">
+    <h2>The day, by time</h2>
+    <p class="fnote">What goes when. This is the view to print for a respite worker, a grandparent, or a school nurse.</p>
+    <div class="slotgrid" id="slots"></div>
+  </div>
+  <div class="card">
+    <h2>As needed</h2>
+    <p class="fnote">Given only when something happens. Say clearly what the something is.</p>
+    <div id="prnlist"></div>
+  </div>
+</section>
+
+<section class="panel" id="p-changes">
+  <div class="card">
+    <h2>What changed, and when</h2>
+    <p class="fnote">Dose changes, starts and stops. This is the record you will want when someone asks whether a symptom began before or after a change \u2014 and it is almost impossible to reconstruct later.</p>
+    <div class="row">
+      <div class="fld" style="max-width:190px"><label for="cdate">Date</label><input type="date" id="cdate"></div>
+      <div class="fld" style="flex:2 1 240px"><label for="ctext">What changed</label>
+        <input type="text" id="ctext" placeholder="e.g. Melatonin increased 3 mg to 5 mg"></div>
+    </div>
+    <div class="fld"><label for="cwhy">Why, and what to watch for <span class="hint">Optional.</span></label>
+      <input type="text" id="cwhy" placeholder="e.g. still waking at 2am — watch for morning grogginess"></div>
+    <div class="btns"><button class="act" id="addchange" type="button">Add to the record</button></div>
+    <div id="changelist" style="margin-top:18px"></div>
+  </div>
+</section>
+
+<section class="panel" id="p-print">
+  <div class="card noprint">
+    <h2>Print it</h2>
+    <p class="fnote">Take a copy to every appointment, and keep one in the bag. Print, or save as PDF from the print dialog.</p>
+    <div class="row">
+      <div class="fld" style="max-width:250px"><label for="pview">Layout</label>
+        <select id="pview"><option value="full">Full list, with details</option><option value="day">By time of day</option><option value="wallet">Short version for a wallet or bag</option></select></div>
+    </div>
+    <div class="btns" style="margin-top:0;border-top:none;padding-top:0">
+      <button class="act" id="printbtn" type="button">Print</button>
+      <button class="act ghost" id="csvbtn" type="button">Download as a spreadsheet</button>
+      <button class="act ghost" id="backupbtn" type="button">Download a backup file</button>
+      <button class="act ghost" id="restorebtn" type="button">Restore from a backup</button>
+      <input type="file" id="restorefile" accept="application/json" style="display:none">
+    </div>
+  </div>
+  <div class="doc" id="doc"></div>
+</section>
+
+<section class="panel" id="p-setup">
+  <div class="card">
+    <h2>Who this is for</h2>
+    <p class="fnote">Shared with the other tools on this site.</p>
+    <div class="chips" id="peoplechips"></div>
+    <div class="row">
+      <div class="fld"><label for="childname">Name or initials</label><input type="text" id="childname"></div>
+      <div class="fld"><label for="childdob">Age or date of birth</label><input type="text" id="childdob"></div>
+      <div class="fld"><label for="weight">Weight <span class="hint">Doses are often weight-based. Useful on a printed list.</span></label><input type="text" id="weight" placeholder="e.g. 28 kg"></div>
+    </div>
+    <div class="btns"><button class="act" id="savesetup" type="button">Save</button></div>
+  </div>
+</section>
+
+</main>
+
+<div class="alertbox"><b>In an emergency</b>
+<p>Hand this list over rather than reciting it. Say allergies first, then anything taken today, then the rest. If a dose has changed recently, say so \u2014 it is the question that most often gets missed and most often matters.</p></div>
+
+<div class="profnote"><b>Reading this as a professional</b>
+<p>Families keep this because reconciliation lists are frequently wrong, and because nobody else holds supplements, creams, as-needed medication and the practical detail of how something is actually taken in one place.</p>
+<p>The "how it gets taken" field is the one worth reading. A medication that is prescribed and not tolerated in its prescribed form is a medication not being given, and that is often invisible from the chart.</p></div>
+
+<footer>
+  <p><strong>Nothing here is medical advice, and this is not a medical record.</strong> It is a family's own working list. Verify doses against the prescription label and your prescriber, and never change a dose based on anything written here.</p>
+  <p>Take this page, change it, host it yourself. One file, works offline.</p>
+</footer>
+
+</div>
+
+<script>
+var SKEY="its_family_v1";
+var DEFSET=["Home / family","Home / providers","School"];
+var SLOTS=["On waking","Breakfast","Mid-morning","Lunch","After school","Dinner","Bedtime","Overnight"];
+function blankPerson(nm){return {name:nm||"",dob:"",dx:"",emerg:"",weight:"",
+  tracker:{entries:[],days:{},custom:{},pre:[],help:[]},
+  goals:{items:[],settings:DEFSET.slice(),instructions:""},
+  meds:{items:[],allergies:"",pharm:"",changes:[]}};}
+function fix(d){
+  Object.keys(d.people).forEach(function(k){var p=d.people[k];
+    if(!p.tracker)p.tracker={entries:[],days:{},custom:{},pre:[],help:[]};
+    if(!p.goals)p.goals={items:[],settings:DEFSET.slice(),instructions:""};
+    if(!p.meds)p.meds={items:[],allergies:"",pharm:"",changes:[]};
+    if(!p.meds.items)p.meds.items=[];if(!p.meds.changes)p.meds.changes=[];
+    if(p.weight==null)p.weight="";});
+  if(!d.people[d.current])d.current=Object.keys(d.people)[0];
+  return d;}
+function load(){try{var r=localStorage.getItem(SKEY);if(r){var d=JSON.parse(r);if(d&&d.people)return fix(d);}}catch(e){}
+  return {people:{"Person 1":blankPerson("")},current:"Person 1"};}
+var DB=load();
+function save(){try{localStorage.setItem(SKEY,JSON.stringify(DB));}catch(e){alert("This browser wouldn't let it save.");}}
+function PERSON(){return DB.people[DB.current];}
+function M(){return PERSON().meds;}
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?"":s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function nl(s){return esc(s).replace(/\n/g,'<br>');}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+function pad(n){return String(n).padStart(2,"0");}
+function today(){var d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
+function shortd(x){var a=x.split("-").map(Number);return new Date(a[0],a[1]-1,a[2]).toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});}
+var KINDW={rx:"Prescription",otc:"Over the counter",supp:"Supplement"};
+var STATW={current:"Current",prn:"As needed",stopped:"Stopped"};
+
+var TABS=[{k:"list",n:"The list",note:"Everything taken, with the practical detail nobody else writes down."},
+ {k:"day",n:"By time of day",note:"What goes when. Print this one for anyone covering a day."},
+ {k:"changes",n:"Changes",note:"Dose changes and stops, dated. Almost impossible to reconstruct later."},
+ {k:"print",n:"Print & export",note:"Three layouts. Keep a printed copy in the bag."},
+ {k:"setup",n:"Setup",note:"Shared with the other tools on this site."}];
+var cur="list";
+TABS.forEach(function(t){var b=document.createElement("button");
+ b.className="tab"+(t.k===cur?" on":"");b.type="button";b.textContent=t.n;b.dataset.k=t.k;
+ b.addEventListener("click",function(){
+  var a=document.querySelectorAll(".tab");for(var i=0;i<a.length;i++)a[i].classList.toggle("on",a[i].dataset.k===t.k);
+  var p=document.querySelectorAll(".panel");for(var j=0;j<p.length;j++)p[j].classList.toggle("on",p[j].id==="p-"+t.k);
+  $("tabnote").textContent=t.note;
+  if(t.k==="day")renderDay();
+  if(t.k==="changes")renderChanges();
+  if(t.k==="print")renderDoc();
+  if(t.k==="setup")renderSetup();
+  window.scrollTo(0,0);});
+ $("tabs").appendChild(b);});
+$("tabnote").textContent=TABS[0].note;
+
+var picked=[];
+function renderWhen(){var box=$("whenchips");box.innerHTML="";
+ SLOTS.forEach(function(sl){var b=document.createElement("button");
+  b.type="button";b.className="chip"+(picked.indexOf(sl)>=0?" on":"");b.textContent=sl;
+  b.addEventListener("click",function(){var i=picked.indexOf(sl);
+   if(i>=0)picked.splice(i,1);else picked.push(sl);renderWhen();});
+  box.appendChild(b);});}
+$("addmed").addEventListener("click",function(){
+ var n=$("mname").value.trim();if(!n){alert("Give it a name first.");return;}
+ M().items.push({id:uid(),name:n,dose:$("mdose").value.trim(),form:$("mform").value,
+  kind:$("mkind").value,status:$("mstatus").value,when:picked.slice(),
+  what:$("mwhat").value.trim(),who:$("mwho").value.trim(),how:$("mhow").value.trim()});
+ ["mname","mdose","mwhat","mhow"].forEach(function(id){$(id).value="";});
+ picked=[];renderWhen();save();renderList();});
+$("clearmed").addEventListener("click",function(){
+ ["mname","mdose","mwhat","mwho","mhow"].forEach(function(id){$(id).value="";});
+ picked=[];renderWhen();});
+$("filt").addEventListener("change",renderList);
+["allergies","pharm"].forEach(function(id){
+ $(id).addEventListener("input",function(){M()[id==="allergies"?"allergies":"pharm"]=$(id).value;save();});});
+$("saveextra").addEventListener("click",function(){
+ M().allergies=$("allergies").value;M().pharm=$("pharm").value;save();
+ $("saveextra").textContent="Saved";setTimeout(function(){$("saveextra").textContent="Save";},1400);});
+
+function renderList(){
+ var f=$("filt").value,box=$("medlist");
+ var items=M().items.filter(function(m){
+  if(f==="all")return true;
+  if(f==="stopped")return m.status==="stopped";
+  return m.status!=="stopped";});
+ var act=M().items.filter(function(m){return m.status!=="stopped";}).length;
+ $("medcount").textContent=M().items.length?act+" currently on the list, "+M().items.length+" in total.":"Nothing added yet.";
+ if(!items.length){box.innerHTML='<p class="empty">Nothing in this view.</p>';return;}
+ box.innerHTML="";
+ items.forEach(function(m){
+  var w=document.createElement("div");
+  w.className="med"+(m.kind==="supp"?" supp":"")+(m.status==="stopped"?" stopped":"");
+  var h='<div class="mh"><span class="mn">'+esc(m.name)+'</span><span class="md">'+esc(m.dose||"")+'</span></div>'+
+   '<div class="mt">'+esc(m.form)+' \u00b7 '+KINDW[m.kind]+' \u00b7 '+STATW[m.status]+
+   (m.when&&m.when.length?' \u00b7 '+esc(m.when.join(", ")):'')+'</div>';
+  if(m.what)h+='<div class="mx"><b>For</b>'+esc(m.what)+'</div>';
+  if(m.how)h+='<div class="mx"><b>How it gets taken</b>'+nl(m.how)+'</div>';
+  if(m.who)h+='<div class="mx"><b>Prescribed by</b>'+esc(m.who)+'</div>';
+  h+='<button class="mini" data-cycle>Change status</button> &nbsp; <button class="mini" data-del>Remove</button>';
+  w.innerHTML=h;
+  w.querySelector('[data-cycle]').addEventListener('click',function(){
+   var o=["current","prn","stopped"];m.status=o[(o.indexOf(m.status)+1)%3];save();renderList();});
+  w.querySelector('[data-del]').addEventListener('click',function(){
+   if(!confirm("Remove "+m.name+" from the list?"))return;
+   M().items=M().items.filter(function(x){return x.id!==m.id;});save();renderList();});
+  box.appendChild(w);});}
+
+function renderDay(){
+ var box=$("slots");box.innerHTML="";
+ SLOTS.forEach(function(sl){
+  var list=M().items.filter(function(m){return m.status==="current"&&(m.when||[]).indexOf(sl)>=0;});
+  var d=document.createElement("div");d.className="slot";
+  d.innerHTML='<h3>'+esc(sl)+'</h3>'+(list.length
+   ?'<ul>'+list.map(function(m){return '<li>'+esc(m.name)+(m.dose?' \u2014 '+esc(m.dose):'')+'</li>';}).join('')+'</ul>'
+   :'<p class="none">Nothing</p>');
+  box.appendChild(d);});
+ var prn=M().items.filter(function(m){return m.status==="prn";});
+ $("prnlist").innerHTML=prn.length
+  ?prn.map(function(m){return '<div class="med"><div class="mh"><span class="mn">'+esc(m.name)+
+    '</span><span class="md">'+esc(m.dose||"")+'</span></div>'+
+    (m.what?'<div class="mx"><b>Given when</b>'+esc(m.what)+'</div>':'')+
+    (m.how?'<div class="mx"><b>How</b>'+nl(m.how)+'</div>':'')+'</div>';}).join('')
+  :'<p class="empty">Nothing marked as needed.</p>';}
+
+$("cdate").value=today();
+$("addchange").addEventListener("click",function(){
+ var t=$("ctext").value.trim();if(!t)return;
+ M().changes.push({id:uid(),date:$("cdate").value,text:t,why:$("cwhy").value.trim()});
+ $("ctext").value="";$("cwhy").value="";save();renderChanges();});
+function renderChanges(){
+ var box=$("changelist");
+ var c=M().changes.slice().sort(function(a,b){return b.date<a.date?-1:1;});
+ if(!c.length){box.innerHTML='<p class="empty">Nothing recorded yet.</p>';return;}
+ box.innerHTML=c.map(function(x){
+  return '<div class="med"><div class="mh"><span class="mn">'+esc(x.text)+
+   '</span><span class="md">'+shortd(x.date)+'</span></div>'+
+   (x.why?'<div class="mx">'+esc(x.why)+'</div>':'')+
+   '<button class="mini" data-id="'+x.id+'">Remove</button></div>';}).join('');
+ box.querySelectorAll('[data-id]').forEach(function(b){
+  b.addEventListener('click',function(){
+   M().changes=M().changes.filter(function(x){return x.id!==b.dataset.id;});save();renderChanges();});});}
+
+$("pview").addEventListener("change",renderDoc);
+$("printbtn").addEventListener("click",function(){window.print();});
+function renderDoc(){
+ var v=$("pview").value,p=PERSON(),m=M();
+ var h='<h1>'+esc(p.name||"Medication list")+'</h1><p class="sub">'+
+  (p.dob?esc(p.dob)+" \u00b7 ":"")+(p.weight?esc(p.weight)+" \u00b7 ":"")+
+  "Updated "+new Date().toLocaleDateString(undefined,{month:"long",day:"numeric",year:"numeric"})+'</p>';
+ if(m.allergies)h+='<h2 style="color:#8A2B20">Allergies and reactions</h2><p><b>'+nl(m.allergies)+'</b></p>';
+ var act=m.items.filter(function(x){return x.status==="current";});
+ var prn=m.items.filter(function(x){return x.status==="prn";});
+ if(v==="wallet"){
+  h+='<h2>Currently taking</h2><ul>';
+  act.forEach(function(x){h+='<li>'+esc(x.name)+(x.dose?' '+esc(x.dose):'')+
+   ((x.when||[]).length?' \u2014 '+esc(x.when.join(", ")):'')+'</li>';});
+  h+='</ul>';
+  if(prn.length){h+='<h2>As needed</h2><ul>';
+   prn.forEach(function(x){h+='<li>'+esc(x.name)+(x.dose?' '+esc(x.dose):'')+(x.what?' \u2014 for '+esc(x.what):'')+'</li>';});
+   h+='</ul>';}
+ } else if(v==="day"){
+  SLOTS.forEach(function(sl){
+   var l=act.filter(function(x){return (x.when||[]).indexOf(sl)>=0;});
+   if(!l.length)return;
+   h+='<h2>'+esc(sl)+'</h2><ul>';
+   l.forEach(function(x){h+='<li>'+esc(x.name)+(x.dose?' \u2014 '+esc(x.dose):'')+
+    (x.how?'<br><i>'+esc(x.how)+'</i>':'')+'</li>';});
+   h+='</ul>';});
+  if(prn.length){h+='<h2>As needed</h2><ul>';
+   prn.forEach(function(x){h+='<li>'+esc(x.name)+(x.dose?' '+esc(x.dose):'')+(x.what?' \u2014 '+esc(x.what):'')+
+    (x.how?'<br><i>'+esc(x.how)+'</i>':'')+'</li>';});h+='</ul>';}
+ } else {
+  h+='<h2>Currently taking</h2><table><tr><th>Name</th><th>Dose</th><th>Form</th><th>When</th><th>For</th></tr>';
+  act.forEach(function(x){h+='<tr><td>'+esc(x.name)+'</td><td>'+esc(x.dose||"\u2014")+'</td><td>'+esc(x.form)+
+   '</td><td>'+esc((x.when||[]).join(", ")||"\u2014")+'</td><td>'+esc(x.what||"\u2014")+'</td></tr>';});
+  h+='</table>';
+  if(prn.length){h+='<h2>As needed</h2><table><tr><th>Name</th><th>Dose</th><th>Given when</th></tr>';
+   prn.forEach(function(x){h+='<tr><td>'+esc(x.name)+'</td><td>'+esc(x.dose||"\u2014")+'</td><td>'+esc(x.what||"\u2014")+'</td></tr>';});
+   h+='</table>';}
+  var withHow=m.items.filter(function(x){return x.status!=="stopped"&&x.how;});
+  if(withHow.length){h+='<h2>How each one actually gets taken</h2><ul>';
+   withHow.forEach(function(x){h+='<li><b>'+esc(x.name)+'</b> \u2014 '+nl(x.how)+'</li>';});h+='</ul>';}
+  var ch=m.changes.slice().sort(function(a,b){return a.date<b.date?-1:1;}).slice(-12);
+  if(ch.length){h+='<h2>Recent changes</h2><ul>';
+   ch.forEach(function(x){h+='<li><b>'+shortd(x.date)+'</b> \u2014 '+esc(x.text)+(x.why?' ('+esc(x.why)+')':'')+'</li>';});h+='</ul>';}
+  if(m.pharm)h+='<h2>Pharmacy and prescribers</h2><p>'+nl(m.pharm)+'</p>';
+ }
+ h+='<p class="foot">Kept at home by a family, not by a clinic. Verify against the prescription label before acting on anything here. Built with the free tools at In The Spectrums.</p>';
+ $("doc").innerHTML=h;}
+
+$("csvbtn").addEventListener("click",function(){
+ var rows=[["Person","Name","Dose","Form","Type","Status","When","For","Prescribed by","How it gets taken"]];
+ M().items.forEach(function(x){rows.push([PERSON().name,x.name,x.dose,x.form,KINDW[x.kind],STATW[x.status],
+  (x.when||[]).join("; "),x.what,x.who,x.how]);});
+ rows.push([]);rows.push(["Changes"]);
+ M().changes.forEach(function(x){rows.push([PERSON().name,x.date,x.text,x.why]);});
+ var csv=rows.map(function(r){return r.map(function(v){return '"'+String(v==null?"":v).replace(/"/g,'""')+'"';}).join(",");}).join("\r\n");
+ dl(new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}),(PERSON().name||"medication").replace(/\W+/g,"-")+"-medication.csv");});
+$("backupbtn").addEventListener("click",function(){
+ dl(new Blob([JSON.stringify(DB,null,1)],{type:"application/json"}),"in-the-spectrums-backup-"+today()+".json");});
+$("restorebtn").addEventListener("click",function(){$("restorefile").click();});
+$("restorefile").addEventListener("change",function(ev){
+ var f=ev.target.files[0];if(!f)return;var r=new FileReader();
+ r.onload=function(){try{var d=JSON.parse(r.result);if(!d||!d.people)throw new Error("bad");
+  if(!confirm("This replaces everything currently saved on this device. Continue?"))return;
+  DB=fix(d);save();boot();alert("Restored.");}catch(e){alert("That doesn't look like a backup file.");}};
+ r.readAsText(f);ev.target.value="";});
+function dl(b,n){var u=URL.createObjectURL(b),a=document.createElement("a");
+ a.href=u;a.download=n;document.body.appendChild(a);a.click();
+ setTimeout(function(){URL.revokeObjectURL(u);a.remove();},400);}
+
+function renderSetup(){var p=PERSON();
+ $("childname").value=p.name||"";$("childdob").value=p.dob||"";$("weight").value=p.weight||"";
+ var box=$("peoplechips");box.innerHTML="";
+ Object.keys(DB.people).forEach(function(k){var b=document.createElement("button");
+  b.type="button";b.className="chip"+(k===DB.current?" on":"");b.textContent=DB.people[k].name||k;
+  b.addEventListener("click",function(){DB.current=k;save();boot();});box.appendChild(b);});}
+$("savesetup").addEventListener("click",function(){var p=PERSON();
+ p.name=$("childname").value.trim();p.dob=$("childdob").value.trim();p.weight=$("weight").value.trim();
+ save();renderSetup();$("savesetup").textContent="Saved";
+ setTimeout(function(){$("savesetup").textContent="Save";},1400);});
+
+function boot(){$("allergies").value=M().allergies||"";$("pharm").value=M().pharm||"";
+ renderWhen();renderList();renderSetup();}
+boot();
+</script>
+
+<script src="site-nav.js"></script>
+</body>
+</html>

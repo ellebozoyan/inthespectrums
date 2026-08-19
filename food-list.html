@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The food list — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --paper:#FFFDF8; --slate:#435A6F; --slate-tint:#E5EAEE; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --s1:#CFE0D3; --s2:#A8C6AE; --s3:#E4C79A; --s4:#D19A6A; --s5:#B4593A;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 22px;font-size:1.04rem}
+header.masthead{padding:50px 0 12px}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:18px 20px;margin:0 0 26px;
+  font-size:.95rem;max-width:74ch}
+.note strong{color:var(--rust)}
+.note p{margin:0 0 9px}.note p:last-child{margin:0}
+.snote{background:var(--slate-tint);border-left:4px solid var(--slate);padding:18px 20px;margin:0 0 18px;font-size:.95rem}
+.snote p{margin:0 0 9px}.snote p:last-child{margin:0}
+.snote strong{color:var(--slate)}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}
+.tab{font-family:var(--sans);font-size:13px;padding:10px 16px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink-soft);border-radius:2px;cursor:pointer;letter-spacing:.02em}
+.tab:hover{border-color:var(--rust);color:var(--rust)}
+.tab.on{background:var(--forest);border-color:var(--forest);color:#fff}
+.tab:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+.tabnote{font-size:.93rem;color:var(--ink-soft);margin:0 0 24px;max-width:66ch;font-style:italic}
+
+main{padding-bottom:70px}
+.panel{display:none}.panel.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:22px;margin-bottom:18px}
+.card h2{font-size:1.25rem;font-weight:400;margin:0 0 4px}
+.card .fnote{font-size:.92rem;color:var(--ink-soft);margin:0 0 18px;max-width:66ch}
+.cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px;align-items:start}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+
+label,.lbl{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.06em;
+  color:var(--forest);font-weight:700;text-transform:uppercase;margin-bottom:6px}
+.hint{display:block;font-family:var(--serif);font-size:.86rem;color:var(--ink-soft);
+  text-transform:none;letter-spacing:0;font-weight:400;margin-top:3px}
+input[type=text],input[type=date],input[type=number],textarea,select{
+  width:100%;font-family:var(--serif);font-size:15px;padding:9px 11px;
+  border:1px solid var(--line);border-radius:2px;background:#fff;color:var(--ink);line-height:1.5}
+textarea{min-height:64px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--rust);outline-offset:1px;border-color:transparent}
+.fld{margin-bottom:15px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>.fld{flex:1 1 150px;margin-bottom:15px}
+
+button.act{font-family:var(--sans);font-size:13px;padding:11px 18px;border-radius:2px;cursor:pointer;
+  border:1px solid var(--forest);background:var(--forest);color:#fff;letter-spacing:.03em}
+button.act.ghost{background:none;color:var(--forest)}
+button.act.warn{border-color:var(--rust);color:var(--rust);background:none}
+button.act:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+button.act:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+.btns{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.chip{font-family:var(--sans);font-size:12.5px;padding:8px 13px;border:1px solid var(--line);
+  background:#fff;color:var(--ink-soft);border-radius:2px;cursor:pointer;text-align:left}
+.chip:hover{border-color:var(--rust);color:var(--rust)}
+.chip.on{background:var(--forest);border-color:var(--forest);color:#fff}
+.chip.good{border-color:#8FAE96}
+.chip.good.on{background:#4B7A5A;border-color:#4B7A5A}
+.chip.pre.on{background:var(--slate);border-color:var(--slate)}
+.chip.help.on{background:#4B7A5A;border-color:#4B7A5A}
+.chip .ct{font-size:10.5px;opacity:.75;margin-left:5px}
+
+.symgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:7px;margin-bottom:6px}
+.symgrid .chip{width:100%}
+
+.cap{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px}
+.cap button{flex:1 1 108px;font-family:var(--sans);font-size:12px;padding:11px 8px;border:1px solid var(--line);
+  background:#fff;cursor:pointer;border-radius:2px;color:var(--ink-soft);line-height:1.3;text-align:center}
+.cap button:hover{border-color:var(--ink)}
+.cap button b{display:block;font-size:15px;margin-bottom:3px;color:var(--ink)}
+.cap button.on{border-color:var(--ink);color:var(--ink);font-weight:600}
+.cap button[data-c="1"].on{background:var(--s1)}
+.cap button[data-c="2"].on{background:var(--s2)}
+.cap button[data-c="3"].on{background:var(--s3)}
+.cap button[data-c="4"].on{background:var(--s4)}
+.cap button[data-c="5"].on{background:var(--s5);color:#fff}
+.cap button[data-c="5"].on b{color:#fff}
+
+.entry{border:1px solid var(--line);border-left:3px solid var(--forest);background:#fff;
+  padding:13px 15px;margin-bottom:10px;border-radius:2px}
+.entry.pos{border-left-color:#4B7A5A}
+.entry .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.entry .nm{font-size:1.02rem}
+.entry .cat{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft)}
+.sev{display:flex;gap:5px;margin:9px 0 0;flex-wrap:wrap}
+.sev button{font-family:var(--sans);font-size:12px;padding:6px 11px;border:1px solid var(--line);
+  background:#fff;cursor:pointer;border-radius:2px;color:var(--ink-soft)}
+.sev button:hover{border-color:var(--ink)}
+.sev button.on{color:#16283C;font-weight:700;border-color:var(--ink)}
+.sev button[data-s="1"].on{background:var(--s1)}
+.sev button[data-s="2"].on{background:var(--s2)}
+.sev button[data-s="3"].on{background:var(--s3)}
+.sev button[data-s="4"].on{background:var(--s4)}
+.sev button[data-s="5"].on{background:var(--s5);color:#fff}
+.mini{font-family:var(--sans);font-size:11.5px;color:var(--ink-soft);background:none;border:none;
+  cursor:pointer;padding:4px 0;text-decoration:underline}
+.mini:hover{color:var(--rust)}
+
+.day{margin-bottom:26px}
+.day h3{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:0 0 4px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.day .ctx{font-size:.9rem;color:var(--ink-soft);margin:0 0 10px;font-style:italic}
+.logline{display:flex;gap:10px;align-items:baseline;padding:5px 0;border-bottom:1px dotted var(--line);
+  font-size:.96rem;flex-wrap:wrap}
+.dot{display:inline-block;width:11px;height:11px;border-radius:50%;flex:none;position:relative;top:1px}
+.logline .sm{font-family:var(--sans);font-size:11px;color:var(--ink-soft)}
+.flag{display:inline-block;font-family:var(--sans);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+  background:var(--alarm-tint);color:var(--alarm);padding:2px 7px;border-radius:2px;font-weight:700}
+
+.trend{margin-bottom:15px;padding-bottom:13px;border-bottom:1px solid var(--line)}
+.trend .th{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:5px}
+.trend .tn{font-size:1rem}
+.trend .tc{font-family:var(--sans);font-size:11px;color:var(--ink-soft)}
+.bars{display:flex;gap:2px;align-items:flex-end;height:34px}
+.bars i{flex:1;min-width:2px;background:var(--line);border-radius:1px 1px 0 0;display:block}
+.axis{display:flex;justify-content:space-between;font-family:var(--sans);font-size:10px;
+  color:var(--ink-soft);margin-top:3px}
+.tally{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}
+.tally span{font-family:var(--sans);font-size:12px;background:var(--slate-tint);color:var(--slate);
+  padding:6px 11px;border-radius:2px}
+.tally span b{color:var(--ink)}
+.tally.gd span{background:#E6EDE4;color:#2E4E3F}
+
+.doc{background:var(--paper);border:1px solid #CBC6B8;border-radius:2px;padding:32px 30px;
+  font-family:var(--serif);font-size:14.5px;line-height:1.62;color:#22221E}
+.doc h1{font-size:1.3rem;font-weight:400;margin:0 0 4px;letter-spacing:0;text-align:center}
+.doc .sub{text-align:center;font-family:var(--sans);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:#7A7568;margin:0 0 18px;padding-bottom:14px;border-bottom:2px solid #22221E}
+.doc h2{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:#8A5A2A;font-weight:700;margin:20px 0 7px}
+.doc p{margin:0 0 10px}
+.doc ul{margin:0 0 11px;padding-left:19px}.doc li{margin-bottom:6px}
+.doc table{width:100%;border-collapse:collapse;font-size:13px;margin:0 0 12px}
+.doc th{text-align:left;font-family:var(--sans);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:#7A7568;border-bottom:1px solid #C3BDAE;padding:5px 6px 5px 0}
+.doc td{padding:5px 6px 5px 0;border-bottom:1px dotted #D8D2C4;vertical-align:top}
+.doc .foot{border-top:1px dashed #C3BDAE;margin-top:20px;padding-top:11px;font-size:12px;color:#7A7568}
+
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.empty{color:var(--ink-soft);font-style:italic;padding:14px 0}
+footer{border-top:1px solid var(--line);padding:24px 0 60px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+footer p{max-width:78ch}
+@media print{
+  body{background:#fff}
+  .masthead,.tabs,.tabnote,.note,.snote,.profnote,footer,.btns,.card.noprint{display:none!important}
+  .doc{border:none;padding:0;background:#fff;font-size:11pt}
+}
+
+.prov{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--forest);
+  border-radius:2px;padding:16px 19px;margin-bottom:12px}
+.prov .ph{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:9px}
+.prov .pn{font-size:1.08rem}
+.prov .pd{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.goal{border-top:1px solid var(--line);padding:11px 0 9px;font-size:.96rem;line-height:1.45}
+.goal:last-of-type{padding-bottom:0}
+.goal .gt{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap}
+.goal .code{font-family:var(--sans);font-size:10.5px;letter-spacing:.06em;color:var(--rust);font-weight:700;flex:none}
+.goal .st{font-family:var(--sans);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  padding:2px 7px;border-radius:2px;flex:none}
+.st.current{background:#E6EDE4;color:#2E4E3F}
+.st.next{background:var(--slate-tint);color:var(--slate)}
+.st.mastered{background:#EFE0D5;color:#9C4A21}
+.st.paused{background:#EEEEEA;color:#6A6A62}
+.goal .gg{font-size:.89rem;color:var(--ink-soft);margin-top:5px}
+.gen{background:#F4F7F3;border:1px solid #CBDCC6;border-left:3px solid var(--forest);
+  padding:11px 14px;margin-top:7px;border-radius:2px;font-size:.9rem}
+.gen b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--forest);display:block;margin-bottom:5px}
+.gen dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 11px}
+.gen dt{font-family:var(--sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+.gen dd{margin:0}
+.setrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.setrow span{font-family:var(--sans);font-size:11px;background:var(--forest);color:#fff;padding:3px 9px;border-radius:2px}
+.warnbox{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:13px 16px;margin:0 0 14px;font-size:.93rem}
+.warnbox b{color:var(--alarm)}
+table.gm{width:100%;border-collapse:collapse;font-size:.92rem;margin:0 0 14px}
+table.gm th{text-align:left;font-family:var(--sans);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-soft);border-bottom:1px solid var(--line);padding:6px 8px 6px 0;vertical-align:bottom}
+table.gm td{padding:8px 8px 8px 0;border-bottom:1px dotted var(--line);vertical-align:top}
+table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
+
+.food{background:var(--card);border:1px solid var(--line);border-left:3px solid #4B7A5A;
+  border-radius:2px;padding:14px 17px;margin-bottom:9px}
+.food.sometimes{border-left-color:#A8641C}
+.food.trying{border-left-color:#46508C}
+.food.lost{border-left-color:#8A2B20;background:#FBF3F1}
+.food .fh{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.food .fn{font-size:1.05rem}
+.food .fs{font-family:var(--sans);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+.food.safe .fs{color:#4B7A5A}.food.sometimes .fs{color:#A8641C}
+.food.trying .fs{color:#46508C}.food.lost .fs{color:#8A2B20}
+.food .fd{font-size:.92rem;color:var(--ink-soft);margin-top:6px;line-height:1.45}
+.food .fd b{color:var(--ink);font-family:var(--sans);font-size:9.5px;letter-spacing:.11em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+.counts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:0 0 18px}
+.cnt{background:var(--card);border-top:3px solid var(--line);padding:14px 15px;text-align:center}
+.cnt b{display:block;font-size:1.7rem;font-weight:400;color:var(--ink);line-height:1.1}
+.cnt span{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-soft)}
+.cnt.safe{border-top-color:#4B7A5A}.cnt.sometimes{border-top-color:#A8641C}
+.cnt.trying{border-top-color:#46508C}.cnt.lost{border-top-color:#8A2B20}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>The food list:<br><em>what is accepted, and exactly how</em></h1>
+  <p class="lede">For a person with a very short list of accepted foods, that list is not a preference — it is access to eating at all. This keeps it written down: what works, the brand, the plate, the temperature, the way it is cut. So that a hospital, a school, a grandparent or a new therapist can get it right the first time.</p>
+  <div class="note">
+    <p><strong>This stays on your device.</strong> Nothing sent anywhere, no account. It saves in this browser so it is here tomorrow. <b>Download a backup every few weeks</b> — see <a href="using-these-tools.html">using these tools</a>.</p>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <p class="tabnote" id="tabnote"></p>
+</header>
+
+<main>
+
+<section class="panel on" id="p-list">
+  <div class="counts" id="counts"></div>
+  <div class="cols">
+    <div>
+      <div class="card">
+        <h2>Add a food</h2>
+        <p class="fnote">Be specific to the point of feeling silly. The brand matters. The shape matters. Somebody who has never met this person will read it.</p>
+        <div class="row">
+          <div class="fld" style="flex:2 1 200px"><label for="fname">What it is</label>
+            <input type="text" id="fname" placeholder="e.g. Chicken nuggets \u2014 Brand X, dinosaur shapes"></div>
+          <div class="fld"><label for="fstatus">Status</label>
+            <select id="fstatus">
+              <option value="safe">Accepted \u2014 reliable</option>
+              <option value="sometimes">Sometimes accepted</option>
+              <option value="trying">Being explored</option>
+              <option value="lost">Lost \u2014 used to eat it</option></select></div>
+        </div>
+        <div class="row">
+          <div class="fld"><label for="fgroup">Kind <span class="hint">Optional. Helps spot gaps.</span></label>
+            <input type="text" id="fgroup" list="grouplist" placeholder="e.g. protein, crunchy, drink">
+            <datalist id="grouplist"></datalist></div>
+          <div class="fld"><label for="fwhen">Usually eaten</label>
+            <input type="text" id="fwhen" placeholder="e.g. lunch and dinner"></div>
+        </div>
+        <div class="fld"><label for="fhow">Exactly how it has to be <span class="hint">Brand, temperature, plate, cut, packaging, what it must not touch.</span></label>
+          <textarea id="fhow" placeholder="e.g. Brand X only \u2014 will not eat the supermarket version. Oven, never microwave. Cooled to warm, not hot. On the blue plate, not touching anything else. Cut in half lengthways."></textarea></div>
+        <div class="fld"><label for="fnote">Anything else <span class="hint">What ends it, what it is often paired with, what to avoid saying.</span></label>
+          <textarea id="fnote" placeholder="e.g. Do not comment while he is eating it. Praise has ended this one before."></textarea></div>
+        <div class="btns"><button class="act" id="addfood" type="button">Add</button>
+          <button class="act ghost" id="clearfood" type="button">Clear</button></div>
+      </div>
+
+      <div class="card">
+        <h2>The general picture</h2>
+        <p class="fnote">Prints at the top. What anyone feeding this person needs to know before they start.</p>
+        <div class="fld"><label for="genrules">How mealtimes work here</label>
+          <textarea id="genrules" placeholder="e.g. Food is put on the table and nothing is asked. He serves himself. No comments about eating, in either direction. Spitting out is always allowed \u2014 a bin or a napkin is on the table."></textarea></div>
+        <div class="row">
+          <div class="fld"><label for="allerg">Allergies and must-avoids</label>
+            <textarea id="allerg" placeholder="e.g. No nuts in the house. Dairy causes reflux."></textarea></div>
+          <div class="fld"><label for="supp">Nutrition support</label>
+            <textarea id="supp" placeholder="e.g. Two supplement drinks a day, vanilla, in the metal cup with the lid."></textarea></div>
+        </div>
+        <div class="btns"><button class="act" id="saveinfo" type="button">Save</button></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h2>The list</h2>
+        <p class="fnote" id="foodcount"></p>
+        <div class="fld" style="max-width:270px"><label for="ffilt">Show</label>
+          <select id="ffilt"><option value="all">Everything</option><option value="safe">Accepted only</option>
+            <option value="sometimes">Sometimes</option><option value="trying">Being explored</option>
+            <option value="lost">Lost</option></select></div>
+        <div id="foodlist"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="p-history">
+  <div class="card">
+    <h2>What changed, and when</h2>
+    <p class="fnote">A food gained or lost, and roughly when. Shrinkage over time is one of the more useful things a clinician can see, and it is very hard to reconstruct from memory.</p>
+    <div class="row">
+      <div class="fld" style="max-width:190px"><label for="hdate">Date</label><input type="date" id="hdate"></div>
+      <div class="fld" style="flex:2 1 240px"><label for="htext">What happened</label>
+        <input type="text" id="htext" placeholder="e.g. Stopped eating the yogurt tubes after the brand changed the packaging"></div>
+    </div>
+    <div class="btns"><button class="act" id="addhist" type="button">Add</button></div>
+    <div id="histlist" style="margin-top:18px"></div>
+  </div>
+</section>
+
+<section class="panel" id="p-print">
+  <div class="card noprint">
+    <h2>Print it</h2>
+    <p class="fnote">Take a copy to a hospital admission, a new school, a respite stay, or a week at a grandparent's.</p>
+    <div class="row">
+      <div class="fld" style="max-width:260px"><label for="pview">Layout</label>
+        <select id="pview"><option value="full">Full list, with all the detail</option>
+          <option value="quick">Short version \u2014 just what is accepted</option>
+          <option value="clin">For a clinician \u2014 including what was lost</option></select></div>
+    </div>
+    <div class="btns" style="margin-top:0;border-top:none;padding-top:0">
+      <button class="act" id="printbtn" type="button">Print</button>
+      <button class="act ghost" id="csvbtn" type="button">Download as a spreadsheet</button>
+      <button class="act ghost" id="backupbtn" type="button">Download a backup file</button>
+      <button class="act ghost" id="restorebtn" type="button">Restore from a backup</button>
+      <input type="file" id="restorefile" accept="application/json" style="display:none">
+    </div>
+  </div>
+  <div class="doc" id="doc"></div>
+</section>
+
+<section class="panel" id="p-setup">
+  <div class="card">
+    <h2>Who this is for</h2>
+    <p class="fnote">Shared with the other tools on this site.</p>
+    <div class="chips" id="peoplechips"></div>
+    <div class="row">
+      <div class="fld"><label for="childname">Name or initials</label><input type="text" id="childname"></div>
+      <div class="fld"><label for="childdob">Age or date of birth</label><input type="text" id="childdob"></div>
+    </div>
+    <div class="btns"><button class="act" id="savesetup" type="button">Save</button></div>
+  </div>
+</section>
+
+</main>
+
+<div class="snote">
+  <p><strong>Protect the accepted list first.</strong> Everything on the <a href="feeding-therapy.html">feeding therapy page</a> rests on that one idea. Expansion is slow and it is real, but it happens from a stable base \u2014 and a list that keeps shrinking is the thing to raise with a clinician, promptly.</p>
+</div>
+
+<div class="profnote"><b>Reading this as a professional</b>
+<p>If a family hands you this, the specificity is not rigidity \u2014 it is the conditions under which eating happens at all. Brand and preparation detail are access requirements rather than preferences, and substituting is the most common way an admission or a placement stops a person eating.</p>
+<p>The "what changed" record is the part worth reading first. A shrinking list over months is a clinical finding.</p></div>
+
+<footer>
+  <p><strong>Nothing here is medical or nutritional advice.</strong> Restricted eating can have medical causes and consequences, and a shrinking list warrants review by a clinician who knows the person.</p>
+  <p>Take this page, change it, host it yourself. One file, works offline.</p>
+</footer>
+
+</div>
+
+<script>
+var SKEY="its_family_v1";
+var DEFSET=["Home / family","Home / providers","School"];
+function blankPerson(nm){return {name:nm||"",dob:"",dx:"",emerg:"",weight:"",
+  tracker:{entries:[],days:{},custom:{},pre:[],help:[]},
+  goals:{items:[],settings:DEFSET.slice(),instructions:""},
+  meds:{items:[],allergies:"",pharm:"",changes:[]},
+  food:{items:[],rules:"",allerg:"",supp:"",history:[]}};}
+function fix(d){Object.keys(d.people).forEach(function(k){var p=d.people[k];
+  if(!p.tracker)p.tracker={entries:[],days:{},custom:{},pre:[],help:[]};
+  if(!p.goals)p.goals={items:[],settings:DEFSET.slice(),instructions:""};
+  if(!p.meds)p.meds={items:[],allergies:"",pharm:"",changes:[]};
+  if(!p.food)p.food={items:[],rules:"",allerg:"",supp:"",history:[]};
+  if(!p.food.items)p.food.items=[];if(!p.food.history)p.food.history=[];});
+ if(!d.people[d.current])d.current=Object.keys(d.people)[0];return d;}
+function load(){try{var r=localStorage.getItem(SKEY);if(r){var d=JSON.parse(r);if(d&&d.people)return fix(d);}}catch(e){}
+ return {people:{"Person 1":blankPerson("")},current:"Person 1"};}
+var DB=load();
+function save(){try{localStorage.setItem(SKEY,JSON.stringify(DB));}catch(e){alert("This browser wouldn't let it save.");}}
+function PERSON(){return DB.people[DB.current];}
+function F(){return PERSON().food;}
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?"":s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function nl(s){return esc(s).replace(/\n/g,'<br>');}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+function pad(n){return String(n).padStart(2,"0");}
+function today(){var d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
+function shortd(x){var a=x.split("-").map(Number);return new Date(a[0],a[1]-1,a[2]).toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});}
+var SW={safe:"Accepted",sometimes:"Sometimes",trying:"Exploring",lost:"Lost"};
+
+var TABS=[{k:"list",n:"The list",note:"Everything accepted, and exactly how it has to be."},
+ {k:"history",n:"What changed",note:"Foods gained and lost over time. Shrinkage is worth showing a clinician."},
+ {k:"print",n:"Print & export",note:"Three layouts \u2014 for a carer, a hospital, or a clinician."},
+ {k:"setup",n:"Setup",note:"Shared with the other tools on this site."}];
+var cur="list";
+TABS.forEach(function(t){var b=document.createElement("button");
+ b.className="tab"+(t.k===cur?" on":"");b.type="button";b.textContent=t.n;b.dataset.k=t.k;
+ b.addEventListener("click",function(){
+  var a=document.querySelectorAll(".tab");for(var i=0;i<a.length;i++)a[i].classList.toggle("on",a[i].dataset.k===t.k);
+  var p=document.querySelectorAll(".panel");for(var j=0;j<p.length;j++)p[j].classList.toggle("on",p[j].id==="p-"+t.k);
+  $("tabnote").textContent=t.note;
+  if(t.k==="history")renderHist();
+  if(t.k==="print")renderDoc();
+  if(t.k==="setup")renderSetup();
+  window.scrollTo(0,0);});
+ $("tabs").appendChild(b);});
+$("tabnote").textContent=TABS[0].note;
+
+$("addfood").addEventListener("click",function(){
+ var n=$("fname").value.trim();if(!n){alert("Name it first.");return;}
+ F().items.push({id:uid(),name:n,status:$("fstatus").value,group:$("fgroup").value.trim(),
+  when:$("fwhen").value.trim(),how:$("fhow").value.trim(),note:$("fnote").value.trim()});
+ ["fname","fgroup","fwhen","fhow","fnote"].forEach(function(id){$(id).value="";});
+ save();renderList();});
+$("clearfood").addEventListener("click",function(){
+ ["fname","fgroup","fwhen","fhow","fnote"].forEach(function(id){$(id).value="";});});
+$("ffilt").addEventListener("change",renderList);
+$("saveinfo").addEventListener("click",function(){
+ F().rules=$("genrules").value;F().allerg=$("allerg").value;F().supp=$("supp").value;save();
+ $("saveinfo").textContent="Saved";setTimeout(function(){$("saveinfo").textContent="Save";},1400);});
+
+function counts(){var c={safe:0,sometimes:0,trying:0,lost:0};
+ F().items.forEach(function(x){c[x.status]=(c[x.status]||0)+1;});return c;}
+function renderCounts(){var c=counts();
+ $("counts").innerHTML=["safe","sometimes","trying","lost"].map(function(k){
+  return '<div class="cnt '+k+'"><b>'+c[k]+'</b><span>'+SW[k]+'</span></div>';}).join("");}
+function renderList(){
+ renderCounts();
+ var f=$("ffilt").value,box=$("foodlist");
+ var items=F().items.filter(function(x){return f==="all"||x.status===f;});
+ var c=counts();
+ $("foodcount").textContent=F().items.length
+  ? c.safe+" reliably accepted, "+F().items.length+" on the list in total."
+  : "Nothing added yet.";
+ var groups={};F().items.forEach(function(x){if(x.group)groups[x.group]=1;});
+ $("grouplist").innerHTML=Object.keys(groups).sort().map(function(g){return '<option value="'+esc(g)+'">';}).join("");
+ if(!items.length){box.innerHTML='<p class="empty">Nothing in this view.</p>';return;}
+ var order={safe:0,sometimes:1,trying:2,lost:3};
+ items.sort(function(a,b){return order[a.status]-order[b.status];});
+ box.innerHTML="";
+ items.forEach(function(x){
+  var w=document.createElement("div");w.className="food "+x.status;
+  var h='<div class="fh"><span class="fn">'+esc(x.name)+'</span><span class="fs">'+SW[x.status]+'</span></div>';
+  var bits=[];if(x.group)bits.push(esc(x.group));if(x.when)bits.push(esc(x.when));
+  if(bits.length)h+='<div class="fd">'+bits.join(' \u00b7 ')+'</div>';
+  if(x.how)h+='<div class="fd"><b>Exactly how</b>'+nl(x.how)+'</div>';
+  if(x.note)h+='<div class="fd"><b>Note</b>'+nl(x.note)+'</div>';
+  h+='<button class="mini" data-cycle>Change status</button> &nbsp; <button class="mini" data-del>Remove</button>';
+  w.innerHTML=h;
+  w.querySelector('[data-cycle]').addEventListener('click',function(){
+   var o=["safe","sometimes","trying","lost"];x.status=o[(o.indexOf(x.status)+1)%4];save();renderList();});
+  w.querySelector('[data-del]').addEventListener('click',function(){
+   if(!confirm("Remove "+x.name+"?"))return;
+   F().items=F().items.filter(function(y){return y.id!==x.id;});save();renderList();});
+  box.appendChild(w);});}
+
+$("hdate").value=today();
+$("addhist").addEventListener("click",function(){
+ var t=$("htext").value.trim();if(!t)return;
+ F().history.push({id:uid(),date:$("hdate").value,text:t});
+ $("htext").value="";save();renderHist();});
+function renderHist(){var box=$("histlist");
+ var h=F().history.slice().sort(function(a,b){return b.date<a.date?-1:1;});
+ if(!h.length){box.innerHTML='<p class="empty">Nothing recorded yet.</p>';return;}
+ box.innerHTML=h.map(function(x){return '<div class="food safe"><div class="fh"><span class="fn">'+esc(x.text)+
+  '</span><span class="fs">'+shortd(x.date)+'</span></div><button class="mini" data-id="'+x.id+'">Remove</button></div>';}).join('');
+ box.querySelectorAll('[data-id]').forEach(function(b){b.addEventListener('click',function(){
+  F().history=F().history.filter(function(x){return x.id!==b.dataset.id;});save();renderHist();});});}
+
+$("pview").addEventListener("change",renderDoc);
+$("printbtn").addEventListener("click",function(){window.print();});
+function renderDoc(){
+ var v=$("pview").value,p=PERSON(),f=F();
+ var h='<h1>'+esc(p.name||"Food list")+'</h1><p class="sub">'+(p.dob?esc(p.dob)+" \u00b7 ":"")+
+  "Updated "+new Date().toLocaleDateString(undefined,{month:"long",day:"numeric",year:"numeric"})+'</p>';
+ if(f.allerg)h+='<h2 style="color:#8A2B20">Allergies and must-avoids</h2><p><b>'+nl(f.allerg)+'</b></p>';
+ if(f.rules&&v!=="quick")h+='<h2>How mealtimes work</h2><p>'+nl(f.rules)+'</p>';
+ function block(st,title){
+  var l=f.items.filter(function(x){return x.status===st;});
+  if(!l.length)return '';
+  var s='<h2>'+title+'</h2><ul>';
+  l.forEach(function(x){s+='<li><b>'+esc(x.name)+'</b>'+(x.when?' \u2014 '+esc(x.when):'');
+   if(v!=="quick"&&x.how)s+='<br>'+nl(x.how);
+   if(v!=="quick"&&x.note)s+='<br><i>'+nl(x.note)+'</i>';
+   s+='</li>';});
+  return s+'</ul>';}
+ h+=block("safe","Accepted \u2014 these reliably work");
+ h+=block("sometimes","Sometimes accepted");
+ if(v!=="quick")h+=block("trying","Being explored");
+ if(v==="clin"){
+  h+=block("lost","No longer accepted");
+  var hist=f.history.slice().sort(function(a,b){return a.date<b.date?-1:1;});
+  if(hist.length){h+='<h2>What changed, in order</h2><ul>';
+   hist.forEach(function(x){h+='<li><b>'+shortd(x.date)+'</b> \u2014 '+esc(x.text)+'</li>';});h+='</ul>';}
+  var c=counts();
+  h+='<p><b>Summary:</b> '+c.safe+' reliably accepted, '+c.sometimes+' sometimes, '+
+   c.trying+' being explored, '+c.lost+' lost.</p>';}
+ if(f.supp)h+='<h2>Nutrition support</h2><p>'+nl(f.supp)+'</p>';
+ h+='<p class="foot">Kept at home by a family. The specificity here is not fussiness \u2014 it is the conditions under which eating happens. Substituting a brand or a preparation may mean the food is not eaten at all. Built with the free tools at In The Spectrums.</p>';
+ $("doc").innerHTML=h;}
+
+$("csvbtn").addEventListener("click",function(){
+ var rows=[["Person","Food","Status","Kind","Usually eaten","Exactly how","Note"]];
+ F().items.forEach(function(x){rows.push([PERSON().name,x.name,SW[x.status],x.group,x.when,x.how,x.note]);});
+ rows.push([]);rows.push(["What changed"]);
+ F().history.forEach(function(x){rows.push([PERSON().name,x.date,x.text]);});
+ var csv=rows.map(function(r){return r.map(function(v){return '"'+String(v==null?"":v).replace(/"/g,'""')+'"';}).join(",");}).join("\r\n");
+ dl(new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}),(PERSON().name||"food").replace(/\W+/g,"-")+"-food-list.csv");});
+$("backupbtn").addEventListener("click",function(){
+ dl(new Blob([JSON.stringify(DB,null,1)],{type:"application/json"}),"in-the-spectrums-backup-"+today()+".json");});
+$("restorebtn").addEventListener("click",function(){$("restorefile").click();});
+$("restorefile").addEventListener("change",function(ev){
+ var fl=ev.target.files[0];if(!fl)return;var r=new FileReader();
+ r.onload=function(){try{var d=JSON.parse(r.result);if(!d||!d.people)throw new Error("bad");
+  if(!confirm("This replaces everything currently saved on this device. Continue?"))return;
+  DB=fix(d);save();boot();alert("Restored.");}catch(e){alert("That doesn't look like a backup file.");}};
+ r.readAsText(fl);ev.target.value="";});
+function dl(b,n){var u=URL.createObjectURL(b),a=document.createElement("a");
+ a.href=u;a.download=n;document.body.appendChild(a);a.click();
+ setTimeout(function(){URL.revokeObjectURL(u);a.remove();},400);}
+
+function renderSetup(){var p=PERSON();
+ $("childname").value=p.name||"";$("childdob").value=p.dob||"";
+ var box=$("peoplechips");box.innerHTML="";
+ Object.keys(DB.people).forEach(function(k){var b=document.createElement("button");
+  b.type="button";b.className="chip"+(k===DB.current?" on":"");b.textContent=DB.people[k].name||k;
+  b.addEventListener("click",function(){DB.current=k;save();boot();});box.appendChild(b);});}
+$("savesetup").addEventListener("click",function(){var p=PERSON();
+ p.name=$("childname").value.trim();p.dob=$("childdob").value.trim();save();renderSetup();
+ $("savesetup").textContent="Saved";setTimeout(function(){$("savesetup").textContent="Save";},1400);});
+
+function boot(){$("genrules").value=F().rules||"";$("allerg").value=F().allerg||"";$("supp").value=F().supp||"";
+ renderList();renderSetup();}
+boot();
+</script>
+
+<script src="site-nav.js"></script>
+</body>
+</html>

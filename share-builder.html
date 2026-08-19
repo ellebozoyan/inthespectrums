@@ -321,7 +321,9 @@ var SKEY="its_family_v1";
 var DEFSET=["Home / family","Home / providers","School"];
 function blankPerson(nm){return {name:nm||"",dob:"",dx:"",emerg:"",
   tracker:{entries:[],days:{},custom:{},pre:[],help:[]},
-  goals:{items:[],settings:DEFSET.slice(),instructions:""}};}
+  goals:{items:[],settings:DEFSET.slice(),instructions:""},
+  meds:{items:[],allergies:"",pharm:"",changes:[]},
+  food:{items:[],rules:"",allerg:"",supp:"",history:[]}};}
 function fix(d){
   Object.keys(d.people).forEach(function(k){var p=d.people[k];
     if(!p.tracker)p.tracker={entries:[],days:{},custom:{},pre:[],help:[]};
@@ -331,6 +333,10 @@ function fix(d){
     if(!p.goals)p.goals={items:[],settings:DEFSET.slice(),instructions:""};
     if(!p.goals.items)p.goals.items=[];
     if(!p.goals.settings)p.goals.settings=DEFSET.slice();
+    if(!p.meds)p.meds={items:[],allergies:"",pharm:"",changes:[]};
+    if(!p.meds.items)p.meds.items=[];if(!p.meds.changes)p.meds.changes=[];
+    if(!p.food)p.food={items:[],rules:"",allerg:"",supp:"",history:[]};
+    if(!p.food.items)p.food.items=[];if(!p.food.history)p.food.history=[];
     if(p.emerg==null)p.emerg="";});
   if(!d.people[d.current])d.current=Object.keys(d.people)[0];
   return d;
@@ -344,6 +350,8 @@ function save(){try{localStorage.setItem(SKEY,JSON.stringify(DB));}catch(e){aler
 function PERSON(){return DB.people[DB.current];}
 function T(){return PERSON().tracker;}
 function G(){return PERSON().goals;}
+function MD(){return PERSON().meds;}
+function FD(){return PERSON().food;}
 
 /* ---------- helpers ---------- */
 function $(id){return document.getElementById(id);}
@@ -372,19 +380,22 @@ var SECTIONS=[
  {k:"changes", n:"What changed, in order",  d:"Dose changes, illness, schedule shifts.", med:1},
  {k:"incidents",n:"Restraint or removal",   d:"Any incidents you've recorded."},
  {k:"notes",   n:"Your notes",              d:"What you wrote in your own words on hard days.", med:1},
+ {k:"meds",    n:"Medication list",         d:"What is taken, when, and how it actually gets taken.", med:1},
+ {k:"medchg",  n:"Medication changes",      d:"Dose changes and stops, dated.", med:1},
+ {k:"food",    n:"Food list",               d:"Accepted foods and exactly how each has to be."},
  {k:"goals",   n:"Current goals",           d:"By provider, as written on the plans."},
  {k:"gen",     n:"Generalization sheet",    d:"Which goals should travel, and exactly how."},
  {k:"cover",   n:"Your note at the top",    d:"The message you write above."}
 ];
 var PRESETS=[
  {k:"teacher", n:"New teacher or aide", s:"What helps them, not what's wrong with them",
-  on:["about","helps","pre","goals","gen","incidents","cover"]},
+  on:["about","helps","pre","food","goals","gen","incidents","cover"]},
  {k:"therapist",n:"A therapist",        s:"Goals, generalization, and relevant patterns",
-  on:["about","goals","gen","helps","pre","symptoms","cover"]},
+  on:["about","goals","gen","helps","pre","symptoms","food","cover"]},
  {k:"doctor",  n:"A doctor or clinician",s:"Symptoms, sleep, medication, what changed",
-  on:["about","emerg","symptoms","capacity","sleep","changes","notes","cover"]},
+  on:["about","emerg","meds","medchg","food","symptoms","capacity","sleep","changes","notes","cover"]},
  {k:"sitter",  n:"A babysitter or family",s:"What to do, and who to call",
-  on:["helps","pre","emerg","cover"]},
+  on:["helps","pre","emerg","meds","food","cover"]},
  {k:"iep",     n:"An IEP or school team",s:"Goals, supports, and the incident record",
   on:["about","goals","gen","pre","helps","incidents","cover"]},
  {k:"all",     n:"Everything",           s:"The full record",
@@ -532,6 +543,37 @@ function renderDoc(){
     if(nd.length){h+='<h2>In my own words</h2><ul>';
       nd.forEach(function(d){h+='<li><b>'+shortd(d)+'</b> \u2014 '+nl(T().days[d].note)+'</li>';});
       h+='</ul>';}
+  }
+
+  if(picked.meds){
+    var md=MD(), act=md.items.filter(function(x){return x.status!=="stopped";});
+    if(md.allergies)h+='<h2>Allergies and reactions</h2><p><b>'+nl(md.allergies)+'</b></p>';
+    if(act.length){
+      h+='<h2>Medication and supplements</h2><table><tr><th>Name</th><th>Dose</th><th>When</th><th>For</th></tr>';
+      act.forEach(function(x){h+='<tr><td>'+esc(x.name)+'</td><td>'+esc(x.dose||"\u2014")+'</td><td>'+
+        esc(x.status==="prn"?"As needed":((x.when||[]).join(", ")||"\u2014"))+'</td><td>'+esc(x.what||"\u2014")+'</td></tr>';});
+      h+='</table>';
+      var hw=act.filter(function(x){return x.how;});
+      if(hw.length){h+='<p><b>How each one gets taken:</b></p><ul>';
+        hw.forEach(function(x){h+='<li><b>'+esc(x.name)+'</b> \u2014 '+nl(x.how)+'</li>';});h+='</ul>';}
+    }
+  }
+  if(picked.medchg){
+    var ch=MD().changes.slice().sort(function(a,b){return a.date<b.date?-1:1;});
+    if(ch.length){h+='<h2>Medication changes</h2><ul>';
+      ch.forEach(function(x){h+='<li><b>'+shortd(x.date)+'</b> \u2014 '+esc(x.text)+(x.why?' ('+esc(x.why)+')':'')+'</li>';});
+      h+='</ul>';}
+  }
+  if(picked.food){
+    var fd=FD();
+    if(fd.allerg)h+='<h2>Food allergies and must-avoids</h2><p><b>'+nl(fd.allerg)+'</b></p>';
+    if(fd.rules)h+='<h2>How mealtimes work</h2><p>'+nl(fd.rules)+'</p>';
+    var acc=fd.items.filter(function(x){return x.status==="safe"||x.status==="sometimes";});
+    if(acc.length){h+='<h2>Foods that are accepted</h2><ul>';
+      acc.forEach(function(x){h+='<li><b>'+esc(x.name)+'</b>'+(x.status==="sometimes"?' (sometimes)':'')+
+        (x.how?'<br>'+nl(x.how):'')+'</li>';});
+      h+='</ul><p><i>The detail here is not fussiness \u2014 substituting a brand or a preparation may mean the food is not eaten at all.</i></p>';}
+    if(fd.supp)h+='<h2>Nutrition support</h2><p>'+nl(fd.supp)+'</p>';
   }
 
   var only=$("goalprov").value;
