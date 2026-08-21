@@ -252,6 +252,17 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
       </div>
 
       <div class="card">
+        <h2>Bring in goals you already have</h2>
+        <p class="fnote">Paste them straight from the IEP or the treatment plan. One goal per line — a code at the start is picked up automatically.</p>
+        <div class="fld"><label for="gpaste">Paste them here</label>
+          <textarea id="gpaste" style="min-height:120px" placeholder="SLP 1.1 Will ask wh-questions with fading models&#10;SLP 1.2 Will retell an event with key story elements&#10;OT 1.4 Will write the letters of his name on a line"></textarea></div>
+        <div class="fld" style="max-width:250px"><label for="gpasteprov">Provider</label>
+          <input type="text" id="gpasteprov" placeholder="e.g. Speech"></div>
+        <div class="btns"><button class="act ghost" id="greadpaste" type="button">Read them</button></div>
+        <div id="gpastepreview"></div>
+      </div>
+
+      <div class="card">
         <h2>Instructions for providers</h2>
         <p class="fnote">This prints at the top of the shared document. Edit it to suit your team.</p>
         <div class="fld"><textarea id="instructions" style="min-height:150px"></textarea></div>
@@ -474,6 +485,38 @@ function fillLists(){
   $("arealist").innerHTML=areas().map(function(a){return '<option value="'+esc(a)+'">';}).join("");
 }
 function genCount(prov){return G().items.filter(function(g){return g.prov===prov&&g.gen;}).length;}
+
+
+/* A leading code like "SLP 1.1" or "OT 2.3" is separated out; everything else
+   stays as the goal, word for word, because exact wording is the point. */
+function gReadPaste(){
+ var lines=$("gpaste").value.split(/\n/),got=[];
+ lines.forEach(function(l){
+  var t=l.replace(/^[\s\-\u2022\*]+/,"").trim();
+  if(!t)return;
+  var m=t.match(/^([A-Za-z]{1,6}\s*\d+(?:\.\d+)?)[\s:.\-]+(.+)$/);
+  got.push(m?{code:m[1].trim(),text:m[2].trim()}:{code:"",text:t});});
+ var box=$("gpastepreview");
+ if(!got.length){box.innerHTML='<p class="fnote">Nothing could be read. Try one goal per line.</p>';return;}
+ var h='<div class="note" style="margin:14px 0"><h3>Read '+got.length+' goal'+(got.length===1?'':'s')+'</h3><ul style="font-size:.93rem">';
+ got.slice(0,10).forEach(function(g){
+  h+='<li>'+(g.code?'<b>'+esc(g.code)+'</b> ':'')+esc(g.text.slice(0,90))+(g.text.length>90?'\u2026':'')+'</li>';});
+ if(got.length>10)h+='<li>\u2026and '+(got.length-10)+' more</li>';
+ h+='</ul><div class="btns" style="border-top:none;padding-top:10px">'+
+  '<button class="act" id="gdopaste" type="button">Add these</button>'+
+  '<button class="act ghost" id="gcancelpaste" type="button">Cancel</button></div></div>';
+ box.innerHTML=h;
+ $("gdopaste").addEventListener("click",function(){
+  var prov=$("gpasteprov").value.trim()||"Unassigned",added=0;
+  got.forEach(function(g){
+   if(G().items.some(function(x){return x.text===g.text;}))return;
+   G().items.push({id:uid(),prov:prov,code:g.code,text:g.text,status:"current",area:"",gen:null});added++;});
+  save();$("gpaste").value="";
+  box.innerHTML='<div class="note" style="margin:14px 0"><h3>Added</h3><p><b>'+added+
+   '</b> brought in as current goals. Next, decide which of them should travel \u2014 that is the part that changes outcomes.</p></div>';
+  renderGoals();fillLists();});
+ $("gcancelpaste").addEventListener("click",function(){box.innerHTML="";});}
+
 
 function renderGoals(){
   var f=$("filterstatus").value,box=$("goallist");
@@ -718,6 +761,7 @@ $("addperson").addEventListener("click",function(){
 
 /* ---------- go ---------- */
 function boot(){
+  $("greadpaste").addEventListener("click",gReadPaste);
   $("instructions").value=G().instructions||DEFINSTR;
   fillLists();renderGoals();fillGenSel();renderGenList();renderSetup();
 }

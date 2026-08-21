@@ -1322,7 +1322,8 @@
   "Reset fully before processing. A conversation attempted too early teaches nothing and costs the safe place.",
   "Don't say \"it's okay\" to an apology. Say thank you for apologizing, and for talking about it with me."],
 
-'behavior-support.html': ["The label tells you almost nothing about what will happen in your living room. Evaluate the practice.",
+'behavior-support.html': [
+  "Ask whether a service is direct or consultative. Most school support is consultative, and the difference is supervision.","The label tells you almost nothing about what will happen in your living room. Evaluate the practice.",
   "This site does not tell you to pursue ABA or to avoid it. It gives you the map and the questions.",
   "Ask what they do when your child says no, in any form. The answer tells you most of what you need.",
   "Behavioral support should extend what the specialists have taught, not set targets in their domains.",
@@ -1334,7 +1335,9 @@
   "Museums, zoos and theaters often have free companion admission, sensory hours and sensory bags. Call and ask.",
   "Your public library may lend museum passes, sensory kits, and more. Free, and badly under-used."],
 
-'their-own-voice.html': ["There is no single right way to tell a child about their own life. This page gives options with reasoning.",
+'their-own-voice.html': [
+  "Most teams discuss a student in front of them by default. Parents rarely see it, and it reliably precedes a hard moment.",
+  "Ask permission, then say something good in front of them \u2014 self-advocacy is worth reporting, not just compliance.","There is no single right way to tell a child about their own life. This page gives options with reasoning.",
   "The common regret from disabled adults isn't being told too soon. It's nobody telling them at all.",
   "A diagnosis is an administrative key that opens doors. It is not a description of a person.",
   "Self-determination starts with discovering that your preferences reliably change what happens.",
@@ -1420,8 +1423,9 @@
   "If someone hurts you or takes your things, keep telling until somebody listens. The first person failing is not your fault.",
   "Find a self-advocacy group run by people with disabilities. Most people say it changes what they thought was possible."],
 
-'spectrums.html': ["The name is plural. On the spectrum is a line; in the spectrums is a space you move around inside.",
-  "There is no single spectrum \u2014 sensing, moving, sleeping, eating, communicating, feeling, joy. Nobody sits in the middle of all of them.",
+'spectrums.html': ["The name is plural, and the preposition is deliberate \u2014 a name with room enough for everybody.",
+  "A life is far more than a single spectrum \u2014 sensing, moving, sleeping, eating, communicating, feeling, joy. Nobody sits in the middle of all of them.",
+  "Nobody has to qualify. One lisp counts; so does a family carrying fifteen overlapping things.",
   "What differs is how much support a position asks for, and how much of the gap has been closed so far.",
   "Progress is not linear. You turn the cube for months, see nothing, and then one day a whole side has come together.",
   "You cannot do everything. A few things done consistently beats the whole list done once."],

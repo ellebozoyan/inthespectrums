@@ -457,6 +457,23 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
   </div>
 
   <div class="card noprint">
+    <h2>Bring in a calendar you already have</h2>
+    <p class="fnote">If the schedule already lives in Apple Calendar, Google Calendar or Outlook, export it and load it here rather than typing it again.</p>
+    <div class="fld"><label for="icsin">Choose a .ics file</label>
+      <input type="file" id="icsin" accept=".ics,text/calendar"></div>
+    <div class="row">
+      <div class="fld" style="max-width:230px"><label for="impwho">Import into</label>
+        <select id="impwho"></select></div>
+      <div class="fld" style="max-width:230px"><label for="impback">How far back</label>
+        <select id="impback"><option value="0">From today onward</option><option value="30">Last month too</option>
+          <option value="90">Last three months too</option><option value="9999">Everything in the file</option></select></div>
+    </div>
+    <div id="imppreview"></div>
+    <p class="fnote"><b>How to export what you have.</b> In Apple Calendar on a Mac: select the calendar, then File → Export. In Google Calendar on a computer: Settings → Import and export → Export, which gives a zip — unzip it and use the .ics inside. In Outlook: File → Save Calendar. On a phone this is usually easier done on a computer first.</p>
+    <p class="fnote">Nothing is uploaded. The file is read in your browser and never leaves the device.</p>
+  </div>
+
+  <div class="card noprint">
     <h2>How to import it</h2>
     <div class="row">
       <div class="fld" style="flex:1 1 260px">
@@ -617,7 +634,7 @@ TABS.forEach(function(t){var b=document.createElement("button");
   $("tabnote").textContent=t.note;
   if(t.k==="today")drawWall();
   if(t.k==="build"){renderReps();renderAppts();}
-  if(t.k==="share"){fillIcsWho();renderWeek();}
+  if(t.k==="share"){fillIcsWho();fillImpWho();renderWeek();}
   if(t.k==="people")renderPeople();
   if(t.k==="setup")renderSetup();
   window.scrollTo(0,0);});
@@ -751,6 +768,111 @@ function wirePhoto(inputId,previewId,setter){
    $(previewId).innerHTML='<img src="'+data+'" alt=""><button class="mini" type="button">Remove</button>';
    $(previewId).querySelector('button').addEventListener('click',function(){
     setter(null);$(previewId).innerHTML="";el.value="";});});});}
+
+
+/* ---------- reading a calendar file ----------
+   Enough of the iCalendar format to be useful: folded lines, all-day and timed
+   events, and weekly repeats. Anything it cannot read is reported rather than
+   silently dropped, and nothing is added until the preview is confirmed. */
+function unfoldICS(txt){
+ return txt.replace(/\r\n/g,"\n").replace(/\n[ \t]/g,"");}
+function icsVal(line){
+ var i=line.indexOf(":");
+ return i<0?"":line.slice(i+1).trim()
+  .replace(/\\n/g,"\n").replace(/\\,/g,",").replace(/\\;/g,";").replace(/\\\\/g,"\\");}
+function icsDate(line){
+ var v=icsVal(line);
+ var m=v.match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2}))?/);
+ if(!m)return null;
+ return {date:m[1]+"-"+m[2]+"-"+m[3],
+   time:m[4]?m[4]+":"+m[5]:"",
+   allday:!m[4]};}
+function parseICS(txt){
+ var out={appts:[],repeats:[],skipped:0},blocks=unfoldICS(txt).split("BEGIN:VEVENT");
+ for(var i=1;i<blocks.length;i++){
+  var body=blocks[i].split("END:VEVENT")[0].split("\n");
+  var ev={name:"",note:"",where:"",start:null,rrule:""};
+  body.forEach(function(line){
+   var key=line.split(/[;:]/)[0].toUpperCase();
+   if(key==="SUMMARY")ev.name=icsVal(line);
+   else if(key==="DESCRIPTION")ev.note=icsVal(line);
+   else if(key==="LOCATION")ev.where=icsVal(line);
+   else if(key==="DTSTART")ev.start=icsDate(line);
+   else if(key==="RRULE")ev.rrule=icsVal(line).toUpperCase();});
+  if(!ev.name||!ev.start){out.skipped++;continue;}
+  if(/FREQ=WEEKLY/.test(ev.rrule)){
+   var by=(ev.rrule.match(/BYDAY=([^;]+)/)||[])[1];
+   var map={SU:0,MO:1,TU:2,WE:3,TH:4,FR:5,SA:6},days=[];
+   if(by){by.split(",").forEach(function(d){
+    var k=d.replace(/[^A-Z]/g,"").slice(-2);
+    if(map[k]!==undefined)days.push(map[k]);});}
+   if(!days.length)days=[dOf(ev.start.date).getDay()];
+   out.repeats.push({name:ev.name,time:ev.start.time,days:days,note:ev.note,where:ev.where});
+  } else if(/FREQ=DAILY/.test(ev.rrule)){
+   out.repeats.push({name:ev.name,time:ev.start.time,days:[0,1,2,3,4,5,6],note:ev.note,where:ev.where});
+  } else {
+   out.appts.push({name:ev.name,date:ev.start.date,time:ev.start.time,note:ev.note,where:ev.where});}
+ }
+ return out;}
+
+var pendingImport=null;
+function fillImpWho(){
+ var sel=$("impwho");if(!sel)return;
+ sel.innerHTML=Object.keys(DB.people).map(function(k){
+  return '<option value="'+k+'">'+esc(nameOf(k))+'</option>';}).join("");
+ sel.value=DB.current;}
+
+function showImportPreview(){
+ var box=$("imppreview");if(!box||!pendingImport)return;
+ var back=$("impback").value;
+ var cut=(back==="9999")?"0000-00-00":addDays(today(),-Number(back));
+ var appts=pendingImport.appts.filter(function(a){return a.date>=cut;});
+ var reps=pendingImport.repeats;
+ var total=appts.length+reps.length;
+ if(!total){
+  box.innerHTML='<div class="warnbox" style="background:#F6E9E4;border-left:4px solid #8A2B20;padding:14px 16px;margin:12px 0"><b>Nothing to bring in.</b> '+
+   (pendingImport.skipped?'The file had '+pendingImport.skipped+' entries this could not read.':'The file had no events in that range.')+'</div>';
+  return;}
+ var h='<div class="note" style="margin:14px 0"><h3>Ready to bring in</h3><p><b>'+
+  reps.length+'</b> repeating item'+(reps.length===1?'':'s')+' and <b>'+appts.length+
+  '</b> one-off event'+(appts.length===1?'':'s')+
+  (pendingImport.skipped?'. '+pendingImport.skipped+' entries could not be read and will be left out.':'.')+'</p>';
+ h+='<ul style="font-size:.92rem;max-height:170px;overflow-y:auto;margin:8px 0 0">';
+ reps.slice(0,6).forEach(function(r){
+  h+='<li>'+esc(r.name)+' \u2014 weekly, '+r.days.map(function(d){return DAYS[d];}).join(" ")+
+   (r.time?' at '+esc(hhmm(r.time)):'')+'</li>';});
+ appts.slice(0,6).forEach(function(a){
+  h+='<li>'+esc(a.name)+' \u2014 '+esc(shortd(a.date))+(a.time?' at '+esc(hhmm(a.time)):'')+'</li>';});
+ if(total>12)h+='<li>\u2026and '+(total-12)+' more</li>';
+ h+='</ul><div class="btns" style="border-top:none;padding-top:10px">'+
+  '<button class="act" id="doimport" type="button">Bring these in</button>'+
+  '<button class="act ghost" id="cancelimport" type="button">Cancel</button></div></div>';
+ box.innerHTML=h;
+ $("doimport").addEventListener("click",function(){commitImport(appts,reps);});
+ $("cancelimport").addEventListener("click",function(){
+  pendingImport=null;box.innerHTML="";$("icsin").value="";});}
+
+function commitImport(appts,reps){
+ var who=$("impwho").value,C2=DB.people[who].cal;
+ var added=0,dupes=0;
+ reps.forEach(function(r){
+  var clash=C2.repeats.some(function(x){return x.name===r.name&&x.time===r.time;});
+  if(clash){dupes++;return;}
+  C2.repeats.push({id:uid(),name:r.name,time:r.time,days:r.days,kind:"routine",
+   who:"",note:[r.where,r.note].filter(Boolean).join(" \u2014 "),photo:null,alert:"",share:false});
+  added++;});
+ appts.forEach(function(a){
+  var clash=C2.appts.some(function(x){return x.name===a.name&&x.date===a.date;});
+  if(clash){dupes++;return;}
+  C2.appts.push({id:uid(),name:a.name,date:a.date,time:a.time,where:a.where,
+   who:"",note:a.note,photo:null,alert:"",share:false});
+  added++;});
+ save();pendingImport=null;$("icsin").value="";
+ $("imppreview").innerHTML='<div class="note" style="margin:14px 0"><h3>Done</h3><p><b>'+added+
+  '</b> brought in'+(dupes?', and '+dupes+' skipped because something with the same name was already there':'')+
+  '. Everything came in unshared and without reminders \u2014 set those on the ones that need them.</p></div>';
+ renderReps();renderAppts();drawWall();}
+
 
 function renderWeekWall(){
  var start=weekStartOf($("viewday").value||today()),mode=$("mode").value;
@@ -1036,6 +1158,18 @@ $("savesetup").addEventListener("click",function(){var p=PERSON();
  $("savesetup").textContent="Saved";setTimeout(function(){$("savesetup").textContent="Save";},1400);});
 
 function boot(){if(!whose)whose=DB.current;save();
+ if($("icsin")&&!$("icsin").dataset.wired){
+  $("icsin").dataset.wired="1";
+  $("icsin").addEventListener("change",function(){
+   var f=$("icsin").files&&$("icsin").files[0];if(!f)return;
+   var r=new FileReader();
+   r.onload=function(){
+    try{pendingImport=parseICS(String(r.result));}
+    catch(e){pendingImport=null;$("imppreview").innerHTML='<p class="fnote">That file could not be read as a calendar.</p>';return;}
+    showImportPreview();};
+   r.readAsText(f);});
+  $("impback").addEventListener("change",showImportPreview);
+ }
  wirePhoto("rphoto","rpreview",function(v){pendingR=v;});
  wirePhoto("aphoto","apreview",function(v){pendingA=v;});renderDayPick();renderWhoBar();drawWall();renderReps();renderAppts();renderSetup();}
 boot();

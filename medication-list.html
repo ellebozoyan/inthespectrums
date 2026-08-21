@@ -299,6 +299,17 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
       </div>
 
       <div class="card">
+        <h2>Bring in a list you already have</h2>
+        <p class="fnote">If the list already exists in a document, an email or a pharmacy printout, paste it here rather than typing it again. One item per line — this reads whatever it can and you correct the rest.</p>
+        <div class="fld"><label for="pastebox">Paste it here</label>
+          <textarea id="pastebox" style="min-height:120px" placeholder="Melatonin 3 mg — bedtime&#10;Guanfacine 3 mL liquid, twice daily, 8am and 8pm&#10;Vitamin D 1000 IU, morning"></textarea></div>
+        <div class="fld" style="max-width:250px"><label for="pastekind">Add these as</label>
+          <select id="pastekind"><option value="rx">Prescriptions</option><option value="otc">Over the counter</option><option value="supp">Supplements</option></select></div>
+        <div class="btns"><button class="act ghost" id="readpaste" type="button">Read the list</button></div>
+        <div id="pastepreview"></div>
+      </div>
+
+      <div class="card">
         <h2>Allergies and reactions</h2>
         <p class="fnote">Prints at the top of the list, in red. This is the line people read first.</p>
         <div class="fld"><textarea id="allergies" placeholder="e.g. Amoxicillin — rash and swelling, 2023. Ashwagandha — heart racing, stopped."></textarea></div>
@@ -488,6 +499,90 @@ $("saveextra").addEventListener("click",function(){
  M().allergies=$("allergies").value;M().pharm=$("pharm").value;M().delivery=$("delivery").value;save();
  $("saveextra").textContent="Saved";setTimeout(function(){$("saveextra").textContent="Save";},1400);});
 
+
+/* ---------- reading a pasted list ----------
+   Forgiving on purpose. It pulls out what it recognises and leaves everything
+   else in the name, so nothing is lost — the person corrects it afterwards. */
+function parseMedLine(line){
+ var t=line.replace(/^[\s\-\u2022\*\d.)]+/,"").trim();
+ if(!t)return null;
+ /* The name is whatever comes before the first dash or comma; everything after
+    is detail. Splitting first, then extracting, stops fragments of the timing
+    being left stranded in the name. */
+ var parts=t.split(/\s+[\u2014\u2013\-]\s+|,\s*/);
+ var head=parts[0].trim(), tail=parts.slice(1).join(", ").trim();
+ var out={name:head,dose:"",freq:"",when:[],timing:""};
+
+ var doseRe=/(\d+(?:\.\d+)?\s*(?:mcg|mg|g|ml|mL|IU|units?|drops?|tablets?|tabs?|caps?|capsules?|puffs?|tsp|tbsp|sprays?))/i;
+ var d=head.match(doseRe);
+ if(d){out.dose=d[1].trim();out.name=head.replace(d[1],"").trim();}
+ else{
+  d=tail.match(doseRe);
+  if(d){out.dose=d[1].trim();tail=tail.replace(d[1],"").trim();}}
+
+ var freqs=[[/twice\s*(?:a\s*)?daily|two\s*times\s*(?:a\s*)?(?:a\s*)?day|\bbid\b/i,"Twice daily"],
+            [/three\s*times|\btid\b/i,"Three times daily"],
+            [/four\s*times|\bqid\b/i,"Four times daily"],
+            [/once\s*(?:a\s*)?daily|\bdaily\b|\bqd\b|every\s*day/i,"Once daily"],
+            [/as\s*needed|\bprn\b/i,"As needed"],
+            [/every\s*other\s*day/i,"Every other day"],
+            [/weekly/i,"Weekly"]];
+ for(var i=0;i<freqs.length;i++){
+  if(freqs[i][0].test(t)){out.freq=freqs[i][1];tail=tail.replace(freqs[i][0],"").trim();break;}}
+
+ var slots=[[/bed\s*time|\bnight(?:ly)?\b|before\s*sleep/i,"Bedtime"],
+            [/morning|\bam\b|breakfast|with\s*breakfast/i,"Breakfast"],
+            [/lunch|\bnoon\b|midday/i,"Lunch"],
+            [/dinner|\bsupper\b|evening|\bpm\b/i,"Dinner"],
+            [/after\s*school/i,"After school"],
+            [/on\s*waking|\bwake\b|first\s*thing/i,"On waking"]];
+ slots.forEach(function(sl){if(sl[0].test(t)&&out.when.indexOf(sl[1])<0)out.when.push(sl[1]);});
+
+ /* whatever detail is left is kept rather than thrown away */
+ tail=tail.replace(/^[\s,;:\u2014\-]+|[\s,;:\u2014\-]+$/g,"").replace(/,\s*,/g,",").replace(/\s{2,}/g," ").trim();
+ if(tail&&tail.length<120)out.timing=tail;
+
+ out.name=out.name.replace(/[\u2014\u2013\-,;:]+\s*$/,"").replace(/^[\s\u2014\u2013\-,;:]+/,"")
+   .replace(/\s{2,}/g," ").trim();
+ if(!out.name)return null;
+ return out;}
+
+var pendingMeds=null;
+function readPaste(){
+ var raw=$("pastebox").value.split(/\n/);
+ var got=[],skipped=0;
+ raw.forEach(function(l){
+  if(!l.trim())return;
+  var m=parseMedLine(l);
+  if(m)got.push(m);else skipped++;});
+ pendingMeds=got;
+ var box=$("pastepreview");
+ if(!got.length){box.innerHTML='<p class="fnote">Nothing could be read from that. Try one item per line.</p>';return;}
+ var h='<div class="note" style="margin:14px 0"><h3>Read '+got.length+' item'+(got.length===1?'':'s')+'</h3>'+
+  '<p class="fnote">Check these, bring them in, then correct anything that came out wrong — nothing here is final.</p><ul style="font-size:.93rem">';
+ got.slice(0,12).forEach(function(m){
+  h+='<li><b>'+esc(m.name)+'</b>'+(m.dose?' — '+esc(m.dose):'')+
+   (m.freq?' · '+esc(m.freq):'')+(m.when.length?' · '+esc(m.when.join(", ")):'')+'</li>';});
+ if(got.length>12)h+='<li>…and '+(got.length-12)+' more</li>';
+ h+='</ul><div class="btns" style="border-top:none;padding-top:10px">'+
+  '<button class="act" id="dopaste" type="button">Add these</button>'+
+  '<button class="act ghost" id="cancelpaste" type="button">Cancel</button></div></div>';
+ box.innerHTML=h;
+ $("dopaste").addEventListener("click",function(){
+  var kind=$("pastekind").value,added=0;
+  pendingMeds.forEach(function(m){
+   if(M().items.some(function(x){return x.name.toLowerCase()===m.name.toLowerCase();}))return;
+   M().items.push({id:uid(),name:m.name,dose:m.dose,brand:"",form:"Tablet",
+    route:"By mouth",freq:m.freq||"Once daily",kind:kind,status:"current",
+    when:m.when,timing:m.timing||"",handling:[],what:"",who:"",how:""});
+   added++;});
+  save();$("pastebox").value="";pendingMeds=null;
+  box.innerHTML='<div class="note" style="margin:14px 0"><h3>Added</h3><p><b>'+added+
+   '</b> brought in. Anything already on the list was skipped. Now go through and add the route, brand and how each one is actually taken — that part cannot be guessed.</p></div>';
+  renderList();});
+ $("cancelpaste").addEventListener("click",function(){pendingMeds=null;box.innerHTML="";});}
+
+
 function renderList(){
  var f=$("filt").value,box=$("medlist");
  var brands={};M().items.forEach(function(m){if(m.brand)brands[m.brand]=1;});
@@ -660,7 +755,9 @@ $("savesetup").addEventListener("click",function(){var p=PERSON();
  save();renderSetup();$("savesetup").textContent="Saved";
  setTimeout(function(){$("savesetup").textContent="Save";},1400);});
 
-function boot(){$("allergies").value=M().allergies||"";$("pharm").value=M().pharm||"";
+function boot(){
+ $("readpaste").addEventListener("click",readPaste);
+ $("allergies").value=M().allergies||"";$("pharm").value=M().pharm||"";
  $("delivery").value=M().delivery||"";
  renderWhen();renderHandle();renderList();renderSetup();}
 boot();

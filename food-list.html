@@ -282,6 +282,19 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
       </div>
 
       <div class="card">
+        <h2>Bring in a list you already have</h2>
+        <p class="fnote">Paste an existing list — from a note, an email, a feeding therapist's handout. One food per line.</p>
+        <div class="fld"><label for="fpaste">Paste it here</label>
+          <textarea id="fpaste" style="min-height:110px" placeholder="Chicken nuggets — Brand X only, dinosaur shapes&#10;Toast, no crusts&#10;Plain pasta"></textarea></div>
+        <div class="fld" style="max-width:270px"><label for="fpastestatus">Add these as</label>
+          <select id="fpastestatus"><option value="safe">Accepted — reliable</option>
+            <option value="sometimes">Sometimes accepted</option><option value="target">Target</option>
+            <option value="trying">Being explored</option></select></div>
+        <div class="btns"><button class="act ghost" id="freadpaste" type="button">Read the list</button></div>
+        <div id="fpastepreview"></div>
+      </div>
+
+      <div class="card">
         <h2>The general picture</h2>
         <p class="fnote">Prints at the top. What anyone feeding this person needs to know before they start.</p>
         <div class="fld"><label for="genrules">How mealtimes work here</label>
@@ -442,6 +455,37 @@ function counts(){var c={safe:0,sometimes:0,target:0,trying:0,lost:0};
 function renderCounts(){var c=counts();
  $("counts").innerHTML=["safe","sometimes","target","trying","lost"].map(function(k){
   return '<div class="cnt '+k+'"><b>'+c[k]+'</b><span>'+SW[k]+'</span></div>';}).join("");}
+
+/* Pasted food lists: everything after a dash or comma is kept as the preparation
+   detail, because that half is the part that actually matters. */
+function fReadPaste(){
+ var lines=$("fpaste").value.split(/\n/),got=[];
+ lines.forEach(function(l){
+  var t=l.replace(/^[\s\-\u2022\*\d.)]+/,"").trim();
+  if(!t)return;
+  var split=t.split(/\s+[\u2014\-]\s+|,\s+/);
+  got.push({name:split[0].trim(),how:split.slice(1).join(", ").trim()});});
+ var box=$("fpastepreview");
+ if(!got.length){box.innerHTML='<p class="fnote">Nothing could be read. Try one food per line.</p>';return;}
+ var h='<div class="note" style="margin:14px 0"><h3>Read '+got.length+' food'+(got.length===1?'':'s')+'</h3><ul style="font-size:.93rem">';
+ got.slice(0,12).forEach(function(g){h+='<li><b>'+esc(g.name)+'</b>'+(g.how?' \u2014 '+esc(g.how):'')+'</li>';});
+ if(got.length>12)h+='<li>\u2026and '+(got.length-12)+' more</li>';
+ h+='</ul><div class="btns" style="border-top:none;padding-top:10px">'+
+  '<button class="act" id="fdopaste" type="button">Add these</button>'+
+  '<button class="act ghost" id="fcancelpaste" type="button">Cancel</button></div></div>';
+ box.innerHTML=h;
+ $("fdopaste").addEventListener("click",function(){
+  var st=$("fpastestatus").value,added=0;
+  got.forEach(function(g){
+   if(F().items.some(function(x){return x.name.toLowerCase()===g.name.toLowerCase();}))return;
+   F().items.push({id:uid(),name:g.name,status:st,group:"",when:"",how:g.how,note:""});added++;});
+  save();$("fpaste").value="";
+  box.innerHTML='<div class="note" style="margin:14px 0"><h3>Added</h3><p><b>'+added+
+   '</b> brought in. Now add the detail that matters \u2014 brand, plate, temperature, what it must not touch.</p></div>';
+  renderList();});
+ $("fcancelpaste").addEventListener("click",function(){box.innerHTML="";});}
+
+
 function renderList(){
  renderCounts();
  var f=$("ffilt").value,box=$("foodlist");
@@ -552,7 +596,9 @@ $("savesetup").addEventListener("click",function(){var p=PERSON();
  p.name=$("childname").value.trim();p.dob=$("childdob").value.trim();save();renderSetup();
  $("savesetup").textContent="Saved";setTimeout(function(){$("savesetup").textContent="Save";},1400);});
 
-function boot(){$("genrules").value=F().rules||"";$("allerg").value=F().allerg||"";$("supp").value=F().supp||"";
+function boot(){
+ $("freadpaste").addEventListener("click",fReadPaste);
+ $("genrules").value=F().rules||"";$("allerg").value=F().allerg||"";$("supp").value=F().supp||"";
  renderList();renderSetup();}
 boot();
 </script>
