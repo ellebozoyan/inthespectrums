@@ -24,7 +24,7 @@
     ]},
     { label: 'The people caring', items: [
       ['caregivers.html',              'The people doing the caring','Support, respite, relationships, and staying a person yourself'],
-      ['siblings-and-family.html',     'Siblings and the whole household','Keeping everyone seen, connected and steady']
+      ['siblings-and-family.html',     'Siblings and the whole household','Everyone known, nobody carrying it alone']
     ]},
     { label: 'Adult life', items: [
       ['adult-life.html',              'After school ends',       'The cliff, decision-making, trusts and wills, and what to do when'],
@@ -1932,12 +1932,16 @@
 
   'inside-the-iep.html': [
     ['The meeting itself',
-     'You are allowed to be the least expert person in the room and still be the most important one. <b>Nobody there knows your child.</b>']
+     'You are allowed to be the least expert person in the room and still be the most important one. <b>Nobody there knows your child.</b>'],
+    ['Rights that are easy',
+     'warm|Knowing a right exists changes the conversation before you ever have to use it. <b>You are not asking for a favor.</b>']
   ],
 
   'paying-for-therapy.html': [
     ['When a claim is denied',
-     'warm|A denial is very often a clerical event rather than a decision. <b>Many are overturned simply because somebody appealed</b> \u2014 and that somebody can be you, on an ordinary afternoon, with a phone.']
+     'warm|A denial is very often a clerical event rather than a decision. <b>Many are overturned simply because somebody appealed</b> \u2014 and that somebody can be you, on an ordinary afternoon, with a phone.'],
+    ['',
+     'The system is genuinely confusing, and being confused by it is not a failure of yours. <b>Everybody who navigates this learned it the same way you are learning it</b> \u2014 badly, in the middle of something else.']
   ],
 
   'programs-and-entitlements.html': [
@@ -1978,7 +1982,9 @@
 
   'adaptive-community.html': [
     ['What community offers that therapy cannot',
-     'warm|An hour where nobody is measuring your person is not time off from the work. <b>For a lot of people it turns out to be the part that mattered most.</b>']
+     'warm|An hour where nobody is measuring your person is not time off from the work. <b>For a lot of people it turns out to be the part that mattered most.</b>'],
+    ['',
+     'warm|An hour where nobody is assessing anybody, and your person is simply there \u2014 that is not a break from the important work. <b>For a great many people it is the important work.</b>']
   ],
 
   'conditions-library.html': [
@@ -2003,7 +2009,9 @@
 
   'physical-therapy.html': [
     ['Three things worth knowing',
-     'Every extra place a person can get to is a piece of a life. <b>Distance is not the point \u2014 what is at the other end of it is.</b>']
+     'Every extra place a person can get to is a piece of a life. <b>Distance is not the point \u2014 what is at the other end of it is.</b>'],
+    ['',
+     'warm|Progress here is measured in things nobody photographs \u2014 standing a little longer, falling a little less, getting up without help. <b>It counts anyway.</b>']
   ],
 
   'occupational-therapy.html': [
@@ -2013,12 +2021,16 @@
 
   'floortime.html': [
     ['Why child-led matters',
-     'warm|You do not need training to start this afternoon. <b>Get on the floor, join whatever is already happening, and follow.</b> That is not a simplified version of the method \u2014 it is the method.']
+     'warm|You do not need training to start this afternoon. <b>Get on the floor, join whatever is already happening, and follow.</b> That is not a simplified version of the method \u2014 it is the method.'],
+    ['',
+     'warm|Following somebody rather than leading them takes more skill, not less. <b>Anyone who tells you it is doing nothing has not tried it.</b>']
   ],
 
   'music.html': [
     ['What music makes possible',
-     'You do not have to be musical. <b>A person who loves you, singing badly, is doing the thing that works.</b>']
+     'You do not have to be musical. <b>A person who loves you, singing badly, is doing the thing that works.</b>'],
+    ['',
+     'warm|Something reaches people through music that reaches them no other way. <b>You do not have to be able to explain it for it to be worth doing.</b>']
   ],
 
   'aquatic-therapy.html': [
@@ -2084,7 +2096,9 @@
 
 'supplements.html': [
     ['',
-     'warm|Wanting to try something is not gullibility \u2014 it is what love looks like when the official answer has been \u201cwait and see\u201d for two years. <b>Ask the hard questions of everyone, including the people who were kind to you.</b>']
+     'warm|Wanting to try something is not gullibility \u2014 it is what love looks like when the official answer has been \u201cwait and see\u201d for two years. <b>Ask the hard questions of everyone, including the people who were kind to you.</b>'],
+    ['Questions to',
+     'You are not being difficult by asking these. <b>A practitioner worth staying with will be glad you did</b> \u2014 and the answers will be better than you expect.']
   ],
 
 'judging-claims.html': [
@@ -2099,7 +2113,11 @@
 
 'siblings-and-family.html': [
     ['',
-     'warm|They are watching how you treat someone who needs a great deal, and they are learning what a family does. <b>That lesson is landing even on the weeks you think you are handling none of it well.</b>']
+     'warm|They are watching how you treat someone who needs a great deal, and they are learning what a family does. <b>That lesson is landing even on the weeks you think you are handling none of it well.</b>'],
+    ['What siblings',
+     'warm|Twenty minutes, reliably, given because they exist rather than because something is wrong. <b>That is most of it.</b> Not a bigger gesture \u2014 a smaller one that keeps happening.'],
+    ['Their future is',
+     'Asking a child what they want their own life to look like, and meaning it, is a gift that arrives decades later. <b>Most adult siblings say nobody ever asked.</b>']
   ],
 
   'medication-list.html': [

@@ -1,9 +1,9 @@
 const {JSDOM}=require('jsdom'),fs=require('fs'),path=require('path');
-const dir='/mnt/user-data/outputs', nav=fs.readFileSync(dir+'/site-nav.js','utf8');
+const dir=require('path').join(__dirname,'..'), nav=fs.readFileSync(dir+'/site-nav.js','utf8');
 // pull the page keys out of the LIFTS block
-const blk=nav.slice(nav.indexOf('16. LIFTS'));
+const blk=nav.slice(nav.indexOf('var LIFTS = {'), nav.indexOf('\n  };', nav.indexOf('var LIFTS = {')));
 const want={};
-const re=/^  '([a-z0-9-]+\.html)': \[/gm; let m;
+const re=/^\s*'([a-z0-9-]+\.html)': \[/gm; let m;   // indent varies
 while((m=re.exec(blk))) want[m[1]]=(blk.slice(m.index).split(/\n  \]/)[0].match(/\n    \['/g)||[]).length;
 let tot=0, placed=0, bad=[];
 Object.keys(want).forEach(pg=>{
