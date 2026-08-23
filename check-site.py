@@ -108,6 +108,18 @@ for i, a in enumerate(pages):
                 f'{a} and {b}: {int(overlap*100)}% of sentences are shared '
                 f'({shared} identical) - possible duplicate page')
 
+
+# A find() that returned -1 once spliced page content into the middle of the
+# DOCTYPE, which rendered as stray text above the heading and put the browser
+# into quirks mode. Cheap to check, easy to miss by eye.
+for f in pages:
+    head = open(f).read()[:400]
+    if not head.lstrip().lower().startswith('<!doctype html>'):
+        problems.append(f'{f}: does not begin with a valid DOCTYPE')
+    before_html = head.split('<html', 1)[0]
+    if '<a ' in before_html or '<div' in before_html or '<p ' in before_html:
+        problems.append(f'{f}: page content appears before <html>')
+
 print(f'{len(pages)} pages checked')
 if problems:
     print(f'\n{len(problems)} PROBLEMS:')
