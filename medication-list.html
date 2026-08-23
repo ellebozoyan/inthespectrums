@@ -406,7 +406,7 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
 <p>The "how it gets taken" field is the one worth reading. A medication that is prescribed and not tolerated in its prescribed form is a medication not being given, and that is often invisible from the chart.</p></div>
 
 <footer>
-  <p><strong>Nothing here is medical advice, and this is not a medical record.</strong> It is a family's own working list. Verify doses against the prescription label and your prescriber, and never change a dose based on anything written here.</p>
+  <p><strong>Nothing here is medical advice, and this is not a medical record.</strong> It is a family's own working list. Verify doses against the prescription label and your prescribing doctor, and never change a dose based on anything written here.</p>
   <p>Take this page, change it, host it yourself. One file, works offline.</p>
 </footer>
 
@@ -501,7 +501,7 @@ $("saveextra").addEventListener("click",function(){
 
 
 /* ---------- reading a pasted list ----------
-   Forgiving on purpose. It pulls out what it recognises and leaves everything
+   Forgiving on purpose. It pulls out what it recognizes and leaves everything
    else in the name, so nothing is lost — the person corrects it afterwards. */
 function parseMedLine(line){
  var t=line.replace(/^[\s\-\u2022\*\d.)]+/,"").trim();

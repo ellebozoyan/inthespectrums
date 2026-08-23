@@ -520,7 +520,7 @@ function renderBoard(){
     h+='<div class="task'+(dn?' done':'')+'"><button class="tbox'+(dn?' on':'')+
       '" data-t="'+k+'|'+t.id+'" aria-label="Done"></button><span>'+esc(t.name)+'</span>'+
       (t.exId?'<a class="go" href="practice-mirror.html?ex='+encodeURIComponent(t.exId)+
-        '&amp;task='+encodeURIComponent(t.id)+'&amp;who='+encodeURIComponent(k)+'">Practise</a>':'')+'</div>';});}
+        '&amp;task='+encodeURIComponent(t.id)+'&amp;who='+encodeURIComponent(k)+'">Practice</a>':'')+'</div>';});}
   col.innerHTML=h;box.appendChild(col);});
  box.querySelectorAll('[data-t]').forEach(function(b){b.addEventListener('click',function(){
   var p=b.dataset.t.split("|");toggleDone(p[0],ds,p[1]);renderBoard();});});}

@@ -14,7 +14,7 @@
       ['spectrums.html',               'What we mean by spectrums','The name is plural \u2014 and what progress actually looks like'],
       ['what-to-do-first.html',        'What to do first',        'The first 90 days, and the scripts that start legal clocks'],
       ['care-team-map.html',           'The care team map',       'Forty-five specialties — who does what, and why you\u2019d call them'],
-      ['conditions-library.html',      'The conditions library',  'Thirty-three conditions, how widely each varies, what helps'],
+      ['conditions-library.html',      'The conditions library',  'Forty-six conditions, how widely each varies, what helps'],
       ['whole-picture.html',           'The whole picture',       'When one diagnosis isn\u2019t the whole story \u2014 and how to see the rest']
     ]},
     { label: 'School and services', items: [
@@ -49,12 +49,16 @@
     ]},
     { label: 'Safety and health', items: [
       ['safety.html',                  'Safety',                  'Water, wandering, responders, body autonomy, equipment'],
-      ['injuries-and-illness.html',    'When something happens',  'Where to go now, hospitals, and a serious diagnosis']
+      ['injuries-and-illness.html',    'When something happens',  'Where to go now, hospitals, and a serious diagnosis'],
+      ['supplements.html',             'Supplements and natural approaches','What families try, what the evidence says, and what to ask'],
+      ['judging-claims.html',          'Judging what you are offered','Weighing a claim, a test result, a product, a long protocol'],
+      ['Judging what you are offered','Claims, product quality, test results and long protocols']
     ]},
     { label: 'Therapies', items: [
       ['occupational-therapy.html',    'Occupational therapy',    'The whole day is the treatment'],
       ['physical-therapy.html',        'Physical therapy',        'Not normal movement \u2014 more life'],
       ['speech-language-aac.html',     'Speech, language and AAC','What communication is actually for'],
+      ['mealtime-communication.html',  'Mealtime communication boards','Words for every step of eating \u2014 free to download and print'],
       ['feeding-therapy.html',         'Feeding therapy',         'ARFID, demand avoidance, and declarative language'],
       ['aquatic-therapy.html',         'Aquatic therapy',         'A different set of physics'],
       ['myofunctional-therapy.html',   'Myofunctional therapy',   'Breathing, sleeping, eating, drinking, speaking'],
@@ -277,7 +281,7 @@
     '<nav class="nv-menu" aria-label="Sections">' + qHtml + '</nav>';
   document.body.insertBefore(bar, document.body.firstChild);
 
-  /* --- dropdown behaviour: click to open, one at a time, Escape closes --- */
+  /* --- dropdown behavior: click to open, one at a time, Escape closes --- */
   (function () {
     var menus = [].slice.call(bar.querySelectorAll('.nv-m'));
     if (!menus.length) return;
@@ -928,10 +932,10 @@
     ['The people caring', ['caregivers.html']],
     ['Adult life', ['adult-life.html','adult-benefits.html','adult-housing.html','adult-providers.html','your-own-life.html']],
     ['Money, paperwork and tracking', ['paying-for-therapy.html','template-builders.html','symptom-tracker.html','goals-tracker.html','family-calendar.html','medication-list.html','food-list.html','meal-planner.html','choice-planner.html','household-board.html','practice-mirror.html','share-builder.html','using-these-tools.html']],
-    ['Safety and health', ['safety.html','injuries-and-illness.html']],
+    ['Safety and health', ['safety.html','injuries-and-illness.html','supplements.html','judging-claims.html']],
     ['Therapies', ['occupational-therapy.html','physical-therapy.html','speech-language-aac.html',
                    'feeding-therapy.html','aquatic-therapy.html','myofunctional-therapy.html',
-                   'floortime.html','music.html']],
+                   'floortime.html','music.html','mealtime-communication.html']],
     ['Learning, attention and mood', ['learning-and-literacy.html','adhd-executive-function.html','anxiety-and-ocd.html']],
     ['Behavior', ['behavior.html','de-escalation.html','behavior-support.html']],
     ['The child', ['their-own-voice.html','adaptive-community.html','maplewood-stories.html']],
@@ -1212,16 +1216,16 @@
   "Each entry says what they do, why you would call, what a first visit looks like, and what gets missed.",
   "Search by a symptom rather than a specialty if you don't know the name of what you need."],
 
-'conditions-library.html': ["Thirty-four entries, each covering what it is, how widely it varies, what helps, and what gets overlooked.",
+'conditions-library.html': ["Forty-six entries, each covering what it is, how widely it varies, what helps, and what gets overlooked.",
   "The bands show how much people with the same diagnosis differ from one another \u2014 not a rating of any child.",
   "A label is a key that opens doors to services. It is not a description of a person.",
   "The section worth reading first on any entry is what commonly gets missed."],
 
-'inside-the-iep.html': ["Write every concern into the parent concerns statement. It is the only part of the IEP you write.",
-  "If it isn't in writing, it didn't happen. That section is the dated record everything later rests on.",
-  "Comprehensive on paper, focused in the room \u2014 submit everything, then push on two or three things.",
-  "A goal without a baseline, a number, and a named measure cannot be enforced.",
-  "You do not have to sign at the meeting. Take it home."],
+'inside-the-iep.html': ["Needs first, then goals, then services, then setting. Placement is the last step, not the first.",
+  "Submit concerns before the meeting and a short supplement after \u2014 not a \u201cdraft\u201d, which can be treated as not yet real.",
+  "\u201c60 minutes weekly\u201d is ambiguous \u2014 direct or consultative, individual or group, and by whom all change what it means.",
+  "Assume every email becomes part of the record. Dated, factual and calm carries more weight than justified anger.",
+  "Before keeping a child out of school, understand what it can set in motion \u2014 and ask for a documented interim arrangement instead."],
 
 'accommodations-finder.html': ["Search by the difficulty you actually see, not by diagnosis.",
   "Each entry explains why it happens and gives wording you can request word for word.",
@@ -1274,17 +1278,17 @@
   "Strength training is safe and helpful in cerebral palsy. The old warning has not held up.",
   "Wheels are not giving up. Early mobility is associated with more independence, not less walking."],
 
-'speech-language-aac.html': ["The goal was never speech. It was being understood, and being able to say the things that matter.",
-  "Check whether your child can refuse, ask a question, and say something hurts. If not, that's the next conversation.",
-  "AAC belongs alongside speech from the beginning. It is associated with gains in speech, not losses.",
-  "There are no prerequisites for communication. No readiness test, no threshold to clear.",
-  "Recounting \u2014 telling someone about something they didn't see \u2014 is the vocabulary that protects a person."],
+'speech-language-aac.html': ["Communication is for refusing, commenting, joking and objecting \u2014 not only for requesting.",
+  "The goal is a device the person operates themselves. Pointing needs an audience and an interpreter.",
+  "No test score or proof of readiness may be required first. The field rejected candidacy criteria \u2014 there is no threshold to clear.",
+  "Model constantly and expect nothing back. If nobody models, they are learning a language nobody speaks to them.",
+  "Never take it away, never make them earn it, never ignore a message you did not want to hear."],
 
-'feeding-therapy.html': ["Eating is the one skill nobody can perform on a child's behalf, which is why pressure fails here.",
-  "Progress is a ladder of about twelve steps. Swallowing is only the last one.",
-  "Spitting it out must always be allowed. A child who knows they can get it out will let it in.",
-  "Protect the accepted foods first. Never hide or sneak anything \u2014 it can cost the whole list.",
-  "Change the language before anything else: observations and wonderings instead of questions and instructions."],
+'feeding-therapy.html': ["Restricted eating is rarely fussiness \u2014 look for pain, airway, sensory and anxiety underneath it.",
+  "Food chaining: change one property at a time \u2014 texture, temperature, flavor, wetness, brand.",
+  "Not everyone wants mild. Many respond better to intense flavors \u2014 sour, bitter, sharp, strongly salted.",
+  "Clinicians genuinely disagree about pressure. This site leans responsive, and says so rather than pretending it is settled.",
+  "Nutrition formulas usually go through a DME supplier, not a pharmacy \u2014 that is where families get stuck."],
 
 'aquatic-therapy.html': ["Water changes the physics \u2014 weight, speed, resistance, and how long you have to react.",
   "A child may genuinely do something in the pool months before they can do it on land. That practice is real.",
@@ -1389,7 +1393,7 @@
 
 'terms-and-privacy.html': ["Free, collects nothing about you, not professional advice of any kind, and cannot know your child.",
   "No accounts, no analytics, no cookies, no advertising. Tools store data in your browser and nowhere else.",
-  "Content is offered under a Creative Commons licence \u2014 copy it, adapt it, put your own name on it.",
+  "Content is offered under a Creative Commons license \u2014 copy it, adapt it, put your own name on it.",
   "Practitioner listings involve no payment, no vetting, and no endorsement.",
   "If any part of the site is hard for you to use, tell us and we will provide it another way."],
 
@@ -1436,11 +1440,11 @@
   "Three print layouts: full detail, by time of day, and a short version for a wallet or bag.",
   "Allergies print first, in red. That is the line people read first."],
 
-'food-list.html': ["For someone with a very short list, that list is not a preference \u2014 it is access to eating at all.",
-  "Be specific to the point of feeling silly. The brand matters. The plate matters. A stranger will read this.",
-  "Protect the accepted list first. Expansion happens from a stable base, not from a shrinking one.",
-  "A list that keeps shrinking is a clinical finding. The dated record is what shows it.",
-  "Print it for a hospital admission, a new school, or a week at a grandparent\u2019s."],
+'food-list.html': ["Be specific to the point of feeling silly \u2014 brand, plate, temperature, what it must not touch.",
+  "Tag what foods are like, and the tool shows what they have in common \u2014 usually the doorway to what to try next.",
+  "Target foods are ones you hope to reach; being explored is what is actively in play. Keep them apart.",
+  "A shrinking list is information, not failure \u2014 record what was lost and when.",
+  "Print it for anyone who feeds them. A substitution can end a food that took a year to gain."],
 
 'family-calendar.html': ["One day on one screen \u2014 routine, medication, meals and appointments, built for a tablet on the wall.",
   "Three views: everything, a caregiver version, and a simple one showing only what you choose to share.",
@@ -1477,6 +1481,24 @@
   "The grief keeps arriving, and it is not a failure of acceptance. Most people feel resentment sometimes too.",
   "Book your own appointment. Caregivers defer their own care for years.",
   "Leave a group that demands relentless positivity. Stay in one that includes disabled adults."],
+
+'supplements.html': ["A reference list, not a recommendation \u2014 and it contains no doses on purpose.",
+  "Tell your prescribing doctor, every time. Half of families don\u2019t, and that silence is where the danger sits.",
+  "Test before you treat. Iron, vitamin D, B12, zinc and thyroid can all be measured \u2014 and several are harmful in excess.",
+  "One thing at a time, with a date to decide. Fifteen at once tells you nothing.",
+  "Named plainly: chlorine dioxide and chelation are dangerous, and a practitioner who discourages you from telling your doctor is the clearest warning sign there is."],
+
+'judging-claims.html': ["A test result is not a fact \u2014 it shifts a probability, and how much depends on how likely it was beforehand.",
+  "A condition being real is not the same as a test for it being validated.",
+  "Heavy metals in botanicals are a documented problem, turmeric especially. Look for third-party testing.",
+  "On a long protocol, the question that matters is what would tell you it is not working.",
+  "A contested test can still find something real \u2014 confirm it with an established one, then treat what is confirmed."],
+
+'mealtime-communication.html': ["Vocabulary for eating \u2014 words for every step, not only for yes and no.",
+  "Each graded step gets its own word \u2014 tap, touch, smell, lick, bite, chew \u2014 so a person can say where they are.",
+  "Refusal vocabulary is a skill, not permission. Honor it every time or the board stops working.",
+  "Twelve boards, free, as device files, printable PDFs, and plain word lists that need no license at all.",
+  "Giving somebody a way to refuse food does not make them eat less. It tends to make them try more."],
 
 'maplewood-stories.html': ["Fifty-two picture books about ten friends who are not alike, figuring it out together.",
   "No child in them is labeled, and none of them is the lesson.",
@@ -1536,6 +1558,20 @@
   'use strict';
 
   var MARKS = {
+
+  'mealtime-communication.html':
+    '<rect width="74" height="74" fill="#EDF1F5"/><rect x="10" y="14" width="54" height="46" rx="3" fill="#FFF" stroke="#16283C" stroke-width="1.6"/><rect x="15" y="19" width="13" height="12" rx="1.5" fill="#F5F3D9" stroke="#C9C29A"/><rect x="31" y="19" width="13" height="12" rx="1.5" fill="#E4F0E2" stroke="#A8C4A3"/><rect x="47" y="19" width="12" height="12" rx="1.5" fill="#F0E4EF" stroke="#CBA9C8"/><rect x="15" y="35" width="13" height="12" rx="1.5" fill="#E2ECF5" stroke="#A4BDD2"/><rect x="31" y="35" width="13" height="12" rx="1.5" fill="#FBEEDD" stroke="#D8BC8E"/><rect x="47" y="35" width="12" height="12" rx="1.5" fill="#F6E2E0" stroke="#D3A7A1"/>',
+
+
+  'judging-claims.html':
+    '<rect width="74" height="74" fill="#F1F4F0"/><path d="M37 14v8M20 26h34" stroke="#16283C" stroke-width="2"/><path d="M20 26l-7 15h14z" fill="#9C4A21" opacity=".75"/><path d="M54 26l-7 15h14z" fill="#2E4E3F" opacity=".75"/><path d="M37 22v34M27 58h20" stroke="#16283C" stroke-width="2"/>',
+
+
+
+
+  'supplements.html':
+    '<rect width="74" height="74" fill="#EDEFE2"/><path d="M27 20a9 9 0 0 1 18 0v30a9 9 0 0 1-18 0z" fill="#FFF" stroke="#16283C" stroke-width="1.8"/><path d="M27 35h18" stroke="#16283C" stroke-width="1.8"/><path d="M27 35v15a9 9 0 0 0 18 0V35z" fill="#5C6B3A" opacity=".55"/><path d="M56 18c-6 2-8 7-6 12 5 1 9-3 9-8z" fill="#4B7A5A"/>',
+
 
   'caregivers.html':
     '<rect width="74" height="74" fill="#EFE6F1"/><circle cx="27" cy="26" r="8" fill="none" stroke="#16283C" stroke-width="2"/><path d="M13 52v-3a14 14 0 0 1 28 0v3" fill="none" stroke="#16283C" stroke-width="2"/><path d="M52 30c0-4 6-6 8-2 2-4 8-2 8 2 0 6-8 11-8 11s-8-5-8-11z" fill="#6B4A78"/>',
@@ -1782,7 +1818,7 @@
     ['Water',
      'Reading this page is itself a safety measure. <b>You are already doing the thing that protects people</b> \u2014 learning what to look for before it is needed.'],
     ['Body autonomy',
-     'warm|Teaching someone that their <b>no</b> counts is not a small lesson tucked into a difficult page. It may be the single most protective thing anyone ever gives them \u2014 and every ordinary day you honour a refusal, you are teaching it.'],
+     'warm|Teaching someone that their <b>no</b> counts is not a small lesson tucked into a difficult page. It may be the single most protective thing anyone ever gives them \u2014 and every ordinary day you honor a refusal, you are teaching it.'],
     ['Teaching safety, honestly',
      'None of this has to be finished. <b>Layers can be added one at a time</b>, and the one you add this month is genuinely worth having on its own.']
   ],
@@ -1926,7 +1962,7 @@
     ['If something is wrong',
      'warm|If you have told someone before and nothing happened, that was not you failing. <b>Try again, with someone else.</b> There are people whose whole job is to listen to exactly this, and they are waiting to hear from you.'],
     ['Speaking up for yourself',
-     'You have been practising this your whole life, whether anyone called it that. <b>You already know how to be the person who says what they need.</b>']
+     'You have been practicing this your whole life, whether anyone called it that. <b>You already know how to be the person who says what they need.</b>']
   ],
 
   'adaptive-community.html': [
@@ -1946,7 +1982,7 @@
 
   'accommodations-finder.html': [
     ['',
-     'Asking for an adjustment is not asking for a favour. <b>It is asking for the version of the day that your person can actually take part in.</b>']
+     'Asking for an adjustment is not asking for a favor. <b>It is asking for the version of the day that your person can actually take part in.</b>']
   ],
 
   'template-builders.html': [
@@ -2033,6 +2069,21 @@
 'caregivers.html': [
     ['',
      'warm|You have kept somebody going through things most people never see. <b>That is not nothing, and it is not owed to anyone</b> \u2014 you chose it, every ordinary day, and you are allowed to need something back.']
+  ],
+
+'supplements.html': [
+    ['',
+     'warm|Wanting to try something is not gullibility \u2014 it is what love looks like when the official answer has been \u201cwait and see\u201d for two years. <b>Ask the hard questions of everyone, including the people who were kind to you.</b>']
+  ],
+
+'judging-claims.html': [
+    ['',
+     'warm|Asking hard questions is not distrust \u2014 it is the work. <b>Anybody worth staying with will answer them properly</b>, and the ones who bristle have told you something you needed to know.']
+  ],
+
+'mealtime-communication.html': [
+    ['',
+     'warm|A person who can say <i>no thank you</i> and be believed will try more than one who can only refuse by leaving the table. <b>Giving somebody words is not the same as giving them demands.</b>']
   ],
 
   'medication-list.html': [
@@ -2160,18 +2211,31 @@
     return { typed: words, all: out };
   }
 
+  /* Whole-word matching. Plain indexOf made "functional" match "myofunctional"
+     and "ear" match "learning", which put the wrong pages at the top. */
+  function has(hay, word) {
+    var i = hay.indexOf(word);
+    while (i > -1) {
+      var before = i === 0 ? ' ' : hay.charAt(i - 1);
+      var after = hay.charAt(i + word.length) || ' ';
+      if (before === ' ' && (after === ' ' || after === 's')) return true;
+      i = hay.indexOf(word, i + 1);
+    }
+    return false;
+  }
+
   function score(entry, terms) {
-    var hay = norm(entry.x + ' ' + entry.t + ' ' + entry.h + ' ' + (entry.k || ''));
+    var hay = ' ' + norm(entry.x + ' ' + entry.t + ' ' + entry.h + ' ' + (entry.k || '')) + ' ';
     var s = 0, hitTyped = 0;
     terms.all.forEach(function (w) {
-      if (hay.indexOf(w) < 0) return;
+      if (!has(hay, w)) return;
       s += 2;
-      if (norm(entry.h).indexOf(w) > -1) s += 3;
-      if (norm(entry.t).indexOf(w) > -1) s += 2;
+      if (has(' ' + norm(entry.h) + ' ', w)) s += 3;
+      if (has(' ' + norm(entry.t) + ' ', w)) s += 2;
     });
     terms.typed.forEach(function (w) {
-      if (hay.indexOf(w) > -1) { s += 6; hitTyped++; }
-      if (norm(entry.h).indexOf(w) > -1) s += 6;
+      if (has(hay, w)) { s += 6; hitTyped++; }
+      if (has(' ' + norm(entry.h) + ' ', w)) s += 6;
     });
     /* reward covering more of what they actually typed */
     if (terms.typed.length > 1) s += hitTyped * 2;

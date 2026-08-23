@@ -252,6 +252,7 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
     <div>
       <div class="card">
         <h2>Add a food</h2>
+        <p class="fnote">If a nutrition formula is part of the day, record it here too — <a href="feeding-therapy.html">feeding and eating</a> covers getting one covered.</p>
         <p class="fnote">Target foods appear as options in the <a href="meal-planner.html">meal planner</a>, so trying something new is always a choice rather than a surprise.</p>
         <p class="fnote"><strong>Target</strong> means a food you are hoping to get to one day — not being worked on yet. <strong>Being explored</strong> means it is actively in play. Keeping those apart matters, because a target list can be long and hopeful while the exploring list stays very short.</p>
         <p class="fnote">Be specific to the point of feeling silly. The brand matters. The shape matters. Somebody who has never met this person will read it.</p>
@@ -273,6 +274,8 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
           <div class="fld"><label for="fwhen">Usually eaten</label>
             <input type="text" id="fwhen" placeholder="e.g. lunch and dinner"></div>
         </div>
+        <div class="fld"><label>What is it like? <span class="hint">Tag the properties. This is what lets the tool suggest what to try next.</span></label>
+          <div class="chips" id="propchips"></div></div>
         <div class="fld"><label for="fhow">Exactly how it has to be <span class="hint">Brand, temperature, plate, cut, packaging, what it must not touch.</span></label>
           <textarea id="fhow" placeholder="e.g. Brand X only — will not eat the supermarket version. Oven, never microwave. Cooled to warm, not hot. On the blue plate, not touching anything else. Cut in half lengthways."></textarea></div>
         <div class="fld"><label for="fnote">Anything else <span class="hint">What ends it, what it is often paired with, what to avoid saying.</span></label>
@@ -337,7 +340,13 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
   </div>
 </section>
 
-<section class="panel" id="p-print">
+<div class="card">
+    <h2>What to try next</h2>
+    <p class="fnote">Built from the properties you have tagged. It is a prompt for thinking, not a plan — nothing here knows your person.</p>
+    <div id="suggest"></div>
+  </div>
+
+  <section class="panel" id="p-print">
   <div class="card noprint">
     <h2>Print it</h2>
     <p class="fnote">Take a copy to a hospital admission, a new school, a respite stay, or a week at a grandparent's.</p>
@@ -417,6 +426,10 @@ function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2
 function pad(n){return String(n).padStart(2,"0");}
 function today(){var d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
 function shortd(x){var a=x.split("-").map(Number);return new Date(a[0],a[1]-1,a[2]).toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});}
+var PROPS=["Crunchy","Crispy","Smooth","Chewy","Soft","Dry","Wet or saucy","Mixed textures",
+ "Cold or frozen","Warm","Sweet","Salty","Sour","Savory","Bitter","Spicy","Strong flavor","Mild",
+ "Beige or pale","Colorful","Whole shape","Cut small","Specific brand","In its packet"];
+var props=[];
 var SW={safe:"Accepted",sometimes:"Sometimes",target:"Target",trying:"Exploring",lost:"Lost"};
 
 var TABS=[{k:"list",n:"The list",note:"Everything accepted, and exactly how it has to be."},
@@ -439,12 +452,14 @@ $("tabnote").textContent=TABS[0].note;
 
 $("addfood").addEventListener("click",function(){
  var n=$("fname").value.trim();if(!n){alert("Name it first.");return;}
- F().items.push({id:uid(),name:n,status:$("fstatus").value,group:$("fgroup").value.trim(),
+ F().items.push({id:uid(),name:n,props:props.slice(),status:$("fstatus").value,group:$("fgroup").value.trim(),
   when:$("fwhen").value.trim(),how:$("fhow").value.trim(),note:$("fnote").value.trim()});
  ["fname","fgroup","fwhen","fhow","fnote"].forEach(function(id){$(id).value="";});
- save();renderList();});
+ props=[];renderProps();
+ save();renderList();renderSuggest();});
 $("clearfood").addEventListener("click",function(){
- ["fname","fgroup","fwhen","fhow","fnote"].forEach(function(id){$(id).value="";});});
+ ["fname","fgroup","fwhen","fhow","fnote"].forEach(function(id){$(id).value="";});
+ props=[];renderProps();});
 $("ffilt").addEventListener("change",renderList);
 $("saveinfo").addEventListener("click",function(){
  F().rules=$("genrules").value;F().allerg=$("allerg").value;F().supp=$("supp").value;save();
@@ -486,6 +501,48 @@ function fReadPaste(){
  $("fcancelpaste").addEventListener("click",function(){box.innerHTML="";});}
 
 
+function renderProps(){
+ var box=$("propchips");if(!box)return;box.innerHTML="";
+ PROPS.forEach(function(p){var b=document.createElement("button");
+  b.type="button";b.className="chip"+(props.indexOf(p)>=0?" on":"");b.textContent=p;
+  b.addEventListener("click",function(){var i=props.indexOf(p);
+   if(i>=0)props.splice(i,1);else props.push(p);renderProps();});
+  box.appendChild(b);});}
+
+/* Counts which properties the accepted foods share, then points at what is
+   missing. The useful moment is usually seeing that everything on the list is
+   crunchy and beige — which tells you what to try, and what not to bother with. */
+function renderSuggest(){
+ var box=$("suggest");if(!box)return;
+ var acc=F().items.filter(function(x){return x.status==="safe"||x.status==="sometimes";});
+ var tagged=acc.filter(function(x){return (x.props||[]).length;});
+ if(acc.length<3||tagged.length<2){
+  box.innerHTML='<p class="empty">Tag the properties on a few accepted foods and suggestions will appear here.</p>';
+  return;}
+ var count={};
+ tagged.forEach(function(x){(x.props||[]).forEach(function(p){count[p]=(count[p]||0)+1;});});
+ var ranked=Object.keys(count).sort(function(a,b){return count[b]-count[a];});
+ var top=ranked.filter(function(p){return count[p]>=Math.max(2,Math.ceil(tagged.length*0.4));});
+ var targets=F().items.filter(function(x){return x.status==="target"||x.status==="trying";});
+ var h='';
+ if(top.length){
+  h+='<p><b>What the accepted foods have in common:</b> '+top.slice(0,5).map(esc).join(", ")+'.</p>';
+  h+='<p class="fnote">The nearest thing to try is something new that shares as many of those as possible, changing <b>one</b> property at a time.</p>';}
+ var missing=["Crunchy","Smooth","Cold or frozen","Sour","Strong flavor","Colorful"].filter(function(p){return !count[p];});
+ if(missing.length){
+  h+='<p style="margin-top:12px"><b>Not represented at all:</b> '+missing.map(esc).join(", ")+
+     '. That is worth testing rather than assuming \u2014 a property nobody has tried is different from one that has been refused.</p>';}
+ if(targets.length){
+  var best=null,score=-1;
+  targets.forEach(function(t){
+   var sc=(t.props||[]).filter(function(p){return top.indexOf(p)>=0;}).length;
+   if(sc>score){score=sc;best=t;}});
+  if(best&&score>0){
+   h+='<p style="margin-top:12px"><b>Closest thing on your target list:</b> '+esc(best.name)+
+      ' \u2014 it shares '+score+' propert'+(score===1?'y':'ies')+' with what already works.</p>';}}
+ h+='<p class="fnote" style="margin-top:12px">If everything accepted shares one property, that is not a limitation to work against \u2014 it is the doorway. Look for that property in foods nobody has offered yet.</p>';
+ box.innerHTML=h;}
+
 function renderList(){
  renderCounts();
  var f=$("ffilt").value,box=$("foodlist");
@@ -505,15 +562,16 @@ function renderList(){
   var h='<div class="fh"><span class="fn">'+esc(x.name)+'</span><span class="fs">'+SW[x.status]+'</span></div>';
   var bits=[];if(x.group)bits.push(esc(x.group));if(x.when)bits.push(esc(x.when));
   if(bits.length)h+='<div class="fd">'+bits.join(' \u00b7 ')+'</div>';
+  if(x.props&&x.props.length)h+='<div class="fd"><b>Like</b>'+esc(x.props.join(" \u00b7 "))+'</div>';
   if(x.how)h+='<div class="fd"><b>Exactly how</b>'+nl(x.how)+'</div>';
   if(x.note)h+='<div class="fd"><b>Note</b>'+nl(x.note)+'</div>';
   h+='<button class="mini" data-cycle>Change status</button> &nbsp; <button class="mini" data-del>Remove</button>';
   w.innerHTML=h;
   w.querySelector('[data-cycle]').addEventListener('click',function(){
-   var o=["safe","sometimes","target","trying","lost"];x.status=o[(o.indexOf(x.status)+1)%5];save();renderList();});
+   var o=["safe","sometimes","target","trying","lost"];x.status=o[(o.indexOf(x.status)+1)%5];save();renderList();renderSuggest();});
   w.querySelector('[data-del]').addEventListener('click',function(){
    if(!confirm("Remove "+x.name+"?"))return;
-   F().items=F().items.filter(function(y){return y.id!==x.id;});save();renderList();});
+   F().items=F().items.filter(function(y){return y.id!==x.id;});save();renderList();renderSuggest();});
   box.appendChild(w);});}
 
 $("hdate").value=today();
@@ -597,9 +655,10 @@ $("savesetup").addEventListener("click",function(){var p=PERSON();
  $("savesetup").textContent="Saved";setTimeout(function(){$("savesetup").textContent="Save";},1400);});
 
 function boot(){
+ renderProps();
  $("freadpaste").addEventListener("click",fReadPaste);
  $("genrules").value=F().rules||"";$("allerg").value=F().allerg||"";$("supp").value=F().supp||"";
- renderList();renderSetup();}
+ renderList();renderSuggest();renderSetup();}
 boot();
 </script>
 

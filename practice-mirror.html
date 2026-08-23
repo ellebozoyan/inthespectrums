@@ -267,7 +267,7 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
 
 <section class="panel on" id="p-practice">
   <div class="row" style="margin-bottom:10px">
-    <div class="fld" style="max-width:330px"><label for="exsel">What are we practising?</label>
+    <div class="fld" style="max-width:330px"><label for="exsel">What are we practicing?</label>
       <select id="exsel"></select></div>
   </div>
 
@@ -497,7 +497,7 @@ var fromBoard=null;
  }catch(e){}
 })();
 
-var TABS=[{k:"practice",n:"Practise",note:"The target plays see-through over the live camera."},
+var TABS=[{k:"practice",n:"Practice",note:"The target plays see-through over the live camera."},
  {k:"compare",n:"Compare",note:"Target and attempt side by side, in slow motion."},
  {k:"exercises",n:"Exercises",note:"What the therapist asked for, and the clip they filmed."},
  {k:"log",n:"The log",note:"What was done and when. Print it for the next session."}];
@@ -601,7 +601,7 @@ function renderEx(){
    (e.target?'<div class="ed"><b>How much</b>'+esc(e.target)+'</div>':'')+
    (e.cues?'<div class="ed"><b>Cues</b>'+nl(e.cues)+'</div>':'')+
    '<div class="ed">'+(e.hasClip?'Clip saved on this device':'No clip \u2014 cues only')+'</div>'+
-   '<button class="mini" data-use="'+e.id+'">Practise this</button> &nbsp; '+
+   '<button class="mini" data-use="'+e.id+'">Practice this</button> &nbsp; '+
    '<button class="mini" data-rm="'+e.id+'">Remove</button></div>';}).join('');
  box.querySelectorAll('[data-use]').forEach(function(b){b.addEventListener('click',function(){
   $("exsel").value=b.dataset.use;pickEx();

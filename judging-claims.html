@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Judging what you are offered — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#5C6B3A; --book-tint:#EDEFE2; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the equation */
+.eqn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.eqn h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.eqn .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.parts{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:18px}
+@media(max-width:700px){.parts{grid-template-columns:1fr;gap:6px}.op{text-align:center;padding:2px 0}}
+.pt{background:rgba(255,255,255,.06);border-top:3px solid var(--book);padding:15px 16px}
+.pt.res{border-top-color:var(--rust);background:rgba(156,74,33,.13)}
+.pt b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#EFEBE3;margin-bottom:6px}
+.pt span{font-size:.86rem;color:#B9C4B4;line-height:1.45;display:block}
+.op{font-size:1.5rem;color:#C6A98F;text-align:center}
+.eqn .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:20px 0 0;max-width:62ch}
+.eqn .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .eqn{background:#fff;color:#000;border:1px solid #000}.eqn .big,.pt b,.eqn .cap strong{color:#000}}
+
+.cliff{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin:0 0 18px}
+@media(max-width:640px){.cliff{grid-template-columns:1fr}}
+.cliff .side{padding:18px 20px}
+.cliff .l{background:rgba(255,255,255,.07);border-top:3px solid #7FA57A}
+.cliff .r{background:rgba(156,74,33,.16);border-top:3px solid #C6704A}
+.cliff .gap{display:flex;align-items:center;justify-content:center;padding:0 14px;
+  font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C6A98F}
+@media(max-width:640px){.cliff .gap{padding:10px 0}}
+.cliff b{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px}
+.cliff .l b{color:#7FA57A}.cliff .r b{color:#E8C3BC}
+.cliff ul{margin:0;padding-left:17px;font-size:.9rem;line-height:1.5}
+.cliff li{margin-bottom:6px;color:#B9C4B4}
+.ladder{margin:0 0 16px}
+.rung{background:var(--card);border-left:4px solid var(--line);padding:15px 19px;margin-bottom:8px}
+.rung.least{border-left-color:#2E4E3F}
+.rung.mid{border-left-color:#A8641C}
+.rung.most{border-left-color:#8A2B20}
+.rung b{display:block;font-size:1.03rem;font-weight:400;margin-bottom:5px}
+.rung .tag{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;float:right;margin-left:12px}
+.rung.least .tag{color:#2E4E3F}.rung.mid .tag{color:#A8641C}.rung.most .tag{color:#8A2B20}
+.rung p{font-size:.93rem;margin:0;color:var(--ink-soft)}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Judging what you are offered:<br><em>tests, products and protocols</em></h1>
+  <p class="lede">How to weigh a claim, read a test result, check what is actually in a bottle, and stay oriented inside a long treatment plan. Written for families who are being offered things — by practitioners, by other parents, by an algorithm — and want a way to think about them that does not require picking a side.</p>
+</header>
+
+<div class="note">
+  <p>This is the companion to <a href="supplements.html">supplements and natural approaches</a>, which covers what specific things are and what the evidence says. This page is about the reasoning rather than the substances — and most of it applies equally to conventional medicine.</p>
+</div>
+
+<section>
+  <h2 class="sec">What is actually <em>in the bottle</em></h2>
+  <p class="secnote">The part almost nobody checks, and the one that matters most for children — because a small body gets a larger dose of anything unintended.</p>
+
+  <p>In the US, supplements do not have to be proven safe or effective before sale, and are not routinely tested before they reach a shelf. Independent testing repeatedly finds products with less than the label states, more than it states, or ingredients not on the label at all.</p>
+
+  <div class="warn">
+    <h3>Heavy metals in botanicals</h3>
+    <p>Plant-based products can carry <strong>lead, arsenic, cadmium and mercury</strong> — sometimes from soil, sometimes from processing, and occasionally added deliberately as a colorant or bulking agent.</p>
+    <p><strong>Turmeric is the best-documented example.</strong> A lead compound has been used in some supply chains to brighten the color, and contaminated turmeric has caused elevated lead levels in children.</p>
+    <p>Some traditional Ayurvedic and herbal preparations have also been associated with lead and mercury poisoning, particularly products bought abroad or online without third-party testing.</p>
+    <p><strong>There is no safe level of lead for a child.</strong> It affects the developing brain, the effects are cumulative and permanent, and it causes no symptoms until levels are high. If a child has been on imported or untested botanicals for a long period, asking the prescribing doctor about a blood lead level is entirely reasonable.</p>
+  </div>
+
+  <h3 class="sub">How to check before you buy</h3>
+  <ul>
+    <li><strong>Look for a third-party testing mark on the bottle.</strong> Independent programs verify that what is on the label is in the product and that contaminant levels were checked. A product carrying one has been through something; a product without has not necessarily failed anything — it simply has not been examined.</li>
+    <li><strong>Ask for a certificate of analysis.</strong> Any reputable maker will provide one, and it should show heavy metal testing on that batch. A company that cannot or will not produce one has told you something.</li>
+    <li><strong>Be most careful with botanicals, imported products, and anything bought through a marketplace</strong> rather than from the maker — counterfeits are a genuine problem.</li>
+    <li><strong>"Pharmaceutical grade" is a marketing phrase</strong>, not a regulated standard. So is "clinically proven" on a bottle.</li>
+    <li><strong>Practitioner-sold does not mean tested.</strong> Some professional lines are excellent; the label alone does not tell you which.</li>
+    <li><strong>A warning label about chemical exposure</strong> on a product sold in California is a legal notice with a very low threshold, and does not by itself indicate danger — but it is a reason to look for the testing data rather than to ignore it.</li>
+    <li><strong>Fewer products, better checked</strong> beats a long list of unverified ones. This is one place where cutting down is genuinely safer, not just cheaper.</li>
+  </ul>
+
+  <p class="fnote">A pharmacist can help with this too, and so can a dietitian — both are used to being asked about brands and neither is selling you one.</p>
+</section>
+
+<section>
+  <h2 class="sec">Specialty testing, <em>and how to read a result</em></h2>
+  <p class="secnote">Where this gets hardest. Families are offered tests that mainstream medicine does not use, are told the results are decisive, and are then told by their own doctor that the test means nothing. Both sides sound certain. Here is how to think about it without having to pick a team.</p>
+
+  <div class="bnote">
+    <h3>The one idea that explains most of it</h3>
+    <p>A test result is not a fact about your child. It is a piece of evidence that shifts a probability — and how much it shifts depends on <strong>how likely the condition was before you tested.</strong></p>
+    <p>Run a test for something rare on a person with no particular features of it, and a positive result is more likely to be wrong than right, even with a good test. Run the same test on someone with a strong clinical picture and the same positive means a great deal.</p>
+    <p>This is why the identical result can be genuinely meaningful for one child and genuinely meaningless for another, and why two honest clinicians can look at the same number and disagree. <strong>It is not usually that one of them is lying to you.</strong></p>
+  </div>
+
+  <h3 class="sub">Questions to ask about any test, before it is run</h3>
+  <ul>
+    <li><strong>What question is this answering?</strong> If nobody can name the question, the result will not answer it.</li>
+    <li><strong>What will a positive mean, and what will a negative mean?</strong> Ask both. A test that cannot come back reassuring is not diagnosing anything.</li>
+    <li><strong>Is there a reference standard for this condition, and is this it?</strong> Some conditions have an established gold-standard test and a more convenient proxy. The proxy is not the same thing, and it is worth knowing which you are being offered.</li>
+    <li><strong>Has this test been clinically validated, and by whom?</strong> A laboratory being certified to run tests accurately is not the same as a test being proven to mean what it is said to mean. Labs sometimes present the first as if it were the second.</li>
+    <li><strong>Do different laboratories interpret this differently?</strong> For some tests they use different thresholds and report substantially different rates of positive results. If so, that is a fact about the test worth knowing before you have a number in your hand.</li>
+    <li><strong>What would we do differently depending on the answer?</strong> If nothing, it can wait.</li>
+    <li><strong>What does it cost, and is it covered?</strong> Specialty panels are frequently neither cheap nor reimbursed.</li>
+  </ul>
+
+  <h3 class="sub">Three kinds of test, which behave differently</h3>
+  <div class="domains">
+    <div class="dom"><h3>Tests with an established standard</h3>
+      <p>Iron, vitamin D, B12, thyroid, coeliac serology, a stool antigen for a specific organism. Well characterised, widely agreed, and a result means broadly the same thing wherever it was run.</p>
+      <p class="look"><b>These are the ones</b>to do first, and to ask about by name.</p></div>
+
+    <div class="dom"><h3>Proxy tests for a harder-to-reach question</h3>
+      <p>Where the definitive test is invasive or difficult, a blood or urine marker is sometimes offered instead. Sometimes the proxy tracks the real thing well. Sometimes the relationship is assumed rather than established.</p>
+      <p class="look"><b>Ask</b>what the definitive test would be, and why this one is being used instead.</p></div>
+
+    <div class="dom"><h3>Broad panels</h3>
+      <p>Comprehensive stool analyses, extensive antibody or sensitivity panels, large metabolic screens. They report a great many values at once, and by design most will be flagged as outside some range in most people.</p>
+      <p class="look"><b>The risk</b>Treating every flagged line is how a person ends up on fifteen things. Ask which two findings actually matter and why.</p></div>
+  </div>
+
+  <div class="note">
+    <h3>And here is the part almost nobody says out loud</h3>
+    <p><strong>A test whose overall validity is contested can still find something real.</strong> A broad panel with a lot of questionable output can, in among it, pick up a genuine treatable infection that nobody had looked for — and treating that can change everything for a child.</p>
+    <p>That is not a reason to trust the rest of the panel, and it is not a reason to dismiss the finding. Both conclusions are wrong. <strong>The right response to a striking result from a contested test is to confirm it with an established one</strong>, and then treat what is confirmed.</p>
+    <p>If a specialty test suggests a specific infection, ask whether there is a standard test for that same organism, and run it. If it confirms, you have something solid to take to any doctor, anywhere, without having to defend the lab it came from. If it does not confirm, that is worth knowing too.</p>
+  </div>
+
+  <div class="bnote">
+    <h3>A distinction that gets lost constantly</h3>
+    <p><strong>A condition being real is not the same as a test for it being validated.</strong> These come apart more often than people expect, and confusing them causes trouble in both directions.</p>
+    <p>PANS and PANDAS are a clear example. They are recognized conditions with published consensus guidance, and families who describe a sudden, dramatic onset of obsessive-compulsive symptoms, restricted eating and personality change are describing something real that clinicians do treat.</p>
+    <p><strong>And the diagnosis is a clinical one.</strong> The consensus criteria are based on the history and the presentation — not on a laboratory result. Commercial antibody panels marketed for it exist and are used by some clinicians; independent validation is limited, and mainstream guidance does not treat any blood test as confirming or excluding the diagnosis.</p>
+    <p>So a negative result does not mean nothing is wrong, and a positive does not settle it. Neither does it make the panel worthless — it makes it one input among several, in a picture that is assembled clinically. Ask what the result would add beyond the history you can already describe, and what would change because of it.</p>
+  </div>
+
+  <h3 class="sub">Where the disagreement is genuinely deep</h3>
+  <p>A few areas are not simply under-researched but actively contested between qualified professionals, with different diagnostic criteria in use on each side. Testing for chronic or persistent tick-borne infection is the clearest example — specialty laboratories and mainstream laboratories use different interpretive criteria and report substantially different rates of positive results, and each side considers the other's approach flawed.</p>
+  <p>This site does not adjudicate that, and nobody should pretend a website can. What is worth knowing if you find yourself in it:</p>
+  <ul>
+    <li><strong>Know which framework you are inside</strong>, and that a result will be read differently outside it.</li>
+    <li><strong>Ask what would count as recovery</strong>, and what would count as this not being the answer.</li>
+    <li><strong>Keep every original report.</strong> Not the summary letter — the actual numbers, so anyone later can form their own view.</li>
+    <li><strong>Keep the ordinary explanations open</strong> alongside it. Sleep, iron, pain, anxiety and constipation do not stop being possible because a specialty result came back positive.</li>
+    <li><strong>Watch the treatment burden</strong>, particularly with long antibiotic or herbal courses in children. The questions in the long-protocol section below apply directly.</li>
+    <li><strong>Second opinions are reasonable in both directions</strong> — including asking a mainstream specialist what they make of it, and asking a specialty practitioner what would make them reconsider.</li>
+  </ul>
+
+  <div class="note">
+    <h3>Root causes and symptom relief are not rivals</h3>
+    <p>The argument for careful testing is usually framed as treating the cause rather than chasing symptoms, and that framing is often right. Finding an infection, a deficiency, an airway problem or a hormone issue can change everything, and a person can spend years having surface symptoms managed while the thing underneath goes unexamined.</p>
+    <p><strong>But it has a failure mode worth knowing about.</strong> Not everything has a findable root cause. Some causes are real and untreatable. And a family can spend years searching for the explanation while the child goes without the help that was available the whole time.</p>
+    <p>The other half is worth saying plainly: <strong>symptom relief is not a shallow goal.</strong> Sleeping through the night, eating enough, not being in pain, being able to attend school — these are not distractions from the real work. For a great many people they <em>are</em> the real work, and they are worth pursuing whether or not the underlying question is ever settled.</p>
+    <p>The strongest position is both at once: keep investigating, and treat what can be treated in the meantime. <a href="whole-picture.html">The whole picture</a> puts it as starting services on need rather than on label — nobody has to wait for an explanation to get help.</p>
+  </div>
+
+  <p class="fnote">None of this is a reason not to investigate. Families in this territory are usually there because something was genuinely wrong and nobody was finding it — which is a reasonable thing to keep pursuing. It is a reason to hold results loosely, confirm what can be confirmed, and keep the exit visible.</p>
+</section>
+
+<section>
+  <h2 class="sec">If you are on a <em>long protocol</em></h2>
+  <p class="secnote">Written for families working with an integrative, functional or naturopathic practitioner — often on tinctures rather than capsules, several agents at once, rotated over months. Almost everything published for this group is either selling something or dismissing it, so here is neither.</p>
+
+  <p>Some of these practitioners are careful, well trained, and take seriously what conventional medicine had four minutes for. Some are not. The protocol itself rarely tells you which, because both kinds produce long lists of similar-sounding things.</p>
+
+  <p><strong>What separates them is whether the plan can be evaluated.</strong> These are the questions that surface it, and a good practitioner will welcome all of them.</p>
+
+  <h3 class="sub">Questions about the plan itself</h3>
+  <ul>
+    <li><strong>What are we treating, and how was it established?</strong> Ask which test, what the result was, and how it is interpreted — some tests used in this field are disputed, and a practitioner should be able to say plainly where theirs sits.</li>
+    <li><strong>What would improvement look like, specifically?</strong> Not "better." Sleeping through more nights, fewer stomach complaints, a return to a food that was lost.</li>
+    <li><strong>By when?</strong> A date at which you both look and decide.</li>
+    <li><strong>What would tell us this is not working?</strong> The most important question on the page. A protocol with no failure condition cannot be assessed, and "give it longer" is not an answer to it.</li>
+    <li><strong>What is the endpoint?</strong> Every reasonable plan has one — a duration, a target, a wean. Indefinite is a warning sign.</li>
+    <li><strong>What happens if we stop?</strong> Ask before you need to know.</li>
+  </ul>
+
+  <h3 class="sub">Questions about safety</h3>
+  <ul>
+    <li><strong>What has been checked against the prescriptions?</strong> Named, one by one. Herbs interact with anticonvulsants, psychiatric medication, blood thinners and immune drugs, and some of those interactions are serious.</li>
+    <li><strong>Does the prescribing doctor know the full list?</strong> If the answer is that they would not understand or would object, that is a reason to tell them, not to keep it quiet.</li>
+    <li><strong>What is being monitored, and how often?</strong> Long protocols in children warrant periodic bloodwork — liver and kidney function at minimum.</li>
+    <li><strong>What are the signs to stop immediately?</strong> Written down, in the house, so any adult can act on them.</li>
+    <li><strong>Where does this come from, and is it third-party tested?</strong> Tinctures and compounded blends vary more than mass-market products.</li>
+  </ul>
+
+  <div class="warn">
+    <h3>The reaction question, which needs care</h3>
+    <p>Many protocols come with the expectation that things may worsen before improving — often described as a die-off or Herxheimer reaction. Something real does happen to some people on some treatments, and it is not invented.</p>
+    <p><strong>But it is also an unfalsifiable frame if it is applied to everything.</strong> If improvement means it is working and deterioration also means it is working, nothing can ever indicate stopping — and a child can be kept unwell for months inside that logic.</p>
+    <p>So ask in advance: <em>how would we tell a die-off reaction from this simply not suiting him?</em> A good practitioner has an answer, usually involving duration, severity and which symptoms. Somebody who treats every worsening as proof of progress is not reasoning, and that is the point to get another opinion.</p>
+    <p>And whatever the framework: <strong>a child who is in pain, not eating, not sleeping or losing skills needs a medical review</strong>, not a longer wait.</p>
+  </div>
+
+  <h3 class="sub">Practical things that make it survivable</h3>
+  <ul>
+    <li><strong>Keep the full list in one place</strong>, with brands and how each is actually given — the <a href="medication-list.html">medication list</a> is built for this, and prints for a hospital or a school nurse who will otherwise have no idea.</li>
+    <li><strong>Track something measurable</strong> from before you start, or you will not be able to tell. The <a href="symptom-tracker.html">symptom tracker</a> records what changed and when the changes happened.</li>
+    <li><strong>Write down the dates</strong> anything starts, stops or changes dose. When a symptom appears three weeks later, that record is the only way anyone can reason about it.</li>
+    <li><strong>Count the cost over a year</strong>, including appointments. These protocols are frequently expensive and not covered, and that is a legitimate factor rather than a shameful one.</li>
+    <li><strong>Notice the load on the person taking it.</strong> Several tinctures a day, some tasting foul, on a schedule, is a real burden for someone who may already refuse medication. Whether the protocol is worth it includes what it costs them to take it.</li>
+    <li><strong>Agree who decides to stop</strong>, and on what grounds, while everyone is calm.</li>
+  </ul>
+
+  <div class="bnote">
+    <h3>Two things that are both true</h3>
+    <p>Conventional medicine genuinely does dismiss families, particularly when a child has symptoms that do not fit a recognized pattern. Being taken seriously by somebody, finally, is not a small thing, and the relief of it is real.</p>
+    <p>And that relief is also exactly what makes it hard to ask the difficult questions of the person providing it. <strong>Nobody wants to interrogate the one professional who has been kind to them.</strong></p>
+    <p>Ask anyway. A practitioner worth staying with will not be offended — they will be pleased you are paying attention, and the answers will be better than you expect. If the questions are not welcome, that is the most useful thing you will learn all year.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">How to weigh <em>a claim</em></h2>
+  <ul>
+    <li><strong>Who benefits financially?</strong> A practitioner selling the product they recommend has a conflict, whether or not they act on it. Ask directly.</li>
+    <li><strong>What would count as it not working?</strong> A protocol with no failure condition cannot be evaluated, and "you need to go longer" is not an answer.</li>
+    <li><strong>Is the reasoning about your child, or about a mechanism?</strong> "This pathway is involved in X" is not evidence that treating it helps.</li>
+    <li><strong>Was anything measured?</strong> And would the result change the plan?</li>
+    <li><strong>What is the exit?</strong> Every reasonable plan has a point at which you stop, reassess, or wean.</li>
+    <li><strong>What does it cost, over a year?</strong> Including your time, appointments, and what else that money would have bought.</li>
+    <li><strong>Would you be comfortable telling your child's doctor?</strong> If not, that discomfort is information.</li>
+  </ul>
+
+  <div class="note">
+    <h3>A word about how this often goes</h3>
+    <p>Families frequently arrive at supplements after being dismissed — by clinicians who had four minutes, or who said nothing was wrong when something clearly was. The people offering alternatives are often warmer, listen longer, and take the concern seriously.</p>
+    <p>That warmth is real and the need behind it is legitimate. It is also, unfortunately, not evidence. <strong>Both things are true: you deserved better care, and being listened to is not the same as being right.</strong></p>
+    <p>The best position is usually neither wholesale acceptance nor wholesale rejection — it is asking the same hard questions of an integrative practitioner that you would ask of a conventional one, and expecting decent answers from both.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="supplements.html"><h3>Supplements and natural approaches</h3>
+      <p>What families commonly try, what the evidence says, and what to ask about each.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="whole-picture.html"><h3>The whole picture</h3>
+      <p>Parsing overlapping problems in an order that finds treatable things first.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="medication-list.html"><h3>The medication list</h3>
+      <p>Everything in one place, with brands, printed for every appointment.</p>
+      <span class="go">Open it</span></a>
+    <a class="libcard" href="symptom-tracker.html"><h3>The symptom tracker</h3>
+      <p>Record what changed and when, so you can say whether something worked.</p>
+      <span class="go">Open it</span></a>
+    <a class="libcard" href="behavior-support.html"><h3>Choosing behavior support</h3>
+      <p>The same questions, applied to a therapy rather than a product.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="care-team-map.html"><h3>The care team map</h3>
+      <p>Who to ask — including pharmacists and dietitians, both underused here.</p>
+      <span class="go">Open the map</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>The single most useful habit here is asking, of anything at all: <strong>what would show me this is not working?</strong> Ask it of a supplement, a therapy, a diet, a medication and a school placement. Anything that cannot answer it cannot be evaluated — and anything that can is being offered to you honestly.</p>
+</div>
+
+<footer>
+  <p><strong>Nothing here is medical advice.</strong> Decisions belong with a licensed medical doctor who knows your child. Where evidence is contested, this page says so rather than choosing for you.</p>
+</footer>
+
+</div>
+<script src="search-index.js"></script>
+<script src="site-nav.js"></script>
+</body>
+</html>

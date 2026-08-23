@@ -58,6 +58,56 @@ for t in TOOLS:
     if t in present and PHRASE not in open(t).read():
         problems.append(f'{t}: missing the full storage warning ("{PHRASE}")')
 
+
+# The site uses American English throughout. British spellings creep in easily
+# and are exactly the kind of inconsistency nobody notices until a reader does.
+BRIT = ['behaviour','favour','nappies','nappy','centres','organisation','recognise','recognised',
+        'diarrhoea','paediatric','anaemia','honour','honouring','colour','flavour','labour',
+        'realise','prioritise','minimise','summarise','specialise','analyse','practise','practising',
+        'modelling','cancelled','licence','defence','offence','programme','whilst','amongst','learnt']
+for f in pages + ['site-nav.js']:
+    txt = open(f).read()
+    body = re.sub(r'<script>.*?</script>|<style>.*?</style>', '', txt, flags=re.S) if f.endswith('.html') else txt
+    hits = [w for w in BRIT if re.search(r'\b' + w + r'\b', body, re.I)]
+    if hits:
+        problems.append(f'{f}: British spelling ({", ".join(hits)})')
+
+
+# The home page states a page count. It has drifted twice; now it is checked.
+WORDS = {49:'Forty-nine',50:'Fifty',51:'Fifty-one',52:'Fifty-two',53:'Fifty-three',
+         54:'Fifty-four',55:'Fifty-five',56:'Fifty-six',57:'Fifty-seven',58:'Fifty-eight'}
+if 'index.html' in present:
+    home = open('index.html').read()
+    stated = re.search(r'([A-Z][a-z]+-?[a-z]*) pages', home)
+    expected = WORDS.get(len(pages))
+    if stated and expected and stated.group(1) != expected:
+        problems.append(f'index.html: says "{stated.group(1)} pages" but there are {len(pages)} ({expected})')
+
+
+# Two near-identical pages both wired into the navigation shipped once, unnoticed.
+# Character-frequency comparison is useless here (every page shares a vocabulary),
+# so this compares the actual set of sentences. Genuinely different pages overlap
+# almost not at all; a duplicate overlaps almost entirely.
+def _sentences(f):
+    t = open(f).read()
+    t = re.sub(r'<script.*?</script>|<style.*?</style>', ' ', t, flags=re.S)
+    t = re.sub(r'<[^>]+>', ' ', t)
+    t = re.sub(r'\s+', ' ', t)
+    return {s.strip() for s in re.split(r'(?<=[.!?]) ', t) if len(s.strip()) > 40}
+
+_sent = {f: _sentences(f) for f in pages}
+for i, a in enumerate(pages):
+    for b in pages[i + 1:]:
+        sa, sb = _sent[a], _sent[b]
+        if len(sa) < 5 or len(sb) < 5:
+            continue
+        shared = len(sa & sb)
+        overlap = shared / min(len(sa), len(sb))
+        if overlap > 0.6:
+            problems.append(
+                f'{a} and {b}: {int(overlap*100)}% of sentences are shared '
+                f'({shared} identical) - possible duplicate page')
+
 print(f'{len(pages)} pages checked')
 if problems:
     print(f'\n{len(problems)} PROBLEMS:')

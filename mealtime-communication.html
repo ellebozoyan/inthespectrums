@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mealtime communication boards — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --paper:#FFFDF8; --slate:#435A6F; --slate-tint:#E5EAEE; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --s1:#CFE0D3; --s2:#A8C6AE; --s3:#E4C79A; --s4:#D19A6A; --s5:#B4593A;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 22px;font-size:1.04rem}
+header.masthead{padding:50px 0 12px}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:18px 20px;margin:0 0 26px;
+  font-size:.95rem;max-width:74ch}
+.note strong{color:var(--rust)}
+.note p{margin:0 0 9px}.note p:last-child{margin:0}
+.snote{background:var(--slate-tint);border-left:4px solid var(--slate);padding:18px 20px;margin:0 0 18px;font-size:.95rem}
+.snote p{margin:0 0 9px}.snote p:last-child{margin:0}
+.snote strong{color:var(--slate)}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 8px}
+.tab{font-family:var(--sans);font-size:13px;padding:10px 16px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink-soft);border-radius:2px;cursor:pointer;letter-spacing:.02em}
+.tab:hover{border-color:var(--rust);color:var(--rust)}
+.tab.on{background:var(--forest);border-color:var(--forest);color:#fff}
+.tab:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+.tabnote{font-size:.93rem;color:var(--ink-soft);margin:0 0 24px;max-width:66ch;font-style:italic}
+
+main{padding-bottom:70px}
+.panel{display:none}.panel.on{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:22px;margin-bottom:18px}
+.card h2{font-size:1.25rem;font-weight:400;margin:0 0 4px}
+.card .fnote{font-size:.92rem;color:var(--ink-soft);margin:0 0 18px;max-width:66ch}
+.cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px;align-items:start}
+@media(max-width:900px){.cols{grid-template-columns:1fr}}
+
+label,.lbl{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.06em;
+  color:var(--forest);font-weight:700;text-transform:uppercase;margin-bottom:6px}
+.hint{display:block;font-family:var(--serif);font-size:.86rem;color:var(--ink-soft);
+  text-transform:none;letter-spacing:0;font-weight:400;margin-top:3px}
+input[type=text],input[type=date],input[type=number],textarea,select{
+  width:100%;font-family:var(--serif);font-size:15px;padding:9px 11px;
+  border:1px solid var(--line);border-radius:2px;background:#fff;color:var(--ink);line-height:1.5}
+textarea{min-height:64px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--rust);outline-offset:1px;border-color:transparent}
+.fld{margin-bottom:15px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>.fld{flex:1 1 150px;margin-bottom:15px}
+
+button.act{font-family:var(--sans);font-size:13px;padding:11px 18px;border-radius:2px;cursor:pointer;
+  border:1px solid var(--forest);background:var(--forest);color:#fff;letter-spacing:.03em}
+button.act.ghost{background:none;color:var(--forest)}
+button.act.warn{border-color:var(--rust);color:var(--rust);background:none}
+button.act:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+button.act:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+.btns{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.chip{font-family:var(--sans);font-size:12.5px;padding:8px 13px;border:1px solid var(--line);
+  background:#fff;color:var(--ink-soft);border-radius:2px;cursor:pointer;text-align:left}
+.chip:hover{border-color:var(--rust);color:var(--rust)}
+.chip.on{background:var(--forest);border-color:var(--forest);color:#fff}
+.chip.good{border-color:#8FAE96}
+.chip.good.on{background:#4B7A5A;border-color:#4B7A5A}
+.chip.pre.on{background:var(--slate);border-color:var(--slate)}
+.chip.help.on{background:#4B7A5A;border-color:#4B7A5A}
+.chip .ct{font-size:10.5px;opacity:.75;margin-left:5px}
+
+.symgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:7px;margin-bottom:6px}
+.symgrid .chip{width:100%}
+
+.cap{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:6px}
+.cap button{flex:1 1 108px;font-family:var(--sans);font-size:12px;padding:11px 8px;border:1px solid var(--line);
+  background:#fff;cursor:pointer;border-radius:2px;color:var(--ink-soft);line-height:1.3;text-align:center}
+.cap button:hover{border-color:var(--ink)}
+.cap button b{display:block;font-size:15px;margin-bottom:3px;color:var(--ink)}
+.cap button.on{border-color:var(--ink);color:var(--ink);font-weight:600}
+.cap button[data-c="1"].on{background:var(--s1)}
+.cap button[data-c="2"].on{background:var(--s2)}
+.cap button[data-c="3"].on{background:var(--s3)}
+.cap button[data-c="4"].on{background:var(--s4)}
+.cap button[data-c="5"].on{background:var(--s5);color:#fff}
+.cap button[data-c="5"].on b{color:#fff}
+
+.entry{border:1px solid var(--line);border-left:3px solid var(--forest);background:#fff;
+  padding:13px 15px;margin-bottom:10px;border-radius:2px}
+.entry.pos{border-left-color:#4B7A5A}
+.entry .top{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.entry .nm{font-size:1.02rem}
+.entry .cat{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft)}
+.sev{display:flex;gap:5px;margin:9px 0 0;flex-wrap:wrap}
+.sev button{font-family:var(--sans);font-size:12px;padding:6px 11px;border:1px solid var(--line);
+  background:#fff;cursor:pointer;border-radius:2px;color:var(--ink-soft)}
+.sev button:hover{border-color:var(--ink)}
+.sev button.on{color:#16283C;font-weight:700;border-color:var(--ink)}
+.sev button[data-s="1"].on{background:var(--s1)}
+.sev button[data-s="2"].on{background:var(--s2)}
+.sev button[data-s="3"].on{background:var(--s3)}
+.sev button[data-s="4"].on{background:var(--s4)}
+.sev button[data-s="5"].on{background:var(--s5);color:#fff}
+.mini{font-family:var(--sans);font-size:11.5px;color:var(--ink-soft);background:none;border:none;
+  cursor:pointer;padding:4px 0;text-decoration:underline}
+.mini:hover{color:var(--rust)}
+
+.day{margin-bottom:26px}
+.day h3{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:0 0 4px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.day .ctx{font-size:.9rem;color:var(--ink-soft);margin:0 0 10px;font-style:italic}
+.logline{display:flex;gap:10px;align-items:baseline;padding:5px 0;border-bottom:1px dotted var(--line);
+  font-size:.96rem;flex-wrap:wrap}
+.dot{display:inline-block;width:11px;height:11px;border-radius:50%;flex:none;position:relative;top:1px}
+.logline .sm{font-family:var(--sans);font-size:11px;color:var(--ink-soft)}
+.flag{display:inline-block;font-family:var(--sans);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+  background:var(--alarm-tint);color:var(--alarm);padding:2px 7px;border-radius:2px;font-weight:700}
+
+.trend{margin-bottom:15px;padding-bottom:13px;border-bottom:1px solid var(--line)}
+.trend .th{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:5px}
+.trend .tn{font-size:1rem}
+.trend .tc{font-family:var(--sans);font-size:11px;color:var(--ink-soft)}
+.bars{display:flex;gap:2px;align-items:flex-end;height:34px}
+.bars i{flex:1;min-width:2px;background:var(--line);border-radius:1px 1px 0 0;display:block}
+.axis{display:flex;justify-content:space-between;font-family:var(--sans);font-size:10px;
+  color:var(--ink-soft);margin-top:3px}
+.tally{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}
+.tally span{font-family:var(--sans);font-size:12px;background:var(--slate-tint);color:var(--slate);
+  padding:6px 11px;border-radius:2px}
+.tally span b{color:var(--ink)}
+.tally.gd span{background:#E6EDE4;color:#2E4E3F}
+
+.doc{background:var(--paper);border:1px solid #CBC6B8;border-radius:2px;padding:32px 30px;
+  font-family:var(--serif);font-size:14.5px;line-height:1.62;color:#22221E}
+.doc h1{font-size:1.3rem;font-weight:400;margin:0 0 4px;letter-spacing:0;text-align:center}
+.doc .sub{text-align:center;font-family:var(--sans);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:#7A7568;margin:0 0 18px;padding-bottom:14px;border-bottom:2px solid #22221E}
+.doc h2{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:#8A5A2A;font-weight:700;margin:20px 0 7px}
+.doc p{margin:0 0 10px}
+.doc ul{margin:0 0 11px;padding-left:19px}.doc li{margin-bottom:6px}
+.doc table{width:100%;border-collapse:collapse;font-size:13px;margin:0 0 12px}
+.doc th{text-align:left;font-family:var(--sans);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:#7A7568;border-bottom:1px solid #C3BDAE;padding:5px 6px 5px 0}
+.doc td{padding:5px 6px 5px 0;border-bottom:1px dotted #D8D2C4;vertical-align:top}
+.doc .foot{border-top:1px dashed #C3BDAE;margin-top:20px;padding-top:11px;font-size:12px;color:#7A7568}
+
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.empty{color:var(--ink-soft);font-style:italic;padding:14px 0}
+footer{border-top:1px solid var(--line);padding:24px 0 60px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.7}
+footer p{max-width:78ch}
+@media print{
+  body{background:#fff}
+  .masthead,.tabs,.tabnote,.note,.snote,.profnote,footer,.btns,.card.noprint{display:none!important}
+  .doc{border:none;padding:0;background:#fff;font-size:11pt}
+}
+
+.prov{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--forest);
+  border-radius:2px;padding:16px 19px;margin-bottom:12px}
+.prov .ph{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:9px}
+.prov .pn{font-size:1.08rem}
+.prov .pd{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.goal{border-top:1px solid var(--line);padding:11px 0 9px;font-size:.96rem;line-height:1.45}
+.goal:last-of-type{padding-bottom:0}
+.goal .gt{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap}
+.goal .code{font-family:var(--sans);font-size:10.5px;letter-spacing:.06em;color:var(--rust);font-weight:700;flex:none}
+.goal .st{font-family:var(--sans);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  padding:2px 7px;border-radius:2px;flex:none}
+.st.current{background:#E6EDE4;color:#2E4E3F}
+.st.next{background:var(--slate-tint);color:var(--slate)}
+.st.mastered{background:#EFE0D5;color:#9C4A21}
+.st.paused{background:#EEEEEA;color:#6A6A62}
+.goal .gg{font-size:.89rem;color:var(--ink-soft);margin-top:5px}
+.gen{background:#F4F7F3;border:1px solid #CBDCC6;border-left:3px solid var(--forest);
+  padding:11px 14px;margin-top:7px;border-radius:2px;font-size:.9rem}
+.gen b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--forest);display:block;margin-bottom:5px}
+.gen dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 11px}
+.gen dt{font-family:var(--sans);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+.gen dd{margin:0}
+.setrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.setrow span{font-family:var(--sans);font-size:11px;background:var(--forest);color:#fff;padding:3px 9px;border-radius:2px}
+.warnbox{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:13px 16px;margin:0 0 14px;font-size:.93rem}
+.warnbox b{color:var(--alarm)}
+table.gm{width:100%;border-collapse:collapse;font-size:.92rem;margin:0 0 14px}
+table.gm th{text-align:left;font-family:var(--sans);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--ink-soft);border-bottom:1px solid var(--line);padding:6px 8px 6px 0;vertical-align:bottom}
+table.gm td{padding:8px 8px 8px 0;border-bottom:1px dotted var(--line);vertical-align:top}
+table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
+
+.stage{position:relative;background:#0E1620;border-radius:3px;overflow:hidden;aspect-ratio:4/3;margin:0 0 12px}
+.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.stage video.ghost{pointer-events:none}
+.stage .badge{position:absolute;top:10px;left:12px;font-family:var(--sans);font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:#C6A98F;background:rgba(14,22,32,.72);
+  padding:5px 10px;border-radius:2px;z-index:5}
+.stage .rec{position:absolute;top:10px;right:12px;font-family:var(--sans);font-size:11px;
+  color:#fff;background:#8A2B20;padding:5px 11px;border-radius:2px;z-index:5;display:none}
+.stage .rec.on{display:block}
+.stage .empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  color:#7E8C7C;font-style:italic;text-align:center;padding:26px;font-size:.95rem}
+.ctrls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 14px}
+.ctrls button{font-family:var(--sans);font-size:12.5px;padding:9px 14px;border:1px solid var(--line);
+  background:#fff;border-radius:2px;cursor:pointer;color:var(--ink)}
+.ctrls button:hover{border-color:var(--rust)}
+.ctrls button.on{background:var(--forest);border-color:var(--forest);color:#fff}
+.ctrls button.rec{background:#8A2B20;border-color:#8A2B20;color:#fff}
+.slider{display:flex;gap:11px;align-items:center;flex:1 1 210px;min-width:170px}
+.slider label{margin:0;white-space:nowrap}
+.slider input[type=range]{flex:1;width:auto}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px}
+@media(max-width:700px){.pair{grid-template-columns:1fr}}
+.exrow{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--forest);
+  border-radius:2px;padding:14px 17px;margin-bottom:9px}
+.exrow.on{border-left-width:6px;background:#F2F6F1}
+.exrow .eh{display:flex;justify-content:space-between;gap:9px;align-items:baseline;flex-wrap:wrap}
+.exrow .en{font-size:1.04rem}
+.exrow .em{font-family:var(--sans);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-soft)}
+.exrow .ed{font-size:.92rem;color:var(--ink-soft);margin-top:6px;line-height:1.45}
+.exrow .ed b{color:var(--ink);font-family:var(--sans);font-size:9.5px;letter-spacing:.11em;
+  text-transform:uppercase;display:block;margin-bottom:3px}
+.logrow{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px dotted var(--line);font-size:.94rem}
+.reps{display:flex;gap:5px;flex-wrap:wrap}
+.reps button{font-family:var(--sans);font-size:13px;min-width:42px;padding:9px 7px;border:1px solid var(--line);
+  background:#fff;border-radius:2px;cursor:pointer}
+.reps button.on{background:var(--forest);border-color:var(--forest);color:#fff}
+
+.boardwrap{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:18px 20px;margin:0 0 16px}
+.boardwrap h3{font-size:1.06rem;font-weight:400;margin:0 0 4px}
+.boardwrap .bmeta{font-family:var(--sans);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 12px}
+.grid{display:grid;gap:4px;margin:0 0 12px}
+.cell{background:#FFF;border:1px solid #C9D2DC;border-radius:3px;padding:8px 6px;text-align:center;
+  font-family:var(--sans);font-size:11px;line-height:1.25;min-height:52px;display:flex;
+  align-items:center;justify-content:center;color:var(--ink)}
+.cell .sym{display:block;font-size:9px;color:#93A0AC;margin-top:3px;letter-spacing:.04em}
+.cell.core{background:#F5F3D9;border-color:#D8D3A0}
+.cell.action{background:#E4F0E2;border-color:#B5CFB0}
+.cell.desc{background:#F0E4EF;border-color:#D6B8D4}
+.cell.social{background:#E2ECF5;border-color:#B2C9DC}
+.cell.food{background:#FBEEDD;border-color:#E0C79E}
+.cell.neg{background:#F6E2E0;border-color:#DDB4AF}
+.cell.empty{background:#F4F6F7;border-style:dashed;color:#AEB8C0}
+.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:11px;margin:0 0 8px}
+.dlcard{background:var(--ground);border:1px solid var(--line);border-left:3px solid var(--forest);
+  border-radius:2px;padding:14px 16px}
+.dlcard b{font-family:var(--sans);font-size:11px;letter-spacing:.06em;display:block;margin-bottom:4px}
+.dlcard span{font-size:.88rem;color:var(--ink-soft);line-height:1.45;display:block}
+.dlcard .pend{font-family:var(--sans);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:#8A6A1F;background:#F6F1E8;padding:3px 8px;border-radius:2px;display:inline-block;margin-top:8px}
+.license{background:#EEF3F7;border:1px solid #C3D2DE;border-left:4px solid #2E4E3F;border-radius:2px;
+  padding:18px 21px;margin:0 0 18px}
+.license h3{font-family:var(--sans);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:#2E4E3F;font-weight:700;margin:0 0 9px}
+.license p{font-size:.94rem;margin:0 0 9px;line-height:1.55}
+.license p:last-child{margin:0}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Mealtime communication boards:<br><em>words for every step, not just yes and no</em></h1>
+  <p class="lede">Vocabulary built around eating — for a speech-generating device, and as printed boards alongside one. They exist because most food vocabulary lets a person request or refuse, and almost nothing gives them words for what is actually happening in their mouth. <strong>The goal throughout is a voice they operate themselves</strong> — printed boards support that rather than substitute for it. <a href="speech-language-aac.html">Why that is the goal, and why it is a professional standard rather than a preference</a>, is set out on the AAC page.</p>
+</header>
+
+<div class="note">
+  <h3>Free, for families and for the people who work with them</h3>
+  <p>Download, print, laminate, load onto a device, hand to a school. No account, no charge, no registration. Adapt them for the person in front of you — that is what they are for.</p>
+  <p>They are offered as ready-made files <em>and</em> as plain word lists, so they can be rebuilt in whatever system a person already uses.</p>
+</div>
+
+<div class="tabs" id="tabs"></div>
+<p class="tabnote" id="tabnote"></p>
+
+<main>
+
+<section class="panel on" id="p-why">
+  <h2 class="sec">Why <em>mealtime vocabulary</em> specifically</h2>
+  <p class="secnote">A communication system can be excellent in general and still leave somebody mute at the table.</p>
+
+  <p>Most food vocabulary on most devices does two things: it lets a person <strong>ask for something</strong>, and it lets them <strong>refuse</strong>. Both matter. Neither is enough.</p>
+
+  <p>What tends to be missing is everything in between — words for what is happening in the mouth right now, words for describing a food rather than accepting it, and words for taking part in a meal socially rather than only transacting through it.</p>
+
+  <h3 class="sub">The exploration hierarchy, given words</h3>
+  <p>Feeding therapy works in graded steps: tolerate it nearby, touch it, bring it to the lips, lick, bite, chew, swallow. A person may sit at one step for weeks, and that is progress.</p>
+  <p><strong>But if the only available words are "eat" and "no", every one of those steps is invisible.</strong> The person cannot say what they just did, cannot say what they are willing to do next, and cannot say which part they are stuck on.</p>
+  <p>So these boards give each step its own word:</p>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(96px,1fr))">
+    <div class="cell action">tap</div>
+    <div class="cell action">touch</div>
+    <div class="cell action">smell</div>
+    <div class="cell action">lick</div>
+    <div class="cell action">bite</div>
+    <div class="cell action">chew</div>
+    <div class="cell action">sip</div>
+    <div class="cell action">blow bubbles</div>
+    <div class="cell action">make teeth marks</div>
+    <div class="cell action">rub teeth</div>
+    <div class="cell action">no hands</div>
+    <div class="cell action">pick up</div>
+  </div>
+  <p class="fnote">Several of these are playful on purpose. Blowing bubbles in a drink and making teeth marks in something are real oral-motor steps, and framing them as play rather than as eating lowers the stakes considerably.</p>
+
+  <h3 class="sub">Refusing well, which is a skill</h3>
+  <p>A person who can only refuse by pushing a plate away, leaving the table, or becoming distressed has been given no better option. Explicit refusal vocabulary is not permission to refuse more — <strong>it is a way to refuse that does not cost them anything.</strong></p>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(96px,1fr))">
+    <div class="cell neg">no thank you</div>
+    <div class="cell neg">all done</div>
+    <div class="cell neg">not yet</div>
+    <div class="cell neg">too much</div>
+    <div class="cell neg">take it away</div>
+    <div class="cell neg">I need help</div>
+    <div class="cell neg">stop</div>
+    <div class="cell neg">Oh no!</div>
+  </div>
+  <p class="fnote"><strong>Honor it every time.</strong> A refusal word that is overridden teaches faster than any of the rest of this, and what it teaches is that the board does not work.</p>
+
+  <h3 class="sub">Commentary, which is what makes it a meal</h3>
+  <p>Requesting is a transaction. Commenting is company. A person who can say <em>delicious</em>, <em>that's funny</em>, <em>more</em>, or <em>describe food</em> is <strong>at</strong> dinner rather than being fed at it — and that difference is most of the point.</p>
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(96px,1fr))">
+    <div class="cell social">delicious!</div>
+    <div class="cell social">that's funny</div>
+    <div class="cell social">more</div>
+    <div class="cell social">I like it</div>
+    <div class="cell social">it's my favorite</div>
+    <div class="cell social">look!</div>
+    <div class="cell social">yuck</div>
+    <div class="cell social">let's talk about it</div>
+  </div>
+
+  <div class="bnote">
+    <h3>Available does not mean prompted</h3>
+    <p>These words exist so the person <em>can</em> use them. Model them yourself, frequently, without requiring a response — point to <em>bite</em> as you take one, hit <em>delicious</em> when something is.</p>
+    <p><strong>Do not turn the board into a demand.</strong> A device used mainly to make somebody request food becomes another thing happening to them at the table, and mealtimes already have enough of that. See <a href="speech-language-aac.html">speech, language and AAC</a> on modeling without prompting.</p>
+  </div>
+</section>
+
+<section class="panel" id="p-boards">
+  <h2 class="sec">The <em>boards</em></h2>
+  <p class="secnote">Twelve boards covering the parts of a day where food comes up. Layouts shown here as words; the downloadable versions carry symbols.</p>
+
+  <div class="boardwrap">
+    <h3>Core mealtime board</h3>
+    <p class="bmeta">7 × 6 · everyday words that work across every meal</p>
+    <div class="grid" style="grid-template-columns:repeat(7,minmax(0,1fr))">
+      <div class="cell core">I</div><div class="cell social">questions</div><div class="cell food">places</div>
+      <div class="cell action">actions</div><div class="cell core">time</div><div class="cell desc">groups</div>
+      <div class="cell neg">I need help</div>
+      <div class="cell core">people</div><div class="cell core">can</div><div class="cell core">to</div>
+      <div class="cell social">social</div><div class="cell action">come</div><div class="cell desc">good</div>
+      <div class="cell desc">describe</div>
+      <div class="cell core">my</div><div class="cell core">do</div><div class="cell action">drink</div>
+      <div class="cell action">eat</div><div class="cell social">I'm talking about</div><div class="cell core">a</div>
+      <div class="cell desc">feelings</div>
+      <div class="cell core">it</div><div class="cell core">have</div><div class="cell neg">I need the bathroom</div>
+      <div class="cell action">help</div><div class="cell action">go</div><div class="cell core">the</div>
+      <div class="cell core">today's plan</div>
+      <div class="cell core">you</div><div class="cell core">is</div><div class="cell social">like</div>
+      <div class="cell action">listen</div><div class="cell action">play</div><div class="cell neg">stop</div>
+      <div class="cell desc">extra words</div>
+      <div class="cell core">your</div><div class="cell neg">don't</div><div class="cell core">ABC 123</div>
+      <div class="cell core">want</div><div class="cell action">watch</div><div class="cell action">work</div>
+      <div class="cell empty">clear</div>
+    </div>
+    <p class="fnote">Core words sit in fixed positions so they can be found without reading. Category buttons open the boards below.</p>
+  </div>
+
+  <div class="boardwrap">
+    <h3>Food exploration board</h3>
+    <p class="bmeta">7 × 6 · the graded steps, plus utensils and refusal</p>
+    <div class="grid" style="grid-template-columns:repeat(7,minmax(0,1fr))">
+      <div class="cell core">I</div><div class="cell action">tap</div><div class="cell action">touch</div>
+      <div class="cell action">smell</div><div class="cell action">bite</div><div class="cell social">that's funny</div>
+      <div class="cell social">delicious!</div>
+      <div class="cell core">grown-up</div><div class="cell action">lick</div><div class="cell action">poke</div>
+      <div class="cell action">squish</div><div class="cell action">sip</div><div class="cell action">drink</div>
+      <div class="cell core">5, 4, 3, 2, 1</div>
+      <div class="cell core">grown-up</div><div class="cell action">rub teeth</div><div class="cell empty"></div>
+      <div class="cell core">in</div><div class="cell food">food</div><div class="cell food">plate</div>
+      <div class="cell social">more</div>
+      <div class="cell core">me</div><div class="cell action">no hands</div><div class="cell action">make teeth marks</div>
+      <div class="cell core">of</div><div class="cell food">straw</div><div class="cell neg">no thank you</div>
+      <div class="cell neg">all done</div>
+      <div class="cell core">count 1 2 3</div><div class="cell action">bite</div><div class="cell action">pick up</div>
+      <div class="cell empty"></div><div class="cell food">fork</div><div class="cell food">spoon</div>
+      <div class="cell social">Oh no!</div>
+      <div class="cell core">home</div><div class="cell action">chew</div><div class="cell action">blow bubbles</div>
+      <div class="cell empty"></div><div class="cell food">cup</div><div class="cell desc">describe food</div>
+      <div class="cell empty">clear</div>
+    </div>
+    <p class="fnote">The counting buttons matter more than they look. <em>5, 4, 3, 2, 1</em> and <em>count 1 2 3</em> let a person set the terms of their own attempt, which changes it from something being done to them into something they are running.</p>
+  </div>
+
+  <div class="boardwrap">
+    <h3>Hungry and thirsty</h3>
+    <p class="bmeta">4 × 4 · interoception words, for noticing before it becomes a crisis</p>
+    <div class="grid" style="grid-template-columns:repeat(4,minmax(0,1fr))">
+      <div class="cell core">I feel</div><div class="cell desc">hungry</div><div class="cell desc">thirsty</div><div class="cell desc">full</div>
+      <div class="cell desc">a little bit</div><div class="cell desc">very</div><div class="cell desc">not sure</div><div class="cell desc">my tummy hurts</div>
+      <div class="cell action">I want a drink</div><div class="cell action">I want a snack</div><div class="cell desc">my mouth is dry</div><div class="cell desc">I feel sick</div>
+      <div class="cell core">when is food?</div><div class="cell core">soon</div><div class="cell core">now</div><div class="cell neg">I need help</div>
+    </div>
+    <p class="fnote">Interoception — sensing what the body is doing — is genuinely harder for some people, and hunger frequently arrives as irritability rather than as a recognizable feeling. Words for the in-between states help more than words for the extremes.</p>
+  </div>
+
+  <div class="boardwrap">
+    <h3>Describe food</h3>
+    <p class="bmeta">6 × 4 · so a person can say what is wrong, not only that something is</p>
+    <div class="grid" style="grid-template-columns:repeat(6,minmax(0,1fr))">
+      <div class="cell desc">crunchy</div><div class="cell desc">soft</div><div class="cell desc">chewy</div>
+      <div class="cell desc">smooth</div><div class="cell desc">lumpy</div><div class="cell desc">sticky</div>
+      <div class="cell desc">hot</div><div class="cell desc">cold</div><div class="cell desc">warm</div>
+      <div class="cell desc">frozen</div><div class="cell desc">wet</div><div class="cell desc">dry</div>
+      <div class="cell desc">sweet</div><div class="cell desc">salty</div><div class="cell desc">sour</div>
+      <div class="cell desc">spicy</div><div class="cell desc">bitter</div><div class="cell desc">no taste</div>
+      <div class="cell desc">too big</div><div class="cell desc">wrong color</div><div class="cell desc">touching</div>
+      <div class="cell desc">smells wrong</div><div class="cell desc">I like it</div><div class="cell desc">not this one</div>
+    </div>
+    <p class="fnote">This is the board that changes meals most often. <em>Touching</em> and <em>too big</em> are solvable in seconds; without the words they present as a refusal nobody can act on.</p>
+  </div>
+
+  <div class="boardwrap">
+    <h3>The rest of the set</h3>
+    <p class="bmeta">Eight more, same structure</p>
+    <ul>
+      <li><strong>Meal plan</strong> — choosing and sequencing the week, pairs with the <a href="meal-planner.html">meal planner</a>.</li>
+      <li><strong>My plate</strong> — what is on it, in what order, what can be moved.</li>
+      <li><strong>Cooking activities</strong> — pour, stir, sprinkle, press, wait, taste. Participation vocabulary.</li>
+      <li><strong>Food experiments</strong> — framing a new food as something to investigate rather than to eat.</li>
+      <li><strong>Food jobs</strong> — what a person can do at a meal that is not eating: set out, carry, hand round, clear.</li>
+      <li><strong>Indoor garden</strong> — plant, water, check, measure, pick. Growing something is one of the more reliable routes into trying it.</li>
+      <li><strong>Healthy body boost</strong> — a daily schedule board covering food, drink, movement and rest together.</li>
+      <li><strong>Snack choices</strong> — a small board for independent choosing between accepted options.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="panel" id="p-integrate">
+  <h2 class="sec">Using them <em>at the table</em></h2>
+  <p class="secnote">The general guidance on building communication into a day — at home, in therapy, at school — lives on <a href="speech-language-aac.html">the speech, language and AAC page</a>. This is the mealtime-specific part.</p>
+
+  <div class="bnote">
+    <h3>The single practice that matters most</h3>
+    <p><strong>Model it constantly, and expect nothing back.</strong> Use the device or board yourself while you talk — several times a meal, for months — without asking the person to respond and without turning it into a question.</p>
+    <p>Meals are unusually good for this. They happen several times a day, every day, and few activities offer that much natural practice.</p>
+  </div>
+
+  <div class="domains">
+    <div class="dom"><h3>At mealtimes specifically</h3>
+      <p>Where these particular boards do their work.</p>
+      <ul>
+        <li>The device is on the table, every meal, like cutlery</li>
+        <li>An activity board sits <em>beside</em> it, never instead of it</li>
+        <li>Model the exploration words as you eat — hit <em>bite</em> as you take one</li>
+        <li>Honor every refusal, immediately and visibly</li>
+        <li>Nobody is asked to request their food before receiving it</li>
+        <li>Comment on the food yourself, often, expecting no reply</li>
+      </ul>
+      <p class="look"><b>Why it matters here</b>Meals happen several times a day, every day. Few activities offer that much natural practice.</p></div>
+
+    
+    <div class="dom"><h3>What to model, specifically</h3>
+      <p>Words that fit what is already happening.</p>
+      <ul>
+        <li>Hit <em>bite</em> as you take one, <em>delicious</em> when something is</li>
+        <li><em>All done</em> when you finish, not only when they should</li>
+        <li><em>Describe food</em> then a property — crunchy, cold, too hot</li>
+        <li><em>More</em>, <em>not yet</em>, <em>I don't like this</em> about your own plate</li>
+        <li>Narrate the steps: <em>smell it first</em>, <em>just a lick</em></li>
+      </ul>
+      <p class="look"><b>The point</b>They need to hear the language spoken before they can be expected to use it.</p></div>
+
+    <div class="dom"><h3>Three things that should never happen</h3>
+      <p>At the table or anywhere else.</p>
+      <ul>
+        <li><strong>Never take it away</strong> — not as a consequence, not to encourage speech, not because a meal is going badly</li>
+        <li><strong>Never require it to earn food.</strong> Making somebody request what they are entitled to teaches that communication is a toll</li>
+        <li><strong>Never ignore a message you did not want.</strong> A refusal overridden teaches, in one moment, that the whole system is decorative</li>
+      </ul>
+      <p class="look"><b>Why here</b>Mealtimes are where all three happen most.</p></div>
+  </div>
+</section>
+
+<section class="panel" id="p-get">
+  <h2 class="sec">Getting <em>them</em></h2>
+
+  <div class="license">
+    <h3>About the symbols</h3>
+    <p>The downloadable boards use a licensed symbol set. They are provided <strong>free of charge to families, schools and clinicians</strong>, for direct use with the people they support.</p>
+    <p>They may be printed, laminated, loaded onto a device, and adapted for an individual. They may not be sold, included in a commercial product, or redistributed as a symbol library.</p>
+    <p><strong>Symbol attribution appears on every board and in every downloaded file.</strong> Full licensing details are on the <a href="terms-and-privacy.html">terms page</a>.</p>
+  </div>
+
+  <div class="dl">
+    <div class="dlcard"><b>For a touchscreen device</b>
+      <span>An importable vocabulary file, with the boards linked together and core words in fixed positions.</span>
+      <span class="pend">Coming shortly</span></div>
+    <div class="dlcard"><b>Printable boards</b>
+      <span>PDF, sized for letter and A4, laid out to be laminated. One page per board.</span>
+      <span class="pend">Coming shortly</span></div>
+    <div class="dlcard"><b>Plain word lists</b>
+      <span>Every board as text, so it can be rebuilt in whichever system a person already uses — no symbols, no licensing, no dependency on us.</span>
+      <span class="pend">Coming shortly</span></div>
+  </div>
+
+  <p class="fnote">The word lists exist deliberately. A person's own system is nearly always better than a new one, and a good speech therapist can build these into an existing vocabulary in an afternoon.</p>
+
+  <h3 class="sub">Using them well</h3>
+  <ul>
+    <li><strong>Put it where meals happen</strong>, permanently. A board fetched from a drawer when somebody is expected to communicate is a demand; a board that lives on the table is an option.</li>
+    <li><strong>Model without requiring.</strong> Use it yourself, several times a meal, expecting nothing back.</li>
+    <li><strong>Keep positions stable.</strong> Moving buttons to make room costs more than the new word is worth. Motor memory is doing much of the work.</li>
+    <li><strong>Both at once is fine.</strong> A printed board at the table and a device in the bag is a reasonable arrangement — devices run out of battery, and boards do not.</li>
+    <li><strong>Never withhold access to it.</strong> Not as a consequence, not to encourage speech, not because a meal is going badly. Removing somebody's words is not a behavior strategy.</li>
+    <li><strong>Everybody at the table should be able to use it</strong>, including siblings. It becomes ordinary far faster that way.</li>
+  </ul>
+
+  <div class="warn">
+    <h3>One thing that is often got backwards</h3>
+    <p>Giving somebody a way to refuse food does not make them eat less. The evidence runs the other way — people who can reliably decline tend, over time, to try <em>more</em>, because attempting something has stopped being a trap they cannot get out of.</p>
+    <p>The same holds for speech. Providing communication support does not suppress talking; it consistently either helps or makes no difference. See <a href="speech-language-aac.html">speech, language and AAC</a>.</p>
+  </div>
+</section>
+
+</main>
+
+<div class="snote">
+  <p><strong>Access to a device they operate themselves is the goal</strong>, and no test score or proof of readiness may be required first — see <a href="speech-language-aac.html">speech, language and AAC</a> for why, and for what to say when you are told otherwise.</p>
+  <p><strong>These boards are a starting point, not a prescription.</strong> Delete what is irrelevant, add what matters to your person, change the words to the ones your family actually uses. A board with fifteen words somebody uses beats a board with sixty they do not.</p>
+  <p>Pairs with <a href="feeding-therapy.html">feeding and eating</a>, the <a href="food-list.html">food list</a>, and <a href="speech-language-aac.html">speech, language and AAC</a>.</p>
+</div>
+
+<div class="profnote"><b>Reading this as a professional</b>
+<p>The exploration vocabulary is the part worth borrowing. Graded steps are standard in feeding work, and giving each step its own word lets a person self-report where they are in the hierarchy — which is otherwise inferred by the adult watching them.</p>
+<p>Refusal and commentary vocabulary are included deliberately. Requesting-only sets are still common, and they teach that communication is for obtaining things.</p></div>
+
+<footer>
+  <p><strong>Nothing here is clinical advice.</strong> A speech and language therapist who knows the person should be involved in any communication system, and these boards are designed to be adapted rather than adopted whole.</p>
+</footer>
+
+</div>
+
+<script>
+var TABS=[{k:"why",n:"Why these words",note:"Words for every step, not only for yes and no."},
+ {k:"boards",n:"The boards",note:"Twelve boards, shown here as words."},
+ {k:"integrate",n:"At the table",note:"The mealtime-specific part. General guidance is on the AAC page."},
+ {k:"get",n:"Downloads and use",note:"How to get them and how to use them well."}];
+var cur="why";
+function $(id){return document.getElementById(id);}
+TABS.forEach(function(t){var b=document.createElement("button");
+ b.className="tab"+(t.k===cur?" on":"");b.type="button";b.textContent=t.n;b.dataset.k=t.k;
+ b.addEventListener("click",function(){
+  var a=document.querySelectorAll(".tab");for(var i=0;i<a.length;i++)a[i].classList.toggle("on",a[i].dataset.k===t.k);
+  var p=document.querySelectorAll(".panel");for(var j=0;j<p.length;j++)p[j].classList.toggle("on",p[j].id==="p-"+t.k);
+  $("tabnote").textContent=t.note;window.scrollTo(0,0);});
+ $("tabs").appendChild(b);});
+$("tabnote").textContent=TABS[0].note;
+</script>
+
+<script src="search-index.js"></script>
+<script src="site-nav.js"></script>
+</body>
+</html>
