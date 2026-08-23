@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siblings and the whole household — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#1D6A82; --book-tint:#E1EEF2; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the equation */
+.eqn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.eqn h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.eqn .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.parts{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:18px}
+@media(max-width:700px){.parts{grid-template-columns:1fr;gap:6px}.op{text-align:center;padding:2px 0}}
+.pt{background:rgba(255,255,255,.06);border-top:3px solid var(--book);padding:15px 16px}
+.pt.res{border-top-color:var(--rust);background:rgba(156,74,33,.13)}
+.pt b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#EFEBE3;margin-bottom:6px}
+.pt span{font-size:.86rem;color:#B9C4B4;line-height:1.45;display:block}
+.op{font-size:1.5rem;color:#C6A98F;text-align:center}
+.eqn .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:20px 0 0;max-width:62ch}
+.eqn .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .eqn{background:#fff;color:#000;border:1px solid #000}.eqn .big,.pt b,.eqn .cap strong{color:#000}}
+
+.cliff{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin:0 0 18px}
+@media(max-width:640px){.cliff{grid-template-columns:1fr}}
+.cliff .side{padding:18px 20px}
+.cliff .l{background:rgba(255,255,255,.07);border-top:3px solid #7FA57A}
+.cliff .r{background:rgba(156,74,33,.16);border-top:3px solid #C6704A}
+.cliff .gap{display:flex;align-items:center;justify-content:center;padding:0 14px;
+  font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C6A98F}
+@media(max-width:640px){.cliff .gap{padding:10px 0}}
+.cliff b{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px}
+.cliff .l b{color:#7FA57A}.cliff .r b{color:#E8C3BC}
+.cliff ul{margin:0;padding-left:17px;font-size:.9rem;line-height:1.5}
+.cliff li{margin-bottom:6px;color:#B9C4B4}
+.ladder{margin:0 0 16px}
+.rung{background:var(--card);border-left:4px solid var(--line);padding:15px 19px;margin-bottom:8px}
+.rung.least{border-left-color:#2E4E3F}
+.rung.mid{border-left-color:#A8641C}
+.rung.most{border-left-color:#8A2B20}
+.rung b{display:block;font-size:1.03rem;font-weight:400;margin-bottom:5px}
+.rung .tag{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;float:right;margin-left:12px}
+.rung.least .tag{color:#2E4E3F}.rung.mid .tag{color:#A8641C}.rung.most .tag{color:#8A2B20}
+.rung p{font-size:.93rem;margin:0;color:var(--ink-soft)}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Siblings and the whole household:<br><em>everyone seen, everyone steady</em></h1>
+  <p class="lede">Brothers and sisters are living the same life, from a different seat. Most of them are doing well, some of them are quietly not, and almost all of them have worked out that adding to your load is something to avoid. This is about noticing them — and about holding a household together when one person in it needs a great deal.</p>
+</header>
+
+<div class="note">
+  <p><strong>Neither version is the truth.</strong> Siblings are not damaged by this, and they are not automatically made kinder and wiser by it either. Research on sibling outcomes is genuinely mixed, which matches what families describe: some thrive, some struggle, most do both at different times.</p>
+  <p>What makes the difference is not the disability. It is how much information they get, how much of the load they are asked to carry, and whether anybody notices them.</p>
+</div>
+
+<section>
+  <h2 class="sec">What it is <em>actually like</em></h2>
+  <p class="secnote">Said plainly, because most sibling material is written to reassure parents rather than to describe anything.</p>
+
+  <div class="domains">
+    <div class="dom"><h3>Things they often carry</h3>
+      <p>Rarely all at once, and rarely said out loud.</p>
+      <ul>
+        <li>Worry about their brother or sister, including at night</li>
+        <li>Embarrassment in public, then guilt about the embarrassment</li>
+        <li>Anger at the unfairness, then guilt about the anger</li>
+        <li>Feeling their own problems are too small to mention</li>
+        <li>A sense that the family runs on one person's needs</li>
+        <li>Fear about the future, usually unasked</li>
+        <li>Fierce protectiveness, particularly outside the house</li>
+      </ul>
+      <p class="look"><b>Worth knowing</b>Guilt about their own feelings is often heavier than the feelings themselves.</p></div>
+
+    <div class="dom"><h3>Things they often gain</h3>
+      <p>Real, and worth naming without turning it into a consolation prize.</p>
+      <ul>
+        <li>Ease around difference that most people never develop</li>
+        <li>Practical competence, often years early</li>
+        <li>A functioning sense of what actually matters</li>
+        <li>Advocacy skills learned by watching</li>
+        <li>Genuine closeness with their sibling, which is frequently overlooked in the worrying</li>
+      </ul>
+      <p class="look"><b>The caveat</b>These are real, and they are not payment for what was hard. Both things stand.</p></div>
+
+    <div class="dom"><h3>What tends to make it harder</h3>
+      <p>Most of which is adjustable.</p>
+      <ul>
+        <li>Not knowing what is going on, and inventing worse</li>
+        <li>Being expected to help beyond their years, routinely</li>
+        <li>Canceled plans, repeatedly, without acknowledgment</li>
+        <li>Being told they are lucky, or that they should understand</li>
+        <li>Nobody asking how they are, ever</li>
+        <li>Being frightened at home and having nowhere to say so</li>
+      </ul>
+      <p class="look"><b>The pattern</b>None of this is about the disability. All of it is about the arrangements around it.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The one who is <em>no trouble</em></h2>
+  <p class="secnote">The most common way a sibling gets missed, and the hardest to spot, because it looks like everything is fine.</p>
+
+  <p>Children work out very early where the attention is going and whether there is any spare. A great many respond by becoming easy — no demands, no problems, good marks, no fuss.</p>
+
+  <p><strong>This is often described as resilience. Frequently it is a strategy.</strong></p>
+
+  <p>The child who never asks for anything is not necessarily fine. They may have concluded, correctly, that you are stretched — and decided the most useful thing they can do is need nothing. That is a large thing for a child to take on, and nobody asked them to.</p>
+
+  <div class="turn">
+    <p><strong>Signs it might be happening:</strong> they downplay their own difficulties, apologize for taking up time, seem older than they are with adults, get upset about small things at odd moments, or you realize you cannot remember the last time they asked you for anything.</p>
+    <p><strong>What helps:</strong> attention that is not contingent on need. Time given because they exist, not because something is wrong. And saying, out loud, more than once: <em>you are allowed to need things here too.</em></p>
+  </div>
+
+  <p class="pull">The child who is no trouble is often the one carrying the most and asking for the least.</p>
+</section>
+
+<section>
+  <h2 class="sec">What siblings <em>actually need</em></h2>
+  <p class="secnote">In rough order of how much difference each makes.</p>
+  <ul>
+    <li><strong>Honest information, at their level.</strong> Children fill gaps with invention, and what they invent is almost always worse and often involves it being their fault. Name the condition. Explain what it means. Update it as they get older, because an explanation that worked at six will not hold at twelve.</li>
+    <li><strong>Time alone with you, predictably.</strong> Twenty minutes reliably beats a special day canceled twice. The predictability is doing more work than the duration.</li>
+    <li><strong>Permission to have hard feelings without managing yours.</strong> If saying <em>I hate that we can never go anywhere</em> produces adult distress, they will stop saying things. Receive it plainly: <em>that makes sense, it is genuinely unfair, tell me more.</em></li>
+    <li><strong>Not to be the co-parent.</strong> Helping sometimes is normal family life. Being routinely responsible for supervision, safety or care is a different thing, and it shapes a childhood.</li>
+    <li><strong>Their own life protected.</strong> Their activities, their friends, their birthday. When something has to be canceled, name it as a loss rather than as something they should be fine about.</li>
+    <li><strong>Other siblings.</strong> Sibling support groups exist and are frequently the first place a child meets someone who does not need any of it explained. For many, it is transformative.</li>
+    <li><strong>To be told, explicitly, that none of it is their fault</strong> — not the condition, not the stress, not the missed plans. Children assume responsibility for things adults would never think to deny.</li>
+  </ul>
+
+  <div class="bnote">
+    <h3>Their questions, and how to answer them</h3>
+    <p><strong>"Will I get it too?"</strong> Answer honestly, at their level, including if the honest answer is <em>we do not know</em>. Uncertainty they can hold; being fobbed off they cannot.</p>
+    <p><strong>"Did I cause it?"</strong> They may never ask this out loud. Answer it anyway, unprompted.</p>
+    <p><strong>"Will I have to look after them?"</strong> The most loaded one, and often carried silently for years. See below — the answer matters more than almost anything else on this page.</p>
+    <p><strong>"Why do they get away with everything?"</strong> Fairness means everyone getting what they need, not everyone getting the same. That takes years to land, so expect to say it many times — and to acknowledge that it can be true and still feel unfair.</p>
+    <p><strong>"What do I say at school?"</strong> Give them words they can actually use, and permission not to explain at all if they would rather not.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">When it is not safe, <em>or not fair</em></h2>
+  <p class="secnote">Under-discussed, and one of the situations where families most need permission to say something out loud.</p>
+
+  <p>Sometimes a sibling is being hurt — hit, bitten, frightened, their belongings destroyed, their door not lockable, their sleep broken. Sometimes they are afraid in their own bedroom.</p>
+
+  <p><strong>Saying so is not a betrayal of the disabled child.</strong> It is a description of a situation that is not working, and situations that are not working can usually be changed. Behavior that harms someone else is a reason for more support, not a thing to be absorbed quietly by whoever is nearest.</p>
+
+  <ul>
+    <li><strong>Say it to the team, plainly and in writing.</strong> "This is happening to his sister and it is not sustainable" is legitimate clinical information, and it frequently changes what gets offered.</li>
+    <li><strong>Give the sibling a space that is genuinely theirs</strong> — a lock, a shelf, somewhere their things cannot be reached. Small, and it matters enormously.</li>
+    <li><strong>Tell them what to do</strong>, specifically: where to go, who to get, that leaving is allowed and is not disloyal.</li>
+    <li><strong>Do not ask them to understand it away.</strong> Explaining why it happens is useful. Requiring them to be fine about it is not.</li>
+    <li><strong>Repair afterward, both ways.</strong> The sibling needs acknowledgment, and the disabled child usually needs help making it right in whatever way they can.</li>
+    <li><strong>If it is frequent or escalating, that is a crisis</strong>, and the household needs more help than it currently has. See <a href="de-escalation.html">in the moment</a> and <a href="behavior.html">behavior is communication</a>.</li>
+  </ul>
+
+  <p class="fnote">Families frequently normalize this over years, because it came on gradually and because there was nowhere to put it. It is worth asking yourself what you would think if you heard the same account from another family.</p>
+</section>
+
+<section>
+  <h2 class="sec">Their future is <em>theirs</em></h2>
+  <p class="secnote">The question they are carrying, whether or not they have raised it.</p>
+
+  <p>Many siblings assume from a young age that they will one day be responsible for their brother or sister. Very few are ever asked whether they want that, and a great many make quiet decisions about their own lives around an assumption nobody has confirmed.</p>
+
+  <p><strong>The conversation is worth having early, and more than once.</strong></p>
+  <ul>
+    <li><strong>Ask what role they want</strong>, and mean the answer. Some want to be closely involved. Some want to be a brother rather than a carer. Both are legitimate, and the answer may change several times.</li>
+    <li><strong>Make clear it is not automatic.</strong> Planning for a disabled adult's life is a parent's job, and it can be built so that a sibling is not the only fallback.</li>
+    <li><strong>Show them the plan.</strong> An adult sibling who knows a trust exists, who the successors are, and where the documents live is far less frightened than one guessing. See <a href="adult-life.html">after school ends</a>.</li>
+    <li><strong>Involve them in decisions that will outlast you</strong>, at an age where they can genuinely weigh in.</li>
+    <li><strong>Being close is not the same as being responsible.</strong> Say that explicitly — many siblings have never heard it.</li>
+  </ul>
+
+  <div class="turn">
+    <p>What most adult siblings describe wanting is not to be released from it. It is <strong>to have been asked</strong> — and to know the plan does not quietly assume them.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Holding the household <em>steady</em></h2>
+  <p class="secnote">What keeps a family feeling like a family rather than an operation.</p>
+  <ul>
+    <li><strong>Protect a few ordinary rituals</strong> — a meal, a night, a walk. They do not need to be special, and specialness is not what makes them work. Repetition is.</li>
+    <li><strong>Let each person have something that is theirs</strong>, including the disabled child, and including you.</li>
+    <li><strong>Name what is hard rather than performing that it is fine.</strong> Children read the room accurately and are unsettled by mismatch between what they see and what they are told.</li>
+    <li><strong>Let them see repair.</strong> Adults getting it wrong and putting it right teaches more than adults appearing not to get it wrong.</li>
+    <li><strong>Say what you notice, specifically.</strong> "You waited a long time this afternoon and I saw that" lands harder than general praise, and it tells them they are being observed by somebody.</li>
+    <li><strong>Lower the standard deliberately</strong> when the week requires it. A household that survives on cereal for a fortnight is a household that survived.</li>
+    <li><strong>Bring people in.</strong> Grandparents, friends, a sitter, anybody. A household with more adults in it is steadier for everyone, and asking is not failure.</li>
+  </ul>
+
+  <div class="note">
+    <h3>The thing families say afterward</h3>
+    <p>Adult siblings, asked what they wish had been different, rarely say they wanted less responsibility or fewer disruptions. Most often they say some version of: <em>I wish they had known I was struggling</em>, or <em>I wish somebody had asked.</em></p>
+    <p><strong>Which is a low bar, and reachable on the worst week you will ever have.</strong> Asking costs nothing. It is the noticing that they remember.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="caregivers.html"><h3>The people doing the caring</h3>
+      <p>Reducing the load, respite, partners, and staying a person in your own right.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="adult-life.html"><h3>After school ends</h3>
+      <p>Planning a disabled adult's life so that no sibling is the only fallback.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="de-escalation.html"><h3>In the moment</h3>
+      <p>What to do when it is hard, including when other children are in the house.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="their-own-voice.html"><h3>Their own voice</h3>
+      <p>Talking with a child about their own life, and who gets to tell their story.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="share-builder.html"><h3>The share builder</h3>
+      <p>Hand someone what they need to help, so more adults can be involved.</p>
+      <span class="go">Open it</span></a>
+    <a class="libcard" href="adaptive-community.html"><h3>Sports, classes and community</h3>
+      <p>Places where the whole family can be somewhere together without explaining.</p>
+      <span class="go">Read the page</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>Ask one of them how they are, and wait longer than feels comfortable for the answer. Not tonight if tonight is impossible — but this week.</p>
+  <p>You are not failing them by having a child who needs a great deal. You would only be failing them by not noticing that they noticed.</p>
+</div>
+
+<footer>
+  <p><strong>Nothing here is clinical advice.</strong> Where a sibling is genuinely struggling, distressed, or frightened at home, that deserves proper support in its own right — not only adjustment around the edges.</p>
+</footer>
+
+</div>
+<script src="search-index.js"></script>
+<script src="site-nav.js"></script>
+</body>
+</html>

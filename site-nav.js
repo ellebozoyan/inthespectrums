@@ -23,7 +23,8 @@
       ['programs-and-entitlements.html','Programs and entitlements','What exists, when each door opens, the ages that matter']
     ]},
     { label: 'The people caring', items: [
-      ['caregivers.html',              'The people doing the caring','Support, respite, relationships, and staying a person yourself']
+      ['caregivers.html',              'The people doing the caring','Support, respite, relationships, and staying a person yourself'],
+      ['siblings-and-family.html',     'Siblings and the whole household','Keeping everyone seen, connected and steady']
     ]},
     { label: 'Adult life', items: [
       ['adult-life.html',              'After school ends',       'The cliff, decision-making, trusts and wills, and what to do when'],
@@ -929,7 +930,7 @@
   var MAP = [
     ['Start here', ['spectrums.html','what-to-do-first.html','care-team-map.html','conditions-library.html','whole-picture.html']],
     ['School and services', ['inside-the-iep.html','accommodations-finder.html','programs-and-entitlements.html']],
-    ['The people caring', ['caregivers.html']],
+    ['The people caring', ['caregivers.html','siblings-and-family.html']],
     ['Adult life', ['adult-life.html','adult-benefits.html','adult-housing.html','adult-providers.html','your-own-life.html']],
     ['Money, paperwork and tracking', ['paying-for-therapy.html','template-builders.html','symptom-tracker.html','goals-tracker.html','family-calendar.html','medication-list.html','food-list.html','meal-planner.html','choice-planner.html','household-board.html','practice-mirror.html','share-builder.html','using-these-tools.html']],
     ['Safety and health', ['safety.html','injuries-and-illness.html','supplements.html','judging-claims.html']],
@@ -1500,6 +1501,12 @@
   "Twelve boards, free, as device files, printable PDFs, and plain word lists that need no license at all.",
   "Giving somebody a way to refuse food does not make them eat less. It tends to make them try more."],
 
+'siblings-and-family.html': ["Siblings are not damaged by this and not automatically ennobled by it. What matters is information, load, and being noticed.",
+  "The child who is no trouble is often carrying the most and asking for the least \u2014 that is frequently a strategy, not resilience.",
+  "Honest information at their level, and time alone with you that is predictable rather than special.",
+  "If a sibling is being hurt or frightened at home, saying so is not a betrayal \u2014 it is a reason for more support.",
+  "Ask what role they want in their brother or sister\u2019s adult life. Most say they wish somebody had asked."],
+
 'maplewood-stories.html': ["Fifty-two picture books about ten friends who are not alike, figuring it out together.",
   "No child in them is labeled, and none of them is the lesson.",
   "Social and emotional learning, executive function, and safety awareness are the plots, not the moral.",
@@ -1558,6 +1565,10 @@
   'use strict';
 
   var MARKS = {
+
+  'siblings-and-family.html':
+    '<rect width="74" height="74" fill="#E1EEF2"/><circle cx="24" cy="26" r="8" fill="none" stroke="#16283C" stroke-width="2"/><path d="M11 52v-3a13 13 0 0 1 26 0v3" fill="none" stroke="#16283C" stroke-width="2"/><circle cx="49" cy="30" r="6.5" fill="#1D6A82"/><path d="M39 52v-2a10 10 0 0 1 20 0v2" fill="#1D6A82"/><path d="M33 20l3-3 3 3-3 3z" fill="#9C4A21"/>',
+
 
   'mealtime-communication.html':
     '<rect width="74" height="74" fill="#EDF1F5"/><rect x="10" y="14" width="54" height="46" rx="3" fill="#FFF" stroke="#16283C" stroke-width="1.6"/><rect x="15" y="19" width="13" height="12" rx="1.5" fill="#F5F3D9" stroke="#C9C29A"/><rect x="31" y="19" width="13" height="12" rx="1.5" fill="#E4F0E2" stroke="#A8C4A3"/><rect x="47" y="19" width="12" height="12" rx="1.5" fill="#F0E4EF" stroke="#CBA9C8"/><rect x="15" y="35" width="13" height="12" rx="1.5" fill="#E2ECF5" stroke="#A4BDD2"/><rect x="31" y="35" width="13" height="12" rx="1.5" fill="#FBEEDD" stroke="#D8BC8E"/><rect x="47" y="35" width="12" height="12" rx="1.5" fill="#F6E2E0" stroke="#D3A7A1"/>',
@@ -2084,6 +2095,11 @@
 'mealtime-communication.html': [
     ['',
      'warm|A person who can say <i>no thank you</i> and be believed will try more than one who can only refuse by leaving the table. <b>Giving somebody words is not the same as giving them demands.</b>']
+  ],
+
+'siblings-and-family.html': [
+    ['',
+     'warm|They are watching how you treat someone who needs a great deal, and they are learning what a family does. <b>That lesson is landing even on the weeks you think you are handling none of it well.</b>']
   ],
 
   'medication-list.html': [
