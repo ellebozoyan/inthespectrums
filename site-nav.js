@@ -33,20 +33,23 @@
       ['adult-providers.html',         'Finding and vetting providers','What to ask before someone lives there, and how to keep watch'],
       ['your-own-life.html',           'Your own life',           'Written for the adult rather than the parent']
     ]},
-    { label: 'Money, paperwork and tracking', items: [
-      ['paying-for-therapy.html',      'Paying for it',           'In-network vs out, the annotated superbill, appeals'],
-      ['template-builders.html',       'Template builders',       'Four documents that build themselves as you type'],
-      ['symptom-tracker.html',         'The symptom tracker',     'Log what changed today, print a summary before the appointment'],
-      ['goals-tracker.html',           'Goals and generalization','Every provider\u2019s goals in one place, and which ones should travel'],
-      ['share-builder.html',           'The share builder',       'Assemble a packet for one person \u2014 you tick exactly what goes in'],
-      ['family-calendar.html',         'The family calendar',     'One day on one screen \u2014 and onto everyone\u2019s phones'],
-      ['medication-list.html',         'The medication list',     'Current, printable, and always in a pocket'],
-      ['food-list.html',               'The food list',           'What is accepted, and exactly how it has to be'],
-      ['meal-planner.html',            'The meal planner',        'Plan a week \u2014 and decide for yourself how much is new'],
-      ['choice-planner.html',          'The choice planner',      'The same words every time \u2014 logical consequences, not rewards'],
-      ['household-board.html',         'The household board',     'Contributions, paid jobs, and saving for something you chose'],
-      ['practice-mirror.html',         'The practice mirror',     'The therapist\u2019s clip, played see-through over the live camera'],
-      ['using-these-tools.html',       'Using these tools',       'Saving to your home screen, printing to PDF, and backing up']
+    { label: 'The tools', items: [
+      ['template-builders.html',          'Template builders',         'Four documents that build themselves as you type'],
+      ['symptom-tracker.html',            'The symptom tracker',       'Log what changed today, print a summary before the appointment'],
+      ['goals-tracker.html',              'Goals and generalization',  'Every provider\u2019s goals in one place, and which ones should travel'],
+      ['share-builder.html',              'The share builder',         'Assemble a packet for one person \u2014 you tick exactly what goes in'],
+      ['family-calendar.html',            'The family calendar',       'One day on one screen \u2014 and onto everyone\u2019s phones'],
+      ['medication-list.html',            'The medication list',       'Current, printable, and always in a pocket'],
+      ['food-list.html',                  'The food list',             'What is accepted, and exactly how it has to be'],
+      ['meal-planner.html',               'The meal planner',          'Plan a week \u2014 and decide for yourself how much is new'],
+      ['choice-planner.html',             'The choice planner',        'The same words every time \u2014 logical consequences, not rewards'],
+      ['household-board.html',            'The household board',       'Contributions, paid jobs, and saving for something you chose'],
+      ['practice-mirror.html',            'The practice mirror',       'The therapist\u2019s clip, played see-through over the live camera'],
+      ['using-these-tools.html',          'Using these tools',         'Saving to your home screen, printing to PDF, and backing up']
+    ]},
+    { label: 'Money, paperwork and what you are owed', items: [
+      ['paying-for-therapy.html',         'Paying for it',             'In-network vs out, the annotated superbill, appeals'],
+      ['programs-and-entitlements.html',  'Programs and entitlements', 'What exists, when each door opens, the ages that matter']
     ]},
     { label: 'Safety and health', items: [
       ['safety.html',                  'Safety',                  'Water, wandering, responders, body autonomy, equipment'],
