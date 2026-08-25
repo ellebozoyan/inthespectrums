@@ -34,6 +34,7 @@
       ['your-own-life.html',           'Your own life',           'Written for the adult rather than the parent']
     ]},
     { label: 'The tools', items: [
+      ['using-these-tools.html',          'Using these tools',         'Saving to your home screen, printing to PDF, and backing up'],
       ['template-builders.html',          'Template builders',         'Four documents that build themselves as you type'],
       ['symptom-tracker.html',            'The symptom tracker',       'Log what changed today, print a summary before the appointment'],
       ['goals-tracker.html',              'Goals and generalization',  'Every provider\u2019s goals in one place, and which ones should travel'],
@@ -45,7 +46,6 @@
       ['choice-planner.html',             'The choice planner',        'The same words every time \u2014 logical consequences, not rewards'],
       ['household-board.html',            'The household board',       'Contributions, paid jobs, and saving for something you chose'],
       ['practice-mirror.html',            'The practice mirror',       'The therapist\u2019s clip, played see-through over the live camera'],
-      ['using-these-tools.html',          'Using these tools',         'Saving to your home screen, printing to PDF, and backing up']
     ]},
     { label: 'Money, paperwork and what you are owed', items: [
       ['paying-for-therapy.html',         'Paying for it',             'In-network vs out, the annotated superbill, appeals'],
@@ -2702,5 +2702,259 @@
   addButton();
   if (!document.querySelector('.nv-langbtn')) {
     document.addEventListener('DOMContentLoaded', addButton);
+  }
+})();
+
+/* ===================================================================
+   20. WHO ARE WE WORKING ON — one person switcher for every tool.
+
+   All twelve tools already share one store, so a name entered anywhere
+   appears everywhere. What was missing was a consistent way to switch
+   between people: five tools had a picker buried in a Setup tab, three
+   had none at all.
+
+   Switching writes the choice and reloads, which guarantees every tool
+   re-renders correctly without each one needing to cooperate.
+   =================================================================== */
+(function () {
+  'use strict';
+
+  var TOOLS = ['symptom-tracker.html','goals-tracker.html','share-builder.html',
+    'medication-list.html','food-list.html','meal-planner.html','family-calendar.html',
+    'template-builders.html','choice-planner.html','household-board.html',
+    'practice-mirror.html','conditions-library.html'];
+  var here = location.pathname.split('/').pop() || 'index.html';
+  if (TOOLS.indexOf(here) < 0 || here === 'conditions-library.html') return;
+
+  var KEY = 'its_family_v1';
+  function read() {
+    try { var r = localStorage.getItem(KEY); return r ? JSON.parse(r) : null; } catch (e) { return null; }
+  }
+  function write(d) {
+    try { localStorage.setItem(KEY, JSON.stringify(d)); return true; } catch (e) { return false; }
+  }
+
+  var css = [
+    '.nv-who{background:var(--nv-card);border:1px solid var(--nv-line);border-left:3px solid var(--nv-forest);',
+    'border-radius:2px;padding:11px 15px;margin:0 0 18px;display:flex;align-items:center;gap:12px;',
+    'flex-wrap:wrap;position:relative}',
+    '.nv-who .lbl{font-family:var(--nv-sans);font-size:10px;letter-spacing:.13em;text-transform:uppercase;',
+    'color:var(--nv-soft);font-weight:700}',
+    '.nv-who .cur{font-family:var(--nv-serif);font-size:1.05rem;color:var(--nv-ink)}',
+    '.nv-who button.sw{font-family:var(--nv-sans);font-size:12px;padding:7px 12px;border:1px solid var(--nv-line);',
+    'background:var(--nv-ground);border-radius:2px;cursor:pointer;color:var(--nv-forest)}',
+    '.nv-who button.sw:hover{border-color:var(--nv-rust);color:var(--nv-rust)}',
+    '.nv-whopop{position:absolute;top:100%;left:0;right:0;background:var(--nv-ground);',
+    'border:1px solid var(--nv-line);border-radius:2px;box-shadow:0 6px 22px rgba(22,40,60,.14);',
+    'padding:14px 16px;z-index:120;display:none;margin-top:4px;max-height:60vh;overflow-y:auto}',
+    '.nv-whopop.on{display:block}',
+    '.nv-whopop input{width:100%;font-family:var(--nv-serif);font-size:.98rem;padding:9px 11px;',
+    'border:1px solid var(--nv-line);border-radius:2px;background:#fff;color:var(--nv-ink);margin-bottom:10px}',
+    '.nv-whopop .row{display:flex;gap:8px;align-items:center;margin-bottom:4px}',
+    '.nv-whopop button.pick{flex:1;text-align:left;font-family:var(--nv-serif);font-size:.98rem;',
+    'padding:9px 11px;border:1px solid var(--nv-line);background:#fff;border-radius:2px;cursor:pointer;',
+    'color:var(--nv-ink)}',
+    '.nv-whopop button.pick:hover{border-color:var(--nv-rust)}',
+    '.nv-whopop button.pick.on{background:var(--nv-forest);border-color:var(--nv-forest);color:#fff}',
+    '.nv-whopop .add{margin-top:10px;padding-top:10px;border-top:1px solid var(--nv-line)}',
+    '.nv-whopop .note{font-family:var(--nv-serif);font-size:.85rem;color:var(--nv-soft);',
+    'line-height:1.5;margin:10px 0 0}',
+    '.nv-whopop .none{font-family:var(--nv-serif);font-size:.9rem;color:var(--nv-soft);padding:8px 2px}',
+    '@media print{.nv-who{display:none}}'
+  ].join('');
+  var st = document.createElement('style');
+  st.textContent = css;
+  document.head.appendChild(st);
+
+  function nameOf(d, k) { return (d.people[k] && d.people[k].name) || k; }
+
+  function build() {
+    var d = read();
+    if (!d || !d.people) return;
+    var keys = Object.keys(d.people);
+
+    var bar = document.createElement('div');
+    bar.className = 'nv-who';
+    bar.innerHTML =
+      '<span class="lbl">Working on</span>' +
+      '<span class="cur"></span>' +
+      '<button class="sw" type="button">Switch or add someone</button>' +
+      '<div class="nv-whopop"></div>';
+
+    var cur = bar.querySelector('.cur');
+    var pop = bar.querySelector('.nv-whopop');
+    var btn = bar.querySelector('button.sw');
+    cur.textContent = nameOf(d, d.current) || 'Nobody named yet';
+
+    function render(filter) {
+      var dd = read();
+      var ks = Object.keys(dd.people);
+      var q = (filter || '').toLowerCase().trim();
+      var shown = ks.filter(function (k) { return !q || nameOf(dd, k).toLowerCase().indexOf(q) > -1; });
+      var h = '';
+      /* a search box only earns its place once there are enough people to need it */
+      if (ks.length > 6) {
+        h += '<input type="search" placeholder="Type a name\u2026" aria-label="Find a person">';
+      }
+      if (!shown.length) {
+        h += '<p class="none">Nobody matches that.</p>';
+      } else {
+        shown.forEach(function (k) {
+          h += '<div class="row"><button class="pick' + (k === dd.current ? ' on' : '') +
+               '" data-k="' + k + '">' + nameOf(dd, k) + '</button></div>';
+        });
+      }
+      h += '<div class="add"><input type="text" id="nvNewName" placeholder="Add someone new\u2026" ' +
+           'aria-label="Add someone new"><button class="pick" id="nvAdd">Add them</button></div>';
+      h += '<p class="note">Everything is shared between the tools, so a name entered once appears in all of them. ' +
+           'Each person keeps their own separate records.</p>';
+      pop.innerHTML = h;
+
+      var search = pop.querySelector('input[type="search"]');
+      if (search) {
+        search.value = filter || '';
+        search.addEventListener('input', function () { render(search.value); search.focus(); });
+        if (filter) { search.setSelectionRange(search.value.length, search.value.length); }
+      }
+      pop.querySelectorAll('button.pick[data-k]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var x = read();
+          x.current = b.dataset.k;
+          if (write(x)) location.reload();
+        });
+      });
+      var addBtn = pop.querySelector('#nvAdd');
+      var addIn = pop.querySelector('#nvNewName');
+      function doAdd() {
+        var v = (addIn.value || '').trim();
+        if (!v) return;
+        var x = read();
+        var key = v;
+        var i = 2;
+        while (x.people[key]) { key = v + ' ' + i; i++; }
+        /* A minimal record. Every tool fills in its own slots on load, so
+           copying an existing person's shape would only risk carrying over a
+           stale or incomplete structure. */
+        x.people[key] = {
+          name: v, dob: '', dx: '', emerg: '', weight: '', color: '',
+          show: { meds: true, meals: true, appts: true, routines: true },
+          tracker: { entries: [], days: {}, custom: {}, pre: [], help: [] },
+          goals:   { items: [], settings: [], instructions: '' },
+          meds:    { items: [], allergies: '', pharm: '', delivery: '', changes: [] },
+          food:    { items: [], rules: '', allerg: '', supp: '', history: [] },
+          cal:     { repeats: [], appts: [], ticks: {} },
+          plan:    { weeks: {}, goal: 1 },
+          scripts: [],
+          home:    { tasks: [], ticks: {}, goal: null, earned: [] },
+          practice:{ ex: [], log: [] }
+        };
+        x.current = key;
+        if (write(x)) location.reload();
+      }
+      addBtn.addEventListener('click', doAdd);
+      addIn.addEventListener('keydown', function (e) { if (e.key === 'Enter') doAdd(); });
+    }
+
+    btn.addEventListener('click', function () {
+      var open = pop.classList.toggle('on');
+      if (open) {
+        render('');
+        var s = pop.querySelector('input[type="search"]') || pop.querySelector('#nvNewName');
+        if (s) setTimeout(function () { s.focus(); }, 30);
+      }
+    });
+    document.addEventListener('click', function (e) {
+      if (!bar.contains(e.target)) pop.classList.remove('on');
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') pop.classList.remove('on');
+    });
+
+    /* sit directly above the tabs, which is where every tool starts */
+    var host = document.querySelector('.tabs') || document.querySelector('main');
+    if (host && host.parentNode) host.parentNode.insertBefore(bar, host);
+  }
+
+  build();
+  if (!document.querySelector('.nv-who')) {
+    document.addEventListener('DOMContentLoaded', build);
+  }
+})();
+
+/* ===================================================================
+   21. PHOTOGRAPHS — one house treatment for any image on any page.
+
+   Usage in a page:
+
+     <figure class="fig">
+       <img src="img/kitchen-hands.webp" width="1200" height="800"
+            alt="Two pairs of hands tearing lettuce over a bowl on a counter">
+       <figcaption>Cooking together counts as feeding work.</figcaption>
+     </figure>
+
+   Width and height matter: without them the page jumps as images load,
+   which is worse than having no image at all. Everything else - lazy
+   loading, async decoding, aspect ratio - is applied here so no page
+   has to remember it.
+   =================================================================== */
+(function () {
+  'use strict';
+
+  var css = [
+    '.fig{margin:0 0 24px;max-width:100%}',
+    '.fig img{display:block;width:100%;height:auto;border-radius:3px;',
+    'background:var(--nv-card);border:1px solid var(--nv-line)}',
+    '.fig figcaption{font-family:var(--nv-sans);font-size:12px;line-height:1.5;',
+    'color:var(--nv-soft);margin-top:8px;padding-left:11px;border-left:2px solid var(--nv-line)}',
+
+    /* half-width, sitting beside text on wide screens */
+    '.fig.side{float:right;width:min(42%,340px);margin:4px 0 18px 26px}',
+    '@media(max-width:760px){.fig.side{float:none;width:100%;margin:0 0 22px}}',
+
+    /* a full-bleed band, for the top of a page */
+    '.fig.wide img{border-radius:2px}',
+    '.fig.wide{margin:0 0 30px}',
+
+    /* two or three side by side */
+    '.figrow{display:grid;gap:12px;margin:0 0 24px;',
+    'grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}',
+    '.figrow .fig{margin:0}',
+
+    /* a quiet, consistent treatment so photographs sit with the illustrations */
+    '.fig img{filter:saturate(.92)}',
+    '.fig.plain img{filter:none}',
+
+    '@media print{.fig{break-inside:avoid;page-break-inside:avoid}',
+    '.fig.side{float:none;width:100%;margin:0 0 14px}',
+    '.fig figcaption{color:#555}}'
+  ].join('');
+  var st = document.createElement('style');
+  st.textContent = css;
+  document.head.appendChild(st);
+
+  function prepare() {
+    var imgs = document.querySelectorAll('.fig img, .figrow img');
+    for (var i = 0; i < imgs.length; i++) {
+      var im = imgs[i];
+      /* the first image on a page is often above the fold, so it loads eagerly */
+      if (!im.getAttribute('loading')) im.setAttribute('loading', i === 0 ? 'eager' : 'lazy');
+      if (!im.getAttribute('decoding')) im.setAttribute('decoding', 'async');
+      /* reserve the space so nothing jumps while it loads */
+      var w = im.getAttribute('width'), h = im.getAttribute('height');
+      if (w && h && !im.style.aspectRatio) im.style.aspectRatio = w + ' / ' + h;
+      /* an image with no alt text is worse than no image: flag it in the console
+         rather than shipping something a screen reader will read as a filename */
+      if (im.getAttribute('alt') === null) {
+        im.setAttribute('alt', '');
+        if (window.console && console.warn) {
+          console.warn('In The Spectrums: image missing alt text -', im.getAttribute('src'));
+        }
+      }
+    }
+  }
+
+  prepare();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', prepare);
   }
 })();

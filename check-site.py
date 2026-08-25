@@ -131,6 +131,22 @@ if 'conditions-library.html' in present:
             if frag not in _ids:
                 problems.append(f'{f}: links to conditions-library.html#{frag}, which does not exist')
 
+
+# An image without alt text is read aloud as a filename. An image without
+# width and height makes the page jump as it loads. Both are cheap to require.
+for f in pages:
+    txt = open(f).read()
+    # only real markup - images built inside <script> have their sizes set in JS
+    body = re.sub(r'<script.*?</script>', '', txt, flags=re.S)
+    for tag in re.findall(r'<img\s[^>]*>', body):
+        src = (re.search(r'src="([^"]*)"', tag) or [None, '?'])[1]
+        if 'alt=' not in tag:
+            problems.append(f'{f}: <img src="{src}"> has no alt text')
+        if 'width=' not in tag or 'height=' not in tag:
+            problems.append(f'{f}: <img src="{src}"> has no width/height (page will jump)')
+        if src != '?' and src.startswith('img/') and not os.path.exists(src):
+            problems.append(f'{f}: image file missing - {src}')
+
 print(f'{len(pages)} pages checked')
 if problems:
     print(f'\n{len(problems)} PROBLEMS:')

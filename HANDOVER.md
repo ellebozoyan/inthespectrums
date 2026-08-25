@@ -141,6 +141,12 @@ what attribution appears. Plain word lists are offered alongside, which need no
 licence at all — if licensing is refused, those and open-licensed symbol sets
 (ARASAAC, Mulberry) are the fallback.
 
+**One store, one switcher.** All twelve tools share `its_family_v1`, so a name
+entered once appears everywhere. Section 20 of `site-nav.js` injects a person
+switcher above the tabs on every tool - it writes the choice and reloads, which
+avoids each tool needing to cooperate. A search box appears once there are more
+than six people.
+
 **Design principles the tools follow:**
 - The person sets their own goal wherever there is one. Zero is a real answer.
 - No points, stars, streaks, or levels. Nothing is ever taken away.
