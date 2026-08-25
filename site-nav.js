@@ -83,7 +83,8 @@
     ]},
     { label: 'About', items: [
       ['about.html',                   'About and contributors',  'Who writes this, and how to tell us what\u2019s wrong'],
-      ['terms-and-privacy.html',       'Terms, privacy and disclaimers','What this site is, what it isn\u2019t, and what it collects (nothing)']
+      ['terms-and-privacy.html',       'Terms, privacy and disclaimers','What this site is, what it isn\u2019t, and what it collects (nothing)'],
+      ['all-pages.html',               'Everything on this site',  'By situation, by what is happening, or by subject']
     ]}
   ];
 
@@ -1038,7 +1039,9 @@
     'margin:9px 0 0;display:flex;gap:14px;flex-wrap:wrap;align-items:center}',
     /* Both reading modes stay visible; the inactive one fades but is still
        readable, so it is obvious what the other option does. */
-    '.nv-outline{font-family:var(--nv-sans);background:none;border:1px solid var(--nv-line);',
+    '.nv-outline{font-family:var(--nv-sans);background:var(--nv-card);border:1px solid var(--nv-forest);',
+    'box-shadow:0 1px 0 rgba(46,78,63,.12)}',
+    '.nv-outline{font-family:var(--nv-sans);background:var(--nv-card);border:1px solid var(--nv-forest);',
     'border-radius:2px;padding:8px 13px;cursor:pointer;display:inline-flex;align-items:center;',
     'gap:10px;text-align:left;line-height:1.25;flex-wrap:wrap}',
     '.nv-outline b{font-size:11.5px;letter-spacing:.05em;font-weight:700;color:var(--nv-forest);',
@@ -1288,7 +1291,7 @@
 'feeding-therapy.html': ["Restricted eating is rarely fussiness \u2014 look for pain, airway, sensory and anxiety underneath it.",
   "Food chaining: change one property at a time \u2014 texture, temperature, flavor, wetness, brand.",
   "Not everyone wants mild. Many respond better to intense flavors \u2014 sour, bitter, sharp, strongly salted.",
-  "Clinicians genuinely disagree about pressure. This site leans responsive, and says so rather than pretending it is settled.",
+  "Clinicians genuinely disagree about pressure. You can take the useful parts of an approach and decline the rest.",
   "Nutrition formulas usually go through a DME supplier, not a pharmacy \u2014 that is where families get stuck."],
 
 'aquatic-therapy.html': ["Water changes the physics \u2014 weight, speed, resistance, and how long you have to react.",
@@ -1507,6 +1510,12 @@
   "If a sibling is being hurt or frightened at home, saying so is not a betrayal \u2014 it is a reason for more support.",
   "Ask what role they want in their brother or sister\u2019s adult life. Most say they wish somebody had asked."],
 
+'all-pages.html': ["Every page and tool on the site, in one place.",
+  "Three ways in: by situation, by what is actually happening, or by subject.",
+  "The symptom list is the fastest route \u2014 not sleeping, hitting, losing foods, cannot tell us what is wrong.",
+  "Most entries lead to more than one place, because most of them have more than one cause.",
+  "Skim it collapses any page to headings; search takes everyday words."],
+
 'maplewood-stories.html': ["Fifty-two picture books about ten friends who are not alike, figuring it out together.",
   "No child in them is labeled, and none of them is the lesson.",
   "Social and emotional learning, executive function, and safety awareness are the plots, not the moral.",
@@ -1565,6 +1574,10 @@
   'use strict';
 
   var MARKS = {
+
+  'all-pages.html':
+    '<rect width="74" height="74" fill="#F1F4F0"/><rect x="12" y="15" width="22" height="17" rx="2" fill="#FFF" stroke="#16283C" stroke-width="1.5"/><rect x="40" y="15" width="22" height="17" rx="2" fill="#FFF" stroke="#16283C" stroke-width="1.5"/><rect x="12" y="40" width="22" height="17" rx="2" fill="#FFF" stroke="#16283C" stroke-width="1.5"/><rect x="40" y="40" width="22" height="17" rx="2" fill="#2E4E3F"/>',
+
 
   'siblings-and-family.html':
     '<rect width="74" height="74" fill="#E1EEF2"/><circle cx="24" cy="26" r="8" fill="none" stroke="#16283C" stroke-width="2"/><path d="M11 52v-3a13 13 0 0 1 26 0v3" fill="none" stroke="#16283C" stroke-width="2"/><circle cx="49" cy="30" r="6.5" fill="#1D6A82"/><path d="M39 52v-2a10 10 0 0 1 20 0v2" fill="#1D6A82"/><path d="M33 20l3-3 3 3-3 3z" fill="#9C4A21"/>',

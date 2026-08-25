@@ -12,7 +12,7 @@ alongside the site zip.
 ## What this is
 
 A free, ad-free, account-free resource site for families of children with
-complex needs. Fifty-three pages of written guidance plus twelve interactive
+complex needs. Fifty-four pages of written guidance plus twelve interactive
 tools. Everything runs in the browser. There is no server, no analytics, no
 tracking, and nothing a family types is ever transmitted anywhere.
 
@@ -62,9 +62,13 @@ chosen to open outward.
 ## File layout
 
 ```
-*.html              53 pages, each self-contained (own CSS, own JS)
+*.html              54 pages, each self-contained (own CSS, own JS)
 site-nav.js         shared: nav, skim view, callouts, search, language,
                     print styling. ~19 numbered sections.
+all-pages.html      the full directory - every card and the 61-quote router.
+                    index.html deliberately holds only six cards and links here;
+                    it was 3,464 words and is now ~1,200. Do not move the
+                    directory back onto the home page.
 search-index.js     GENERATED — do not hand-edit
 build-search.py     regenerates search-index.js
 check-site.py       validates everything before shipping
@@ -201,7 +205,7 @@ Things that have bitten this build before.
 1. Upload the most recent versioned zip — each is a complete snapshot.
 2. On GitHub: **Add file → Upload files → "choose your files"**. Do not drag.
 3. Scroll past the file list to the green **Commit changes** button.
-4. Verify: the home page should say **Fifty-three pages**.
+4. Verify: the home page carries only six cards; the full directory is `all-pages.html`.
 5. Hard refresh: Cmd+Shift+R or Ctrl+Shift+F5.
 
 `ERR_FILE_NOT_FOUND` means a local file is open, not the website.

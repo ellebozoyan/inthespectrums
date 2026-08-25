@@ -78,9 +78,9 @@ WORDS = {49:'Forty-nine',50:'Fifty',51:'Fifty-one',52:'Fifty-two',53:'Fifty-thre
          54:'Fifty-four',55:'Fifty-five',56:'Fifty-six',57:'Fifty-seven',58:'Fifty-eight'}
 if 'index.html' in present:
     home = open('index.html').read()
-    stated = re.search(r'([A-Z][a-z]+-?[a-z]*) pages', home)
+    stated = re.search(r'\b(Forty|Fifty|Sixty)(?:-[a-z]+)? pages', home)
     expected = WORDS.get(len(pages))
-    if stated and expected and stated.group(1) != expected:
+    if stated and expected and stated.group(0).replace(' pages','') != expected:
         problems.append(f'index.html: says "{stated.group(1)} pages" but there are {len(pages)} ({expected})')
 
 
@@ -119,6 +119,17 @@ for f in pages:
     before_html = head.split('<html', 1)[0]
     if '<a ' in before_html or '<div' in before_html or '<p ' in before_html:
         problems.append(f'{f}: page content appears before <html>')
+
+
+# Deep links into the conditions library point at ids inside a <script> block,
+# so a renamed or removed entry breaks them silently. Check them everywhere.
+if 'conditions-library.html' in present:
+    _cl = open('conditions-library.html').read()
+    _ids = set(re.findall(r'\{id:"([a-z0-9-]+)",cat:', _cl))
+    for f in pages:
+        for frag in re.findall(r'href="conditions-library\.html#([a-z0-9-]+)"', open(f).read()):
+            if frag not in _ids:
+                problems.append(f'{f}: links to conditions-library.html#{frag}, which does not exist')
 
 print(f'{len(pages)} pages checked')
 if problems:

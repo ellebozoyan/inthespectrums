@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Everything on this site — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 18px}
+
+/* hero */
+.hero{padding:64px 0 34px}
+.hero h1{max-width:22ch}   /* a display measure, so the headline breaks well */
+h1{font-size:clamp(2.2rem,5.6vw,3.5rem);line-height:1.08;margin:0 0 22px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.hero .thesis{font-size:1.13rem;line-height:1.55;color:var(--ink-soft);margin:0 0 22px;max-width:62ch}
+.badges{display:flex;gap:9px;flex-wrap:wrap;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em}
+.badge{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:7px 12px;color:var(--ink-soft)}
+
+/* urgent */
+.urgent{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:16px 20px;margin:0 0 54px;
+  font-size:.96rem;max-width:74ch}
+.urgent b{font-family:var(--sans);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--alarm);display:block;margin-bottom:7px}
+.urgent a{color:var(--alarm);font-weight:600}
+
+section{margin:0 0 60px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 10px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 28px;max-width:62ch;font-size:1rem}
+p{margin:0 0 15px}
+ul{padding-left:20px;margin:0 0 15px}li{margin-bottom:9px}
+
+/* signature: situation router */
+.router{display:grid;grid-template-columns:repeat(auto-fill,minmax(304px,1fr));gap:11px}
+.sit{display:flex;flex-wrap:wrap;align-items:center;gap:7px 13px;background:var(--card);
+  border:1px solid var(--line);border-radius:2px;padding:15px 17px;text-decoration:none;
+  color:var(--ink);transition:border-color .18s,transform .18s}
+.sit:hover,.sit:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.sit:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+/* the icon box is a fixed size, so swapping the artwork never moves the words */
+.sit .mark{width:38px;height:38px;flex:0 0 auto;border-radius:2px;display:block}
+.sit .said{flex:1 1 150px;min-width:0;font-size:1.02rem;font-style:italic;line-height:1.42;
+  margin:0;color:var(--ink)}
+.sit .go{flex:0 0 auto;margin-left:auto;font-family:var(--sans);font-size:11.5px;
+  letter-spacing:.05em;color:var(--rust);font-weight:600;white-space:nowrap}
+.sit .go::after{content:" →"}
+
+/* library */
+.grouplabel{font-family:var(--sans);font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:34px 0 13px;padding-bottom:8px;border-bottom:1.5px solid var(--forest)}
+.pages{display:grid;grid-template-columns:repeat(auto-fill,minmax(288px,1fr));gap:12px}
+.pg{display:flex;align-items:flex-start;gap:16px;background:var(--card);border:1px solid var(--line);
+  border-radius:2px;padding:19px 21px;text-decoration:none;color:var(--ink);
+  transition:border-color .18s,transform .18s}
+.pg:hover,.pg:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.pg:focus-visible{outline:2px solid var(--rust);outline-offset:2px}
+.pg .mark{width:74px;height:74px;flex:0 0 auto;border-radius:2px;display:block}
+.pg .txt{flex:1 1 auto;min-width:0}
+.pg h3{font-size:1.09rem;font-weight:400;margin:0 0 7px}
+.pg p{font-size:.93rem;line-height:1.5;color:var(--ink-soft);margin:0}
+.pg .kind{font-family:var(--sans);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:7px}
+
+/* beliefs */
+.belief{background:var(--card);border-left:3px solid var(--forest);padding:19px 22px;margin-bottom:12px}
+.belief h3{font-size:1.06rem;font-weight:400;margin:0 0 8px}
+.belief p{font-size:.95rem;margin:0}
+.pull{font-size:clamp(1.2rem,2.9vw,1.5rem);line-height:1.45;color:var(--forest);font-style:italic;
+  text-align:center;max-width:30ch;margin:52px auto}
+footer{border-top:1px solid var(--line);padding:28px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{.sit,.pg,.belief{break-inside:avoid}body{background:#fff}}
+
+/* one number controls the thumbnail size on small screens */
+@media(max-width:420px){.pg{gap:13px}.pg .mark{width:58px;height:58px}
+  .sit .mark{width:32px;height:32px}}
+
+.namebox{background:var(--card);border-top:3px solid var(--forest);border-bottom:1px solid var(--line);
+  padding:26px 28px;margin:0 0 34px}
+.namebox h2{font-family:var(--serif);font-size:clamp(1.15rem,2.4vw,1.42rem);font-weight:400;
+  margin:0 0 13px;line-height:1.3;letter-spacing:-.01em}
+.namebox h2 em{font-style:italic;color:var(--forest)}
+.namebox p{margin:0 0 12px;font-size:1.01rem;line-height:1.6;max-width:66ch}
+.namebox p:last-child{margin:0}
+.namebox strong{color:var(--ink)}
+.namebox a{font-family:var(--sans);font-size:12.5px;letter-spacing:.04em;font-weight:600;
+  text-decoration:none;border-bottom:1px solid rgba(156,74,33,.4)}
+.namebox a:hover{border-bottom-color:var(--rust)}
+
+.urgent p{margin:0 0 11px;font-size:inherit;line-height:1.55;color:inherit}
+.urgent p:last-child{margin:0}
+.urgent b{display:block;margin-bottom:11px}
+
+.symgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin:0 0 18px}
+.symcol{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--forest);
+  border-radius:2px;padding:15px 17px}
+.symcol h3{font-family:var(--sans);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:0 0 10px}
+.symcol ul{margin:0;padding-left:0;list-style:none}
+.symcol li{font-size:.93rem;line-height:1.45;margin-bottom:9px;padding-left:0}
+.symcol li b{color:var(--ink);display:block;font-weight:600}
+.symcol a{color:var(--rust);text-decoration:none;border-bottom:1px solid rgba(156,74,33,.3)}
+.symcol a:hover{border-bottom-color:var(--rust)}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="hero">
+  <p class="eyebrow">In The Spectrums</p>
+  <h1>Everything here, <em>in one place</em></h1>
+  <p class="thesis">Fifty-four pages and twelve tools. Nobody reads this front to back — it is a reference, built to be dipped into. Two ways in: describe your situation, or browse by subject.</p>
+</header>
+
+<section>
+  <h2 class="sec">Start where <em>you actually are</em></h2>
+  <p class="secnote">If one of these sounds like your week, it goes straight there.</p>
+
+<div class="router">
+    <a class="sit" href="what-to-do-first.html">
+      <p class="said">"Something's not right, and I don't know who to call."</p>
+      <span class="go">What to do first</span></a>
+
+    <a class="sit" href="what-to-do-first.html">
+      <p class="said">"We've been told to wait and see. Should we?"</p>
+      <span class="go">What to do first</span></a>
+
+    <a class="sit" href="care-team-map.html">
+      <p class="said">"What kind of doctor even handles this?"</p>
+      <span class="go">The care team map</span></a>
+
+    <a class="sit" href="conditions-library.html">
+      <p class="said">"They said a word in the appointment and I nodded."</p>
+      <span class="go">The conditions library</span></a>
+
+    <a class="sit" href="inside-the-iep.html">
+      <p class="said">"There's a school meeting Thursday and I'm dreading it."</p>
+      <span class="go">Inside the IEP</span></a>
+
+    <a class="sit" href="accommodations-finder.html">
+      <p class="said">"I know what's wrong. I don't know what to ask for."</p>
+      <span class="go">The accommodations finder</span></a>
+
+    <a class="sit" href="paying-for-therapy.html">
+      <p class="said">"The claim was denied and I don't understand why."</p>
+      <span class="go">Paying for it</span></a>
+
+    <a class="sit" href="programs-and-entitlements.html">
+      <p class="said">"Is there help out there we don't know about?"</p>
+      <span class="go">Programs and entitlements</span></a>
+
+    <a class="sit" href="safety.html">
+      <p class="said">"He got out of the house. It can't happen again."</p>
+      <span class="go">Safety</span></a>
+
+    <a class="sit" href="their-own-voice.html">
+      <p class="said">"She asked me why she's different. I froze."</p>
+      <span class="go">Their own voice</span></a>
+
+    <a class="sit" href="their-own-voice.html">
+      <p class="said">"Everyone keeps saying to wait for speech."</p>
+      <span class="go">Their own voice</span></a>
+
+    <a class="sit" href="template-builders.html">
+      <p class="said">"I've explained him from scratch eleven times this month."</p>
+      <span class="go">Template builders</span></a>
+
+    <a class="sit" href="injuries-and-illness.html">
+      <p class="said">"We're going into hospital and I'm frightened."</p>
+      <span class="go">When something happens</span></a>
+
+    <a class="sit" href="family-calendar.html">
+      <p class="said">"Nobody in this house knows what's happening today."</p>
+      <span class="go">The family calendar</span></a>
+
+    <a class="sit" href="medication-list.html">
+      <p class="said">"They asked what he takes and I couldn't remember the dose."</p>
+      <span class="go">The medication list</span></a>
+
+    <a class="sit" href="choice-planner.html">
+      <p class="said">"I say something different every time and none of it sticks."</p>
+      <span class="go">The choice planner</span></a>
+
+    <a class="sit" href="practice-mirror.html">
+      <p class="said">"We forget the exercises the minute we leave the appointment."</p>
+      <span class="go">The practice mirror</span></a>
+
+    <a class="sit" href="household-board.html">
+      <p class="said">"Chores are a battle and sticker charts stopped working."</p>
+      <span class="go">The household board</span></a>
+
+    <a class="sit" href="meal-planner.html">
+      <p class="said">"I want him to have a say in something, and food is a battle."</p>
+      <span class="go">The meal planner</span></a>
+
+    <a class="sit" href="food-list.html">
+      <p class="said">"She eats six things and nobody else can get it right."</p>
+      <span class="go">The food list</span></a>
+
+    <a class="sit" href="goals-tracker.html">
+      <p class="said">"Four providers, four sets of goals, and none of them talk."</p>
+      <span class="go">Goals and generalization</span></a>
+
+    <a class="sit" href="share-builder.html">
+      <p class="said">"A new aide starts Monday and I don't know what to send."</p>
+      <span class="go">The share builder</span></a>
+
+    <a class="sit" href="symptom-tracker.html">
+      <p class="said">"They asked how he's been and I couldn't remember."</p>
+      <span class="go">The symptom tracker</span></a>
+
+    <a class="sit" href="symptom-tracker.html">
+      <p class="said">"Something changed weeks ago and I can't prove it."</p>
+      <span class="go">The symptom tracker</span></a>
+
+    <a class="sit" href="myofunctional-therapy.html">
+      <p class="said">"He snores, mouth-breathes, and never seems rested."</p>
+      <span class="go">Myofunctional therapy</span></a>
+
+    <a class="sit" href="occupational-therapy.html">
+      <p class="said">"Getting dressed takes forty minutes and we're late every day."</p>
+      <span class="go">Occupational therapy</span></a>
+
+    <a class="sit" href="occupational-therapy.html">
+      <p class="said">"We've done OT for two years and I can't tell if it's working."</p>
+      <span class="go">Occupational therapy</span></a>
+
+    <a class="sit" href="physical-therapy.html">
+      <p class="said">"He can walk, but never as far as everyone else."</p>
+      <span class="go">Physical therapy</span></a>
+
+    <a class="sit" href="physical-therapy.html">
+      <p class="said">"Someone said a wheelchair. I don't know how to feel about that."</p>
+      <span class="go">Physical therapy</span></a>
+
+    <a class="sit" href="speech-language-aac.html">
+      <p class="said">"He has a device and nobody seems to use it."</p>
+      <span class="go">Speech, language and AAC</span></a>
+
+    <a class="sit" href="speech-language-aac.html">
+      <p class="said">"I understand her. Nobody else does."</p>
+      <span class="go">Speech, language and AAC</span></a>
+
+    <a class="sit" href="mealtime-communication.html">
+      <p class="said">"He has no way to tell us what is wrong with the food."</p>
+      <span class="go">Mealtime communication boards</span></a>
+
+    <a class="sit" href="feeding-therapy.html">
+      <p class="said">"He eats five things and the list keeps shrinking."</p>
+      <span class="go">Feeding therapy</span></a>
+
+    <a class="sit" href="feeding-therapy.html">
+      <p class="said">"Dinner has become the worst part of our day."</p>
+      <span class="go">Feeding therapy</span></a>
+
+    <a class="sit" href="floortime.html">
+      <p class="said">"I don't know how to play with my own child."</p>
+      <span class="go">Floortime and child-led therapy</span></a>
+
+    <a class="sit" href="floortime.html">
+      <p class="said">"He's twelve now. Is it too late for any of this?"</p>
+      <span class="go">Floortime and child-led therapy</span></a>
+
+    <a class="sit" href="music.html">
+      <p class="said">"She sings whole songs but barely speaks."</p>
+      <span class="go">Music</span></a>
+
+    <a class="sit" href="music.html">
+      <p class="said">"I need something that calms him in ninety seconds."</p>
+      <span class="go">Music</span></a>
+
+    <a class="sit" href="aquatic-therapy.html">
+      <p class="said">"He can do things in the pool he can't do anywhere else."</p>
+      <span class="go">Aquatic therapy</span></a>
+
+    <a class="sit" href="adaptive-community.html">
+      <p class="said">"She's never been on a team. I don't know where to start."</p>
+      <span class="go">Adaptive sports and community</span></a>
+
+    <a class="sit" href="adaptive-community.html">
+      <p class="said">"Every activity we've tried has said no."</p>
+      <span class="go">Adaptive sports and community</span></a>
+
+    <a class="sit" href="your-own-life.html">
+      <p class="said">"I'm the disabled one and everything here is written to my parents."</p>
+      <span class="go">Your own life</span></a>
+
+    <a class="sit" href="adult-housing.html">
+      <p class="said">"We're thinking about buying a place for her to live in."</p>
+      <span class="go">Housing for an adult</span></a>
+
+    <a class="sit" href="adult-benefits.html">
+      <p class="said">"He wants to work but we're scared he'll lose his benefits."</p>
+      <span class="go">Benefits and working</span></a>
+
+    <a class="sit" href="adult-providers.html">
+      <p class="said">"How do I know if this group home is any good?"</p>
+      <span class="go">Finding and vetting providers</span></a>
+
+    <a class="sit" href="adult-life.html">
+      <p class="said">"He turns eighteen next year and nobody has explained what happens."</p>
+      <span class="go">After school ends</span></a>
+
+    <a class="sit" href="adult-life.html">
+      <p class="said">"We need a will, and I'm frightened of getting it wrong."</p>
+      <span class="go">After school ends</span></a>
+
+    <a class="sit" href="siblings-and-family.html">
+      <p class="said">"My other child never asks for anything and I am worried about that."</p>
+      <span class="go">Siblings and the whole household</span></a>
+
+    <a class="sit" href="caregivers.html">
+      <p class="said">"I am completely done in and there is nobody to take over."</p>
+      <span class="go">The people doing the caring</span></a>
+
+    <a class="sit" href="whole-picture.html">
+      <p class="said">"We have a diagnosis and it still doesn't explain everything."</p>
+      <span class="go">The whole picture</span></a>
+
+    <a class="sit" href="learning-and-literacy.html">
+      <p class="said">"Reading is a battle every single night."</p>
+      <span class="go">Learning and literacy</span></a>
+
+    <a class="sit" href="adhd-executive-function.html">
+      <p class="said">"She knows what to do and still doesn't do it."</p>
+      <span class="go">ADHD and executive function</span></a>
+
+    <a class="sit" href="anxiety-and-ocd.html">
+      <p class="said">"He won't go to school and I've run out of ideas."</p>
+      <span class="go">Anxiety, OCD and school refusal</span></a>
+
+    <a class="sit" href="behavior.html">
+      <p class="said">"He's suddenly hitting and I don't know why."</p>
+      <span class="go">Behavior is communication</span></a>
+
+    <a class="sit" href="behavior-support.html">
+      <p class="said">"Everyone says ABA. I don't know what to think."</p>
+      <span class="go">Choosing behavior support</span></a>
+
+    <a class="sit" href="maplewood-stories.html">
+      <p class="said">"I want something we can just read together."</p>
+      <span class="go">The Maplewood stories</span></a>
+
+    <a class="sit" href="programs-and-entitlements.html">
+      <p class="said">"She's fifteen. What happens after school ends?"</p>
+      <span class="go">Programs and entitlements</span></a>
+
+    <a class="sit" href="accommodations-finder.html">
+      <p class="said">"A new student starts Monday and the file is forty pages."</p>
+      <span class="go">The accommodations finder</span></a>
+
+    <a class="sit" href="care-team-map.html">
+      <p class="said">"I need to refer this family on and I'm not sure to whom."</p>
+      <span class="go">The care team map</span></a>
+
+    <a class="sit" href="conditions-library.html">
+      <p class="said">"This is outside my discipline and I need to get oriented fast."</p>
+      <span class="go">The conditions library</span></a>
+
+    <a class="sit" href="template-builders.html">
+      <p class="said">"I want something to hand a family that won't alarm them."</p>
+      <span class="go">Template builders</span></a>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Everything <em>on the site</em></h2>
+  <p class="secnote">Fifty-three pages, written to be read cold and out of order. Each one stands alone — read the one you need and ignore the rest until you don't.</p>
+
+  <p class="grouplabel">When you're just beginning</p>
+  <div class="pages">
+    <a class="pg" href="spectrums.html"><div class="txt"><span class="kind">Start here</span>
+      <h3>What we mean by spectrums</h3>
+      <p>The name is plural, and the preposition is deliberate. What the spectrums are, why that is not a way of saying we are all the same, and what progress actually looks like.</p></div></a>
+    <a class="pg" href="what-to-do-first.html"><div class="txt"><span class="kind">Start here</span>
+      <h3>What to do first</h3>
+      <p>Thirty steps from the day you start worrying. The waits run in parallel or they run one at a time, and that difference is about two years. Includes the scripts that start legal clocks.</p></div></a>
+    <a class="pg" href="care-team-map.html"><div class="txt"><span class="kind">Reference</span>
+      <h3>The care team map</h3>
+      <p>Forty-five specialties in seven branches — who does what, why you'd call them, what a first visit looks like, and what commonly gets missed.</p></div></a>
+    <a class="pg" href="conditions-library.html"><div class="txt"><span class="kind">Reference</span>
+      <h3>The conditions library</h3>
+      <p>Forty-six conditions and profiles. What each one is, how widely it varies between people, what genuinely helps, and what gets overlooked.</p></div></a>
+    <a class="pg" href="whole-picture.html"><div class="txt"><span class="kind">Start here</span><h3>The whole picture</h3><p>When one diagnosis isn’t the whole story — why one label hides others, how to parse it out in a sensible order, and designing help for a layered picture.</p></div></a>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Or start with <em>what is actually happening</em></h2>
+  <p class="secnote">The thing you would say out loud, rather than the name of a service. Most of these lead to more than one place, because most of them have more than one cause.</p>
+
+  <div class="symgrid">
+
+    <div class="symcol"><h3>Eating and the gut</h3>
+      <ul>
+        <li><b>Eating very few foods</b> — <a href="feeding-therapy.html">feeding and eating</a>, <a href="food-list.html">the food list</a></li>
+        <li><b>Losing foods that used to be fine</b> — <a href="feeding-therapy.html">feeding and eating</a>, <a href="conditions-library.html#eoe">eosinophilic esophagitis</a></li>
+        <li><b>Not eating enough to grow</b> — <a href="feeding-therapy.html">nutrition formulas and how to get them</a></li>
+        <li><b>Gagging, choking, food sticking</b> — <a href="conditions-library.html#eoe">eosinophilic esophagitis</a>, <a href="feeding-therapy.html">feeding</a></li>
+        <li><b>Constipation, or holding on</b> — <a href="supplements.html">what actually helps</a>, <a href="whole-picture.html">the chains it starts</a></li>
+        <li><b>Stomach pain nobody can explain</b> — <a href="conditions-library.html#migraine">abdominal migraine</a>, <a href="whole-picture.html">the whole picture</a></li>
+      </ul></div>
+
+    <div class="symcol"><h3>Sleep and energy</h3>
+      <ul>
+        <li><b>Cannot fall asleep, or wakes all night</b> — <a href="conditions-library.html#sleepdis">sleep</a>, <a href="supplements.html">what is worth asking about</a></li>
+        <li><b>Snoring, mouth breathing, restless sleep</b> — <a href="myofunctional-therapy.html">the airway</a></li>
+        <li><b>Exhausted no matter how much sleep</b> — <a href="conditions-library.html#pots">dysautonomia</a>, <a href="whole-picture.html">the whole picture</a></li>
+        <li><b>Tires far faster than other children</b> — <a href="physical-therapy.html">physical therapy</a>, <a href="conditions-library.html#hypotonia">low tone</a></li>
+      </ul></div>
+
+    <div class="symcol"><h3>Behavior and distress</h3>
+      <ul>
+        <li><b>Hitting, biting, throwing</b> — <a href="behavior.html">behavior is communication</a>, <a href="de-escalation.html">in the moment</a></li>
+        <li><b>Meltdowns that seem to come from nowhere</b> — <a href="whole-picture.html">the stacking</a>, <a href="de-escalation.html">precursors</a></li>
+        <li><b>Refusing everything that is asked</b> — <a href="behavior.html">demand avoidance</a>, <a href="choice-planner.html">the choice planner</a></li>
+        <li><b>Hurting themselves</b> — <a href="behavior.html">behavior is communication</a>, <a href="conditions-library.html#bfrb">picking and pulling</a></li>
+        <li><b>Running off, wandering, no fear</b> — <a href="safety.html">safety</a></li>
+        <li><b>Anxious, worried, stuck on things</b> — <a href="anxiety-and-ocd.html">anxiety and OCD</a></li>
+      </ul></div>
+
+    <div class="symcol"><h3>Communication</h3>
+      <ul>
+        <li><b>Not talking, or very few words</b> — <a href="speech-language-aac.html">speech, language and AAC</a></li>
+        <li><b>Talking, but not understood</b> — <a href="speech-language-aac.html">speech and AAC</a>, <a href="conditions-library.html#apraxia">apraxia</a></li>
+        <li><b>Cannot tell you what is wrong</b> — <a href="speech-language-aac.html">communication access</a>, <a href="mealtime-communication.html">boards for mealtimes</a></li>
+        <li><b>Understands far more than they can say</b> — <a href="speech-language-aac.html">why a device</a></li>
+        <li><b>Seems not to listen</b> — <a href="conditions-library.html#apd">auditory processing</a>, hearing</li>
+      </ul></div>
+
+    <div class="symcol"><h3>Senses and movement</h3>
+      <ul>
+        <li><b>Covers ears, hates noise or light</b> — <a href="conditions-library.html#sensory">sensory</a>, <a href="occupational-therapy.html">occupational therapy</a></li>
+        <li><b>Flapping, rocking, spinning</b> — <a href="conditions-library.html#sensory">sensory and self-regulation</a></li>
+        <li><b>Bumping into things, missing what is there</b> — <a href="conditions-library.html#cvi">CVI</a></li>
+        <li><b>Clumsy, falling, poor balance</b> — <a href="physical-therapy.html">physical therapy</a></li>
+        <li><b>Handwriting, buttons, cutlery</b> — <a href="occupational-therapy.html">occupational therapy</a></li>
+        <li><b>Toe walking, unusual gait</b> — <a href="physical-therapy.html">physical therapy</a></li>
+      </ul></div>
+
+    <div class="symcol"><h3>Learning and attention</h3>
+      <ul>
+        <li><b>Cannot read, or reading is a battle</b> — <a href="learning-and-literacy.html">learning and literacy</a></li>
+        <li><b>Cannot start, finish, or remember steps</b> — <a href="adhd-executive-function.html">executive function</a></li>
+        <li><b>Bright, but school is going badly</b> — <a href="whole-picture.html">the whole picture</a>, <a href="inside-the-iep.html">inside the IEP</a></li>
+        <li><b>Losing skills they used to have</b> — <a href="conditions-library.html">the conditions library</a>, and ask for assessment</li>
+      </ul></div>
+
+    <div class="symcol"><h3>Medical and unexplained</h3>
+      <ul>
+        <li><b>Pain nobody can find a cause for</b> — <a href="conditions-library.html#chronicpain">chronic pain</a>, <a href="whole-picture.html">the whole picture</a></li>
+        <li><b>Headaches, or head pressing</b> — <a href="conditions-library.html#migraine">migraine</a></li>
+        <li><b>Seizure-like episodes</b> — <a href="conditions-library.html#epilepsy">epilepsy</a>, <a href="conditions-library.html#fnd">functional neurological disorder</a></li>
+        <li><b>Ill far more often than other children</b> — <a href="injuries-and-illness.html">when something happens</a>, <a href="conditions-library.html#asthma">asthma and allergy</a></li>
+        <li><b>Symptoms after an illness or injury</b> — <a href="conditions-library.html#abi">acquired brain injury</a>, <a href="conditions-library.html#pans">PANS and PANDAS</a></li>
+        <li><b>Being told nothing is wrong</b> — <a href="whole-picture.html">the whole picture</a>, <a href="judging-claims.html">reading a test result</a></li>
+      </ul></div>
+
+    <div class="symcol"><h3>Systems and money</h3>
+      <ul>
+        <li><b>School will not give what is needed</b> — <a href="inside-the-iep.html">inside the IEP</a></li>
+        <li><b>A claim was denied</b> — <a href="paying-for-therapy.html">paying for it</a></li>
+        <li><b>No idea what we are entitled to</b> — <a href="programs-and-entitlements.html">programs and entitlements</a></li>
+        <li><b>Turning eighteen soon</b> — <a href="adult-life.html">after school ends</a></li>
+        <li><b>Too many appointments to hold in my head</b> — <a href="family-calendar.html">the family calendar</a></li>
+      </ul></div>
+
+    <div class="symcol"><h3>The rest of the household</h3>
+      <ul>
+        <li><b>I am running out</b> — <a href="caregivers.html">the people doing the caring</a></li>
+        <li><b>My other child never asks for anything</b> — <a href="siblings-and-family.html">siblings</a></li>
+        <li><b>A sibling is getting hurt</b> — <a href="siblings-and-family.html">when it is not safe or fair</a></li>
+        <li><b>Nobody understands what our week is like</b> — <a href="share-builder.html">the share builder</a></li>
+      </ul></div>
+
+  </div>
+
+  <p class="fnote">If what is happening is not here, <b>search</b> in the bar above — everyday words work, and you do not need the medical terms.</p>
+</section>
+
+<section>
+  <h2 class="sec">Or browse <em>everything, by subject</em></h2>
+  <p class="secnote">Everything on the site, grouped.</p>
+
+<p class="grouplabel">When you're just beginning</p>
+  <div class="pages">
+  </div>
+
+  <p class="grouplabel">School and services</p>
+  <div class="pages">
+    <a class="pg" href="inside-the-iep.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Inside the IEP</h3>
+      <p>How to read a goal, what the words actually mean, and the one section of the document you write. Write every concern in it — if it isn't there, it didn't happen.</p></div></a>
+    <a class="pg" href="accommodations-finder.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The accommodations finder</h3>
+      <p>Search by the difficulty you actually see, not the diagnosis. Returns wording you can request word for word.</p></div></a>
+    <a class="pg" href="programs-and-entitlements.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Programs and entitlements</h3>
+      <p>What exists in every state, when each door opens, and the ages that matter. Special education is an entitlement; adult services generally are not.</p></div></a>
+  </div>
+
+
+  <p class="grouplabel">The people caring</p>
+  <div class="pages">
+    <a class="pg" href="caregivers.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>The people doing the caring</h3>
+      <p>Reducing the load, respite, the grief that keeps arriving, partners and siblings, choosing a support group, and relationship-based approaches including RDI.</p></div></a>
+    <a class="pg" href="siblings-and-family.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Siblings and the whole household</h3>
+      <p>The one who is no trouble is often carrying the most. What brothers and sisters need, what to do when it is not safe or fair, and how to keep a household steady.</p></div></a>
+  </div>
+
+  <p class="grouplabel">Adult life</p>
+  <div class="pages">
+    <a class="pg" href="adult-life.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>After school ends</h3>
+      <p>The cliff between entitlement and eligibility, what changes at eighteen, decision-making from least to most restrictive, trusts and wills, where adults live, and days worth having.</p></div></a>
+    <a class="pg" href="adult-benefits.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Benefits and working</h3>
+      <p>SSI, SSDI, Medicaid and Medicare in plain terms — and the work incentives that mean earning almost never costs someone everything.</p></div></a>
+    <a class="pg" href="adult-housing.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Housing for an adult</h3>
+      <p>Vouchers and waiting lists, tenants’ rights, and what happens when a family buys or rents a place to the person themselves.</p></div></a>
+    <a class="pg" href="adult-providers.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Finding and vetting providers</h3>
+      <p>How to find adult services, the questions that actually predict quality, how to visit, and how to keep watch afterward.</p></div></a>
+    <a class="pg" href="your-own-life.html"><div class="txt"><span class="kind">For you</span>
+      <h3>Your own life</h3>
+      <p>Written to the adult rather than the parent. What you decide, what you’re entitled to, and what to do when someone isn’t listening.</p></div></a>
+  </div>
+
+  <p class="grouplabel">Money, paperwork and tracking</p>
+  <div class="pages">
+    <a class="pg" href="paying-for-therapy.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Paying for it</h3>
+      <p>Home visits versus clinic, in-network versus out, and an annotated superbill showing every field a claim needs to survive. Plus appeals and single case agreements.</p></div></a>
+    <a class="pg" href="template-builders.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>Template builders</h3>
+      <p>Four documents that build themselves as you type: the child one-pager, parent concerns, an emergency responder profile, and a hospital bedside card.</p></div></a>
+    <a class="pg" href="symptom-tracker.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The symptom tracker</h3>
+      <p>Write down what was different today, in twenty seconds — then print a summary the day before an appointment. Nothing leaves your device, and it works offline.</p></div></a>
+    <a class="pg" href="goals-tracker.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>Goals and generalization</h3>
+      <p>Every provider’s goals on one page, and the part that changes outcomes — which goals should be practiced elsewhere, and exactly how.</p></div></a>
+    <a class="pg" href="share-builder.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The share builder</h3>
+      <p>Assemble a packet for one specific person — a new aide, a doctor, a babysitter, an IEP team — ticking exactly what goes in and what stays home.</p></div></a>
+    <a class="pg" href="family-calendar.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The family calendar</h3>
+      <p>One day on one screen for a tablet on the wall — routine, medication, meals and appointments — with a simple view for the person themselves, and a calendar file for everyone’s phones.</p></div></a>
+    <a class="pg" href="medication-list.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The medication list</h3>
+      <p>Everything taken and how it actually gets taken — printed three ways, including a short version for the bag and a dated record of dose changes.</p></div></a>
+    <a class="pg" href="food-list.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The food list</h3>
+      <p>Accepted foods and exactly how each has to be — brand, plate, temperature. For hospital, school, respite, and anyone else who has to get it right.</p></div></a>
+    <a class="pg" href="meal-planner.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The meal planner</h3>
+      <p>Plan a week from foods that already work, built so the person eating can do it themselves — and they decide how many new things go in, including none.</p></div></a>
+    <a class="pg" href="choice-planner.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The choice planner</h3>
+      <p>Work out what you will say before you are in the moment — logical consequences rather than rewards, with the capacity question asked first.</p></div></a>
+    <a class="pg" href="household-board.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The household board</h3>
+      <p>Contributions everyone makes because they live here, optional jobs that pay, and whatever the person is saving toward. No stars.</p></div></a>
+    <a class="pg" href="practice-mirror.html"><div class="txt"><span class="kind">Interactive</span>
+      <h3>The practice mirror</h3>
+      <p>The therapist films the movement; at home it plays see-through over the live camera so the person can line up inside it. Record, compare in slow motion, send it back.</p></div></a>
+    <a class="pg" href="using-these-tools.html"><div class="txt"><span class="kind">Reference</span>
+      <h3>Using these tools</h3>
+      <p>Saving a tracker to your home screen, printing to PDF, backing up, and what to do when something goes wrong. Mac, Windows, iPhone and Android.</p></div></a>
+  </div>
+
+  <p class="grouplabel">Safety and health</p>
+  <div class="pages">
+    <a class="pg" href="safety.html"><div class="txt"><span class="kind">Essential</span>
+      <h3>Safety</h3>
+      <p>Water, wandering, first responders, body autonomy, equipment, and car seats. Built on one idea: every layer fails, so the layers have to overlap.</p></div></a>
+    <a class="pg" href="injuries-and-illness.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>When something happens</h3>
+      <p>Where to go right now, the common injuries, a serious diagnosis, hospital navigation, and getting good care for a child who can't say where it hurts.</p></div></a>
+    <a class="pg" href="supplements.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Supplements and natural approaches</h3>
+      <p>What families commonly try and what the evidence actually says — organized as questions for your medical team, with no doses, and plain warnings about the ones that cause harm.</p></div></a>
+    <a class="pg" href="judging-claims.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Judging what you are offered</h3>
+      <p>How to weigh a claim, read a test result, check what is actually in a bottle, and stay oriented inside a long protocol — reasoning that applies to conventional medicine too.</p></div></a>
+  </div>
+
+  <p class="grouplabel">Therapies</p>
+  <div class="pages">
+    <a class="pg" href="occupational-therapy.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Occupational therapy</h3>
+      <p>Nine domains, what an evaluation covers, approaches sorted by how well they're supported, and how to recognize strong OT. The whole day is the treatment.</p></div></a>
+    <a class="pg" href="physical-therapy.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Physical therapy</h3>
+      <p>Nine domains, the three things families are told too late, approaches sorted by evidence, and how to recognize strong PT. Not normal movement — more life.</p></div></a>
+    <a class="pg" href="speech-language-aac.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Speech, language and AAC</h3>
+      <p>Nine areas of speech-language therapy, a full section on doing AAC properly, evidence sorted three ways, and the gateway to our library of play schemas, social stories, and tablet vocabularies.</p></div></a>
+    <a class="pg" href="mealtime-communication.html"><div class="txt"><span class="kind">Free download</span>
+      <h3>Mealtime communication boards</h3>
+      <p>Words for every step of eating — tap, lick, bite, chew — plus refusing well and commenting. Built around the goal of a device they operate themselves, with guidance for home, therapy and school.</p></div></a>
+    <a class="pg" href="feeding-therapy.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Feeding therapy</h3>
+      <p>The ladder of steps before a bite, ARFID, demand avoidance at the table, and declarative language — the technique that costs nothing and changes mealtimes fastest.</p></div></a>
+    <a class="pg" href="aquatic-therapy.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Aquatic therapy</h3>
+      <p>Six properties of water that change what a body can do, what it targets, precautions families are rarely warned about, and the survival skills that outrank everything else.</p></div></a>
+    <a class="pg" href="myofunctional-therapy.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Myofunctional therapy</h3>
+      <p>Breathing, sleeping, eating, drinking, speaking — five jobs sharing one set of muscles, and an under-known therapy that works on all of them.</p></div></a>
+    <a class="pg" href="floortime.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Floortime and child-led therapy</h3>
+      <p>Circles of communication, the developmental capacities underneath the play, why following the child's lead works — and what it turns into at eight, thirteen, and seventeen.</p></div></a>
+    <a class="pg" href="music.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Music</h3>
+      <p>What a single song recruits, the four different things people mean by "try music," nine areas it opens up, and how it grows with a child into something that lasts a lifetime.</p></div></a>
+  </div>
+
+  <p class="grouplabel">Learning, attention and mood</p>
+  <div class="pages">
+    <a class="pg" href="learning-and-literacy.html"><div class="txt"><span class="kind">Guide</span><h3>Learning and literacy</h3><p>What reading is actually made of, structured literacy, dyslexia, dysgraphia and dyscalculia — and how to tell what your school is really doing.</p></div></a>
+    <a class="pg" href="adhd-executive-function.html"><div class="txt"><span class="kind">Guide</span><h3>ADHD and executive function</h3><p>The gap between knowing and doing, externalizing everything, medication honestly, and where low-demand approaches mislead.</p></div></a>
+    <a class="pg" href="anxiety-and-ocd.html"><div class="txt"><span class="kind">Guide</span><h3>Anxiety, OCD and school refusal</h3><p>The accommodation loop, exposure-based treatment, what to say instead of reassurance, and telling anxiety from demand avoidance.</p></div></a>
+  </div>
+
+  <p class="grouplabel">Behavior</p>
+  <div class="pages">
+    <a class="pg" href="behavior.html"><div class="txt"><span class="kind">Guide</span><h3>Behavior is communication</h3><p>Zooming out to find what a behavior is saying, communication access, and what a hard moment costs a person on the inside.</p></div></a>
+    <a class="pg" href="de-escalation.html"><div class="txt"><span class="kind">Guide</span><h3>In the moment</h3><p>Precursor behavior, what to say in the window before escalation, de-escalation, and the calming and processing plan.</p></div></a>
+    <a class="pg" href="behavior-support.html"><div class="txt"><span class="kind">Guide</span><h3>Choosing behavior support</h3><p>An even-handed map of the ABA conversation, how to evaluate any provider, and building one team with one language.</p></div></a>
+  </div>
+
+  <p class="grouplabel">The child at the center</p>
+  <div class="pages">
+    <a class="pg" href="their-own-voice.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Their own voice</h3>
+      <p>Talking with a child about their own life, communication access from day one, and handing over ownership of their story across childhood. Options, not instructions.</p></div></a>
+    <a class="pg" href="adaptive-community.html"><div class="txt"><span class="kind">Guide</span>
+      <h3>Adaptive sports, classes and community</h3>
+      <p>Why so few children get there and what closes the gap, the full landscape of programs, adaptive versus inclusive, and how to make a first season actually work.</p></div></a>
+    <a class="pg" href="maplewood-stories.html"><div class="txt"><span class="kind">Stories</span>
+      <h3>The Maplewood stories</h3>
+      <p>Fifty-two picture books about ten friends who are not alike. Nobody is the exception, so nobody has to be the lesson.</p></div></a>
+  </div>
+
+  <p class="grouplabel">About this site</p>
+  <div class="pages">
+    <a class="pg" href="about.html"><div class="txt"><span class="kind">About</span>
+      <h3>About and contributors</h3>
+      <p>Who writes this, the practitioners whose work shaped it and who are available for consultation, the people who helped build it, and how to tell us what's wrong.</p></div></a>
+    <a class="pg" href="terms-and-privacy.html"><div class="txt"><span class="kind">Reference</span>
+      <h3>Terms, privacy and disclaimers</h3>
+      <p>What this site is and isn’t, what it collects (nothing), the license to take and adapt anything here, and how practitioner listings work.</p></div></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Two things that make this much easier</b>
+  <p><b>Skim it</b> — the button near the top of every page collapses it to section titles with one line of description each, so you can see the whole shape before deciding what to read. Most pages are a fraction of the length that way.</p>
+  <p><b>Search</b> — in the bar at the top. Everyday words work: <em>arms flap, not eating, aggression</em>. You do not need the medical terms.</p>
+</div>
+
+<footer>
+  <p>Take any of it, change it, use it however helps. Nothing here is medical, legal or educational advice.</p>
+</footer>
+
+</div>
+
+<script src="search-index.js"></script>
+<script src="site-nav.js"></script>
+</body>
+</html>
