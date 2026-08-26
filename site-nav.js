@@ -71,6 +71,7 @@
     ]},
     { label: 'Learning, attention and mood', items: [
       ['learning-and-literacy.html',   'Learning and literacy',   'Dyslexia, dysgraphia, dyscalculia \u2014 and what reading instruction should look like'],
+      ['math-and-writing.html',        'Math and writing',        'The two other subjects that get graded, and what is really going wrong'],
       ['adhd-executive-function.html', 'ADHD and executive function','The gap between knowing and doing, and how to close it'],
       ['anxiety-and-ocd.html',         'Anxiety, OCD and school refusal','The accommodation loop, and the treatment that works']
     ]},
@@ -941,7 +942,7 @@
     ['Therapies', ['occupational-therapy.html','physical-therapy.html','speech-language-aac.html',
                    'feeding-therapy.html','aquatic-therapy.html','myofunctional-therapy.html',
                    'floortime.html','music.html','mealtime-communication.html']],
-    ['Learning, attention and mood', ['learning-and-literacy.html','adhd-executive-function.html','anxiety-and-ocd.html']],
+    ['Learning, attention and mood', ['learning-and-literacy.html','adhd-executive-function.html','anxiety-and-ocd.html','math-and-writing.html']],
     ['Behavior', ['behavior.html','de-escalation.html','behavior-support.html']],
     ['The child', ['their-own-voice.html','adaptive-community.html','maplewood-stories.html']],
     ['About', ['about.html','terms-and-privacy.html']]
@@ -1360,12 +1361,11 @@
   "Rule out eyes and ears before attributing anything else \u2014 screening checks far less than families assume.",
   "Accommodation and instruction are both required. One without the other leaves a person stuck."],
 
-'adhd-executive-function.html': ["People with ADHD know what to do. The difficulty is doing it at the moment it needs doing.",
-  "Almost everything that helps works by moving the demand out of their head and into the world \u2014 externalize it.",
-  "Medication is among the better-evidenced treatments in child psychiatry, and it is a real decision either way.",
-  "This is where low-demand approaches mislead. ADHD needs more scaffolding, not less \u2014 built with the person, not imposed.",
-  "Fix the system out loud rather than the person. Self-esteem is a goal here, not a side effect.",
-  "Their brain is not good at forgetting \u2014 it is remarkable at remembering what interests it. Give them that sentence."],
+'adhd-executive-function.html': ["Externalize everything. Every item that lives outside somebody\u2019s head is one that cannot fall off it.",
+  "Deep focus on an interest and none in class are the same attention system \u2014 interest is not motivation.",
+  "By afternoon capacity has been spent on the room, not the task. The good day is a ceiling, not a baseline.",
+  "Working memory cannot be meaningfully expanded. Take things off the worktop instead.",
+  "Executive function develops into the twenties. Supports are scaffolding, not a verdict."],
 
 'anxiety-and-ocd.html': ["Anxiety is maintained by relief. Reassurance and avoidance feel like love and function as fuel.",
   "The treatment is CBT with exposure. Talk therapy without exposure is not the evidence-based version.",
@@ -1465,10 +1465,10 @@
   "A plan is not a promise. Anything can come off it on the day, and planning to try still counted."],
 
 'choice-planner.html': ["Work out what you will say before you are in the moment, so every adult says the same sentence.",
-  "Three different mechanisms: a logical consequence, first-this-then-that, and letting the world do it.",
+  "Teach-back before you go in: what we are doing, when we leave, the one extension, and what happens if not.",
   "Ask first whether they can actually do it right now. If not, \u201cyou\u2019re choosing\u201d is not true.",
   "The door reopens. \u201cWe can try again tomorrow\u201d is what makes it a boundary rather than a punishment.",
-  "Wrong tool for a dysregulated moment or for demand avoidance \u2014 use it for the calm, ordinary version."],
+  "Finish on confidence, not warning. The last thing said is the thing carried in."],
 
 'household-board.html': ["Two lists kept apart: contributions everyone makes because they live here, and optional jobs that pay.",
   "Adults are on the board too. A board where only children have tasks is a compliance chart.",
@@ -1517,6 +1517,12 @@
   "The symptom list is the fastest route \u2014 not sleeping, hitting, losing foods, cannot tell us what is wrong.",
   "Most entries lead to more than one place, because most of them have more than one cause.",
   "Skim it collapses any page to headings; search takes everyday words."],
+
+'math-and-writing.html': ["Math is a stack \u2014 a gap two layers down is where the trouble usually started, not where it shows.",
+  "Dyscalculia is about as common as dyslexia and identified far less often.",
+  "Ask them to say it instead of writing it. If speech is far better, the difficulty is not in the thinking.",
+  "Do not grade content on mechanics \u2014 a person who knows the material gets a score saying they do not.",
+  "Failing history usually means reading, writing or executive load. None of those is a history problem."],
 
 'maplewood-stories.html': ["Fifty-two picture books about ten friends who are not alike, figuring it out together.",
   "No child in them is labeled, and none of them is the lesson.",
@@ -1576,6 +1582,10 @@
   'use strict';
 
   var MARKS = {
+
+  'math-and-writing.html':
+    '<rect width="74" height="74" fill="#EFEDE4"/><path d="M14 20h18M23 11v18" stroke="#16283C" stroke-width="2.2"/><path d="M42 22l14 14M56 22l-14 14" stroke="#9C4A21" stroke-width="2.2"/><rect x="12" y="44" width="50" height="3" rx="1.5" fill="#16283C" opacity=".5"/><rect x="12" y="52" width="34" height="3" rx="1.5" fill="#16283C" opacity=".5"/><rect x="12" y="60" width="42" height="3" rx="1.5" fill="#16283C" opacity=".5"/>',
+
 
   'all-pages.html':
     '<rect width="74" height="74" fill="#F1F4F0"/><rect x="12" y="15" width="22" height="17" rx="2" fill="#FFF" stroke="#16283C" stroke-width="1.5"/><rect x="40" y="15" width="22" height="17" rx="2" fill="#FFF" stroke="#16283C" stroke-width="1.5"/><rect x="12" y="40" width="22" height="17" rx="2" fill="#FFF" stroke="#16283C" stroke-width="1.5"/><rect x="40" y="40" width="22" height="17" rx="2" fill="#2E4E3F"/>',
@@ -2148,8 +2158,12 @@
   'about.html': [
     ['Tell us what',
      'warm|If something here is wrong, or missing, or lands badly \u2014 please say so. <b>Corrections are the most valuable thing anyone sends</b>, and this gets better every time somebody bothers.']
-  ]
+  ],
 
+  'math-and-writing.html': [
+    ['',
+     'warm|A person who can tell you the whole story out loud and writes three flat sentences is not lazy and is not confused. <b>They are carrying more at once than the task admits</b> \u2014 and taking one thing off the pile changes everything.']
+  ],
   };
 
   var file = (location.pathname.split('/').pop() || 'index.html').toLowerCase();

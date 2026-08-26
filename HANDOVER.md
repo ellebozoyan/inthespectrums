@@ -12,7 +12,7 @@ alongside the site zip.
 ## What this is
 
 A free, ad-free, account-free resource site for families of children with
-complex needs. Fifty-four pages of written guidance plus twelve interactive
+complex needs. Fifty-five pages of written guidance plus twelve interactive
 tools. Everything runs in the browser. There is no server, no analytics, no
 tracking, and nothing a family types is ever transmitted anywhere.
 
@@ -62,7 +62,7 @@ chosen to open outward.
 ## File layout
 
 ```
-*.html              54 pages, each self-contained (own CSS, own JS)
+*.html              55 pages, each self-contained (own CSS, own JS)
 site-nav.js         shared: nav, skim view, callouts, search, language,
                     print styling. ~19 numbered sections.
 all-pages.html      the full directory - every card and the 61-quote router.
