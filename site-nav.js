@@ -1293,8 +1293,8 @@
 
 'feeding-therapy.html': ["Restricted eating is rarely fussiness \u2014 look for pain, airway, sensory and anxiety underneath it.",
   "Food chaining: change one property at a time \u2014 texture, temperature, flavor, wetness, brand.",
-  "Not everyone wants mild. Many respond better to intense flavors \u2014 sour, bitter, sharp, strongly salted.",
-  "Clinicians genuinely disagree about pressure. You can take the useful parts of an approach and decline the rest.",
+  "Eating only crunchy things, or only beige things, is usually sensory rather than stubborn \u2014 and the property is the doorway out.",
+  "An elimination trial without a baseline and a reintroduction tells you nothing. The reintroduction is the step that gives the answer.",
   "Nutrition formulas usually go through a DME supplier, not a pharmacy \u2014 that is where families get stuck."],
 
 'aquatic-therapy.html': ["Water changes the physics \u2014 weight, speed, resistance, and how long you have to react.",
@@ -1373,12 +1373,11 @@
   "Say both halves: I know this is hard for you, and I know you can handle it.",
   "This is where the rest of this site's low-demand framing is wrong. Avoidance maintains anxiety."],
 
-'whole-picture.html': ["Most children with one neurodevelopmental diagnosis have more than one. That is ordinary, not alarming.",
-  "The first diagnosis is usually the loudest, not the most fundamental. The search often stops there.",
-  "Ask: what have we not looked at? And \u2014 if this diagnosis weren\u2019t here, what would we be investigating?",
-  "Order matters. Hearing, vision, sleep, pain and constipation first: common, treatable, and they imitate everything.",
-  "Four diagnoses do not mean four plans. Someone has to hold the whole picture and reconcile the conflicts.",
-  "Don\u2019t judge the moment. What you saw was a stacking that finally went past capacity, not a response to the last thing."],
+'whole-picture.html': ["Co-occurrence is the rule, not the exception \u2014 one diagnosis routinely hides the others.",
+  "Dominoes: one thing sets off the next. Capacity: why today and not yesterday.",
+  "The challenge in one context is the strength in another \u2014 nothing about the person changes, only the room.",
+  "Sleep, pain and hunger come before behavior. The order you look in decides what you find.",
+  "Start services on need, not on label. Nobody has to wait for an explanation to get help."],
 
 'goals-tracker.html': ["Most children with several providers have several sets of goals that nobody else has read. This puts them in one place.",
   "The generalization sheet is the part that changes outcomes \u2014 which goals travel, and exactly how.",

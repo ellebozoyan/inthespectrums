@@ -136,6 +136,26 @@ footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sa
 .mt{background:var(--book-tint);border-top:3px solid var(--book);padding:10px 11px;font-size:.85rem;line-height:1.35}
 .mt.tip{background:var(--alarm-tint);border-top-color:var(--alarm)}
 .chainnote{font-size:.94rem;color:var(--ink-soft);line-height:1.55;margin:10px 0 22px;max-width:70ch}
+
+table.coin{width:100%;border-collapse:collapse;font-size:.93rem;margin:0 0 20px}
+table.coin th{background:var(--forest);color:#fff;font-family:var(--sans);font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;padding:9px 11px;text-align:left;font-weight:700}
+table.coin td{padding:10px 11px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45}
+table.coin tr:nth-child(even) td{background:var(--card)}
+table.coin td:first-child{width:22%}
+table.coin td b{color:var(--ink)}
+@media(max-width:700px){
+  table.coin,table.coin tbody,table.coin tr,table.coin td{display:block;width:100%}
+  table.coin thead,table.coin tr:first-child{display:none}
+  table.coin tr{border:1px solid var(--line);border-left:3px solid var(--forest);
+    border-radius:2px;margin-bottom:10px;padding:4px 0}
+  table.coin td{border:none;padding:7px 13px}
+  table.coin td:first-child{width:auto;font-size:1rem}
+  table.coin td:nth-child(2)::before{content:"Costs \2014 ";font-family:var(--sans);font-size:10px;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--alarm)}
+  table.coin td:nth-child(3)::before{content:"Use \2014 ";font-family:var(--sans);font-size:10px;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--forest)}
+}
 </style>
 </head><body>
 <div class="wrap">
@@ -347,6 +367,82 @@ footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sa
 </section>
 
 <section>
+  <h2 class="sec">The same trait, <em>in a different room</em></h2>
+  <p class="secnote">A third way of reading a difficulty, and the most immediately practical of the three — because it tells you what to try, and where to look for a better fit.</p>
+
+  <p class="pull">The challenge in one context becomes the strength in another.</p>
+
+  <p>Most of what gets described as a problem is a mechanism doing what it does. The mechanism has no good side and no bad side. <strong>What changes is the context it lands in</strong> — what that situation happens to reward, and what it happens to punish.</p>
+
+  <p>The same attention that will not release a game is what finishes a difficult piece of work while everyone else drifts. The same insistence on getting details right is unbearable in a rushed morning and invaluable in anything where being wrong matters. Nothing about the person has changed between those two scenes. <strong>Only the room has.</strong></p>
+
+  <p><strong>Which points at two things you can actually do.</strong> If you know which mechanism is running, you know what to try — the thing making it hard is usually the same thing that can be used to help. And when a trait is causing trouble, one of the questions worth asking is not <em>how do we change this person</em> but <strong>which context would this be an asset in, and how much of that context can we build.</strong></p>
+
+  <p>That is not optimism. It is where the leverage is. A person can rarely change the mechanism, and can often change the room — or be helped to find rooms that fit better. Much of what this site describes as accommodation is exactly that: adjusting context so that a trait stops costing somebody and starts paying them.</p>
+
+  <div class="bnote">
+    <h3>The example that shows the shape of it</h3>
+    <p>Attention that locks onto something and will not let go produces the meltdown when a game is interrupted, the refusal to move on, the inflexibility that derails an afternoon.</p>
+    <p><strong>And it is the reason redirection works so well.</strong> Attention that locks on can be locked onto something else. Trying to unlock it directly — "put it down now" — fights the mechanism. Offering something else compelling works with it, and frequently in seconds.</p>
+    <p>Same mechanism. The difference is whether you are pushing against it or steering it.</p>
+  </div>
+
+  <h3 class="sub">The same shape, across a great many things</h3>
+  <p>Each row is one trait. The middle column is what it looks like in a context that punishes it; the right is what the same trait does in one built to use it.</p>
+
+  <table class="coin">
+    <tr><th>The trait</th><th>What it costs, in the wrong room</th><th>What it is worth, in the right one</th></tr>
+    <tr><td><b>Attention that locks on</b></td>
+      <td>Cannot stop, cannot transition, distress at interruption</td>
+      <td>Redirect rather than interrupt. Give warning and a landing place. Sustained focus on the right thing is remarkable</td></tr>
+    <tr><td><b>Needing things the same</b></td>
+      <td>Change is genuinely painful; small deviations derail a day</td>
+      <td>Routines stick once built. Put the new thing <em>inside</em> an existing routine rather than beside it</td></tr>
+    <tr><td><b>Detail before the whole</b></td>
+      <td>Misses the point of the story, overwhelmed by clutter</td>
+      <td>Give the detail rather than the gist. Catches errors nobody else does. Clean, uncluttered material works</td></tr>
+    <tr><td><b>Literal understanding</b></td>
+      <td>Misses sarcasm, hints, and "in a minute"</td>
+      <td>Say exactly what you mean and it lands perfectly. Precise instructions are followed precisely</td></tr>
+    <tr><td><b>Seeking movement and pressure</b></td>
+      <td>Crashing, climbing, chewing, never still</td>
+      <td>It is regulation. Schedule the input <em>before</em> it is needed and much of the rest settles</td></tr>
+    <tr><td><b>Strong sense of fairness</b></td>
+      <td>Meltdowns over injustice, cannot let a wrong go</td>
+      <td>Explain the reason and it is usually accepted. A reliable moral compass and, later, real advocacy</td></tr>
+    <tr><td><b>Remembering everything</b></td>
+      <td>A wrong from two years ago is present tense</td>
+      <td>Repair properly and it holds. Learns things once and keeps them</td></tr>
+    <tr><td><b>Noticing danger early</b></td>
+      <td>Anxiety, avoidance, worst-case thinking</td>
+      <td>Preparation genuinely helps rather than feeding it. Spots real problems others miss</td></tr>
+    <tr><td><b>Processing slowly</b></td>
+      <td>Looks like not listening; falls behind in fast conversation</td>
+      <td>Wait longer than feels natural and the answer arrives — often a more considered one</td></tr>
+    <tr><td><b>Repeating language</b></td>
+      <td>Scripts, echoing, phrases that seem out of context</td>
+      <td>It is communication. Use the scripts as a route in rather than trying to replace them</td></tr>
+    <tr><td><b>Resisting demands</b></td>
+      <td>Refusal that scales with how much something is required</td>
+      <td>Drop the demand framing and offer genuine collaboration. Autonomy is the lever, not compliance</td></tr>
+    <tr><td><b>Reading early, understanding later</b></td>
+      <td>Decodes fluently, comprehension lags, and nobody notices</td>
+      <td>The decoding is real. Teach comprehension explicitly rather than assuming it followed</td></tr>
+    <tr><td><b>Feeling things at full volume</b></td>
+      <td>Distress that is enormous and takes a long time to settle</td>
+      <td>Joy and loyalty at the same volume. Naming the feeling works better than reducing it</td></tr>
+  </table>
+
+  <div class="warn">
+    <h3>Two honest limits</h3>
+    <p><strong>Not everything has another side.</strong> Pain does not. Seizures do not. Being unable to tell anybody what is wrong does not. Insisting that every difficulty contains a hidden gift is a way of not looking at the difficulty, and people living with these things find it exhausting to be told.</p>
+    <p><strong>And a strength does not cancel a cost.</strong> Somebody who can focus for six hours may still be unable to stop when they need to, and that is a real problem regardless of what else it makes possible. Both stay true at once.</p>
+    <p>The useful claim is narrower than the inspirational one, and more usable: <strong>work out which mechanism is running, and you will usually work out what to try.</strong></p>
+  </div>
+
+  <p class="fnote">This pairs with the other two models on this page. The dominoes tell you what set something off; capacity tells you why today rather than yesterday; this one tells you what to try — and, over a longer horizon, what kind of school, work and life would let somebody spend more time in the right room.</p>
+</section>
+<section>
   <h2 class="sec">Parsing it out, <em>in a sensible order</em></h2>
   <p class="secnote">On how to read a result — including tests mainstream medicine does not use — see <a href="supplements.html">specialty testing</a>.</p>
   <p class="secnote">Not everything at once. There is an order that finds the cheapest and most treatable things first.</p>
@@ -417,6 +513,8 @@ footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sa
     <li><strong>Tell your child the truth about it,</strong> in a form they can hold. Several diagnoses is not several problems — it's several accurate descriptions of one person, and that's a much easier sentence to live with.</li>
   </ul>
 </section>
+
+
 
 <section>
   <h2 class="sec">Related pages</h2>

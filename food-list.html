@@ -303,7 +303,9 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
         <div class="fld"><label for="genrules">How mealtimes work here</label>
           <textarea id="genrules" placeholder="e.g. Food is put on the table and nothing is asked. He serves himself. No comments about eating, in either direction. Spitting out is always allowed — a bin or a napkin is on the table."></textarea></div>
         <div class="row">
-          <div class="fld"><label for="allerg">Allergies and must-avoids</label>
+          <div class="fld"><label for="sensitive">Additives and ingredients we are watching <span class="hint">Not allergies — things you suspect, are trialling, or have ruled out.</span></label>
+          <textarea id="sensitive" placeholder="e.g. Red dye — trialled Feb, sleep clearly worse, kept out. Yellow dye — trialled Mar, no difference, back in."></textarea></div>
+        <div class="fld"><label for="allerg">Allergies and must-avoids</label>
             <textarea id="allerg" placeholder="e.g. No nuts in the house. Dairy causes reflux."></textarea></div>
           <div class="fld"><label for="supp">Nutrition support</label>
             <textarea id="supp" placeholder="e.g. Two supplement drinks a day, vanilla, in the metal cup with the lid."></textarea></div>
@@ -405,13 +407,14 @@ function blankPerson(nm){return {name:nm||"",dob:"",dx:"",emerg:"",weight:"",
   tracker:{entries:[],days:{},custom:{},pre:[],help:[]},
   goals:{items:[],settings:DEFSET.slice(),instructions:""},
   meds:{items:[],allergies:"",pharm:"",changes:[]},
-  food:{items:[],rules:"",allerg:"",supp:"",history:[]}};}
+  food:{items:[],rules:"",allerg:"",supp:"",sensitive:"",history:[]}};}
 function fix(d){Object.keys(d.people).forEach(function(k){var p=d.people[k];
   if(!p.tracker)p.tracker={entries:[],days:{},custom:{},pre:[],help:[]};
   if(!p.goals)p.goals={items:[],settings:DEFSET.slice(),instructions:""};
   if(!p.meds)p.meds={items:[],allergies:"",pharm:"",changes:[]};
   if(!p.food)p.food={items:[],rules:"",allerg:"",supp:"",history:[]};
-  if(!p.food.items)p.food.items=[];if(!p.food.history)p.food.history=[];});
+  if(!p.food.items)p.food.items=[];
+    if(p.food.sensitive==null)p.food.sensitive="";if(!p.food.history)p.food.history=[];});
  if(!d.people[d.current])d.current=Object.keys(d.people)[0];return d;}
 function load(){try{var r=localStorage.getItem(SKEY);if(r){var d=JSON.parse(r);if(d&&d.people)return fix(d);}}catch(e){}
  return {people:{"Person 1":blankPerson("")},current:"Person 1"};}
@@ -462,7 +465,7 @@ $("clearfood").addEventListener("click",function(){
  props=[];renderProps();});
 $("ffilt").addEventListener("change",renderList);
 $("saveinfo").addEventListener("click",function(){
- F().rules=$("genrules").value;F().allerg=$("allerg").value;F().supp=$("supp").value;save();
+ F().rules=$("genrules").value;F().allerg=$("allerg").value;F().sensitive=$("sensitive").value;F().supp=$("supp").value;save();
  $("saveinfo").textContent="Saved";setTimeout(function(){$("saveinfo").textContent="Save";},1400);});
 
 function counts(){var c={safe:0,sometimes:0,target:0,trying:0,lost:0};
@@ -600,6 +603,7 @@ function renderDoc(){
  if(info.length)h+='<div class="info"><dl>'+info.map(function(r){
   return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>';}).join('')+'</dl></div>';
  if(f.allerg)h+='<h2 class="alert">Allergies and must-avoids</h2><p><b>'+nl(f.allerg)+'</b></p>';
+ if(f.sensitive&&v!=="quick")h+='<h2>Additives and ingredients being watched</h2><p>'+nl(f.sensitive)+'</p>';
  function block(st,title){
   var l=f.items.filter(function(x){return x.status===st;});
   if(!l.length)return '';
@@ -657,7 +661,8 @@ $("savesetup").addEventListener("click",function(){var p=PERSON();
 function boot(){
  renderProps();
  $("freadpaste").addEventListener("click",fReadPaste);
- $("genrules").value=F().rules||"";$("allerg").value=F().allerg||"";$("supp").value=F().supp||"";
+ $("genrules").value=F().rules||"";$("allerg").value=F().allerg||"";
+ $("sensitive").value=F().sensitive||"";$("supp").value=F().supp||"";
  renderList();renderSuggest();renderSetup();}
 boot();
 </script>
