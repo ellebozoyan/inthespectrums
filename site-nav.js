@@ -1354,11 +1354,11 @@
   "Self-determination starts with discovering that your preferences reliably change what happens.",
   "Their preference about language, and about what gets shared, outranks any style guide including this one."],
 
-'learning-and-literacy.html': ["Reading comprehension is decoding multiplied by language comprehension. If either is near zero, so is reading.",
-  "Structured literacy \u2014 explicit, systematic phonics \u2014 has the strongest evidence base in education.",
-  "Ask what your child is taught to do at an unknown word. If the answer involves guessing from pictures or context, that's the problem.",
-  "Instruction and accommodation are both required. One without the other fails.",
-  "Early intervention works dramatically better than later. A gap at the end of first grade should be acted on now."],
+'learning-and-literacy.html': ["Structured literacy is what works \u2014 explicit, systematic, cumulative phonics, not guessing from pictures.",
+  "Learning two languages causes neither delay nor reading difficulty. It also protects against nothing.",
+  "A real disorder shows in every language a child speaks. Difficulty in only the newer one is a difference.",
+  "Rule out eyes and ears before attributing anything else \u2014 screening checks far less than families assume.",
+  "Accommodation and instruction are both required. One without the other leaves a person stuck."],
 
 'adhd-executive-function.html': ["People with ADHD know what to do. The difficulty is doing it at the moment it needs doing.",
   "Almost everything that helps works by moving the demand out of their head and into the world \u2014 externalize it.",
@@ -1833,7 +1833,7 @@
    fragment, so it lands as a breath after the difficult part rather
    than as a preface to it.
 
-   Use <b>…</b> for the emphasised phrase. Add 'warm|' to the start of
+   Use <b>…</b> for the emphasized phrase. Add 'warm|' to the start of
    a line to get the softer boxed version instead.
    =================================================================== */
 (function () {

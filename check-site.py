@@ -61,6 +61,29 @@ for t in TOOLS:
 
 # The site uses American English throughout. British spellings creep in easily
 # and are exactly the kind of inconsistency nobody notices until a reader does.
+# British usage as well as spelling - "in hospital" is the one that slipped
+# through a spelling-only check, because every word in it is spelled correctly.
+BRIT_USAGE = [
+    (r'\b(?:in|to|into|from|leave|leaving) hospital\b', 'no article before "hospital"'),
+    (r'\bA&E\b', 'A&E (US: emergency room)'),
+    (r'\bcar park\b', 'car park (US: parking lot)'),
+    (r'\bat the weekend\b', 'at the weekend (US: on the weekend)'),
+    (r'\bcoeliac\b|\boesophag|\bhaemo|\bdiarrhoea\b|\bfoetal\b|\boedema\b', 'British medical spelling'),
+    (r'\bpostcode\b|\bpavement\b|\bpetrol\b|\bnappy\b|\bnappies\b', 'British term'),
+    (r'\bdifferent to\b', 'different to (US: different from)'),
+    (r'\borientate', 'orientate (US: orient)'),
+    (r'\bspeciality\b', 'speciality (US: specialty)'),
+    (r'\bcounsellor\b', 'counsellor (US: counselor)'),
+    (r'\b(?:normalis|criticis|emphasis|organis|authoris|categoris|customis|familiaris|generalis|hospitalis|memoris|penalis|randomis|sensitis|stabilis|standardis|utilis|visualis)(?:e|ed|es|ing|ation)\b', '-ise spelling (US: -ize)'),
+]
+for f in pages + ['site-nav.js']:
+    txt = open(f).read()
+    body = re.sub(r'<script>.*?</script>|<style>.*?</style>', '', txt, flags=re.S) if f.endswith('.html') else txt
+    body = re.sub(r'<[^>]+>', ' ', body)
+    for pat, label in BRIT_USAGE:
+        if re.search(pat, body, re.I):
+            problems.append(f'{f}: British usage - {label}')
+
 BRIT = ['behaviour','favour','nappies','nappy','centres','organisation','recognise','recognised',
         'diarrhoea','paediatric','anaemia','honour','honouring','colour','flavour','labour',
         'realise','prioritise','minimise','summarise','specialise','analyse','practise','practising',
@@ -146,6 +169,19 @@ for f in pages:
             problems.append(f'{f}: <img src="{src}"> has no width/height (page will jump)')
         if src != '?' and src.startswith('img/') and not os.path.exists(src):
             problems.append(f'{f}: image file missing - {src}')
+
+
+# The home page advertises specific search terms. If a term stops finding
+# anything, the page is making a promise the site does not keep.
+if 'index.html' in present and os.path.exists('search-index.js'):
+    home = open('index.html').read()
+    m = re.search(r'Type what is actually happening.*?<em>([^<]+)</em>', home, re.S)
+    if m:
+        sidx = open('search-index.js').read()
+        for term in [t.strip() for t in m.group(1).split(',')]:
+            words = [w for w in re.findall(r"[a-z']{4,}", term.lower())]
+            if words and not any(w in sidx.lower() for w in words):
+                problems.append(f'index.html: advertises the search "{term}" but nothing indexed matches it')
 
 print(f'{len(pages)} pages checked')
 if problems:
