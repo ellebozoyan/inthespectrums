@@ -77,6 +77,7 @@
     ]},
     { label: 'Behavior', items: [
       ['behavior.html',                'Behavior is communication','What a behavior is saying, and what it costs on the inside'],
+      ['social-emotional-learning.html','Social and emotional learning','Noticing, managing, relating \u2014 and where SEL goes wrong'],
       ['de-escalation.html',           'In the moment',           'Precursors, de-escalation, calming and processing'],
       ['behavior-support.html',        'Choosing behavior support','The ABA conversation, and building one team']
     ]},
@@ -943,7 +944,7 @@
                    'feeding-therapy.html','aquatic-therapy.html','myofunctional-therapy.html',
                    'floortime.html','music.html','mealtime-communication.html']],
     ['Learning, attention and mood', ['learning-and-literacy.html','adhd-executive-function.html','anxiety-and-ocd.html','math-and-writing.html']],
-    ['Behavior', ['behavior.html','de-escalation.html','behavior-support.html']],
+    ['Behavior', ['behavior.html','de-escalation.html','behavior-support.html','social-emotional-learning.html']],
     ['The child', ['their-own-voice.html','adaptive-community.html','maplewood-stories.html']],
     ['About', ['about.html','terms-and-privacy.html']]
   ];
@@ -1524,6 +1525,12 @@
   "Do not grade content on mechanics \u2014 a person who knows the material gets a score saying they do not.",
   "Failing history usually means reading, writing or executive load. None of those is a history problem."],
 
+'social-emotional-learning.html': ["Noticing what you feel, managing it, reading others, relationships, deciding \u2014 all teachable skills.",
+  "Interoception underlies the whole thing. If you cannot feel the signal, you cannot act on it early.",
+  "Regulation is learned through co-regulation, which makes the adult\u2019s state part of the curriculum.",
+  "Social skills are frequently taught in one direction only. Communication difficulty between two people is shared.",
+  "The test: is the goal for them to be more comfortable on their own terms, or less inconvenient to adults?"],
+
 'maplewood-stories.html': ["Fifty-two picture books about ten friends who are not alike, figuring it out together.",
   "No child in them is labeled, and none of them is the lesson.",
   "Social and emotional learning, executive function, and safety awareness are the plots, not the moral.",
@@ -1582,6 +1589,10 @@
   'use strict';
 
   var MARKS = {
+
+  'social-emotional-learning.html':
+    '<rect width="74" height="74" fill="#EEF2EC"/><circle cx="27" cy="30" r="11" fill="none" stroke="#16283C" stroke-width="1.8"/><circle cx="47" cy="30" r="11" fill="none" stroke="#2E4E3F" stroke-width="1.8"/><path d="M37 21a11 11 0 0 0 0 18 11 11 0 0 1 0-18z" fill="#9C4A21" opacity=".5"/><path d="M20 54c3-4 8-6 17-6s14 2 17 6" stroke="#16283C" stroke-width="1.8" fill="none"/>',
+
 
   'math-and-writing.html':
     '<rect width="74" height="74" fill="#EFEDE4"/><path d="M14 20h18M23 11v18" stroke="#16283C" stroke-width="2.2"/><path d="M42 22l14 14M56 22l-14 14" stroke="#9C4A21" stroke-width="2.2"/><rect x="12" y="44" width="50" height="3" rx="1.5" fill="#16283C" opacity=".5"/><rect x="12" y="52" width="34" height="3" rx="1.5" fill="#16283C" opacity=".5"/><rect x="12" y="60" width="42" height="3" rx="1.5" fill="#16283C" opacity=".5"/>',
@@ -2163,6 +2174,11 @@
   'math-and-writing.html': [
     ['',
      'warm|A person who can tell you the whole story out loud and writes three flat sentences is not lazy and is not confused. <b>They are carrying more at once than the task admits</b> \u2014 and taking one thing off the pile changes everything.']
+  ],
+
+  'social-emotional-learning.html': [
+    ['',
+     'warm|Naming a feeling out loud, in front of somebody, is teaching. <b>You have been doing this for years without calling it a curriculum</b> \u2014 and it is doing more of the work than any program.']
   ],
   };
 

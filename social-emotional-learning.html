@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Social and emotional learning — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --slate:#435A6F; --slate-tint:#E5EAEE; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: zoom out */
+.zoom{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.zoom h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.zoom .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.frames{display:grid;gap:2px}
+.fr{background:rgba(255,255,255,.05);border-left:3px solid var(--slate);padding:13px 16px;
+  display:grid;grid-template-columns:132px minmax(0,1fr);gap:6px 20px}
+@media(max-width:620px){.fr{grid-template-columns:1fr}}
+.fr.wide{border-left-color:var(--rust);background:rgba(156,74,33,.13)}
+.fr b{font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#C6A98F}
+.fr span{font-size:.92rem;color:#B9C4B4;line-height:1.5}
+.zoom .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:22px 0 0;max-width:62ch}
+.zoom .cap strong{color:#EFEBE3}
+
+/* translation pairs */
+.trans{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);
+  border-radius:2px;overflow:hidden;margin:0 0 11px;background:var(--card)}
+@media(max-width:620px){.trans{grid-template-columns:1fr}}
+.trans div{padding:15px 18px}
+.trans .saw{background:#EEF1ED;border-right:1px solid var(--line)}
+.trans .mean{background:var(--slate-tint)}
+.trans .lbl{font-family:var(--sans);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:700;margin:0 0 7px}
+.trans .saw .lbl{color:var(--ink-soft)}.trans .mean .lbl{color:var(--slate)}
+.trans p{margin:0;font-size:.96rem;line-height:1.5}
+.trans .saw p{font-style:italic}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+/* curve */
+.curve{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:2px;margin:0 0 14px}
+.st{background:var(--card);border-top:3px solid var(--line);padding:15px 16px}
+.st.win{border-top-color:var(--forest);background:#E6EDE4}
+.st.peak{border-top-color:var(--alarm);background:var(--alarm-tint)}
+.st.rep{border-top-color:var(--rust);background:var(--rust-tint)}
+.st b{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;margin-bottom:7px;color:var(--ink)}
+.st p{font-size:.9rem;margin:0;line-height:1.5}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.says{background:var(--card);border-left:4px solid var(--slate);padding:20px 22px;margin:0 0 12px}
+.says .who{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--slate);font-weight:700;margin:0 0 9px}
+.says p{margin:0 0 10px;font-size:.97rem}
+.says p:last-child{margin:0}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.snote{background:var(--slate-tint);border-left:4px solid var(--slate);padding:20px 22px;margin:24px 0}
+.snote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--slate);font-weight:700;margin:0 0 10px}
+.snote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.col,.trans,.st,.says{break-inside:avoid}
+  .zoom{background:#fff;color:#000;border:1px solid #000}.zoom .big,.fr b,.zoom .cap strong{color:#000}}
+
+/* the inside of it */
+.inside{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:26px 28px;margin:0 0 14px}
+.inside h3{font-family:var(--sans);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--slate);font-weight:700;margin:0 0 12px}
+.inside h3:not(:first-child){margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}
+.inside p{font-size:1.02rem;line-height:1.68;margin:0 0 14px}
+.inside p:last-child{margin:0}
+.inside strong{color:var(--ink)}
+.inside .quiet{font-size:.95rem;color:var(--ink-soft)}
+/* portable phrases */
+.phrases{display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:11px;margin:0 0 16px}
+.ph{background:var(--slate-tint);border-left:3px solid var(--slate);padding:16px 18px}
+.ph b{display:block;font-family:var(--serif);font-size:1.06rem;line-height:1.35;color:#22303C;
+  font-style:italic;margin-bottom:8px}
+.ph span{display:block;font-size:.88rem;color:var(--ink-soft);line-height:1.5}
+
+/* phrase bank */
+.bank{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:20px 22px;margin:0 0 12px}
+.bank h4{font-family:var(--sans);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--slate);font-weight:700;margin:0 0 6px}
+.bank .why{font-size:.9rem;color:var(--ink-soft);margin:0 0 14px;line-height:1.5}
+.bank ul{list-style:none;margin:0;padding:0}
+.bank li{font-size:1rem;line-height:1.45;font-style:italic;color:#22303C;padding:9px 0 9px 15px;
+  border-left:2px solid var(--slate-tint);margin:0 0 6px}
+.bank li:last-child{margin:0}
+.bank li b{font-style:normal;font-family:var(--sans);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-soft);display:block;margin-top:5px;font-weight:700}
+.steps4{counter-reset:s4;margin:0 0 14px}
+.s4{background:var(--card);border-left:3px solid var(--forest);padding:16px 20px 16px 54px;
+  margin-bottom:9px;position:relative}
+.s4::before{counter-increment:s4;content:counter(s4);position:absolute;left:16px;top:16px;
+  width:24px;height:24px;background:var(--forest);color:#fff;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:11.5px;font-weight:700}
+.s4 b{display:block;font-size:1.02rem;font-weight:400;margin-bottom:5px}
+.s4 p{font-size:.93rem;margin:0;color:var(--ink-soft)}
+
+/* five-question processing sequence */
+.qseq{counter-reset:q;margin:0 0 16px}
+.qstep{background:var(--card);border:1px solid var(--line);border-radius:2px;margin-bottom:10px;
+  display:grid;grid-template-columns:44px minmax(0,1fr);overflow:hidden}
+.qnum{background:var(--slate);color:#fff;display:flex;align-items:flex-start;justify-content:center;
+  padding-top:19px;font-family:var(--sans);font-size:13px;font-weight:700}
+.qbody{padding:17px 20px}
+.qbody .q{font-size:1.14rem;line-height:1.3;margin:0 0 9px;color:#22303C}
+.qbody p{font-size:.94rem;margin:0 0 8px;color:var(--ink-soft)}
+.qbody p:last-child{margin:0}
+.qbody .ex{font-style:italic;color:#22303C;background:var(--slate-tint);padding:9px 12px;
+  border-radius:2px;margin:9px 0 0;font-size:.95rem}
+
+/* sentence frame */
+.frame{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:3px;margin:0 0 10px}
+.fcol{padding:12px 13px;text-align:center;border-top:4px solid;border-radius:2px}
+.fcol.who{background:#FAEFC0;border-top-color:#C9A227}
+.fcol.did{background:#D4E7C5;border-top-color:#4E7C3A}
+.fcol.what{background:#F7DAB8;border-top-color:#C2701C}
+.fcol.link{background:#EFEFEA;border-top-color:#8A8F86}
+.fcol b{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;margin-bottom:7px}
+.fcol.who b{color:#7A611A}.fcol.did b{color:#33521F}
+.fcol.what b{color:#8A4E13}.fcol.link b{color:#5C6058}
+.fcol span{display:block;font-size:.98rem;color:#22261F;line-height:1.4;font-weight:600}
+.fcol em{font-style:normal;color:#5A5F55;font-size:.82rem;display:block;margin-top:5px;font-weight:400}
+.swatch{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:-1px;margin-right:5px;border:1px solid rgba(0,0,0,.15)}
+.fex{background:var(--card);border:1px solid var(--line);padding:12px 15px;font-size:1.02rem;
+  color:#22303C;margin:0 0 14px;font-style:italic;text-align:center}
+.prog{counter-reset:pg;margin:0 0 14px}
+.pgs{background:var(--card);border-left:3px solid var(--slate);padding:15px 19px 15px 50px;
+  margin-bottom:9px;position:relative}
+.pgs::before{counter-increment:pg;content:counter(pg);position:absolute;left:14px;top:15px;
+  width:22px;height:22px;background:var(--slate);color:#fff;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:11px;font-weight:700}
+.pgs b{display:block;font-size:1rem;font-weight:400;margin-bottom:4px}
+.pgs p{font-size:.92rem;margin:0;color:var(--ink-soft)}
+.pgs .say{font-style:italic;color:#22303C;display:block;margin-top:6px}
+
+.trio{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--rust);
+  border-radius:2px;padding:18px 22px;margin:0 0 30px}
+.trio b{font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.trio ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px}
+.trio li{font-size:.95rem;line-height:1.45;padding:10px 13px;background:var(--ground);border-radius:2px}
+.trio li.now{background:var(--rust-tint);font-weight:600}
+.trio li span{font-family:var(--sans);font-size:9px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-soft);display:block;margin-bottom:4px;font-weight:700}
+.trio li.now span{color:var(--rust)}
+.trio a{text-decoration:none;border-bottom:1px solid rgba(156,74,33,.35)}
+.trio a:hover{border-bottom-color:var(--rust)}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Social and emotional learning:<br><em>the part nobody schedules</em></h1>
+  <p class="lede">Noticing what you feel, managing it, reading other people, handling a relationship, deciding what to do. These are skills, they are teachable, and almost everything else a person is asked to do at school and at work rests on them. They are also the first thing cut when a timetable gets tight.</p>
+</header>
+
+<div class="note">
+  <p><strong>The abbreviation is SEL</strong>, and you will meet it in school documents without anybody explaining it. It covers the same ground families mean by "handling himself" or "getting on with people" — organized so it can actually be taught rather than hoped for.</p>
+</div>
+
+<section>
+  <h2 class="sec">What it actually <em>covers</em></h2>
+  <p class="secnote">Five areas, widely used in schools, and worth knowing by name so you can ask which of them is being taught.</p>
+
+  <div class="domains">
+    <div class="dom"><h3>Knowing yourself</h3>
+      <p>Noticing what you feel and what is happening in your body, and having words for it.</p>
+      <ul>
+        <li>Recognizing an emotion while it is happening, not afterward</li>
+        <li>Noticing hunger, tiredness, pain, needing the bathroom</li>
+        <li>Knowing what you are good at and what is hard</li>
+        <li>Understanding what tends to set you off</li>
+      </ul>
+      <p class="look"><b>Often missed</b>Interoception — sensing the body's own signals — is genuinely harder for some people, and everything above depends on it.</p></div>
+
+    <div class="dom"><h3>Managing yourself</h3>
+      <p>Doing something useful with what you have noticed.</p>
+      <ul>
+        <li>Waiting, stopping, starting</li>
+        <li>Calming down, and knowing what helps you specifically</li>
+        <li>Asking for help before it becomes a crisis</li>
+        <li>Keeping going when something is hard</li>
+      </ul>
+      <p class="look"><b>Note</b>This is not compliance. A person who can regulate can also refuse clearly, which is a skill rather than a problem.</p></div>
+
+    <div class="dom"><h3>Understanding others</h3>
+      <p>Working out what somebody else might be feeling or thinking.</p>
+      <ul>
+        <li>Reading faces, tone and situations — with the caveat below</li>
+        <li>Recognizing that other people want different things</li>
+        <li>Noticing when somebody needs help</li>
+        <li>Understanding that difference is normal</li>
+      </ul>
+      <p class="look"><b>The caveat</b>This is taught as though one way of reading people is correct. It is a two-way street — see below.</p></div>
+
+    <div class="dom"><h3>Relationships</h3>
+      <p>The mechanics of being with other people over time.</p>
+      <ul>
+        <li>Starting a conversation, and ending one</li>
+        <li>Joining something already happening</li>
+        <li>Disagreeing without it ending the friendship</li>
+        <li>Repairing something after it goes wrong</li>
+        <li>Recognizing when a relationship is not safe</li>
+      </ul>
+      <p class="look"><b>Underrated</b>Repair is the skill that keeps friendships. It is rarely taught explicitly, and it can be.</p></div>
+
+    <div class="dom"><h3>Deciding</h3>
+      <p>Working out what to do, and living with it.</p>
+      <ul>
+        <li>Thinking past the next thirty seconds</li>
+        <li>Weighing what happens if</li>
+        <li>Knowing what matters to you</li>
+        <li>Taking responsibility without collapsing into shame</li>
+      </ul>
+      <p class="look"><b>Worth knowing</b>Poor decisions under stress are a capacity problem far more often than a values problem.</p></div>
+
+    <div class="dom"><h3>Why it is not optional</h3>
+      <p>What rests on top of all of it.</p>
+      <ul>
+        <li>Learning — a dysregulated brain does not take information in</li>
+        <li>Friendship, which is protective across a whole life</li>
+        <li>Employment, where these skills matter more than the technical ones</li>
+        <li>Safety — refusing, reporting, recognizing when something is wrong</li>
+        <li>Mental health, in both directions</li>
+      </ul>
+      <p class="look"><b>The short version</b>Nearly everything else is downstream of this.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Why it matters more <em>for some people</em></h2>
+  <p class="secnote">And why the usual way of teaching it sometimes makes things worse.</p>
+
+  <ul>
+    <li><strong>Much of it is normally absorbed rather than taught.</strong> Most children pick up a great deal of this by watching, without anybody planning it. A person who does not absorb it that way is not failing — they need it made explicit, and explicit teaching works.</li>
+    <li><strong>Interoception underlies the whole thing.</strong> If you cannot reliably feel hunger, tiredness or the early rise of anger, you cannot act on it early. That is not a lack of self-control; it is missing the signal. Teaching body awareness comes before teaching strategies.</li>
+    <li><strong>Regulation is learned through co-regulation.</strong> A person becomes able to settle themselves by being settled with, many times, by somebody calm. Which means <strong>the adult's state is part of the curriculum</strong>, and a program delivered by a stressed adult in a chaotic room teaches something other than what it says.</li>
+    <li><strong>Capacity comes first.</strong> None of these skills are available to somebody who is past their limit. Teaching them in the moment does not work — see <a href="whole-picture.html">the whole picture</a> and <a href="de-escalation.html">in the moment</a>.</li>
+    <li><strong>Skills do not travel on their own.</strong> Something learned in a small group at ten on a Tuesday will not appear in the playground unless it is deliberately practiced there. See <a href="goals-tracker.html">the goals tracker</a> on generalization.</li>
+  </ul>
+
+  <div class="warn">
+    <h3>Where SEL goes wrong for disabled and neurodivergent people</h3>
+    <p>Worth naming, because this is a genuine and reasonable criticism.</p>
+    <ul>
+      <li><strong>It can become compliance training wearing better language.</strong> If "self-management" in practice means sitting still and not objecting, it is not teaching regulation — it is teaching that your own signals should be overridden. That is the opposite of the skill.</li>
+      <li><strong>Social skills are frequently taught in one direction only.</strong> An autistic person is taught to make eye contact, read tone, and mask discomfort, while nobody teaches their peers to accommodate a different style. <strong>Communication difficulty between two people is shared, and putting the whole burden on one of them is both unfair and less effective.</strong></li>
+      <li><strong>Masking is not a skill, and it has a cost.</strong> Programs that reward looking regulated rather than being regulated produce people who suppress distress until it arrives all at once, often at home, often years later.</li>
+      <li><strong>Emotion charts assume interoception.</strong> A person who cannot feel the difference between anxious and hungry cannot point at the right face, and gets marked as not engaging.</li>
+      <li><strong>Scripted programs assume a shared baseline.</strong> Off-the-shelf curricula frequently assume speech, stable attention, and typical sensory experience. They are worth adapting rather than abandoning.</li>
+    </ul>
+    <p><strong>The test:</strong> ask whether the goal is for the person to be <em>more comfortable and more effective on their own terms</em>, or for them to be <em>less inconvenient to the adults</em>. Both get described the same way, and the difference is the whole thing.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">What good <em>looks like</em></h2>
+
+  <h3 class="sub">At home, without a curriculum</h3>
+  <ul>
+    <li><strong>Name feelings out loud, including your own.</strong> "I am frustrated, so I am going to sit down for a minute." Modeling does most of the teaching.</li>
+    <li><strong>Build the vocabulary.</strong> Beyond happy, sad and angry — disappointed, overwhelmed, embarrassed, relieved, left out. Precision helps enormously, because a feeling you can name is one you can do something about.</li>
+    <li><strong>Connect the body to the feeling.</strong> "Your shoulders came up. What is happening in your tummy?"</li>
+    <li><strong>Repair visibly when you get it wrong.</strong> Children learn repair by seeing adults do it, and almost nothing else teaches it as well.</li>
+    <li><strong>Let them see you regulate.</strong> Not perfectly — out loud. "That was a lot. I am going outside for two minutes."</li>
+    <li><strong>Debrief afterward, never during.</strong> Nothing is learnable in the middle of it. Later, gently, once.</li>
+    <li><strong>Practice in the real place.</strong> Rehearse in the car before the shop, not only in the calm of the kitchen — see <a href="choice-planner.html">the teach-back</a>.</li>
+  </ul>
+
+  <h3 class="sub">At school</h3>
+  <ul>
+    <li><strong>Taught everywhere, not in one lesson.</strong> A weekly session that nothing else reinforces will not transfer.</li>
+    <li><strong>Every adult using the same language</strong>, including in the hallway and the cafeteria.</li>
+    <li><strong>Explicit teaching for those who need it</strong>, with practice in the real setting.</li>
+    <li><strong>Peers taught too.</strong> A school working on inclusion should be teaching everybody how to include, not only teaching disabled students how to fit.</li>
+    <li><strong>Goals that describe the person's own benefit</strong> — "will ask for a break when he notices he is getting overwhelmed" rather than "will remain seated".</li>
+    <li><strong>It belongs in the IEP where it is a need.</strong> Social and emotional goals are legitimate IEP goals — see <a href="inside-the-iep.html">inside the IEP</a>.</li>
+  </ul>
+
+  <div class="bnote">
+    <h3>The question worth asking about any program</h3>
+    <p>Schools use a range of named curricula, and they vary. Rather than evaluating the brand, ask:</p>
+    <p><strong>Does it teach noticing before strategies?</strong> Strategies without body awareness do not get used.</p>
+    <p><strong>Is it practiced where it is needed</strong>, or only where it is taught?</p>
+    <p><strong>Does it accept a genuine no?</strong> A program in which the right answer is always to continue is teaching compliance.</p>
+    <p><strong>Is anybody teaching the other children anything?</strong></p>
+    <p><strong>And would my person recognize themselves in it</strong> — or is it built for somebody else and applied to them?</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="behavior.html"><h3>Behavior is communication</h3>
+      <p>What difficult behavior is telling you, and why the meaning changes what helps.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="de-escalation.html"><h3>In the moment</h3>
+      <p>Precursors, capacity, and why nothing is learnable in the middle of it.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="choice-planner.html"><h3>The choice planner</h3>
+      <p>The teach-back, and consequences that make sense rather than punish.</p>
+      <span class="go">Open it</span></a>
+    <a class="libcard" href="their-own-voice.html"><h3>Their own voice</h3>
+      <p>Self-advocacy, dignity, and handing over ownership of their own story.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="adaptive-community.html"><h3>Sports, classes and community</h3>
+      <p>Where these skills are actually practiced, with other people, for real.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="goals-tracker.html"><h3>The goals tracker</h3>
+      <p>Making sure a skill learned in one room shows up in the others.</p>
+      <span class="go">Open it</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>If you do one thing from this page, make it naming feelings out loud — yours as much as theirs. It costs nothing, it needs no program, and it is doing more of the work than any curriculum.</p>
+  <p>And if a program is teaching your person to be easier for adults rather than more comfortable in themselves, you are allowed to say so.</p>
+</div>
+
+<footer>
+  <p><strong>Nothing here is clinical or educational advice.</strong> Where emotional difficulty is significant or persistent, it deserves proper assessment rather than a curriculum.</p>
+</footer>
+
+</div>
+<script src="search-index.js"></script>
+<script src="site-nav.js"></script>
+</body>
+</html>
