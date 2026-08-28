@@ -24,6 +24,7 @@
     ]},
     { label: 'The people caring', items: [
       ['caregivers.html',              'The people doing the caring','Support, respite, relationships, and staying a person yourself'],
+      ['ordinary-warmth.html',       'Ordinary warmth',         'The space between staring and looking away'],
       ['siblings-and-family.html',     'Siblings and the whole household','Everyone known, nobody carrying it alone']
     ]},
     { label: 'Adult life', items: [
@@ -39,6 +40,7 @@
       ['symptom-tracker.html',            'The symptom tracker',       'Log what changed today, print a summary before the appointment'],
       ['goals-tracker.html',              'Goals and generalization',  'Every provider\u2019s goals in one place, and which ones should travel'],
       ['share-builder.html',              'The share builder',         'Assemble a packet for one person \u2014 you tick exactly what goes in'],
+      ['heads-up-note.html',           'The heads-up note',       'Four warm lines you can text before a playdate or a visit'],
       ['family-calendar.html',            'The family calendar',       'One day on one screen \u2014 and onto everyone\u2019s phones'],
       ['medication-list.html',            'The medication list',       'Current, printable, and always in a pocket'],
       ['food-list.html',                  'The food list',             'What is accepted, and exactly how it has to be'],
@@ -122,6 +124,17 @@
     '.nv-searchbtn,.nv-langbtn,.nv-burger{padding:7px 9px;font-size:11.5px;flex:0 0 auto}}',
     '@media(max-width:380px){.nv-searchbtn,.nv-langbtn,.nv-burger{padding:6px 8px;font-size:11px}',
     '.nv-in{gap:5px}}',
+    /* the logo is the main route home, so it needs the same hover affordance
+       the section tabs have - without it nobody knows it is clickable */
+    '.nv-logo{border:1px solid transparent;border-radius:2px;padding:5px 9px;margin-left:-9px;',
+    'cursor:pointer;transition:background .12s,border-color .12s,color .12s}',
+    '.nv-logo:hover{color:var(--nv-rust);border-color:var(--nv-line);background:var(--nv-card)}',
+    '.nv-logo:hover em{color:var(--nv-rust)}',
+    '.nv-logo:focus-visible{outline:2px solid var(--nv-rust);outline-offset:1px}',
+    /* on the home page it is where you already are, so it does not pretend otherwise */
+    '.nv-logo[aria-current="page"]{cursor:default}',
+    '.nv-logo[aria-current="page"]:hover{color:var(--nv-ink);border-color:transparent;background:none}',
+    '.nv-logo[aria-current="page"]:hover em{color:var(--nv-forest)}',
     '.nv-logo{font-family:var(--nv-serif);font-size:1.05rem;color:var(--nv-ink);text-decoration:none;',
     'letter-spacing:-.01em;white-space:nowrap}',
     '.nv-logo em{font-style:italic;color:var(--nv-forest)}',
@@ -292,7 +305,9 @@
   var bar = el('div', 'nv-bar');
   bar.innerHTML =
     '<div class="nv-in">' +
-      '<a class="nv-logo" href="' + HOME + '">In The <em>Spectrums</em></a>' +
+      '<a class="nv-logo" href="' + HOME + '" title="Home \u2014 In The Spectrums"' +
+        (here === HOME ? ' aria-current="page"' : '') +
+        '>In The <em>Spectrums</em></a>' +
       '<button class="nv-burger" id="nvOpen" aria-expanded="false" aria-controls="nvDrawer">' +
         '<i aria-hidden="true"></i>All pages</button>' +
     '</div>' +
@@ -949,7 +964,7 @@
   var MAP = [
     ['Start here', ['spectrums.html','what-to-do-first.html','care-team-map.html','conditions-library.html','whole-picture.html']],
     ['School and services', ['inside-the-iep.html','accommodations-finder.html','programs-and-entitlements.html']],
-    ['The people caring', ['caregivers.html','siblings-and-family.html']],
+    ['The people caring', ['caregivers.html','siblings-and-family.html','ordinary-warmth.html']],
     ['Adult life', ['adult-life.html','adult-benefits.html','adult-housing.html','adult-providers.html','your-own-life.html']],
     ['Money, paperwork and tracking', ['paying-for-therapy.html','template-builders.html','symptom-tracker.html','goals-tracker.html','family-calendar.html','medication-list.html','food-list.html','meal-planner.html','choice-planner.html','household-board.html','practice-mirror.html','share-builder.html','using-these-tools.html']],
     ['Safety and health', ['safety.html','injuries-and-illness.html','supplements.html','judging-claims.html']],
@@ -1390,8 +1405,8 @@
 'whole-picture.html': ["Co-occurrence is the rule, not the exception \u2014 one diagnosis routinely hides the others.",
   "Dominoes: one thing sets off the next. Capacity: why today and not yesterday.",
   "The challenge in one context is the strength in another \u2014 nothing about the person changes, only the room.",
-  "Sleep, pain and hunger come before behavior. The order you look in decides what you find.",
-  "Start services on need, not on label. Nobody has to wait for an explanation to get help."],
+  "Needing support at thirteen having needed none at six is not evidence anybody missed something.",
+  "Deficits are the obstacle, not the objective. Ask what a life is being freed up for."],
 
 'goals-tracker.html': ["Most children with several providers have several sets of goals that nobody else has read. This puts them in one place.",
   "The generalization sheet is the part that changes outcomes \u2014 which goals travel, and exactly how.",
@@ -1544,6 +1559,18 @@
   "Social skills are frequently taught in one direction only. Communication difficulty between two people is shared.",
   "The test: is the goal for them to be more comfortable on their own terms, or less inconvenient to adults?"],
 
+'ordinary-warmth.html': ["Everybody is somewhere on these spectrums \u2014 this is not one group writing about another.",
+  "Most of us have two scripts, stare or look away. What is missing is the ordinary middle.",
+  "Smile. Say hello to the person, not only to whoever is with them. Then carry on normally.",
+  "Offer something concrete. \u201cLet me know if you need anything\u201d puts the work back on them.",
+  "Trying imperfectly beats a careful silence, every time."],
+
+'heads-up-note.html': ["Short, warm and textable \u2014 four sentences, not a document.",
+  "Most people want to get it right and do not know how to ask. A note removes that entirely.",
+  "Concrete beats diagnostic: what they will see and what to do about it.",
+  "Say what to do, not what to avoid. People relax when given a job.",
+  "Share the minimum that makes the situation work \u2014 it is somebody else\u2019s information."],
+
 'maplewood-stories.html': ["Fifty-two picture books about ten friends who are not alike, figuring it out together.",
   "No child in them is labeled, and none of them is the lesson.",
   "Social and emotional learning, executive function, and safety awareness are the plots, not the moral.",
@@ -1602,6 +1629,14 @@
   'use strict';
 
   var MARKS = {
+
+  'heads-up-note.html':
+    '<rect width="74" height="74" fill="#EEF2F0"/><rect x="13" y="18" width="48" height="32" rx="4" fill="#FFF" stroke="#16283C" stroke-width="1.8"/><path d="M22 28h30M22 35h24M22 42h18" stroke="#16283C" stroke-width="1.6" stroke-linecap="round" opacity=".55"/><path d="M27 50l-4 8 11-8z" fill="#FFF" stroke="#16283C" stroke-width="1.8" stroke-linejoin="round"/><circle cx="55" cy="21" r="6" fill="#9C4A21"/>',
+
+
+  'ordinary-warmth.html':
+    '<rect width="74" height="74" fill="#F1F0EA"/><circle cx="26" cy="28" r="9" fill="none" stroke="#16283C" stroke-width="1.8"/><circle cx="49" cy="28" r="9" fill="none" stroke="#9C4A21" stroke-width="1.8"/><path d="M20 36c2 2 4 3 6 3s4-1 6-3" stroke="#16283C" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M43 36c2 2 4 3 6 3s4-1 6-3" stroke="#9C4A21" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M16 56h42" stroke="#2E4E3F" stroke-width="2" stroke-linecap="round"/>',
+
 
   'social-emotional-learning.html':
     '<rect width="74" height="74" fill="#EEF2EC"/><circle cx="27" cy="30" r="11" fill="none" stroke="#16283C" stroke-width="1.8"/><circle cx="47" cy="30" r="11" fill="none" stroke="#2E4E3F" stroke-width="1.8"/><path d="M37 21a11 11 0 0 0 0 18 11 11 0 0 1 0-18z" fill="#9C4A21" opacity=".5"/><path d="M20 54c3-4 8-6 17-6s14 2 17 6" stroke="#16283C" stroke-width="1.8" fill="none"/>',
@@ -2192,6 +2227,16 @@
   'social-emotional-learning.html': [
     ['',
      'warm|Naming a feeling out loud, in front of somebody, is teaching. <b>You have been doing this for years without calling it a curriculum</b> \u2014 and it is doing more of the work than any program.']
+  ],
+
+  'ordinary-warmth.html': [
+    ['',
+     'warm|You are reading a page about being warmer toward somebody. <b>That already puts you well ahead of the thing this page describes.</b>']
+  ],
+
+  'heads-up-note.html': [
+    ['',
+     'warm|Sending a few lines ahead is not managing everybody. <b>It is the same courtesy as mentioning a nut allergy</b> \u2014 useful information, given lightly, so the afternoon goes better for everyone.']
   ],
   };
 

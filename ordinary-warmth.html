@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For everyone else — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#6B4A78; --book-tint:#EFE6F1; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the equation */
+.eqn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.eqn h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.eqn .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.parts{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:18px}
+@media(max-width:700px){.parts{grid-template-columns:1fr;gap:6px}.op{text-align:center;padding:2px 0}}
+.pt{background:rgba(255,255,255,.06);border-top:3px solid var(--book);padding:15px 16px}
+.pt.res{border-top-color:var(--rust);background:rgba(156,74,33,.13)}
+.pt b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#EFEBE3;margin-bottom:6px}
+.pt span{font-size:.86rem;color:#B9C4B4;line-height:1.45;display:block}
+.op{font-size:1.5rem;color:#C6A98F;text-align:center}
+.eqn .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:20px 0 0;max-width:62ch}
+.eqn .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .eqn{background:#fff;color:#000;border:1px solid #000}.eqn .big,.pt b,.eqn .cap strong{color:#000}}
+
+.cliff{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin:0 0 18px}
+@media(max-width:640px){.cliff{grid-template-columns:1fr}}
+.cliff .side{padding:18px 20px}
+.cliff .l{background:rgba(255,255,255,.07);border-top:3px solid #7FA57A}
+.cliff .r{background:rgba(156,74,33,.16);border-top:3px solid #C6704A}
+.cliff .gap{display:flex;align-items:center;justify-content:center;padding:0 14px;
+  font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C6A98F}
+@media(max-width:640px){.cliff .gap{padding:10px 0}}
+.cliff b{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px}
+.cliff .l b{color:#7FA57A}.cliff .r b{color:#E8C3BC}
+.cliff ul{margin:0;padding-left:17px;font-size:.9rem;line-height:1.5}
+.cliff li{margin-bottom:6px;color:#B9C4B4}
+.ladder{margin:0 0 16px}
+.rung{background:var(--card);border-left:4px solid var(--line);padding:15px 19px;margin-bottom:8px}
+.rung.least{border-left-color:#2E4E3F}
+.rung.mid{border-left-color:#A8641C}
+.rung.most{border-left-color:#8A2B20}
+.rung b{display:block;font-size:1.03rem;font-weight:400;margin-bottom:5px}
+.rung .tag{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;float:right;margin-left:12px}
+.rung.least .tag{color:#2E4E3F}.rung.mid .tag{color:#A8641C}.rung.most .tag{color:#8A2B20}
+.rung p{font-size:.93rem;margin:0;color:var(--ink-soft)}
+
+.turn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 30px 26px;margin:34px 0}
+.turn p{margin:0 0 15px;font-size:1.04rem;line-height:1.6;color:#CBD3C7;max-width:58ch}
+.turn p:last-child{margin:0}
+.turn strong{color:#EFEBE3}
+.turn em{color:#C6A98F;font-style:italic}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums · Free family resource</p>
+  <h1>Ordinary warmth:<br><em>the space between staring and looking away</em></h1>
+  <p class="lede">There is a small kindness most of us mean to offer and are not quite sure how — to a child having a hard time in a shop, to a family who look like they are carrying a lot, to anyone whose body or mind works differently from our own. It is not complicated, it costs nothing, and it changes days. This page is about what it looks like.</p>
+</header>
+
+<div class="note">
+  <p><strong>Everybody is somewhere on these spectrums</strong> — that is what this whole site is named for. So this page is not written for one group about another. It is for any of us, on the days we are the ones unsure what to do.</p>
+  <p>It is also written to be <strong>sent</strong>. If explaining this to relatives, neighbors and new babysitters has become one more job in an already full day, send a link instead.</p>
+</div>
+
+<section>
+  <h2 class="sec">Something most of us <em>recognize</em></h2>
+  <p class="secnote">A moment nearly all of us have had, on one side of it or the other.</p>
+
+  <p>Most of us have exactly two scripts for meeting somebody visibly disabled, or a child who is having a hard time in public. <strong>Stare, or look away.</strong> Both feel wrong while you are doing them, and one of them is usually chosen out of politeness.</p>
+
+  <p>Looking away is meant kindly. It reads as: <em>I will not make this person a spectacle.</em> But on the receiving end it lands as something else entirely — as being unseen, or as everybody in the room quietly agreeing not to acknowledge that you are there.</p>
+
+  <p><strong>What is missing is the middle</strong>, and almost nobody is taught it: the ordinary, unremarkable acknowledgment that passes between two people who happen to be in the same place. A nod. A smile. Getting out of the way without a performance. Saying hello to the child rather than only to the adult.</p>
+
+  <div class="bnote">
+    <h3>Why it happens, and why nobody should feel bad about it</h3>
+    <p>Many of us grew up with very little practice. For a long stretch, disabled children were often educated separately, and disabled adults were often working and living out of sight of everybody else — so it is not uncommon for people to reach adulthood having had little casual contact. And casual contact is exactly how anybody learns to be relaxed around anything.</p>
+    <p>So the awkwardness is not a character flaw. <strong>It is a skills gap, and skills gaps close with practice.</strong> The fastest way to get better at this is to do it slightly badly a few times, kindly, rather than avoiding it until you feel ready.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The small things that <em>change a day</em></h2>
+  <p class="secnote">Specific, free, and none of it takes courage or extra time. Any one of them is worth doing on its own.</p>
+
+  <div class="domains">
+    <div class="dom"><h3>The basics</h3>
+      <p>What the middle ground looks like in practice.</p>
+      <ul>
+        <li><strong>Smile.</strong> A warm, ordinary smile, of the kind you would give anybody. This is the single most effective thing on this page.</li>
+        <li><strong>Say hello to the person</strong>, not only to whoever is with them — even if they cannot answer, and even if the answer is not what you expect.</li>
+        <li><strong>Wait longer than feels natural.</strong> Many people need extra time to respond. The silence is not refusal.</li>
+        <li><strong>Speak at the age they are</strong>, not the age they seem. Adults get adult voices.</li>
+        <li><strong>Then carry on normally.</strong> Being singled out for extended kindness is its own kind of attention.</li>
+      </ul>
+      <p class="look"><b>The test</b>Would you do this for anybody else in line behind you? Then do it.</p></div>
+
+    <div class="dom"><h3>When somebody is having a hard time</h3>
+      <p>A meltdown in a shop, a child on the floor, an adult in distress.</p>
+      <ul>
+        <li><strong>An ordinary glance and a natural look away is right.</strong> Staring is noticed, and so is visibly working not to.</li>
+        <li><strong>Give room.</strong> Physically. Step back, move a display, hold a door — if appropriate.</li>
+        <li><strong>Say one short warm thing to the adult, or nothing at all.</strong> "You're doing fine." "Take your time." Then move on without waiting for a reply — they have their hands full.</li>
+        <li><strong>Advice rarely helps in that moment</strong> — about discipline, about diet, or about what worked for your nephew. It can wait, or go unsaid.</li>
+        <li><strong>Leave the child out of it.</strong> In that moment they already have enough voices.</li>
+        <li><strong>If you work there:</strong> "Take as long as you need, there's no rush" is worth more than any accommodation you could design.</li>
+      </ul>
+      <p class="look"><b>What families remember</b>The people who helped — and the people who did not make it worse.</p></div>
+
+    <div class="dom"><h3>The adult who is with them</h3>
+      <p>Frequently exhausted, frequently braced for judgment.</p>
+      <ul>
+        <li><strong>Assume competence.</strong> They know their person. Whatever looks odd is usually deliberate and hard-won.</li>
+        <li><strong>A neutral face is a kindness.</strong> A hard look gets remembered for years, and it changes where families are willing to go.</li>
+        <li><strong>Ask before helping</strong>, then accept the answer. Grabbing a wheelchair, or a person, is startling and unsafe.</li>
+        <li><strong>Offer something concrete rather than "let me know if you need anything."</strong> That sentence puts the work back on them. "I'm going to the shop, what can I bring?" does not.</li>
+        <li><strong>Ask how <em>they</em> are, and mean it.</strong> Almost nobody does.</li>
+        <li><strong>Invite them.</strong> Even when you assume they cannot come. Being asked matters separately from being able to attend.</li>
+      </ul>
+      <p class="look"><b>Worth knowing</b>Invitations quietly stop arriving, and families notice long before anybody says anything.</p></div>
+
+    <div class="dom"><h3>In someone's home</h3>
+      <p>Or when they are in yours.</p>
+      <ul>
+        <li><strong>Ask what would make it easier</strong> before you arrive, and follow whatever they say.</li>
+        <li><strong>Follow their rules without debating them</strong> — shoes, food, noise, which room, what not to offer.</li>
+        <li><strong>Let the food, the screens and the routine pass without comment.</strong> Whatever looks unusual is usually load-bearing.</li>
+        <li><strong>Bring something and put it away yourself.</strong> Being hosted is work.</li>
+        <li><strong>Stay in touch with the adults as people.</strong> Talk about something other than the disability sometimes.</li>
+        <li><strong>Come back.</strong> Consistency does more than any single visit.</li>
+      </ul>
+      <p class="look"><b>The most useful sentence</b>"Can I come Tuesday and just be useful?"</p></div>
+
+    <div class="dom"><h3>If you have children with you</h3>
+      <p>They will ask. That is fine, and it is a good moment.</p>
+      <ul>
+        <li><strong>Answer plainly, out loud, without shushing.</strong> "He uses a device to talk. Lots of people do."</li>
+        <li><strong>Let them stay.</strong> Being pulled away teaches something nobody intended to teach.</li>
+        <li><strong>Let them say hello</strong>, and let the interaction be brief and ordinary.</li>
+        <li><strong>If you do not know, say so</strong> and move on. Curiosity satisfied simply becomes disinterest, which is the goal.</li>
+        <li><strong>Model asking rather than assuming</strong> — "Would you like a hand?" is a good thing for a child to hear an adult say.</li>
+      </ul>
+      <p class="look"><b>Why it matters</b>The children who grow up around difference without alarm are the ones who become easy adults to be around.</p></div>
+
+    <div class="dom"><h3>Things that land badly</h3>
+      <p>Almost always well-meant, which is why nobody says anything.</p>
+      <ul>
+        <li><strong>"I don't know how you do it."</strong> Heard as: your life looks unbearable from here.</li>
+        <li><strong>"God only gives you what you can handle."</strong> Heard as: this was assigned to you, so stop struggling.</li>
+        <li><strong>"He doesn't look disabled."</strong> Heard as: I am not sure I believe you.</li>
+        <li><strong>"Have you tried…"</strong> Heard as: this may not have occurred to you. It almost always has, often for years, with professionals.</li>
+        <li><strong>"My cousin's boy had that and he's fine now."</strong> Heard as: yours will be fine too, so this is not serious.</li>
+        <li><strong>Praise for an ordinary outing</strong> — "you're so brave" about a trip to the supermarket. Heard as: this is remarkable rather than Tuesday.</li>
+        <li><strong>Talking about the person in front of them</strong>, as though they cannot hear.</li>
+      </ul>
+      <p class="look"><b>Instead</b>"It's good to see you." Then talk about something else.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Admiration, <em>and what beats it</em></h2>
+  <p class="secnote">Said with real warmth, and worth thinking about anyway.</p>
+
+  <p>Caring for somebody is relentless, skilled, round-the-clock work. The people doing it are largely invisible until something goes wrong in public — at which point they become very visible indeed, and rarely kindly. <strong>That deserves naming, and most families have gone years without anybody naming it.</strong></p>
+
+  <p>But some kinds of praise quietly close a conversation instead of opening one. "I don't know how you do it" sounds like admiration, and often arrives meaning something closer to: <em>you clearly have this handled.</em></p>
+
+  <p>So no offer follows. <strong>The praise is sincere, and it ends up standing in for the dinner nobody brought.</strong></p>
+
+  <p>They are not built differently. They are <strong>hardworking people doing a hard job without a day off</strong>, and like anybody in that position what helps is a hand, not a compliment.</p>
+
+  <div class="bnote">
+    <h3>What to say instead</h3>
+    <p>Admiration costs nothing and changes nothing. The alternative is not less warmth — it is warmth with something attached.</p>
+    <p><strong>"That sounds really hard. I'm around Thursday — can I take the other two out for a couple of hours?"</strong></p>
+    <p>Same affection, entirely different effect. And it treats them as a person having a hard time rather than a category of person who somehow does not.</p>
+  </div>
+
+  <p class="fnote">Recognition still matters, especially where there has been none. "I can see how hard you work" lands well and asks nothing. It just works better alongside something practical.</p>
+</section>
+
+<section>
+  <h2 class="sec">If you get it <em>wrong</em></h2>
+  <p class="secnote">You will, occasionally. So does everyone, including us.</p>
+  <ul>
+    <li><strong>A short correction is not an attack.</strong> "Actually she prefers…" is somebody helping you, not somebody telling you off.</li>
+    <li><strong>Say "thanks, got it" and move on.</strong> An extended apology makes the other person manage your discomfort, which is the opposite of helping.</li>
+    <li><strong>Try again anyway.</strong> The most common response to one awkward encounter is to avoid the next one — and that quiet withdrawal is the thing families feel most.</li>
+    <li><strong>Trying imperfectly is far better than not trying.</strong> Nearly every family would take a clumsy hello over a careful silence, every time.</li>
+  </ul>
+
+  <div class="turn">
+    <p>If you take one thing from this page, take the smallest one. <strong>Smile at the child. Say hello to them by name. Ask the adult how they are, and wait for the answer.</strong></p>
+    <p>It costs nothing, it takes four seconds, and it is remembered for a remarkably long time.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Related pages</h2>
+  <div class="lib">
+    <a class="libcard" href="caregivers.html"><h3>The people doing the caring</h3>
+      <p>Written for caregivers themselves — load, respite, relationships, and staying a person.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="their-own-voice.html"><h3>Their own voice</h3>
+      <p>Dignity, self-advocacy, and who gets to tell somebody's story.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="adaptive-community.html"><h3>Sports, classes and community</h3>
+      <p>Finding places that welcome people, and what a genuinely inclusive program looks like.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="siblings-and-family.html"><h3>Siblings and the whole household</h3>
+      <p>Keeping everyone in the house seen, and nobody carrying it alone.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="de-escalation.html"><h3>In the moment</h3>
+      <p>What is happening when somebody is in distress, and what actually helps.</p>
+      <span class="go">Read the page</span></a>
+    <a class="libcard" href="spectrums.html"><h3>What we mean by spectrums</h3>
+      <p>Why everybody is somewhere on these, and what that changes.</p>
+      <span class="go">Read the page</span></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>If you take one thing from this page</b>
+  <p>The space between staring and looking away is simply <strong>ordinary friendliness</strong> — the kind you would show anybody at all. That is the whole of it. It does not need studying, only starting.</p>
+  <p>And if you are ever wondering whether to say something warm to somebody who looks like they are having a hard day: <strong>say it.</strong> Short, kind, and then move along. It lands better than you will ever know — and one day it will be you on the other side of it.</p>
+</div>
+
+<footer>
+  <p>Take it, share it, send it to whoever it would help. Nothing here is a rule and nobody is keeping score — the whole point is that this gets easier the more of us try it.</p>
+</footer>
+
+</div>
+<script src="search-index.js"></script>
+<script src="site-nav.js"></script>
+</body>
+</html>

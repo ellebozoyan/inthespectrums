@@ -70,6 +70,10 @@ BRIT_USAGE = [
     (r'\bat the weekend\b', 'at the weekend (US: on the weekend)'),
     (r'\bcoeliac\b|\boesophag|\bhaemo|\bdiarrhoea\b|\bfoetal\b|\boedema\b', 'British medical spelling'),
     (r'\bpostcode\b|\bpavement\b|\bpetrol\b|\bnappy\b|\bnappies\b', 'British term'),
+    (r'\bqueu(?:e|es|ed|ing)\b', 'queue (US: line)'),
+    (r'\brubbish\b|\btrolley\b|\blorry\b|\bjumper\b|\bplaster\b(?! cast)', 'British term'),
+    (r'\bwhilst\b|\bamongst\b|\btowards\b', 'British form'),
+    (r'\blearnt\b|\bspelt\b|\bdreamt\b|\bburnt\b(?! out)', 'British past tense'),
     (r'\bdifferent to\b', 'different to (US: different from)'),
     (r'\borientate', 'orientate (US: orient)'),
     (r'\bspeciality\b', 'speciality (US: specialty)'),
@@ -212,6 +216,18 @@ for pat, limit, name in TIC_LIMITS:
     n = len(re.findall(pat, _all, re.I))
     if n > limit:
         problems.append(f'sitewide: {name} used {n} times (limit {limit}) - reads as a verbal tic')
+
+
+# div and section were checked; inline tags were not, and a doubled <strong>
+# slipped through. Browsers repair these silently, which is why nobody notices.
+INLINE = ['strong', 'em', 'b', 'i', 'a', 'ul', 'ol', 'li', 'p', 'table', 'figure']
+for f in pages:
+    body = re.sub(r'<script.*?</script>|<style.*?</style>', '', open(f).read(), flags=re.S)
+    for tag in INLINE:
+        opens = len(re.findall(r'<' + tag + r'(?:\s[^>]*)?>', body))
+        closes = len(re.findall(r'</' + tag + r'>', body))
+        if opens != closes:
+            problems.append(f'{f}: <{tag}> unbalanced - {opens} open, {closes} close')
 
 print(f'{len(pages)} pages checked')
 if problems:

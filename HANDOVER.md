@@ -12,7 +12,7 @@ alongside the site zip.
 ## What this is
 
 A free, ad-free, account-free resource site for families of children with
-complex needs. Fifty-six pages of written guidance plus twelve interactive
+complex needs. Fifty-eight pages of written guidance plus thirteen interactive
 tools. Everything runs in the browser. There is no server, no analytics, no
 tracking, and nothing a family types is ever transmitted anywhere.
 
@@ -29,6 +29,14 @@ These are not stylistic preferences. Breaking any of them is a serious error.
 1. **Nothing about the author's family appears on the site.** Not her children,
    their names, diagnoses, providers, schools, protocols, or documents. Personal
    experience informs the content; it never appears in it.
+- **The author's own family never appears, and neither does the implication.**
+  Nothing on the site may suggest this was written by a parent of disabled
+  children - not in the bio, not in a footer, not through a "we" that implies
+  lived family experience. The professional framing ("worked with people who
+  need more support than the standard version provides") is deliberate and
+  protects two children's privacy. First-person scripts written for the reader
+  to say - "What do you do when my child says no?" - are the reader's voice and
+  are fine.
 2. **Nothing is uploaded, ever.** No accounts, no analytics, no third-party
    scripts — with one deliberately opt-in exception (see Language, below).
 3. **No doses on the supplements page.** Verified programmatically. Do not add
@@ -37,6 +45,11 @@ These are not stylistic preferences. Breaking any of them is a serious error.
 5. **Person-first language**, consistently.
 
 ---
+
+**One page has a different audience.** `ordinary-warmth.html` welcomes any reader rather than sorting them into insiders and outsiders - it exists so a
+family can send a link instead of explaining. Keep its voice generous and
+non-scolding: it assumes good faith throughout, because people who feel accused
+stop reading.
 
 ## Editorial voice
 
@@ -62,7 +75,7 @@ chosen to open outward.
 ## File layout
 
 ```
-*.html              56 pages, each self-contained (own CSS, own JS)
+*.html              58 pages, each self-contained (own CSS, own JS)
 site-nav.js         shared: nav, skim view, callouts, search, language,
                     print styling. ~19 numbered sections.
 all-pages.html      the full directory - every card and the 61-quote router.
@@ -126,6 +139,7 @@ One backup file covers every tool. Migration from older key names is automatic.
 | choice-planner | Logical vs first-then vs natural, capacity check first |
 | household-board | Contributions vs paid jobs, savings goal, no points ever |
 | practice-mirror | Therapist clip plays see-through over live camera |
+| heads-up-note | Short textable note for a playdate, sitter or visit |
 | conditions-library | 46 entries |
 
 **Where AAC reasoning lives:** `speech-language-aac.html` holds all of it — why a
@@ -159,6 +173,11 @@ than six people.
 - Every tool states, twice, that data lives in one browser on one device.
 
 ---
+
+- **The home page `.closenote` heading is deliberately larger** (13px, with a
+  rule beneath it) than the same block on the other 40 pages (10.5px). It is
+  not an inconsistency to fix: on the home page that heading is the primary
+  navigation instruction, while elsewhere the block is a quiet closing note.
 
 ## Known traps
 

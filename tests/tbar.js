@@ -53,5 +53,19 @@ const d=dom.window.document;
 ok('all three buttons present', !!d.querySelector('.nv-burger') && !!d.querySelector('.nv-searchbtn') && !!d.querySelector('.nv-langbtn'));
 ok('drawer still opens', (()=>{d.querySelector('.nv-burger').click();
    return d.querySelector('.nv-drawer').className.includes('on');})());
+
+// the logo is the main route home and must look clickable
+{
+  const flat=nav.replace(/',\s*'/g,'');
+  ok('logo has a hover state', flat.includes('.nv-logo:hover{'));
+  ok('  changing color and border', /\.nv-logo:hover\{[^}]*nv-rust/.test(flat));
+  ok('logo has a focus ring', flat.includes('.nv-logo:focus-visible'));
+  ok('logo carries a tooltip', nav.includes('title="Home'));
+  ok('logo marked current on the home page', nav.includes("aria-current=\"page\""));
+  ok('  and not clickable-looking there', flat.includes('.nv-logo[aria-current="page"]{cursor:default}'));
+  // negative margin keeps the text aligned once padding is added
+  ok('padding offset so the text does not shift', /\.nv-logo\{[^}]*margin-left:-9px/.test(flat));
+}
+
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail?1:0);

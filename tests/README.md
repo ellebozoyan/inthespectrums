@@ -42,6 +42,7 @@ the `dir` constant at the top of each file.
 | `twho.js` | Shared person switcher — appears on every tool, adds and switches people |
 | `timg.js` | Photograph handling — lazy loading, aspect ratio, alt text warnings |
 | `tbar.js` | Header fits phone widths — nothing runs off the right edge |
+| `tnote.js` | Heads-up note — situations, details, length, copy, saving |
 | `tcond.js` | Conditions library — every entry renders, schema is complete, deep links open |
 
 ## The two rules worth keeping
