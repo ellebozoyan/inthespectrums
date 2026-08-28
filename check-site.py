@@ -183,6 +183,36 @@ if 'index.html' in present and os.path.exists('search-index.js'):
             if words and not any(w in sidx.lower() for w in words):
                 problems.append(f'index.html: advertises the search "{term}" but nothing indexed matches it')
 
+
+# A block used without its stylesheet renders unstyled and nobody notices,
+# because it still reads fine. Three pages were doing this.
+STYLED_BLOCKS = ['closenote', 'namebox', 'urgent', 'router', 'turn', 'belief']
+for f in pages:
+    txt = open(f).read()
+    css = txt[txt.find('<style>'):txt.find('</style>')]
+    for cls in STYLED_BLOCKS:
+        if f'class="{cls}"' in txt and f'.{cls}' not in css:
+            problems.append(f'{f}: uses .{cls} but never styles it')
+
+
+# Verbal tics. These words are all fine occasionally and become a mannerism in
+# bulk - "genuinely" reached 126 uses before anyone noticed. Thresholds are
+# generous; they catch drift, not ordinary use.
+TIC_LIMITS = [
+    (r'\bgenuinely\b', 60, 'genuinely'),
+    (r'\bfrequently\b', 55, 'frequently'),
+    (r'\ba great (?:deal|many)\b', 50, '"a great deal/many"'),
+    (r'\bconsiderably\b', 30, 'considerably'),
+    (r'\bworth (?:saying|naming|noting|knowing|asking|having)\b', 85, '"worth saying/knowing/..."'),
+]
+_all = ' '.join(re.sub(r'<[^>]+>', ' ',
+                re.sub(r'<script.*?</script>|<style.*?</style>', ' ', open(f).read(), flags=re.S))
+                for f in pages)
+for pat, limit, name in TIC_LIMITS:
+    n = len(re.findall(pat, _all, re.I))
+    if n > limit:
+        problems.append(f'sitewide: {name} used {n} times (limit {limit}) - reads as a verbal tic')
+
 print(f'{len(pages)} pages checked')
 if problems:
     print(f'\n{len(problems)} PROBLEMS:')

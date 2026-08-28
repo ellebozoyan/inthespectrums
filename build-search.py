@@ -23,14 +23,19 @@ yours they them their theirs we our ours us he him his she her hers i me my mine
 about after again against because before between during into out over under up down off out'''.split())
 
 def keywords(text):
-    words = re.findall(r"[a-z][a-z'-]{3,}", text.lower())
+    # Acronyms first, always. They are what families type - IEP, ESY, FBA, IEE,
+    # AAC, CVI, SEL - and they were being lost twice over: dropped by a
+    # four-character minimum, then truncated by the word cap when they appeared
+    # late in a long section. Pulling them out up front fixes both.
+    acronyms = [a.lower() for a in re.findall(r"\b[A-Z]{2,6}\b", text)]
+    words = acronyms + re.findall(r"[a-z][a-z'-]{2,}", text.lower())
     seen, out = set(), []
     for w in words:
         w = w.strip("'-")
-        if len(w) < 4 or w in STOP or w in seen:
+        if len(w) < 3 or w in STOP or w in seen:
             continue
         seen.add(w); out.append(w)
-        if len(out) >= 70:
+        if len(out) >= 85:
             break
     return ' '.join(out)
 
@@ -205,6 +210,28 @@ SYN = {
  "wont go to school":"school refusal anxiety attendance",
  "school refusal":"school refusal anxiety attendance",
  "iep":"IEP school special education accommodations evaluation",
+ "advocate":"parent advocate attorney mediation cost school dispute",
+ "related services":"related services school therapy counseling adapted PE",
+ "school psychologist":"school psychologist counseling assessment behavior consultation",
+ "adapted pe":"adapted physical education related service school",
+ "counseling at school":"counseling related service school psychologist social worker",
+ "outside therapist":"private therapist school coordination release generalization",
+ "private therapist":"outside therapist school coordination release records",
+ "do they talk to each other":"coordination release school outside therapist team",
+ "orientation and mobility":"orientation mobility vision teacher related service",
+ "vision teacher":"teacher of the visually impaired functional vision related service",
+ "parent training":"parent counseling and training related service school",
+ "assistive technology":"assistive technology evaluation device training school",
+ "do i need a lawyer":"attorney advocate mediation due process cost school",
+ "lawyer":"attorney advocate due process mediation fees school",
+ "special education attorney":"attorney advocate due process fees mediation",
+ "mediation":"mediation facilitated meeting state complaint dispute free",
+ "state complaint":"state complaint mediation dispute timeline free",
+ "iee":"IEE independent educational evaluation public expense disagree district",
+ "independent evaluation":"IEE independent educational evaluation public expense district",
+ "parent center":"parent training information center free independent state",
+ "how much does an advocate cost":"advocate attorney fees hourly cost",
+ "fighting the school":"advocate attorney mediation dispute cost capacity",
  "push in":"push-in pull-out service delivery classroom therapy",
  "pull out":"pull-out push-in service delivery classroom therapy",
  "aide":"paraprofessional one-to-one support aide school",

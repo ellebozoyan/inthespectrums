@@ -112,6 +112,16 @@
     'backdrop-filter:saturate(140%) blur(6px);border-bottom:1px solid var(--nv-line)}',
     '.nv-in{max-width:1040px;margin:0 auto;padding:0 22px;min-height:56px;display:flex;',
     'align-items:center;justify-content:space-between;gap:16px}',
+    /* --- narrow screens: the header must fit, and nothing may fall off --- */
+    '@media(max-width:760px){.nv-in{padding:0 14px;gap:8px;min-height:52px}',
+    '.nv-logo{font-size:.98rem}',
+    '.nv-searchbtn,.nv-langbtn,.nv-burger{padding:7px 10px;font-size:12px}}',
+    '@media(max-width:560px){.nv-in{padding:0 11px;gap:6px;flex-wrap:wrap;',
+    'justify-content:flex-start;padding-top:7px;padding-bottom:7px}',
+    '.nv-logo{font-size:.94rem;flex:0 0 100%;margin-bottom:2px}',
+    '.nv-searchbtn,.nv-langbtn,.nv-burger{padding:7px 9px;font-size:11.5px;flex:0 0 auto}}',
+    '@media(max-width:380px){.nv-searchbtn,.nv-langbtn,.nv-burger{padding:6px 8px;font-size:11px}',
+    '.nv-in{gap:5px}}',
     '.nv-logo{font-family:var(--nv-serif);font-size:1.05rem;color:var(--nv-ink);text-decoration:none;',
     'letter-spacing:-.01em;white-space:nowrap}',
     '.nv-logo em{font-style:italic;color:var(--nv-forest)}',
@@ -170,6 +180,7 @@
     '.nv-x:focus-visible{outline:2px solid var(--nv-rust);outline-offset:2px}',
     '.nv-dbody{padding:8px 22px 60px}',
     '.nv-grp{border-bottom:1px solid var(--nv-line)}',
+    '.nv-dhome{text-decoration:none;display:flex;width:100%}',
     '.nv-gbtn{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;',
     'background:none;border:none;padding:15px 0;cursor:pointer;font-family:var(--nv-sans);font-size:12px;',
     'letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--nv-forest);text-align:left}',
@@ -376,8 +387,10 @@
     '<div class="nv-dtop"><span>All pages</span>' +
       '<button class="nv-x" id="nvClose" aria-label="Close menu">&times;</button></div>' +
     '<div class="nv-dbody">' +
-      '<div class="nv-grp"><button class="nv-gbtn" style="color:var(--nv-rust)" ' +
-      'onclick="location.href=\'' + HOME + '\'">Home<b aria-hidden="true">\u2192</b></button></div>' +
+      /* a real link, not a button with an onclick: it can be opened in a new
+         tab, copied, and is announced as a link rather than a control */
+      '<div class="nv-grp"><a class="nv-gbtn nv-dhome" href="' + HOME + '">' +
+      'Home<b aria-hidden="true">\u2192</b></a></div>' +
       groupsHtml + '</div>';
 
   document.body.appendChild(scrim);
@@ -1230,11 +1243,11 @@
   "A label is a key that opens doors to services. It is not a description of a person.",
   "The section worth reading first on any entry is what commonly gets missed."],
 
-'inside-the-iep.html': ["Needs first, then goals, then services, then setting. Placement is the last step, not the first.",
-  "Submit concerns before the meeting and a short supplement after \u2014 not a \u201cdraft\u201d, which can be treated as not yet real.",
-  "\u201c60 minutes weekly\u201d is ambiguous \u2014 direct or consultative, individual or group, and by whom all change what it means.",
-  "Assume every email becomes part of the record. Dated, factual and calm carries more weight than justified anger.",
-  "Before keeping a child out of school, understand what it can set in motion \u2014 and ask for a documented interim arrangement instead."],
+'inside-the-iep.html': ["A related service is owed when a person needs it to access their education \u2014 that is the whole test.",
+  "Adapted PE, orientation and mobility, counseling, parent training: real services families are rarely offered.",
+  "School psychologist and outside therapist are not the same job. You frequently need both.",
+  "Sign a release in both directions \u2014 without it they cannot legally speak to each other.",
+  "\u201cHe already gets that privately\u201d does not discharge the district\u2019s obligation."],
 
 'accommodations-finder.html': ["Search by the difficulty you actually see, not by diagnosis.",
   "Each entry explains why it happens and gives wording you can request word for word.",

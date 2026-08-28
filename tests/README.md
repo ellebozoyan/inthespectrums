@@ -41,6 +41,7 @@ the `dir` constant at the top of each file.
 | `timport.js` | Calendar file import and pasted-list import |
 | `twho.js` | Shared person switcher — appears on every tool, adds and switches people |
 | `timg.js` | Photograph handling — lazy loading, aspect ratio, alt text warnings |
+| `tbar.js` | Header fits phone widths — nothing runs off the right edge |
 | `tcond.js` | Conditions library — every entry renders, schema is complete, deep links open |
 
 ## The two rules worth keeping

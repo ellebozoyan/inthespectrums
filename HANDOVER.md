@@ -69,7 +69,12 @@ all-pages.html      the full directory - every card and the 61-quote router.
                     index.html deliberately holds only six cards and links here;
                     it was 3,464 words and is now ~1,200. Do not move the
                     directory back onto the home page.
-search-index.js     GENERATED — do not hand-edit
+search-index.js     GENERATED — do not hand-edit. Acronyms are extracted
+                    separately in build-search.py and indexed first, because
+                    they are what families type and were being lost twice:
+                    dropped by a character minimum, then truncated by the
+                    word cap. If you add a page using an acronym, spell it
+                    out AND give the acronym in the text.
 build-search.py     regenerates search-index.js
 check-site.py       validates everything before shipping
 tests/              22 headless test suites (see tests/README.md)
