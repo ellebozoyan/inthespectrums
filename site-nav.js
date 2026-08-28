@@ -1405,8 +1405,8 @@
 'whole-picture.html': ["Co-occurrence is the rule, not the exception \u2014 one diagnosis routinely hides the others.",
   "Dominoes: one thing sets off the next. Capacity: why today and not yesterday.",
   "The challenge in one context is the strength in another \u2014 nothing about the person changes, only the room.",
-  "Needing support at thirteen having needed none at six is not evidence anybody missed something.",
-  "Deficits are the obstacle, not the objective. Ask what a life is being freed up for."],
+  "Some difficulties have a treatable cause underneath. A family who looks and finds one was right to look.",
+  "Look properly, treat what is treatable, be willing to stop \u2014 and never let the search delay support."],
 
 'goals-tracker.html': ["Most children with several providers have several sets of goals that nobody else has read. This puts them in one place.",
   "The generalization sheet is the part that changes outcomes \u2014 which goals travel, and exactly how.",
@@ -2016,7 +2016,7 @@
 
   'inside-the-iep.html': [
     ['The meeting itself',
-     'You are allowed to be the least expert person in the room and still be the most important one. <b>Nobody there knows your child.</b>'],
+     'You are allowed to be the least expert person in the room and still be the most important one. <b>Nobody there knows your child as well as you do.</b>'],
     ['Rights that are easy',
      'warm|Knowing a right exists changes the conversation before you ever have to use it. <b>You are not asking for a favor.</b>']
   ],
