@@ -239,7 +239,7 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
   <h1>The medication list:<br><em>current, printable, and always in a pocket</em></h1>
   <p class="lede">The single most useful document in an emergency, and the one families most often recite from memory at the worst possible moment. Build it once, keep it current, and print a copy for the bag, the school, the respite worker, and the glovebox.</p>
   <div class="note">
-    <p><strong>This stays on your device.</strong> Nothing is sent anywhere, no account, nobody can see it. It saves in the browser on the device that you are currently using, so it is here tomorrow — on that device, in that browser, and nowhere else.</p>
+    <p><strong>This stays on your device.</strong> Nothing is sent anywhere, no account, nobody can see it. It saves in the browser on the device that you are currently using, so it is here tomorrow, on that device, in that browser, and nowhere else.</p>
     <p><b>Download a backup file every few weeks.</b> See <a href="using-these-tools.html">using these tools</a>.</p>
   </div>
   <div class="tabs" id="tabs"></div>
@@ -260,7 +260,7 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
           <div class="fld" style="flex:1 1 130px"><label for="mdose">Dose</label>
             <input type="text" id="mdose" placeholder="e.g. 3 mg, or 5 mL"></div>
           <div class="fld" style="flex:1 1 150px"><label for="mbrand">Brand or maker <span class="hint">Matters most for supplements.</span></label>
-            <input type="text" id="mbrand" list="brandlist" placeholder="e.g. the maker on the bottle">
+            <input type="text" id="mbrand" list="brandlist" placeholder="e.g, the maker on the bottle">
             <datalist id="brandlist"></datalist></div>
         </div>
         <div class="row">
@@ -284,11 +284,11 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
           <div class="chips" id="whenchips"></div></div>
         <div class="row">
           <div class="fld"><label for="mtiming">Timing, precisely <span class="hint">The detail a time-of-day block cannot hold.</span></label>
-          <input type="text" id="mtiming" placeholder="e.g. empty stomach, 30 minutes before any other medication or food"></div>
+          <input type="text" id="mtiming" placeholder="e.g, empty stomach, 30 minutes before any other medication or food"></div>
         <div class="fld"><label>Special handling</label>
           <div class="chips" id="handlechips"></div></div>
         <div class="fld"><label for="mwhat">What it's for <span class="hint">Optional, and useful to whoever reads this.</span></label>
-            <input type="text" id="mwhat" placeholder="e.g. sleep onset"></div>
+            <input type="text" id="mwhat" placeholder="e.g, sleep onset"></div>
           <div class="fld"><label for="mwho">Prescribed by</label>
             <input type="text" id="mwho" placeholder="e.g. Dr Patel, neurology"></div>
         </div>
@@ -300,7 +300,7 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
 
       <div class="card">
         <h2>Bring in a list you already have</h2>
-        <p class="fnote">If the list already exists in a document, an email or a pharmacy printout, paste it here rather than typing it again. One item per line — this reads whatever it can and you correct the rest.</p>
+        <p class="fnote">If the list already exists in a document, an email or a pharmacy printout, paste it here rather than typing it again. One item per line. This reads whatever it can and you correct the rest.</p>
         <div class="fld"><label for="pastebox">Paste it here</label>
           <textarea id="pastebox" style="min-height:120px" placeholder="Melatonin 3 mg — bedtime&#10;Guanfacine 3 mL liquid, twice daily, 8am and 8pm&#10;Vitamin D 1000 IU, morning"></textarea></div>
         <div class="fld" style="max-width:250px"><label for="pastekind">Add these as</label>
@@ -349,14 +349,14 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
 <section class="panel" id="p-changes">
   <div class="card">
     <h2>What changed, and when</h2>
-    <p class="fnote">Dose changes, starts and stops. This is the record you will want when someone asks whether a symptom began before or after a change — and it is almost impossible to reconstruct later.</p>
+    <p class="fnote">Dose changes, starts and stops. This is the record you will want when someone asks whether a symptom began before or after a change, and it is almost impossible to reconstruct later.</p>
     <div class="row">
       <div class="fld" style="max-width:190px"><label for="cdate">Date</label><input type="date" id="cdate"></div>
       <div class="fld" style="flex:2 1 240px"><label for="ctext">What changed</label>
         <input type="text" id="ctext" placeholder="e.g. Melatonin increased 3 mg to 5 mg"></div>
     </div>
     <div class="fld"><label for="cwhy">Why, and what to watch for <span class="hint">Optional.</span></label>
-      <input type="text" id="cwhy" placeholder="e.g. still waking at 2am — watch for morning grogginess"></div>
+      <input type="text" id="cwhy" placeholder="e.g, still waking at 2am — watch for morning grogginess"></div>
     <div class="btns"><button class="act" id="addchange" type="button">Add to the record</button></div>
     <div id="changelist" style="margin-top:18px"></div>
   </div>
@@ -376,7 +376,7 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
       <button class="act ghost" id="backupbtn" type="button">Download a backup file</button>
       <button class="act ghost" id="restorebtn" type="button">Restore from a backup</button>
       <input type="file" id="restorefile" accept="application/json" style="display:none">
-    <p class="fnote"><b>This is the only copy.</b> Everything lives in the browser on the device that you are currently using — not in an account and not in the cloud. Clearing your browsing data, changing browser, or losing the device loses it.</p>
+    <p class="fnote"><b>This is the only copy.</b> Everything lives in the browser on the device that you are currently using, not in an account and not in the cloud. Clearing your browsing data, changing browser, or losing the device loses it.</p>
     </div>
   </div>
   <div class="doc" id="doc"></div>
@@ -399,7 +399,7 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
 </main>
 
 <div class="alertbox"><b>In an emergency</b>
-<p>Hand this list over rather than reciting it. Say allergies first, then anything taken today, then the rest. If a dose has changed recently, say so — it is the question that most often gets missed and most often matters.</p></div>
+<p>Hand this list over rather than reciting it. Say allergies first, then anything taken today, then the rest. If a dose has changed recently, say so. It is the question that most often gets missed and most often matters.</p></div>
 
 <div class="profnote"><b>Reading this as a professional</b>
 <p>Families keep this because reconciliation lists are often wrong, and because nobody else holds supplements, creams, as-needed medication and the practical detail of how something is actually taken in one place.</p>

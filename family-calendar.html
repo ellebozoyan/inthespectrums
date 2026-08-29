@@ -315,13 +315,13 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
 <header class="masthead">
   <p class="eyebrow">In The Spectrums · Free family resource</p>
   <h1>The family calendar:<br><em>one day, on one screen</em></h1>
-  <p class="lede">The routine, the medication, the meals and the appointments in one place — with a big, plain view you can leave open on a tablet on the kitchen wall, and a simpler version for the person themselves that shows only what you choose to share.</p>
+  <p class="lede">The routine, the medication, the meals and the appointments in one place, with a big, plain view you can leave open on a tablet on the kitchen wall, and a simpler version for the person themselves that shows only what you choose to share.</p>
 </header>
 
 <div class="note">
   <h3>How the syncing works, honestly</h3>
   <p>This tool does not have a server, which is why nobody can see your family's schedule. That also means it cannot sync between phones on its own.</p>
-  <p><strong>So it hands the job to the calendars you already have.</strong> Build the schedule here, download a calendar file, and import it into Apple Calendar or Google Calendar. Those already sync across every device you own — and they already let you share a calendar with a partner, a grandparent, a school or a therapist, with different people seeing different calendars.</p>
+  <p><strong>So it hands the job to the calendars you already have.</strong> Build the schedule here, download a calendar file, and import it into Apple Calendar or Google Calendar. Those already sync across every device you own, and they already let you share a calendar with a partner, a grandparent, a school or a therapist, with different people seeing different calendars.</p>
   <p>That path is free, works on iPhone and Android, and needs no new account. <a href="using-these-tools.html">Using these tools</a> covers how to leave this page open full-screen on a wall tablet.</p>
 </div>
 
@@ -339,7 +339,7 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
     <div class="fld" style="max-width:230px"><label for="mode">Display</label>
       <select id="mode"><option value="full">Everything (for adults)</option>
         <option value="carer">For a caregiver or school</option>
-        <option value="kid">Simple — for the person themselves</option></select></div>
+        <option value="kid">Simple, for the person themselves</option></select></div>
   </div>
   <div class="whobar" id="whobar"></div>
   <div class="wall" id="wall"></div>
@@ -355,7 +355,7 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
     <div>
       <div class="card">
         <h2>Add something that repeats</h2>
-        <p class="fnote">Routines, meals, therapy sessions, the bus, bedtime. Medication already on <a href="medication-list.html">the medication list</a> appears automatically — you do not need to add it twice.</p>
+        <p class="fnote">Routines, meals, therapy sessions, the bus, bedtime. Medication already on <a href="medication-list.html">the medication list</a> appears automatically. You do not need to add it twice.</p>
         <div class="row">
           <div class="fld" style="flex:2 1 200px"><label for="rname">What</label>
             <input type="text" id="rname" placeholder="e.g. Speech therapy, or Breakfast"></div>
@@ -452,7 +452,7 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
       <button class="act ghost" id="backupbtn" type="button">Download a backup file</button>
       <button class="act ghost" id="restorebtn" type="button">Restore from a backup</button>
       <input type="file" id="restorefile" accept="application/json" style="display:none">
-    <p class="fnote"><b>This is the only copy.</b> Everything lives in the browser on the device that you are currently using — not in an account and not in the cloud. Clearing your browsing data, changing browser, or losing the device loses it.</p>
+    <p class="fnote"><b>This is the only copy.</b> Everything lives in the browser on the device that you are currently using, not in an account and not in the cloud. Clearing your browsing data, changing browser, or losing the device loses it.</p>
     </div>
   </div>
 
@@ -489,7 +489,7 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
   <div class="card noprint">
     <h2>Give each adult only what they need</h2>
     <p class="fnote">The reason to export several small calendars rather than one large one.</p>
-    <p>If somebody's phone buzzes for every dose of medication they are not there to give, they will silence the whole calendar within a week — and then miss the appointment that actually needed them. <strong>The fix is not fewer reminders overall. It is different reminders for different people.</strong></p>
+    <p>If somebody's phone buzzes for every dose of medication they are not there to give, they will silence the whole calendar within a week, and then miss the appointment that actually needed them. <strong>The fix is not fewer reminders overall. It is different reminders for different people.</strong></p>
     <p>So export more than once, changing the <em>Include</em> setting each time, and import each file as its own named calendar. Everyone then subscribes only to the ones that concern them, and can mute or unsubscribe from the rest without losing anything else.</p>
     <div class="domains" style="margin-top:14px">
       <div class="dom"><h3>A parent at work</h3>
@@ -505,7 +505,7 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
         <p>Their own meals and routines on their own device, without appointment reasons or medication detail.</p>
         <p class="look"><b>Export</b>Meals only, or shareable only</p></div>
     </div>
-    <p class="fnote" style="margin-top:12px">Reminders travel inside the file, so each calendar carries its own. Somebody who has muted the medication calendar still gets appointment alerts — which is the whole point.</p>
+    <p class="fnote" style="margin-top:12px">Reminders travel inside the file, so each calendar carries its own. Somebody who has muted the medication calendar still gets appointment alerts, which is the whole point.</p>
   </div>
 
   <div class="doc" id="doc"></div>
@@ -514,7 +514,7 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
 <section class="panel" id="p-people">
   <div class="card">
     <h2>Colours and what each person shows</h2>
-    <p class="fnote">Give everyone a color, and decide what of theirs appears on a shared screen. Medication and meals come from the other tools automatically — but only if the person is happy for them to be visible here.</p>
+    <p class="fnote">Give everyone a color, and decide what of theirs appears on a shared screen. Medication and meals come from the other tools automatically, but only if the person is happy for them to be visible here.</p>
     <div id="peoplesettings"></div>
     <div class="fld" style="max-width:290px;margin-top:16px"><label for="medalert">Reminder for medication times</label>
       <select id="medalert"><option value="">No reminder</option><option value="0">At the time</option>
@@ -547,18 +547,18 @@ table.gm td.tick{text-align:center;font-size:1.05rem;width:52px}
       <li>What is happening now is highlighted, and what has passed is dimmed</li>
       <li>No diagnoses, no appointment reasons, no adult notes — ever</li>
     </ul>
-    <p class="fnote">If a person is old enough to want more detail, give it to them. This is a starting point, not a rule — see <a href="their-own-voice.html">their own voice</a>.</p>
+    <p class="fnote">If a person is old enough to want more detail, give it to them. This is a starting point, not a rule. See <a href="their-own-voice.html">their own voice</a>.</p>
   </div>
 </section>
 
 </main>
 
 <div class="snote">
-  <p><strong>A visible schedule does more than organize a day.</strong> Knowing what is coming is one of the most reliable ways to reduce the anxiety that drives hard moments — most of what looks like resistance is a response to being surprised. See <a href="de-escalation.html">in the moment</a> on previewing and transitions.</p>
+  <p><strong>A visible schedule does more than organize a day.</strong> Knowing what is coming is one of the most reliable ways to reduce the anxiety that drives hard moments. Most of what looks like resistance is a response to being surprised. See <a href="de-escalation.html">in the moment</a> on previewing and transitions.</p>
 </div>
 
 <div class="profnote"><b>Reading this as a professional</b>
-<p>If a family shares this with you, the simple view is deliberately filtered — what a person sees about their own day is a decision their family has made, and it will change as they get older.</p>
+<p>If a family shares this with you, the simple view is deliberately filtered. What a person sees about their own day is a decision their family has made, and it will change as they get older.</p>
 <p>The weekly pattern is often more informative than any account of a typical day. Look at the density, the transitions, and how much of the week is already spoken for before anything you add.</p></div>
 
 <footer>
