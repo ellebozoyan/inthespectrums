@@ -112,6 +112,21 @@ footer{border-top:1px solid var(--line);padding:28px 0 80px;font-family:var(--sa
 .closenote p:last-child{margin:0}
 .closenote p b{display:inline;font-size:inherit;letter-spacing:.02em;text-transform:none;
   color:var(--ink);margin:0;padding:0;border:none;font-family:var(--serif)}
+
+.chooser{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--forest);
+  border-radius:2px;padding:24px 26px;margin:30px 0}
+.chooser>b{font-family:var(--sans);font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:14px}
+.chooser>p{font-size:1.04rem;line-height:1.6;margin:0 0 18px}
+.ch3{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px}
+.ch2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.chbox{display:block;background:var(--ground);border:1px solid var(--line);border-left:4px solid var(--rust);
+  border-radius:2px;padding:18px 20px;text-decoration:none;color:var(--ink)}
+.chbox:hover{border-left-color:var(--forest);background:#fff}
+.chlabel{display:block;font-family:var(--serif);font-size:1.22rem;color:var(--ink);margin-bottom:8px}
+.chdesc{display:block;font-size:.98rem;line-height:1.55;color:var(--ink-soft);margin-bottom:12px}
+.chgo{display:block;font-family:var(--sans);font-size:12px;letter-spacing:.06em;color:var(--rust)}
+.chnote{font-size:.94rem;line-height:1.55;color:var(--ink-soft);margin:18px 0 0;font-style:italic}
 </style>
 </head><body>
 <div class="wrap">
@@ -142,6 +157,29 @@ footer{border-top:1px solid var(--line);padding:28px 0 80px;font-family:var(--sa
     <p><strong>Nobody has to qualify.</strong> A lisp counts. So does not being able to hop, or hating the seam in a sock, or handwriting nobody can read, or eating six foods and no others, or standing at the edge of the playground every day. And so does a family carrying fifteen of these at once — that second group is the one almost nothing else is written for.</p>
     <p><a href="spectrums.html">What we mean by spectrums — and what progress actually looks like →</a></p>
   </div>
+
+<div class="chooser">
+  <b>Three ways to read this site</b>
+  <p>The same information, in three depths. <strong>Take whichever fits the hour you are in</strong> — most people move between them, and every page links sideways to the other two.</p>
+  <div class="ch3">
+    <a class="chbox" href="easy-start.html">
+      <span class="chlabel">The map</span>
+      <span class="chdesc">Where things are, quickly. Short words, short pages, the essentials only. For a hard day, a phone screen, a waiting room, or reading in a second language.</span>
+      <span class="chgo">Nine short pages →</span>
+    </a>
+    <a class="chbox" href="guide-start.html">
+      <span class="chlabel">The guidebook</span>
+      <span class="chdesc">Enough to act on. The same nine topics with the reasoning included, so you know why as well as what — and can explain it to somebody else.</span>
+      <span class="chgo">Nine fuller pages →</span>
+    </a>
+    <a class="chbox" href="all-pages.html">
+      <span class="chlabel">The library</span>
+      <span class="chdesc">All of it. Fifty-eight pages and twelve tools — conditions, therapies, school law, adult life, the evidence, and the things still being argued about.</span>
+      <span class="chgo">Browse everything →</span>
+    </a>
+  </div>
+  <p class="chnote">A map is not a lesser guidebook. It is what you want when you need to get somewhere, and the library is still there when you have the afternoon.</p>
+</div>
 
 <section>
   <h2 class="sec">If you read <em>nothing else</em></h2>

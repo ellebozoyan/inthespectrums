@@ -88,6 +88,30 @@
       ['adaptive-community.html',      'Adaptive sports and community','Programs, days out, parking and travel'],
       ['maplewood-stories.html',       'The Maplewood stories',   'Fifty-two picture books about ten friends']
     ]},
+    { label: 'The guidebook', items: [
+      ['guide-start.html',             'The guidebook',           'Nine fuller pages \u2014 enough to act on'],
+      ['guide-first.html',             'Just diagnosed',          'What to do first, and what can wait'],
+      ['guide-behavior.html',          'Hard behavior',           'What it is telling you, and what helps'],
+      ['guide-talking.html',           'Talking',                 'When speaking is hard'],
+      ['guide-school.html',            'School',                  'Asking for help, and the order that matters'],
+      ['guide-eating.html',            'Eating',                  'When the list is short'],
+      ['guide-sleep.html',             'Sleep',                   'Why it comes first'],
+      ['guide-doctors.html',           'Appointments',            'Being heard by professionals'],
+      ['guide-money.html',             'Money',                   'What you may be entitled to'],
+      ['guide-you.html',               'You',                     'Because the whole thing rests on you lasting']
+    ]},
+    { label: 'The short version', items: [
+      ['easy-start.html',              'The short version',       'Short words, short pages, the most important things only'],
+      ['easy-first.html',              'Just found out',          'What to do first'],
+      ['easy-behavior.html',           'Hard behavior',           'Hitting, screaming, not listening'],
+      ['easy-talking.html',            'Talking',                 'When your child does not talk'],
+      ['easy-school.html',             'School',                  'Getting help at school'],
+      ['easy-eating.html',             'Eating',                  'When your child only eats a few foods'],
+      ['easy-sleep.html',              'Sleep',                   'When your child will not sleep'],
+      ['easy-doctors.html',            'Doctors',                 'How to talk to doctors'],
+      ['easy-money.html',              'Money and help',          'Help you may be able to get'],
+      ['easy-you.html',                'You',                     'You matter too']
+    ]},
     { label: 'About', items: [
       ['about.html',                   'About and contributors',  'Who writes this, and how to tell us what\u2019s wrong'],
       ['terms-and-privacy.html',       'Terms, privacy and disclaimers','What this site is, what it isn\u2019t, and what it collects (nothing)'],
@@ -1571,6 +1595,126 @@
   "Say what to do, not what to avoid. People relax when given a job.",
   "Share the minimum that makes the situation work \u2014 it is somebody else\u2019s information."],
 
+'easy-start.html': ["Short words. Short pages. The most important things only.",
+  "Pick what is happening right now.",
+  "Same information as the full site, in less of it.",
+  "You can switch between the two at any time.",
+  "If something bad is happening now, call 911."],
+
+'easy-first.html': ["You did not cause this. Nothing you did made it happen.",
+  "Your child is the same child. The word is for getting help.",
+  "Ask school for testing in writing. Put the date on it.",
+  "Get on waiting lists now \u2014 some take years.",
+  "You are allowed to say: I do not know that word."],
+
+'easy-behavior.html': ["Hard behavior is your child telling you something.",
+  "Check the body first: pain, poop, hunger, sleep, sickness.",
+  "Talk less. Stay calm. Make it quieter. Wait.",
+  "Nobody learns anything in the middle of being that upset.",
+  "You do not have to be perfect. You have to come back."],
+
+'easy-talking.html': ["Not talking is not the same as having nothing to say.",
+  "A device helps talking. It does not stop it.",
+  "Nobody has to earn a way to talk or pass a test first.",
+  "Use it yourself, a lot, without asking them to copy.",
+  "Never take it away. That takes away their voice."],
+
+'easy-school.html': ["Ask in writing. Always. Even a short email counts.",
+  "Needs first, then goals, then services, then where.",
+  "You can bring someone. You do not have to sign that day.",
+  "Every US state has a free Parent Center.",
+  "Keep every email. Write calmly, with the date."],
+
+'easy-eating.html': ["This is almost never fussiness. Something makes eating hard.",
+  "If eating hurts, no plan works until you fix the hurting.",
+  "Same foods are safe foods. That is smart, not stubborn.",
+  "Change one thing at a time. Tiny amounts. Many tries.",
+  "Call the doctor if the list is getting shorter."],
+
+'easy-sleep.html': ["Fix sleep first. Bad sleep makes everything worse.",
+  "Ask about breathing at night. Snoring matters.",
+  "Check pain, constipation, iron and medicines.",
+  "Same order, same time, dark room, no screens.",
+  "A parent who has not slept cannot think clearly."],
+
+'easy-doctors.html': ["You know your child better than anyone in that room.",
+  "Write down your three biggest worries. Just three.",
+  "Bring a photo or video. It shows more than words.",
+  "Say: please write in the notes that I asked about this.",
+  "You are allowed to see a different doctor."],
+
+'easy-money.html': ["Sign up early. Some waiting lists take years.",
+  "Ask about Medicaid waivers, SSI, respite and transport.",
+  "A lot of first answers are no, and many change.",
+  "Ask for the reason in writing, and the appeal steps.",
+  "Your state Parent Center is free."],
+
+'easy-you.html': ["You cannot pour from an empty cup. That is math, not selfishness.",
+  "Being tired is not failing. Being angry sometimes is not failing.",
+  "If you fix one thing, fix sleep.",
+  "Ask for something small and clear, not general help.",
+  "If you are not okay, tell someone today. In the US, call or text 988."],
+
+'guide-start.html': ["Nine pages. Enough to act on, without the whole shelf.",
+  "The middle of three versions of the same site.",
+  "Each page links to a shorter version and a fuller one.",
+  "Covers what changes most, with enough reasoning to use it.",
+  "The library has fifty-eight pages if you need more."],
+
+'guide-first.html': ["You did not cause this, and your child has not changed.",
+  "Start the slow things now \u2014 waiting lists run for years.",
+  "Check hearing and vision first. Quick, treatable, routinely missed.",
+  "Reading everything and choosing a philosophy can wait.",
+  "Do not let the search for an explanation delay support."],
+
+'guide-behavior.html': ["Behavior is communication \u2014 the question is what it is for.",
+  "Pain is the single most common missed cause.",
+  "Capacity explains why the same request lands differently.",
+  "Fewer words, less input, safety first, wait it out.",
+  "Nearly all real progress happens before the moment."],
+
+'guide-talking.html': ["Understanding usually runs ahead of speech.",
+  "Communication support does not suppress speech.",
+  "There is no readiness threshold. Nobody has to qualify.",
+  "Model it yourself, constantly, expecting nothing back.",
+  "Never remove it \u2014 not for any reason."],
+
+'guide-school.html': ["Put every request in writing, dated.",
+  "Needs, then goals, then services, then placement.",
+  "A services grid should say direct or group, and by whom.",
+  "Districts can provide far more than most families are offered.",
+  "Your state parent center is free and independent."],
+
+'guide-eating.html': ["Rule out pain before treating eating as behavior.",
+  "Accepted foods are predictable foods. That is a strategy.",
+  "Change one property at a time. Tiny amounts. Many tries.",
+  "Never use a trusted food as leverage.",
+  "Seek help if the list is shrinking or growth has stalled."],
+
+'guide-sleep.html': ["Poor sleep amplifies everything else. Often the highest-value fix.",
+  "Ask about breathing at night before anything else.",
+  "Check pain, constipation, iron and medication timing.",
+  "Same sequence nightly, and a consistent wake time.",
+  "A parent who has not slept cannot think clearly."],
+
+'guide-doctors.html': ["You are the only person who sees the whole week.",
+  "Three concerns, ranked. Lead with the one that matters.",
+  "Video shows what a paragraph cannot.",
+  "Ask them to note in the record that you raised it.",
+  "A second opinion is normal and not disloyal."],
+
+'guide-money.html': ["Apply early, expect a first no, and appeal.",
+  "Ask about waivers specifically, not Medicaid generally.",
+  "A large share of denials are clerical.",
+  "Nutrition formulas usually go through a supplier, not a pharmacy.",
+  "Money left directly to a disabled person can end their benefits."],
+
+'guide-you.html': ["The largest risk to a well-supported person is a caregiver who runs out.",
+  "Almost nobody says the hard parts out loud, so each family assumes it is alone.",
+  "If one thing can be fixed, fix sleep.",
+  "Ask for something specific. General offers put the work back on you.",
+  "If you are not okay, that is a reason to get help rather than try harder."],
+
 'maplewood-stories.html': ["Fifty-two picture books about ten friends who are not alike, figuring it out together.",
   "No child in them is labeled, and none of them is the lesson.",
   "Social and emotional learning, executive function, and safety awareness are the plots, not the moral.",
@@ -1629,6 +1773,68 @@
   'use strict';
 
   var MARKS = {
+
+  'guide-start.html':
+    '<rect width="74" height="74" fill="#F0EEE7"/><path d="M14 18l15-4 16 5 15-4v40l-15 4-16-5-15 4z" fill="#FFF" stroke="#16283C" stroke-width="2"/><path d="M29 14v41M45 19v41" stroke="#2E4E3F" stroke-width="1.8"/>',
+
+  'guide-first.html':
+    '<rect width="74" height="74" fill="#F0EEE7"/><circle cx="37" cy="37" r="19" fill="none" stroke="#16283C" stroke-width="2.2"/><path d="M37 27v13M37 46h.01" stroke="#9C4A21" stroke-width="3.6" stroke-linecap="round"/>',
+
+  'guide-behavior.html':
+    '<rect width="74" height="74" fill="#F0EEE7"/><path d="M14 21h46v27H38l-12 9v-9H14z" fill="#FFF" stroke="#16283C" stroke-width="2"/><path d="M26 34h22M26 41h14" stroke="#9C4A21" stroke-width="2.6" stroke-linecap="round"/>',
+
+  'guide-talking.html':
+    '<rect width="74" height="74" fill="#F0EEE7"/><path d="M12 19h30v21H26l-8 7v-7h-6z" fill="#FFF" stroke="#16283C" stroke-width="2"/><path d="M62 31H42v20h11l9 7v-7z" fill="#2E4E3F"/>',
+
+  'guide-school.html':
+    '<rect width="74" height="74" fill="#F0EEE7"/><path d="M37 14l25 12-25 12-25-12z" fill="#2E4E3F"/><path d="M21 34v15c0 4 7 7 16 7s16-3 16-7V34" fill="none" stroke="#16283C" stroke-width="2.2"/>',
+
+  'guide-eating.html':
+    '<rect width="74" height="74" fill="#F0EEE7"/><circle cx="37" cy="38" r="16" fill="#FFF" stroke="#16283C" stroke-width="2"/><circle cx="37" cy="38" r="7" fill="#9C4A21"/><path d="M14 18v13M58 18v40" stroke="#16283C" stroke-width="2.4" stroke-linecap="round"/>',
+
+  'guide-sleep.html':
+    '<rect width="74" height="74" fill="#F0EEE7"/><path d="M46 14a21 21 0 1 0 14 37A23 23 0 0 1 46 14z" fill="#16283C"/><path d="M50 21h9l-9 9h9" stroke="#9C4A21" stroke-width="2.2" fill="none" stroke-linecap="round"/>',
+
+  'guide-doctors.html':
+    '<rect width="74" height="74" fill="#F0EEE7"/><path d="M32 17h10v12h12v10H42v12H32V39H20V29h12z" fill="#9C4A21"/><circle cx="37" cy="37" r="23" fill="none" stroke="#16283C" stroke-width="2"/>',
+
+  'guide-money.html':
+    '<rect width="74" height="74" fill="#F0EEE7"/><rect x="12" y="25" width="50" height="26" rx="3" fill="#FFF" stroke="#16283C" stroke-width="2"/><circle cx="37" cy="38" r="7" fill="#2E4E3F"/><path d="M20 32h4M50 44h4" stroke="#16283C" stroke-width="2"/>',
+
+  'guide-you.html':
+    '<rect width="74" height="74" fill="#F0EEE7"/><path d="M37 55S17 42 17 30a10.5 10.5 0 0 1 20-5 10.5 10.5 0 0 1 20 5c0 12-20 25-20 25z" fill="#9C4A21"/>',
+
+
+  'easy-start.html':
+    '<rect width="74" height="74" fill="#EEF2EC"/><rect x="14" y="16" width="46" height="42" rx="3" fill="#FFF" stroke="#16283C" stroke-width="2"/><path d="M24 30h26M24 39h20M24 48h14" stroke="#2E4E3F" stroke-width="3" stroke-linecap="round"/>',
+
+  'easy-first.html':
+    '<rect width="74" height="74" fill="#EEF2EC"/><circle cx="37" cy="37" r="20" fill="none" stroke="#16283C" stroke-width="2.4"/><path d="M37 26v16M37 48h.01" stroke="#9C4A21" stroke-width="4" stroke-linecap="round"/>',
+
+  'easy-behavior.html':
+    '<rect width="74" height="74" fill="#EEF2EC"/><path d="M15 22h44v26H37l-11 9v-9H15z" fill="#FFF" stroke="#16283C" stroke-width="2.2" stroke-linejoin="round"/><path d="M27 35h20" stroke="#9C4A21" stroke-width="3.4" stroke-linecap="round"/>',
+
+  'easy-talking.html':
+    '<rect width="74" height="74" fill="#EEF2EC"/><path d="M13 20h30v22H27l-9 8v-8h-5z" fill="#FFF" stroke="#16283C" stroke-width="2.2" stroke-linejoin="round"/><path d="M61 32H41v20h12l8 7v-7z" fill="#2E4E3F"/>',
+
+  'easy-school.html':
+    '<rect width="74" height="74" fill="#EEF2EC"/><path d="M37 15l24 12-24 12-24-12z" fill="#2E4E3F"/><path d="M22 34v14c0 4 7 7 15 7s15-3 15-7V34" fill="none" stroke="#16283C" stroke-width="2.4"/>',
+
+  'easy-eating.html':
+    '<rect width="74" height="74" fill="#EEF2EC"/><circle cx="37" cy="38" r="17" fill="#FFF" stroke="#16283C" stroke-width="2.2"/><circle cx="37" cy="38" r="8" fill="#9C4A21"/><path d="M15 18v14M55 18v40" stroke="#16283C" stroke-width="2.6" stroke-linecap="round"/>',
+
+  'easy-sleep.html':
+    '<rect width="74" height="74" fill="#EEF2EC"/><path d="M45 15a22 22 0 1 0 15 38A24 24 0 0 1 45 15z" fill="#16283C"/><path d="M52 22h9l-9 10h9" stroke="#9C4A21" stroke-width="2.4" fill="none" stroke-linecap="round"/>',
+
+  'easy-doctors.html':
+    '<rect width="74" height="74" fill="#EEF2EC"/><path d="M31 16h12v13h13v12H43v13H31V41H18V29h13z" fill="#9C4A21"/><circle cx="37" cy="37" r="24" fill="none" stroke="#16283C" stroke-width="2.2"/>',
+
+  'easy-money.html':
+    '<rect width="74" height="74" fill="#EEF2EC"/><rect x="12" y="24" width="50" height="28" rx="3" fill="#FFF" stroke="#16283C" stroke-width="2.2"/><circle cx="37" cy="38" r="8" fill="#2E4E3F"/>',
+
+  'easy-you.html':
+    '<rect width="74" height="74" fill="#EEF2EC"/><path d="M37 56S16 43 16 30a11 11 0 0 1 21-5 11 11 0 0 1 21 5c0 13-21 26-21 26z" fill="#9C4A21"/>',
+
 
   'heads-up-note.html':
     '<rect width="74" height="74" fill="#EEF2F0"/><rect x="13" y="18" width="48" height="32" rx="4" fill="#FFF" stroke="#16283C" stroke-width="1.8"/><path d="M22 28h30M22 35h24M22 42h18" stroke="#16283C" stroke-width="1.6" stroke-linecap="round" opacity=".55"/><path d="M27 50l-4 8 11-8z" fill="#FFF" stroke="#16283C" stroke-width="1.8" stroke-linejoin="round"/><circle cx="55" cy="21" r="6" fill="#9C4A21"/>',
@@ -2180,7 +2386,7 @@
 
 'supplements.html': [
     ['',
-     'warm|Wanting to try something is not gullibility \u2014 it is what love looks like when the official answer has been \u201cwait and see\u201d for two years. <b>Ask the hard questions of everyone, including the people who were kind to you.</b>'],
+     'warm|Wanting to try something is not gullibility \u2014 it is what love looks like when the official answer has been \u201cwait and see\u201d for two years. <b>Ask the same hard questions of the practitioner offering the supplement as you would of any doctor \u2014 kindness is not evidence, and a good one will not mind.</b>'],
     ['Questions to',
      'You are not being difficult by asking these. <b>A practitioner worth staying with will be glad you did</b> \u2014 and the answers will be better than you expect.']
   ],
