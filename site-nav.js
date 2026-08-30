@@ -26,7 +26,8 @@
       ['caregivers.html',              'The people doing the caring','Support, respite, relationships, and staying a person yourself'],
       ['ordinary-warmth.html',       'Ordinary warmth',         'The space between staring and looking away'],
       ['siblings-and-family.html',     'Siblings and the whole household','Everyone known, nobody carrying it alone'],
-      ['what-to-say.html',             'What to say',             'The sentences from across this site, sorted by the moment']
+      ['what-to-say.html',             'What to say',             'The sentences from across this site, sorted by the moment'],
+      ['after-school.html',            'The after-school hour',   'Why it all arrives at once, and what actually helps']
     ]},
     { label: 'Adult life', items: [
       ['adult-life.html',              'After school ends',       'The cliff, decision-making, trusts and wills, and what to do when'],
@@ -989,7 +990,7 @@
   var MAP = [
     ['Start here', ['spectrums.html','what-to-do-first.html','care-team-map.html','conditions-library.html','whole-picture.html']],
     ['School and services', ['inside-the-iep.html','accommodations-finder.html','programs-and-entitlements.html']],
-    ['The people caring', ['caregivers.html','siblings-and-family.html','ordinary-warmth.html','what-to-say.html']],
+    ['The people caring', ['caregivers.html','siblings-and-family.html','ordinary-warmth.html','what-to-say.html','after-school.html']],
     ['Adult life', ['adult-life.html','adult-benefits.html','adult-housing.html','adult-providers.html','your-own-life.html']],
     ['Money, paperwork and tracking', ['paying-for-therapy.html','template-builders.html','symptom-tracker.html','goals-tracker.html','family-calendar.html','medication-list.html','food-list.html','meal-planner.html','choice-planner.html','household-board.html','practice-mirror.html','share-builder.html','using-these-tools.html']],
     ['Safety and health', ['safety.html','injuries-and-illness.html','supplements.html','judging-claims.html']],
@@ -1491,7 +1492,7 @@
   "A life is far more than a single spectrum \u2014 sensing, moving, sleeping, eating, communicating, feeling, joy. Nobody sits in the middle of all of them.",
   "Nobody has to qualify. One lisp counts; so does a family carrying fifteen overlapping things.",
   "What differs is how much support a position asks for, and how much of the gap has been closed so far.",
-  "Progress is not linear. You turn the cube for months, see nothing, and then one day a whole side has come together.",
+  "Progress is not linear. You turn a Rubik's Cube for months, see nothing, and then one day a whole side has come together.",
   "You cannot do everything. A few things done consistently beats the whole list done once."],
 
 'medication-list.html': ["The single most useful document in an emergency, and the one families most often recite from memory.",
@@ -1590,6 +1591,15 @@
   "Length decides it. Four words delivered beat a careful sentence delivered too late.",
   "If the answer cannot be no, say what is happening instead of asking.",
   "The sentence that works is the one every adult in the house can say the same way."],
+
+'after-school.html': ["Holding it together all day costs something, and the bill usually arrives at home within twenty minutes of the door.",
+  "You get the worst of it because you are the safest place, and that being true does not make it sustainable.",
+  "Lower the demands before anything else. No questions, no instructions, no debrief for the first stretch.",
+  "Food and water early, without ceremony. Hunger and thirst account for a lot of four o'clock.",
+  "Movement helps some children and adds load for others. Test it rather than assuming.",
+  "The thing they love cannot be both the recovery mechanism and the leverage.",
+  "\u201cShe is fine here\u201d is usually honest. Ask for observations rather than agreement.",
+  "The hour is a symptom. What changes it is making the school day itself cost less."],
 
 'ordinary-warmth.html': ["Everybody is somewhere on these spectrums \u2014 this is not one group writing about another.",
   "Most of us have two scripts, stare or look away. What is missing is the ordinary middle.",
@@ -1781,6 +1791,9 @@
   'use strict';
 
   var MARKS = {
+
+  'after-school.html':
+    '<rect width="74" height="74" fill="#F0EEE7"/><path d="M10 46h54" stroke="#16283C" stroke-width="2"/><path d="M18 46V26a4 4 0 014-4h16a4 4 0 014 4v20" fill="#FFF" stroke="#16283C" stroke-width="2"/><path d="M50 46V34" stroke="#9C4A21" stroke-width="2.4" stroke-linecap="round"/><circle cx="50" cy="28" r="5" fill="#EFE6EE" stroke="#7A4A78" stroke-width="2"/><path d="M24 54c4 4 10 5 14 2" stroke="#9C4A21" stroke-width="2" stroke-linecap="round" fill="none"/>',
 
   'what-to-say.html':
     '<rect width="74" height="74" fill="#F0EEE7"/><path d="M12 18h34a4 4 0 014 4v16a4 4 0 01-4 4H26l-9 8V42h-5a4 4 0 01-4-4V22a4 4 0 014-4z" fill="#FFF" stroke="#16283C" stroke-width="2"/><path d="M40 32h20a4 4 0 014 4v12a4 4 0 01-4 4h-3v7l-8-7H40a4 4 0 01-4-4" fill="#EFE6EE" stroke="#7A4A78" stroke-width="2"/>',

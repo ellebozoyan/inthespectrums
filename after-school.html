@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The after-school hour — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#6B4A78; --book-tint:#EFE6F1; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the equation */
+.eqn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.eqn h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.eqn .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.parts{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:18px}
+@media(max-width:700px){.parts{grid-template-columns:1fr;gap:6px}.op{text-align:center;padding:2px 0}}
+.pt{background:rgba(255,255,255,.06);border-top:3px solid var(--book);padding:15px 16px}
+.pt.res{border-top-color:var(--rust);background:rgba(156,74,33,.13)}
+.pt b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#EFEBE3;margin-bottom:6px}
+.pt span{font-size:.86rem;color:#B9C4B4;line-height:1.45;display:block}
+.op{font-size:1.5rem;color:#C6A98F;text-align:center}
+.eqn .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:20px 0 0;max-width:62ch}
+.eqn .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .eqn{background:#fff;color:#000;border:1px solid #000}.eqn .big,.pt b,.eqn .cap strong{color:#000}}
+
+.cliff{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin:0 0 18px}
+@media(max-width:640px){.cliff{grid-template-columns:1fr}}
+.cliff .side{padding:18px 20px}
+.cliff .l{background:rgba(255,255,255,.07);border-top:3px solid #7FA57A}
+.cliff .r{background:rgba(156,74,33,.16);border-top:3px solid #C6704A}
+.cliff .gap{display:flex;align-items:center;justify-content:center;padding:0 14px;
+  font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C6A98F}
+@media(max-width:640px){.cliff .gap{padding:10px 0}}
+.cliff b{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px}
+.cliff .l b{color:#7FA57A}.cliff .r b{color:#E8C3BC}
+.cliff ul{margin:0;padding-left:17px;font-size:.9rem;line-height:1.5}
+.cliff li{margin-bottom:6px;color:#B9C4B4}
+.ladder{margin:0 0 16px}
+.rung{background:var(--card);border-left:4px solid var(--line);padding:15px 19px;margin-bottom:8px}
+.rung.least{border-left-color:#2E4E3F}
+.rung.mid{border-left-color:#A8641C}
+.rung.most{border-left-color:#8A2B20}
+.rung b{display:block;font-size:1.03rem;font-weight:400;margin-bottom:5px}
+.rung .tag{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;float:right;margin-left:12px}
+.rung.least .tag{color:#2E4E3F}.rung.mid .tag{color:#A8641C}.rung.most .tag{color:#8A2B20}
+.rung p{font-size:.93rem;margin:0;color:var(--ink-soft)}
+
+.turn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 30px 26px;margin:34px 0}
+.turn p{margin:0 0 15px;font-size:1.04rem;line-height:1.6;color:#CBD3C7;max-width:58ch}
+.turn p:last-child{margin:0}
+.turn strong{color:#EFEBE3}
+.turn em{color:#C6A98F;font-style:italic}
+
+.fnote{font-size:.88rem;color:var(--ink-soft);border-top:1px solid var(--line);
+  padding-top:13px;margin:22px 0 0;font-style:italic}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:13px;margin:0 0 14px}
+.mini{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:15px 17px}
+.mini h4{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rust);margin:0 0 7px;font-weight:700}
+.mini p{margin:0;font-size:.94rem;line-height:1.55}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums &middot; Free family resource</p>
+  <h1>The after-school hour:<br><em>when it all arrives at once</em></h1>
+  <p class="lede">A child holds together for six hours, walks through the door, and falls apart. School reports a good day. You are looking at the opposite. This page is about what is happening in that hour, why you get the worst of it, and what actually helps.</p>
+</header>
+
+<div class="note">
+  <p><strong>The short version.</strong> Holding it together all day costs something, and the bill arrives somewhere. Usually at home, usually within twenty minutes of the door, usually at the person who is safest. The hour after school is not a behavior problem to be solved. It is a recovery window, and it works far better when it is planned for than when it is argued with.</p>
+</div>
+
+<section>
+  <h2 class="sec">What is actually <em>happening</em></h2>
+  <p class="secnote">Three things stacked, not one thing repeated.</p>
+
+  <p>The <a href="whole-picture.html">whole picture</a> page describes capacity as a bottle that fills through the day. Every transition, every noise, every unexpected change, every effort at sitting still or following speech or looking interested drops something in. None of them is a big deal on its own. By two in the afternoon the bottle is close to full, and the walk through the front door is what takes the lid off.</p>
+
+  <p>Three separate things are usually running at once, and they need naming separately because they call for different responses.</p>
+
+  <div class="grid2">
+    <div class="mini"><h4>The cost of holding it together</h4>
+      <p>Sitting still, tracking speech in a noisy room, reading faces, suppressing a stim or a tic, staying in a body that hurts. All of it is effort, and effort spends something that does not refill during the day.</p></div>
+    <div class="mini"><h4>The end of the safe-enough place</h4>
+      <p>School is a place where being seen struggling has a cost. Home is not. What looks like getting worse at home is often the first place all day it has been possible to stop performing.</p></div>
+    <div class="mini"><h4>The ordinary reasons</h4>
+      <p>Hungry, thirsty, needing the bathroom they would not use at school, tired, hot, sore. These are unglamorous and they account for a great deal of it, and they are the fastest to test.</p></div>
+  </div>
+
+  <p><strong>Not every hard afternoon is this.</strong> Some are a specific bad class, a specific person, a bus journey, or a medical driver such as poor sleep, reflux, constipation or an untreated ear. Filing every difficult hour under one explanation is how a fixable thing stays unfixed for a year. If the pattern is new, or if it is getting worse rather than staying level, that needs investigating rather than absorbing.</p>
+</section>
+
+<section>
+  <h2 class="sec">Why <em>you</em> get it</h2>
+  <p class="secnote">The part that is true, and the part that gets said too easily.</p>
+
+  <p>A person who has spent the day managing themselves in front of people who might judge them will let go with the person who will not leave. That is a real mechanism, and understanding it reframes the hour from <em>my child is worse with me</em> to <em>my child can stop working with me</em>.</p>
+
+  <p><strong>And that framing has a limit.</strong> Being told it is a compliment is not much use at the point where you are being hit, or where a younger sibling is frightened, or where you have absorbed this every weekday for three years. It can be simultaneously true that a child is safest with you and that the situation is not sustainable. Understanding a mechanism is not the same as being required to endure it. Where it involves aggression or anyone getting hurt, <a href="de-escalation.html">de-escalation</a> and <a href="behavior.html">what behavior is telling you</a> are the pages for that, and it belongs in front of a clinician rather than being carried privately.</p>
+
+  <div class="say">
+    <b class="who">If a sibling asks why. Change the words to yours.</b>
+    <ul>
+      <li>School takes a lot out of him. This is where he lets it out, because here is safe.</li>
+      <li>It is not about you, and you do not have to be in the room for it.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">When school says <em>she is fine here</em></h2>
+  <p class="secnote">Usually accurate, occasionally defensive, and either way not a reason to stop.</p>
+
+  <p>Most of the time the school is describing what they see honestly. A child who is holding it together is genuinely not causing anyone difficulty, and a teacher with thirty students is watching for difficulty. Coping well in one setting and falling apart in another is a finding rather than a contradiction, and it points somewhere specific: the effort of coping is the thing to reduce.</p>
+
+  <p>Occasionally the phrase is doing something else, which is closing a conversation that would otherwise cost the school something. Both versions sound identical. The way to tell them apart is not to argue about it but to ask for information rather than agreement.</p>
+
+  <div class="bank">
+    <h4>Asking school without starting a fight</h4>
+    <p class="why">Each of these asks for an observation rather than a judgment, which is harder to decline and more useful when it comes back.</p>
+    <ul>
+      <li>I believe you that she is fine in class. I am seeing something different at four o'clock, and I am trying to work out what the day costs her.</li>
+      <li>Could somebody note what the last hour of the day looks like for a week? Not behavior, just what she does and how much support she needs.</li>
+      <li>Is there a part of the day she does not participate in, or comes back from differently?</li>
+      <li>Does she eat and drink at school? Does she use the bathroom there?</li>
+      <li>What does she look like at the start of the day compared to the end?</li>
+    </ul>
+  </div>
+
+  <p>That last question is the most useful one on the list, and the one nobody asks. A child who arrives regulated and leaves depleted is showing you the cost, and it is visible to anybody who looks at both ends of the day rather than the middle.</p>
+</section>
+
+<section>
+  <h2 class="sec">What actually helps <em>in the hour</em></h2>
+  <p class="secnote">Options with reasoning. Not all of these will fit your child, and the wrong ones make it worse.</p>
+
+  <p><strong>Lower the demands before you lower anything else.</strong> The single most effective change is not an activity, it is the removal of questions, instructions and decisions from the first stretch after the door. No how was your day, no unpacking the bag, no reading the note from the teacher out loud, no plans for the weekend. A person at capacity cannot process a question, and a question they cannot process is another demand.</p>
+
+  <div class="say">
+    <b class="who">Instead of asking. Change the words to yours.</b>
+    <ul>
+      <li>You do not have to talk. There is food on the table.</li>
+      <li>I am here. Nothing needs doing for a while.</li>
+      <li>Tell me later, or not at all.</li>
+    </ul>
+  </div>
+
+  <p><strong>Food and water, early and without ceremony.</strong> Blood sugar and dehydration account for a striking share of four o'clock difficulty, and many children eat and drink very little at school because the cafeteria is loud, the time is short, or the bathroom is unusable. Food that requires no decision and no table works better than a meal that requires both. The <a href="food-list.html">food list</a> holds what is reliably eaten, which is useful precisely when nobody has the capacity to think.</p>
+
+  <p><strong>Movement, if movement helps them.</strong> For some children a physical outlet discharges something and the hour goes better. For others it adds load and the hour goes worse. This is genuinely individual and worth testing rather than assuming, because the advice to make them run around is given universally and is wrong for a meaningful number of children.</p>
+
+  <p><strong>Sensory conditions, dropped rather than added.</strong> Lower light, fewer people, less sound, permission to remove the uniform or the shoes or the thing that has been itching since ten in the morning. Most of what helps here is subtraction.</p>
+
+  <p><strong>The thing they love, not made contingent.</strong> Time in the special interest, the game, the trampoline, the same episode again. This is restorative in a way that generic downtime often is not, and it stops being restorative the moment it becomes something to be earned. If it is the recovery mechanism, it cannot also be the leverage.</p>
+
+  <p><strong>Predictability beats optimization.</strong> The same landing, in the same order, most days. A routine that is slightly wrong but always the same usually outperforms a better one that changes, because knowing what happens next is itself a way of spending less.</p>
+
+  <div class="bnote">
+    <h3>What tends to make it worse</h3>
+    <p><strong>Debriefing the day.</strong> Asking what happened, especially about something that went wrong, at the exact moment they have the least capacity to talk about it. If there is something to discuss, it will still be there after dinner.</p>
+    <p><strong>Treating the collapse as the problem to be corrected.</strong> Consequences applied to a nervous system that has run out do not teach anything except that the safest place also has conditions.</p>
+    <p><strong>Stacking the afternoon.</strong> Therapy at four, then homework, then a sibling's practice. Sometimes unavoidable. Better seen clearly as a choice with a cost rather than a neutral schedule.</p>
+    <p><strong>Homework, in many cases.</strong> Ask honestly what it is buying against what it costs. Reduced or eliminated homework is a reasonable and commonly granted accommodation, and <a href="inside-the-iep.html">inside the IEP</a> covers how to ask for it in writing.</p>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">The longer game: <em>spend less during the day</em></h2>
+  <p class="secnote">The hour is a symptom. The load is upstream of it.</p>
+
+  <p>Everything above manages the arrival. What changes the pattern is reducing what the day costs in the first place, and that is a school conversation rather than a home one.</p>
+
+  <ul>
+    <li><strong>Scheduled breaks that are not earned.</strong> A short, predictable, non-contingent break is the accommodation with the best return here, and it is easier to get than most people expect.</li>
+    <li><strong>A quiet place that does not require asking in front of everybody.</strong> A card, a signal, a standing arrangement.</li>
+    <li><strong>Reducing the specific costly thing.</strong> Assembly, the cafeteria, the corridor between classes, group work, being read aloud to in a noisy room. One well-chosen removal often does more than five general supports.</li>
+    <li><strong>Access to food and water, and a usable bathroom.</strong> Unglamorous, frequently the actual problem, and specifiable in a plan.</li>
+    <li><strong>Communication that costs less.</strong> Where following or producing speech is the expensive part, <a href="speech-language-aac.html">communication and AAC</a> covers what reduces that load rather than adding to it.</li>
+  </ul>
+
+  <p>The <a href="accommodations-finder.html">accommodations finder</a> holds language for these that can be pasted into a request. What makes them stick is that they are written into the plan rather than agreed verbally with one teacher who may not be there next year.</p>
+</section>
+
+<section>
+  <h2 class="sec">Who to bring in, <em>and what for</em></h2>
+  <p class="secnote">Not everybody needs a professional for this. These are the ones who genuinely change it.</p>
+
+  <div class="grid2">
+    <div class="mini"><h4>Occupational therapy</h4>
+      <p>The best first call where sensory load and regulation are driving it. Ask specifically about what the school day costs and what would reduce it, rather than only about activities to do at home. <a href="occupational-therapy.html">More on OT</a>.</p></div>
+    <div class="mini"><h4>Your pediatrician</h4>
+      <p>See them if the pattern is new, worsening, or accompanied by poor sleep, pain, appetite change or a shift in mood. Sleep-disordered breathing, constipation, reflux, iron levels and ear problems all present as an unmanageable late afternoon.</p></div>
+    <div class="mini"><h4>Speech and language</h4>
+      <p>Where following instructions or producing speech is the expensive part of the day, reducing that cost lowers the total. This is often invisible in a child who is quietly not understanding.</p></div>
+    <div class="mini"><h4>The school team</h4>
+      <p>Because the load is theirs to reduce. A meeting with observations attached goes differently from a meeting with impressions attached.</p></div>
+    <div class="mini"><h4>Mental health support</h4>
+      <p>Where anxiety is generating the effort, or where the collapse involves distress rather than only depletion. <a href="anxiety-and-ocd.html">Anxiety and OCD</a> covers the overlap.</p></div>
+    <div class="mini"><h4>Support for you</h4>
+      <p>This hour lands on one or two adults every weekday for years, and that has a cost of its own that nobody schedules for. <a href="caregivers.html">The people doing the caring</a>.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Building the case, <em>if you need one</em></h2>
+
+  <p>The gap between what school sees and what you see is the thing that stalls these conversations, and it closes fastest with recorded observation rather than description. Two weeks of notes is usually enough to show a pattern, and a pattern is much harder to wave away than a report of a bad week.</p>
+
+  <ul>
+    <li>The <a href="symptom-tracker.html">symptom tracker</a> records what the afternoon looked like alongside sleep, food, and what the day contained. It has a capacity view, which is the one that makes this visible.</li>
+    <li>The <a href="family-calendar.html">family calendar</a> shows the shape of the week. Stacked afternoons often become obvious only when they are drawn.</li>
+    <li>The <a href="share-builder.html">share builder</a> turns what you have into something a school team or clinician can read in two minutes.</li>
+    <li>The <a href="heads-up-note.html">heads-up note</a> is for a sitter, a relative or a new adult who will meet your child at exactly the wrong time of day.</li>
+  </ul>
+
+  <p class="fnote">On the evidence: the pattern described here is well recognized clinically and by families, and the underlying capacity model is consistent with what is known about cognitive load and self-regulation. The specific popular terms for it, and the research on masking and its long-term costs, are newer and still developing. That the hour is real and that it responds to lowering demands is well supported. Precisely how much of it is masking, and what that costs over years, is genuinely still being studied.</p>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>Most families arrive at the useful parts of this on their own, by trial and error, over a couple of years. The food before the questions. The same route home. Not asking about the day until much later, if at all. If you are already doing those things, you worked out the mechanism without anybody explaining it to you.</p>
+  <p>What tends to be missing is not the home routine. It is the part where the school day itself gets lighter, because that one needs somebody to ask, in writing, and to keep asking. That is the piece to spend your energy on.</p>
+</div>
+
+<div class="note">
+  <p><b>Related</b> &middot; <a href="whole-picture.html">The whole picture</a> for the capacity model in full &middot; <a href="behavior.html">Behavior is communication</a> &middot; <a href="de-escalation.html">In the moment</a> &middot; <a href="accommodations-finder.html">The accommodations finder</a> &middot; <a href="caregivers.html">The people doing the caring</a></p>
+</div>
+
+<footer>
+  <p>Nothing here is medical or educational advice. Where an afternoon pattern is new, worsening, or involves anyone getting hurt, it deserves proper assessment rather than a page.</p>
+</footer>
+
+</div>
+<script src="search-index.js"></script>
+<script src="site-nav.js"></script>
+</body>
+</html>
