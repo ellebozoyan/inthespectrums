@@ -1272,7 +1272,7 @@
   "You can refer your own child to Early Intervention without a diagnosis. If your program also wants a doctor's referral, get both moving at once.",
   "Put your request in writing. A dated email starts a legal clock; a conversation at pickup does not.",
   "Get hearing and vision properly checked before anything else. Both imitate almost everything and both are treatable.",
-  "Regression, seizures, sudden change after illness, or any safety worry means being seen by a medical professional this week, ahead of the sequence on this page."],
+  "Regression, sudden change after illness, or any safety worry means calling your doctor that day, ahead of the sequence on this page. A first seizure, or one lasting over five minutes, is a 911 call."],
 
 'care-team-map.html': ["Forty-five specialties, grouped by the kind of question you have rather than by body part.",
   "You need the two or three that match what you are living with now. Nobody needs all of them.",
