@@ -3836,3 +3836,49 @@
   window.addEventListener('scroll', hide, { passive: true });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
 })();
+
+
+/* ===================================================================
+   25. Fallbacks for shared block classes.
+
+   Twenty-one pages used .fnote, .bnote, .pull, .look, .dom, .domains,
+   .snote, .lib, .libcard or .capcheck without any stylesheet defining
+   them, so those blocks rendered as ordinary paragraphs. It reads fine,
+   which is why nobody noticed. It mattered once one of them was a
+   disclaimer required to be displayed prominently.
+
+   Written with :where(), which has zero specificity, so any page that
+   defines its own version still wins. This is a floor, not an override.
+   Where the selector is unsupported the whole rule is ignored, which is
+   exactly today's behavior, so there is no way for this to make things
+   worse. The values are copied from the definition already used on the
+   most pages, so a page picking up the fallback matches the rest.
+
+   check-site.py now fails on any class used without a rule anywhere,
+   rather than on a hand-kept list of six.
+   =================================================================== */
+(function () {
+  var css = [
+    ':where(.fnote){font-size:.92rem;color:var(--ink-soft,#4A5C6E);margin:0 0 18px;max-width:66ch}',
+    ':where(.bnote){background:var(--book-tint,#EFE6EE);border-left:4px solid var(--book,#7A4A78);',
+      'padding:20px 22px;margin:24px 0}',
+    ':where(.snote){background:var(--slate-tint,#E8EDEE);border-left:4px solid var(--slate,#4A5C6E);',
+      'padding:20px 22px;margin:24px 0}',
+    ':where(.pull){font-size:clamp(1.2rem,2.9vw,1.5rem);line-height:1.45;',
+      'color:var(--forest,#2E4E3F);font-style:italic;text-align:center;max-width:30ch;margin:52px auto}',
+    ':where(.domains){display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}',
+    ':where(.dom){background:var(--card,#FCFCFA);border:1px solid var(--line,#D6DDD5);',
+      'border-radius:2px;padding:19px 21px}',
+    ':where(.look){border-top:1px solid var(--line,#D6DDD5);padding-top:11px;margin-top:12px;',
+      'font-size:.89rem;color:var(--ink-soft,#4A5C6E)}',
+    ':where(.lib){display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:11px;margin:18px 0}',
+    ':where(.libcard){display:block;background:var(--card,#FCFCFA);border:1px solid var(--line,#D6DDD5);',
+      'border-radius:2px;padding:15px 17px;text-decoration:none;color:inherit}',
+    ':where(.capcheck){background:#FBF3F1;border-left:4px solid var(--alarm,#8A2B20);',
+      'padding:17px 20px;margin:0 0 18px}'
+  ].join('');
+  var st = document.createElement('style');
+  st.setAttribute('data-its', 'fallback');
+  st.textContent = css;
+  document.head.appendChild(st);
+})();
