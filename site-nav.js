@@ -3308,3 +3308,249 @@
   st.textContent = css;
   document.head.appendChild(st);
 })();
+
+
+/* ===================================================================
+   23. LISTEN — read the page aloud.
+
+   Uses the browser's own speech synthesis. Nothing is uploaded, nothing is
+   downloaded, no account, no third party, no cost, and it keeps working if
+   this site is opened from a USB stick in 2045. A hosted text-to-speech
+   service would sound better and would send every page a person reads to
+   somebody else's server, which is the one thing this site does not do.
+
+   THE FRAMING IS THE FRAGILE PART, exactly as with the map and guidebook.
+   The button says "Listen" and the copy talks about situations: hands busy,
+   on the move, resting your eyes. It must never say "if you find reading
+   hard", must never be labeled as a help for people who cannot read, and
+   must never be offered as though it were a lesser way to use the site.
+   Plenty of people simply prefer listening. tests/tread.js fails on ability
+   language here.
+
+   This is not a screen reader and is not a substitute for one. People who
+   use one already have something far better; this is for the different case
+   of listening while doing something else.
+
+   Known browser behavior, handled below:
+   - Chrome cuts off a long utterance after roughly fifteen seconds, so text
+     is spoken in sentence-sized pieces rather than whole paragraphs.
+   - getVoices() is empty on first call in Chrome until 'voiceschanged'.
+   - Speech continues after navigation unless canceled on pagehide.
+   =================================================================== */
+(function () {
+  if (!('speechSynthesis' in window) || !('SpeechSynthesisUtterance' in window)) return;
+
+  var synth = window.speechSynthesis;
+  var chunks = [];        /* { el, text } in reading order */
+  var at = 0;
+  var playing = false;
+  var rate = 1;
+  var bar = null;
+
+  try {
+    var saved = parseFloat(localStorage.getItem('its_read_rate'));
+    if (saved >= 0.5 && saved <= 2.5) rate = saved;
+  } catch (e) {}
+
+  var css = [
+    '.nv-readbtn{font-family:var(--nv-sans,sans-serif);font-size:12.5px;padding:8px 14px;',
+      'border:1px solid var(--nv-line,#D6DDD5);background:transparent;border-radius:2px;',
+      'cursor:pointer;color:inherit}',
+    '.nv-readbtn:hover{border-color:var(--nv-rust,#9C4A21);color:var(--nv-rust,#9C4A21)}',
+    '.nv-reading{background:#EFE6EE;box-shadow:-4px 0 0 #7A4A78;border-radius:0}',
+    '.nv-player{position:fixed;left:0;right:0;bottom:0;z-index:9998;',
+      'background:#16283C;color:#FCFCFA;font-family:var(--nv-sans,sans-serif);font-size:13px;',
+      'padding:10px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;',
+      'box-shadow:0 -2px 12px rgba(0,0,0,.18)}',
+    '.nv-player button{background:transparent;border:1px solid rgba(255,255,255,.42);',
+      'color:#FCFCFA;border-radius:2px;padding:7px 11px;font-size:13px;cursor:pointer;',
+      'font-family:inherit;min-width:44px}',
+    '.nv-player button:hover{background:rgba(255,255,255,.13)}',
+    '.nv-player .nv-pgrow{margin-left:auto;opacity:.85;font-size:12px}',
+    '.nv-player select{background:#16283C;color:#FCFCFA;border:1px solid rgba(255,255,255,.42);',
+      'border-radius:2px;padding:6px 8px;font-family:inherit;font-size:12.5px}',
+    '@media(max-width:520px){.nv-player{font-size:12px;gap:6px;padding:9px 10px}',
+      '.nv-player .nv-pgrow{width:100%;margin:2px 0 0;order:9}}',
+    '@media print{.nv-readbtn,.nv-player{display:none}}',
+    '@media(prefers-reduced-motion:reduce){.nv-reading{transition:none}}'
+  ].join('');
+  var st = document.createElement('style');
+  st.setAttribute('data-its', 'read');
+  st.textContent = css;
+  document.head.appendChild(st);
+
+  /* ---- what counts as the page, and what is furniture ---- */
+  var SKIP = /^(nv-|sr-only)/;
+  function readable() {
+    var out = [];
+    var nodes = document.querySelectorAll('h1,h2,h3,h4,p,li,blockquote,dt,dd,figcaption');
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      if (n.closest('.nv-bar,.nv-toc,.nv-menu,.nv-player,footer,nav,script,style')) continue;
+      if (n.className && SKIP.test(String(n.className))) continue;
+      /* an element whose text is entirely inside a child we will also read
+         would otherwise be spoken twice */
+      if (n.querySelector('p,li,h2,h3,blockquote')) continue;
+      var t = (n.innerText || n.textContent || '').replace(/\s+/g, ' ').trim();
+      if (t.length < 2) continue;
+      var style = window.getComputedStyle(n);
+      if (style.display === 'none' || style.visibility === 'hidden') continue;
+      out.push({ el: n, text: t });
+    }
+    return out;
+  }
+
+  /* Chrome truncates a long utterance, so speak in sentence-sized pieces.
+     Kept whole where short, because chunking mid-thought sounds wrong. */
+  function pieces(text) {
+    if (text.length <= 180) return [text];
+    var parts = text.match(/[^.!?]+[.!?]*\s*/g) || [text];
+    var out = [], buf = '';
+    for (var i = 0; i < parts.length; i++) {
+      if ((buf + parts[i]).length > 180 && buf) { out.push(buf.trim()); buf = ''; }
+      buf += parts[i];
+    }
+    if (buf.trim()) out.push(buf.trim());
+    return out;
+  }
+
+  function highlight(el) {
+    var old = document.querySelector('.nv-reading');
+    if (old) old.classList.remove('nv-reading');
+    if (!el) return;
+    el.classList.add('nv-reading');
+    /* Scrolling is a convenience. If it is unavailable or throws, the reading
+       must carry on regardless: an exception here would end the whole thing
+       at the first paragraph, and the person listening would never know why. */
+    try {
+      if (typeof el.scrollIntoView !== 'function') return;
+      var r = el.getBoundingClientRect();
+      if (r.top >= 70 && r.bottom <= window.innerHeight - 90) return;
+      var calm = window.matchMedia &&
+                 window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      el.scrollIntoView({ block: 'center', behavior: calm ? 'auto' : 'smooth' });
+    } catch (e) {}
+  }
+
+  function speakFrom(i) {
+    synth.cancel();
+    at = Math.max(0, Math.min(i, chunks.length - 1));
+    if (!chunks.length) return;
+    playing = true;
+    step();
+    paint();
+  }
+
+  function step() {
+    if (!playing || at >= chunks.length) { stop(); return; }
+    var c = chunks[at];
+    highlight(c.el);
+    var segs = pieces(c.text), done = 0;
+    for (var i = 0; i < segs.length; i++) {
+      var u = new SpeechSynthesisUtterance(segs[i]);
+      u.rate = rate;
+      u.lang = document.documentElement.getAttribute('lang') || 'en';
+      u.onend = function () {
+        done++;
+        if (done === segs.length && playing) { at++; paint(); step(); }
+      };
+      u.onerror = function () {
+        done++;
+        if (done === segs.length && playing) { at++; step(); }
+      };
+      synth.speak(u);
+    }
+  }
+
+  function stop() {
+    playing = false;
+    synth.cancel();
+    highlight(null);
+    if (bar) { bar.remove(); bar = null; }
+  }
+
+  function paint() {
+    if (!bar) return;
+    var n = bar.querySelector('.nv-pgrow');
+    if (n) n.textContent = Math.min(at + 1, chunks.length) + ' of ' + chunks.length;
+    var p = bar.querySelector('[data-a="play"]');
+    if (p) {
+      var paused = synth.paused;
+      p.textContent = paused ? 'Play' : 'Pause';
+      p.setAttribute('aria-label', paused ? 'Resume reading' : 'Pause reading');
+    }
+  }
+
+  function player() {
+    if (bar) return;
+    bar = document.createElement('div');
+    bar.className = 'nv-player';
+    bar.setAttribute('role', 'region');
+    bar.setAttribute('aria-label', 'Reading this page aloud');
+    bar.innerHTML =
+      '<button type="button" data-a="back" aria-label="Back one paragraph">&#8592;</button>' +
+      '<button type="button" data-a="play" aria-label="Pause reading">Pause</button>' +
+      '<button type="button" data-a="fwd" aria-label="Forward one paragraph">&#8594;</button>' +
+      '<label style="display:flex;align-items:center;gap:5px">Speed' +
+      '<select data-a="rate" aria-label="Reading speed">' +
+      '<option value="0.75">0.75&times;</option><option value="1">1&times;</option>' +
+      '<option value="1.25">1.25&times;</option><option value="1.5">1.5&times;</option>' +
+      '<option value="2">2&times;</option></select></label>' +
+      '<button type="button" data-a="stop" aria-label="Stop reading">Stop</button>' +
+      '<span class="nv-pgrow" aria-live="polite"></span>';
+    document.body.appendChild(bar);
+    bar.querySelector('[data-a="rate"]').value = String(rate);
+
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('button');
+      if (!b) return;
+      var a = b.getAttribute('data-a');
+      if (a === 'stop') return stop();
+      if (a === 'back') return speakFrom(at - 1);
+      if (a === 'fwd') return speakFrom(at + 1);
+      if (a === 'play') {
+        if (synth.paused) synth.resume(); else synth.pause();
+        setTimeout(paint, 60);
+      }
+    });
+    bar.addEventListener('change', function (e) {
+      if (e.target.getAttribute('data-a') !== 'rate') return;
+      rate = parseFloat(e.target.value) || 1;
+      try { localStorage.setItem('its_read_rate', String(rate)); } catch (err) {}
+      speakFrom(at);   /* rate cannot change mid-utterance; restart this one */
+    });
+  }
+
+  function start() {
+    if (playing) { stop(); return; }
+    chunks = readable();
+    if (!chunks.length) return;
+    /* start from the heading nearest the top of the viewport, so somebody
+       halfway down the page is not sent back to the beginning */
+    var from = 0;
+    for (var i = 0; i < chunks.length; i++) {
+      if (chunks[i].el.getBoundingClientRect().top > 60) { from = i; break; }
+    }
+    player();
+    speakFrom(from);
+  }
+
+  window.addEventListener('pagehide', stop);
+  window.addEventListener('beforeunload', stop);
+
+  function addButton() {
+    var host = document.querySelector('.nv-bar .nv-in') || document.querySelector('.nv-bar');
+    if (!host || host.querySelector('.nv-readbtn')) return;
+    var b = document.createElement('button');
+    b.className = 'nv-readbtn';
+    b.type = 'button';
+    b.textContent = 'Listen';
+    b.setAttribute('title', 'Read this page aloud. For hands busy, eyes resting, or on the move.');
+    b.addEventListener('click', start);
+    host.appendChild(b);
+  }
+  addButton();
+  if (!document.querySelector('.nv-readbtn')) {
+    document.addEventListener('DOMContentLoaded', addButton);
+  }
+})();
