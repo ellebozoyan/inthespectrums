@@ -1274,8 +1274,8 @@
   "Get hearing and vision properly checked before anything else. Both imitate almost everything and both are treatable.",
   "Regression, sudden change after illness, or any safety worry means calling your doctor that day, ahead of the sequence on this page. A first seizure, or one lasting over five minutes, is a 911 call."],
 
-'care-team-map.html': ["Forty-five specialties, grouped by the kind of question you have rather than by body part.",
-  "You need the two or three that match what you are living with now. Nobody needs all of them.",
+'care-team-map.html': ["Forty-five specialties, grouped by the kind of question you have.",
+  "You need the two or three that match what you are living with now.",
   "Each entry says what they do, why you would call, what a first visit looks like, and what gets missed.",
   "Search by a symptom rather than a specialty if you don't know the name of what you need."],
 
