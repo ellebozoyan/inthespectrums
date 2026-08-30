@@ -3381,6 +3381,76 @@
     if (saved >= 0.5 && saved <= 2.5) rate = saved;
   } catch (e) {}
 
+  /* ---- choosing a voice ----------------------------------------------
+     The first version of this never called getVoices(), so every device
+     used whichever voice the browser hands back by default. On most that
+     is the oldest and most robotic one installed, which is why it sounded
+     the way it did.
+
+     Quality varies enormously and the good voices are usually present but
+     unselected, or free and not yet downloaded. Ranking below prefers the
+     neural and premium engines by name, because the API exposes no quality
+     field. There is deliberately no gender filter: the specification has no
+     gender property, it was removed years ago, and guessing from a voice's
+     name is wrong often enough to be worse than not offering it. The picker
+     lists real names instead and lets a person choose by ear. */
+  var voice = null, voiceName = null;
+  try { voiceName = localStorage.getItem('its_read_voice'); } catch (e) {}
+
+  var GOOD = /neural|natural|premium|enhanced|siri|google|multilingual|wavenet|journey/i;
+  var POOR = /compact|espeak|pico|festival|classic|novelty|eloquence/i;
+
+  function rank(v) {
+    var s = 0;
+    if (GOOD.test(v.name)) s += 40;
+    if (POOR.test(v.name)) s -= 60;
+    if (v.localService === false) s += 12;   /* network voices tend to be newer */
+    if (v.default) s += 3;
+    return s;
+  }
+
+  function voices() {
+    var all = synth.getVoices() || [];
+    var want = (document.documentElement.getAttribute('lang') || 'en').slice(0, 2).toLowerCase();
+    var mine = all.filter(function (v) {
+      return String(v.lang || '').slice(0, 2).toLowerCase() === want;
+    });
+    if (!mine.length) mine = all;
+    return mine.sort(function (a, b) { return rank(b) - rank(a); });
+  }
+
+  function chooseVoice() {
+    var list = voices();
+    if (!list.length) return;
+    if (voiceName) {
+      for (var i = 0; i < list.length; i++) {
+        if (list[i].name === voiceName) { voice = list[i]; return; }
+      }
+    }
+    voice = list[0];
+    voiceName = voice.name;
+  }
+  chooseVoice();
+  /* Chrome returns an empty list until it has loaded them */
+  if (typeof synth.addEventListener === 'function') {
+    synth.addEventListener('voiceschanged', function () { chooseVoice(); fillVoices(); });
+  }
+
+  /* Tone. The API gives rate, pitch and volume, and nothing else: there is no
+     SSML, no emotion, no style. These presets are only speed and pitch, named
+     for what they do rather than for a feeling they cannot actually produce. */
+  var TONES = {
+    even:        { rate: 1,    pitch: 1,    label: 'Even' },
+    slowerlower: { rate: 0.85, pitch: 0.85, label: 'Slower and lower' },
+    brighter:    { rate: 1.05, pitch: 1.12, label: 'Brighter' },
+    unhurried:   { rate: 0.75, pitch: 0.95, label: 'Unhurried' }
+  };
+  var tone = 'even';
+  try {
+    var t = localStorage.getItem('its_read_tone');
+    if (t && TONES[t]) tone = t;
+  } catch (e) {}
+
   var css = [
     '.nv-readbtn{font-family:var(--nv-sans,sans-serif);font-size:12.5px;padding:8px 14px;',
       'border:1px solid var(--nv-line,#D6DDD5);background:transparent;border-radius:2px;',
@@ -3477,8 +3547,12 @@
     var segs = pieces(c.text), done = 0;
     for (var i = 0; i < segs.length; i++) {
       var u = new SpeechSynthesisUtterance(segs[i]);
-      u.rate = rate;
-      u.lang = document.documentElement.getAttribute('lang') || 'en';
+      var T = TONES[tone] || TONES.even;
+      u.rate = rate * T.rate;
+      u.pitch = T.pitch;
+      if (voice) u.voice = voice;
+      u.lang = (voice && voice.lang) ||
+               document.documentElement.getAttribute('lang') || 'en';
       u.onend = function () {
         done++;
         if (done === segs.length && playing) { at++; paint(); step(); }
@@ -3520,6 +3594,14 @@
       '<button type="button" data-a="back" aria-label="Back one paragraph">&#8592;</button>' +
       '<button type="button" data-a="play" aria-label="Pause reading">Pause</button>' +
       '<button type="button" data-a="fwd" aria-label="Forward one paragraph">&#8594;</button>' +
+      '<label style="display:flex;align-items:center;gap:5px">Voice' +
+      '<select data-a="voice" aria-label="Which voice reads the page"></select></label>' +
+      '<label style="display:flex;align-items:center;gap:5px">Tone' +
+      '<select data-a="tone" aria-label="Speed and pitch">' +
+      '<option value="even">Even</option>' +
+      '<option value="slowerlower">Slower and lower</option>' +
+      '<option value="unhurried">Unhurried</option>' +
+      '<option value="brighter">Brighter</option></select></label>' +
       '<label style="display:flex;align-items:center;gap:5px">Speed' +
       '<select data-a="rate" aria-label="Reading speed">' +
       '<option value="0.75">0.75&times;</option><option value="1">1&times;</option>' +
@@ -3529,6 +3611,8 @@
       '<span class="nv-pgrow" aria-live="polite"></span>';
     document.body.appendChild(bar);
     bar.querySelector('[data-a="rate"]').value = String(rate);
+    bar.querySelector('[data-a="tone"]').value = tone;
+    fillVoices();
 
     bar.addEventListener('click', function (e) {
       var b = e.target.closest('button');
@@ -3543,11 +3627,43 @@
       }
     });
     bar.addEventListener('change', function (e) {
-      if (e.target.getAttribute('data-a') !== 'rate') return;
-      rate = parseFloat(e.target.value) || 1;
-      try { localStorage.setItem('its_read_rate', String(rate)); } catch (err) {}
-      speakFrom(at);   /* rate cannot change mid-utterance; restart this one */
+      var a = e.target.getAttribute('data-a');
+      if (a === 'rate') {
+        rate = parseFloat(e.target.value) || 1;
+        try { localStorage.setItem('its_read_rate', String(rate)); } catch (err) {}
+      } else if (a === 'tone') {
+        tone = TONES[e.target.value] ? e.target.value : 'even';
+        try { localStorage.setItem('its_read_tone', tone); } catch (err) {}
+      } else if (a === 'voice') {
+        var list = voices();
+        for (var i = 0; i < list.length; i++) {
+          if (list[i].name === e.target.value) { voice = list[i]; voiceName = voice.name; break; }
+        }
+        try { localStorage.setItem('its_read_voice', voiceName); } catch (err) {}
+      } else {
+        return;
+      }
+      speakFrom(at);   /* none of these can change mid-utterance; restart this one */
     });
+  }
+
+  /* Populated separately because Chrome delivers the voice list late, after
+     the player may already be on screen. */
+  function fillVoices() {
+    if (!bar) return;
+    var sel = bar.querySelector('[data-a="voice"]');
+    if (!sel) return;
+    var list = voices();
+    if (!list.length) { sel.innerHTML = '<option>Device default</option>'; return; }
+    var html = '';
+    for (var i = 0; i < list.length; i++) {
+      var v = list[i];
+      var note = GOOD.test(v.name) ? ' \u00b7 higher quality' : '';
+      html += '<option value="' + v.name.replace(/"/g, '') + '">' +
+              v.name.replace(/[<>&]/g, '') + note + '</option>';
+    }
+    sel.innerHTML = html;
+    if (voiceName) sel.value = voiceName;
   }
 
   function start() {
