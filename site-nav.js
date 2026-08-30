@@ -25,7 +25,8 @@
     { label: 'The people caring', items: [
       ['caregivers.html',              'The people doing the caring','Support, respite, relationships, and staying a person yourself'],
       ['ordinary-warmth.html',       'Ordinary warmth',         'The space between staring and looking away'],
-      ['siblings-and-family.html',     'Siblings and the whole household','Everyone known, nobody carrying it alone']
+      ['siblings-and-family.html',     'Siblings and the whole household','Everyone known, nobody carrying it alone'],
+      ['what-to-say.html',             'What to say',             'The sentences from across this site, sorted by the moment']
     ]},
     { label: 'Adult life', items: [
       ['adult-life.html',              'After school ends',       'The cliff, decision-making, trusts and wills, and what to do when'],
@@ -89,7 +90,7 @@
       ['maplewood-stories.html',       'The Maplewood stories',   'Fifty-two picture books about ten friends']
     ]},
     { label: 'The guidebook', items: [
-      ['guide-start.html',             'The guidebook',           'Nine fuller pages \u2014 enough to act on'],
+      ['guide-start.html',             'The guidebook',           'Ten fuller pages \u2014 enough to act on'],
       ['guide-first.html',             'Just diagnosed',          'What to do first, and what can wait'],
       ['guide-behavior.html',          'Hard behavior',           'What it is telling you, and what helps'],
       ['guide-talking.html',           'Talking',                 'When speaking is hard'],
@@ -988,7 +989,7 @@
   var MAP = [
     ['Start here', ['spectrums.html','what-to-do-first.html','care-team-map.html','conditions-library.html','whole-picture.html']],
     ['School and services', ['inside-the-iep.html','accommodations-finder.html','programs-and-entitlements.html']],
-    ['The people caring', ['caregivers.html','siblings-and-family.html','ordinary-warmth.html']],
+    ['The people caring', ['caregivers.html','siblings-and-family.html','ordinary-warmth.html','what-to-say.html']],
     ['Adult life', ['adult-life.html','adult-benefits.html','adult-housing.html','adult-providers.html','your-own-life.html']],
     ['Money, paperwork and tracking', ['paying-for-therapy.html','template-builders.html','symptom-tracker.html','goals-tracker.html','family-calendar.html','medication-list.html','food-list.html','meal-planner.html','choice-planner.html','household-board.html','practice-mirror.html','share-builder.html','using-these-tools.html']],
     ['Safety and health', ['safety.html','injuries-and-illness.html','supplements.html','judging-claims.html']],
@@ -1325,7 +1326,7 @@
   "The printed summary is the point. Build it the day before the appointment, not in the waiting room.",
   "Write down what happened just before a hard moment. That is usually the useful part.",
   "Two things rising together is the most ordinary coincidence there is. Bring it as a question, not a conclusion.",
-  "It saves only in the browser you are using — download a backup or you will eventually lose the lot."],
+  "It saves only in the browser you are using — download a backup or you will eventually lose it all."],
 
 'occupational-therapy.html': ["OT works on the whole day \u2014 dressing, eating, writing, regulating, sleeping \u2014 not a skill in isolation.",
   "The exercise is never the goal. Ask which part of your day will look different, and by when.",
@@ -1470,7 +1471,7 @@
 
 'adult-housing.html': ["Get on housing waiting lists years early. Your position depends entirely on the date you applied.",
   "Free housing reduces SSI. A generous arrangement can quietly cost the person money \u2014 structure it first.",
-  "Housing lists and disability-service lists are different queues. Get on both.",
+  "Housing and disability-service waiting lists are separate. Get on both.",
   "If family buys a place, ask the special needs attorney before the realtor. Who owns it changes everything.",
   "Fair housing law gives you the right to reasonable accommodation and modification. Put requests in writing."],
 
@@ -1583,6 +1584,13 @@
   "Social skills are frequently taught in one direction only. Communication difficulty between two people is shared.",
   "The test: is the goal for them to be more comfortable on their own terms, or less inconvenient to adults?"],
 
+'what-to-say.html': ["The sentences already on this site, sorted by the moment you are in rather than the topic.",
+  "For seven in the evening, when what helps is a sentence and not an explanation.",
+  "Examples, not correct answers. Take the shape and change the words to yours.",
+  "Length decides it. Four words delivered beat a careful sentence delivered too late.",
+  "If the answer cannot be no, say what is happening instead of asking.",
+  "The sentence that works is the one every adult in the house can say the same way."],
+
 'ordinary-warmth.html': ["Everybody is somewhere on these spectrums \u2014 this is not one group writing about another.",
   "Most of us have two scripts, stare or look away. What is missing is the ordinary middle.",
   "Smile. Say hello to the person, not only to whoever is with them. Then carry on normally.",
@@ -1601,8 +1609,8 @@
   "You can switch between the two at any time.",
   "If something bad is happening now, call 911."],
 
-'easy-first.html': ["You did not cause this. Nothing you did made it happen.",
-  "Your child is the same child. The word is for getting help.",
+'easy-first.html': ["For most families, nothing you did made this happen.",
+  "A new word is a name for something. Not a new person.",
   "Ask school for testing in writing. Put the date on it.",
   "Get on waiting lists now \u2014 some take years.",
   "You are allowed to say: I do not know that word."],
@@ -1661,7 +1669,7 @@
   "Covers what changes most, with enough reasoning to use it.",
   "The library has fifty-eight pages if you need more."],
 
-'guide-first.html': ["You did not cause this, and your child has not changed.",
+'guide-first.html': ["A diagnosis describes your child. It does not replace them.",
   "Start the slow things now \u2014 waiting lists run for years.",
   "Check hearing and vision first. Quick, treatable, routinely missed.",
   "Reading everything and choosing a philosophy can wait.",
@@ -1773,6 +1781,9 @@
   'use strict';
 
   var MARKS = {
+
+  'what-to-say.html':
+    '<rect width="74" height="74" fill="#F0EEE7"/><path d="M12 18h34a4 4 0 014 4v16a4 4 0 01-4 4H26l-9 8V42h-5a4 4 0 01-4-4V22a4 4 0 014-4z" fill="#FFF" stroke="#16283C" stroke-width="2"/><path d="M40 32h20a4 4 0 014 4v12a4 4 0 01-4 4h-3v7l-8-7H40a4 4 0 01-4-4" fill="#EFE6EE" stroke="#7A4A78" stroke-width="2"/>',
 
   'guide-start.html':
     '<rect width="74" height="74" fill="#F0EEE7"/><path d="M14 18l15-4 16 5 15-4v40l-15 4-16-5-15 4z" fill="#FFF" stroke="#16283C" stroke-width="2"/><path d="M29 14v41M45 19v41" stroke="#2E4E3F" stroke-width="1.8"/>',
@@ -2217,7 +2228,7 @@
 
   'what-to-do-first.html': [
     ['',
-     'warm|If you have only just started, you are not behind \u2014 you are at the beginning, which is where everyone starts. <b>Do one thing from this page this week.</b> That is enough, and it is more than most people manage in the first month.']
+     'warm|Starting late is not the same as starting too late. <b>Do one thing from this page this week.</b> That is enough, and it is more than most people manage in the first month.']
   ],
 
   'inside-the-iep.html': [
@@ -2723,7 +2734,7 @@
     '.doc .sub{text-align:center;font-family:var(--nv-sans);font-size:10.5px;letter-spacing:.16em;',
     'text-transform:uppercase;color:' + soft + ';margin:0 0 26px;padding-bottom:0;border:none;font-weight:600}',
 
-    /* section headings: coloured, with a rule the width of the page */
+    /* section headings: colored, with a rule the width of the page */
     '.doc h2{font-family:var(--nv-sans);font-size:13.5px;font-weight:700;letter-spacing:.02em;',
     'text-transform:none;color:' + ink + ';margin:30px 0 12px;padding-bottom:7px;',
     'border-bottom:2px solid ' + rule + '}',
@@ -3001,7 +3012,7 @@
 /* ===================================================================
    20. WHO ARE WE WORKING ON — one person switcher for every tool.
 
-   All twelve tools already share one store, so a name entered anywhere
+   All thirteen tools already share one store, so a name entered anywhere
    appears everywhere. What was missing was a consistent way to switch
    between people: five tools had a picker buried in a Setup tab, three
    had none at all.
@@ -3015,7 +3026,7 @@
   var TOOLS = ['symptom-tracker.html','goals-tracker.html','share-builder.html',
     'medication-list.html','food-list.html','meal-planner.html','family-calendar.html',
     'template-builders.html','choice-planner.html','household-board.html',
-    'practice-mirror.html','conditions-library.html'];
+    'practice-mirror.html','heads-up-note.html','conditions-library.html'];
   var here = location.pathname.split('/').pop() || 'index.html';
   if (TOOLS.indexOf(here) < 0 || here === 'conditions-library.html') return;
 
@@ -3250,4 +3261,50 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', prepare);
   }
+})();
+
+
+/* ===================================================================
+   22. Spoken examples — the .say block
+
+   Communication examples get one color of their own, used for nothing
+   else, so a reader skimming for the sentence to say can find it without
+   reading the page.
+
+   Purple (--voice) is deliberate. Forest green already means good, correct
+   and active everywhere on this site, and example language in the
+   correct-answer color reads as "this is the right thing to say", which is
+   exactly the wrong signal. These are sentences some people use, offered
+   with reasoning, to be changed into the reader's own words.
+
+   Defined here rather than in each page's <style> because there are 78
+   self-contained pages and a block whose CSS was never copied across
+   renders as an ordinary paragraph and nobody notices. One definition
+   cannot drift, and new pages get it for free. This runs after the page's
+   own stylesheet, so it wins on document order.
+   =================================================================== */
+(function () {
+  var css = [
+    ':root{--voice:#7A4A78;--voice-tint:#EFE6EE}',
+    '.say{background:var(--voice-tint);border-left:4px solid var(--voice);',
+      'border-radius:0;padding:15px 19px;margin:12px 0;',
+      'font-family:Georgia,"Times New Roman",serif;font-style:italic;',
+      'font-size:1.02rem;line-height:1.55;color:#3B2A3A;display:block}',
+    '.say p{margin:0 0 9px;font-style:italic}',
+    '.say p:last-child{margin:0}',
+    '.say ul{margin:0;padding-left:19px;list-style:none}',
+    '.say li{margin:0 0 9px;position:relative}',
+    '.say li:last-child{margin:0}',
+    '.say li:before{content:"\\201C";position:absolute;left:-15px;',
+      'font-size:1.15rem;color:var(--voice);font-style:normal}',
+    /* the label that says whose words these are, and that they are examples */
+    '.say b.who{display:block;font-family:var(--sans,sans-serif);font-style:normal;',
+      'font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;',
+      'color:var(--voice);margin:0 0 9px;font-weight:600}',
+    '@media print{.say{background:transparent;border-left:3px solid #777}}'
+  ].join('');
+  var st = document.createElement('style');
+  st.setAttribute('data-its', 'say');
+  st.textContent = css;
+  document.head.appendChild(st);
 })();

@@ -502,7 +502,7 @@ $("saveextra").addEventListener("click",function(){
 
 /* ---------- reading a pasted list ----------
    Forgiving on purpose. It pulls out what it recognizes and leaves everything
-   else in the name, so nothing is lost — the person corrects it afterwards. */
+   else in the name, so nothing is lost — the person corrects it afterward. */
 function parseMedLine(line){
  var t=line.replace(/^[\s\-\u2022\*\d.)]+/,"").trim();
  if(!t)return null;

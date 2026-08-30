@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What to say — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#6B4A78; --book-tint:#EFE6F1; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+/* signature: the equation */
+.eqn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 28px 24px;margin:0 0 18px}
+.eqn h2{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:#C6A98F;margin:0 0 10px;font-weight:700}
+.eqn .big{font-size:1.16rem;line-height:1.45;margin:0 0 26px;max-width:52ch}
+.parts{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:center;margin-bottom:18px}
+@media(max-width:700px){.parts{grid-template-columns:1fr;gap:6px}.op{text-align:center;padding:2px 0}}
+.pt{background:rgba(255,255,255,.06);border-top:3px solid var(--book);padding:15px 16px}
+.pt.res{border-top-color:var(--rust);background:rgba(156,74,33,.13)}
+.pt b{display:block;font-family:var(--sans);font-size:11.5px;letter-spacing:.04em;color:#EFEBE3;margin-bottom:6px}
+.pt span{font-size:.86rem;color:#B9C4B4;line-height:1.45;display:block}
+.op{font-size:1.5rem;color:#C6A98F;text-align:center}
+.eqn .cap{font-size:.95rem;color:#B9C4B4;border-top:1px solid rgba(255,255,255,.16);
+  padding-top:18px;margin:20px 0 0;max-width:62ch}
+.eqn .cap strong{color:#EFEBE3}
+
+.domains{display:grid;grid-template-columns:repeat(auto-fill,minmax(298px,1fr));gap:12px}
+.dom{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:19px 21px}
+.dom h3{font-size:1.09rem;font-weight:400;margin:0 0 9px}
+.dom p{font-size:.94rem;margin:0 0 10px}
+.dom ul{font-size:.92rem;padding-left:17px;margin:0 0 10px}
+.dom li{margin-bottom:5px}
+.dom .look{border-top:1px solid var(--line);padding-top:11px;margin-top:12px;font-size:.89rem;color:var(--ink-soft)}
+.dom .look b{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:5px}
+
+.evid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px;margin:0 0 16px}
+.ev{border-radius:2px;padding:18px 20px}
+.ev.a{background:#E6EDE4;border-left:4px solid var(--forest)}
+.ev.b{background:#F6EADA;border-left:4px solid #A8641C}
+.ev.c{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.ev h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 10px}
+.ev.a h3{color:var(--forest)}.ev.b h3{color:#A8641C}.ev.c h3{color:var(--alarm)}
+.ev p{font-size:.93rem;margin:0 0 9px}.ev p:last-child{margin:0}
+
+.stage{background:var(--card);border-left:3px solid var(--forest);padding:18px 21px;margin-bottom:11px}
+.stage .age{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.stage h3{font-size:1.04rem;font-weight:400;margin:0 0 8px}
+.stage p{font-size:.94rem;margin:0}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:13px}
+.libcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:20px 22px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.libcard:hover,.libcard:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.libcard h3{font-size:1.09rem;font-weight:400;margin:0 0 8px}
+.libcard p{font-size:.93rem;color:var(--ink-soft);margin:0 0 11px;line-height:1.5}
+.libcard .go{font-family:var(--sans);font-size:11.5px;letter-spacing:.05em;color:var(--rust);font-weight:600}
+.libcard .go::after{content:" →"}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}.dom,.ev,.stage,.col{break-inside:avoid}
+  .eqn{background:#fff;color:#000;border:1px solid #000}.eqn .big,.pt b,.eqn .cap strong{color:#000}}
+
+.cliff{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;margin:0 0 18px}
+@media(max-width:640px){.cliff{grid-template-columns:1fr}}
+.cliff .side{padding:18px 20px}
+.cliff .l{background:rgba(255,255,255,.07);border-top:3px solid #7FA57A}
+.cliff .r{background:rgba(156,74,33,.16);border-top:3px solid #C6704A}
+.cliff .gap{display:flex;align-items:center;justify-content:center;padding:0 14px;
+  font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#C6A98F}
+@media(max-width:640px){.cliff .gap{padding:10px 0}}
+.cliff b{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px}
+.cliff .l b{color:#7FA57A}.cliff .r b{color:#E8C3BC}
+.cliff ul{margin:0;padding-left:17px;font-size:.9rem;line-height:1.5}
+.cliff li{margin-bottom:6px;color:#B9C4B4}
+.ladder{margin:0 0 16px}
+.rung{background:var(--card);border-left:4px solid var(--line);padding:15px 19px;margin-bottom:8px}
+.rung.least{border-left-color:#2E4E3F}
+.rung.mid{border-left-color:#A8641C}
+.rung.most{border-left-color:#8A2B20}
+.rung b{display:block;font-size:1.03rem;font-weight:400;margin-bottom:5px}
+.rung .tag{font-family:var(--sans);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;float:right;margin-left:12px}
+.rung.least .tag{color:#2E4E3F}.rung.mid .tag{color:#A8641C}.rung.most .tag{color:#8A2B20}
+.rung p{font-size:.93rem;margin:0;color:var(--ink-soft)}
+
+.turn{background:var(--ink);color:#EFEBE3;border-radius:2px;padding:30px 30px 26px;margin:34px 0}
+.turn p{margin:0 0 15px;font-size:1.04rem;line-height:1.6;color:#CBD3C7;max-width:58ch}
+.turn p:last-child{margin:0}
+.turn strong{color:#EFEBE3}
+.turn em{color:#C6A98F;font-style:italic}
+
+/* signature: the situation router - a moment, then where the sentences are */
+.router{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:11px;margin:0 0 10px}
+.sit{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:15px 17px;text-decoration:none;color:var(--ink);
+  transition:border-color .18s,transform .18s}
+.sit:hover,.sit:focus-visible{border-color:var(--voice);transform:translateY(-2px);outline:none}
+.sit:focus-visible{outline:2px solid var(--voice);outline-offset:2px}
+.sit .said{font-style:italic;color:#3B2A3A;margin:0 0 9px;font-size:1rem;line-height:1.45}
+.sit .go{font-family:var(--sans);font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--voice);font-weight:700}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums &middot; Free family resource</p>
+  <h1>What to say:<br><em>the sentences, and where they live</em></h1>
+  <p class="lede">Most of this site is about understanding what is going on. This page is for the other moment, the one at seven in the evening when something is happening and the useful thing is not an explanation but a sentence. It collects the wording already scattered across the site and sorts it by the situation you are actually in.</p>
+</header>
+
+<div class="note">
+  <p><strong>These are examples, not correct answers.</strong> Every one of them was written for a particular kind of moment and a particular person, and yours is different. Take the shape, change the words, say it the way you talk. A sentence delivered awkwardly in your own voice does more than a polished one that does not sound like you.</p>
+  <p>Sentences appear on the pages themselves in <strong>their own color</strong>, so you can find them by skimming rather than by reading.</p>
+</div>
+
+<section>
+  <h2 class="sec">When something is <em>happening right now</em></h2>
+  <p class="secnote">Least reading, most urgency. Start here if the moment is live.</p>
+  <div class="router">
+    <a class="sit" href="de-escalation.html">
+      <p class="said">"They are escalating and I do not know what to say."</p>
+      <span class="go">In the moment</span></a>
+    <a class="sit" href="de-escalation.html">
+      <p class="said">"It is over. Do I talk about it now, or later?"</p>
+      <span class="go">Repair, afterward</span></a>
+    <a class="sit" href="behavior.html">
+      <p class="said">"They think they are the bad one, and I do not know how to undo it."</p>
+      <span class="go">What behavior is telling you</span></a>
+    <a class="sit" href="injuries-and-illness.html">
+      <p class="said">"We are in the emergency department and nobody is listening."</p>
+      <span class="go">When something happens</span></a>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">When <em>you</em> are the one out of patience</h2>
+  <p class="secnote">The systems spend it, and there is usually somebody in the room when the bill comes due.</p>
+  <div class="router">
+    <a class="sit" href="caregivers.html">
+      <p class="said">"I just came off a call with the insurer and I snapped at the wrong person."</p>
+      <span class="go">When the frustration is not about them</span></a>
+    <a class="sit" href="caregivers.html">
+      <p class="said">"I have nothing left and I am supposed to be patient."</p>
+      <span class="go">Caregivers and burnout</span></a>
+    <a class="sit" href="siblings-and-family.html">
+      <p class="said">"What do I say to the brother who is getting less of me?"</p>
+      <span class="go">Siblings and the household</span></a>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">When somebody is <em>being talked about</em></h2>
+  <p class="secnote">In the doorway, at handover, across the classroom. The most common thing nobody notices doing.</p>
+  <div class="router">
+    <a class="sit" href="their-own-voice.html">
+      <p class="said">"Two adults are discussing my child while my child stands between them."</p>
+      <span class="go">How the team talks about a student</span></a>
+    <a class="sit" href="their-own-voice.html">
+      <p class="said">"I am the therapist. What do I actually say when I walk in?"</p>
+      <span class="go">What it sounds like out loud</span></a>
+    <a class="sit" href="their-own-voice.html">
+      <p class="said">"I got it wrong in front of them. How do I repair it?"</p>
+      <span class="go">Repair, when you got it wrong</span></a>
+    <a class="sit" href="heads-up-note.html">
+      <p class="said">"A sitter is coming and I do not want to write an essay."</p>
+      <span class="go">The heads-up note</span></a>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Explaining it <em>to the person themselves</em></h2>
+  <p class="secnote">The conversation families most often postpone, and the one that is never a single conversation.</p>
+  <div class="router">
+    <a class="sit" href="their-own-voice.html">
+      <p class="said">"How do I tell my child what their diagnosis is?"</p>
+      <span class="go">Some ways families answer the hard questions</span></a>
+    <a class="sit" href="their-own-voice.html">
+      <p class="said">"They asked why they are different and I froze."</p>
+      <span class="go">One word, four very different children</span></a>
+    <a class="sit" href="their-own-voice.html">
+      <p class="said">"How do I hand them more of the decisions?"</p>
+      <span class="go">Growing self-advocacy</span></a>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Everyday <em>friction at home</em></h2>
+  <p class="secnote">The recurring ones. Wording planned in advance costs far less than wording invented mid-argument.</p>
+  <div class="router">
+    <a class="sit" href="choice-planner.html">
+      <p class="said">"I need the same answer from every adult in this house."</p>
+      <span class="go">The choice planner</span></a>
+    <a class="sit" href="feeding-therapy.html">
+      <p class="said">"What do I say at the table without making it worse?"</p>
+      <span class="go">Feeding and mealtimes</span></a>
+    <a class="sit" href="anxiety-and-ocd.html">
+      <p class="said">"They ask the same question over and over and my answer never lands."</p>
+      <span class="go">Anxiety and OCD</span></a>
+    <a class="sit" href="adhd-executive-function.html">
+      <p class="said">"Why can they do it on a good day and not today?"</p>
+      <span class="go">Attention and getting started</span></a>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Talking to <em>systems and professionals</em></h2>
+  <p class="secnote">Different job entirely. These sentences start clocks and create records.</p>
+  <div class="router">
+    <a class="sit" href="what-to-do-first.html">
+      <p class="said">"I do not know how to ask for an evaluation."</p>
+      <span class="go">Six sentences that change what happens next</span></a>
+    <a class="sit" href="what-to-do-first.html">
+      <p class="said">"They told me to wait and see."</p>
+      <span class="go">Things you can decline</span></a>
+    <a class="sit" href="inside-the-iep.html">
+      <p class="said">"I am in the meeting and I disagree with what is being written."</p>
+      <span class="go">Inside the IEP</span></a>
+    <a class="sit" href="whole-picture.html">
+      <p class="said">"Everything gets blamed on the diagnosis and nobody looks further."</p>
+      <span class="go">The three questions</span></a>
+    <a class="sit" href="judging-claims.html">
+      <p class="said">"How do I ask whether this treatment is worth trying?"</p>
+      <span class="go">Judging a claim</span></a>
+  </div>
+</section>
+
+<section>
+  <h2 class="sec">Other people, <em>and the world outside</em></h2>
+  <p class="secnote">Relatives, neighbors, the person behind you in the checkout line.</p>
+  <div class="router">
+    <a class="sit" href="ordinary-warmth.html">
+      <p class="said">"Somebody said something kind that landed badly and I said nothing."</p>
+      <span class="go">Ordinary warmth</span></a>
+    <a class="sit" href="ordinary-warmth.html">
+      <p class="said">"I want to be friendly to a family who look like they are carrying a lot."</p>
+      <span class="go">The small things that change a day</span></a>
+    <a class="sit" href="speech-language-aac.html">
+      <p class="said">"How do I talk to somebody who uses a device?"</p>
+      <span class="go">Communication and AAC</span></a>
+  </div>
+</section>
+
+<div class="bnote">
+  <h3>Three things that decide whether any of this works</h3>
+  <p><strong>Length, before anything else.</strong> A person at capacity cannot process a careful three-clause sentence, however kind it is. Four words delivered beat a good sentence delivered too late, and this is where the well-intentioned version most often fails.</p>
+  <p><strong>Whether the question is real.</strong> Asking <em>ready?</em> and then starting regardless teaches faster than not asking at all, because it establishes that the question is decoration. Where the answer cannot be no, say what is about to happen instead of asking.</p>
+  <p><strong>Whether it is repeatable.</strong> The sentence that works is the one every adult in the house can say the same way on a bad Tuesday. A beautiful sentence only one person can deliver is not a plan.</p>
+</div>
+
+<section>
+  <h2 class="sec">Where these came from</h2>
+  <p>Nothing on this page is new. Every sentence lives on the page that explains why it works, because a script without its reasoning becomes an instruction, and an instruction that does not fit your child gets used anyway and then fails, and you conclude you were the problem.</p>
+  <p>So this page routes rather than collects. Follow whichever line sounds like your week, read the few paragraphs around it, and take the wording from there.</p>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>You already say most of this. Nobody arrives at a page like this without a long history of finding words in difficult moments, usually without help and usually while tired.</p>
+  <p>What a collection like this is actually for is <strong>the handful you have not needed yet</strong>, and the ones you would rather not invent for the first time while it is happening. Read one section. Leave the rest until the week you need it.</p>
+</div>
+
+<footer>
+  <p>Nothing here is medical, legal or educational advice. These are examples of wording, gathered from across this site, offered so you have somewhere to start rather than a blank moment.</p>
+</footer>
+
+</div>
+<script src="search-index.js"></script>
+<script src="site-nav.js"></script>
+</body>
+</html>
