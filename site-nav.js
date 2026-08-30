@@ -1269,10 +1269,10 @@
 
   var SHORT = {
 'what-to-do-first.html': ["Start every long wait at once \u2014 in parallel, you have answers in a year; one at a time, it takes three.",
-  "You do not need a diagnosis or a referral to begin. Call Early Intervention or email the district yourself, today.",
+  "You can refer your own child to Early Intervention without a diagnosis. If your program also wants a doctor's referral, get both moving at once.",
   "Put your request in writing. A dated email starts a legal clock; a conversation at pickup does not.",
   "Get hearing and vision properly checked before anything else. Both imitate almost everything and both are treatable.",
-  "Regression, seizures, sudden change after illness, or any safety worry means this week, not this sequence."],
+  "Regression, seizures, sudden change after illness, or any safety worry means being seen by a medical professional this week, ahead of the sequence on this page."],
 
 'care-team-map.html': ["Forty-five specialties, grouped by the kind of question you have rather than by body part.",
   "You need the two or three that match what you are living with now. Nobody needs all of them.",
