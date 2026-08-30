@@ -1272,7 +1272,7 @@
   "You can refer your own child to Early Intervention without a diagnosis. If your program also wants a doctor's referral, get both moving at once.",
   "Put your request in writing. A dated email starts a legal clock; a conversation at pickup does not.",
   "Get hearing and vision properly checked before anything else. Both imitate almost everything and both are treatable.",
-  "Regression, sudden change after illness, or any safety worry means calling your doctor that day, ahead of the sequence on this page. A first seizure, or one lasting over five minutes, is a 911 call."],
+  "Ask your pediatrician what they want you to call about, and how fast, before you need the answer. Regression is the one families most often wish they had raised sooner."],
 
 'care-team-map.html': ["Forty-five specialties, grouped by the kind of question you have.",
   "You need the two or three that match what you are living with now.",
