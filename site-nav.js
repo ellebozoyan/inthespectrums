@@ -3301,7 +3301,36 @@
     '.say b.who{display:block;font-family:var(--sans,sans-serif);font-style:normal;',
       'font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;',
       'color:var(--voice);margin:0 0 9px;font-weight:600}',
-    '@media print{.say{background:transparent;border-left:3px solid #777}}'
+    '@media print{.say{background:transparent;border-left:3px solid #777}}',
+
+    /* The labeled form. Some pages already had exactly the right shape - a
+       label, a line of reasoning, then the sentences - under the class .bank,
+       styled in slate so it read as any other card. Same meaning, so same
+       color, defined here for the same reason: .bank was declared in 24 page
+       stylesheets and used in 2, and a local copy is what drifts. */
+    '.bank{background:var(--voice-tint);border:none;border-left:4px solid var(--voice);',
+      'border-radius:0;padding:17px 20px;margin:0 0 12px}',
+    '.bank h4{font-family:var(--sans,sans-serif);font-size:10px;letter-spacing:.14em;',
+      'text-transform:uppercase;color:var(--voice);font-weight:700;margin:0 0 7px}',
+    '.bank .why{font-size:.9rem;color:#4A5C6E;margin:0 0 13px;line-height:1.5;font-style:normal}',
+    '.bank ul{list-style:none;margin:0;padding:0}',
+    '.bank li{font-family:Georgia,"Times New Roman",serif;font-size:1rem;line-height:1.5;',
+      'font-style:italic;color:#3B2A3A;padding:8px 0 8px 14px;',
+      'border-left:2px solid rgba(122,74,120,.34);margin:0 0 7px}',
+    '.bank li:last-child{margin:0}',
+    '.bank li b{font-style:normal;font-family:var(--sans,sans-serif);font-size:9.5px;',
+      'letter-spacing:.1em;text-transform:uppercase;color:var(--voice);display:block;',
+      'margin-top:6px;font-weight:700}',
+    '@media print{.bank{background:transparent;border-left:3px solid #777}}',
+
+    /* The third form: one sayable line sitting inside a paragraph of prose.
+       Written as .ex, and always scoped to a parent on the pages that use it,
+       so the shared rule matches those parents rather than trying to outrank
+       them from a bare selector. An unscoped .ex gets the plain rule. */
+    '.ex,.qbody .ex{font-family:Georgia,"Times New Roman",serif;font-style:italic;',
+      'color:#3B2A3A;background:var(--voice-tint);border-left:3px solid var(--voice);',
+      'border-radius:0;padding:11px 14px;margin:10px 0 0;font-size:.97rem;line-height:1.5}',
+    '@media print{.ex,.qbody .ex{background:transparent;border-left:2px solid #777}}'
   ].join('');
   var st = document.createElement('style');
   st.setAttribute('data-its', 'say');
