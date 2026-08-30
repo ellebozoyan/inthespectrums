@@ -2536,7 +2536,7 @@
     return String(s || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
   }
 
-  /* Words too common to mean anything. Without this, "burnt out" scores every
+  /* Words too common to mean anything. Without this, "burned out" scores every
      page containing "out", and "not eating" scores every page containing "not". */
   var STOP = {};
   ('the and for with not out but you your our are was were has have had will can could would should ' +
@@ -3698,4 +3698,128 @@
   if (!document.querySelector('.nv-readbtn')) {
     document.addEventListener('DOMContentLoaded', addButton);
   }
+})();
+
+
+/* ===================================================================
+   24. WHERE DOES THIS GO — hover and focus preview for internal links.
+
+   A page carries a lot of inline links, and "Everything on this site"
+   reads as a phrase rather than a destination unless you already know
+   the site. This puts the destination's name and its one-line
+   description in a small box on hover, so a reader can tell what a link
+   will do before spending a click on it.
+
+   The titles come from the rendered navigation menu rather than a second
+   list kept here, so there is nothing to update when a page is added and
+   nothing that can drift out of step with the site map.
+
+   Deliberate choices:
+   - Focus as well as hover, so a keyboard reader gets the same thing.
+   - A delay before showing, or the box flickers at every link the eye
+     passes over while reading a paragraph.
+   - Nothing on touch devices. There is no hover there, and a tap would
+     either open the link or fight with it.
+   - Suppressed inside the navigation itself, where the same description
+     is already on screen.
+   =================================================================== */
+(function () {
+  if (!window.matchMedia || !matchMedia('(hover: hover)').matches) return;
+
+  var MAP = null, box = null, timer = null;
+
+  function build() {
+    if (MAP) return MAP;
+    MAP = {};
+    var links = document.querySelectorAll('.nv-menu a[href]');
+    for (var i = 0; i < links.length; i++) {
+      var href = (links[i].getAttribute('href') || '').split('#')[0];
+      if (!href || MAP[href]) continue;
+      var t = links[i].querySelector('strong'), d = links[i].querySelector('small');
+      if (!t) continue;
+      MAP[href] = { title: t.textContent.trim(), note: d ? d.textContent.trim() : '' };
+    }
+    return MAP;
+  }
+
+  var css = [
+    '.nv-peek{position:absolute;z-index:9997;max-width:320px;',
+      'background:#16283C;color:#FCFCFA;border-radius:3px;padding:11px 14px;',
+      'font-family:var(--nv-sans,sans-serif);box-shadow:0 4px 18px rgba(0,0,0,.26);',
+      'pointer-events:none;opacity:0;transition:opacity .13s}',
+    '.nv-peek.on{opacity:1}',
+    '.nv-peek b{display:block;font-size:13px;font-weight:600;margin:0 0 3px;line-height:1.35}',
+    '.nv-peek span{display:block;font-size:12px;line-height:1.45;opacity:.82}',
+    '.nv-peek i{display:block;font-style:normal;font-size:9.5px;letter-spacing:.12em;',
+      'text-transform:uppercase;opacity:.6;margin:6px 0 0}',
+    '@media(prefers-reduced-motion:reduce){.nv-peek{transition:none}}',
+    '@media print{.nv-peek{display:none}}'
+  ].join('');
+  var st = document.createElement('style');
+  st.setAttribute('data-its', 'peek');
+  st.textContent = css;
+  document.head.appendChild(st);
+
+  function hide() {
+    clearTimeout(timer);
+    if (box) { box.classList.remove('on'); }
+  }
+
+  function show(a) {
+    var href = (a.getAttribute('href') || '').split('#')[0];
+    var info = build()[href];
+    if (!info) return;
+    if (!box) {
+      box = document.createElement('div');
+      box.className = 'nv-peek';
+      box.setAttribute('role', 'tooltip');
+      document.body.appendChild(box);
+    }
+    box.innerHTML = '<b></b><span></span><i>Opens this page</i>';
+    box.querySelector('b').textContent = info.title;
+    box.querySelector('span').textContent = info.note;
+    if (!info.note) box.querySelector('span').style.display = 'none';
+
+    /* measure first, then place, so the box never hangs off the edge */
+    box.style.left = '-9999px';
+    box.style.top = '0';
+    box.classList.add('on');
+    var r = a.getBoundingClientRect(), b = box.getBoundingClientRect();
+    var x = window.pageXOffset + r.left;
+    var y = window.pageYOffset + r.bottom + 8;
+    var maxX = window.pageXOffset + document.documentElement.clientWidth - b.width - 12;
+    if (x > maxX) x = Math.max(window.pageXOffset + 12, maxX);
+    /* flip above the link when there is no room beneath it */
+    if (r.bottom + b.height + 20 > window.innerHeight) {
+      y = window.pageYOffset + r.top - b.height - 8;
+    }
+    box.style.left = x + 'px';
+    box.style.top = y + 'px';
+  }
+
+  function candidate(e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return null;
+    if (a.closest('.nv-menu,.nv-bar,.nv-toc,.nv-player')) return null;
+    var href = a.getAttribute('href') || '';
+    if (!/^[a-z0-9-]+\.html(#|$)/i.test(href)) return null;   /* internal pages only */
+    return a;
+  }
+
+  document.addEventListener('mouseover', function (e) {
+    var a = candidate(e);
+    if (!a) return;
+    clearTimeout(timer);
+    timer = setTimeout(function () { show(a); }, 380);
+  });
+  document.addEventListener('mouseout', function (e) {
+    if (candidate(e)) hide();
+  });
+  document.addEventListener('focusin', function (e) {
+    var a = candidate(e);
+    if (a) show(a);
+  });
+  document.addEventListener('focusout', hide);
+  window.addEventListener('scroll', hide, { passive: true });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
 })();
