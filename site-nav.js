@@ -1271,7 +1271,7 @@
 'what-to-do-first.html': ["Start every long wait at once \u2014 in parallel, you have answers in a year; one at a time, it takes three.",
   "You can refer your own child to Early Intervention without a diagnosis. If your program also wants a doctor's referral, get both moving at once.",
   "Put your request in writing. A dated email starts a legal clock; a conversation at pickup does not.",
-  "Get hearing and vision properly checked before anything else. Both imitate almost everything and both are treatable.",
+  "Hearing and vision are often helpful to check early. Both imitate almost everything, and finding either changes what helps.",
   "Ask your pediatrician what they want you to call about, and how fast, before you need the answer. Regression is the one families most often wish they had raised sooner."],
 
 'care-team-map.html': ["Forty-five specialties, grouped by the kind of question you have.",
@@ -1448,7 +1448,7 @@
 
 'using-these-tools.html': ["Add a tracker to your home screen and it opens like an app. That\u2019s the difference between logging and not.",
   "Everything lives in one browser on one device. Safari on your phone and Chrome on your laptop are separate copies.",
-  "Download a backup file monthly, and before any phone upgrade or clearing of browsing data.",
+  "Download a backup whenever you have added something you would mind losing. On iPhone and iPad the browser deletes site storage after seven days of not opening it.",
   "Print means save as PDF on every modern device \u2014 instructions here for Mac, Windows, iPhone and Android.",
   "No technical support is available. Take these tools, change them, or just take the categories and build your own."],
 
