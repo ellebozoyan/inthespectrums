@@ -110,6 +110,18 @@ footer{border-top:1px solid var(--line);padding:26px 0 70px;font-family:var(--sa
   color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
 .profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
 .profnote p:last-child{margin:0}
+.dcpir{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--rust);
+  padding:14px 17px;margin:18px 0 0}
+.dcpir b{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--rust);margin:0 0 8px;font-weight:700}
+.dcpir p{font-size:.9rem;line-height:1.55;color:var(--ink-soft);margin:0 0 9px}
+.dcpir p:last-child{margin:0}
+.dscope{background:var(--ground);border:1px solid var(--line);border-radius:2px;
+  padding:14px 17px;margin:0 0 20px}
+.dscope b{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--rust);margin:0 0 8px;font-weight:700}
+.dscope p{font-size:.9rem;line-height:1.55;color:var(--ink-soft);margin:0 0 9px}
+.dscope p:last-child{margin:0}
 .dalso{font-family:var(--sans);font-size:12.5px;line-height:1.55;color:var(--ink-soft);
   background:var(--ground);border-left:3px solid var(--band);border-radius:2px;
   padding:10px 14px;margin:0 0 18px}
@@ -133,6 +145,14 @@ footer{border-top:1px solid var(--line);padding:26px 0 70px;font-family:var(--sa
   <div class="pills" id="pills"></div>
   <p id="count"></p>
 </header>
+
+<div class="dscope" style="max-width:66ch">
+  <b>What this library is</b>
+  <p>A non-clinician's overview of fifty conditions, written to help you understand the shape of something and ask better questions of the people who can actually assess it. It is not a diagnostic tool, and reading an entry is not a way of finding out what a person has.</p>
+  <p>Every person is different. How much of an entry applies, how it shows up, how much it varies from day to day, and what helps are all individual. The entries say so throughout, and the range bands exist to show how widely people with the same diagnosis differ from each other.</p>
+  <p><strong>These entries were drafted with AI help and edited by a person, and they have not been checked line by line against clinical sources.</strong> AI writes fluently whether or not it is right, so treat a specific claim here as something to raise with your medical team rather than something to act on. If you find something wrong, it is genuinely useful to say so.</p>
+  <p>Every entry names a public source to check it against. Most point to a matching free fact sheet from the Center for Parent Information and Resources, at parentcenterhub.org, or to the federal institute that covers the condition. Two say plainly that no government page describes them, because they are contested or still emerging, and that is information in itself. Their material is public domain and may be reproduced, and where it is cited the form they ask for is: Center for Parent Information and Resources (retrieval date), title of the document, Newark, NJ, Author. Their work is funded by the US Department of Education, Office of Special Education Programs, and no endorsement by the Department of anything on this site is intended or should be inferred.</p>
+</div>
 
 <div class="profnote"><b>Reading this as a professional</b><p>Written to be readable across disciplines, so an SLP can get oriented in a genetics question and a teacher can get oriented in a medical one.</p><p>The section most worth your time is <em>what commonly gets missed</em> — it's where the errors made by well-meaning people outside their own specialty tend to sit.</p></div>
 <main class="grid" id="grid"></main>
@@ -160,7 +180,7 @@ const CATS=[
  {id:"body",label:"Neurological & medical"}
 ];
 const C=[
-{id:"autism",cat:"neuro",name:"Autism",
+{id:"autism",cat:"neuro",name:"Autism",src:"the National Institute of Mental Health",
 hook:"A different way of processing people, language, and sensation — not a severity scale.",
 what:"A neurodevelopmental difference in social communication, sensory processing, and patterns of interest and behavior, present from early development. It is lifelong, it is not caused by parenting, and it is not something a person grows out of — though what they need changes enormously across a life.",
 range:"The word spectrum is widely misread as a line from mild to severe. It isn't. One person with autism may speak fluently and be unable to tolerate a grocery store; another may not use speech at all and navigate crowds comfortably. Support needs move independently across domains and they move day to day with stress, illness, sleep, and demand load. A child who manages a full school day may be entirely out of capacity by four o'clock, and that is the same child.",
@@ -171,7 +191,7 @@ missed:["Girls, and children who mask well, are diagnosed years later or not at 
 unlock:"Diagnosed by developmental-behavioral pediatrics, child psychiatry, neuropsychology, or a multidisciplinary autism clinic. Opens the door to school special education eligibility, insurance coverage of therapies under state autism mandates where they apply, state developmental disability agency services, Medicaid disability pathways, and adult service eligibility later.",
 learn:"The The Autistic Self Advocacy Network for the inside view; AANE for practical family support across the lifespan; your state's autism support centers and parent training centers for local navigation."},
 
-{id:"adhd",cat:"neuro",name:"ADHD",
+{id:"adhd",cat:"neuro",name:"ADHD",cpir:"Attention-Deficit/Hyperactivity Disorder",
 also:"Neurodevelopmental in origin, with effects across learning, mood, sleep and relationships. Rarely appears on its own.",
 hook:"A difference in attention regulation and executive function — not a shortage of effort.",
 what:"A neurodevelopmental condition affecting the brain's systems for regulating attention, impulse, motivation, and time. It presents as predominantly inattentive, predominantly hyperactive-impulsive, or combined. The core difficulty is regulating attention rather than lacking it — hyperfocus on something interesting is entirely characteristic.",
@@ -183,7 +203,7 @@ missed:["Inattentive presentation in a quiet child who isn't disrupting anyone."
 unlock:"Diagnosed by pediatrics, developmental-behavioral pediatrics, psychiatry, or psychology using rating scales across settings. May support a 504 plan or an IEP under Other Health Impairment, testing accommodations, and insurance coverage for behavioral treatment.",
 learn:"CHADD for family education and local chapters; Understood.org for school-focused practical strategy; ADDitude for day-to-day management."},
 
-{id:"id",cat:"neuro",name:"Intellectual disability",
+{id:"id",cat:"neuro",name:"Intellectual disability",cpir:"Intellectual Disability",
 hook:"Differences in reasoning and adaptive skills — with a life that can be full, chosen, and largely independent.",
 what:"Significant limitations in intellectual functioning and in adaptive behavior — the conceptual, social, and practical skills used every day — with onset during development. Diagnosis requires both, and the adaptive half is the part that actually predicts what support a person needs.",
 range:"Support needs range from intermittent — a person who lives independently with help for finances and paperwork — through pervasive, requiring daily support across all areas. Most people with intellectual disability fall at the milder end, and outcomes depend far more on expectations, teaching, and opportunity than on any score. Skills continue developing across a lifetime; the trajectory just moves at a different rate.",
@@ -194,7 +214,7 @@ missed:["Adaptive functioning is under-assessed because IQ is easier to measure 
 unlock:"Diagnosed via neuropsychological or psychological evaluation including standardized adaptive behavior measures. This is the key that opens most state developmental disability agency services, Medicaid waivers, SSI, and adult supports — and the adaptive measure is usually the deciding evidence.",
 learn:"The Arc, nationally and through local chapters, is the central organization; your state developmental disability agency; Parent to Parent networks."},
 
-{id:"gdd",cat:"neuro",name:"Global developmental delay",
+{id:"gdd",cat:"neuro",name:"Global developmental delay",cpir:"Developmental Delay",
 hook:"A placeholder diagnosis for young children — accurate, temporary, and useful.",
 what:"Significant delay in two or more developmental domains in a child under five, when they're too young for reliable cognitive testing. It's a description, not an explanation, and it frequently resolves into a more specific diagnosis — or into no diagnosis at all — as the child grows.",
 range:"Some children with this label catch up fully with intervention. Others are later identified as having autism, intellectual disability, a genetic condition, or a specific language disorder. The label's purpose is to open service doors during the years when intervention matters most, without forcing a premature guess.",
@@ -205,7 +225,7 @@ missed:["Families wait for a specific diagnosis before starting therapy, losing 
 unlock:"Establishes Early Intervention eligibility before age three and preschool special education eligibility after. In most states this label alone is sufficient for services; a specific diagnosis is not required.",
 learn:"Your state's Early Intervention program; the CDC's developmental milestone materials; your state parent training and information center."},
 
-{id:"dld",cat:"neuro",name:"Developmental language disorder",
+{id:"dld",cat:"neuro",name:"Developmental language disorder",cpir:"Speech and Language Impairments",
 hook:"Language that doesn't develop as expected, with no other condition explaining it — common, and nearly invisible.",
 what:"Persistent difficulty understanding or using language that isn't explained by hearing loss, intellectual disability, autism, or another condition. It affects roughly one child in fourteen, which makes it far more common than autism and dramatically less recognized.",
 range:"Some children have mild word-finding and grammar difficulty that shows mainly in writing. Others struggle to follow classroom instruction all day, every day. Because comprehension difficulty is invisible, impact is regularly underestimated — a child who speaks in full sentences may be understanding half of what's said to them.",
@@ -216,7 +236,7 @@ missed:["Comprehension difficulty is mistaken for inattention, defiance, or slow
 unlock:"Diagnosed by a speech-language pathologist. Supports IEP eligibility under a speech or language impairment category, classroom accommodations, and insurance coverage for therapy.",
 learn:"ASHA for family-facing explanations and finding a certified SLP; RADLD (Raising Awareness of Developmental Language Disorder) for advocacy materials."},
 
-{id:"apraxia",cat:"neuro",name:"Childhood apraxia of speech",
+{id:"apraxia",cat:"neuro",name:"Childhood apraxia of speech",cpir:"Speech and Language Impairments",
 also:"A motor planning condition, so neurological in origin, with its effects landing squarely on communication access.",
 hook:"The words are there. The motor plan to say them isn't.",
 what:"A motor speech disorder in which the brain has difficulty planning and sequencing the movements needed for speech, despite intact muscle strength and, usually, intact language knowledge. The child knows what they want to say and cannot reliably produce it.",
@@ -228,7 +248,7 @@ missed:["Diagnosed as a general speech delay and given the wrong therapy for yea
 unlock:"Diagnosed by an SLP, ideally one experienced with motor speech disorders. Supports IEP eligibility, intensive service minutes, and insurance-funded AAC evaluation.",
 learn:"Apraxia Kids for family education, therapist directories, and a well-regarded parent library."},
 
-{id:"phono",cat:"neuro",name:"Phonological disorders",
+{id:"phono",cat:"neuro",name:"Phonological disorders",cpir:"Speech and Language Impairments",
 hook:"The sound system itself is built differently \u2014 and the unusual patterns are the ones that matter most.",
 what:"Speech sound difficulties split roughly two ways. An articulation difficulty is trouble physically producing a particular sound. A phonological disorder is a difficulty with the sound <em>system</em> \u2014 the rules a child has worked out for how words are organized. The child isn\u2019t failing at one sound; they are applying a pattern consistently across many words, and the pattern is doing the damage.",
 range:"Every young child simplifies speech in predictable ways \u2014 dropping the ends of words, replacing back sounds with front ones, reducing consonant clusters. Those are normal, and they resolve on a rough timetable. What separates a disorder from a delay is partly persistence and partly <strong>which patterns show up.</strong> Some children use patterns that do not appear in typical development at all: deleting the beginnings of words rather than the ends, replacing front sounds with back ones, substituting a glottal stop for many different consonants, or applying one favorite sound to a large share of words. These atypical patterns matter because they resolve on their own less often, they affect intelligibility harder, and they carry a higher risk to later reading. Impact ranges from a child understood by family but not strangers, to a child whose speech is largely unintelligible to anyone outside the home.",
@@ -239,7 +259,7 @@ missed:["Atypical patterns get treated as ordinary delay, so families are told t
 unlock:"Diagnosed by a speech-language pathologist. Supports IEP eligibility under speech or language impairment, insurance coverage for therapy, and \u2014 importantly \u2014 a documented reason to start phonological awareness support before reading difficulty appears.",
 learn:"ASHA for the clinical picture and finding a certified SLP; look specifically for someone who names phonological approaches rather than describing articulation drilling."},
 
-{id:"sld",cat:"neuro",name:"Specific learning disorders",
+{id:"sld",cat:"neuro",name:"Specific learning disorders",cpir:"Learning Disabilities",
 hook:"Dyslexia, dysgraphia, dyscalculia — targeted difficulties in a child whose thinking is not.",
 what:"Persistent difficulty acquiring a specific academic skill despite adequate instruction and intact general ability. Dyslexia affects reading, dysgraphia affects written expression and handwriting, dyscalculia affects number sense and math.",
 range:"From a strong reader who is exhausted by it and slow on tests, to a child who cannot decode text at all without intervention. With appropriate instruction most children with dyslexia become functional readers; without it, most don't, and the gap widens every year.",
@@ -250,7 +270,7 @@ missed:["Bright children compensate and fall apart around third or fourth grade 
 unlock:"Identified through psychoeducational or neuropsychological evaluation. Supports IEP eligibility under specific learning disability, or a 504 plan, plus testing accommodations that carry through to college entrance exams.",
 learn:"International Dyslexia Association for evidence-based instruction and provider lists; Understood.org for classroom strategy; your state's decoding-dyslexia parent chapter."},
 
-{id:"dcd",cat:"neuro",name:"Developmental coordination disorder",
+{id:"dcd",cat:"neuro",name:"Developmental coordination disorder",src:"MedlinePlus",
 hook:"Also called dyspraxia — the body doesn't do what the child is asking it to.",
 what:"Significant difficulty acquiring and executing coordinated motor skills, well below what's expected for age, affecting daily activities and schoolwork. It is not caused by muscle weakness or a neurological injury; the difficulty is in planning and coordinating movement.",
 range:"From a clumsy child who avoids sports, to one who cannot dress independently at nine or write legibly enough to be graded. It persists into adulthood in most cases and affects driving, cooking, and workplace tasks — it is not outgrown, though strategies improve everything.",
@@ -261,7 +281,7 @@ missed:["Dismissed as clumsiness or laziness for years, particularly in children
 unlock:"Diagnosed by occupational therapy, physical therapy, developmental pediatrics, or neuropsychology. Supports IEP or 504 accommodations for handwriting, PE, and assistive technology.",
 learn:"CanChild for research-based family materials; the Dyspraxia Foundation; AOTA for finding an occupational therapist."},
 
-{id:"tics",cat:"neuro",name:"Tic disorders and Tourette syndrome",
+{id:"tics",cat:"neuro",name:"Tic disorders and Tourette syndrome",cpir:"Other Health Impairment (Tourette Syndrome)",
 also:"Neurological in origin, commonly co-occurring with OCD and ADHD, and frequently mistaken for something voluntary.",
 hook:"Involuntary movements and sounds — and the enormous effort of holding them in.",
 what:"Sudden, repetitive movements or vocalizations. Tourette syndrome involves both motor and vocal tics persisting over a year. Tics are involuntary but often preceded by an uncomfortable premonitory urge, and can be suppressed briefly at real cost.",
@@ -272,7 +292,7 @@ helps:["Behavioral therapy for tics — comprehensive behavioral intervention fo
 missed:["Tics are read as deliberate, attention-seeking, or a habit that could be stopped.","The premonitory urge is unknown to most adults, so suppression is assumed to be free.","Co-occurring OCD and ADHD are more impairing than tics for most people and get overshadowed.","A sudden explosive onset of tics warrants a different medical conversation — see the entry on PANS and PANDAS."],
 unlock:"Diagnosed clinically by neurology, psychiatry, or developmental pediatrics. Supports 504 or IEP accommodations including breaks, alternative testing space, and reduced writing.",
 learn:"Tourette Association of America for family support, school materials, and CBIT provider lists."},
-{id:"cvi",cat:"access",name:"Cerebral visual impairment (CVI)",
+{id:"cvi",cat:"access",name:"Cerebral visual impairment (CVI)",cpir:"Visual Impairment, Including Blindness",
 also:"This is a <b>brain-based</b> condition, not an eye condition \u2014 which is the single most consequential thing to understand about it. The eyes may be entirely healthy. It is listed under access because that is where its effects land, but it is neurological in origin, and eye examinations alone will not identify it.",
 hook:"The eyes can be perfectly healthy. The difficulty is in how the brain processes what they send, and that can change.",
 what:"A brain-based visual impairment in which the visual pathways or processing areas are affected rather than the eye itself. It is now the leading cause of childhood visual impairment in wealthy countries, and it is routinely missed because standard eye exams come back normal.",
@@ -284,7 +304,7 @@ missed:["<b>Headache and migraine driven by visual effort.</b> Sustained work to
 unlock:"Identified through neuro-ophthalmology, developmental optometry, or a CVI-specific functional assessment. Establishes visual impairment eligibility for IEP services, a teacher of students with visual impairments, orientation and mobility instruction, and state commission for the blind services.",
 learn:"Perkins School for the Blind's CVI Now for the best current family-facing material; the American Printing House for the Blind; your state commission for the blind."},
 
-{id:"lowvision",cat:"access",name:"Blindness and low vision",
+{id:"lowvision",cat:"access",name:"Blindness and low vision",cpir:"Visual Impairment, Including Blindness",
 hook:"An access difference, not a learning difference — provided access is actually provided.",
 what:"Vision loss from conditions of the eye or optic nerve, ranging from low vision that limits detail to no light perception. Children who are blind learn the same things as sighted children through different channels, on a timeline that depends almost entirely on how early and how well access is built.",
 range:"From a child who reads large print with magnification, to one who is a fluent braille reader and independent cane traveler, to a child with additional disabilities for whom vision loss is one factor among several. Independence is far more determined by early instruction in braille, technology, and mobility than by degree of vision loss.",
@@ -295,7 +315,7 @@ missed:["Materials arrive late or not at all, and the child sits through lessons
 unlock:"Eligibility for IEP services under visual impairment, TVI and orientation and mobility services, state commission for the blind registration, assistive technology funding, and in the US the National Library Service and Bookshare.",
 learn:"American Foundation for the Blind; National Federation of the Blind's parent division; American Printing House for the Blind; your state commission or school for the blind."},
 
-{id:"deaf",cat:"access",name:"Deaf and hard of hearing",
+{id:"deaf",cat:"access",name:"Deaf and hard of hearing",cpir:"Deafness and Hearing Loss",
 hook:"A language question first, a hearing question second.",
 what:"Hearing levels ranging from mild loss to profound deafness, present at birth or acquired. The critical variable for a child's development is not degree of loss but whether they get full access to a complete language — spoken, signed, or both — during the early years when language is built.",
 range:"From a child with mild loss who needs a classroom microphone system, to a bilingual child fluent in a signed and a written language, to a child with cochlear implants developing spoken language. Outcomes vary enormously and track early language access far more than they track audiogram.",
@@ -306,7 +326,7 @@ missed:["Mild and unilateral loss is assumed to be inconsequential; it isn't, an
 unlock:"Diagnosed through audiology. Opens IEP eligibility, teacher of the deaf and interpreter services, classroom amplification, early intervention with a deaf-specific program, and state commission for the deaf services.",
 learn:"Hands & Voices for unbiased, non-partisan family support across all communication approaches; your state's early intervention program for deaf children; the National Association of the Deaf."},
 
-{id:"apd",cat:"access",name:"Auditory processing differences",
+{id:"apd",cat:"access",name:"Auditory processing differences",src:"the National Institute on Deafness and Other Communication Disorders",
 also:"The ears usually work. The difficulty is in how the brain processes what they deliver \u2014 neurological in origin, access in consequence, and frequently mistaken for inattention or not listening.",
 hook:"Hearing is fine. Making sense of speech in a real room is not.",
 what:"Difficulty processing auditory information despite normal hearing thresholds — particularly distinguishing speech in noise, following rapid speech, and holding spoken sequences. Auditory processing disorder is a recognized audiological diagnosis, though there's ongoing professional debate about how distinct it is from language and attention difficulties.",
@@ -330,7 +350,7 @@ missed:["Sensory distress is read as behavior, drama, or manipulation.","Under-r
 unlock:"Assessed by occupational therapy. Not a standalone special education category, but sensory needs are routinely written into IEPs and 504 plans as accommodations under another eligibility.",
 learn:"STAR Institute for family materials; AOTA for finding an occupational therapist; the growing literature on interoception in schools."},
 
-{id:"deafblind",cat:"access",name:"Deafblindness",
+{id:"deafblind",cat:"access",name:"Deafblindness",cpir:"Deaf-Blindness",
 also:"Not simply vision loss plus hearing loss \u2014 the combination changes how information can reach a person at all, which is why it is treated as its own thing.",
 hook:"Combined vision and hearing differences — not two disabilities added, but a third thing entirely.",
 what:"Any combination of vision and hearing loss significant enough that services designed for one alone are insufficient. Most people described as deafblind have some usable vision or hearing. The defining challenge is access to incidental information — everything a child normally learns by overhearing and glimpsing.",
@@ -341,7 +361,7 @@ helps:["Every US state has a federally funded deafblind project offering free te
 missed:["Children with milder combined loss are served under one label and never identified as deafblind, missing the entire dedicated support system.","Families never learn their state deafblind project exists — it's free and requires no diagnosis threshold to contact.","Communication ability is underestimated, sometimes for years.","Additional disabilities are assumed rather than assessed."],
 unlock:"Registration with your state deafblind project and the national deafblind child count; IEP eligibility under deafblindness, which carries specific service entitlements including interveners.",
 learn:"The National Center on Deaf-Blindness, and through it your state's deafblind project; Perkins School for the Blind; the Helen Keller National Center for transition-age youth."},
-{id:"anxiety",cat:"mind",name:"Anxiety disorders",
+{id:"anxiety",cat:"mind",name:"Anxiety disorders",src:"the National Institute of Mental Health",
 also:"Anxiety is physical as much as it is mental \u2014 heart rate, gut, sleep, appetite. And a physical condition can produce anxiety directly, which is why a medical workup belongs alongside the psychological one.",
 hook:"The most common and most treatable childhood mental health condition — and the most often mistaken for behavior.",
 what:"Persistent, excessive worry or fear that interferes with daily life. Includes generalized anxiety, separation anxiety, social anxiety, specific phobias, and panic. Anxiety is not a character trait and it does not resolve with reassurance; it responds to a specific, well-evidenced treatment.",
@@ -353,7 +373,7 @@ missed:["Anxiety presenting as anger, refusal, or meltdown, which gets treated a
 unlock:"Diagnosed by psychology, psychiatry, or pediatrics. May support a 504 plan or an IEP under emotional disability, plus accommodations for testing, attendance, and safe exit from class.",
 learn:"The Child Mind Institute for family-facing explanation; the Anxiety and Depression Association of America for provider directories; ask specifically about CBT with exposure or the SPACE parent program."},
 
-{id:"bfrb",cat:"mind",name:"Body-focused repetitive behaviors",
+{id:"bfrb",cat:"mind",name:"Body-focused repetitive behaviors",src:"the National Institute of Mental Health",
 hook:"Nail biting, skin picking and hair pulling \u2014 common, rarely named, and not defiance.",
 what:"A group of habits in which a person repeatedly pulls, picks, bites or scratches at their own body. Hair pulling and skin picking have formal diagnoses; nail biting and cheek chewing usually do not, though they sit on the same continuum. Almost always self-regulatory rather than deliberate, and frequently done with little awareness while attention is elsewhere.",
 range:"From a habit nobody notices, to picking that leaves scarring or infection and pulling that causes visible hair loss, avoidance of swimming or haircuts, and real shame. Severity often tracks stress, boredom, tiredness and understimulation rather than anything happening at the moment it occurs.",
@@ -364,7 +384,7 @@ missed:["<b>That it is a bad habit the person could stop if they cared enough.</
 unlock:"Behavioral treatment is generally covered under mental health benefits, and dermatology where there is skin damage. Worth raising with school if it happens in class, so that adults respond consistently rather than by drawing attention to it.",
 learn:"The TLC Foundation for Body-Focused Repetitive Behaviors is the main patient organization and has family resources."},
 
-{id:"ocd",cat:"mind",name:"OCD",
+{id:"ocd",cat:"mind",name:"OCD",src:"the National Institute of Mental Health",
 also:"Listed under the mind; the mechanism is neurological, and it commonly co-occurs with tics and with autism.",
 hook:"Intrusive thoughts and the rituals that briefly quiet them — and a specific treatment that works.",
 what:"Obsessions are unwanted intrusive thoughts, images, or urges that cause distress. Compulsions are repetitive behaviors or mental acts performed to reduce that distress. The relief is real and temporary, which is exactly what makes the cycle so strong.",
@@ -376,7 +396,7 @@ missed:["Mental compulsions and reassurance-seeking are invisible and get missed
 unlock:"Diagnosed by psychology or psychiatry. Can support 504 or IEP accommodations for time, testing, and bathroom access.",
 learn:"The International OCD Foundation, which maintains a directory of ERP-trained therapists and excellent family materials."},
 
-{id:"depression",cat:"mind",name:"Depression",
+{id:"depression",cat:"mind",name:"Depression",src:"the National Institute of Mental Health",cpir:"Emotional Disturbance",
 hook:"In children it often looks like irritability, not sadness.",
 what:"Persistent low or irritable mood with loss of interest, lasting at least two weeks and affecting functioning. In children and teenagers the dominant presentation is frequently irritability, anger, and withdrawal rather than visible sadness.",
 range:"From a persistent low-grade heaviness that lets a young person function while enjoying nothing, to an inability to get out of bed or attend school, to acute risk requiring immediate help.",
@@ -387,7 +407,7 @@ missed:["Irritability is treated as attitude rather than a symptom.","Depression
 unlock:"Diagnosed by psychology, psychiatry, or pediatrics. May support 504 or IEP eligibility, attendance flexibility, and reduced workload during acute periods.",
 learn:"The Child Mind Institute; NAMI for family support and local groups. If safety is a concern at any point, the 988 Suicide and Crisis Lifeline is available by call or text in the US, and an emergency department is always an appropriate choice."},
 
-{id:"trauma",cat:"mind",name:"Trauma and PTSD",
+{id:"trauma",cat:"mind",name:"Trauma and PTSD",src:"the National Institute of Mental Health",
 hook:"A nervous system that learned the world isn't safe — and can learn otherwise.",
 what:"Persistent symptoms following exposure to threatening or overwhelming events: intrusive memories, avoidance, negative changes in mood and belief, and hyperarousal. In children this includes medical trauma, which is badly underrecognized in families who have spent years in hospitals.",
 range:"From a child who is jumpy and struggles at bedtime, to one whose functioning is organized entirely around avoiding reminders. Children with developmental disabilities experience higher rates of trauma and are less likely to be recognized or treated for it.",
@@ -398,7 +418,7 @@ missed:["Medical trauma from procedures, restraint, and hospitalization is rarel
 unlock:"Diagnosed by psychology or psychiatry. May support IEP eligibility under emotional disability and, importantly, a functional behavior assessment that treats behavior as trauma response rather than defiance.",
 learn:"The National Child Traumatic Stress Network for family materials and finding trauma-trained clinicians."},
 
-{id:"mutism",cat:"mind",name:"Selective mutism",
+{id:"mutism",cat:"mind",name:"Selective mutism",src:"the National Institute of Mental Health",
 hook:"A child who talks freely at home and cannot speak at school — an anxiety disorder, not defiance.",
 what:"Consistent inability to speak in specific social situations despite speaking normally in others, lasting more than a month and not explained by a language disorder. It is an anxiety condition, and the silence is not a choice.",
 range:"From a child who whispers to one friend and not the teacher, to one who cannot speak, nod, or point anywhere outside home, and in some cases cannot eat or use the bathroom at school. Untreated it tends to entrench.",
@@ -409,7 +429,7 @@ missed:["Read as shyness the child will grow out of, or as stubbornness.","Mista
 unlock:"Diagnosed by psychology or psychiatry. Supports 504 or IEP accommodations including alternative participation formats and, where impact is significant, IEP eligibility.",
 learn:"The Selective Mutism Association for family guidance and provider lists; look for clinicians who name this condition specifically."},
 
-{id:"arfid",cat:"mind",name:"ARFID",
+{id:"arfid",cat:"mind",name:"ARFID",src:"the National Institute of Mental Health",
 also:"Listed under the mind, but the drivers are frequently sensory or physical \u2014 pain, reflux, swallowing difficulty, or interoception. Treating it as purely psychological misses the treatable causes.",
 hook:"Not picky eating. A restriction serious enough to affect growth, nutrition, or life.",
 what:"Avoidant/restrictive food intake disorder — eating that is limited enough to cause weight or growth problems, nutritional deficiency, dependence on supplements, or significant interference with daily life. Unlike anorexia, it is not driven by body image. Drivers are usually sensory aversion, fear of choking or vomiting, or simply low interest in eating.",
@@ -421,7 +441,7 @@ missed:["Treated as picky eating, with advice built for typical picky eating tha
 unlock:"Diagnosed by psychology, psychiatry, pediatrics, or a feeding program. Supports insurance coverage for feeding therapy and dietitian services, school accommodations for meals, and access to intensive feeding programs.",
 learn:"ARFID-specific resources through the National Alliance for Eating Disorders, which also runs a helpline; hospital-based feeding programs; look for clinicians who name ARFID rather than picky eating."},
 
-{id:"dmdd",cat:"mind",name:"Severe emotional dysregulation",
+{id:"dmdd",cat:"mind",name:"Severe emotional dysregulation",src:"the National Institute of Mental Health",
 hook:"Explosive, prolonged reactions that outlast the trigger — a skill problem more often than a will problem.",
 what:"Persistent irritability with frequent severe outbursts, disproportionate to the situation and to developmental level. Diagnosed as disruptive mood dysregulation disorder when it meets specific criteria, though dysregulation of this kind occurs across many conditions and rarely stands alone.",
 range:"From a child who takes an hour to recover from disappointment, to daily outbursts involving aggression or property damage, to a family that has restructured its entire life around avoiding triggers. Frequency and intensity both vary widely with sleep, hunger, illness, demand load, and predictability.",
@@ -443,7 +463,7 @@ missed:["Read as willful defiance or as a parenting failure, which it is not.","
 unlock:"Not a standalone diagnostic category in the US. Practically, families pursue an autism and anxiety evaluation and then get the specific supports written into the IEP by describing the pattern — low-demand approaches, choice, and reduced direct instruction — rather than by naming PDA.",
 learn:"PDA Society (UK) has the most developed family-facing material; look for writing by adults with autism on demand avoidance, which is often the most illuminating."},
 
-{id:"pans",cat:"mind",name:"PANS and PANDAS",
+{id:"pans",cat:"mind",name:"PANS and PANDAS",src:"the National Institute of Mental Health, which publishes <em>PANS and PANDAS: Questions and Answers</em>",
 also:"Sits between immunology, neurology and psychiatry, which is a substantial part of why it is contested and why families get passed between specialties.",
 hook:"Sudden, dramatic onset of OCD or restricted eating after an illness — real, contested, and worth understanding carefully.",
 what:"Proposed conditions in which an abrupt onset of obsessive-compulsive symptoms, restricted eating, tics, or dramatic behavior change follows an infection, thought to involve an immune-mediated process. PANDAS specifically involves streptococcal infection; PANS is broader. Diagnostic criteria exist and specialty clinics treat it, but the conditions remain genuinely contested — some clinicians consider them well established, others question the causal link and the treatment protocols.",
@@ -454,7 +474,7 @@ helps:["Get standard, well-evidenced treatment for the symptoms regardless of wh
 missed:["The abruptness gets lost in a general psychiatric workup, and the timeline is what matters most.","Families encounter clinicians with strong opposing views and are left to adjudicate a research controversy alone.","Standard psychiatric treatment is sometimes declined while pursuing an immune explanation, so a child goes untreated during the search.","Expensive, unproven protocols are available to families who are frightened and out of options. Ask about evidence and about risk, every time."],
 unlock:"There is no education category for this. Practically, families document functional impact and pursue IEP or 504 eligibility under other health impairment or emotional disability, with attendance and workload flexibility for a relapsing course.",
 learn:"The PANDAS Physicians Network for clinical criteria; ask any clinician directly where they stand on the evidence before you commit to a treatment path. On testing: the diagnosis is clinical, and commercial antibody panels marketed for it do not confirm or exclude it \u2014 a negative does not mean nothing is wrong, and a positive does not settle it."},
-{id:"fnd",cat:"body",name:"Functional neurological disorder",
+{id:"fnd",cat:"body",name:"Functional neurological disorder",src:"the National Institute of Neurological Disorders and Stroke",
 also:"Neurological, and frequently discussed as though it were psychiatric \u2014 which is precisely the confusion that harms people. Listed under the body because the symptoms are physical.",
 hook:"Real neurological symptoms from a problem with how the brain functions \u2014 not from damage, and not made up.",
 what:"A condition in which the nervous system does not function properly, producing genuine physical symptoms without structural damage showing on a scan. The hardware is intact; the signaling is not. It can cause functional seizures, weakness, tremor, difficulty walking, numbness, visual symptoms and cognitive difficulty. It is <b>diagnosed by positive clinical signs</b> a neurologist looks for on examination \u2014 it is not a label applied once everything else has been ruled out, and it frequently sits alongside other conditions rather than instead of them.",
@@ -466,7 +486,7 @@ missed:["<b>That it means the symptoms are imagined, exaggerated, or produced de
 unlock:"Neurologists diagnose it, and specialist services exist though they are unevenly distributed and may need travel or a referral fought for. Physical therapy, occupational therapy and psychology are generally covered. School accommodations are appropriate where symptoms affect attendance, mobility or stamina, and a 504 plan or IEP may be warranted. Any new or different symptom deserves fresh assessment rather than being attributed to the existing diagnosis.",
 learn:"Neurosymptoms.org is the standard patient-facing resource, written by a neurologist and widely recommended by clinicians. FND Hope offers family and peer support."},
 
-{id:"fasd",cat:"neuro",name:"Fetal alcohol spectrum disorder",
+{id:"fasd",cat:"neuro",name:"Fetal alcohol spectrum disorder",src:"the Centers for Disease Control and Prevention",
 also:"Neurological in origin, with most of its visible effects in learning, executive function and emotional regulation. It is frequently filed under behavior, which is where the misunderstanding starts.",
 hook:"One of the most common preventable causes of developmental difficulty \u2014 and one of the most frequently missed.",
 what:"A range of effects from alcohol exposure before birth, affecting brain development, executive function, memory, learning, impulse control and adaptive skills. The distinctive facial features appear in only a minority; most people with FASD look unremarkable, which is a large part of why it goes unrecognized. It is frequently diagnosed as ADHD alone, or as a behavior problem, and the underlying picture never gets named.",
@@ -478,7 +498,7 @@ missed:["<b>Diagnosed as ADHD or defiance and left there.</b> Stimulants may hel
 unlock:"Diagnosis usually needs a developmental pediatrician or a specialist FASD clinic, and adaptive assessment matters as much as cognitive testing. It can support IEP eligibility, disability services and, later, adult supports. Where prenatal history is uncertain, assessment is still worth pursuing.",
 learn:"NOFAS and FASD United provide family resources and can point toward diagnostic clinics, which are unevenly distributed."},
 
-{id:"abi",cat:"neuro",name:"Acquired brain injury",
+{id:"abi",cat:"neuro",name:"Acquired brain injury",cpir:"Traumatic Brain Injury",
 hook:"Injury to a brain that was developing typically \u2014 from trauma, stroke, infection, or lack of oxygen.",
 what:"Brain injury acquired after birth \u2014 often abbreviated <b>ABI</b>, and where trauma is the cause, <b>TBI</b> \u2014 whether from a blow to the head, a stroke, meningitis or encephalitis, a tumor or its treatment, near-drowning, or cardiac arrest. Effects depend on which areas were affected and at what age. Unlike a condition present from birth, there is a clear before and after \u2014 which is its own kind of difficulty for the person and the family.",
 range:"From a concussion that resolves in weeks, to permanent changes in movement, communication, memory or personality. Recovery is often fastest early and continues for years, which means an early prognosis is frequently wrong in both directions.",
@@ -489,7 +509,7 @@ missed:["<b>\u201cHe looks fine.\u201d</b> Physical recovery is visible; cogniti
 unlock:"Rehabilitation services, neuropsychology, and school supports \u2014 in the US, brain injury is its own IDEA eligibility category, which many families are never told. Case management is often available through the treating hospital. Any new or worsening symptom after a head injury needs urgent assessment.",
 learn:"The Brain Injury Association of America has state chapters and family support. Ask the treating hospital about pediatric rehabilitation follow-up before discharge."},
 
-{id:"down",cat:"neuro",name:"Down syndrome",
+{id:"down",cat:"neuro",name:"Down syndrome",cpir:"Down Syndrome",
 hook:"The most common genetic cause of intellectual disability \u2014 and the one most often assumed to explain everything.",
 what:"A condition caused by an extra copy of chromosome 21, affecting development, learning and a number of body systems. Cognitive ability varies widely and is not predictable from the diagnosis. Most people with Down syndrome understand considerably more than their speech suggests, and speech difficulty is frequently mistaken for the limit of their understanding.",
 range:"From mild to significant intellectual disability, with wide variation in speech, independence and health. Many people work, form relationships, live with support and outlive earlier expectations by decades.",
@@ -500,7 +520,7 @@ missed:["<b>Diagnostic overshadowing.</b> New difficulties get attributed to Dow
 unlock:"Early intervention from birth, then IEP services. Specialist Down syndrome clinics exist in many regions and are worth traveling for. Health supervision guidelines set out what should be screened and when \u2014 ask whether they are being followed.",
 learn:"The National Down Syndrome Society and the National Down Syndrome Congress, plus local parent groups which are often exceptional. Seek out adults with Down syndrome writing about their own lives."},
 
-{id:"foodallergy",cat:"body",name:"Food allergy and anaphylaxis",
+{id:"foodallergy",cat:"body",name:"Food allergy and anaphylaxis",cpir:"Other Health Impairment",
 hook:"An immune reaction that can be life-threatening \u2014 and a genuine reason some children are frightened of food.",
 what:"An immune response to a food protein, ranging from hives to anaphylaxis, which affects breathing and circulation and is a medical emergency. Distinct from intolerance, which is uncomfortable but not dangerous. There are also delayed forms, including one affecting infants and young children that causes severe vomiting hours after eating and is frequently mistaken for a stomach bug.",
 range:"From a mild rash to a reaction requiring emergency treatment. Some allergies are outgrown; others are lifelong. Severity of a past reaction does not reliably predict the next one, which is why the plan matters more than the history.",
@@ -511,7 +531,7 @@ missed:["<b>Delayed epinephrine.</b> The most common serious error, usually from
 unlock:"Allergy specialists, an emergency plan, and school health plans \u2014 in the US, a 504 plan commonly covers allergy accommodations. Auto-injectors are generally covered but cost varies substantially; ask about assistance programs.",
 learn:"FARE (Food Allergy Research and Education) has emergency plan templates and school resources."},
 
-{id:"eoe",cat:"body",name:"Eosinophilic esophagitis",
+{id:"eoe",cat:"body",name:"Eosinophilic esophagitis",src:"the National Institute of Diabetes and Digestive and Kidney Diseases",
 also:"An immune and allergic condition producing a mechanical swallowing problem, which then produces eating difficulty that looks behavioral. Three specialties, one child.",
 hook:"An allergic condition of the esophagus that frequently looks, for years, like ordinary picky eating.",
 what:"Inflammation of the esophagus driven by an immune response, usually abbreviated <b>EoE</b>,, usually to foods. It makes swallowing difficult and sometimes painful, and over time can narrow the esophagus so that food sticks. Diagnosis requires endoscopy with biopsy \u2014 it cannot be identified from symptoms or from allergy blood tests, which is why it is so often missed.",
@@ -523,7 +543,7 @@ missed:["<b>Years of being called a picky eater</b> when swallowing was genuinel
 unlock:"Pediatric gastroenterology, allergy, and dietitian support, generally covered. Newer treatments may require prior authorization. School accommodations for eating time, drinks and a safe place to eat are reasonable.",
 learn:"APFED (American Partnership for Eosinophilic Disorders) offers family resources and clinician directories."},
 
-{id:"migraine",cat:"body",name:"Migraine, including abdominal migraine",
+{id:"migraine",cat:"body",name:"Migraine, including abdominal migraine",src:"the National Institute of Neurological Disorders and Stroke",
 also:"A neurological condition, not a pain condition that happens in the head. Also interacts heavily with sleep, eating and sensory load.",
 hook:"Not just a headache \u2014 and in children it frequently arrives as stomach pain, not head pain at all.",
 what:"A neurological condition producing episodes of pain along with nausea, sensitivity to light and sound, and often a period of altered function before and after. In children it is commonly shorter than in adults, often on both sides of the head, and sometimes involves no head pain whatsoever.",
@@ -535,7 +555,7 @@ missed:["<b>Abdominal migraine.</b> Recurrent episodes of central abdominal pain
 unlock:"Pediatric neurology for frequent or severe migraine. Preventive treatment, acute treatment and a school plan are all reasonable to ask for. Sudden severe headache, headache with fever and stiff neck, headache waking someone from sleep, or headache with neurological change needs urgent assessment rather than a migraine plan.",
 learn:"The American Migraine Foundation has pediatric resources. A simple attack diary is more useful to a neurologist than any recollection."},
 
-{id:"chronicpain",cat:"body",name:"Chronic pain",
+{id:"chronicpain",cat:"body",name:"Chronic pain",src:"the National Institute of Neurological Disorders and Stroke",
 also:"The mechanism is a change in nervous system processing \u2014 neurological \u2014 and it interacts closely with sleep and mood. Being told it is psychological is both inaccurate and one of the main reasons treatment gets delayed.",
 hook:"Pain that persists past healing \u2014 real, physically generated, and frequently disbelieved.",
 what:"Pain lasting beyond the expected time, which comes to involve changes in how the nervous system processes pain signals rather than ongoing tissue damage. The pain is not imagined and not exaggerated; the alarm system has become more sensitive, and normal input is registered as painful. This is a physical process with measurable characteristics, not a psychological one.",
@@ -547,7 +567,7 @@ missed:["<b>Being told nothing is wrong because scans are clear.</b> Normal imag
 unlock:"Pediatric pain clinics, physical therapy and psychology are generally covered, though multidisciplinary programs may require travel. School accommodations for movement, seating, absence and reduced load are appropriate.",
 learn:"Look for pediatric pain rehabilitation programs at children\u2019s hospitals. Materials explaining pain neuroscience to children are widely available and are themselves part of treatment."},
 
-{id:"asthma",cat:"body",name:"Asthma and allergic conditions",
+{id:"asthma",cat:"body",name:"Asthma and allergic conditions",cpir:"Other Health Impairment",
 hook:"Common, treatable, and \u2014 when poorly controlled \u2014 a frequent hidden reason a person cannot concentrate or sleep.",
 what:"A group of related conditions in which the immune system responds to harmless triggers: asthma affecting the airways, allergic rhinitis the nose, eczema the skin. They cluster together and tend to appear in sequence through childhood. Poorly controlled asthma and untreated nasal allergy both disrupt sleep, and disrupted sleep shows up as inattention, irritability and reduced learning long before anybody mentions breathing.",
 range:"From occasional symptoms with exercise, to daily limitation and hospital admissions. Control is usually achievable, and the gap between well-controlled and poorly controlled is enormous.",
@@ -558,7 +578,7 @@ missed:["<b>Cough-variant asthma</b>, where there is no wheeze and the cough get
 unlock:"Generally covered, though inhaler costs vary widely and are worth asking about. School medication plans are routine. Ask specifically about a review if control is poor rather than accepting it.",
 learn:"The Asthma and Allergy Foundation of America has action plan templates and school resources."},
 
-{id:"restrictiveed",cat:"mind",name:"Restrictive eating disorders",
+{id:"restrictiveed",cat:"mind",name:"Restrictive eating disorders",src:"the National Institute of Mental Health",
 hook:"Distinct from ARFID, occurring at any body size, and among the most medically dangerous conditions here.",
 what:"Conditions in which eating is restricted alongside distress about body shape, weight or eating itself \u2014 which is the feature separating them from ARFID, where restriction is driven by sensory difficulty, fear of choking or vomiting, or lack of interest rather than by body image. They occur across every body size, and a person at a normal or higher weight who has lost weight rapidly can be just as medically unstable as someone visibly underweight.",
 range:"From restriction that responds quickly to early intervention, to a life-threatening illness requiring hospital treatment. Early treatment substantially improves outcomes, which is why the threshold for taking it seriously should be low.",
@@ -569,7 +589,7 @@ missed:["<b>Assuming a person must be underweight.</b> Restriction at a normal o
 unlock:"Assessment through pediatrics, then specialist eating disorder services. Coverage is often better than families expect but frequently needs pushing for; day programs and inpatient care exist. In the US, mental health parity laws may apply if treatment is denied.",
 learn:"The National Alliance for Eating Disorders operates a helpline and can direct you to treatment. F.E.A.S.T. supports parents specifically."},
 
-{id:"psychosis",cat:"mind",name:"Early psychosis",
+{id:"psychosis",cat:"mind",name:"Early psychosis",src:"the National Institute of Mental Health",
 hook:"Uncommon in children, rising through adolescence \u2014 and the single condition where speed of response matters most.",
 what:"A change in the relationship with reality, which can include hearing or seeing things others do not, holding beliefs that are not shared and cannot be reasoned with, disorganized thinking or speech, and withdrawal. It usually develops gradually rather than suddenly, and the early period often looks like depression, anxiety or a personality change before anything unusual is said aloud.",
 range:"From a brief episode with full recovery, to a longer-term condition needing sustained support. Outcomes are meaningfully better with early treatment, and the time between symptoms starting and treatment beginning is one of the strongest predictors there is.",
@@ -580,7 +600,7 @@ missed:["<b>Dismissed as adolescence, stress or drug use</b> while months pass."
 unlock:"Early psychosis programs exist in most US states and are often free or low cost \u2014 search for coordinated specialty care in your area. Emergency assessment is appropriate if there is risk to the person or anyone else.",
 learn:"NAMI has family education and local support. Ask your state mental health authority about early psychosis programs specifically, as they are frequently under-used."},
 
-{id:"epilepsy",cat:"body",name:"Epilepsy and seizures",
+{id:"epilepsy",cat:"body",name:"Epilepsy and seizures",cpir:"Epilepsy",
 also:"Neurological by definition, listed under the body because that is where families tend to look for it. Also affects learning, attention and mood \u2014 both from seizures themselves and from medication.",
 hook:"Recurrent seizures — and the fatigue, memory, and mood effects nobody warns you about.",
 what:"A condition of recurrent unprovoked seizures caused by abnormal electrical activity in the brain. Seizures take many forms: convulsive, brief staring absences, drop attacks, or focal events where the person stays partly aware. Many are subtle enough to be missed for years.",
@@ -592,7 +612,7 @@ missed:["Absence and focal seizures are read as daydreaming, inattention, or beh
 unlock:"Diagnosed by neurology with EEG. Supports IEP or 504 eligibility under other health impairment, a school health plan, nursing support, and accommodations for fatigue and missed instruction.",
 learn:"The Epilepsy Foundation for school action plans, family support, and local chapters; ask about a comprehensive epilepsy center if seizures aren't controlled."},
 
-{id:"cp",cat:"body",name:"Cerebral palsy",
+{id:"cp",cat:"body",name:"Cerebral palsy",cpir:"Cerebral Palsy",
 hook:"A movement difference from early brain development — non-progressive, but the body around it keeps changing.",
 what:"A group of permanent disorders of movement and posture from a disturbance in the developing brain. The brain injury itself does not worsen, but muscles, joints, and bones change as a child grows, which is why ongoing orthopedic and rehabilitation care matters so much.",
 range:"From a person who walks independently with a subtle gait difference, to one who uses a power wheelchair and needs support for all daily activities. Intelligence spans the full range and is entirely independent of physical involvement — a critical point, since speech and motor difficulty cause cognitive ability to be badly underestimated.",
@@ -603,7 +623,7 @@ missed:["Cognitive ability underestimated because of speech and motor difficulty
 unlock:"Diagnosed by neurology, developmental pediatrics, or physiatry. Supports IEP eligibility, PT/OT/speech services, assistive technology and AAC funding, state developmental disability agency eligibility, Medicaid waivers, and SSI.",
 learn:"The Cerebral Palsy Foundation for practical family material; CanChild for research-based resources on function and participation."},
 
-{id:"hypotonia",cat:"body",name:"Low muscle tone (hypotonia)",
+{id:"hypotonia",cat:"body",name:"Low muscle tone (hypotonia)",src:"the National Institute of Neurological Disorders and Stroke",
 also:"A finding rather than a diagnosis, with causes that may be neurological, muscular, genetic or connective tissue. Also affects speech, feeding and endurance.",
 hook:"A symptom rather than a diagnosis — and always worth asking what's underneath.",
 what:"Reduced muscle tone: the resting tension in muscle that holds a body up against gravity. It's a finding, not a condition, and can stem from genetic conditions, metabolic disorders, neurological differences, connective tissue conditions, or no identified cause at all.",
@@ -615,7 +635,7 @@ missed:["Accepted as a standalone explanation and never investigated further.","
 unlock:"Identified by pediatrics, neurology, or therapy evaluation. Supports Early Intervention and IEP eligibility for PT, OT, and speech, plus adaptive equipment funding.",
 learn:"Start with genetics and neurology rather than a hypotonia-specific organization; once a cause is identified, the condition-specific foundation becomes the resource."},
 
-{id:"genetic",cat:"body",name:"Genetic syndromes",
+{id:"genetic",cat:"body",name:"Genetic syndromes",cpir:"Rare Disorders",
 hook:"Down syndrome, Fragile X, 22q, Rett, Angelman, Prader-Willi and hundreds more — each with its own community and its own map.",
 what:"Conditions caused by changes in chromosomes or single genes, often affecting several body systems together. Some are common and well characterized; many are rare, with only a handful of identified individuals worldwide. A specific diagnosis matters because it converts an unknown future into a known one, with a community, a medical surveillance schedule, and sometimes a specific treatment.",
 range:"Enormous, both between syndromes and within them. Two people with the same diagnosis can differ substantially, which is why syndrome descriptions in older medical literature — often written from the most severely affected cases — tend to be unduly bleak. Ask the family community what the range actually looks like now.",
@@ -626,7 +646,7 @@ missed:["Older, pessimistic descriptions shape expectations that don't match cur
 unlock:"Diagnosed through genetics. Frequently establishes eligibility for state developmental disability services, Medicaid waivers, SSI, and specific research registries or clinical trials.",
 learn:"The syndrome-specific foundation first — NDSS and NDSC for Down syndrome, National Fragile X Foundation, IRSF for Rett, the Angelman Syndrome Foundation, PWSA for Prader-Willi. For rare conditions, Global Genes and NORD help you find a community."},
 
-{id:"metabolic",cat:"body",name:"Mitochondrial and metabolic conditions",
+{id:"metabolic",cat:"body",name:"Mitochondrial and metabolic conditions",cpir:"Rare Disorders",
 hook:"Problems making or using energy — with a characteristic pattern of crashing when ill.",
 what:"Inherited conditions affecting how the body processes nutrients or produces cellular energy. Mitochondrial disease affects the cell's energy machinery; other inborn errors of metabolism affect specific pathways handling proteins, fats, sugars, or vitamins. Many have specific treatments, which is why identifying them matters.",
 range:"From mild fatigue and exercise intolerance, to a progressive multi-system condition. The hallmark for many is fluctuation — periods of stability punctuated by decompensation during illness, fasting, surgery, or heat.",
@@ -637,7 +657,7 @@ missed:["Fatigue read as deconditioning or lack of effort.","Illness decompensat
 unlock:"Diagnosed by metabolic or biochemical genetics. Supports IEP eligibility under other health impairment, attendance and fatigue accommodations, nursing support, and often Medicaid disability pathways.",
 learn:"United Mitochondrial Disease Foundation; MitoAction for family support; your metabolic clinic for the emergency letter and sick-day protocol."},
 
-{id:"eds",cat:"body",name:"Hypermobility and Ehlers-Danlos",
+{id:"eds",cat:"body",name:"Hypermobility and Ehlers-Danlos",src:"the Genetic and Rare Diseases Information Center, run by the National Center for Advancing Translational Sciences",
 hook:"Very flexible joints — and often fatigue, gut symptoms, and dizziness that nobody had connected.",
 what:"Connective tissue differences producing joint hypermobility, which may occur alone or as part of a hypermobility spectrum disorder or hypermobile Ehlers-Danlos syndrome. Connective tissue is everywhere, so effects reach joints, skin, gut, blood vessels, and the autonomic nervous system.",
 range:"From flexibility that's an advantage in gymnastics and causes no problems, to chronic pain, frequent dislocations, severe fatigue, and significant disability. Symptoms often escalate in adolescence, and the diagnosis frequently arrives years after the symptoms.",
@@ -648,7 +668,7 @@ missed:["Flexibility is treated as a talent and the pain as growing pains or att
 unlock:"Assessed by rheumatology, genetics, or a knowledgeable pediatrician using a scored exam. Supports 504 or IEP accommodations for PE, writing, mobility, seating, and attendance.",
 learn:"The Ehlers-Danlos Society for diagnostic criteria and clinician directories; look for physical therapists who name hypermobility specifically."},
 
-{id:"pots",cat:"body",name:"Dysautonomia and POTS",
+{id:"pots",cat:"body",name:"Dysautonomia and POTS",src:"the National Institute of Neurological Disorders and Stroke, which publishes a page on postural tachycardia syndrome",
 also:"The autonomic nervous system is neurological; the symptoms are cardiovascular, digestive and thermoregulatory. It also drives fatigue and brain fog, which get read as mood or motivation.",
 hook:"The automatic systems misfiring — dizziness, racing heart, and a fatigue that isn't laziness.",
 what:"Dysfunction of the autonomic nervous system, which regulates heart rate, blood pressure, digestion, and temperature. Postural orthostatic tachycardia syndrome is the most commonly identified form in young people: an excessive heart rate rise on standing, with symptoms that improve lying down.",
@@ -660,7 +680,7 @@ missed:["Dismissed as anxiety, deconditioning, or school avoidance — this happ
 unlock:"Diagnosed by cardiology or neurology, often via a standing test or tilt table. Supports 504 or IEP eligibility under other health impairment, with attendance flexibility, homebound instruction, and physical accommodations.",
 learn:"Dysautonomia International for family material, school accommodation letters, and physician directories."},
 
-{id:"sleepdis",cat:"body",name:"Sleep disorders",
+{id:"sleepdis",cat:"body",name:"Sleep disorders",src:"the National Institute of Neurological Disorders and Stroke",
 also:"Sleep sits underneath almost everything else in this library. Disrupted sleep produces inattention, irritability, pain sensitivity and low mood \u2014 so it is worth ruling out before any of those are treated as conditions in their own right.",
 hook:"Fix this first. It imitates almost everything else on this page.",
 what:"Conditions disrupting sleep quality, quantity, or timing: obstructive sleep apnea, insomnia, restless legs, circadian rhythm disorders, and parasomnias like night terrors and sleepwalking. Sleep problems are dramatically more common in children with developmental differences and dramatically under-investigated.",
@@ -672,7 +692,7 @@ missed:["Poor sleep is accepted as a permanent feature of having a child with a 
 unlock:"Diagnosed by sleep medicine, ENT, or pulmonology. Supports school accommodations for late starts, reduced load, and attendance flexibility.",
 learn:"The American Academy of Sleep Medicine's family site; your children's hospital sleep clinic; ask about behavioral sleep programs adapted for neurodevelopmental conditions."},
 
-{id:"constipation",cat:"body",name:"Chronic constipation and encopresis",
+{id:"constipation",cat:"body",name:"Chronic constipation and encopresis",src:"the National Institute of Diabetes and Digestive and Kidney Diseases",
 hook:"Ordinary, hugely under-treated, and one of the most common hidden drivers of behavior.",
 what:"Infrequent or painful stooling, often with stool withholding, and sometimes encopresis — soiling that happens when liquid stool leaks past a large retained mass. The soiling is involuntary and is a sign of severe constipation rather than of laziness or defiance.",
 range:"From occasional hard stools, to a child with a chronically distended rectum, daily soiling, poor appetite, urinary accidents, and pain they can no longer feel. It is extremely common in children with developmental differences, restricted diets, and low mobility.",
@@ -721,6 +741,21 @@ function open_(id){
   dbody.innerHTML='<span class="cat">'+catLabel[d.cat]+'</span>'+
     '<h2 id="dname">'+d.name+'</h2><p class="dhook">'+d.hook+'</p>'+
     (d.also?'<p class="dalso"><b>Also sits elsewhere.</b> '+d.also+'</p>':'')+
+    '<div class="dscope"><b>Before you read this</b>'+
+      '<p>This is a non-clinician\'s overview, written to help you understand the '+
+      'shape of a condition and ask better questions. It is not a diagnosis, and it '+
+      'is not a checklist to measure your child against.</p>'+
+      '<p>Every person is different. How much of this applies, how it shows up, how '+
+      'much it varies day to day, and what helps are all individual, and often the '+
+      'most useful parts of an entry are the ones that turn out not to fit. '+
+      'Recognizing your child somewhere below is a reason to ask somebody, not a '+
+      'conclusion to arrive at.</p>'+
+      '<p>Where anything here and the people who have actually met your child '+
+      'disagree, they are the ones who know.</p>'+
+      '<p>These entries were drafted with AI help and edited by a person. AI '+
+      'writes confidently whether or not it is right, and no entry here has been '+
+      'checked line by line against a clinical source. Take anything specific to '+
+      'your medical team before you act on it.</p></div>'+
     '<h3>What it is</h3><p>'+d.what+'</p>'+
     '<h3>How widely it varies</h3><p>'+d.range+'</p>'+
     '<div class="ranges">'+axes+
@@ -731,6 +766,29 @@ function open_(id){
     '<h3>What commonly gets missed</h3><ul>'+d.missed.map(s=>'<li>'+s+'</li>').join('')+'</ul>'+
     '<h3>Who assesses it, and what it can unlock</h3><div class="unlock">'+d.unlock+'</div>'+
     '<h3>Where to learn more</h3><div class="callout">'+d.learn+'</div>'+
+    (!d.cpir&&d.src?'<div class="dcpir"><b>A public source on this</b>'+
+      '<p>For a government description of this condition, '+d.src+' is where to look. '+
+      'Federal materials are public domain, free to print, and written to be read by '+
+      'anybody. MedlinePlus, at medlineplus.gov, is the general front door and will '+
+      'point you to whichever institute covers a given condition.</p>'+
+      '<p>It is not the source of what is written above, and nothing here is endorsed by '+
+      'them. Where the two disagree on a matter of fact, theirs is the one to trust.</p></div>':'')+
+    (!d.cpir&&!d.src?'<div class="dcpir"><b>No government fact sheet for this one</b>'+
+      '<p>There is no federal page describing this the way there is for most of the '+
+      'library, and that absence matters rather than being something to work around. It is a '+
+      'contested or still-emerging description, which is the thing this entry is trying '+
+      'to be honest about. MedlinePlus, at medlineplus.gov, is still the place to check '+
+      'the pieces of it that do have names.</p>'+
+      '<p>Read this entry as one account among several, and say so to a clinician rather '+
+      'than presenting it as settled.</p></div>':'')+
+    (d.cpir?'<div class="dcpir"><b>A public fact sheet on this</b>'+
+      '<p>The Center for Parent Information and Resources publishes a free fact sheet, '+
+      '<em>'+d.cpir+'</em>, at parentcenterhub.org. It is written for families, most are '+
+      'also in Spanish, and it is a reasonable thing to read alongside this entry or '+
+      'instead of it.</p>'+
+      '<p>It is not the source of what is written above, and nothing here is endorsed by '+
+      'them or by the US Department of Education, which funds their work. Where the two '+
+      'disagree on a matter of fact, theirs is the one to trust.</p></div>':'')+
     '<h3>Also in this section</h3><div class="chips">'+
       related.map(r=>'<button class="chip" data-go="'+r.id+'">'+r.name+'</button>').join('')+'</div>';
   dbody.querySelectorAll('[data-go]').forEach(c=>c.addEventListener('click',()=>open_(c.dataset.go)));

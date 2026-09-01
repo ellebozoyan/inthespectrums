@@ -3882,3 +3882,63 @@
   st.textContent = css;
   document.head.appendChild(st);
 })();
+
+
+/* ===================================================================
+   26. Who wrote this, in the footer of every page that gives
+   clinical-adjacent guidance.
+
+   Eighteen pages footered with "this is a map, not medical advice",
+   which disclaims the content but never says who wrote it. A reader
+   deciding how much weight to give a page about seizures or feeding or
+   sensory processing needs the second fact more than the first.
+
+   Injected rather than pasted into eighteen footers, for the usual
+   reason: one sentence that cannot drift. Scoped by the footer's own
+   text, so it appears exactly where a page already concedes it is not
+   advice, and nowhere else. Add a page that disclaims and it is covered
+   automatically; the rule maintains itself.
+   =================================================================== */
+(function () {
+  var foot = document.querySelector('footer');
+  if (!foot) return;
+  var text = (foot.textContent || '').toLowerCase();
+  /* allow words between the qualifier and "advice": several footers read
+     "medical or educational advice", "medical, legal, financial, or
+     educational advice" */
+  var clinical = /(medical|clinical|diagnos|evaluation|therap|treatment)[a-z, ]{0,32}advice|not (a )?diagnostic|not an evaluation/;
+  if (!clinical.test(text)) return;
+  /* skip where the page already discloses it, in the footer or anywhere else,
+     so index.html's standing block is not repeated at the bottom */
+  var copy = document.body.cloneNode(true);
+  var drop = copy.querySelectorAll('script,style');
+  for (var i = 0; i < drop.length; i++) drop[i].parentNode.removeChild(drop[i]);
+  var whole = (copy.textContent || '').toLowerCase();
+  if (/not a clinician|not by a clinician|non-clinician/.test(whole)) return;
+
+  /* The map tier holds a reading level. A sentence written for the library
+     would break the promise those pages make, so they get their own. */
+  var here = (location.pathname.split('/').pop() || '').toLowerCase();
+  var plain = here.indexOf('easy-') === 0;
+
+  var p = document.createElement('p');
+  p.className = 'nv-whowrote';
+  p.innerHTML = plain
+    ? '<strong>Who wrote this.</strong> A coach and teacher wrote this site. Not a doctor. ' +
+      'These pages help you understand things and ask good questions. Every person is ' +
+      'different. What is true for your child is for their own doctor to say. ' +
+      'A computer helped write these pages. Computers get things wrong. Check anything ' +
+      'important with your doctor.'
+    : '<strong>Written by a coach and curriculum developer, not a clinician.</strong> ' +
+      'Pages like this one are an overview, meant to help you understand the shape of something ' +
+      'and ask better questions. How much of it applies to one person, and what helps them, ' +
+      'is individual and belongs with the people who have assessed them. Drafted with AI ' +
+      'help and edited by a person, which means a confident sentence here can still be ' +
+      'wrong: check anything that matters with your own team.';
+  foot.insertBefore(p, foot.firstChild);
+
+  var st = document.createElement('style');
+  st.setAttribute('data-its', 'whowrote');
+  st.textContent = '.nv-whowrote{margin:0 0 12px}';
+  document.head.appendChild(st);
+})();
