@@ -27,7 +27,8 @@
       ['ordinary-warmth.html',       'Ordinary warmth',         'The space between staring and looking away'],
       ['siblings-and-family.html',     'Siblings and the whole household','Everyone known, nobody carrying it alone'],
       ['what-to-say.html',             'What to say',             'The sentences from across this site, sorted by the moment'],
-      ['after-school.html',            'The after-school hour',   'Why it all arrives at once, and what actually helps']
+      ['after-school.html',            'The after-school hour',   'Why it all arrives at once, and what actually helps'],
+      ['cvi.html',                    'Cerebral visual impairment','When the eyes are fine and seeing is not. A page to share']
     ]},
     { label: 'Adult life', items: [
       ['adult-life.html',              'After school ends',       'The cliff, decision-making, trusts and wills, and what to do when'],
@@ -990,7 +991,7 @@
   var MAP = [
     ['Start here', ['spectrums.html','what-to-do-first.html','care-team-map.html','conditions-library.html','whole-picture.html']],
     ['School and services', ['inside-the-iep.html','accommodations-finder.html','programs-and-entitlements.html']],
-    ['The people caring', ['caregivers.html','siblings-and-family.html','ordinary-warmth.html','what-to-say.html','after-school.html']],
+    ['The people caring', ['caregivers.html','siblings-and-family.html','ordinary-warmth.html','what-to-say.html','after-school.html','cvi.html']],
     ['Adult life', ['adult-life.html','adult-benefits.html','adult-housing.html','adult-providers.html','your-own-life.html']],
     ['Money, paperwork and tracking', ['paying-for-therapy.html','template-builders.html','symptom-tracker.html','goals-tracker.html','family-calendar.html','medication-list.html','food-list.html','meal-planner.html','choice-planner.html','household-board.html','practice-mirror.html','share-builder.html','using-these-tools.html']],
     ['Safety and health', ['safety.html','injuries-and-illness.html','supplements.html','judging-claims.html']],
@@ -1592,6 +1593,15 @@
   "If the answer cannot be no, say what is happening instead of asking.",
   "The sentence that works is the one every adult in the house can say the same way."],
 
+'cvi.html': ["The eyes can be perfectly healthy. The difficulty is in how the brain processes what they send.",
+  "It is the leading cause of childhood visual impairment in wealthy countries, and a standard eye exam comes back normal.",
+  "Vision fluctuates with tiredness, clutter, noise and novelty. Seeing it once does not mean seeing it always.",
+  "Misread as inattention, as behavior, and as autism, often for years.",
+  "Most of what helps is subtraction: a plain background, one object, a cleared surface.",
+  "Allow the pause. Repeating or pointing again resets the process rather than helping it.",
+  "Assessment and intervention frameworks are genuinely debated. A confident single method overstates the field.",
+  "A visual impairment identification opens a teacher of students with visual impairments and state commission services."],
+
 'after-school.html': ["Holding it together all day costs something, and the bill usually arrives at home within twenty minutes of the door.",
   "You get the worst of it because you are the safest place, and that being true does not make it sustainable.",
   "Lower the demands before anything else. No questions, no instructions, no debrief for the first stretch.",
@@ -1791,6 +1801,9 @@
   'use strict';
 
   var MARKS = {
+
+  'cvi.html':
+    '<rect width="74" height="74" fill="#F0EEE7"/><path d="M8 37s11-15 29-15 29 15 29 15-11 15-29 15-29-15-29-15z" fill="#FFF" stroke="#16283C" stroke-width="2"/><circle cx="37" cy="37" r="9" fill="#EFE6EE" stroke="#7A4A78" stroke-width="2"/><path d="M37 8v7M37 59v7M14 14l5 5M55 55l5 5" stroke="#9C4A21" stroke-width="2" stroke-linecap="round"/>',
 
   'after-school.html':
     '<rect width="74" height="74" fill="#F0EEE7"/><path d="M10 46h54" stroke="#16283C" stroke-width="2"/><path d="M18 46V26a4 4 0 014-4h16a4 4 0 014 4v20" fill="#FFF" stroke="#16283C" stroke-width="2"/><path d="M50 46V34" stroke="#9C4A21" stroke-width="2.4" stroke-linecap="round"/><circle cx="50" cy="28" r="5" fill="#EFE6EE" stroke="#7A4A78" stroke-width="2"/><path d="M24 54c4 4 10 5 14 2" stroke="#9C4A21" stroke-width="2" stroke-linecap="round" fill="none"/>',
