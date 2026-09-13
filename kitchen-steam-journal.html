@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Kitchen STEAM food journal — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#6B4A78; --book-tint:#EFE6F1; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+
+/* one printable journal page */
+.jp{background:#fff;border:1px solid var(--line);border-radius:2px;padding:26px 28px 22px;
+  margin:0 0 16px;position:relative}
+.jp .pn{position:absolute;right:20px;top:18px;font-family:var(--sans);font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);font-weight:700}
+.jp h3{font-size:1.28rem;font-weight:400;margin:0 0 6px;max-width:34ch}
+.jp .say{font-size:.95rem;color:var(--ink-soft);margin:0 0 16px;max-width:64ch}
+.jp .foot{font-size:.88rem;color:var(--ink-soft);font-style:italic;margin:14px 0 0;
+  border-top:1px solid var(--line);padding-top:11px}
+
+.fld{border:1px dashed var(--line);border-radius:2px;padding:12px 14px;margin:0 0 10px;min-height:58px}
+.fld b{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--rust);font-weight:700;margin-bottom:6px}
+.fld.big{min-height:150px}
+.fld.draw{min-height:210px;background:#FBFBF8}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.row3{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+
+.scale{margin:0 0 12px}
+.scale .ends{display:flex;justify-content:space-between;font-family:var(--sans);font-size:11px;
+  letter-spacing:.06em;color:var(--forest);margin-bottom:5px}
+.scale .bar{height:12px;border:1px solid var(--line);border-radius:7px;background:
+  repeating-linear-gradient(90deg,transparent 0 19.5%,var(--line) 19.5% 20%)}
+.pills{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}
+.pill{font-family:var(--sans);font-size:11px;letter-spacing:.05em;padding:6px 12px;
+  border:1px solid var(--line);border-radius:14px;color:var(--forest);background:#F3F6F2}
+.faces{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 6px}
+.face{font-family:var(--sans);font-size:10.5px;letter-spacing:.04em;padding:5px 10px;
+  border:1px dashed var(--line);border-radius:3px;color:var(--ink-soft)}
+
+.ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:8px;margin:0 0 12px}
+.wy{background:#E6EDE4;border-top:3px solid var(--forest);padding:12px 13px}
+.wy b{display:block;font-family:var(--sans);font-size:11.5px;color:var(--forest);margin-bottom:4px}
+.wy span{display:block;font-size:.86rem;color:var(--ink-soft);line-height:1.42}
+
+.map{border:1px solid var(--line);background:#FBFBF8;padding:16px;margin:0 0 10px;
+  display:grid;grid-template-columns:auto 1fr auto;grid-template-rows:auto 190px auto;
+  align-items:center;justify-items:center;gap:6px;font-family:var(--sans);font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--forest)}
+.map .mid{border:1px dashed var(--line);width:100%;height:100%;border-radius:2px}
+.map .sp{grid-column:1/2}
+
+.words{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.wb{border:1px dashed var(--line);border-radius:2px;padding:12px 14px;min-height:110px}
+.wb b{display:block;font-family:var(--sans);font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--rust);font-weight:700;margin-bottom:6px}
+.wb span{font-size:.86rem;color:var(--ink-soft);display:block;margin-top:8px;line-height:1.5}
+
+.extras{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.ex{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--book);
+  border-radius:2px;padding:16px 18px}
+.ex b{display:block;font-size:1.03rem;font-weight:400;margin-bottom:6px}
+.ex p{margin:0 0 9px;font-size:.92rem;line-height:1.5;color:var(--ink-soft)}
+.ex em{font-family:var(--sans);font-size:10px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--book);font-style:normal;font-weight:700}
+
+.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:12px;margin:0 0 14px}
+.file{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:17px 19px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.file:hover,.file:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.file b{display:block;font-size:1.02rem;font-weight:400;margin-bottom:6px}
+.file span{display:block;font-size:.9rem;color:var(--ink-soft);line-height:1.5;margin-bottom:9px}
+.file em{font-family:var(--sans);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--rust);font-style:normal;font-weight:700}
+
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{
+  body{background:#fff;font-size:11pt}
+  .jp{break-after:page;page-break-after:always;break-inside:avoid;border:none;padding:0 0 10pt}
+  .jp .pn{display:none}
+  .dl,.note,.warn{display:none}
+  .fld{border:1px solid #999}
+}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums &middot; Free family resource</p>
+  <h1>The Kitchen STEAM<br><em>food journal</em></h1>
+  <p class="lede">The child's book, not the school's. Built so that a child who never tastes a thing can fill in every page of it, and built so that it cannot quietly turn into a record of who ate what. Print it, or use your browser's print command on this page. It belongs with the <a href="kitchen-steam.html">course guide</a> and the <a href="kitchen-steam-cards.html">forty-six cards</a>.</p>
+</header>
+
+<div class="note">
+  <p><strong>The short version.</strong> The scales in here ask how crunchy and how strong, not how much you liked it. There is no page that accumulates across weeks into a progress chart, because that is the shape a journal takes just before it becomes evidence. The liking question exists, it is small, it is optional, and a child can answer it about how something looked.</p>
+</div>
+
+<section id="before">
+  <h2 class="sec">Before <em>you print it</em></h2>
+  <p class="secnote">Five rules for the adult. They are the reason the journal is built the way it is.</p>
+
+  <div class="warn">
+    <h3>What this book is never used for</h3>
+    <p><strong>Never collect it, grade it, compare it, or display it.</strong> The moment a journal is assessed it becomes a compliance document. If you want to see a page, ask the child to show you, and accept no.</p>
+    <p><strong>Never record quantity eaten or number of new foods tried.</strong> Intake logging is contraindicated for children with eating disorders, and it offers nothing that sensory recording does not offer better.</p>
+    <p><strong>Never send a food diary home.</strong> Asking a child to write down what they ate at home exposes household food insecurity to the class, and it teaches that food is something to be audited.</p>
+    <p><strong>Never make a wall display of who tried what.</strong> Class-level anonymous results are excellent. Individual tallies are not.</p>
+    <p><strong>Never carry a rating forward as evidence.</strong> A rating is one child's impression on one day. If it changes over a term, that is theirs to notice.</p>
+  </div>
+
+  <p>Print the front matter and one session spread per session. Print the extra pages only as a card calls for them, or leave a stack on a side table so anybody can take one. Single-sided works better than double, because several pages are drawn on heavily.</p>
+</section>
+
+<section id="front">
+  <h2 class="sec">The front <em>of the book</em></h2>
+  <p class="secnote">Cover, the page that says whose book it is, the wheel, the word bank, and the texture map.</p>
+
+  <div class="jp">
+    <span class="pn">Page 1</span>
+    <h3>My Kitchen Journal</h3>
+    <p class="say">Cover. Name, grade, and the date you started.</p>
+    <div class="row"><div class="fld"><b>This belongs to</b></div><div class="fld"><b>Grade</b></div><div class="fld"><b>Started</b></div></div>
+    <div class="fld draw"><b>Draw yourself as a cook</b></div>
+    <p class="foot">Apron? Tall hat? Something on fire? Up to you.</p>
+  </div>
+
+  <div class="jp">
+    <span class="pn">Page 2</span>
+    <h3>This journal is mine</h3>
+    <p class="say">Which means a few things are true about it.</p>
+    <ul>
+      <li>Nobody marks it and nobody collects it. If a grown-up wants to see a page they have to ask, and you can say no. It lives in your bag and it goes home with you.</li>
+      <li>There are no wrong answers in here.</li>
+      <li>You never have to taste anything. Ever. Looking, listening, smelling, cooking and describing all count, and you can fill in every page of this journal without tasting a single thing.</li>
+      <li>&ldquo;Not for me today&rdquo; is a whole sentence. You do not have to explain it.</li>
+      <li>Nobody comments on anybody else's plate. That is the rule for everyone, including the grown-ups.</li>
+      <li>You can change your mind. About a food, about a word, about anything you wrote last week.</li>
+    </ul>
+    <div class="row"><div class="fld"><b>Things I already know how to do in a kitchen</b></div><div class="fld"><b>Something I want to learn</b></div></div>
+  </div>
+
+  <div class="jp">
+    <span class="pn">Page 3</span>
+    <h3>Eight ways to meet a food</h3>
+    <p class="say">All eight count. There is no order, no top and no finish line. Meeting a food any one of these ways is meeting it. Circle the ones you did today.</p>
+    <div class="ways">
+      <div class="wy"><b>Be near it</b><span>It is on the table. You are at the table. That is one.</span></div>
+      <div class="wy"><b>Look at it</b><span>Color, shape, shine, what is inside.</span></div>
+      <div class="wy"><b>Listen to it</b><span>Tap it, break it, shake it near your ear.</span></div>
+      <div class="wy"><b>Smell it</b><span>Close up, or from across the table.</span></div>
+      <div class="wy"><b>Move it</b><span>Stir it, pour it, serve it to somebody else.</span></div>
+      <div class="wy"><b>Touch it</b><span>One fingertip counts. So does a fork.</span></div>
+      <div class="wy"><b>Lip it</b><span>Touch it to your lip and take it away again.</span></div>
+      <div class="wy"><b>Taste it</b><span>A lick counts. A nibble counts. That is tasting.</span></div>
+    </div>
+    <div class="row"><div class="fld"><b>Today I met</b></div><div class="fld"><b>The way I met it</b></div></div>
+    <p class="foot">Nobody keeps track of this and nobody compares. The page is here because it is useful to know how many ways there are.</p>
+  </div>
+
+  <div class="jp">
+    <span class="pn">Pages 4 and 5</span>
+    <h3>My word bank</h3>
+    <p class="say">Fill this in a bit at a time, all term. A good word is one that tells somebody else exactly what you noticed. Good, bad, nice and yuck are not words we collect, because they do not tell anybody anything.</p>
+    <div class="words">
+      <div class="wb"><b>Looks like</b><span>shiny &middot; speckled &middot; pale &middot; glossy &middot; rough &middot; see-through</span></div>
+      <div class="wb"><b>Sounds like</b><span>snap &middot; squeak &middot; hiss &middot; thud &middot; crackle &middot; pop</span></div>
+      <div class="wb"><b>Smells like</b><span>sharp &middot; sweet &middot; smoky &middot; green &middot; warm &middot; fresh</span></div>
+      <div class="wb"><b>Feels like</b><span>brittle &middot; springy &middot; silky &middot; grainy &middot; sticky &middot; fluffy</span></div>
+      <div class="wb"><b>Tastes like</b><span>tangy &middot; mild &middot; sweet &middot; bitter &middot; salty &middot; rich</span></div>
+      <div class="wb"><b>My own words</b><span>words nobody else in the class had</span></div>
+    </div>
+  </div>
+
+  <div class="jp">
+    <span class="pn">Page 6</span>
+    <h3>The texture map</h3>
+    <p class="say">Every food you meet can go somewhere on this map. Write its name, or draw it, wherever you think it belongs. Foods you only looked at go on here too.</p>
+    <div class="map">
+      <span></span><span>Crunchy</span><span></span>
+      <span class="sp">Dry</span><span class="mid"></span><span>Wet</span>
+      <span></span><span>Soft</span><span></span>
+    </div>
+    <p class="foot">Some foods are hard to place, and arguing about where they go is the best part.</p>
+  </div>
+</section>
+
+<section id="session">
+  <h2 class="sec">A session <em>spread</em></h2>
+  <p class="secnote">Two pages, repeated once per session. This is the part that does the work, and it is the part most likely to drift if it is redesigned.</p>
+
+  <div class="jp">
+    <span class="pn">Left page</span>
+    <h3>Session <span>&nbsp;</span></h3>
+    <p class="say">Date, what the class made or met, a big drawing, and the job you held.</p>
+    <div class="fld"><b>What we made, or met</b></div>
+    <div class="fld draw"><b>Draw it</b></div>
+    <p class="foot">Big. Fill the box. Draw the inside if you got to see it.</p>
+    <div class="fld"><b>My job today was</b></div>
+  </div>
+
+  <div class="jp">
+    <span class="pn">Right page</span>
+    <h3>What was it like?</h3>
+    <p class="say">Five boxes for description, then intensity, then how you met it. Liking comes last, it is small, and it is optional.</p>
+    <div class="row3">
+      <div class="fld"><b>Looks</b></div><div class="fld"><b>Sounds</b></div><div class="fld"><b>Smells</b></div>
+    </div>
+    <div class="row"><div class="fld"><b>Feels</b></div><div class="fld"><b>Tastes</b></div></div>
+    <p class="foot">Leave any box empty. Three words in one box is a great answer.</p>
+
+    <div class="fld big"><b>How strong was it?</b>
+      <div class="scale"><div class="ends"><span>soft</span><span>crunchy</span></div><div class="bar"></div></div>
+      <div class="scale"><div class="ends"><span>tiny smell</span><span>big smell</span></div><div class="bar"></div></div>
+      <div class="scale"><div class="ends"><span>your own property, one end</span><span>and the other end</span></div><div class="bar"></div></div>
+    </div>
+
+    <div class="fld"><b>How I met it today &middot; circle any, in any order</b>
+      <div class="pills">
+        <span class="pill">near it</span><span class="pill">looked</span><span class="pill">listened</span>
+        <span class="pill">smelled</span><span class="pill">moved it</span><span class="pill">touched</span>
+        <span class="pill">lipped</span><span class="pill">tasted</span>
+      </div>
+    </div>
+
+    <div class="fld"><b>How was it for me? &middot; optional</b>
+      <div class="faces">
+        <span class="face">no</span><span class="face">not much</span><span class="face">in the middle</span>
+        <span class="face">yes</span><span class="face">yes, a lot</span>
+      </div>
+      <p class="foot">You can answer this about how it looked or smelled instead. That counts.</p>
+    </div>
+
+    <div class="fld"><b>Say more &middot; optional</b>
+      <p>The strongest thing about it was ___.</p>
+      <p>The part I noticed most was ___.</p>
+      <p>If we made it again I would ___.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <p><strong>Why the intensity scales come before the faces.</strong> How crunchy and how strong a smell are questions with no right answer and no virtue in a high score, so every child can answer them fully and nobody's answer is better than anybody else's. The liking question sits underneath, deliberately smaller, and a child can answer it about a smell rather than a taste. Reverse that order and the page becomes a preference record.</p>
+  </div>
+</section>
+
+<section id="back">
+  <h2 class="sec">The back <em>of the book</em></h2>
+  <p class="secnote">Where the term's work gets collected, and where a child reads their own first week back.</p>
+
+  <div class="jp">
+    <span class="pn">Page 19</span>
+    <h3>A color wheel of food</h3>
+    <p class="say">Color in each wedge, and write the name of a food you met that belongs there. Leave a wedge blank if you have not found one yet, and keep looking for the blue.</p>
+    <div class="fld draw"><b>The wheel</b></div>
+    <div class="row"><div class="fld"><b>The hardest color to find was</b></div><div class="fld"><b>Two colors that look loud together</b></div></div>
+  </div>
+
+  <div class="jp">
+    <span class="pn">Pages 20 and 21</span>
+    <h3>Two graphs</h3>
+    <p class="say">One of something we counted, one of something that changed. The counted one is usually the class's numbers rather than just yours.</p>
+    <div class="fld"><b>What this graph shows</b></div>
+    <div class="fld draw"><b>Bars &middot; this side counts, the bottom is what we were comparing</b></div>
+    <div class="fld"><b>What I notice about it</b></div>
+    <div class="fld draw"><b>A line &middot; time goes along the bottom, plot a dot each time you measure</b></div>
+    <div class="fld"><b>Where was the line steepest, and what was happening then?</b></div>
+  </div>
+
+  <div class="jp">
+    <span class="pn">Page 22</span>
+    <h3>My food map</h3>
+    <p class="say">Where did it come from, and who made it first? Draw lines from the place to a little picture of the food. Add the person's name if you know it.</p>
+    <div class="fld draw"><b>The map</b></div>
+    <div class="row"><div class="fld"><b>A dish that matters to someone I know</b></div><div class="fld"><b>Who taught them</b></div></div>
+  </div>
+
+  <div class="jp">
+    <span class="pn">Page 23</span>
+    <h3>A recipe I can make</h3>
+    <p class="say">Write it so that somebody who has never made it could follow it without asking you anything. That is harder than it sounds. Test it on somebody younger.</p>
+    <div class="row"><div class="fld"><b>It is called</b></div><div class="fld"><b>It makes enough for</b></div></div>
+    <div class="fld big"><b>Everything that goes in, all of it</b></div>
+    <div class="fld big"><b>What you do</b></div>
+    <div class="fld"><b>A note from me to whoever makes this</b></div>
+  </div>
+
+  <div class="jp">
+    <span class="pn">Page 24</span>
+    <h3>Things that turned out to be more interesting than I expected</h3>
+    <p class="say">Write them, draw them, stick things on. Meeting is not the same as eating, so something you only looked at can absolutely go here.</p>
+    <div class="fld draw"><b>The interesting things</b></div>
+    <div class="fld"><b>Something I would happily do again</b></div>
+    <p class="foot">There is nothing to count here and nothing to finish.</p>
+  </div>
+
+  <div class="jp">
+    <span class="pn">Page 25</span>
+    <h3>Looking back</h3>
+    <p class="say">Flip to the beginning of this journal and read what you wrote in the first week.</p>
+    <div class="fld"><b>A word I use now that I did not have before</b></div>
+    <div class="fld"><b>Something I can do now that I could not do in week one</b></div>
+    <div class="fld"><b>Something that surprised me</b></div>
+    <div class="fld"><b>Something I changed my mind about</b></div>
+    <div class="fld"><b>What I want to find out next</b></div>
+    <div class="fld"><b>Somebody I want to cook for</b></div>
+  </div>
+</section>
+
+<section id="extras">
+  <h2 class="sec">Extra pages, <em>printed as you need them</em></h2>
+  <p class="secnote">Not part of every child's booklet. Print the ones a session calls for, or leave a stack on the side table so anybody can take one.</p>
+
+  <div class="extras">
+    <div class="ex"><b>One thing, looked at properly</b><p>Look at it for two whole minutes before you draw anything. Time it. Then draw it big enough to fill the box, note how big it really is, what you noticed in minute two, and three things a photograph would miss.</p><em>Card A04</em></div>
+    <div class="ex"><b>What's inside</b><p>The outside on the left, the cut face on the right. Label lines that must not cross each other, and a line showing how long an inch or a centimeter is.</p><em>Cards A04 and A08</em></div>
+    <div class="ex"><b>Pattern</b><p>Print, stamp or draw straight onto the page. Find the one small piece the whole pattern is made from, and draw it in the little box. Then find the mistake, because every hand-made pattern has one.</p><em>Cards A03 and A08</em></div>
+    <div class="ex"><b>An experiment</b><p>The first two boxes are filled in before anything happens. A prediction written down beforehand is worth more than a right answer afterward. Then the one thing changed, the things kept the same, what happened, and what you would test next.</p><em>Any science card</em></div>
+    <div class="ex"><b>Somebody's story</b><p>Questions that cannot be answered with yes or no, written before you ask them. Then stop talking and wait three whole seconds after they finish, because people almost always add the best part in the pause. Includes a box for whether they said it could be shared.</p><em>Cards T02 and C01</em></div>
+    <div class="ex"><b>Six pictures, in order</b><p>The six moments that tell the whole story, with what happens and what we hear underneath. Done before anything is filmed.</p><em>Card T01</em></div>
+    <div class="ex"><b>What shall we call it?</b><p>The same dish named three ways: plain, describing, and with the story in it. Then the favorite name written three times in three kinds of lettering, and everything that goes in it. A name that hides an ingredient is not a clever name.</p><em>Card A10</em></div>
+    <div class="ex"><b>Three cups, one difference</b><p>What we were comparing, what my job in the test was, how many slips came back, how many were right, and how many would have been right by guessing. The numbers belong to the class, and nobody writes down who tasted.</p><em>Card N04</em></div>
+    <div class="ex"><b>Count the spirals</b><p>Mark one spiral all the way around with stickers so you do not lose your place, then count how many run each way. Draw the specimen, add the class's numbers, and work out the rule that makes the next number.</p><em>Card M01</em></div>
+    <div class="ex"><b>A score for kitchen sounds</b><p>Invent a shape for each sound. Long sounds get long marks, high sounds go high up, loud sounds get big ones, and time runs left to right. Somebody else has to be able to play it.</p><em>Card A09</em></div>
+    <div class="ex"><b>Design a dish</b><p>Plan it on paper before you touch anything. Where should the eye land first, and what is your rule for this plate? Odd numbers, off center, one line, a third of it empty.</p><em>Card A05</em></div>
+    <div class="ex"><b>Rules at my table</b><p>Every family has rules nobody ever said out loud. Write three of yours. There are no correct ones, which is what makes comparing them interesting. Then a rule from somebody else's table that you liked.</p><em>Cards N05 and C06</em></div>
+    <div class="ex"><b>Who fed me</b><p>Somebody grew it, somebody moved it, somebody cooked it. Most of them you will never meet. Some of them are in this building. Ends with a note you can tear out and actually give to one of them.</p><em>Cards C04 and C05</em></div>
+    <div class="ex"><b>Squared paper, for whatever you need</b><p>A graph, a floor plan, a pattern, a layer diagram, a map of the kitchen.</p><em>Any card</em></div>
+  </div>
+</section>
+
+<section id="get">
+  <h2 class="sec">Print <em>it</em></h2>
+  <p class="secnote">The laid-out booklet, and the rest of the course.</p>
+
+  <div class="dl">
+    <a class="file" href="Kitchen-STEAM-Food-Journal.pdf"><b>The food journal</b><span>The bound core plus every extra page, laid out for paper. Print single-sided.</span><em>PDF</em></a>
+    <a class="file" href="Kitchen-STEAM-Course-Guide.pdf"><b>Course guide</b><span>The norms, the boundary, the language, the sequences, the letter home and the volunteer briefing.</span><em>PDF</em></a>
+    <a class="file" href="Kitchen-STEAM-Activity-Cards.pdf"><b>The forty-six cards</b><span>One card per page, ready to print and put in a folder on the counter.</span><em>PDF</em></a>
+  </div>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>If you change one thing in this journal, keep the intensity scales above the faces and keep the eight ways unnumbered. Those two decisions are what stop a workbook from turning into a record of which children eat.</p>
+  <p>And if a child fills the drawing boxes and leaves every word box empty all term, the journal is working. Drawing what something looks like is describing it.</p>
+</div>
+
+<div class="note">
+  <p><b>Related</b> &middot; <a href="kitchen-steam.html">The course guide</a> &middot; <a href="kitchen-steam-cards.html">The forty-six cards</a> &middot; <a href="feeding-therapy.html">Eating and feeding</a> &middot; <a href="food-list.html">The food list</a></p>
+</div>
+
+<footer>
+  <p>Nothing here is medical, dietary or educational advice. This is a classroom workbook, not a clinical record, and it is not designed to be one.</p>
+</footer>
+
+</div>
+<script src="search-index.js"></script>
+<script src="site-nav.js"></script>
+</body>
+</html>

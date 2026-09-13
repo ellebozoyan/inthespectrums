@@ -1751,7 +1751,39 @@
 'about.html': ["Free, no login, no ads, no sponsors, nothing sold.",
   "Where evidence is contested, this site describes the disagreement rather than choosing for you.",
   "Take anything here, rewrite it, and put your own name on it.",
-  "Corrections are the most valuable thing anyone sends."]
+  "Corrections are the most valuable thing anyone sends."],
+
+'kitchen-steam.html': ["The assignment is a description, not a taste. A child who only looked and smelled has completed the work.",
+  "Praise for eating is pressure wearing a friendly face. Comment on the work instead, never on what anyone ate.",
+  "Eight ways to meet a food, drawn as a wheel rather than a ladder, because a ladder implies a top and a top implies falling short.",
+  "Building an individual child's exposure plan belongs to their own team. A classroom's job is a room where food is handled constantly and nothing is demanded.",
+  "If a child's therapists already use step language, the class adopts theirs, for everybody, from week one.",
+  "Print the eleven-line volunteer briefing and hand it to every adult before they walk in. That page is the part that protects a child."],
+
+'kitchen-steam-cards.html': ["Forty-six activity cards, each one saying how a child who is not going to taste anything does the whole session.",
+  "The explanation marked for the adult is held back until the children have made a prediction.",
+  "The sensory reporter is the highest-status job in the room and it requires no tasting. Rotate it so it never becomes one child's post.",
+  "Several of the strongest cards need no kitchen at all and run in an ordinary classroom.",
+  "If you only ever run one card, run N02. It is the one that makes the other forty-five include everybody."],
+
+'kitchen-steam-journal.html': ["The journal belongs to the child. Never collected, never graded, never compared, never displayed.",
+  "The scales ask how crunchy and how strong a smell, not how much you liked it. No right answer, and no virtue in a high score.",
+  "No page accumulates across weeks, because that is the shape a workbook takes just before it becomes evidence.",
+  "Never ask a child to record what they ate at home. It exposes a household's finances to the class.",
+  "A child who fills the drawing boxes and leaves every word box empty has described it. That is the assignment."],
+
+'kitchen-stem.html': ["A kitchen is the only laboratory most children have standing access to, and the feedback is a texture or a collapse rather than a grade.",
+  "The explanation is for the adult. Hold it until the child has made a prediction and watched it succeed or fail.",
+  "Two questions do most of the work at every age: what do you think will happen, and what surprised you.",
+  "A child who has never been allowed near a knife at eight is not safer at twelve, only less practiced.",
+  "The child with the restriction does the same science, not a diminished version of it.",
+  "No single forty-minute activity meets a standards performance expectation on its own. Treat the codes as pointers."],
+
+'kitchen-stem-cards.html': ["Thirty-eight cards, each written twice: once for a classroom and once for a kitchen table.",
+  "The science does not change between the two columns. The group size, the preparation and the mess do.",
+  "A bank rather than a sequence. Pull the four that match the unit you are already teaching.",
+  "No food guardrails are built in, because this deck was written for one adult and one or two children rather than for a group.",
+  "A flat pancake is data, not failure. Practice saying so out loud before it happens."]
   };
 
   var file = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
@@ -2071,7 +2103,22 @@
     '<rect width="74" height="74" fill="#FBF7F0"/><path d="M37 20v34" stroke="#16283C" stroke-width="1.5"/><path d="M37 22c-6-6-16-6-22-3v30c6-3 16-3 22 3z" fill="#FFF" stroke="#16283C" stroke-width="1.5"/><path d="M37 22c6-6 16-6 22-3v30c-6-3-16-3-22 3z" fill="#EFE0D5" stroke="#16283C" stroke-width="1.5"/>',
 
   'about.html':
-    '<rect width="74" height="74" fill="#E7EDE5"/><circle cx="26" cy="28" r="8" fill="#16283C"/><circle cx="48" cy="28" r="8" fill="#9C4A21" opacity=".75"/><path d="M12 58c0-9 6-14 14-14s14 5 14 14" fill="#16283C"/><path d="M34 58c0-9 6-14 14-14s14 5 14 14" fill="#9C4A21" opacity=".75"/>'
+    '<rect width="74" height="74" fill="#E7EDE5"/><circle cx="26" cy="28" r="8" fill="#16283C"/><circle cx="48" cy="28" r="8" fill="#9C4A21" opacity=".75"/><path d="M12 58c0-9 6-14 14-14s14 5 14 14" fill="#16283C"/><path d="M34 58c0-9 6-14 14-14s14 5 14 14" fill="#9C4A21" opacity=".75"/>',
+
+  'kitchen-steam.html':
+    '<rect width="74" height="74" fill="#E7EDE5"/><path d="M26 26c0-5 5-5 5-10M38 26c0-5 5-5 5-10M50 26c0-5 5-5 5-10" fill="none" stroke="#9C4A21" stroke-width="2" stroke-linecap="round"/><path d="M15 35h44v14a9 9 0 01-9 9H24a9 9 0 01-9-9z" fill="#FFF" stroke="#16283C" stroke-width="2"/><path d="M59 39h4a5 5 0 010 10h-4" fill="none" stroke="#16283C" stroke-width="2"/><path d="M11 35h52" stroke="#16283C" stroke-width="2.4" stroke-linecap="round"/>',
+
+  'kitchen-steam-cards.html':
+    '<rect width="74" height="74" fill="#EFE0D5"/><rect x="11" y="22" width="34" height="40" rx="3" fill="#FBF7F0" stroke="#16283C" stroke-width="2"/><rect x="24" y="13" width="36" height="42" rx="3" fill="#FFF" stroke="#16283C" stroke-width="2"/><path d="M31 23h22M31 30h22M31 37h13" stroke="#2E4E3F" stroke-width="2" stroke-linecap="round"/><circle cx="52" cy="45" r="5" fill="#9C4A21"/>',
+
+  'kitchen-steam-journal.html':
+    '<rect width="74" height="74" fill="#FBF7F0"/><rect x="14" y="13" width="40" height="47" rx="3" fill="#FFF" stroke="#16283C" stroke-width="2"/><path d="M23 13v47" stroke="#16283C" stroke-width="1.5"/><path d="M31 25h16M31 33h16M31 41h10" stroke="#6B4A78" stroke-width="2" stroke-linecap="round"/><path d="M50 54l9-9 4 4-9 9-5 1z" fill="#9C4A21" stroke="#16283C" stroke-width="1.5" stroke-linejoin="round"/>',
+
+  'kitchen-stem.html':
+    '<rect width="74" height="74" fill="#EAF0EC"/><path d="M22 17h26l-3 41a6 6 0 01-6 5H31a6 6 0 01-6-5z" fill="#FFF" stroke="#16283C" stroke-width="2"/><path d="M27 32h16M27 42h16M27 52h12" stroke="#2E4E3F" stroke-width="2" stroke-linecap="round"/><path d="M48 24h6a5 5 0 010 10h-6" fill="none" stroke="#9C4A21" stroke-width="2"/>',
+
+  'kitchen-stem-cards.html':
+    '<rect width="74" height="74" fill="#E7EDE5"/><rect x="12" y="16" width="36" height="44" rx="3" fill="#FFF" stroke="#16283C" stroke-width="2"/><path d="M19 27h22M19 35h22M19 43h13" stroke="#16283C" stroke-width="2" stroke-linecap="round" opacity=".45"/><circle cx="55" cy="46" r="8" fill="#9C4A21" opacity=".8"/><circle cx="60" cy="30" r="5" fill="#2E4E3F" opacity=".7"/><circle cx="50" cy="23" r="3" fill="#6B4A78" opacity=".85"/>'
 
   };
 
@@ -2151,6 +2198,24 @@
   'use strict';
 
   var LIFTS = {
+
+  'kitchen-steam.html': [
+    ['The eight rules',
+     'Most of these you are probably already doing without calling them anything. <b>The one that takes deliberate effort is the second</b>, because praise feels like the opposite of pressure right up until you watch a room after it.'],
+    ['Eight ways',
+     'warm|A child standing near a bowl and saying nothing has met the food. <b>That is not a consolation prize and it is not a lesser step.</b> It is one of the eight, and it counts the same as the last one.'],
+    ['If you are a parent',
+     'You do not have to get a school to adopt a curriculum. <b>One sentence, asked for in writing, removes most of what makes a school food setting hard</b>, and asking for it is a small thing to have done.']
+  ],
+
+  'kitchen-stem.html': [
+    ['Why the kitchen',
+     'You do not have to be good at science to run any of this. <b>The job is to ask two questions and then stop talking</b>, which is a thing you already do everywhere else.'],
+    ['Allergies, restriction',
+     'warm|A child who cannot eat the result can still run the experiment, record it, and be the one who explains it to the room. <b>That is not a consolation role.</b> It is usually the hardest job on the card.'],
+    ['Which of the two decks',
+     'Either one is a reasonable place to start, and neither is wasted if you pick the other later. <b>The cards keep.</b>']
+  ],
 
   'safety.html': [
     ['Water',

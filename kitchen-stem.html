@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kitchen STEM: a grade-band guide to teaching with food — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#6B4A78; --book-tint:#EFE6F1; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+
+/* a grade band */
+.band{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--forest);
+  padding:24px 26px 20px;margin:0 0 18px}
+.band .bandtop{font-family:var(--sans);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 6px}
+.band h3{font-size:1.3rem;font-weight:400;margin:0 0 12px;font-style:italic;color:var(--forest)}
+.band .bandnote{font-size:.97rem;margin:0 0 18px;max-width:70ch}
+
+.strands{display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:14px;margin:0 0 16px}
+.st{border-top:2px solid var(--line);padding-top:11px}
+.st h4{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rust);margin:0 0 8px;font-weight:700}
+.st ul{margin:0;padding-left:17px}
+.st li{font-size:.9rem;line-height:1.45;margin-bottom:6px;color:var(--ink-soft)}
+
+.prog{background:#E6EDE4;border-left:4px solid var(--forest);padding:16px 19px;margin:0 0 16px}
+.prog h4{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--forest);margin:0 0 9px;font-weight:700}
+.prog ul{margin:0;padding-left:18px}
+.prog li{font-size:.93rem;margin-bottom:6px}
+
+.four{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:11px;margin:0 0 6px}
+.fc{background:var(--ground);border:1px solid var(--line);border-radius:2px;padding:14px 16px}
+.fc b{display:block;font-size:.99rem;font-weight:400;margin-bottom:5px}
+.fc .fid{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.08em;
+  color:var(--rust);display:block;margin-bottom:4px}
+.fc p{margin:0;font-size:.89rem;line-height:1.45;color:var(--ink-soft)}
+
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:0 0 16px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--book-tint);border-left:4px solid var(--book)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--book)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:13px;margin:0 0 14px}
+.mini{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:15px 17px}
+.mini h4{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rust);margin:0 0 7px;font-weight:700}
+.mini p{margin:0 0 9px;font-size:.94rem;line-height:1.55}
+.mini p:last-child{margin:0}
+.mini ul{margin:0;padding-left:17px;font-size:.93rem}
+.mini li{margin-bottom:6px}
+
+.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:12px;margin:0 0 14px}
+.file{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:17px 19px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.file:hover,.file:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.file b{display:block;font-size:1.02rem;font-weight:400;margin-bottom:6px}
+.file span{display:block;font-size:.9rem;color:var(--ink-soft);line-height:1.5;margin-bottom:9px}
+.file em{font-family:var(--sans);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--rust);font-style:normal;font-weight:700}
+
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}
+  .band,.mini,.col,.fc,.st{break-inside:avoid}
+  .dl{display:none}}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums &middot; Free family resource</p>
+  <h1>Kitchen STEM:<br><em>a grade-band guide to teaching with food</em></h1>
+  <p class="lede">Thirty-eight activities in science, technology, engineering and math, each written twice: once for a classroom and once for a kitchen table. This page is the arc, so you can see where any single activity sits. The <a href="kitchen-stem-cards.html">cards themselves are here</a>. Free to use, copy and adapt.</p>
+</header>
+
+<div class="note">
+  <p><strong>The short version.</strong> A kitchen is the only laboratory most children have standing access to, and it is a remarkably good one. This set exists because a fair number of children learn more from doing a thing with their hands than from reading about it, and because almost nothing else lets a nine-year-old run a real controlled experiment before lunch.</p>
+</div>
+
+<section id="why">
+  <h2 class="sec">Why <em>the kitchen</em></h2>
+  <p class="secnote">Every variable is adjustable, every result is immediate, and the feedback is not a grade.</p>
+
+  <p>The feedback is a texture, a smell, a collapse, a rise. A child who under-measures the baking powder does not get a red mark. She gets a flat pancake, and she can see why.</p>
+
+  <p>That immediacy is what makes food such a strong carrier for STEM. Fractions in a workbook are abstract. Fractions in a doubled cookie recipe are load-bearing: get them wrong and the batch is wrong. Heat transfer is a diagram until a child touches the handle of a metal spoon left standing in soup and understands conduction in her hand. The kitchen collapses the distance between a concept and its consequence.</p>
+
+  <p>It is also unusually democratic. It needs no laboratory budget, it absorbs a very wide range of ability and attention, and it produces something at the end that a child can hand to someone they love. That last part is not incidental. It is often what keeps a reluctant learner at the table for the second half of the lesson.</p>
+
+  <div class="profnote">
+    <b>Reading this as a professional</b>
+    <p>This set is written for general use and it is not an intervention. It happens to suit a number of children who do better with a task that has a physical outcome, a visible clock and a real recipient, and several cards are built so that the child who cannot read the recipe has the most important job in the room.</p>
+    <p>It carries no food-refusal guardrails, because it was written for one adult and one or two children rather than for a group. Where eating itself is the difficulty, <a href="kitchen-steam.html">Kitchen STEAM</a> is the set built for that, and its <a href="kitchen-steam.html#norms">eight rules</a> can be applied over the top of anything here.</p>
+  </div>
+</section>
+
+<section id="built">
+  <h2 class="sec">How this set <em>is built</em></h2>
+  <p class="secnote">Two pieces, and the cards are a bank rather than a sequence.</p>
+
+  <p>This page is the scope and sequence: what concepts live in which grade band, organized by strand, so you can see the arc and place any single activity inside it. The <a href="kitchen-stem-cards.html">companion deck</a> holds one card per activity, with materials, steps, the questions to ask, and the explanation an adult needs in order to answer the follow-up.</p>
+
+  <p><strong>Every card carries two columns near the bottom: in the classroom, and at home.</strong> The science does not change between them, but almost everything else does. Group size, preparation, substitutions, and how much of the mess you are willing to absorb. Read the column that matches your situation and ignore the other one.</p>
+
+  <p>The cards are not a curriculum in order. They are a bank. Pull the four that match the unit you are already teaching, or the one that matches what is already in the refrigerator.</p>
+</section>
+
+<section id="adult">
+  <h2 class="sec">The adult's <em>job</em></h2>
+  <p class="secnote">The most common way this fails is that the adult does the thinking out loud.</p>
+
+  <p>It is very fast to say that the baking soda reacts with the vinegar and makes carbon dioxide. It is very slow to let a seven-year-old notice that the bubbles only started when the two wet things met. The slow version is the lesson.</p>
+
+  <p>So each card gives you the explanation in a section called <em>what is actually happening</em>, and that section is for you, not for the child. Hold it. Use it to ask a better question, to know which observation matters, and to answer honestly when a child asks something you did not anticipate. Deliver it as an explanation only after they have made a prediction and watched it succeed or fail.</p>
+
+  <div class="bnote">
+    <h3>Two questions do most of the work, at every age</h3>
+    <p><strong>What do you think will happen?</strong> Before. In a sentence, out loud or written down.</p>
+    <p><strong>What surprised you?</strong> After. A wrong prediction that a child stated out loud is worth more than a right answer they were handed.</p>
+  </div>
+</section>
+
+<section id="k2">
+  <h2 class="sec">Kindergarten to grade 2: <em>notice, sort, describe, predict</em></h2>
+  <p class="secnote">Not yet controlling variables. Learning that things have properties, that properties can be compared, and that some changes can be undone.</p>
+
+  <div class="band">
+    <p class="bandtop">Grades K to 2</p>
+    <h3>Notice, sort, describe, predict</h3>
+    <p class="bandnote">At this band the kitchen is a place to build vocabulary and careful noticing. The spine of the band is one distinction: some changes go backward, and some do not. Melted butter re-solidifies. A scrambled egg stays scrambled. That is explicitly a second-grade expectation and it is the idea everything else hangs on. The math is counting, direct comparison, and non-standard then standard measurement. Keep the sessions short, the steps few, and the talk constant.</p>
+
+    <div class="prog">
+      <h4>What progress looks like</h4>
+      <ul>
+        <li>Uses comparison language without prompting: thicker, colder, rougher, faster.</li>
+        <li>Makes a prediction before acting, even a wrong one, and remembers making it.</li>
+        <li>Sorts the same set of foods two different ways and can say what rule they used.</li>
+        <li>Names one change that can be undone and one that cannot.</li>
+        <li>Reads a measuring cup to the line rather than filling it to the top.</li>
+      </ul>
+    </div>
+
+    <div class="strands">
+      <div class="st"><h4>Science</h4><ul>
+        <li>Properties of materials: hard and soft, rough and smooth, liquid and solid, floats and sinks.</li>
+        <li>States of matter and phase change: melting, freezing, boiling, steam.</li>
+        <li>Changes that can be undone against changes that cannot.</li>
+        <li>Mixtures and solutions at the noticing level: what disappears in water and what does not.</li>
+        <li>Plant parts we eat: root, stem, leaf, flower, fruit, seed.</li>
+        <li>Seeds sprout, and plants need water and light.</li>
+        <li>The five senses, and the discovery that smell does most of the work of taste.</li>
+        <li>Living things can be too small to see, and some of them make our food.</li>
+        <li>Hot moves to cold, and some things keep heat in.</li>
+      </ul></div>
+      <div class="st"><h4>Technology</h4><ul>
+        <li>A tool is something a person made to do a job better than hands can.</li>
+        <li>Matching tool to task: whisk or spoon, grater or knife, sieve or hands.</li>
+        <li>Measuring instruments: the cup, the spoon, the scale, the timer.</li>
+        <li>Reading a thermometer as a number that goes up and down.</li>
+        <li>Food does not appear in the store. A first pass at where it comes from.</li>
+        <li>Ways people keep food from spoiling: cold, dry, sealed.</li>
+      </ul></div>
+      <div class="st"><h4>Engineering</h4><ul>
+        <li>A recipe is a set of steps in an order, and the order matters.</li>
+        <li>Building with edible materials, and what makes a tower stand up.</li>
+        <li>Testing an idea, and trying a second version when the first one fails.</li>
+        <li>Simple containers: what keeps something safe, cold, or dry.</li>
+      </ul></div>
+      <div class="st"><h4>Math</h4><ul>
+        <li>Counting, one-to-one correspondence, and equal shares.</li>
+        <li>Comparing measurable attributes directly: heavier, taller, more.</li>
+        <li>Halves and quarters as fair shares of a real object.</li>
+        <li>Filling to a line, and standard units of volume and weight.</li>
+        <li>Sorting into categories, then building a picture graph or bar graph of the result.</li>
+        <li>Sequencing, and elapsed time in whole minutes.</li>
+        <li>Shapes in food, and symmetry when you cut something in half.</li>
+      </ul></div>
+    </div>
+
+    <h3 class="sub">If you only do four</h3>
+    <div class="four">
+      <div class="fc"><span class="fid">S10</span><b>Which Part Are We Eating?</b><p>Needs no heat, no equipment and no preparation beyond a grocery run, and it reorganizes how a child sees every vegetable.</p></div>
+      <div class="fc"><span class="fid">S01</span><b>Bubbles on Demand</b><p>The clearest chemical change available at this age, and it produces breakfast.</p></div>
+      <div class="fc"><span class="fid">S16</span><b>The Floating Egg</b><p>One surprising result, one real household use, and a concept the child can test again next week.</p></div>
+      <div class="fc"><span class="fid">M01</span><b>Fractions That Actually Matter</b><p>Start here if the band's math is the priority. Practice with dry rice costs nothing.</p></div>
+    </div>
+    <p class="bandnote">Seventeen of the thirty-eight cards are written to run at this band. The rest are not off limits; they simply assume a child can hold one thing steady while changing another.</p>
+  </div>
+</section>
+
+<section id="g35">
+  <h2 class="sec">Grades 3 to 5: <em>control a variable, measure it, explain it</em></h2>
+  <p class="secnote">The band where a kitchen does its heaviest lifting, because cooking turns from a procedure into an experiment.</p>
+
+  <div class="band">
+    <p class="bandtop">Grades 3 to 5</p>
+    <h3>Control a variable, measure it, explain it</h3>
+    <p class="bandnote">Children can now hold one thing constant while changing another, which is the whole difference between following a recipe and running an experiment. It is also the band where fractions, ratio and measurement conversion arrive in the math curriculum, and a measuring cup is a better manipulative than anything in the supply closet. Partly because the fractions are consequential, and partly because ounces of weight and fluid ounces of volume sit side by side on the counter, which is where most people's confusion about them can finally be broken. Chemically this is where leavening, browning, emulsions and denaturation belong, and where the engineering design cycle can be run honestly across several batches.</p>
+
+    <div class="prog">
+      <h4>What progress looks like</h4>
+      <ul>
+        <li>Changes exactly one thing between two batches and can say why that matters.</li>
+        <li>Tells a physical change from a chemical one using evidence rather than vocabulary.</li>
+        <li>Scales a recipe up or down and checks the result against an estimate.</li>
+        <li>Explains a result in terms of a cause they cannot see: gas, protein, particles.</li>
+        <li>Redesigns after a failure and names what the failure told them.</li>
+        <li>Weighs rather than scoops when precision matters, and can say why.</li>
+      </ul>
+    </div>
+
+    <div class="strands">
+      <div class="st"><h4>Science</h4><ul>
+        <li>Chemical against physical change, with evidence: new gas, new color, new smell, not reversible.</li>
+        <li>Chemical leavening, where a base plus an acid releases carbon dioxide.</li>
+        <li>Biological leavening: yeast is alive, eats sugar, and exhales gas.</li>
+        <li>Maillard browning and caramelization as two different routes to brown.</li>
+        <li>Protein denaturation: eggs setting, whites whipping, gluten developing.</li>
+        <li>Emulsions, and the molecules that hold oil and water together.</li>
+        <li>Acids and bases, and using a plant pigment as a pH indicator.</li>
+        <li>Crystallization, and the idea that crystal size is controllable.</li>
+        <li>Solutions, suspensions and colloids, and solubility changing with temperature.</li>
+        <li>Starch gelatinization, and why a sauce thickens.</li>
+        <li>Fermentation, and the microbiology of yogurt and sourdough.</li>
+        <li>Enzymes as biological scissors: raw pineapple against gelatin.</li>
+        <li>Heat transfer by conduction, convection and radiation.</li>
+        <li>Density, buoyancy, and layering liquids.</li>
+        <li>Viscosity, and how temperature changes it.</li>
+        <li>Decomposers, and the cycling of matter through compost.</li>
+        <li>Where food grows, and why climate and season decide it.</li>
+      </ul></div>
+      <div class="st"><h4>Technology</h4><ul>
+        <li>Simple machines hiding inside kitchen tools: lever, wedge, screw, wheel and axle.</li>
+        <li>Instruments and calibration: testing a thermometer against a known point.</li>
+        <li>Precision against accuracy, in the hands, with a scale.</li>
+        <li>Preservation technologies compared: canning, freezing, drying, fermenting, pasteurizing.</li>
+        <li>Spreadsheets as a tool for costing a recipe per serving.</li>
+        <li>Writing a tiny unit converter, where algorithms are recipes and recipes are algorithms.</li>
+        <li>Data logging: recording temperature over time and plotting it.</li>
+      </ul></div>
+      <div class="st"><h4>Engineering</h4><ul>
+        <li>The full design cycle: define, plan, build, test, improve.</li>
+        <li>Controlled-variable testing across batches, which is the cookie experiment.</li>
+        <li>Structural engineering with edible materials: loads, joints, failure modes.</li>
+        <li>Process engineering: assembly lines, bottlenecks, throughput.</li>
+        <li>Thermal design: insulation, solar ovens, keeping things hot or cold on purpose.</li>
+        <li>Packaging and protective design against a defined force.</li>
+        <li>Criteria and constraints stated before building rather than after.</li>
+      </ul></div>
+      <div class="st"><h4>Math</h4><ul>
+        <li>Fractions: equivalence, addition with unlike denominators, multiplication by a whole number.</li>
+        <li>Ratio and proportional reasoning: a 3:1 vinaigrette, brines, baker's percentages.</li>
+        <li>Weight against volume, and ounces against fluid ounces.</li>
+        <li>Unit conversion within and between systems.</li>
+        <li>Area, perimeter and circumference applied to pans, and the volume of a rectangular pan.</li>
+        <li>Surface area to volume, and why small things cook faster.</li>
+        <li>Elapsed time, and backward planning from a fixed finish time.</li>
+        <li>Unit price, cost per serving, and comparing package sizes.</li>
+        <li>Collecting categorical and rating data, then graphing and summarizing it.</li>
+        <li>Estimation, and a reasonableness check on every scaled recipe.</li>
+      </ul></div>
+    </div>
+
+    <h3 class="sub">If you only do four</h3>
+    <div class="four">
+      <div class="fc"><span class="fid">E02</span><b>The Cookie Experiment</b><p>The single best use of a kitchen at this band. A real controlled-variable test that takes seventy-five minutes and teaches method rather than content.</p></div>
+      <div class="fc"><span class="fid">S06</span><b>The Cabbage That Tells You</b><p>Cheap, visual, repeatable all week, and it makes an invisible property visible.</p></div>
+      <div class="fc"><span class="fid">M03</span><b>An Ounce Is Not an Ounce</b><p>Four minutes of it, five children scooping flour, breaks a misconception most adults still hold.</p></div>
+      <div class="fc"><span class="fid">S15</span><b>Three Ways Heat Travels</b><p>Explains a dozen everyday kitchen instructions the child has been following without knowing why.</p></div>
+    </div>
+    <p class="bandnote">All thirty-eight cards run at this band.</p>
+  </div>
+</section>
+
+<section id="ms">
+  <h2 class="sec">Middle school: <em>quantify the mechanism, argue from evidence</em></h2>
+  <p class="secnote">Most of these activities extend upward rather than needing replacement. What changes is the demand for a number and for an argument.</p>
+
+  <div class="band">
+    <p class="bandtop">Roughly grades 6 to 8</p>
+    <h3>Quantify the mechanism, argue from evidence</h3>
+    <p class="bandnote">A fifth-grader observes that the sourdough rose faster in the warm spot. A seventh-grader plots rise height against temperature, finds the optimum, and argues from the graph about enzyme and microbial activity. Ratio reasoning becomes proportional reasoning with a constant of proportionality. Browning becomes a named reaction between amino acids and reducing sugars. Heat transfer becomes something they calculate rather than describe.</p>
+
+    <div class="prog">
+      <h4>What progress looks like</h4>
+      <ul>
+        <li>States a hypothesis in terms of a mechanism, not just an outcome.</li>
+        <li>Plots two variables and reads a relationship off the graph.</li>
+        <li>Uses a constant of proportionality to scale rather than repeated addition.</li>
+        <li>Argues from their own data when it disagrees with the recipe.</li>
+        <li>Identifies a confound in somebody else's experimental design.</li>
+      </ul>
+    </div>
+
+    <div class="strands">
+      <div class="st"><h4>Science</h4><ul>
+        <li>Chemical reactions evidenced by property change before and after.</li>
+        <li>Thermal energy, particle motion and state change, quantified.</li>
+        <li>Maillard chemistry named: amino acids plus reducing sugars, and why pH and water activity matter.</li>
+        <li>Denaturation and coagulation temperatures measured rather than estimated.</li>
+        <li>Microbial growth curves, with temperature as the controlling variable.</li>
+        <li>Enzyme specificity, and denaturation by heat: canned against fresh pineapple.</li>
+        <li>Osmosis and diffusion: brining, salting, and why cucumbers weep.</li>
+        <li>Energy transfer efficiency in a solar oven.</li>
+      </ul></div>
+      <div class="st"><h4>Technology</h4><ul>
+        <li>Instrument error, tolerance, and repeated measurement.</li>
+        <li>Spreadsheet modeling: cost, yield, scaling, and break-even on a bake sale.</li>
+        <li>Programming a converter or a scaling calculator with real input validation.</li>
+        <li>Food systems, supply chains, labels and traceability.</li>
+      </ul></div>
+      <div class="st"><h4>Engineering</h4><ul>
+        <li>Optimization against competing criteria: cost against quality against time.</li>
+        <li>Systematic testing across a factor grid rather than one change at a time.</li>
+        <li>Thermal system design with measured performance.</li>
+        <li>Failure analysis and iteration, documented as an engineering notebook.</li>
+      </ul></div>
+      <div class="st"><h4>Math</h4><ul>
+        <li>Ratios, rates, unit rates and percentage.</li>
+        <li>Proportional relationships and constants of proportionality.</li>
+        <li>Circumference, area, surface area and volume in pan and portion problems.</li>
+        <li>Statistical variability: mean, median, spread, and outliers in taste-test data.</li>
+        <li>Scale drawings and dimensional scaling, and why doubling a cake pan is not doubling a cake.</li>
+      </ul></div>
+    </div>
+
+    <h3 class="sub">If you only do four</h3>
+    <div class="four">
+      <div class="fc"><span class="fid">M02</span><b>Cooking Without a Recipe</b><p>Baker's percentages are proportional reasoning with a constant of proportionality, arriving in the form professionals actually use.</p></div>
+      <div class="fc"><span class="fid">S11</span><b>Farming Microbes</b><p>Run with daily pH measurement it becomes a real microbiology investigation, with a curve to argue from.</p></div>
+      <div class="fc"><span class="fid">E05</span><b>Cooking with the Sun</b><p>Four mechanisms at once, a measurable output, and a design competition with a real constraint.</p></div>
+      <div class="fc"><span class="fid">S03</span><b>Why Brown Tastes Better</b><p>Where the chemistry can finally be named, amino acids and reducing sugars, rather than described.</p></div>
+    </div>
+    <p class="bandnote">Every card carries an <em>extend it</em> line written for this band.</p>
+  </div>
+</section>
+
+<section id="safety">
+  <h2 class="sec">Knives, heat, <em>and building judgment</em></h2>
+  <p class="secnote">Both real hazards are better handled by graduated responsibility than by prohibition.</p>
+
+  <p>A child who has never been allowed near a knife at eight is not safer at twelve. They are simply inexperienced at twelve.</p>
+
+  <p><strong>A progression that works.</strong> At K to 2, children tear, mash, stir cold things, measure, press, and cut soft foods with a table knife or a nylon lettuce knife. At grades 3 and 4 they add a small serrated knife with a bridge or claw grip on stable foods, and they operate the toaster oven and the microwave with an adult in the room. At grade 5 they move to a chef's knife on a board anchored with a damp towel, and manage a stovetop burner directly. The adult's job shifts from doing to spotting.</p>
+
+  <p><strong>Whatever the age, name the hazard out loud before it is live.</strong> The pan handle is turned in so nobody catches it with a sleeve. Steam burns worse than water, so lift the lid away from your face. Children who hear hazards named learn to name them, and naming is the skill that actually transfers out of this kitchen and into one you will never see.</p>
+
+  <div class="warn">
+    <h3>Standing rules to keep</h3>
+    <p>Hair tied and sleeves up. Hands washed, and washed again after raw egg or raw meat. A damp towel under every cutting board. Oven mitts dry, because a wet mitt conducts heat straight through. And nobody carries something hot across a room where other people are moving.</p>
+  </div>
+</section>
+
+<section id="inclusion">
+  <h2 class="sec">Allergies, restriction <em>and inclusion</em></h2>
+  <p class="secnote">Before any of this, know your room.</p>
+
+  <p>The common allergens in these activities are milk, egg, wheat, soy, sesame, peanut and tree nut. Several cards also involve raw flour, which carries its own risk and should not be tasted uncooked.</p>
+
+  <p><strong>Design the activity so that the child with the restriction is doing the same science, not a diminished version of it.</strong> Emulsification works with aquafaba as well as with egg yolk. Leavening works in a gluten-free batter. A child who cannot taste the result can still run the experiment, record the data, and be the one who reports out. Do that by giving them a real role, though, rather than by handing them a clipboard as a consolation.</p>
+
+  <p>For children who are sensory-sensitive, the wet-hands steps are the ones to make optional first: dough, mashing, batter. A spoon or a glove usually solves it. For children who do better with predictability, the recipe-as-algorithm framing on card E01 is useful in a way that goes beyond the science, because the numbered card on the counter is a visual schedule.</p>
+
+  <p>The pages on <a href="occupational-therapy.html">occupational therapy</a> and <a href="whole-picture.html">the whole picture</a> cover the sensory side properly, and <a href="feeding-therapy.html">eating and feeding</a> covers what to do when the food itself is the difficulty.</p>
+</section>
+
+<section id="standards">
+  <h2 class="sec">What the standards codes <em>do and do not claim</em></h2>
+  <p class="secnote">Honest pointers, not a claim that a forty-minute activity meets a performance expectation.</p>
+
+  <p>Each card lists standards touchpoints: NGSS performance expectations for science and engineering, Common Core for math and for English language arts where a card turns on reading a procedural text, and ISTE for the technology strand.</p>
+
+  <p>They are pointers to where the activity lives in the framework. Almost no single activity fully meets a performance expectation on its own, because performance expectations are designed to be met across a unit. Anyone who tells you otherwise is selling something.</p>
+
+  <p>If you are in a state with its own adopted standards, treat these as a crosswalk starting point and map them across once. The underlying concepts are stable even where the codes are not.</p>
+</section>
+
+<section id="kit">
+  <h2 class="sec">Equipment <em>and pantry</em></h2>
+  <p class="secnote">The whole set runs on very little. These are the things that change what is possible.</p>
+
+  <div class="grid2">
+    <div class="mini"><h4>Equipment to own</h4><ul>
+      <li>A digital scale that reads grams and switches to ounces. The single highest-value purchase in the whole set, because it makes ratio work honest.</li>
+      <li>An instant-read thermometer, ideally two, so children can compare readings and find that they disagree.</li>
+      <li>Nested dry measuring cups and a clear liquid measuring cup. You need both, and the difference between them is itself a lesson.</li>
+      <li>Two identical sheet pans, so paired batches bake under identical conditions.</li>
+      <li>A few clear glass jars or cups, because almost every observation improves when you can see the side of the container.</li>
+      <li>Parchment paper, a bench scraper, a fine sieve, a whisk, and a nylon or plastic lettuce knife for young hands.</li>
+    </ul></div>
+    <div class="mini"><h4>Pantry staples the cards draw on</h4><ul>
+      <li>All-purpose flour, granulated and brown sugar, salt, baking soda, baking powder, and active dry or instant yeast.</li>
+      <li>Eggs, butter, milk, a neutral oil, white vinegar, lemons.</li>
+      <li>Cornstarch, honey or corn syrup, unflavored gelatin, plain yogurt with live cultures.</li>
+      <li>One red cabbage, which is the pH indicator. A fresh pineapple and a can of pineapple. Food coloring.</li>
+      <li>A produce spread covering every plant part: carrot or radish, asparagus or kohlrabi, lettuce or spinach, broccoli or cauliflower, apple or tomato, sunflower or pumpkin seeds.</li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="subs">
+  <h2 class="sec">Substitutions that <em>preserve the science</em></h2>
+  <p class="secnote">A substitution that changes the result is not a problem. It is usually the better experiment.</p>
+
+  <ul>
+    <li><strong>Egg-free emulsion.</strong> Aquafaba, the liquid from a can of chickpeas, or a teaspoon of mustard as the emulsifier.</li>
+    <li><strong>Dairy-free.</strong> Any plant milk works for leavening and for gelatinization. For buttermilk, add a tablespoon of vinegar to a cup of plant milk.</li>
+    <li><strong>Gluten-free.</strong> Leavening, browning and gelatinization all behave normally. Only the gluten development card needs wheat, and it can be run as a demonstration.</li>
+    <li><strong>Gelatin-free.</strong> Agar sets without an animal product, but it is not affected by the pineapple enzyme, which changes the result on that card. Use it as the control and the child's version becomes the more interesting one.</li>
+    <li><strong>No oven.</strong> Nearly every chemistry card runs in a skillet, a toaster oven or a microwave.</li>
+  </ul>
+</section>
+
+<section id="assess">
+  <h2 class="sec">Five ways to assess <em>without a test</em></h2>
+  <p class="secnote">None of these require grading a batch of food. They assess reasoning, which is the thing actually being built.</p>
+
+  <div class="grid2">
+    <div class="mini"><h4>Prediction slips</h4>
+      <p>Before the activity, every child writes one sentence: I think ___ will happen because ___. Collect them. The <em>because</em> half is the assessment and the prediction itself is not the point. Hand them back at the end and ask what they would change.</p></div>
+    <div class="mini"><h4>Two-column observation</h4>
+      <p>A sheet split into <em>what I saw</em> and <em>what I think caused it</em>. Children at every band can do this, and the widening gap between the columns over a year is a legible record of growth.</p></div>
+    <div class="mini"><h4>Explain it to someone smaller</h4>
+      <p>Ask the child to teach the concept to a younger sibling or a lower grade. Compression without distortion is a strong signal of real understanding, and it exposes memorized vocabulary immediately.</p></div>
+    <div class="mini"><h4>The redesign paragraph</h4>
+      <p>After any engineering card: my first design failed because ___, I changed ___, the result was ___. The whole design cycle in three blanks, and the most transferable thing the set produces.</p></div>
+    <div class="mini"><h4>Recipe rewrite</h4>
+      <p>Give a recipe for four and ask for it rewritten for ten, with the work shown. It assesses fractions, ratio, unit conversion and reasonableness in one page.</p></div>
+  </div>
+</section>
+
+<section id="thread">
+  <h2 class="sec">The thread <em>underneath</em></h2>
+  <p class="secnote">Cooking carries social and emotional learning whether or not anybody plans for it, so it is better to plan for it.</p>
+
+  <p>Each card names one thread explicitly. Four of them recur.</p>
+
+  <div class="grid2">
+    <div class="mini"><h4>Tolerating a failed batch</h4>
+      <p>Food that does not work is a uniquely safe failure. Low stakes, visible, and fixable in twenty minutes. Naming it as data rather than as a mistake is a stance children carry into work that is not safe.</p></div>
+    <div class="mini"><h4>Interdependence</h4>
+      <p>An assembly line fails at its slowest station, which means the fast children cannot succeed alone. Few classroom structures make that as unarguable.</p></div>
+    <div class="mini"><h4>Waiting, with a visible clock</h4>
+      <p>Dough that needs ninety minutes teaches waiting differently than a timer on a screen does, because the child can watch the change accumulating.</p></div>
+    <div class="mini"><h4>Feeding someone</h4>
+      <p>The end of most of these activities is handing food to another person. That is a small act of care with a real recipient, and it is the reason a child who will not finish a worksheet will finish a batch.</p></div>
+  </div>
+
+  <p>The <a href="social-emotional-learning.html">social and emotional learning</a> page covers this properly, including why interoception sits underneath most of it.</p>
+</section>
+
+<section id="which">
+  <h2 class="sec">Which of the two decks <em>do you want?</em></h2>
+  <p class="secnote">The names are close enough to confuse anybody. They are built for different rooms.</p>
+
+  <div class="compare">
+    <div class="col good">
+      <h3>Kitchen STEM &middot; this one</h3>
+      <ul>
+        <li>Thirty-eight cards, four strands, three grade bands with middle-school extensions.</li>
+        <li>Built for <strong>one adult and one or two children</strong>, at a kitchen table or in a classroom. Every card carries a classroom column and a home column.</li>
+        <li>A bank, not a sequence. The goal is the science, and the food is the apparatus.</li>
+        <li><strong>Reach for it</strong> when a child learns more with their hands than from a page, and eating is not the difficulty.</li>
+      </ul>
+    </div>
+    <div class="col bad">
+      <h3>Kitchen STEAM &middot; the other one</h3>
+      <ul>
+        <li>Forty-six cards, seven strands including art, the senses and the table, plus a course structure and two ready-made sequences.</li>
+        <li>Built for a <strong>mixed-age group in a school kitchen</strong>, with a letter home, an intake form and a volunteer briefing.</li>
+        <li>Every card says how a child who is not going to taste anything does the whole session, and nobody in the room can tell which child that is.</li>
+        <li><strong>Reach for it</strong> when several children will be cooking together and any of them might find food hard.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>There is no harm in using both. If you are running the cards on this page with a child for whom eating is fraught, take <a href="kitchen-steam.html#norms">the eight rules</a> and <a href="kitchen-steam.html#language">the language table</a> from the other course and apply them over the top. They cost nothing and they are the part that protects a child.</p>
+</section>
+
+<section id="downloads">
+  <h2 class="sec">Take <em>the whole thing</em></h2>
+  <p class="secnote">Everything on these two pages, laid out to print. Free to use, copy and adapt, with no account and nothing to sign up for.</p>
+
+  <div class="dl">
+    <a class="file" href="Kitchen-STEM-Scope-and-Sequence.pdf"><b>Scope and sequence</b><span>This page as a printable booklet: the grade bands, the concepts by strand, the safety progression, the equipment, and the ways to assess.</span><em>PDF</em></a>
+    <a class="file" href="Kitchen-STEM-Activity-Cards.pdf"><b>The thirty-eight cards</b><span>One card per page, each with a classroom column and a kitchen-table column.</span><em>PDF &middot; 38 cards</em></a>
+    <a class="file" href="kitchen-stem-cards.html"><b>The cards on screen</b><span>The same thirty-eight cards, searchable, readable aloud, and printable from the page.</span><em>Web page</em></a>
+  </div>
+
+  <p>The companion course is <a href="kitchen-steam.html">Kitchen STEAM</a>, with its own <a href="kitchen-steam-cards.html">forty-six cards</a> and a <a href="kitchen-steam-journal.html">food journal</a>.</p>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>Nothing here needs a laboratory, a budget or a free afternoon. One scale, one thermometer and two identical sheet pans cover most of it, and a good number of the cards need nothing at all beyond what is already in the kitchen.</p>
+  <p>If a child in your house takes things apart, argues with instructions, or wants to know why before they will do a thing, this set was written for them. That disposition is difficult to live with at four in the afternoon and it is exactly what the work asks for.</p>
+</div>
+
+<div class="note">
+  <p><b>Related</b> &middot; <a href="kitchen-stem-cards.html">The thirty-eight cards</a> &middot; <a href="kitchen-steam.html">Kitchen STEAM, for a group</a> &middot; <a href="learning-and-literacy.html">Learning and literacy</a> &middot; <a href="math-and-writing.html">Math and writing</a> &middot; <a href="social-emotional-learning.html">Social and emotional learning</a> &middot; <a href="adaptive-community.html">Classes and community</a></p>
+</div>
+
+<footer>
+  <p>Nothing here is medical, dietary or educational advice. Heat and blades are real hazards, and the progression above assumes an adult in the room who is watching rather than cooking.</p>
+</footer>
+
+</div>
+<script src="search-index.js"></script>
+<script src="site-nav.js"></script>
+</body>
+</html>

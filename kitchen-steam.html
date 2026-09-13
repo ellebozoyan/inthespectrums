@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kitchen STEAM: a cooking course that never asks a child to eat — In The Spectrums</title>
+<style>
+:root{
+  --ink:#16283C; --ink-soft:#4A5C6E; --forest:#2E4E3F; --rust:#9C4A21;
+  --rust-tint:#EFE0D5; --ground:#F1F4F0; --card:#FCFCFA; --line:#D6DDD5;
+  --book:#6B4A78; --book-tint:#EFE6F1; --alarm:#8A2B20; --alarm-tint:#F6E4E0;
+  --sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:17px;
+  line-height:1.62;-webkit-font-smoothing:antialiased}
+a{color:var(--rust)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.eyebrow{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 14px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.1;margin:0 0 16px;font-weight:400;letter-spacing:-.015em}
+h1 em{font-style:italic;color:var(--forest)}
+.lede{max-width:62ch;color:var(--ink-soft);margin:0 0 26px;font-size:1.06rem}
+header.masthead{padding:52px 0 14px}
+section{margin:0 0 56px}
+h2.sec{font-size:clamp(1.5rem,3.6vw,2.05rem);font-weight:400;margin:0 0 8px;line-height:1.2;letter-spacing:-.01em}
+h2.sec em{font-style:italic;color:var(--forest)}
+.secnote{color:var(--ink-soft);margin:0 0 26px;max-width:62ch;font-size:1rem}
+h3.sub{font-family:var(--sans);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;margin:32px 0 12px}
+p{margin:0 0 14px}ul{padding-left:20px;margin:0 0 14px}li{margin-bottom:8px}
+
+.note{background:var(--rust-tint);border-left:4px solid var(--rust);padding:20px 22px;margin:24px 0}
+.note h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;margin:0 0 10px}
+.note p:last-child{margin-bottom:0}
+.bnote{background:var(--book-tint);border-left:4px solid var(--book);padding:20px 22px;margin:24px 0}
+.bnote h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--book);font-weight:700;margin:0 0 10px}
+.bnote p:last-child{margin-bottom:0}
+.warn{background:var(--alarm-tint);border-left:4px solid var(--alarm);padding:20px 22px;margin:24px 0}
+.warn h3{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--alarm);font-weight:700;margin:0 0 10px}
+.warn p:last-child{margin-bottom:0}
+.profnote{background:var(--card);border:1px dashed var(--line);border-left:3px solid var(--forest);
+  padding:17px 20px;margin:26px 0}
+.profnote b{font-family:var(--sans);font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--forest);font-weight:700;display:block;margin-bottom:8px}
+.profnote p{margin:0 0 10px;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+.profnote p:last-child{margin:0}
+
+/* the eight rules */
+.rules{counter-reset:r;margin:0 0 18px}
+.rule{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--forest);
+  border-radius:2px;padding:17px 20px 15px 58px;margin-bottom:9px;position:relative;counter-increment:r}
+.rule::before{content:counter(r);position:absolute;left:18px;top:16px;font-family:var(--sans);
+  font-size:19px;font-weight:700;color:var(--forest);opacity:.45;line-height:1}
+.rule b{display:block;font-size:1.06rem;font-weight:400;margin-bottom:6px}
+.rule p{margin:0;font-size:.94rem;color:var(--ink-soft)}
+
+/* the wheel of eight ways */
+.wheel{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:9px;margin:0 0 16px}
+.way{background:#E6EDE4;border-top:3px solid var(--forest);padding:14px 15px}
+.way b{display:block;font-family:var(--sans);font-size:12px;letter-spacing:.05em;
+  color:var(--forest);margin-bottom:5px}
+.way span{font-size:.89rem;color:var(--ink-soft);line-height:1.45;display:block}
+
+/* the language table */
+.swap{width:100%;border-collapse:collapse;margin:0 0 16px;font-size:.95rem}
+.swap th{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  text-align:left;padding:0 14px 9px 0;color:var(--rust);font-weight:700;border-bottom:1px solid var(--line)}
+.swap td{padding:11px 14px 11px 0;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.5}
+.swap td.out{color:var(--ink-soft);text-decoration:line-through;text-decoration-color:var(--alarm);width:42%}
+.swap td.in b{font-weight:400;color:var(--forest);font-style:italic}
+.tblwrap{overflow-x:auto;margin:0 0 16px}
+
+/* two columns of do / do not */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:0 0 16px}
+@media(max-width:680px){.compare{grid-template-columns:1fr}}
+.col{border-radius:2px;padding:19px 21px}
+.col.good{background:#E6EDE4;border-left:4px solid var(--forest)}
+.col.bad{background:var(--alarm-tint);border-left:4px solid var(--alarm)}
+.col h3{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;margin:0 0 11px}
+.col.good h3{color:var(--forest)}.col.bad h3{color:var(--alarm)}
+.col ul{padding-left:18px;margin:0;font-size:.94rem}
+.col li{margin-bottom:8px}
+
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:13px;margin:0 0 14px}
+.mini{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:15px 17px}
+.mini h4{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rust);margin:0 0 7px;font-weight:700}
+.mini p{margin:0 0 9px;font-size:.94rem;line-height:1.55}
+.mini p:last-child{margin:0}
+
+/* a week in a sequence */
+.week{background:var(--card);border-left:3px solid var(--line);padding:14px 18px;margin-bottom:7px;
+  position:relative}
+.week .n{font-family:var(--sans);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:4px}
+.week b{display:block;font-size:1.02rem;font-weight:400;margin-bottom:4px}
+.week .cards{font-family:var(--sans);font-size:11.5px;letter-spacing:.03em;color:var(--forest);
+  display:block;margin-bottom:6px}
+.week p{margin:0;font-size:.92rem;color:var(--ink-soft)}
+
+/* the letter and the form */
+.letter{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--book);
+  padding:24px 26px;margin:0 0 18px;font-size:.97rem}
+.letter p{margin:0 0 13px}
+.letter p:last-child{margin:0}
+
+.dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:12px;margin:0 0 14px}
+.file{display:block;background:var(--card);border:1px solid var(--line);border-radius:2px;
+  padding:17px 19px;text-decoration:none;color:var(--ink);transition:border-color .18s,transform .18s}
+.file:hover,.file:focus-visible{border-color:var(--rust);transform:translateY(-2px);outline:none}
+.file b{display:block;font-size:1.02rem;font-weight:400;margin-bottom:6px}
+.file span{display:block;font-size:.9rem;color:var(--ink-soft);line-height:1.5;margin-bottom:9px}
+.file em{font-family:var(--sans);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--rust);font-style:normal;font-weight:700}
+
+.checklist{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--forest);
+  padding:22px 24px;margin:0 0 16px}
+.checklist ol{margin:0;padding-left:22px}
+.checklist li{margin-bottom:10px;font-size:.97rem}
+.checklist li:last-child{margin:0}
+
+.srcs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:13px}
+.src{background:var(--card);border:1px solid var(--line);border-radius:2px;padding:16px 18px}
+.src h4{font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rust);margin:0 0 9px;font-weight:700}
+.src p{margin:0 0 9px;font-size:.9rem;line-height:1.5;color:var(--ink-soft)}
+.src p:last-child{margin:0}
+.fnote{font-size:.88rem;color:var(--ink-soft);border-top:1px solid var(--line);
+  padding-top:13px;margin:22px 0 0;font-style:italic}
+.closenote{background:var(--card);border-top:3px solid var(--rust);padding:24px 26px;margin:34px 0 0}
+.closenote b{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--rust);font-weight:700;display:block;margin-bottom:11px}
+.closenote p{margin:0 0 12px;font-size:1.04rem;line-height:1.62}
+.closenote p:last-child{margin:0}
+footer{border-top:1px solid var(--line);padding:26px 0 80px;font-family:var(--sans);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.75}
+@media print{body{background:#fff;font-size:10.5pt}
+  .rule,.week,.mini,.col,.src,.way{break-inside:avoid}
+  .dl{display:none}}
+</style>
+</head><body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">In The Spectrums &middot; Free family resource</p>
+  <h1>Kitchen STEAM:<br><em>a cooking course that never asks a child to eat</em></h1>
+  <p class="lede">A full K&ndash;5 course in science, technology, engineering, art and math, taught with food as the laboratory. It is built so that a child who never tastes a thing completes all of it, and so that nobody in the room can tell which child that is. Free to use, copy and adapt. The <a href="kitchen-steam-cards.html">forty-six cards</a> and the <a href="kitchen-steam-journal.html">food journal</a> are here too.</p>
+</header>
+
+<div class="note">
+  <p><strong>The short version.</strong> The assignment in this course is a description, not a taste. Once that is the task, a child who only looked and smelled has finished the work, nothing has to be adapted for anybody, and no accommodation is visible to the room. Everything else on this page follows from that one decision.</p>
+</div>
+
+<section id="whatitis">
+  <h2 class="sec">What this is, <em>and what it is not</em></h2>
+  <p class="secnote">A STEAM course that uses food as its laboratory. Not a nutrition unit, and not therapy.</p>
+
+  <p>Children in this course learn chemistry, material science, engineering design, drawing, printmaking, composition, statistics, measurement, sensory science, and something about where food comes from and who grows it. They also cook. They eat if they want to.</p>
+
+  <p>It is not a nutrition course, it is not a healthy-eating intervention, and it is not feeding therapy. Those boundaries are not modesty. They are what makes the course safe to run for a whole mixed-age group without knowing which children in the room have a feeding disorder, an eating disorder, a sensory processing difference, a food allergy, a household on a tight budget, or simply a strong opinion about mushrooms.</p>
+
+  <p><strong>The design principle throughout is universal design rather than accommodation.</strong> Nothing here is a special arrangement made for a particular child. The no-thank-you plate is at every setting. Components are always served separately. Headphones are available to anyone. The recipes go to every family in advance. A child who needs those things gets them without being identified, and every other child gets a calmer and more predictable room.</p>
+
+  <div class="profnote">
+    <b>Reading this as a professional</b>
+    <p>The most useful thing a school class can offer a child who is working on food with a clinician outside school is a predictable, pressure-free environment in which food is handled constantly and nothing is demanded. That is a real contribution and it sits comfortably inside a teacher's role.</p>
+    <p>Running a private feeding program is not. The line between the two is drawn in <a href="#boundary">where a teacher's job stops</a>, and it is the section to read first if you are being asked to do more than this.</p>
+  </div>
+</section>
+
+<section id="norms">
+  <h2 class="sec">The eight rules <em>the room runs on</em></h2>
+  <p class="secnote">Post these. Give them to every adult who comes into the room, including substitutes and parent helpers, before they arrive.</p>
+
+  <div class="rules">
+    <div class="rule"><b>Nobody has to taste anything. Ever.</b>
+      <p>Cooking, measuring, smelling, describing, drawing, serving and clearing are full participation in this class, not a lesser version of it. This is stated in the letter home before the first session, so that every family knows it and no child has to ask.</p></div>
+    <div class="rule"><b>No praise for eating, and no reward for tasting.</b>
+      <p>Praise for eating is pressure wearing a friendly face, and in a group it turns a private moment into a public performance that every non-taster has just failed. Comment on the work instead. Your dice were really even. You found three words nobody else had. Never on what or how much anyone ate.</p></div>
+    <div class="rule"><b>&ldquo;Not for me today&rdquo; is a complete sentence.</b>
+      <p>It needs no reason and no follow-up. The whole of the adult response is <em>okay</em>, and then a change of subject. No pause, no second glance, no are you sure. Every place setting has a small plate for food a person does not want, including the adults' settings.</p></div>
+    <div class="rule"><b>Nobody comments on what anyone else eats.</b>
+      <p>This is taught as a rule in week one and held all term, because peer policing is the real risk in a group. It protects the child who eats little, the child whose food from home looks unfamiliar, the child whose family eats differently, and the child whose lunchbox is thin some weeks. Your job is your own plate.</p></div>
+    <div class="rule"><b>Every ingredient is named, in advance, always.</b>
+      <p>The full term's recipes and ingredient lists go to every family before the first session. Nothing is ever hidden in a dish as a teaching surprise. A hidden ingredient revealed afterward is a rupture of trust, and for an anxious eater it can spread into avoidance of the dish, the room and you.</p></div>
+    <div class="rule"><b>We describe. We do not judge.</b>
+      <p>Yuck, gross and pulled faces are out. Not because they are rude, but because refusal is contagious in a group in a way that description is not. The redirect is always the same and always calm: give me a word for what it is actually like.</p></div>
+    <div class="rule"><b>There are no good foods and no bad foods.</b>
+      <p>No sorting into healthy and unhealthy, no calories, no talk about bodies or weight or burning anything off, no this is fuel for you. Children are measurably less likely to try a food that has been labeled healthy. Teach what food does and where it comes from, which is the STEAM content anyway.</p></div>
+    <div class="rule"><b>Everyone has a named job, and the jobs rotate.</b>
+      <p>Reader, measurer, mixer, timekeeper, sensory reporter, station chief, photographer, server. Jobs are assigned by rotation, not by who eats what. The sensory reporter is the highest-status role that requires no tasting, and it must never become one particular child's post.</p></div>
+  </div>
+</section>
+
+<section id="description">
+  <h2 class="sec">Why the assignment is <em>a description</em></h2>
+  <p class="secnote">The structural argument matters more than the evidence, and both are here.</p>
+
+  <p>The spine of this course is sensory food education, the approach developed as the Sapere method in Finland and Sweden and now built into several national early-years frameworks. Its defining move is to shift children from <em>I like it</em> and <em>I don't like it</em> to description: what does it look, sound, smell, feel and taste like, in words.</p>
+
+  <p>There is decent evidence behind it. Studies of sensory education with eight- to twelve-year-olds have found reduced food neophobia and increased willingness to try unfamiliar foods. Classroom studies have found that groups doing sensory work do not show the drift toward produce avoidance that ordinary groups do. Refusal spreads through a group, and description appears to interrupt it.</p>
+
+  <p><strong>But the structural argument is the reason this course is built the way it is.</strong> If the assignment is a description, then a child who only looked and smelled has completed it. There is no moment at which some children succeed and others fall short, nothing has to be adapted for anybody, and no accommodation is visible to the room. That is what universal design looks like when it works.</p>
+
+  <p>It also happens to produce better teaching. A class that can say brittle, fibrous, sharp, squeaky and fragrant is doing vocabulary work, observation work and the beginnings of sensory science. A class that can only say nice and yuck is doing none of those.</p>
+</section>
+
+<section id="wheel">
+  <h2 class="sec">Eight ways <em>to meet a food</em></h2>
+  <p class="secnote">Drawn as a wheel rather than a ladder, and deliberately not numbered.</p>
+
+  <p>Feeding therapists work with a long graduated hierarchy. The best-known runs to more than thirty steps across six bands: tolerating a food in the room, then at the table, then nearer; interacting with it; smelling it; touching it in a progression that works inward from fingertip to hand to arm to face to lips; tasting; and finally eating. Roughly the first half involves no contact with the mouth at all.</p>
+
+  <p>The band called <em>interacts with</em> is almost a description of a cooking class: helping prepare and set up, using a utensil to stir or pour for other people, serving food onto one's own plate, using tools to move food around one's own space. A kitchen is already most of that ladder. You do not need to add a tasting requirement in order to be doing real exposure work. You need to run a kitchen properly and then get out of the way.</p>
+
+  <div class="wheel">
+    <div class="way"><b>Be near it</b><span>It is on the table. You are at the table. That is one.</span></div>
+    <div class="way"><b>Look</b><span>Color, shape, shine, what is inside.</span></div>
+    <div class="way"><b>Listen</b><span>Tap it, break it, shake it near your ear.</span></div>
+    <div class="way"><b>Smell</b><span>Close up, or from across the table.</span></div>
+    <div class="way"><b>Move it</b><span>Stir it, pour it, serve it to somebody else.</span></div>
+    <div class="way"><b>Touch it</b><span>One fingertip counts. So does a fork.</span></div>
+    <div class="way"><b>Lip it</b><span>Touch it to your lip and take it away again.</span></div>
+    <div class="way"><b>Taste it</b><span>A lick counts. A nibble counts.</span></div>
+  </div>
+
+  <p><strong>Two deliberate departures from the clinical version.</strong> The class version is drawn as a wheel and is not numbered, because a ladder implies a top, a top implies falling short, and in a group that turns a private step into a public ranking. And no record is kept of where any child is. Building an individual child's hierarchy, choosing their next step, or setting a goal for them is clinical work that belongs to that child's own team.</p>
+
+  <div class="bnote">
+    <h3>The one thing that overrides all of the above</h3>
+    <p>If a child's outside team already uses step language, the class adopts theirs. For everyone, on the wall, from week one. The wheel is not a fixed object and the class version is the one that yields. Ask about this on the intake form, before the first session rather than after it.</p>
+  </div>
+</section>
+
+<section id="boundary">
+  <h2 class="sec">Where a teacher's job <em>stops</em></h2>
+  <p class="secnote">Be firm about this line. It protects the child and it protects you.</p>
+
+  <div class="compare">
+    <div class="col bad">
+      <h3>Not yours</h3>
+      <ul>
+        <li>Diagnosing, screening for, or naming any eating or feeding disorder in a child.</li>
+        <li>Building or advancing an individual child's exposure hierarchy or food chain.</li>
+        <li>Setting per-child tasting goals.</li>
+        <li>Keeping a per-child record of what anyone ate.</li>
+        <li>Any decision about a child with swallowing or choking risk. That requires a speech-language pathologist and is a formal clinical process.</li>
+        <li>Nutritional advice, and anything at all about weight.</li>
+      </ul>
+    </div>
+    <div class="col good">
+      <h3>Yours</h3>
+      <ul>
+        <li>Designing a room where the lower half of that ladder happens constantly and unremarkably.</li>
+        <li>Teaching sensory science, cooking skill and food culture as real curriculum.</li>
+        <li>Holding the norms for every adult and every child who comes through the door.</li>
+        <li>Noticing, and then passing to the designated coordinator rather than acting on, signals such as a child's range of accepted foods visibly narrowing, distress escalating rather than settling, or a child beginning to avoid the class.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>Refer. Do not intervene.</p>
+
+  <p>If a child's family has an outside feeding therapist, occupational therapist or speech-language pathologist, contact goes through one named person at the school, usually the nurse, counselor or case manager, and only with a signed release from the family. What you ask for is strategies and step language, so that you use the same words the child already knows. What you do not ask for, and do not record, is the diagnosis. You do not need it.</p>
+
+  <p>The site's page on <a href="feeding-therapy.html">eating and feeding</a> covers what that outside work usually looks like, and <a href="speech-language-aac.html">communication and AAC</a> covers the communication side, including what a child needs in order to decline something at all.</p>
+</section>
+
+<section id="language">
+  <h2 class="sec">Say this <em>instead</em></h2>
+  <p class="secnote">Most of what makes this room safe or unsafe is said out loud in the moment, usually by a tired adult with something in the oven.</p>
+
+  <p>One phrase deserves particular attention, because it is well meant and it is a trap: <em>brave</em>. Telling a child they are brave for tasting something implies the food is frightening, and implies that the child who did not taste is not brave. In a group, prefer role language to virtue language.</p>
+
+  <p>The second trap is your own self-talk. An offhand <em>I really shouldn't</em> or <em>I'm being so bad</em> from an adult is curriculum, and children absorb it faster than anything on the board.</p>
+
+  <div class="tblwrap">
+  <table class="swap">
+    <tr><th>Instead of</th><th>Say</th></tr>
+    <tr><td class="out">Just try one bite.</td><td class="in"><b>Nothing.</b> Offer a job instead. Do you want to be our describer for this one?</td></tr>
+    <tr><td class="out">Great job trying it!</td><td class="in"><b>You found a word nobody else had.</b> Comment on the work, never the eating.</td></tr>
+    <tr><td class="out">You were so brave.</td><td class="in"><b>You were our smell describer today.</b> Role language, not virtue language.</td></tr>
+    <tr><td class="out">Are you sure? You liked it last time.</td><td class="in"><b>Okay.</b> Then change the subject.</td></tr>
+    <tr><td class="out">Look, Maya tried it!</td><td class="in"><b>Nothing.</b> Never recruit a peer as a motivator.</td></tr>
+    <tr><td class="out">It's healthy, it's good for you.</td><td class="in"><b>It's got a snap to it. Listen.</b> Function and sensory, never virtue.</td></tr>
+    <tr><td class="out">Don't say yuck, that's rude.</td><td class="in"><b>Give me a word for what it's actually like.</b></td></tr>
+    <tr><td class="out">Everyone else is having some.</td><td class="in"><b>Nothing.</b> Comparison is the thing this room does not do.</td></tr>
+    <tr><td class="out">Finish that and you can have&hellip;</td><td class="in"><b>Nothing is contingent on eating.</b> No food is a reward or a consequence.</td></tr>
+    <tr><td class="out">Guess what was hidden in it!</td><td class="in"><b>Every ingredient named before it goes in.</b> Always, without exception.</td></tr>
+  </table>
+  </div>
+
+  <p>The page on <a href="what-to-say.html">what to say</a> has the same idea applied to the rest of the day, and <a href="mealtime-communication.html">communication at mealtimes</a> covers what to do when a child cannot say any of this in speech.</p>
+</section>
+
+<section id="mixedage">
+  <h2 class="sec">A room with <em>five grades in it</em></h2>
+  <p class="secnote">Mixed-age is an advantage here, not a compromise. It has to be structured, or the ten-year-olds do everything and the six-year-olds watch.</p>
+
+  <div class="grid2">
+    <div class="mini"><h4>Stations of five or six</h4>
+      <p>One adult each, each station making something different, with small taster portions shared across stations at the end. Small portions and high variety is a quietly excellent low-pressure design, because nobody is committed to a full plate of anything.</p></div>
+    <div class="mini"><h4>Named jobs, rotated every session</h4>
+      <p>Reader, measurer, mixer, timekeeper, sensory reporter, station chief, photographer, server. Assigned by rotation and not by age. The sensory reporter is the inclusion engine of the whole course: high status, difficult, and requiring no tasting. Rotate it deliberately so it never becomes the job for the child who does not eat.</p></div>
+    <div class="mini"><h4>Pairing, and the three-year rule</h4>
+      <p>For working together on a task, a gap of less than three years usually pairs better than a wider one. A fifth-grader and a third-grader collaborate; a fifth-grader and a kindergartener tend to slide into doing-and-watching. Wide pairs are excellent for reading aloud, mentoring and user testing. State the rule out loud and repeat it: your buddy's hands do the work, your words help.</p></div>
+    <div class="mini"><h4>Real jobs for the youngest</h4>
+      <p>Several cards deliberately hand the most important role to the youngest child: the user tester who cannot read the recipe, the silent tester of a prototype, the person who goes to the office for the real roll number. That is not kindness. It is where the best data comes from.</p></div>
+  </div>
+</section>
+
+<section id="safety">
+  <h2 class="sec">Knives, heat, <em>and hands</em></h2>
+  <p class="secnote">Both real hazards are better handled by graduated responsibility than by prohibition. A child who has never been near a knife at eight is not safer at twelve, only less practiced.</p>
+
+  <h3 class="sub">Knives, by grade band</h3>
+  <ul>
+    <li><strong>K&ndash;1.</strong> Tearing, mashing, whisking, measuring, pressing. Crinkle cutters, table knives and nylon lettuce knives on soft foods.</li>
+    <li><strong>Grades 2&ndash;3.</strong> Small serrated children's knives with a bridge or claw grip, on stable foods. Graters with guards. Peelers, stroking away from the body.</li>
+    <li><strong>Grades 4&ndash;5.</strong> Small chef's knives on a board anchored with a damp towel, under supervision, and stovetop work with an adult at that station.</li>
+  </ul>
+
+  <div class="warn">
+    <h3>Heat is adult-gated at every age</h3>
+    <p>No exceptions. One adult per live heat source. Ovens are opened by adults. Boiling water and hot fat are carried by adults, and never across a room where children are moving. Molten sugar and deep fat do not belong in this course at all.</p>
+  </div>
+
+  <p>Name the hazard out loud before it is live. <em>The pan handle is turned in so nobody catches it with a sleeve.</em> Children who hear hazards named learn to name them, and naming is the skill that actually transfers to a kitchen you will never see.</p>
+
+  <p><strong>Standing rules.</strong> Hands washed before and during. Hair tied. Anything dropped is discarded. No sharing of utensils or plates. Separate boards and equipment for raw meat if it appears at all. One agreed stop signal that means all hands still.</p>
+
+  <p><strong>And one that is less obvious: do not clean children as they work.</strong> Constant wiping interrupts tactile exploration and tells a child the food is contaminating. Put warm soapy water within reach and let them wash when they choose.</p>
+</section>
+
+<section id="allergies">
+  <h2 class="sec">Allergies, restriction, <em>culture and cost</em></h2>
+  <p class="secnote">Design the menu around the roster rather than managing around it every week.</p>
+
+  <p>If a child in the group has a serious allergy, the straightforward course is to keep that allergen out of the classroom entirely rather than run a containment operation every session. That is what public-health guidance for schools recommends, and it is far less fragile than the alternative.</p>
+
+  <p><strong>Whatever the restriction, the child should be doing the same science, not a diminished version.</strong> Emulsions work with aquafaba. Leavening works in gluten-free batter. Gels work with agar. Where a substitution changes the result, make that the control condition and the child's version becomes the more interesting one. The enzyme in fresh pineapple destroys a gelatin gel and leaves an agar gel untouched, which turns a dietary substitution into the best experiment on the card.</p>
+
+  <p>Religious and cultural practice is asked about on the intake form and planned around quietly, not negotiated in the room. Cost is a live consideration too. Never ask families to send in ingredients, never assign homework that requires buying food, and never ask a child to record what they ate at home. Any of those exposes a household's finances to the class.</p>
+
+  <h3 class="sub">One standing allergen rule, rather than forty-six</h3>
+  <p>Check the roster against every card's materials before the term is planned, not the week before the session. Wheat and celiac disease deserve particular attention, because airborne flour rather than eating it is the hazard in the dough cards, and a child with either cannot safely be in the room. Ask about animal-derived materials as well as foods. Gelatin is usually pork or beef, and it appears in a card where agar does the same job.</p>
+
+  <p>Any dish not in the term pack goes to every family, with its complete ingredient list, at least a full week before it is cooked. If that notice cannot be given, the dish is not cooked. This applies to the family dishes in card C01, to anything cooked for a recipient in C05, and to every substitution.</p>
+
+  <div class="bnote">
+    <h3>Food that becomes a specimen</h3>
+    <p>Several cards deliberately turn food into props, data and evidence, and then throw it away. Say what will happen to the food at the start of the card, before it is handled. Surprise disposal is worse than planned disposal.</p>
+    <p>Route it somewhere real where you can. Trimmings to the stock pot, whole unhandled produce back to the kitchen or offered at the door, specimens to a compost the class can see. And notice who might be watching. For a child whose household counts food carefully, a thrown-away tray is not a neutral event, and no explanation afterward repairs it.</p>
+  </div>
+
+  <p>Two allergen habits to build. Everything the class sends out of the room carries a complete ingredient list. And no food is ever used as a reward or withheld as a consequence, where the allergy reasoning and the eating-disorder reasoning point the same way.</p>
+</section>
+
+<section id="journal">
+  <h2 class="sec">The journal, and <em>five things never to do with it</em></h2>
+  <p class="secnote">The journal is the child's, not the school's.</p>
+
+  <p>It is where they draw, describe, measure, graph and record what they thought, and it is designed so that a child who never tastes anything can complete every page. Every rating page carries a box for <em>I didn't taste this one</em>, and the description work is all sensory rather than about liking.</p>
+
+  <p>It is deliberately built around intensity rather than liking. The main scales are how crunchy, how strong a smell, how sweet. Scales where there is no right answer and no virtue in a high score. The preference question is smaller, optional, and always attached to a why written in sensory words. The <a href="kitchen-steam-journal.html">journal itself is here</a>, ready to print.</p>
+
+  <div class="col bad">
+    <h3>Five things never to do with it</h3>
+    <ul>
+      <li><strong>Never collect it, grade it, compare it, or display it.</strong> The moment a journal is assessed it becomes a compliance document. If you want to see a page, ask the child to show you, and accept no.</li>
+      <li><strong>Never record quantity eaten, number of new foods tried, or anything that accumulates across weeks into a per-child progress chart.</strong> Intake logging is contraindicated for children with eating disorders, and there is no teaching benefit it offers that sensory recording does not offer better.</li>
+      <li><strong>Never send a food diary home.</strong> Do not ask children to record what they ate at home, for the week, or at all. It exposes household food insecurity to the class, and it teaches that food is something to be audited.</li>
+      <li><strong>Never make a wall display of who tried what.</strong> Class-level anonymous results are excellent, and card M05 is built around them. Individual tallies are not.</li>
+      <li><strong>Never carry a rating forward as evidence.</strong> A rating is one child's impression on one day. If a child rates something 1 in September and 4 in November, that is theirs to notice, not yours to point out.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="assessment">
+  <h2 class="sec">Assessment, <em>without counting tastes</em></h2>
+  <p class="secnote">If your assessment, your display board or your parent newsletter counts tastes, everything else on this page is decoration.</p>
+
+  <p>Make the unit of success participation in a role.</p>
+
+  <div class="grid2">
+    <div class="mini"><h4>The role record</h4>
+      <p>Over ten or sixteen weeks, did each child hold every job at least once: reader, measurer, timekeeper, sensory reporter, station chief, server? That is a legitimate, checkable record of participation, and it correlates with nothing about eating.</p></div>
+    <div class="mini"><h4>Vocabulary growth</h4>
+      <p>The word wall from card N01 is a class artifact that visibly grows. Photograph it in week one and week ten. The journals are not evidence of anything and are not looked at for this or any other purpose.</p></div>
+    <div class="mini"><h4>The redesign paragraph</h4>
+      <p>After any engineering card: my first design failed because ___, I changed ___, the result was ___. Three blanks, the whole design cycle, and the most transferable thing produced in the course.</p></div>
+    <div class="mini"><h4>Prediction slips</h4>
+      <p>Before an experiment: I think ___ will happen because ___. The <em>because</em> half is what you are assessing.</p></div>
+    <div class="mini"><h4>Teach it to someone smaller</h4>
+      <p>Mixed-age makes this natural. A fifth-grader who can explain gluten to a six-year-old without using a word the six-year-old does not have understands gluten.</p></div>
+  </div>
+</section>
+
+<section id="before">
+  <h2 class="sec">Before <em>the first session</em></h2>
+  <p class="secnote">A letter you can send, and a form that asks the right things and leaves out the wrong ones.</p>
+
+  <p>The third paragraph of the letter below is the highest-leverage text in this whole page. It tells a family with a worried eater that their child is safe, and it tells every other family what the norm is, which heads off pressure arriving from home.</p>
+
+  <div class="letter">
+    <p>Dear families,</p>
+    <p>This term your child is joining Kitchen STEAM, a cooking and food-exploration class where we do science, engineering, art and math using food as our laboratory. We will make natural dyes from onion skins, print with vegetables, build and test pasta shapes, count the spirals on a pineapple, draw a pepper's cross-section, film a recipe frame by frame, and cook things from families in our own school community.</p>
+    <p>No child is ever required to taste anything in this class. Cooking, measuring, smelling, describing, drawing, photographing, serving and clearing all count as full participation. They are not a lesser option, and children who never taste a thing can and do complete every part of the course. We never praise or reward children for eating, and we never comment on what anyone has eaten. If your child says &ldquo;not for me today&rdquo;, our whole reply is &ldquo;okay&rdquo;.</p>
+    <p>Every ingredient is named in advance. The full term's recipes and ingredient lists are attached, so you and your child can look at them together before each session. We never hide or disguise an ingredient in a dish, and we will tell you in advance if anything changes.</p>
+    <p>If we cook anything that was not in the term pack, a family's dish or something the class chooses to cook for somebody, you will have it with its full ingredient list at least a week beforehand. If we cannot give you that much notice, we do not cook it.</p>
+    <p>Please fill in the short form attached so we can plan around allergies, medical diets, and your family's practices. There is an open question at the end, &ldquo;anything you'd like us not to do?&rdquo;, and we read every answer to it carefully.</p>
+    <p>Your child will keep a food journal. It belongs to them. We do not collect it, grade it, or compare it, and we never ask children to record what they eat at home.</p>
+    <p>You are welcome in the kitchen. If there is a dish that matters in your family and you would be willing to come and cook it with us, or to tell us about it, we would be glad. And equally, there is no expectation at all.</p>
+  </div>
+
+  <h3 class="sub">The family intake form</h3>
+  <div class="compare">
+    <div class="col good">
+      <h3>Ask</h3>
+      <ul>
+        <li>Allergies, intolerances and medically prescribed diets, with the school's usual medical verification.</li>
+        <li>Cultural, religious or family dietary practices we should plan around.</li>
+        <li>Foods your child reliably eats that you would be glad to see in class.</li>
+        <li>Anything about smells, textures, noise or the kitchen environment we should know.</li>
+        <li>Would your child like the option of a component prepared in advance, or of bringing their own?</li>
+        <li>Is your child already using step language for trying foods that we should use instead of ours? We will change the class's words, for everybody.</li>
+        <li>Is there an outside provider you would like us to coordinate with? If so, we will send a release form.</li>
+        <li>Who should receive advance notice of recipes, and how?</li>
+        <li><strong>Anything you would like us NOT to do?</strong> The highest-yield question on the form.</li>
+      </ul>
+    </div>
+    <div class="col bad">
+      <h3>Do not ask</h3>
+      <ul>
+        <li>A diagnosis, or any label identifying a child as having a feeding or eating disorder. You do not need it, and collecting it creates a record with disclosure risk.</li>
+        <li>Anything about weight, height, growth, or &ldquo;concerns about your child's weight&rdquo;.</li>
+        <li>How many foods does your child eat? Is your child a picky eater? Both are deficit framing, and these families have usually been blamed for this already.</li>
+        <li>A food diary, a 24-hour recall, or any record of what the child eats at home.</li>
+        <li>Anything implying that tasting is expected. State the opposite, explicitly, in writing.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>If you are assembling this alongside the rest of a child's paperwork, the <a href="share-builder.html">share builder</a> and the <a href="heads-up-note.html">heads-up note</a> do the same job for other settings, and nothing typed into either one leaves the browser.</p>
+</section>
+
+<section id="briefing">
+  <h2 class="sec">The one page <em>to photocopy</em></h2>
+  <p class="secnote">An untrained volunteer saying &ldquo;just try one bite&rdquo; is the most likely way this course fails.</p>
+
+  <p>Hand this to every aide, substitute, student teacher and parent helper before the session, not during it. The demands in this course live in the printed steps; the reasons live in prose that a volunteer who arrived ten minutes ago will never read. This page is the bridge.</p>
+
+  <div class="checklist">
+    <ol>
+      <li><strong>Nobody has to taste anything.</strong> Not one bite, not a lick, not just try it. Cooking, smelling, describing and serving are full participation.</li>
+      <li><strong>Never comment on what a child ate.</strong> Not how much, not what, not whether. Not even approvingly. Especially not approvingly.</li>
+      <li><strong>If a child says &ldquo;not for me today&rdquo;, say &ldquo;okay&rdquo; and move on.</strong> No pause, no second look, no are you sure.</li>
+      <li><strong>No rewards for tasting</strong>, and no food used as a reward or withheld as a consequence.</li>
+      <li><strong>Never point out one child's eating to another.</strong> No look, she tried it.</li>
+      <li><strong>Never say a food is healthy, bad, junk, or good for you.</strong> Describe it instead. Crunchy, sharp, fragrant.</li>
+      <li><strong>Watch your own words about yourself.</strong> I shouldn't and I'm being bad are heard by everyone.</li>
+      <li><strong>Every ingredient is named out loud.</strong> Never hide anything in a dish, even as a joke.</li>
+      <li><strong>If a child says yuck, the reply is</strong> give me a word for what it's actually like.</li>
+      <li><strong>Heat is yours, not theirs.</strong> One adult per heat source. Ovens opened by adults only.</li>
+      <li><strong>Never mention a child's eating to another adult either.</strong> Not to a colleague, and not to that child's parent at pickup. She ate the soup! is the same comment, delivered later.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="sequences">
+  <h2 class="sec">Two ways <em>to run it</em></h2>
+  <p class="secnote">A ten-week after-school club, and a sixteen-week semester course. Both assume one mixed K&ndash;5 group and a real kitchen.</p>
+
+  <h3 class="sub">Sequence A &middot; ten weeks, 75 minutes</h3>
+  <p>A complete arc in ten weeks. Week one sets the norms and hands out the journals. The middle weeks run long-lead projects that carry across sessions. The last two weeks turn outward, to the families and to somebody who will be glad of what the class made.</p>
+
+  <div class="week"><span class="n">Week 1</span><b>The kitchen we are going to be</b><span class="cards">N02 &middot; N01</span><p>Norms, the agreement, the wheel on the wall, journals handed out. Do not cook anything ambitious. The room's character is set this week and nothing else matters as much.</p></div>
+  <div class="week"><span class="n">Week 2</span><b>Looking and listening</b><span class="cards">N03 &middot; A02</span><p>Two sessions with no tasting expectation at all, which is deliberate. The word wall starts filling, and the sound-guessing game does more for group cohesion than anything else in the term.</p></div>
+  <div class="week"><span class="n">Week 3</span><b>Color, and where it comes from</b><span class="cards">A01 session one &middot; S06</span><p>Dye baths simmer while the pigment families are tested. The two cards explain each other: the pigments that leach into cooking water are exactly the ones that make good dyes.</p></div>
+  <div class="week"><span class="n">Week 4</span><b>Color, continued</b><span class="cards">A01 session two &middot; A03</span><p>Mordanted cloth comes out, the pH shift happens, and the fade test goes on the windowsill. Printmaking starts on the dyed paper.</p></div>
+  <div class="week"><span class="n">Week 5</span><b>Bread as a material</b><span class="cards">E04 &middot; A07</span><p>The windowpane test and the gluten washing, then sculpture in the same material. A long, physical, floury session. Schedule the cleanup.</p></div>
+  <div class="week"><span class="n">Week 6</span><b>Measuring, and the people who had none</b><span class="cards">M06 &middot; T05</span><p>The class's own spread of handfuls makes the argument for standard units. Low mess, high arithmetic, and a good week after the bread.</p></div>
+  <div class="week"><span class="n">Week 7</span><b>Design and test</b><span class="cards">E02 &middot; A05</span><p>A quantitative engineering test in the first half and composition in the second. Send the interview sheets from T02 home this week.</p></div>
+  <div class="week"><span class="n">Week 8</span><b>The dish that traveled</b><span class="cards">T02 &middot; C01</span><p>Interviews come back, the map goes up, and one or two family dishes get cooked with the family present if they want to be. This is usually the week the class turns into something.</p></div>
+  <div class="week"><span class="n">Week 9</span><b>For somebody else</b><span class="cards">C05 &middot; A10</span><p>Cook, package, label completely, write the notes, deliver in person. Naming and menu design run alongside for whoever is not at the stove.</p></div>
+  <div class="week"><span class="n">Week 10</span><b>Family night</b><span class="cards">N05 &middot; A06</span><p>The class hosts. Dyed cloth, prints, drawings, the word wall, the photographs, and the journals if children choose to show them. Components served separately, and the norms posted at the door.</p></div>
+
+  <h3 class="sub">Sequence B &middot; sixteen weeks, 60 to 75 minutes</h3>
+  <p>The same spine with room to breathe, and a publication at the end. The arc runs senses, then materials, then chemistry, then design, then culture, then publication. The extra six weeks buy three things the club version cannot afford: the illustration and looking-closer cards, a proper statistics thread, and time to actually make the cookbook.</p>
+
+  <div class="week"><span class="n">Weeks 1 to 4</span><b>Senses, then the first surprise</b><span class="cards">N02 &middot; N01 &middot; N03 &middot; A02 &middot; S07 &middot; A04 &middot; S04 &middot; M05</span><p>Norms and journals; sound and color with no tasting expectation; magnification then observational drawing, which is quiet, precise and popular; enzymatic browning, then the first anonymous class vote.</p></div>
+  <div class="week"><span class="n">Weeks 5 to 8</span><b>Color, pattern, and bread</b><span class="cards">A01 &middot; S06 &middot; A03 &middot; A08 &middot; E04 &middot; A07</span><p>Dye baths, mordanting and tying; the pH shift, the fade test and the pigment families; relief printing, then radial symmetry and repeat units; windowpane, gluten washing, sculpture.</p></div>
+  <div class="week"><span class="n">Weeks 9 to 12</span><b>Water, measurement, and whose tongue</b><span class="cards">S01 &middot; S03 &middot; M06 &middot; T05 &middot; E02 &middot; N04 &middot; S05 &middot; A08</span><p>Osmosis and the three gels, both prediction-heavy; handfuls against grams; pasta shapes tested by weight, then the triangle test, where the coder who assigns the random numbers is the most important person in the room; plant defenses and why people taste bitterness differently, paired with radial pattern so the session's second half is led by children who are counting rather than tasting.</p></div>
+  <div class="week"><span class="n">Weeks 13 to 16</span><b>People, the book, and the table</b><span class="cards">T02 &middot; C04 &middot; C01 &middot; C02 &middot; T04 &middot; A10 &middot; M02 &middot; N05 &middot; T01 &middot; C05</span><p>Interview technique, then the chain of people behind one apple, with the school's own kitchen staff invited; family dishes cooked with families, and one grain across many kitchens; editing, naming, layout, and scaling a recipe for the whole school, where the K&ndash;1 user test of the recipes is the best twenty minutes of the term; then hosting, the stop-motion films screened, and something cooked for someone who will be glad of it.</p></div>
+
+  <div class="note">
+    <p><strong>The cards in neither sequence are the bank, and they are not lesser.</strong> Several of them are among the strongest in the deck. Swap them in when the kitchen is unavailable, when the weather or the term throws a session, or when a card connects to something the children are already studying. M01, M02, M03, T02, T04, A10 and E01 all run in an ordinary classroom with no kitchen at all.</p>
+  </div>
+</section>
+
+<section id="kit">
+  <h2 class="sec">What to buy, <em>what to beg for</em></h2>
+  <p class="secnote">The whole course runs on very little. These are the purchases that change what is possible.</p>
+
+  <div class="grid2">
+    <div class="mini"><h4>Buy first</h4>
+      <p>Two or three digital scales reading grams, which is the highest-value purchase in the whole course. Four instant-read thermometers, so that children can discover they disagree with each other. Hand lenses, one per pair, and a clip-on macro lens for a tablet if the budget stretches. Nylon or serrated children's knives for grades 2 and 3, and two small chef's knives for grades 4 and 5. Clear glass jars and cups in quantity, because almost every observation improves when you can see the side. Two identical sheet pans, so paired batches bake under identical conditions.</p></div>
+    <div class="mini"><h4>Art materials the deck actually needs</h4>
+      <p>Alum from the spice aisle, white cotton squares cut from old sheets, string and rubber bands. Block printing ink or thick tempera, a brayer, a flat tray, newsprint and good paper. Graphite pencils in two grades, kneaded erasers, a small watercolor set, heavy paper. Tweezers and a small offset spatula for plating, which cost little and change the work.</p></div>
+    <div class="mini"><h4>Free, and worth arranging</h4>
+      <p>A wall for the word bank and a second for the food map. Both fill over the term. A window with daylight for the photography card, and a dark corner for the sound card. Old sheets, jars, cardboard, boxes.</p></div>
+    <div class="mini"><h4>The people</h4>
+      <p>The school's own kitchen staff, as visiting experts. Ask early, give notice, and let them choose the topic. They are usually the most popular visitors of the term and nobody ever asks them.</p></div>
+  </div>
+
+  <div class="warn">
+    <h3>How not to ask for donations</h3>
+    <p>Ask staff, ask the school office, and put a donation bin by the door. Never send a note home naming what a family should send. A request that arrives in a child's bag is a request a family can be seen to fail.</p>
+  </div>
+</section>
+
+<section id="check">
+  <h2 class="sec">The five-minute check, <em>after every session</em></h2>
+  <p class="secnote">Ten questions. Answer them honestly and alone. The first one is the one that matters most.</p>
+
+  <div class="checklist">
+    <ol>
+      <li>Did I comment on what any child ate today? Including approvingly?</li>
+      <li>Did every child hold a named job, and did the sensory reporter role rotate?</li>
+      <li>Did the youngest children do something that mattered, or did they watch?</li>
+      <li>Was every ingredient named out loud before it went in?</li>
+      <li>Did anyone, including me, an aide, a volunteer or a visiting parent, say &ldquo;just try it&rdquo;?</li>
+      <li>Did I redirect a yuck to a description, calmly, the first time it happened?</li>
+      <li>Did anything about bodies, weight, healthy or junk enter the room? From me?</li>
+      <li>Were components served separately, and was there a no-thank-you plate at every setting?</li>
+      <li>Has anything happened over recent weeks that the coordinator should know? Distress escalating rather than settling, or a child starting to avoid the class. Not: did anyone eat less than last week.</li>
+      <li>Did the room feel like somewhere a worried eater would come back to next week?</li>
+    </ol>
+  </div>
+</section>
+
+<section id="parents">
+  <h2 class="sec">If you are a parent <em>and not a teacher</em></h2>
+  <p class="secnote">What to do with this if the class already exists, and what to ask for if it does not.</p>
+
+  <p>Most of this page is written for the adult running the room, because that is who can change it. If you are reading it as a family, three things are useful.</p>
+
+  <p><strong>You can hand over the one page rather than the whole thing.</strong> A school that is asked to read a course guide will not. A school that is handed <a href="#briefing">the eleven-line briefing</a> and asked to give it to whoever supervises snack, lunch club or the cooking elective usually will. That page is the part that protects a child, and it works even if nothing else here is ever used.</p>
+
+  <p><strong>The most useful thing to ask a school for is not a plan, it is a sentence.</strong> That nobody will comment on what your child eats, in either direction, and that nobody will ask twice. It is small, it is free, it costs a school nothing, and it removes most of what makes a school food setting hard.</p>
+
+  <p><strong>If your child has an outside feeding or occupational therapy team, ask them for their step language rather than asking the school to invent some.</strong> A class that uses the words a child already knows is doing something genuinely useful. A class that invents a second, competing ladder is not. This is a short email to a therapist, and it is the single highest-return message you can send before a term starts.</p>
+
+  <p>The pages on <a href="feeding-therapy.html">eating and feeding</a>, <a href="inside-the-iep.html">inside the IEP</a> and the <a href="accommodations-finder.html">accommodations finder</a> cover how to get any of this written down rather than agreed in a hallway.</p>
+</section>
+
+<section id="downloads">
+  <h2 class="sec">Take <em>the whole thing</em></h2>
+  <p class="secnote">Everything on these pages, laid out to print. Free to use, copy and adapt, with no account and nothing to sign up for.</p>
+
+  <div class="dl">
+    <a class="file" href="Kitchen-STEAM-Course-Guide.pdf"><b>Course guide</b><span>This page, laid out as a printable booklet. The norms, the boundary, the language, the sequences, the letter home and the volunteer briefing.</span><em>PDF &middot; 24 pages</em></a>
+    <a class="file" href="Kitchen-STEAM-Activity-Cards.pdf"><b>The forty-six cards</b><span>One card per page, ready to print double-sided and put in a folder on the counter.</span><em>PDF &middot; 46 cards</em></a>
+    <a class="file" href="Kitchen-STEAM-Food-Journal.pdf"><b>The food journal</b><span>A bound core of twenty-five pages plus extra pages to print as a session calls for them.</span><em>PDF &middot; print single-sided</em></a>
+  </div>
+
+  <h3 class="sub">The other deck: Kitchen STEM</h3>
+  <p>There is a second, separate deck, and the difference is worth spelling out, because the names are close enough to confuse anybody.</p>
+
+  <div class="compare">
+    <div class="col good">
+      <h3>Kitchen STEAM &middot; this one</h3>
+      <ul>
+        <li>Forty-six cards across seven strands, including art, senses, and the table.</li>
+        <li>Written for a <strong>mixed-age group in a school kitchen</strong>, with a course structure, a letter home, an intake form and two ready-made sequences.</li>
+        <li>Built around the food-pressure guardrails on this page. Every card says how a child who is not going to taste anything does the whole session.</li>
+        <li>Use it when a group of children will be cooking together and any of them might find food hard.</li>
+      </ul>
+    </div>
+    <div class="col bad">
+      <h3>Kitchen STEM &middot; the other one</h3>
+      <ul>
+        <li>Thirty-eight cards across four strands. Science, technology, engineering and math only.</li>
+        <li>Written for <strong>one adult and one or two children</strong>, at a kitchen table or in a classroom. Every card carries an <em>in the classroom</em> and an <em>at home</em> column.</li>
+        <li>It is a bank, not a sequence. Pull the cards that match what you are already teaching.</li>
+        <li>Use it when the child in front of you learns best with their hands and the goal is the science rather than the food.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>The second deck is the better fit for a child who has no difficulty with eating at all and who simply learns more from doing a thing than from reading about it. It has no food guardrails built into it, because it was not written for a group. If you are using it with a child who does find food hard, read <a href="#norms">the eight rules</a> first and apply them over the top.</p>
+
+  <div class="dl">
+    <a class="file" href="Kitchen-STEM-Scope-and-Sequence.pdf"><b>Kitchen STEM: scope and sequence</b><span>What concepts live in which grade band, organized by strand, so you can place any single activity inside the arc.</span><em>PDF</em></a>
+    <a class="file" href="Kitchen-STEM-Activity-Cards.pdf"><b>Kitchen STEM: the thirty-eight cards</b><span>One card per page, each with a classroom column and a kitchen-table column.</span><em>PDF</em></a>
+    <a class="file" href="kitchen-stem-cards.html"><b>Kitchen STEM: the thirty-eight cards</b><span>The same deck as a page on this site, so it can be searched, read aloud and translated like everything else here.</span><em>Web page</em></a>
+  </div>
+</section>
+
+<section id="sources">
+  <h2 class="sec">Where this <em>comes from</em></h2>
+  <p class="secnote">The design decisions here are not inventions. These are the sources behind them, including the one that cuts the other way.</p>
+
+  <div class="srcs">
+    <div class="src"><h4>Feeding and exposure</h4>
+      <p>The SOS Approach to Feeding and its Steps to Eating hierarchy, which the wheel on this page is adapted from.</p>
+      <p>Fishbein and colleagues, <em>Food chaining: a systematic approach for the treatment of children with feeding aversion</em>, Nutrition in Clinical Practice, 2006. Sequencing by color, texture, temperature and shape.</p>
+      <p>NHS guidance on sensory approaches to eating, for the child-facing seven-step version and the instruction never to force.</p></div>
+    <div class="src"><h4>Pressure, praise and rewards</h4>
+      <p>Galloway, Fiorito, Francis and Birch, <em>Finish your soup: counterproductive effects of pressuring children to eat on intake and affect</em>, Appetite, 2006.</p>
+      <p>The Ellyn Satter Institute on the Division of Responsibility: children eat less well, not better, when pressured, and no-thank-you bites slow learning.</p>
+      <p>CNTW NHS: praise can be interpreted as pressure and can be counterproductive.</p></div>
+    <div class="src"><h4>Contested, and here is the other side</h4>
+      <p>A randomized controlled trial in Public Health Nutrition found that sticker rewards plus repeated exposure increased vegetable liking in four- to six-year-olds without undermining intrinsic motivation.</p>
+      <p>That evidence comes from typically developing children in a one-to-one home protocol. This course still says no rewards in a group, and that is a judgment rather than a finding.</p></div>
+    <div class="src"><h4>ARFID and schools</h4>
+      <p>CNTW NHS, <em>How can schools support a child with ARFID?</em> and <em>Helping your child add new foods</em>.</p>
+      <p>Grender, <em>Understanding and preventing maltreatment with ARFID: a guide for teachers and families</em>, Council for Exceptional Children, which names coercive feeding, food-linked punishment and public commentary on eating as maltreatment.</p>
+      <p>Feeding Matters, on school-based accommodations, and NEDA on ARFID in children and teens.</p></div>
+    <div class="src"><h4>Food-neutral teaching</h4>
+      <p>Teach Food First, <em>Guiding principles for educators</em>: avoid sorting foods into healthy and unhealthy, because children are less likely to try foods labeled healthy.</p>
+      <p>The National Alliance for Eating Disorders, on removing morality from food.</p></div>
+    <div class="src"><h4>Sensory food education</h4>
+      <p>The Sapere Association, on the sensory education method.</p>
+      <p>Mustonen and Tuorila in Food Quality and Preference: sensory education decreased food neophobia in eight- to twelve-year-olds.</p>
+      <p>Public Health Nutrition on sensory-based food education in early childhood settings. Cross-sectional, and it found that sensory groups did not show the produce-avoidance drift seen in reference groups.</p></div>
+    <div class="src"><h4>Running the room</h4>
+      <p>FoodCorps, <em>Taste test guidebook</em>: anonymous bean-drop and dot voting, class-level results only.</p>
+      <p>NSW Health, <em>Kids in the kitchen</em>: stations of five to six, a different recipe per station, small taster portions across stations.</p>
+      <p>CDC and FARE on food allergy management in schools: design the menu around the roster.</p></div>
+  </div>
+
+  <p class="fnote">On the strength of the evidence. The guidance on pressure, praise and food-neutral teaching is strong and consistent. The named feeding-therapy hierarchies are widely used in practice but less well evidenced than their ubiquity suggests. The reward question is contested, and this page takes the cautious side of it for group settings specifically. There is very little research on mixed-age elementary cooking classes as such, so that section is assembled from adjacent evidence and established program models, and should be read as informed practice rather than as established fact. The page on <a href="judging-claims.html">judging claims</a> covers how to read the difference.</p>
+</section>
+
+<div class="closenote">
+  <b>Before you close this</b>
+  <p>The hardest part of this is not the science and it is not the knives. It is holding one rule, out loud, in front of a room, on a Tuesday, when a well-meaning volunteer has just said <em>just one bite</em> and everybody is looking at one child.</p>
+  <p>If you do nothing else on this page, print the eleven-line briefing and hand it to every adult before they walk in. Everything else here is good curriculum. That page is the part that protects a child.</p>
+</div>
+
+<div class="note">
+  <p><b>Related</b> &middot; <a href="kitchen-steam-cards.html">The forty-six cards</a> &middot; <a href="kitchen-steam-journal.html">The food journal</a> &middot; <a href="feeding-therapy.html">Eating and feeding</a> &middot; <a href="mealtime-communication.html">Communication at mealtimes</a> &middot; <a href="social-emotional-learning.html">Social and emotional learning</a> &middot; <a href="after-school.html">The after-school hour</a></p>
+</div>
+
+<footer>
+  <p>Nothing here is medical, dietary or educational advice. This is a classroom course, not feeding therapy, and it is not a substitute for it. Where a child's eating is narrowing, where weight or growth is a concern, or where there is any swallowing or choking risk, that belongs with a clinician rather than a curriculum.</p>
+</footer>
+
+</div>
+<script src="search-index.js"></script>
+<script src="site-nav.js"></script>
+</body>
+</html>
