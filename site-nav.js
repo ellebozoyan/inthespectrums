@@ -1358,7 +1358,7 @@
 
 'feeding-therapy.html': ["Restricted eating is rarely fussiness \u2014 look for pain, airway, sensory and anxiety underneath it.",
   "Food chaining: change one property at a time \u2014 texture, temperature, flavor, wetness, brand.",
-  "Eating only crunchy things, or only beige things, is usually sensory rather than stubborn \u2014 and the property is the doorway out.",
+  "Eating only crunchy things, or only beige things, is usually sensory rather than stubborn. The property they share is where the next food comes from.",
   "An elimination trial without a baseline and a reintroduction tells you nothing. The reintroduction is the step that gives the answer.",
   "Nutrition formulas usually go through a DME supplier, not a pharmacy \u2014 that is where families get stuck."],
 
