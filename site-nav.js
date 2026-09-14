@@ -52,6 +52,14 @@
       ['household-board.html',            'The household board',       'Contributions, paid jobs, and saving for something you chose'],
       ['practice-mirror.html',            'The practice mirror',       'The therapist\u2019s clip, played see-through over the live camera'],
     ]},
+    { label: 'Take it with you', items: [
+      ['kitchen-steam.html',           'Kitchen STEAM',           'A cooking course for a group that never asks a child to eat'],
+      ['kitchen-steam-cards.html',     'Kitchen STEAM: the cards','Forty-six activities, each written so nobody is left out'],
+      ['kitchen-steam-journal.html',   'The food journal',        'The child\u2019s book, and it never becomes a record of who ate what'],
+      ['kitchen-stem.html',            'Kitchen STEM',            'Science, math and engineering taught with food, by grade band'],
+      ['kitchen-stem-cards.html',      'Kitchen STEM: the cards', 'Thirty-eight activities, for a classroom and for a kitchen table'],
+      ['maplewood-stories.html',       'The Maplewood stories',   'Fifty-two picture books about ten friends']
+    ]},
     { label: 'Money, paperwork and what you are owed', items: [
       ['paying-for-therapy.html',         'Paying for it',             'In-network vs out, the annotated superbill, appeals'],
       ['programs-and-entitlements.html',  'Programs and entitlements', 'What exists, when each door opens, the ages that matter']
@@ -60,8 +68,7 @@
       ['safety.html',                  'Safety',                  'Water, wandering, responders, body autonomy, equipment'],
       ['injuries-and-illness.html',    'When something happens',  'Where to go now, hospitals, and a serious diagnosis'],
       ['supplements.html',             'Supplements and natural approaches','What families try, what the evidence says, and what to ask'],
-      ['judging-claims.html',          'Judging what you are offered','Weighing a claim, a test result, a product, a long protocol'],
-      ['Judging what you are offered','Claims, product quality, test results and long protocols']
+      ['judging-claims.html',          'Judging what you are offered','Weighing a claim, a test result, a product, a long protocol']
     ]},
     { label: 'Therapies', items: [
       ['occupational-therapy.html',    'Occupational therapy',    'The whole day is the treatment'],
@@ -88,8 +95,7 @@
     ]},
     { label: 'The child', items: [
       ['their-own-voice.html',         'Their own voice',         'Talking with a child about their own life'],
-      ['adaptive-community.html',      'Adaptive sports and community','Programs, days out, parking and travel'],
-      ['maplewood-stories.html',       'The Maplewood stories',   'Fifty-two picture books about ten friends']
+      ['adaptive-community.html',      'Adaptive sports and community','Programs, days out, parking and travel']
     ]},
     { label: 'The guidebook', items: [
       ['guide-start.html',             'The guidebook',           'Ten fuller pages \u2014 enough to act on'],
