@@ -1619,7 +1619,7 @@
   "\u201cShe is fine here\u201d is usually honest. Ask for observations rather than agreement.",
   "The hour is a symptom. What changes it is making the school day itself cost less."],
 
-'ordinary-warmth.html': ["Everybody is somewhere on these spectrums \u2014 this is not one group writing about another.",
+'ordinary-warmth.html': ["Everybody is somewhere in these spectrums \u2014 this is not one group writing about another.",
   "Most of us have two scripts, stare or look away. What is missing is the ordinary middle.",
   "Smile. Say hello to the person, not only to whoever is with them. Then carry on normally.",
   "Offer something concrete. \u201cLet me know if you need anything\u201d puts the work back on them.",
