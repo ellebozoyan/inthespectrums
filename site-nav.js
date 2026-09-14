@@ -24,11 +24,13 @@
     ]},
     { label: 'The people caring', items: [
       ['caregivers.html',              'The people doing the caring','Support, respite, relationships, and staying a person yourself'],
-      ['ordinary-warmth.html',       'Ordinary warmth',         'The space between staring and looking away'],
       ['siblings-and-family.html',     'Siblings and the whole household','Everyone known, nobody carrying it alone'],
       ['what-to-say.html',             'What to say',             'The sentences from across this site, sorted by the moment'],
-      ['after-school.html',            'The after-school hour',   'Why it all arrives at once, and what actually helps'],
-      ['cvi.html',                    'Cerebral visual impairment','When the eyes are fine and seeing is not. A page to share']
+      ['after-school.html',            'The after-school hour',   'Why it all arrives at once, and what actually helps']
+    ]},
+    { label: 'Send this', items: [
+      ['ordinary-warmth.html',         'Ordinary warmth',         'For relatives, neighbors and friends \u2014 the space between staring and looking away'],
+      ['cvi.html',                     'Cerebral visual impairment','For a teacher or a clinician \u2014 when the eyes are fine and seeing is not']
     ]},
     { label: 'Adult life', items: [
       ['adult-life.html',              'After school ends',       'The cliff, decision-making, trusts and wills, and what to do when'],
